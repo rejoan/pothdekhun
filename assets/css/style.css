@@ -1,0 +1,21 @@
+/*
+ * Style tweaks
+ * --------------------------------------------------
+ */
+html,
+body {
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
+  font-family:SolaimanLipi;
+}
+.btn,a,button,.btn:focus,a:focus,button:focus,.btn:active,a:active,button:active{
+    outline: 0!important;
+}
+body {
+  padding-top: 70px;
+}
+footer {
+  padding: 30px 0;
+}
+.custom_c{
+    color: #f00;
+}
