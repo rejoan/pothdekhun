@@ -87,19 +87,9 @@
                 <div class="form-group file_field">
                     <label class="col-sm-3 control-label">ফাইল/ছবি নির্বাচন</label>
                     <div class="col-xs-10 col-md-3">
-                        <input type="file" class="form-control" name="file_name[]">
+                        <input type="file" class="form-control" name="eveidence">
+                        <span class="help-block">চালান ফর্ম, বাসের ছবি বা যেকোন ফাইল আপলোড করুন। যেটা দেখে আরো নিশ্চিত হওয়া যাবে</span>
                     </div>
-
-                    <a class="btn btn-danger" href="javascript:void(0)" id="cancel_file">বাতিল</a>
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                <label class="col-sm-3 control-label"></label>
-                <div class="col-xs-10 col-md-6">
-                    <a href="javascript:void(0)" id="add_file" class="btn btn-success">ফাইল যোগ</a>
-                    <span class="help-block">চালান ফর্ম, বাসের ছবি বা যেকোন ফাইল আপলোড করুন। যেটা দেখে আরো নিশ্চিত হওয়া যাবে</span>
                 </div>
             </div>
             
