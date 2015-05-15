@@ -9,7 +9,6 @@ class Prime_model extends CI_Model {
      * insert data to any table
      * @param string $table
      * @param array $data
-     * @param bool $skip by default filter,if dont want to filter make this TRUE
      */
     public function insert_data($table, $data) {
         $data = preg_replace('%[<>\/"\%$\^\'!]%', '', $data);

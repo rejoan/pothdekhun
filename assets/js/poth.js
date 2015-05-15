@@ -16,24 +16,23 @@ $(document).ready(function () {
     });
 
     //add file as many user can
-    $('#add_file').click(function () {
-        if ($('#file_section').is(':visible')) {
-            $('.file_field:last-child').clone().appendTo($('#file_section')).hide().slideDown();
-            $('.file_field:last-child').find('.file-input-name').remove();
-             $('.file_field:last-child').find('.file-input-wrapper input').val('');
-           
-        } else {
-            $('#file_section').slideDown();
-        }
-
-
-    });
-
-    $('#cancel_file').live('click', function () {
-        $(this).parent().fadeOut('normal', function () {
-            $(this).remove();
-        });
-    });
+//    $('#add_file').click(function () {
+//        if ($('#file_section').is(':visible')) {
+//            $('.file_field:last-child').clone().appendTo($('#file_section')).hide().slideDown();
+//            $('.file_field:last-child').find('.file-input-name').remove();
+//             $('.file_field:last-child').find('.file-input-wrapper input').val('');
+//           
+//        } else {
+//            $('#file_section').slideDown();
+//        }
+//
+//    });
+//
+//    $('#cancel_file').live('click', function () {
+//        $(this).parent().fadeOut('normal', function () {
+//            $(this).remove();
+//        });
+//    });
 
     //departure_time
     $('#departure_time').change(function () {
@@ -81,7 +80,7 @@ $(document).ready(function () {
     $('#add_route').submit(function () {
         if($('#user_reg').not(':visible')){
             $('#user_reg').slideDown();
-            return false;
+            //return false;
         }
     });
 

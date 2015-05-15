@@ -83,40 +83,38 @@
                 </div>
             </div>
 
-            <div style="display: none;" id="file_section">
-                <div class="form-group file_field">
-                    <label class="col-sm-3 control-label">ফাইল/ছবি নির্বাচন</label>
-                    <div class="col-xs-10 col-md-3">
-                        <input type="file" class="form-control" name="eveidence">
-                        <span class="help-block">চালান ফর্ম, বাসের ছবি বা যেকোন ফাইল আপলোড করুন। যেটা দেখে আরো নিশ্চিত হওয়া যাবে</span>
-                    </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">ফাইল/ছবি নির্বাচন</label>
+                <div class="col-xs-10 col-md-6">
+                    <input type="file" class="form-control btn-info" name="eveidence">
+                    <span class="help-block">চালান ফর্ম, বাসের ছবি বা যেকোন ফাইল আপলোড করুন। যেটা দেখে আরো নিশ্চিত হওয়া যাবে</span>
                 </div>
             </div>
-            
-            <?php if(!$this->session->user_id):?>
-            <div style="display:none;" id="user_reg">
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">ইউজার নাম</label>
-                    <div class="col-xs-10 col-md-6">
-                        <input maxlength="100" type="text" class="form-control" name="username" placeholder="ইউজার নাম">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">ইমেইল</label>
-                    <div class="col-xs-10 col-md-6">
-                        <input maxlength="100" type="email" class="form-control" name="email" placeholder="আপনার ইমেইল">
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">পাসওয়ার্ড</label>
-                    <div class="col-xs-10 col-md-6">
-                        <input maxlength="100" type="password" class="form-control" name="password" placeholder="পাসওয়ার্ড">
-                        <span class="help-block">এই ইমেইল এবং পাসওয়ার্ড দিয়ে পরে লগিন করতে পারবেন</span>
+            <?php if (!$this->session->user_id): ?>
+                <div style="display:none;" id="user_reg">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">ইউজার নাম</label>
+                        <div class="col-xs-10 col-md-6">
+                            <input maxlength="100" type="text" class="form-control" name="username" placeholder="ইউজার নাম">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">ইমেইল</label>
+                        <div class="col-xs-10 col-md-6">
+                            <input maxlength="100" type="email" class="form-control" name="email" placeholder="আপনার ইমেইল">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">পাসওয়ার্ড</label>
+                        <div class="col-xs-10 col-md-6">
+                            <input maxlength="100" type="password" class="form-control" name="password" placeholder="পাসওয়ার্ড">
+                            <span class="help-block">এই ইমেইল এবং পাসওয়ার্ড দিয়ে পরে লগিন করতে পারবেন</span>
+                        </div>
                     </div>
                 </div>
-            </div>
             <?php endif; ?>
 
             <input type="hidden" name="from_place" value="<?php echo $from; ?>"/>

@@ -64,6 +64,27 @@ class Road extends CI_Controller {
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
             }
 
+            $username = trim($this->input->post('username', TRUE));
+            $email = trim($this->input->post('email', TRUE));
+            $password = trim($this->input->post('password', TRUE));
+
+            //user data process
+            $user = array(
+                'username' => $username,
+                'email' => $email,
+                'password' => $password
+            );
+
+
+            if ($this->session->user_id) {
+                $added_by = (int) $this->session->user_id;
+            } else {
+                $this->prime_model->insert_data('users', $user);
+                $user_id = $this->db->insert_id();
+                $added_by = $user_id;
+            }
+            
+//route data process
             $route = array(
                 $from_field => $from,
                 $to_field => $to,
@@ -71,11 +92,16 @@ class Road extends CI_Controller {
                 'vehicle_name' => $transport_name,
                 'departure_place' => $departure_place,
                 'departure_time' => $departure_time,
-                'rent' => $main_rent                        ,
+                'rent' => $main_rent,
                 'added' => date('Y-m-d H:i:s'),
-                'added_by' => (int) $this->session->user_id
+                'added_by' => $added_by
             );
+            
+            $this->prime_model->insert_data('routes',$route);
+            $route_id = $this->db->insert_id();
+           // $route_id = 3;
 
+//stoppage data process            
             $rent = $this->input->post('rent', TRUE);
             $place_name = $this->input->post('place_name', TRUE);
             $comment = $this->input->post('comment', TRUE);
@@ -93,12 +119,39 @@ class Road extends CI_Controller {
                     );
                 }
             }
-            var_dump($stoppages);
-            return;
+//            var_dump($stoppages);
+//            return;
 
             if ($stoppages) {
                 $this->db->insert_batch('stoppages', $stoppages);
             }
+            
+//file data process            
+            $rent = $this->input->post('rent', TRUE);
+            $place_name = $this->input->post('place_name', TRUE);
+            $comment = $this->input->post('comment', TRUE);
+            $rent = $this->input->post('rent', TRUE);
+            //var_dump($place_name[0]);return;
+            $stoppages = array();
+            for ($p = 0; $p < count($place_name); $p++) {
+                if ($place_name[$p]) {
+                    $stoppages[] = array(
+                        'place_name' => $place_name[$p],
+                        'comments' => $comment[$p],
+                        'rent' => $rent[$p],
+                        'route_id' => $route_id,
+                        'position' => $p + 1
+                    );
+                }
+            }
+//            var_dump($stoppages);
+//            return;
+
+            if ($stoppages) {
+                $this->db->insert_batch('stoppages', $stoppages);
+            }            
+            
+            
         }
 
         $this->load->view('header', $data);
