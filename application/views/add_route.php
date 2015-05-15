@@ -28,7 +28,7 @@
                 </div>
             <?php endif; ?>
             <div class="form-group">
-                <label class="col-sm-3 control-label">পরিবহনের ধরন <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
+                <label class="col-sm-3 control-label">পরিবহনের ধরন </label>
                 <div class="col-xs-10 col-md-6">
                     <select name="type" class="selectpicker">
                         <option value="বাস">বাস</option>
@@ -47,13 +47,13 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">ছাড়ার স্থান</label>
+                <label class="col-sm-3 control-label">ছাড়ার স্থান  <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                 <div class="col-xs-10 col-md-6">
                     <input maxlength="200" type="text" class="form-control"  name="departure_place" placeholder="যেমন:  জাহাজ কোম্পানী মোড়">
                 </div>
             </div>
             <div id="departure_perticular" class="form-group">
-                <label class="col-sm-3 control-label">ছাড়ার সময় <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span> </label>
+                <label class="col-sm-3 control-label">ছাড়ার সময় </label>
                 <div  class="col-xs-10 col-md-6">
                     <select id="departure_time" name="departure_time" class="selectpicker">
                         <option value="কিছুক্ষন পরপর">কিছুক্ষন পরপর</option>

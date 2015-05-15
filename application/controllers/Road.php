@@ -30,7 +30,7 @@ class Road extends CI_Controller {
     }
 
     public function add_route() {
-
+        $this->load->library('form_validation');
         $data = array(
             'title' => 'রুট তথ্য যোগ',
             'action' => site_url('road/add_route'),
@@ -79,11 +79,41 @@ class Road extends CI_Controller {
             if ($this->session->user_id) {
                 $added_by = (int) $this->session->user_id;
             } else {
-                $this->prime_model->insert_data('users', $user);
+                $this->form_validation->set_rules('username', 'ইউজার নাম', 'required');
+                $this->form_validation->set_rules('email', 'ইমেইল', 'required|is_unique[users.email]|valid_email');
+                $this->form_validation->set_rules('password', 'পাসওয়ার্ড', 'required');
+                $this->Prime_model->insert_data('users', $user);
+
                 $user_id = $this->db->insert_id();
                 $added_by = $user_id;
             }
-            
+
+            $config['upload_path'] = './evidences';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size'] = 1000;
+            $config['min_width'] = 200;
+            $config['min_height'] = 150;
+            $config['max_width'] = 1024;
+            $config['max_height'] = 768;
+
+            $this->load->library('upload', $config);
+
+            if ($_FILES && $_FILES['evidence']['name']) {
+                if (!$this->upload->do_upload('evidence')) {
+                    $this->session->set_flashdata('message', $this->upload->display_errors());
+                    $this->load->view('header', $data);
+                    $this->load->view('menu');
+                    $this->load->view('add_route');
+                    $this->load->view('footer');
+                    return;
+                } else {
+                    $evidence = $this->upload->data();
+                    $evidence_name = $evidence['file_name'];
+                }
+            } else {
+                $evidence_name = '';
+            }
+
 //route data process
             $route = array(
                 $from_field => $from,
@@ -93,14 +123,27 @@ class Road extends CI_Controller {
                 'departure_place' => $departure_place,
                 'departure_time' => $departure_time,
                 'rent' => $main_rent,
+                'evidence' => $evidence_name,
                 'added' => date('Y-m-d H:i:s'),
                 'added_by' => $added_by
             );
-            
-            $this->prime_model->insert_data('routes',$route);
-            $route_id = $this->db->insert_id();
-           // $route_id = 3;
 
+            $this->form_validation->set_rules('vehicle_name', 'পরিবহনের নাম', 'required');
+            $this->form_validation->set_rules('departure_place', 'ছাড়ার স্থান', 'required');
+            $this->form_validation->set_rules('rent', 'ভাড়া', 'required');
+
+            if ($this->form_validation->run() == FALSE) {
+                $this->load->view('header', $data);
+                $this->load->view('menu');
+                $this->load->view('add_route');
+                $this->load->view('footer');
+                return;
+            } else {
+                $this->Prime_model->insert_data('routes', $route);
+            }
+
+            $route_id = $this->db->insert_id();
+            // $route_id = 3;
 //stoppage data process            
             $rent = $this->input->post('rent', TRUE);
             $place_name = $this->input->post('place_name', TRUE);
@@ -119,39 +162,10 @@ class Road extends CI_Controller {
                     );
                 }
             }
-//            var_dump($stoppages);
-//            return;
 
             if ($stoppages) {
                 $this->db->insert_batch('stoppages', $stoppages);
             }
-            
-//file data process            
-            $rent = $this->input->post('rent', TRUE);
-            $place_name = $this->input->post('place_name', TRUE);
-            $comment = $this->input->post('comment', TRUE);
-            $rent = $this->input->post('rent', TRUE);
-            //var_dump($place_name[0]);return;
-            $stoppages = array();
-            for ($p = 0; $p < count($place_name); $p++) {
-                if ($place_name[$p]) {
-                    $stoppages[] = array(
-                        'place_name' => $place_name[$p],
-                        'comments' => $comment[$p],
-                        'rent' => $rent[$p],
-                        'route_id' => $route_id,
-                        'position' => $p + 1
-                    );
-                }
-            }
-//            var_dump($stoppages);
-//            return;
-
-            if ($stoppages) {
-                $this->db->insert_batch('stoppages', $stoppages);
-            }            
-            
-            
         }
 
         $this->load->view('header', $data);
