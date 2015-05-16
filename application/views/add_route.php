@@ -10,6 +10,7 @@
     </h3>
 </div>
 <div class="row">
+    <?php echo validation_errors();?>
     <div class="col-xs-12 col-md-6 col-md-offset-3">
         <!-- route info push form -->
         <form id="add_route" class="form-horizontal" action="<?php echo $action; ?>" method="post">
@@ -42,9 +43,10 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">পরিবহনের নাম <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                 <div class="col-xs-10 col-md-6">
-                    <input maxlength="200" type="text" class="form-control" name="transport_name" placeholder="যেমন: হানিফ এন্টারপ্রাইজ" required title="পরিবহনের নাম আবশ্যক">
+                    <input maxlength="200" type="text" class="form-control" name="vehicle_name" placeholder="যেমন: হানিফ এন্টারপ্রাইজ" required title="পরিবহনের নাম আবশ্যক">
                 </div>
             </div>
+            <?php echo form_error('vehicle_name','<div class="alert alert-danger">','</div>');?>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label">ছাড়ার স্থান  <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
@@ -52,6 +54,8 @@
                     <input maxlength="200" type="text" class="form-control"  name="departure_place" placeholder="যেমন:  জাহাজ কোম্পানী মোড়">
                 </div>
             </div>
+            <?php echo form_error('departure_place','<div class="alert alert-danger">','</div>');?>
+            
             <div id="departure_perticular" class="form-group">
                 <label class="col-sm-3 control-label">ছাড়ার সময় </label>
                 <div  class="col-xs-10 col-md-6">
@@ -68,6 +72,7 @@
                     <input maxlength="10" type="text" class="form-control" name="main_rent" placeholder="যেমন: ৪৫০" required title="কমপক্ষে আনুমানিক ভাড়া দিন">
                 </div>
             </div>
+              <?php echo form_error('main_rent','<div class="alert alert-danger">','</div>');?>
 
             <div style="display: none;" id="stoppage_section">
 
@@ -100,7 +105,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div id="emailInfo" class="form-group">
                         <label class="col-sm-3 control-label">ইমেইল</label>
                         <div class="col-xs-10 col-md-6">
                             <input maxlength="100" type="email" class="form-control" name="email" placeholder="আপনার ইমেইল">
@@ -119,7 +124,7 @@
 
             <input type="hidden" name="from_place" value="<?php echo $from; ?>"/>
             <input type="hidden" name="to_place" value="<?php echo $to; ?>"/>
-            <button id="submit_route" class="btn btn-primary btn-lg btn-warning">Submit</button>
+            <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-warning" value="যোগ করুন"/>
         </form>
     </div>
 

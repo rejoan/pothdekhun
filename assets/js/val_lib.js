@@ -125,26 +125,21 @@ function validateTextField(fieldName, Id, formatedName) {
  * @param {mixed} Id
  * @returns {Boolean}
  */
-function validateEmail(fieldName, Id) {
+function validateEmail(fieldName, Id, formatedName) {
 //testing regular expression
     var a = $('input[name=' + fieldName + ']')
             .val();
     var filter = /^[a-zA-Z0-9]+[a-zA-Z0-9_.-]+[a-zA-Z0-9_-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{2,4}$/;
 //if it's valid email
     if (filter.test(a)) {
-//$('#'+fieldName).removeClass('error');
         $('#' + Id)
-                .fadeOut();
-        $('#' + Id)
-                .removeClass('error');
+                .next('.alert').fadeOut();
         return true;
     }
 //if it's NOT valid
     else {
-        $('#' + Id)
-                .text('Please Type a valid e-mail address').fadeIn();
-        $('#' + Id)
-                .addClass('error');
+        $('<div class="alert alert-danger">অনুগ্রহপূর্বক  ' + formatedName + ' ফিল্ড পূরন করুন</div>')
+                .insertAfter('#' + Id).hide().slideDown();
         return false;
     }
 }// end of validateEmail

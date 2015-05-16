@@ -37,7 +37,7 @@ class Road extends CI_Controller {
             'from' => trim($this->input->post('from_push', TRUE)),
             'to' => trim($this->input->post('to_push', TRUE))
         );
-        if ($this->input->post('submit') == 'যোগ করুন') {
+        if ($this->input->post('submit')) {
             $from = trim($this->input->post('from_place', TRUE));
             if ($from == '') {
                 $from = trim($this->input->post('device_from', TRUE));
@@ -79,9 +79,6 @@ class Road extends CI_Controller {
             if ($this->session->user_id) {
                 $added_by = (int) $this->session->user_id;
             } else {
-                $this->form_validation->set_rules('username', 'ইউজার নাম', 'required');
-                $this->form_validation->set_rules('email', 'ইমেইল', 'required|is_unique[users.email]|valid_email');
-                $this->form_validation->set_rules('password', 'পাসওয়ার্ড', 'required');
                 $this->Prime_model->insert_data('users', $user);
 
                 $user_id = $this->db->insert_id();
@@ -130,7 +127,7 @@ class Road extends CI_Controller {
 
             $this->form_validation->set_rules('vehicle_name', 'পরিবহনের নাম', 'required');
             $this->form_validation->set_rules('departure_place', 'ছাড়ার স্থান', 'required');
-            $this->form_validation->set_rules('rent', 'ভাড়া', 'required');
+            $this->form_validation->set_rules('main_rent', 'ভাড়া', 'required');
 
             if ($this->form_validation->run() == FALSE) {
                 $this->load->view('header', $data);
@@ -165,6 +162,7 @@ class Road extends CI_Controller {
 
             if ($stoppages) {
                 $this->db->insert_batch('stoppages', $stoppages);
+                //die('work');
             }
             
         }
