@@ -93,7 +93,7 @@
 
             <?php if (!$this->session->user_id): ?>
                 <div style="display:none;" id="user_reg">
-                    <div class="form-group">
+                    <div id="userInfo" class="form-group">
                         <label class="col-sm-3 control-label">ইউজার নাম</label>
                         <div class="col-xs-10 col-md-6">
                             <input maxlength="100" type="text" class="form-control" name="username" placeholder="ইউজার নাম">
@@ -119,7 +119,7 @@
 
             <input type="hidden" name="from_place" value="<?php echo $from; ?>"/>
             <input type="hidden" name="to_place" value="<?php echo $to; ?>"/>
-            <input type="submit" name="submit" class="btn btn-primary btn-lg btn-warning" value="যোগ করুন"/>
+            <button id="submit_route" class="btn btn-primary btn-lg btn-warning">Submit</button>
         </form>
     </div>
 

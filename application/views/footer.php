@@ -16,6 +16,7 @@
 <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/bootstrap-select.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/bootstrap.file-input.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/val_lib.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/poth.js'); ?>"></script>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

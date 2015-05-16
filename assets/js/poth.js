@@ -49,6 +49,12 @@ $(document).ready(function () {
 
     //when user submit for providing route
     $('#provide_poth').submit(function () {
+        if(onlyEmpty('from_push', 'placeName','জায়গার নাম')){
+            return true;
+        }else{
+            
+            return false;
+        }
         var from_push = $('#from_push').val();
         var to_push = $('#to_push').val();
         var english = /[^A-Za-z0-9(,| |_)]/;
@@ -76,13 +82,23 @@ $(document).ready(function () {
         }
 
     });
-
-    $('#add_route').submit(function () {
-        if($('#user_reg').not(':visible')){
-            $('#user_reg').slideDown();
-            //return false;
-        }
-    });
+//
+//    $('#submit_route').click(function (e) {
+//        e.preventDefault();
+//        var is_open = $('#user_reg').is(':visible');
+//        if (!is_open) {
+//            $('#user_reg').slideDown();
+//            return false;
+//        } else {
+//            if (onlyEmpty('username', 'userInfo', 'ইউজার নাম')) {
+//                $('#add_route').submit();
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        }
+//
+//    });
 
 
 

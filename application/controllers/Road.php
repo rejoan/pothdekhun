@@ -166,6 +166,7 @@ class Road extends CI_Controller {
             if ($stoppages) {
                 $this->db->insert_batch('stoppages', $stoppages);
             }
+            
         }
 
         $this->load->view('header', $data);

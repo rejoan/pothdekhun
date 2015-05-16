@@ -39,9 +39,9 @@
 
         <!-- get route info from user form -->
         <form id="provide_poth" class="form-horizontal" action="<?php echo $action_groute; ?>" method="post">
-            <div class="form-group">
+            <div id="placeName" class="form-group">
                 <div class="col-xs-10 col-md-6">
-                    <input id="from_push" type="text" class="form-control" name="from_push" placeholder="নাগেশ্বরী, কুড়িগ্রাম" required title="যেখান থেকে  যাবে সেই জায়গার নাম দিন">
+                    <input id="from_push" type="text" class="form-control" name="from_push" placeholder="নাগেশ্বরী, কুড়িগ্রাম"  title="যেখান থেকে  যাবে সেই জায়গার নাম দিন">
                 </div>
             </div>
             <div class="form-group">
@@ -53,7 +53,7 @@
             </div>
             <div id="lang_error" class="form-group">
                 <div class="col-xs-10 col-md-6">
-                    <input id="to_push" type="text" class="form-control" name="to_push" placeholder="চট্রগ্রাম" required title="যেখানে  যাবে সেই জায়গার নাম দিন">
+                    <input id="to_push" type="text" class="form-control" name="to_push" placeholder="চট্রগ্রাম" title="যেখানে  যাবে সেই জায়গার নাম দিন">
                 </div>
             </div>
             
