@@ -10,10 +10,14 @@
     </h3>
 </div>
 <div class="row">
-    <?php echo validation_errors();?>
     <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <?php
+        if (isset($message)) {
+            echo '<div class="alert alert-danger">' . $message . '</div>';
+        }
+        ?>
         <!-- route info push form -->
-        <form id="add_route" class="form-horizontal" action="<?php echo $action; ?>" method="post">
+        <form id="add_route" class="form-horizontal" action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
             <?php if ($from == '' || $to == ''): ?>
                 <div class="form-group">
                     <label class="col-sm-3 control-label">থেকে <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
@@ -46,7 +50,7 @@
                     <input maxlength="200" type="text" class="form-control" name="vehicle_name" placeholder="যেমন: হানিফ এন্টারপ্রাইজ" required title="পরিবহনের নাম আবশ্যক">
                 </div>
             </div>
-            <?php echo form_error('vehicle_name','<div class="alert alert-danger">','</div>');?>
+            <?php echo form_error('vehicle_name', '<div class="alert alert-danger">', '</div>'); ?>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label">ছাড়ার স্থান  <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
@@ -54,8 +58,8 @@
                     <input maxlength="200" type="text" class="form-control"  name="departure_place" placeholder="যেমন:  জাহাজ কোম্পানী মোড়">
                 </div>
             </div>
-            <?php echo form_error('departure_place','<div class="alert alert-danger">','</div>');?>
-            
+            <?php echo form_error('departure_place', '<div class="alert alert-danger">', '</div>'); ?>
+
             <div id="departure_perticular" class="form-group">
                 <label class="col-sm-3 control-label">ছাড়ার সময় </label>
                 <div  class="col-xs-10 col-md-6">
@@ -72,7 +76,7 @@
                     <input maxlength="10" type="text" class="form-control" name="main_rent" placeholder="যেমন: ৪৫০" required title="কমপক্ষে আনুমানিক ভাড়া দিন">
                 </div>
             </div>
-              <?php echo form_error('main_rent','<div class="alert alert-danger">','</div>');?>
+            <?php echo form_error('main_rent', '<div class="alert alert-danger">', '</div>'); ?>
 
             <div style="display: none;" id="stoppage_section">
 
@@ -91,7 +95,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">ফাইল/ছবি নির্বাচন</label>
                 <div class="col-xs-10 col-md-6">
-                    <input type="file" class="form-control btn-info" name="eveidence">
+                    <input type="file" class="form-control btn-info" name="evidence">
                     <span class="help-block">চালান ফর্ম, বাসের ছবি বা যেকোন ফাইল আপলোড করুন। যেটা দেখে আরো নিশ্চিত হওয়া যাবে</span>
                 </div>
             </div>
@@ -101,14 +105,14 @@
                     <div id="userInfo" class="form-group">
                         <label class="col-sm-3 control-label">ইউজার নাম</label>
                         <div class="col-xs-10 col-md-6">
-                            <input maxlength="100" type="text" class="form-control" name="username" placeholder="ইউজার নাম">
+                            <input id="chkUsername" maxlength="100" type="text" class="form-control" name="username" placeholder="ইউজার নাম">
                         </div>
                     </div>
 
                     <div id="emailInfo" class="form-group">
                         <label class="col-sm-3 control-label">ইমেইল</label>
                         <div class="col-xs-10 col-md-6">
-                            <input maxlength="100" type="email" class="form-control" name="email" placeholder="আপনার ইমেইল">
+                            <input id="chkEmail" maxlength="100" type="email" class="form-control" name="email" placeholder="আপনার ইমেইল">
                         </div>
                     </div>
 

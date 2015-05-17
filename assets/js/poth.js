@@ -85,7 +85,7 @@ $(document).ready(function () {
             $('#user_reg').slideDown();
             return false;
         } else {
-            if (onlyEmpty('username', 'userInfo', 'ইউজার নাম') && validateEmail('email','emailInfo','ইমেইল')) {
+            if (onlyEmpty('username', 'userInfo', 'ইউজার নাম') && validateEmail('email', 'emailInfo', 'ইমেইল')) {
                 $('#add_route').submit();
                 return true;
             } else {
@@ -93,7 +93,29 @@ $(document).ready(function () {
                 return false;
             }
         }
+    });
 
+
+    $('#chkUsername').live('blur',function () {
+        var username = $(this).val();
+        $.ajax({
+            url: site_url + '/weapons/check_username',
+            type: 'post',
+            cache: false,
+            data: {
+                username: username
+            },
+            success: function (response) {
+                if (response == 'exist') {
+                    $('<div class="alert alert-danger exist">এই মেইল ইতোমধ্যে কেউ ব্যবহার করেছে। আরকেটি চেষ্টা করুন।</div>').inserAfter('#userInfo').hide().slideDown();
+                } else {
+                    $('#userInfo').addClass('has-success has-feedback').append('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
+                    if ($('#userInfo').children('.exist').length > 0) {
+                        $('#userInfo').children('.exist').remove();
+                    }
+                }
+            }
+        });
     });
 
 

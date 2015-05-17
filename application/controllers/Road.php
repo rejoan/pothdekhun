@@ -64,26 +64,7 @@ class Road extends CI_Controller {
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
             }
 
-            $username = trim($this->input->post('username', TRUE));
-            $email = trim($this->input->post('email', TRUE));
-            $password = trim($this->input->post('password', TRUE));
 
-            //user data process
-            $user = array(
-                'username' => $username,
-                'email' => $email,
-                'password' => $password
-            );
-
-
-            if ($this->session->user_id) {
-                $added_by = (int) $this->session->user_id;
-            } else {
-                $this->Prime_model->insert_data('users', $user);
-
-                $user_id = $this->db->insert_id();
-                $added_by = $user_id;
-            }
 
             $config['upload_path'] = './evidences';
             $config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -94,7 +75,6 @@ class Road extends CI_Controller {
             $config['max_height'] = 768;
 
             $this->load->library('upload', $config);
-
             if ($_FILES && $_FILES['evidence']['name']) {
                 if (!$this->upload->do_upload('evidence')) {
                     $this->session->set_flashdata('message', $this->upload->display_errors());
@@ -111,7 +91,40 @@ class Road extends CI_Controller {
                 $evidence_name = '';
             }
 
+
+            if ($this->session->user_id) {
+                $added_by = (int) $this->session->user_id;
+            } else {
+                $username = trim($this->input->post('username', TRUE));
+                $email = trim($this->input->post('email', TRUE));
+                $password = trim($this->input->post('password', TRUE));
+
+                //user data process
+                $user = array(
+                    'username' => $username,
+                    'email' => $email,
+                    'password' => md5($password)
+                );
+                $this->Prime_model->insert_data('users', $user);
+
+                $user_id = $this->db->insert_id();
+                $added_by = $user_id;
+            }
+
 //route data process
+
+            $this->form_validation->set_rules('vehicle_name', 'পরিবহনের নাম', 'required');
+            $this->form_validation->set_rules('departure_place', 'ছাড়ার স্থান', 'required');
+            $this->form_validation->set_rules('main_rent', 'ভাড়া', 'required');
+
+            if ($this->form_validation->run() == FALSE) {
+                $this->load->view('header', $data);
+                $this->load->view('menu');
+                $this->load->view('add_route');
+                $this->load->view('footer');
+                return;
+            }
+
             $route = array(
                 $from_field => $from,
                 $to_field => $to,
@@ -124,27 +137,14 @@ class Road extends CI_Controller {
                 'added' => date('Y-m-d H:i:s'),
                 'added_by' => $added_by
             );
-
-            $this->form_validation->set_rules('vehicle_name', 'পরিবহনের নাম', 'required');
-            $this->form_validation->set_rules('departure_place', 'ছাড়ার স্থান', 'required');
-            $this->form_validation->set_rules('main_rent', 'ভাড়া', 'required');
-
-            if ($this->form_validation->run() == FALSE) {
-                $this->load->view('header', $data);
-                $this->load->view('menu');
-                $this->load->view('add_route');
-                $this->load->view('footer');
-                return;
-            } else {
-                $this->Prime_model->insert_data('routes', $route);
-            }
+            $this->Prime_model->insert_data('routes', $route);
 
             $route_id = $this->db->insert_id();
-            // $route_id = 3;
+
 //stoppage data process            
             $rent = $this->input->post('rent', TRUE);
             $place_name = $this->input->post('place_name', TRUE);
-            $comment = $this->input->post('comment', TRUE);
+            $comment = $this->input->post('comments', TRUE);
             $rent = $this->input->post('rent', TRUE);
             //var_dump($place_name[0]);return;
             $stoppages = array();
@@ -162,9 +162,8 @@ class Road extends CI_Controller {
 
             if ($stoppages) {
                 $this->db->insert_batch('stoppages', $stoppages);
-                //die('work');
             }
-            
+            redirect('road');
         }
 
         $this->load->view('header', $data);
