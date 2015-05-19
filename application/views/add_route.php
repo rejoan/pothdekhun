@@ -12,8 +12,9 @@
 <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
         <?php
-        if (isset($message)) {
-            echo '<div class="alert alert-danger">' . $message . '</div>';
+        $message = $this->session->flashdata('message');
+        if ($message) {
+            echo '<div class="alert alert-info">' . $message . '</div>';
         }
         ?>
         <!-- route info push form -->
@@ -107,6 +108,7 @@
                         <div class="col-xs-10 col-md-6">
                             <input id="chkUsername" maxlength="100" type="text" class="form-control" name="username" placeholder="ইউজার নাম">
                         </div>
+                        
                     </div>
 
                     <div id="emailInfo" class="form-group">

@@ -23,7 +23,7 @@ class Users extends CI_Controller {
         $this->load->view('index');
         $this->load->view('footer');
     }
-    
+
     public function login() {
         $data = array(
             'title' => 'প্রবেশ করুন',
@@ -35,28 +35,45 @@ class Users extends CI_Controller {
         $this->load->view('user/login');
         $this->load->view('footer');
     }
-    
-    public function register(){
-        
+
+    public function register() {
+
         $data = array(
             'title' => 'নিবন্ধন করুন',
             'action' => site_url('users/register')
         );
-        
+
         if ($this->input->post('submit')) {
-          
+
+            $config['upload_path'] = './avatars';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size'] = 1000;
+            $config['max_width'] = 1024;
+            $config['max_height'] = 768;
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('avatar')) {
+                //echo $this->upload->display_errors();
+                $avatar_name = '';
+            } else {
+                $avatar = $this->upload->data();
+                $avatar_name = $avatar['file_name'];
+            }
+
             $username = trim($this->input->post('username', TRUE));
             $email = trim($this->input->post('email', TRUE));
-           
-            $password = trim($this->input->post('password2', TRUE));
+            $mobile = trim($this->input->post('mobile', TRUE));
+            $password = trim($this->input->post('password', TRUE));
 
             $user = array(
                 'username' => $username,
                 'email' => $email,
+                'mobile' => $mobile,
                 'password' => md5($password)
             );
 
-            $this->form_validation->set_rules('email', 'Email', 'is_unique[users.email]');
+            $this->form_validation->set_rules('email', 'Email', 'required|is_unique[users.email]|valid_email');
             $this->form_validation->set_rules('username', 'Username', 'is_unique[users.username]');
             $this->form_validation->set_message('is_unique', 'এই {field} ইতোমধ্যে নেয়া হয়েছে। অন্যকিছু চেষ্টা করুন');
 
@@ -67,10 +84,16 @@ class Users extends CI_Controller {
                 $this->load->view('footer');
                 return;
             } else {
-                $this->Prime_model->insert_data('agents', $agent);
+                $this->Prime_model->insert_data('users', $agent);
                 $this->session->set_flashdata('message', 'Agent Added Successfully');
-                redirect('road');
+                redirect('profile');
             }
         }
+
+        $this->load->view('header', $data);
+        $this->load->view('menu');
+        $this->load->view('user/register');
+        $this->load->view('footer');
     }
+
 }

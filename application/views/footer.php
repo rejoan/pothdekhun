@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <hr>
-<input type="hidden" id="site_url" value="<?php echo site_url();?>"/>
+<input type="hidden" id="site_url" value="<?php echo site_url();?>" />
+<input type="hidden" id="base_url" value="<?php echo base_url();?>"/>
 <footer>
     <p>&copy; Company 2014</p>
 </footer>
