@@ -1,3 +1,46 @@
+function is_exists(inputId, col, table, infoId) {
+    var field = $('#' + inputId).val();
+    var site_url = $('#site_url').val();
+
+    if (field != '') {
+        $.ajax({
+            url: site_url + '/weapons/check_existence',
+            type: 'post',
+            cache: false,
+            data: {
+                field_name: field,
+                col_name: col,
+                table_name: table
+
+            },
+            beforeSend: function () {
+                $('#' + infoId).append('<img class="loader" src="' + base_url + 'assets/images/loading.gif"  alt="loading"/>');
+            },
+            success: function (response) {
+                if (response == 'exist') {
+                    if ($('#' + infoId + ' + div.alert-danger').length < 1) {
+                        $('<div class="alert alert-danger exist"><strong>' + field + '</strong> ইতোমধ্যে কেউ ব্যবহার করেছে। আরকেটি চেষ্টা করুন।</div>').insertAfter('#' + infoId).hide().slideDown();
+                    }
+                    $('#' + infoId + ' > div >  span').remove();
+                    $('#' + infoId).removeClass('has-success has-feedback');
+                } else {
+                    $('#' + infoId).addClass('has-success has-feedback');
+                    if ($('#' + infoId + ' > div >  span').length < 1) {
+                        $('#' + infoId + ' > div').append('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
+                    }
+
+                    $('#' + infoId + ' + div.alert-danger').fadeOut('normal', function () {
+                        $(this).remove();
+                    });
+                }
+            },
+            complete: function () {
+                $('.loader').remove();
+            }
+        });
+    }
+}
+
 
 function selectOption(fieldId, Id, formatedName) {
     var field = $('#' + fieldId).val();
@@ -138,7 +181,7 @@ function validateEmail(fieldName, Id, formatedName) {
     }
 //if it's NOT valid
     else {
-        $('<div class="alert alert-danger">অনুগ্রহপূর্বক  ' + formatedName + ' ফিল্ড পূরন করুন</div>')
+        $('<div class="alert alert-danger">অনুগ্রহপূর্বক একটি সঠিক  ' + formatedName + ' দিন</div>')
                 .insertAfter('#' + Id).hide().slideDown();
         return false;
     }
