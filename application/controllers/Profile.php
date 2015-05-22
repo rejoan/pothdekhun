@@ -13,7 +13,11 @@ class Profile extends CI_Controller {
     }
 
     public function index() {
-        
+        $data['title'] = 'Profile';
+        $this->load->view('header', $data);
+        $this->load->view('menu');
+        $this->load->view('user/profile');
+        $this->load->view('footer');
     }
 
     protected function is_logged() {

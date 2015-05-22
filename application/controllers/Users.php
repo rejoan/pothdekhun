@@ -42,8 +42,12 @@ class Users extends CI_Controller {
             'title' => 'নিবন্ধন করুন',
             'action' => site_url('users/register')
         );
+        $this->load->library('form_validation');
 
         if ($this->input->post('submit')) {
+            $this->form_validation->set_rules('email', 'Email', 'required|is_unique[users.email]|valid_email');
+            $this->form_validation->set_rules('username', 'Username', 'is_unique[users.username]');
+            $this->form_validation->set_message('is_unique', 'এই {field} ইতোমধ্যে নেয়া হয়েছে। অন্যকিছু চেষ্টা করুন');
 
             $config['upload_path'] = './avatars';
             $config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -54,7 +58,7 @@ class Users extends CI_Controller {
             $this->load->library('upload', $config);
 
             if (!$this->upload->do_upload('avatar')) {
-                //echo $this->upload->display_errors();
+                echo $this->upload->display_errors();return;
                 $avatar_name = '';
             } else {
                 $avatar = $this->upload->data();
@@ -70,12 +74,11 @@ class Users extends CI_Controller {
                 'username' => $username,
                 'email' => $email,
                 'mobile' => $mobile,
-                'password' => md5($password)
+                'password' => md5($password),
+                'avatar' => $avatar_name
             );
 
-            $this->form_validation->set_rules('email', 'Email', 'required|is_unique[users.email]|valid_email');
-            $this->form_validation->set_rules('username', 'Username', 'is_unique[users.username]');
-            $this->form_validation->set_message('is_unique', 'এই {field} ইতোমধ্যে নেয়া হয়েছে। অন্যকিছু চেষ্টা করুন');
+
 
             if ($this->form_validation->run() == FALSE) {
                 //echo 'here';return;
@@ -84,8 +87,8 @@ class Users extends CI_Controller {
                 $this->load->view('footer');
                 return;
             } else {
-                $this->Prime_model->insert_data('users', $agent);
-                $this->session->set_flashdata('message', 'Agent Added Successfully');
+                $this->Prime_model->insert_data('users', $user);
+                $this->session->set_flashdata('message', 'সফলভাবে নিবন্ধন হয়েছে');
                 redirect('profile');
             }
         }

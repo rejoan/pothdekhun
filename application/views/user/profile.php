@@ -1,8 +1,17 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+<div class="row">
+    <?php
+    $message = $this->session->flashdata('message');
+    if ($message) {
+        echo '<div class="alert alert-info">' . $message . '</div>';
+    }
+    ?>
+    <div class="col-xs-12 col-md-3">
+        
+    </div>
+    <div class="col-xs-12 col-md-5">
 
+    </div>
+
+</div><!--/row-->
