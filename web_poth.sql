@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2015 at 08:38 PM
+-- Generation Time: May 22, 2015 at 07:20 PM
 -- Server version: 5.6.11
 -- PHP Version: 5.5.3
 
@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `routes` (
   `departure_place` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `departure_time` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `rent` int(11) NOT NULL,
+  `evidence` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `is_verified` int(11) NOT NULL DEFAULT '0' COMMENT '0=not varified, 1=verified',
   `added` datetime NOT NULL,
   `added_by` bigint(20) NOT NULL,
@@ -70,21 +71,6 @@ CREATE TABLE IF NOT EXISTS `routes` (
   KEY `from_bn` (`from_bn`),
   KEY `to` (`to`),
   KEY `to_bn` (`to_bn`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `route_profiles`
---
-
-CREATE TABLE IF NOT EXISTS `route_profiles` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `pictures` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `pic_details` text COLLATE utf8_unicode_ci NOT NULL,
-  `route_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_route_profiles_routes` (`route_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -125,7 +111,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `username` (`username`),
   KEY `type` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `mobile`, `reg_date`, `last_logged`, `type`, `reputaion`, `avatar`) VALUES
+(2, 'rejoan', '81dc9bdb52d04dc20036dbd8313ed055', 'pappu@spinytel.com', '23', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 0, '2cnh0et.jpg');
 
 --
 -- Constraints for dumped tables
@@ -142,12 +135,6 @@ ALTER TABLE `profiles`
 --
 ALTER TABLE `routes`
   ADD CONSTRAINT `FK_routes_users` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON UPDATE NO ACTION;
-
---
--- Constraints for table `route_profiles`
---
-ALTER TABLE `route_profiles`
-  ADD CONSTRAINT `FK_route_profiles_routes` FOREIGN KEY (`route_id`) REFERENCES `routes` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `stoppages`

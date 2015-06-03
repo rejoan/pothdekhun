@@ -98,11 +98,11 @@ $(document).ready(function () {
     });
 
     $('#chkUsername').live('blur', function () {
-        is_exists('chkUsername','username', 'users', 'userInfo');
+        is_exist('chkUsername','username', 'users', 'userInfo');
     });
     
     $('#chkEmail').live('blur', function () {
-        is_exists('chkEmail','email', 'users', 'emailInfo');
+        is_exist('chkEmail','email', 'users', 'emailInfo');
     });
 
 });

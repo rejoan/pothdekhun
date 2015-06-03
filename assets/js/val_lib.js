@@ -1,4 +1,12 @@
-function is_exists(inputId, col, table, infoId) {
+/**
+ * check DB for a value is exist
+ * @param {string} inputId name of input field
+ * @param {string} col name of table column
+ * @param {string} table name of the DB table
+ * @param {string} infoId where to show error
+ * @returns {undefined}
+ */
+function is_exist(inputId, col, table, infoId) {
     var field = $('#' + inputId).val();
     var site_url = $('#site_url').val();
 
@@ -6,7 +14,7 @@ function is_exists(inputId, col, table, infoId) {
         $.ajax({
             url: site_url + '/weapons/check_existence',
             type: 'post',
-            cache: false,
+            dataType: 'text',
             data: {
                 field_name: field,
                 col_name: col,
@@ -18,7 +26,8 @@ function is_exists(inputId, col, table, infoId) {
             },
             success: function (response) {
                 if (response == 'exist') {
-                    if ($('#' + infoId + ' + div.alert-danger').length < 1) {
+                    var is_vis = $('#' + infoId + ' + div.alert-danger').is(':visible');
+                    if ($('#' + infoId + ' + div.alert-danger').length < 1 || !is_vis) {
                         $('<div class="alert alert-danger exist"><strong>' + field + '</strong> ইতোমধ্যে কেউ ব্যবহার করেছে। আরকেটি চেষ্টা করুন।</div>').insertAfter('#' + infoId).hide().slideDown();
                     }
                     $('#' + infoId + ' > div >  span').remove();
@@ -39,6 +48,7 @@ function is_exists(inputId, col, table, infoId) {
             }
         });
     }
+    return false;
 }
 
 

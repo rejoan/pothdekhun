@@ -51,17 +51,23 @@ class Users extends CI_Controller {
 
             $config['upload_path'] = './avatars';
             $config['allowed_types'] = 'gif|jpg|png|jpeg';
-            $config['max_size'] = 1000;
-            $config['max_width'] = 1024;
-            $config['max_height'] = 768;
+//            $config['max_size'] = 1000;
+//            $config['max_width'] = 1024;
+//            $config['max_height'] = 768;
 
             $this->load->library('upload', $config);
+            
 
             if (!$this->upload->do_upload('avatar')) {
                 echo $this->upload->display_errors();return;
                 $avatar_name = '';
             } else {
                 $avatar = $this->upload->data();
+                if($avatar['image_width'] == 660 && $avatar['image_height'] == 402){
+                    die('work');
+                }else{
+                    die('problem');
+                }
                 $avatar_name = $avatar['file_name'];
             }
 
