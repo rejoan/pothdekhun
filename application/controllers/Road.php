@@ -103,7 +103,8 @@ class Road extends CI_Controller {
                 $user = array(
                     'username' => $username,
                     'email' => $email,
-                    'password' => md5($password)
+                    'password' => md5($password),
+                    'reg_date' => date('Y-m-d H:i:s')
                 );
                 $this->Prime_model->insert_data('users', $user);
 

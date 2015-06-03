@@ -1,10 +1,35 @@
+var numbers = {
+        '০': 0,
+        '১': 1,
+        '২': 2,
+        '৩': 3,
+        '৪': 4,
+        '৫': 5,
+        '৬': 6,
+        '৭': 7,
+        '৮': 8,
+        '৯': 9
+    };
+
+function replaceNumbers(input) {
+	var output = [];
+	for (var i = 0; i < input.length; ++i) {
+		if (numbers.hasOwnProperty(input[i])) {
+			output.push(numbers[input[i]]);
+		} else {
+			output.push(input[i]);
+		}
+	}
+	return output.join('');
+}
+
 /**
  * check DB for a value is exist
  * @param {string} inputId name of input field
  * @param {string} col name of table column
  * @param {string} table name of the DB table
  * @param {string} infoId where to show error
- * @returns {undefined}
+ * @returns {boolean}
  */
 function is_exist(inputId, col, table, infoId) {
     var field = $('#' + inputId).val();
