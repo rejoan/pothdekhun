@@ -8,6 +8,7 @@
         <!-- route info pull form -->
         <form class="form-horizontal" action="<?php echo $action_pull; ?>" method="post">
             <div class="form-group">
+                
                 <div class="col-xs-10 col-md-6">
                     <input type="text" class="form-control" id="fromName" placeholder="গাবতলী, ঢাকা" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন">
                 </div>
@@ -56,7 +57,7 @@
                     <input id="to_push" type="text" class="form-control" name="to_push" placeholder="চট্রগ্রাম" required title="যেখানে  যাবে সেই জায়গার নাম দিন">
                 </div>
             </div>
-            
+
             <input type="submit" name="push_route" class="btn btn-primary btn-lg btn-warning" value="পরিবহন তথ্য দিন"/>
         </form>
     </div>

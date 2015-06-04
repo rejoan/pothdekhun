@@ -30,6 +30,36 @@ class Users extends CI_Controller {
             'action' => site_url('users/login')
         );
 
+        if ($this->input->post('submit')) {
+            $email = trim($this->input->post('email', TRUE));
+            $password = trim($this->input->post('password', TRUE));
+            $cond = array(
+                'email' => $email,
+                'password' => md5($password),
+                'type' => 2
+            );
+
+            $query = $this->db->where($cond)->get('users');
+            $checker = $query->result_array();
+            if (count($checker) > 0) {
+                $user_data = array(
+                    'user_id' => $checker[0]['id'],
+                    'username' => $checker[0]['username'],
+                    'email' => $checker[0]['email'],
+                    'avatar' => $checker[0]['avatar']
+                );
+                $this->session->set_userdata($user_data);
+
+
+                $online = array(
+                    'is_online' => 1
+                );
+                $this->db->set('last_logged', 'NOW()', FALSE);
+                $this->Prime_model->updater('id', $checker[0]['id'], 'agents', $online);
+
+                redirect('users/profile');
+            }
+        }
         $this->load->view('header', $data);
         $this->load->view('menu');
         $this->load->view('user/login');
@@ -51,23 +81,16 @@ class Users extends CI_Controller {
 
             $config['upload_path'] = './avatars';
             $config['allowed_types'] = 'gif|jpg|png|jpeg';
-//            $config['max_size'] = 1000;
-//            $config['max_width'] = 1024;
-//            $config['max_height'] = 768;
 
             $this->load->library('upload', $config);
-            
+
 
             if (!$this->upload->do_upload('avatar')) {
-                echo $this->upload->display_errors();return;
+//echo $this->upload->display_errors();return;
                 $avatar_name = '';
             } else {
                 $avatar = $this->upload->data();
-                if($avatar['image_width'] == 660 && $avatar['image_height'] == 402){
-                    die('work');
-                }else{
-                    die('problem');
-                }
+
                 $avatar_name = $avatar['file_name'];
             }
 
@@ -85,9 +108,8 @@ class Users extends CI_Controller {
             );
 
 
-
             if ($this->form_validation->run() == FALSE) {
-                //echo 'here';return;
+//echo 'here';return;
                 $this->load->view('header', $data);
                 $this->load->view('user/register');
                 $this->load->view('footer');

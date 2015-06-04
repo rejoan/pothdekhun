@@ -22,7 +22,7 @@
                      </div>
                 </div>
             </div>
-            <input type="submit" class="btn btn-primary btn-lg btn-info" value="প্রবেশ"/>
+            <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="প্রবেশ"/>
         </form>
     </div>
 

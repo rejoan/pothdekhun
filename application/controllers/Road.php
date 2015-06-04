@@ -30,6 +30,7 @@ class Road extends CI_Controller {
     }
 
     public function add_route() {
+      
         $this->load->library('form_validation');
         $data = array(
             'title' => 'রুট তথ্য যোগ',
