@@ -13,6 +13,7 @@ class Road extends CI_Controller {
     }
 
     public function index() {
+		$this->load->helper('hits');
         $data = array(
             'title' => 'বাংলাদেশের সব পরিবহন রুট তথ্য',
             'action_pull' => site_url('road/get_routes'),
