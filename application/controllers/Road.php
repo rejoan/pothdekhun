@@ -3,7 +3,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * 
+ *
  */
 class Road extends CI_Controller {
 
@@ -31,7 +31,7 @@ class Road extends CI_Controller {
     }
 
     public function add_route() {
-      
+
         $this->load->library('form_validation');
         $data = array(
             'title' => 'রুট তথ্য যোগ',
@@ -144,7 +144,7 @@ class Road extends CI_Controller {
 
             $route_id = $this->db->insert_id();
 
-//stoppage data process            
+//stoppage data process
             $rent = $this->input->post('rent', TRUE);
             $place_name = $this->input->post('place_name', TRUE);
             $comment = $this->input->post('comments', TRUE);
