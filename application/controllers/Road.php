@@ -13,9 +13,16 @@ class Road extends CI_Controller {
     }
 
     public function index() {
-        $this->load->helper('hits');
+        $lang = $this->config->item('language');
+        if ($this->input->get('ln') == 'en') {
+            $this->session->unset_userdata(array('language'));
+            $this->session->set_userdata(array('language' => 'english'));
+        } else {
+            $this->session->set_userdata(array('language' => $lang));
+        }
+        $this->lang->load('titles_lang', $this->session->language);
         $data = array(
-            'title' => 'বাংলাদেশের সব পরিবহন রুট তথ্য',
+            'title' =>  $this->lang->line('index'),
             'action_pull' => site_url('road/get_routes'),
             'action_groute' => site_url('road/add_route')
         );
@@ -148,7 +155,6 @@ class Road extends CI_Controller {
             $rent = $this->input->post('rent', TRUE);
             $place_name = $this->input->post('place_name', TRUE);
             $comment = $this->input->post('comments', TRUE);
-            $rent = $this->input->post('rent', TRUE);
             //var_dump($place_name[0]);return;
             $stoppages = array();
             for ($p = 0; $p < count($place_name); $p++) {
