@@ -5,9 +5,9 @@
         <group>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/controllers/Users.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/controllers/Road.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/menu.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/index.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/libraries/Nut_bolts.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/add_route.php</file>
         </group>
     </open-files>
 </project-private>

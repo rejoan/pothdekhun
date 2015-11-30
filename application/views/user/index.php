@@ -10,29 +10,29 @@
             <div class="form-group">
                 
                 <div class="col-xs-10 col-md-6">
-                    <input type="text" class="form-control" id="fromName" placeholder="গাবতলী, ঢাকা" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন">
+                    <input type="text" class="form-control" id="fromName" placeholder="<?php echo $this->lang->line('from_place'); ?>" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-10 col-md-6">
                     <label>
-                        থেকে
+                        <?php echo $this->lang->line('to_view'); ?>
                     </label>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-10 col-md-6">
-                    <input type="email" class="form-control" id="toName" placeholder="মতিঝিল, ঢাকা" required title="যেখানে যাবেন সেই জায়গার নাম দিন">
+                    <input type="email" class="form-control" id="toName" placeholder="<?php echo $this->lang->line('to_place'); ?>" required title="যেখানে যাবেন সেই জায়গার নাম দিন">
                 </div>
             </div>
-            <input type="submit" class="btn btn-primary btn-lg btn-warning" value="পরিবহন দেখুন"/>
+            <input type="submit" class="btn btn-primary btn-lg btn-warning" value="<?php echo $this->lang->line('see_transport_button'); ?>"/>
         </form>
     </div>
 
 </div><!--/row-->
 
 <div style="margin-top: 20px;" class="alert alert-info">
-    <h3>আপনার পরিচিত রুট যোগ করতে নিচের ফর্ম ব্যবহার করুন</h3>
+    <h3><?php echo $this->lang->line('add_transport_text'); ?></h3>
 </div>
 
 <div class="row">
@@ -42,23 +42,23 @@
         <form id="provide_poth" class="form-horizontal" action="<?php echo $action_groute; ?>" method="post">
             <div class="form-group">
                 <div class="col-xs-10 col-md-6">
-                    <input id="from_push" type="text" class="form-control" name="from_push" placeholder="নাগেশ্বরী, কুড়িগ্রাম" required title="যেখান থেকে  যাবে সেই জায়গার নাম দিন">
+                    <input id="from_push" type="text" class="form-control" name="from_push" placeholder="<?php echo $this->lang->line('from_push'); ?>" required title="যেখান থেকে  যাবে সেই জায়গার নাম দিন">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-10 col-md-6">
                     <label>
-                        থেকে
+                        <?php echo $this->lang->line('to_view'); ?>
                     </label>
                 </div>
             </div>
             <div id="lang_error" class="form-group">
                 <div class="col-xs-10 col-md-6">
-                    <input id="to_push" type="text" class="form-control" name="to_push" placeholder="চট্রগ্রাম" required title="যেখানে  যাবে সেই জায়গার নাম দিন">
+                    <input id="to_push" type="text" class="form-control" name="to_push" placeholder="<?php echo $this->lang->line('to_push'); ?>" required title="যেখানে  যাবে সেই জায়গার নাম দিন">
                 </div>
             </div>
 
-            <input type="submit" name="push_route" class="btn btn-primary btn-lg btn-warning" value="পরিবহন তথ্য দিন"/>
+            <input type="submit" name="push_route" class="btn btn-primary btn-lg btn-warning" value="<?php echo $this->lang->line('add_transport_button'); ?>"/>
         </form>
     </div>
 </div><!--/row-->

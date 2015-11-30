@@ -1,10 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <div style="margin-top: 20px;" class="alert alert-warning">
     <h3>
-        <?php if ($from == '' || $to == '') { ?>
+        <?php if ($from_place == '' || $to_place == '') { ?>
             রুট তথ্য দিতে অনুগ্রহ করে নিচের তারকা চিহ্নিত ফিল্ডগুলি পূরন করুন
         <?php } else { ?>
-            <strong><?php echo $from; ?></strong> থেকে  <strong><?php echo $to; ?></strong> এর রুট তথ্য দিতে অনুগ্রহ করে নিচের তারকা চিহ্নিত ফিল্ডগুলি পূরন করুন
+            <strong><?php echo $from_place; ?></strong> থেকে  <strong><?php echo $to_place; ?></strong> এর রুট তথ্য দিতে অনুগ্রহ করে নিচের তারকা চিহ্নিত ফিল্ডগুলি পূরন করুন
         <?php } ?>
 
     </h3>
@@ -19,7 +19,7 @@
         ?>
         <!-- route info push form -->
         <form id="add_route" class="form-horizontal" action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
-            <?php if ($from == '' || $to == ''): ?>
+            <?php if ($from_place == '' || $to_place == ''): ?>
                 <div class="form-group">
                     <label class="col-sm-3 control-label">থেকে <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                     <div class="col-xs-10 col-md-6">
@@ -128,8 +128,8 @@
                 </div>
             <?php endif; ?>
 
-            <input type="hidden" name="from_place" value="<?php echo $from; ?>"/>
-            <input type="hidden" name="to_place" value="<?php echo $to; ?>"/>
+            <input type="hidden" name="from_place" value="<?php echo $from_place; ?>"/>
+            <input type="hidden" name="to_place" value="<?php echo $to_place; ?>"/>
             <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-warning" value="যোগ করুন"/>
         </form>
     </div>
