@@ -46,6 +46,21 @@ class Nut_bolts {
     }
 
     /**
+     * set site language
+     */
+    public function lang_manager() {
+        $lang = $this->CI->config->item('language');
+        if ($this->CI->input->get('ln') == 'en') {
+            $this->CI->session->unset_userdata(array('language'));
+            $this->CI->session->set_userdata(array('language' => 'english'));
+        } else {
+            $this->CI->session->set_userdata(array('language' => $lang));
+        }
+    }
+
+   
+
+    /**
      * is menu will be selected
      * @param string $strngs
      * @return type
@@ -217,7 +232,6 @@ class Nut_bolts {
         return $timezones;
     }
 
-
     /**
      * check if super admin
      * @return boolean
@@ -230,7 +244,6 @@ class Nut_bolts {
             return FALSE;
         }
     }
-
 
     /**
      * generate breadcrumb based on controller & method
@@ -294,7 +307,6 @@ class Nut_bolts {
         return $d && $d->format($format) == $date;
     }
 
-    
     /**
      * check current time is between two datetime
      * @param datetime $from

@@ -7,30 +7,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Road extends CI_Controller {
 
+    private $language;
+
     public function __construct() {
         parent::__construct();
+        $this->load->library('Nut_bolts');
+        $this->nut_bolts->lang_manager();
+        $this->language = $this->session->language;
         $this->load->model('Prime_model');
     }
 
     public function index() {
-        $lang = $this->config->item('language');
-        if ($this->input->get('ln') == 'en') {
-            $this->session->unset_userdata(array('language'));
-            $this->session->set_userdata(array('language' => 'english'));
-        } else {
-            $this->session->set_userdata(array('language' => $lang));
-        }
-        $this->lang->load('titles_lang', $this->session->language);
+        //echo $this->session->language;return;
+        $this->lang->load('titles_lang', $this->language);
         $data = array(
-            'title' =>  $this->lang->line('index'),
+            'title' => $this->lang->line('index'),
             'action_pull' => site_url('road/get_routes'),
             'action_groute' => site_url('road/add_route')
         );
 
-        $this->load->view('header', $data);
-        $this->load->view('menu');
-        $this->load->view('index');
-        $this->load->view('footer');
+        $this->nut_bolts->view_loader('user', 'index', $data);
     }
 
     public function get_routes() {
@@ -128,10 +124,7 @@ class Road extends CI_Controller {
             $this->form_validation->set_rules('main_rent', 'ভাড়া', 'required');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->load->view('header', $data);
-                $this->load->view('menu');
-                $this->load->view('add_route');
-                $this->load->view('footer');
+                $this->nut_bolts->view_loader('user', 'add_route', $data);
                 return;
             }
 
@@ -174,11 +167,7 @@ class Road extends CI_Controller {
             }
             redirect('road');
         }
-
-        $this->load->view('header', $data);
-        $this->load->view('menu');
-        $this->load->view('add_route');
-        $this->load->view('footer');
+        $this->nut_bolts->view_loader('user', 'add_route', $data);
     }
 
 }
