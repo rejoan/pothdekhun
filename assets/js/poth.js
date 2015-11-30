@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     });
 
-    $('#cancel').live('click', function () {
+    $('#cancel').on('click', function () {
         $(this).parent().fadeOut('normal', function () {
             $(this).remove();
         });
@@ -97,11 +97,11 @@ $(document).ready(function () {
         }
     });
 
-    $('#chkUsername').live('blur', function () {
+    $('#chkUsername').on('blur', function () {
         is_exist('chkUsername', 'username', 'users', 'userInfo');
     });
 
-    $('#chkEmail').live('blur', function () {
+    $('#chkEmail').on('blur', function () {
         is_exist('chkEmail', 'email', 'users', 'emailInfo');
     });
 

@@ -108,7 +108,7 @@
                         <div class="col-xs-10 col-md-6">
                             <input id="chkUsername" maxlength="100" type="text" class="form-control" name="username" placeholder="ইউজার নাম">
                         </div>
-                        
+
                     </div>
 
                     <div id="emailInfo" class="form-group">
