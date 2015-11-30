@@ -13,10 +13,9 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="<?php echo base_url('assets/js/jquery-2.1.4.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/jquery-migrate-1.2.1.min.js');?>"></script>
-<script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/bootstrap-select.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/bootstrap.file-input.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/bootstrap/bootstrap-select.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/bootstrap/bootstrap.file-input.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/val_lib.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/poth.js'); ?>"></script>
 
