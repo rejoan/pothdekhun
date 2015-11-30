@@ -9,6 +9,10 @@ class Users extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->load->library('Nut_bolts');
+        $this->nut_bolts->lang_manager();
+        $this->language = $this->session->language;
+        $this->lang->load(array('controller', 'view'), $this->language);
         $this->load->model('Prime_model');
     }
 
@@ -18,15 +22,12 @@ class Users extends CI_Controller {
             'action_pull' => site_url('road/get_routes')
         );
 
-        $this->load->view('header', $data);
-        $this->load->view('menu');
-        $this->load->view('index');
-        $this->load->view('footer');
+        $this->nut_bolts->view_loader('user', 'index', $data);
     }
 
     public function login() {
         $data = array(
-            'title' => 'প্রবেশ করুন',
+            'title' => $this->lang->line('login'),
             'action' => site_url('users/login')
         );
 
@@ -60,24 +61,21 @@ class Users extends CI_Controller {
                 redirect('users/profile');
             }
         }
-        $this->load->view('header', $data);
-        $this->load->view('menu');
-        $this->load->view('user/login');
-        $this->load->view('footer');
+        $this->nut_bolts->view_loader('user', 'login', $data);
     }
 
     public function register() {
 
         $data = array(
-            'title' => 'নিবন্ধন করুন',
+            'title' => $this->lang->line('register'),
             'action' => site_url('users/register')
         );
         $this->load->library('form_validation');
 
         if ($this->input->post('submit')) {
-            $this->form_validation->set_rules('email', 'Email', 'required|is_unique[users.email]|valid_email');
-            $this->form_validation->set_rules('username', 'Username', 'is_unique[users.username]');
-            $this->form_validation->set_message('is_unique', 'এই {field} ইতোমধ্যে নেয়া হয়েছে। অন্যকিছু চেষ্টা করুন');
+            $this->form_validation->set_rules('email', $this->lang->line('email'), 'required|is_unique[users.email]|valid_email');
+            $this->form_validation->set_rules('username', $this->lang->line('username'), 'is_unique[users.username]');
+            $this->form_validation->set_message('is_unique', $this->lang->line('is_unique_msg'));
 
             $config['upload_path'] = './avatars';
             $config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -107,24 +105,17 @@ class Users extends CI_Controller {
                 'avatar' => $avatar_name
             );
 
-
             if ($this->form_validation->run() == FALSE) {
-//echo 'here';return;
-                $this->load->view('header', $data);
-                $this->load->view('user/register');
-                $this->load->view('footer');
+                $this->nut_bolts->view_loader('user', 'register', $data);
                 return;
             } else {
                 $this->Prime_model->insert_data('users', $user);
-                $this->session->set_flashdata('message', 'সফলভাবে নিবন্ধন হয়েছে');
+                $this->session->set_flashdata('message', $this->lang->line('register_user'));
                 redirect('profile');
             }
         }
 
-        $this->load->view('header', $data);
-        $this->load->view('menu');
-        $this->load->view('user/register');
-        $this->load->view('footer');
+        $this->nut_bolts->view_loader('user', 'register', $data);
     }
 
 }

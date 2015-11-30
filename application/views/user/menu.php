@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 $ln = $this->session->language;
-$this->lang->load('view_lang', $ln);
 ?>
 <nav class="navbar navbar-fixed-top navbar-inverse">
     <div class="container">
@@ -16,9 +15,9 @@ $this->lang->load('view_lang', $ln);
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="<?php echo site_url('users/login'); ?>"><?php echo $this->lang->line('m_login'); ?></a></li>
-                <li><a href="<?php echo site_url('users/register'); ?>"><?php echo $this->lang->line('m_register'); ?></a></li>
-                <li><a href="<?php echo $ln == 'english' ? site_url('?ln=bn') : site_url('?ln=en'); ?>"><?php echo $ln == 'english' ? 'Bengali' : 'English'; ?></a></li>
+                <li class="<?php echo $this->nut_bolts->is_selected('users/login');?>"><a href="<?php echo site_url('users/login'); ?>"><?php echo $this->lang->line('m_login'); ?></a></li>
+                <li class="<?php echo $this->nut_bolts->is_selected('users/register');?>"><a href="<?php echo site_url('users/register'); ?>"><?php echo $this->lang->line('m_register'); ?></a></li>
+                <li><a href="<?php echo $ln == 'english' ? current_url() . '?ln=bn' : current_url() . '?ln=en'; ?>"><?php echo $ln == 'english' ? 'Bengali' : 'English'; ?></a></li>
             </ul>
         </div><!-- /.nav-collapse -->
     </div><!-- /.container -->

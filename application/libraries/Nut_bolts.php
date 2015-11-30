@@ -68,10 +68,11 @@ class Nut_bolts {
     public function is_selected($strngs) {
         $chk_str = explode(',', $strngs);
         for ($s = 0; $s < count($chk_str); $s++) {
-            if (strpos($this->CI->uri->segment(1), $chk_str[$s]) !== FALSE) {
+            if (strpos(current_url(), $chk_str[$s]) !== FALSE) {
                 return 'active';
             }
         }
+        //return FALSE;
     }
 
     /**

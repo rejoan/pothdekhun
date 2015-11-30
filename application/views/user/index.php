@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <div style="margin-top: 20px;" class="alert alert-info">
-    <p>নিচের ফর্মে বাংলা কিংবা ইংরেজীতে জায়াগার নাম দিন এবং "পরিবহন দেখুন" বাটনে ক্লিক করুন </p>
+    <p><?php echo $this->lang->line('see_transport'); ?></p>
 </div>
 <div class="row">
     <div class="col-xs-12 col-md-7 col-md-offset-4">

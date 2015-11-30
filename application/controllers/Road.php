@@ -14,12 +14,11 @@ class Road extends CI_Controller {
         $this->load->library('Nut_bolts');
         $this->nut_bolts->lang_manager();
         $this->language = $this->session->language;
+        $this->lang->load(array('controller_lang', 'view_lang'), $this->language);
         $this->load->model('Prime_model');
     }
 
     public function index() {
-        //echo $this->session->language;return;
-        $this->lang->load('titles_lang', $this->language);
         $data = array(
             'title' => $this->lang->line('index'),
             'action_pull' => site_url('road/get_routes'),
@@ -34,13 +33,12 @@ class Road extends CI_Controller {
     }
 
     public function add_route() {
-
         $this->load->library('form_validation');
         $data = array(
-            'title' => 'রুট তথ্য যোগ',
+            'title' => $this->lang->line('add_route'),
             'action' => site_url('road/add_route'),
-            'from' => trim($this->input->post('from_push', TRUE)),
-            'to' => trim($this->input->post('to_push', TRUE))
+            'from_place' => trim($this->input->post('from_push', TRUE)),
+            'to_place' => trim($this->input->post('to_push', TRUE))
         );
         if ($this->input->post('submit')) {
             $from = trim($this->input->post('from_place', TRUE));
@@ -119,9 +117,9 @@ class Road extends CI_Controller {
 
 //route data process
 
-            $this->form_validation->set_rules('vehicle_name', 'পরিবহনের নাম', 'required');
-            $this->form_validation->set_rules('departure_place', 'ছাড়ার স্থান', 'required');
-            $this->form_validation->set_rules('main_rent', 'ভাড়া', 'required');
+            $this->form_validation->set_rules('vehicle_name', $this->lang->line('vehicle_name'), 'required');
+            $this->form_validation->set_rules('departure_place', $this->lang->line('departure_place'), 'required');
+            $this->form_validation->set_rules('main_rent', $this->lang->line('main_rent'), 'required');
 
             if ($this->form_validation->run() == FALSE) {
                 $this->nut_bolts->view_loader('user', 'add_route', $data);
