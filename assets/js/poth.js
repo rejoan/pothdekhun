@@ -6,12 +6,15 @@ $(document).ready(function () {
 
 //add dynamic stoppgae as many user can
     $('#add_stoppage').click(function () {
+        var cancel = $('#cancel').val();
+        var place_name = $('#place_name').val();
+        var comment = $('#comment').val();
         $('#stoppage_section').show();
-        $('<div class="form-group"><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" placeholder="জায়গার নাম"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="মন্তব্য"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control" name="rent[]" placeholder="ভাড়া"></div><a class="btn btn-danger" href="javascript:void(0)" id="cancel">বাতিল</a></div>').appendTo($('#stoppage_section')).hide().slideDown();
+        $('<div class="form-group"><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" placeholder="জায়গার নাম"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="মন্তব্য"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control" name="rent[]" placeholder="ভাড়া"></div><a class="btn btn-danger" href="javascript:void(0)" class="cancel">'+cancel+'</a></div>').appendTo($('#stoppage_section')).hide().slideDown();
 
     });
 
-    $('#cancel').on('click', function () {
+    $('#stoppage_section').on('click','a', function () {
         $(this).parent().fadeOut('normal', function () {
             $(this).remove();
         });

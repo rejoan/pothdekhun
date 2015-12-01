@@ -38,7 +38,8 @@ class Road extends CI_Controller {
             'title' => $this->lang->line('add_route'),
             'action' => site_url('road/add_route'),
             'from_place' => trim($this->input->post('from_push', TRUE)),
-            'to_place' => trim($this->input->post('to_push', TRUE))
+            'to_place' => trim($this->input->post('to_push', TRUE)),
+            'countries' => $this->nut_bolts->get_countries()
         );
         if ($this->input->post('submit')) {
             $from = trim($this->input->post('from_place', TRUE));
