@@ -33,3 +33,5 @@ $lang['cancel_text'] = 'বাতিল';
 $lang['place_name'] = 'জায়াগার নাম';
 $lang['comment'] = 'মন্তব্য';
 $lang['country'] = 'দেশ';
+$lang['email_text'] = 'সঠিক ইমেইল দিন';
+$lang['email_exist'] = 'ইতোমধ্যে কেউ ব্যবহার করেছে। আরকেটি চেষ্টা করুন।';

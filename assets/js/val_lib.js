@@ -1,26 +1,26 @@
 var numbers = {
-        '০': 0,
-        '১': 1,
-        '২': 2,
-        '৩': 3,
-        '৪': 4,
-        '৫': 5,
-        '৬': 6,
-        '৭': 7,
-        '৮': 8,
-        '৯': 9
-    };
+    '০': 0,
+    '১': 1,
+    '২': 2,
+    '৩': 3,
+    '৪': 4,
+    '৫': 5,
+    '৬': 6,
+    '৭': 7,
+    '৮': 8,
+    '৯': 9
+};
 
 function replaceNumbers(input) {
-	var output = [];
-	for (var i = 0; i < input.length; ++i) {
-		if (numbers.hasOwnProperty(input[i])) {
-			output.push(numbers[input[i]]);
-		} else {
-			output.push(input[i]);
-		}
-	}
-	return output.join('');
+    var output = [];
+    for (var i = 0; i < input.length; ++i) {
+        if (numbers.hasOwnProperty(input[i])) {
+            output.push(numbers[input[i]]);
+        } else {
+            output.push(input[i]);
+        }
+    }
+    return output.join('');
 }
 
 /**
@@ -34,8 +34,11 @@ function replaceNumbers(input) {
 function is_exist(inputId, col, table, infoId) {
     var field = $('#' + inputId).val();
     var site_url = $('#site_url').val();
+    var base_url = $('#base_url').val();
+    var is_vis = $('#' + infoId + ' + .email_exist').is(':visible');
+    var email_exist = $('#email_exist').val();
 
-    if (field != '') {
+    if (field !== '') {
         $.ajax({
             url: site_url + '/weapons/check_existence',
             type: 'post',
@@ -50,10 +53,9 @@ function is_exist(inputId, col, table, infoId) {
                 $('#' + infoId).append('<img class="loader" src="' + base_url + 'assets/images/loading.gif"  alt="loading"/>');
             },
             success: function (response) {
-                if (response == 'exist') {
-                    var is_vis = $('#' + infoId + ' + div.alert-danger').is(':visible');
-                    if ($('#' + infoId + ' + div.alert-danger').length < 1 || !is_vis) {
-                        $('<div class="alert alert-danger exist"><strong>' + field + '</strong> ইতোমধ্যে কেউ ব্যবহার করেছে। আরকেটি চেষ্টা করুন।</div>').insertAfter('#' + infoId).hide().slideDown();
+                if (response === 'exist') {
+                    if (!is_vis) {
+                        $('<div class="alert alert-danger exist"><strong>' + field + '</strong> ' + email_exist + '</div>').insertAfter('#' + infoId).hide().slideDown();
                     }
                     $('#' + infoId + ' > div >  span').remove();
                     $('#' + infoId).removeClass('has-success has-feedback');
@@ -63,7 +65,7 @@ function is_exist(inputId, col, table, infoId) {
                         $('#' + infoId + ' > div').append('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
                     }
 
-                    $('#' + infoId + ' + div.alert-danger').fadeOut('normal', function () {
+                    $('.exist').fadeOut('normal', function () {
                         $(this).remove();
                     });
                 }

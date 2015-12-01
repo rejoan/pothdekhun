@@ -9,12 +9,13 @@ $(document).ready(function () {
         var cancel = $('#cancel').val();
         var place_name = $('#place_name').val();
         var comment = $('#comment').val();
+        var rents = $('#rents').val();
         $('#stoppage_section').show();
-        $('<div class="form-group"><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" placeholder="জায়গার নাম"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="মন্তব্য"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control" name="rent[]" placeholder="ভাড়া"></div><a class="btn btn-danger" href="javascript:void(0)" class="cancel">'+cancel+'</a></div>').appendTo($('#stoppage_section')).hide().slideDown();
+        $('<div class="form-group"><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" placeholder="' + place_name + '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control" name="rent[]" placeholder="' + rents + '"></div><a class="btn btn-danger" href="javascript:void(0)" class="cancel">' + cancel + '</a></div>').appendTo($('#stoppage_section')).hide().slideDown();
 
     });
 
-    $('#stoppage_section').on('click','a', function () {
+    $('#stoppage_section').on('click', 'a', function () {
         $(this).parent().fadeOut('normal', function () {
             $(this).remove();
         });
@@ -105,6 +106,21 @@ $(document).ready(function () {
     });
 
     $('#chkEmail').on('blur', function () {
+        var em = $('#chkEmail').val();
+        var email_text = $('#email_text').val();
+        var is_visible = $('.wrong_email').is(':visible');
+        var filter = /^[a-zA-Z0-9]+[a-zA-Z0-9_.-]+[a-zA-Z0-9_-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{2,4}$/;
+//if it's valid email
+        if (!filter.test(em)) {
+            if (!is_visible) {
+                $('<div class="alert alert-warning wrong_email">' + email_text + '</div>').insertAfter('#chkEmail').hide().slideDown();
+                return false;
+            } else {
+                $('.wrong_email').fadeOut('normal', function () {
+                    $(this).remove();
+                });
+            }
+        }
         is_exist('chkEmail', 'email', 'users', 'emailInfo');
     });
 

@@ -141,6 +141,8 @@
             <input type="hidden" id="place_name" value="<?php echo $this->lang->line('place_name'); ?>"/>
             <input type="hidden" id="comment" value="<?php echo $this->lang->line('comment'); ?>"/>
             <input type="hidden" id="rents" value="<?php echo $this->lang->line('main_rent'); ?>"/>
+             <input type="hidden" id="email_text" value="<?php echo $this->lang->line('email_text'); ?>"/>
+             <input type="hidden" id="email_exist" value="<?php echo $this->lang->line('email_exist'); ?>"/>
             <input type="hidden" name="from_place" value="<?php echo $from_place; ?>"/>
             <input type="hidden" name="to_place" value="<?php echo $to_place; ?>"/>
             <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-warning" value="<?php echo $this->lang->line('add_button'); ?>"/>

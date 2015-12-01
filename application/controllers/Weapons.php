@@ -18,10 +18,10 @@ class Weapons extends CI_Controller {
         $field = trim($this->input->post('field_name', TRUE));
         $col = trim($this->input->post('col_name', TRUE));
         $table = trim($this->input->post('table_name', TRUE));
-
         $query = $this->db->select($col)->from($table)->where($col, $field)->get();
         if ($query->num_rows() > 0) {
             echo 'exist';
+            return;
         }
     }
 

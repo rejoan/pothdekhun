@@ -31,4 +31,5 @@ $lang['cancel_text'] = 'Cancel';
 $lang['place_name'] = 'Place Name';
 $lang['comment'] = 'Comment';
 $lang['country'] = 'Country';
-
+$lang['email_text'] = 'Type valid Email Please';
+$lang['email_exist'] = 'Already Used. Please Try Another';
