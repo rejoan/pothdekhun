@@ -143,6 +143,7 @@
             <input type="hidden" id="rents" value="<?php echo $this->lang->line('main_rent'); ?>"/>
              <input type="hidden" id="email_text" value="<?php echo $this->lang->line('email_text'); ?>"/>
              <input type="hidden" id="email_exist" value="<?php echo $this->lang->line('email_exist'); ?>"/>
+             <input type="hidden" id="custom_time" value="<?php echo $this->lang->line('custom_time'); ?>"/>
             <input type="hidden" name="from_place" value="<?php echo $from_place; ?>"/>
             <input type="hidden" name="to_place" value="<?php echo $to_place; ?>"/>
             <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-warning" value="<?php echo $this->lang->line('add_button'); ?>"/>

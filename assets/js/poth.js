@@ -42,8 +42,9 @@ $(document).ready(function () {
 
     //departure_time
     $('#departure_time').change(function () {
+        var custom_time = $('#custom_time').val();
         if ($(this).val() == 'perticular') {
-            $('<div id="departure_dynamic" class="form-group"><label class="col-sm-3 control-label"></label><div class="col-xs-10 col-md-6"><input maxlength="200" type="text" class="form-control"  name="departure_dynamic" placeholder="যেমন:  প্রতিদিন সকাল ৭টায়"></div></div>').insertAfter('#departure_perticular').hide().slideDown();
+            $('<div id="departure_dynamic" class="form-group"><label class="col-sm-3 control-label"></label><div class="col-xs-10 col-md-6"><input maxlength="200" type="text" class="form-control"  name="departure_dynamic" placeholder="'+custom_time+'"></div></div>').insertAfter('#departure_perticular').hide().slideDown();
         } else {
             $("#departure_dynamic").slideUp(500, function () {
                 $('#departure_dynamic').remove();
