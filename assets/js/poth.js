@@ -113,15 +113,16 @@ $(document).ready(function () {
 //if it's valid email
         if (!filter.test(em)) {
             if (!is_visible) {
-                $('<div class="alert alert-warning wrong_email">' + email_text + '</div>').insertAfter('#chkEmail').hide().slideDown();
+                $('<div class="alert alert-warning wrong_email">' + email_text + '</div>').insertAfter('#emailInfo').hide().slideDown();
                 return false;
-            } else {
-                $('.wrong_email').fadeOut('normal', function () {
-                    $(this).remove();
-                });
             }
+        } else {
+            $('.wrong_email').fadeOut('normal', function () {
+                $(this).remove();
+            });
+            is_exist('chkEmail', 'email', 'users', 'emailInfo');
         }
-        is_exist('chkEmail', 'email', 'users', 'emailInfo');
+
     });
 
 

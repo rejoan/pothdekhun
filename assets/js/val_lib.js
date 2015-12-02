@@ -40,19 +40,20 @@ function is_exist(inputId, col, table, infoId) {
 
     if (field !== '') {
         $.ajax({
-            url: site_url + '/weapons/check_existence',
+            url: site_url + 'weapons/check_existence',
             type: 'post',
             dataType: 'text',
             data: {
-                field_name: field,
-                col_name: col,
-                table_name: table
+                field: field,
+                col: col,
+                table: table
 
             },
             beforeSend: function () {
                 $('#' + infoId).append('<img class="loader" src="' + base_url + 'assets/images/loading.gif"  alt="loading"/>');
             },
             success: function (response) {
+                //console.log(response);return;
                 if (response === 'exist') {
                     if (!is_vis) {
                         $('<div class="alert alert-danger exist"><strong>' + field + '</strong> ' + email_exist + '</div>').insertAfter('#' + infoId).hide().slideDown();
