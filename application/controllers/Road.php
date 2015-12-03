@@ -80,26 +80,7 @@ class Road extends CI_Controller {
                 $evidence_name = '';
             }
 
-
-            if ($this->session->user_id) {
-                $added_by = (int) $this->session->user_id;
-            } else {
-                $username = trim($this->input->post('username', TRUE));
-                $email = trim($this->input->post('email', TRUE));
-                $password = trim($this->input->post('password', TRUE));
-
-                //user data process
-                $user = array(
-                    'username' => $username,
-                    'email' => $email,
-                    'password' => md5($password)
-                );
-                $this->db->set('reg_date', 'NOW()', FALSE);
-                $this->db->insert('users', $user);
-
-                $user_id = $this->db->insert_id();
-                $added_by = $user_id;
-            }
+            $added_by = (int) $this->session->user_id;
 
 //route data process
 

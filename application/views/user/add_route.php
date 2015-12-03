@@ -4,7 +4,7 @@
         <?php if ($from_place == '' || $to_place == '') { ?>
             <?php echo $this->lang->line('direct_add') ?>
         <?php } else { ?>
-        <strong><?php echo $from_place; ?></strong> <?php echo $this->lang->line('from_view') ?>  <strong><?php echo $to_place; ?></strong>&nbsp;<?php echo $this->lang->line('direct_add') ?>
+            <strong><?php echo $from_place; ?></strong> <?php echo $this->lang->line('from_view') ?>  <strong><?php echo $to_place; ?></strong>&nbsp;<?php echo $this->lang->line('direct_add') ?>
         <?php } ?>
 
     </h3>
@@ -111,39 +111,13 @@
                 </div>
             </div>
 
-            <?php if (!$this->session->user_id): ?>
-                <div style="display:none;" id="user_reg">
-                    <div id="userInfo" class="form-group">
-                        <label class="col-sm-3 control-label"><?php echo $this->lang->line('username'); ?></label>
-                        <div class="col-xs-10 col-md-6">
-                            <input id="chkUsername" maxlength="100" type="text" class="form-control" name="username" placeholder="<?php echo $this->lang->line('username'); ?>">
-                        </div>
-
-                    </div>
-
-                    <div id="emailInfo" class="form-group">
-                        <label class="col-sm-3 control-label"><?php echo $this->lang->line('email'); ?></label>
-                        <div class="col-xs-10 col-md-6">
-                            <input id="chkEmail" maxlength="100" type="email" class="form-control" name="email" placeholder="<?php echo $this->lang->line('email'); ?>">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label"><?php echo $this->lang->line('password'); ?></label>
-                        <div class="col-xs-10 col-md-6">
-                            <input maxlength="100" type="password" class="form-control" name="password" placeholder="<?php echo $this->lang->line('password'); ?>">
-                            <span class="help-block"><?php echo $this->lang->line('password_help'); ?></span>
-                        </div>
-                    </div>
-                </div>
-            <?php endif; ?>
             <input type="hidden" id="cancel" value="<?php echo $this->lang->line('cancel_text'); ?>"/>
             <input type="hidden" id="place_name" value="<?php echo $this->lang->line('place_name'); ?>"/>
             <input type="hidden" id="comment" value="<?php echo $this->lang->line('comment'); ?>"/>
             <input type="hidden" id="rents" value="<?php echo $this->lang->line('main_rent'); ?>"/>
-             <input type="hidden" id="email_text" value="<?php echo $this->lang->line('email_text'); ?>"/>
-             <input type="hidden" id="email_exist" value="<?php echo $this->lang->line('email_exist'); ?>"/>
-             <input type="hidden" id="custom_time" value="<?php echo $this->lang->line('custom_time'); ?>"/>
+            <input type="hidden" id="email_text" value="<?php echo $this->lang->line('email_text'); ?>"/>
+            <input type="hidden" id="email_exist" value="<?php echo $this->lang->line('email_exist'); ?>"/>
+            <input type="hidden" id="custom_time" value="<?php echo $this->lang->line('custom_time'); ?>"/>
             <input type="hidden" name="from_place" value="<?php echo $from_place; ?>"/>
             <input type="hidden" name="to_place" value="<?php echo $to_place; ?>"/>
             <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-warning" value="<?php echo $this->lang->line('add_button'); ?>"/>
