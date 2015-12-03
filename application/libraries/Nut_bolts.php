@@ -29,6 +29,19 @@ class Nut_bolts {
         $this->CI->load->view($dirn . '/footer');
     }
 
+    public function view_admin($view_name, $data, $menu = TRUE, $rightbar = FALSE) {
+        $this->CI->load->view('admin/header', $data);
+        if ($menu) {
+            $this->CI->load->view('admin/sidebar');
+        }
+        $this->CI->load->view('admin/' . $view_name);
+        if ($rightbar) {
+            $this->CI->load->view('admin/rightbar');
+        }
+
+        $this->CI->load->view('admin/footer');
+    }
+
     public function get_greetings() {
         $settings = $this->get_config();
         date_default_timezone_set($settings->client_timezone);
