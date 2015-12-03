@@ -43,24 +43,18 @@ class Road extends CI_Controller {
         );
         if ($this->input->post('submit')) {
             $from = trim($this->input->post('from_place', TRUE));
-            if ($from == '') {
+            if (empty($from)) {
                 $from = trim($this->input->post('device_from', TRUE));
             }
             $to = trim($this->input->post('to_place', TRUE));
-            if ($to == '') {
+            if (empty($to)) {
                 $to = trim($this->input->post('device_to', TRUE));
             }
-            if (!preg_match('/[^A-Za-z0-9(,|  |_)]/', $from)) {
-                $from_field = 'from';
-                $to_field = 'to';
-            } else {
-                $from_field = 'from_bn';
-                $to_field = 'to_bn';
-            }
-            $transport_type = $this->input->post('type', TRUE);
-            $transport_name = $this->input->post('transport_name', TRUE);
-            $departure_place = $this->input->post('departure_place', TRUE);
 
+            $transport_type = $this->input->post('type', TRUE);
+            $transport_name = $this->input->post('vehicle_name', TRUE);
+            $departure_place = $this->input->post('departure_place', TRUE);
+            $country = $this->input->post('country', TRUE);
             $departure_time = $this->input->post('departure_time', TRUE);
             $main_rent = $this->input->post('main_rent', TRUE);
 
@@ -68,24 +62,15 @@ class Road extends CI_Controller {
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
             }
 
-
-
             $config['upload_path'] = './evidences';
-            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg|docx|doc';
             $config['max_size'] = 1000;
-            $config['min_width'] = 200;
-            $config['min_height'] = 150;
-            $config['max_width'] = 1024;
-            $config['max_height'] = 768;
 
             $this->load->library('upload', $config);
             if ($_FILES && $_FILES['evidence']['name']) {
                 if (!$this->upload->do_upload('evidence')) {
                     $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->load->view('header', $data);
-                    $this->load->view('menu');
-                    $this->load->view('add_route');
-                    $this->load->view('footer');
+                    $this->nut_bolts->view_loader('user', 'add_route', $data);
                     return;
                 } else {
                     $evidence = $this->upload->data();
@@ -107,10 +92,10 @@ class Road extends CI_Controller {
                 $user = array(
                     'username' => $username,
                     'email' => $email,
-                    'password' => md5($password),
-                    'reg_date' => date('Y-m-d H:i:s')
+                    'password' => md5($password)
                 );
-                $this->Prime_model->insert_data('users', $user);
+                $this->db->set('reg_date', 'NOW()', FALSE);
+                $this->db->insert('users', $user);
 
                 $user_id = $this->db->insert_id();
                 $added_by = $user_id;
@@ -128,18 +113,19 @@ class Road extends CI_Controller {
             }
 
             $route = array(
-                $from_field => $from,
-                $to_field => $to,
+                'country' => $country,
+                'from_place' => $from,
+                'to_place' => $to,
                 'type' => $transport_type,
                 'vehicle_name' => $transport_name,
                 'departure_place' => $departure_place,
                 'departure_time' => $departure_time,
                 'rent' => $main_rent,
                 'evidence' => $evidence_name,
-                'added' => date('Y-m-d H:i:s'),
                 'added_by' => $added_by
             );
-            $this->Prime_model->insert_data('routes', $route);
+            $this->db->set('added', 'NOW()', FALSE);
+            $this->db->insert('routes', $route);
 
             $route_id = $this->db->insert_id();
 

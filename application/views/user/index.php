@@ -10,19 +10,19 @@
             <div class="form-group">
                 
                 <div class="col-xs-10 col-md-6">
-                    <input type="text" class="form-control" id="fromName" placeholder="<?php echo $this->lang->line('from_place'); ?>" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন">
+                    <input type="text" class="form-control" id="fromName" placeholder="<?php echo $this->lang->line('from_push'); ?>" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-10 col-md-6">
                     <label>
-                        <?php echo $this->lang->line('to_view'); ?>
+                        <?php echo $this->lang->line('from_view'); ?>
                     </label>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-10 col-md-6">
-                    <input type="email" class="form-control" id="toName" placeholder="<?php echo $this->lang->line('to_place'); ?>" required title="যেখানে যাবেন সেই জায়গার নাম দিন">
+                    <input type="email" class="form-control" id="toName" placeholder="<?php echo $this->lang->line('to_push'); ?>" required title="যেখানে যাবেন সেই জায়গার নাম দিন">
                 </div>
             </div>
             <input type="submit" class="btn btn-primary btn-lg btn-warning" value="<?php echo $this->lang->line('see_transport_button'); ?>"/>
@@ -48,7 +48,7 @@
             <div class="form-group">
                 <div class="col-xs-10 col-md-6">
                     <label>
-                        <?php echo $this->lang->line('to_view'); ?>
+                        <?php echo $this->lang->line('from_view'); ?>
                     </label>
                 </div>
             </div>

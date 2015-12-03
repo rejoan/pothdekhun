@@ -35,7 +35,7 @@ function is_exist(inputId, col, table, infoId) {
     var field = $('#' + inputId).val();
     var site_url = $('#site_url').val();
     var base_url = $('#base_url').val();
-    var is_vis = $('#' + infoId + ' + .email_exist').is(':visible');
+    var is_vis = $('#' + infoId + ' + .exist').is(':visible');
     var email_exist = $('#email_exist').val();
 
     if (field !== '') {

@@ -4,7 +4,7 @@
         <?php if ($from_place == '' || $to_place == '') { ?>
             <?php echo $this->lang->line('direct_add') ?>
         <?php } else { ?>
-            <strong><?php echo $from_place; ?></strong> <?php echo $this->lang->line('to_view') ?>  <strong><?php echo $to_place; ?></strong><?php echo $this->lang->line('indirect_add') ?>
+        <strong><?php echo $from_place; ?></strong> <?php echo $this->lang->line('from_view') ?>  <strong><?php echo $to_place; ?></strong>&nbsp;<?php echo $this->lang->line('direct_add') ?>
         <?php } ?>
 
     </h3>
@@ -22,7 +22,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label"><?php echo $this->lang->line('country'); ?></label>
                 <div class="col-xs-10 col-md-6">
-                    <select name="type" class="selectpicker">
+                    <select name="country" class="selectpicker">
                         <?php foreach ($countries as $key => $c): ?>
                             <option value="<?php echo $c; ?>"><?php echo $c; ?></option>
                         <?php endforeach; ?>
