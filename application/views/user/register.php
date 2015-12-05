@@ -1,49 +1,52 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <div class="row">
-
-    <div class="col-xs-12 col-sm-8 col-md-6 col-md-offset-3 well">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-md-offset-3">
         <!-- route info pull form -->
-        <form class="form-horizontal" action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
-            <div id="userInfo" class="form-group">
-                <label class="col-xs-3">ইউজার নাম</label>
-                <div class="col-xs-7">
-                    <input id="chkUsername" type="text" class="form-control" placeholder="ইউজার নাম" name="username" required title="আপনার ইউজার নাম দিন">
-                </div>
-            </div>
-            <?php echo form_error('username', '<div class="alert alert-danger">', '</div>'); ?>
 
-            <div id="emailInfo" class="form-group">
-                <label class="col-xs-3">ইমেইল</label>
-                <div class="col-xs-7">
-                    <input id="chkEmail" type="email" class="form-control" placeholder="ইমেইল" name="email" required title="আপনার ইমেইল দিন">
-                </div>
-            </div>
-            <?php echo form_error('email', '<div class="alert alert-danger">', '</div>'); ?>
+        <div class="login-box">
+            <div class="login-box-body">
+                <p class="login-box-msg">
+                    <?php
+                    if ($this->session->from_login) {
+                        $f_login = '<strong>' . $this->session->from_login . '</strong> ' . $this->lang->line('from_view') . ' <strong> ' . $this->session->to_login . ' </strong>';
+                    } else {
+                        $f_login = '';
+                    }
+                    echo $f_login . $this->lang->line('login_first');
+                    ?>
 
-            <div class="form-group">
-                <label class="col-xs-3">মোবাইল</label>
-                <div class="col-xs-7">
-                    <input type="text" class="form-control" name="mobile" placeholder="মোবাইল">
-                </div>
-            </div>
+                </p>
+                <form  action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
+                    <div id="userInfo" class="form-group has-feedback">
+                        <input id="chkUsername" type="text" class="form-control" placeholder="ইউজার নাম" name="username" required title="আপনার ইউজার নাম দিন">
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <?php echo form_error('username', '<div class="alert alert-danger">', '</div>'); ?>
 
-            <div class="form-group">
-                <label class="col-xs-3">পাসওয়ার্ড</label>
-                <div class="col-xs-7">
-                    <input type="password" class="form-control" placeholder="পাসওয়ার্ড" name="password" required title="পাসওয়ার্ড দিন">
-                </div>
-            </div>
-            <?php echo form_error('password', '<div class="alert alert-danger">', '</div>'); ?>
+                    <div id="emailInfo" class="form-group has-feedback">
+                        <input id="chkEmail" type="email" class="form-control" placeholder="ইমেইল" name="email" required title="আপনার ইমেইল দিন">
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <?php echo form_error('email', '<div class="alert alert-danger">', '</div>'); ?>
 
-            <div class="form-group">
-                <label class="col-xs-3">আপনার ছবি</label>
-                <div class="col-xs-7">
-                    <input type="file" class="btn btn-warning" name="avatar">
-                </div>
+                    <div class="form-group has-feedback">
+                        <input type="text" class="form-control" name="mobile" placeholder="মোবাইল">
+                        <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <input type="password" class="form-control" placeholder="পাসওয়ার্ড" name="password" required title="পাসওয়ার্ড দিন">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <?php echo form_error('password', '<div class="alert alert-danger">', '</div>'); ?>
+                    <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="নিবন্ধন করুন"/>
+                </form>
+                <a href="<?php echo site_url('users/login'); ?>" class="text-center"><?php echo $this->lang->line('login_link'); ?></a>
+
             </div>
-            <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="নিবন্ধন করুন"/>
-        </form>
+            <!-- /.login-box-body -->
+        </div>
     </div>
-
+</div>
 </div><!--/row-->

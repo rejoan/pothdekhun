@@ -33,4 +33,5 @@ $lang['email_text'] = 'Type valid Email Please';
 $lang['email_exist'] = 'Already Used. Please Try Another';
 $lang['forgot_pass'] = 'I forgot my password';
 $lang['register_link'] = 'No Account! Please Register';
+$lang['login_link'] = 'Have an Account? Login';
 $lang['login_first'] = 'Login First to Add Route Info';

@@ -83,7 +83,7 @@ function is_exist(inputId, col, table, infoId) {
 function selectOption(fieldId, Id, formatedName) {
     var field = $('#' + fieldId).val();
 
-    if (field == '0' || field == '') {
+    if (field === '0' || field === '') {
         $('#' + Id)
                 .text('Please select a option in ' + formatedName).fadeIn();
         $('#' + Id)
