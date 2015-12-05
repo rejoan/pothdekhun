@@ -30,7 +30,7 @@ class Users extends CI_Controller {
             'title' => $this->lang->line('login'),
             'action' => site_url('users/login')
         );
-        if(!$this->input->get('add')){
+        if (!$this->input->get('add')) {
             $this->session->unset_userdata(array('from_login', 'to_login'));
         }
 
@@ -39,28 +39,20 @@ class Users extends CI_Controller {
             $password = trim($this->input->post('password', TRUE));
             $cond = array(
                 'email' => $email,
-                'password' => md5($password),
-                'type' => 2
+                'password' => md5($password)
             );
 
-            $query = $this->db->where($cond)->get('users');
-            $checker = $query->result_array();
-            if (count($checker) > 0) {
+            $query = $this->db->where($cond)->get('users')->num_rows();
+
+            if ($query > 0) {
+                $user = $query->row_array();
                 $user_data = array(
-                    'user_id' => $checker[0]['id'],
-                    'username' => $checker[0]['username'],
-                    'email' => $checker[0]['email'],
-                    'avatar' => $checker[0]['avatar']
+                    'user_id' => $user['id'],
+                    'username' => $user['username'],
+                    'email' => $user['email'],
+                    'avatar' => $user['avatar']
                 );
                 $this->session->set_userdata($user_data);
-
-
-                $online = array(
-                    'is_online' => 1
-                );
-                $this->db->set('last_logged', 'NOW()', FALSE);
-                $this->Prime_model->updater('id', $checker[0]['id'], 'agents', $online);
-
                 redirect('users/profile');
             }
         }

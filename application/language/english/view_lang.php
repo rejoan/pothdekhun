@@ -35,3 +35,5 @@ $lang['forgot_pass'] = 'I forgot my password';
 $lang['register_link'] = 'No Account! Please Register';
 $lang['login_link'] = 'Have an Account? Login';
 $lang['login_first'] = 'Login First to Add Route Info';
+$lang['facebook_login'] = 'Login Using Facebook';
+$lang['google_login'] = 'Login Using Google+';
