@@ -21,15 +21,15 @@ footer {
     color: #f00;
 }
 .box.box-poth{
-    border-top-color:#660000;
+    border-top-color:#0099ff;
 }
 .navbar-inverse{
-    background-color:#660000;
-    border-color:#330000;
+    background-color:#0099cc;
+    border-color:#0066cc;
 }
 .navbar-inverse .navbar-brand,.navbar-inverse .navbar-nav>li>a{
     color: #fff;
 }
 .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover{
-    color: #e08e0b;
+    color: #000;
 }
