@@ -30,6 +30,9 @@ class Users extends CI_Controller {
             'title' => $this->lang->line('login'),
             'action' => site_url('users/login')
         );
+        if(!$this->input->get('add')){
+            $this->session->unset_userdata(array('from_login', 'to_login'));
+        }
 
         if ($this->input->post('submit')) {
             $email = trim($this->input->post('email', TRUE));

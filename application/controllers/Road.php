@@ -8,12 +8,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Road extends CI_Controller {
 
     private $language;
+    private $user_id;
 
     public function __construct() {
         parent::__construct();
         $this->load->library('Nut_bolts');
         $this->nut_bolts->lang_manager();
         $this->language = $this->session->language;
+        $this->user_id = (int) $this->session->user_id;
         $this->lang->load(array('controller_lang', 'view_lang'), $this->language);
         $this->load->model('Prime_model');
     }
@@ -33,14 +35,22 @@ class Road extends CI_Controller {
     }
 
     public function add_route() {
+
         $this->load->library('form_validation');
+        $from_place = trim($this->input->post('from_push', TRUE));
+        $to_place = trim($this->input->post('to_push', TRUE));
         $data = array(
             'title' => $this->lang->line('add_route'),
             'action' => site_url('road/add_route'),
-            'from_place' => trim($this->input->post('from_push', TRUE)),
-            'to_place' => trim($this->input->post('to_push', TRUE)),
+            'from_place' => $from_place,
+            'to_place' => $to_place,
             'countries' => $this->nut_bolts->get_countries()
         );
+        if (!$this->user_id) {
+            $this->session->unset_userdata(array('from_login', 'to_login'));
+            $this->session->set_userdata(array('from_login' => $from_place, 'to_login' => $to_place));
+            redirect('users/login?add=yes');
+        }
         if ($this->input->post('submit')) {
             $from = trim($this->input->post('from_place', TRUE));
             if (empty($from)) {
@@ -79,9 +89,6 @@ class Road extends CI_Controller {
             } else {
                 $evidence_name = '';
             }
-
-            $added_by = (int) $this->session->user_id;
-
 //route data process
 
             $this->form_validation->set_rules('vehicle_name', $this->lang->line('vehicle_name'), 'required');
@@ -103,7 +110,7 @@ class Road extends CI_Controller {
                 'departure_time' => $departure_time,
                 'rent' => $main_rent,
                 'evidence' => $evidence_name,
-                'added_by' => $added_by
+                'added_by' => $this->user_id
             );
             $this->db->set('added', 'NOW()', FALSE);
             $this->db->insert('routes', $route);
