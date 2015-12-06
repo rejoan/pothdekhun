@@ -9,23 +9,17 @@ class Profile extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->load->library('Nut_bolts');
+        $this->nut_bolts->lang_manager();
+        //$this->nut_bolts->is_logged();
+        $this->language = $this->session->language;
+        $this->lang->load(array('controller', 'view'), $this->language);
         $this->load->model('Prime_model');
     }
 
     public function index() {
         $data['title'] = 'Profile';
-        $this->load->view('header', $data);
-        $this->load->view('menu');
-        $this->load->view('user/profile');
-        $this->load->view('footer');
-    }
-
-    protected function is_logged() {
-        if ($this->session->user_id) {
-            return true;
-        } else {
-            redirect('users/login');
-        }
+        $this->nut_bolts->view_loader('user', 'profile', $data);
     }
 
 }

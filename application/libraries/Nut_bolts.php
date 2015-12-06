@@ -343,13 +343,9 @@ class Nut_bolts {
      * @param string $redirect_url
      * @return boolean
      */
-    public function is_logged($redirect_url = 'road/index', $agent = TRUE) {
-        if ($agent) {
-            $checker = $this->CI->session->level;
-        } else {
-            $checker = $this->CI->session->user_id;
-        }
-        if ($checker) {
+    public function is_logged($redirect_url = 'users/login', $user_type = 1) {
+        $type = (int) $this->CI->session->type;
+        if ($this->CI->session->user_id && $user_type === $type) {
             return TRUE;
         } else {
             redirect($redirect_url);

@@ -60,7 +60,6 @@ class Users extends CI_Controller {
     }
 
     public function register() {
-
         $data = array(
             'title' => $this->lang->line('register'),
             'action' => site_url('users/register')
@@ -71,45 +70,27 @@ class Users extends CI_Controller {
             $this->form_validation->set_rules('email', $this->lang->line('email'), 'required|is_unique[users.email]|valid_email');
             $this->form_validation->set_rules('username', $this->lang->line('username'), 'is_unique[users.username]');
             $this->form_validation->set_message('is_unique', $this->lang->line('is_unique_msg'));
-
-            $config['upload_path'] = './avatars';
-            $config['allowed_types'] = 'gif|jpg|png|jpeg';
-
-            $this->load->library('upload', $config);
-
-
-            if (!$this->upload->do_upload('avatar')) {
-//echo $this->upload->display_errors();return;
-                $avatar_name = '';
-            } else {
-                $avatar = $this->upload->data();
-
-                $avatar_name = $avatar['file_name'];
-            }
-
+            
             $username = trim($this->input->post('username', TRUE));
             $email = trim($this->input->post('email', TRUE));
             $mobile = trim($this->input->post('mobile', TRUE));
             $password = trim($this->input->post('password', TRUE));
-
             $user = array(
                 'username' => $username,
                 'email' => $email,
                 'mobile' => $mobile,
-                'password' => md5($password),
-                'avatar' => $avatar_name
+                'password' => md5($password)
             );
 
             if ($this->form_validation->run() == FALSE) {
                 $this->nut_bolts->view_loader('user', 'register', $data);
                 return;
             } else {
-                $this->Prime_model->insert_data('users', $user);
+                $this->db->insert('users', $user);
                 $this->session->set_flashdata('message', $this->lang->line('register_user'));
                 redirect('profile');
             }
         }
-
         $this->nut_bolts->view_loader('user', 'register', $data);
     }
 

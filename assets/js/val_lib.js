@@ -59,9 +59,9 @@ function is_exist(inputId, col, table, infoId) {
                         $('<div class="alert alert-danger exist"><strong>' + field + '</strong> ' + email_exist + '</div>').insertAfter('#' + infoId).hide().slideDown();
                     }
                     $('#' + infoId + ' > div >  span').remove();
-                    $('#' + infoId).removeClass('has-success has-feedback');
+                    $('#' + infoId).removeClass('has-success');
                 } else {
-                    $('#' + infoId).addClass('has-success has-feedback');
+                    $('#' + infoId).addClass('has-success');
                     if ($('#' + infoId + ' > div >  span').length < 1) {
                         $('#' + infoId + ' > div').append('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
                     }

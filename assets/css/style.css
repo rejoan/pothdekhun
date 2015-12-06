@@ -31,5 +31,6 @@ footer {
     color: #fff;
 }
 .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover{
-    color: #000;
+    color: #fff;
+    background: #000;
 }
