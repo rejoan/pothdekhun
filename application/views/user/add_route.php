@@ -86,7 +86,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label"><?php echo $this->lang->line('main_rent'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                         <div class="col-xs-10 col-md-6">
-                            <input id="main_rent" maxlength="10" type="text" class="form-control" name="main_rent" placeholder="<?php echo $this->lang->line('rent_placeholder'); ?>" required title="কমপক্ষে আনুমানিক ভাড়া দিন">
+                            <input id="main_rent" maxlength="10" type="text" class="form-control rent" name="main_rent" placeholder="<?php echo $this->lang->line('rent_placeholder'); ?>" required title="কমপক্ষে আনুমানিক ভাড়া দিন">
                         </div>
                     </div>
                     <?php echo form_error('main_rent', '<div class="alert alert-danger">', '</div>'); ?>

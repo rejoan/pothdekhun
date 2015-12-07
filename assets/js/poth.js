@@ -11,7 +11,7 @@ $(document).ready(function () {
         var comment = $('#comment').val();
         var rents = $('#rents').val();
         $('#stoppage_section').show();
-        $('<div class="form-group"><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" placeholder="' + place_name + '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control" name="rent[]" placeholder="' + rents + '"></div><a class="btn btn-danger" href="javascript:void(0)" class="cancel">' + cancel + '</a></div>').appendTo($('#stoppage_section')).hide().slideDown();
+        $('<div class="form-group"><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" placeholder="' + place_name + '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" placeholder="' + rents + '"></div><a class="btn btn-danger" href="javascript:void(0)" class="cancel">' + cancel + '</a></div>').appendTo($('#stoppage_section')).hide().slideDown();
 
     });
 
@@ -59,7 +59,7 @@ $(document).ready(function () {
     });
 
 
-    $('#main_rent').blur(function () {
+    $('#add_route').on('blur','.rent',function () {
         var replaced = replaceNumbers($(this).val());
         $(this).val(replaced);
     });
