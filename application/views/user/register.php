@@ -8,14 +8,8 @@
             <div class="login-box-body">
                 <p class="login-box-msg">
                     <?php
-                    if ($this->session->from_login) {
-                        $f_login = '<strong>' . $this->session->from_login . '</strong> ' . $this->lang->line('from_view') . ' <strong> ' . $this->session->to_login . ' </strong>';
-                    } else {
-                        $f_login = '';
-                    }
-                    echo $f_login . $this->lang->line('login_first');
+                    echo $this->lang->line('register');
                     ?>
-
                 </p>
                 <form  action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
                     <div id="userInfo" class="form-group has-feedback">

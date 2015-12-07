@@ -7,11 +7,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Users extends CI_Controller {
 
+    private $ln;
+
     public function __construct() {
         parent::__construct();
         $this->load->library('Nut_bolts');
         $this->nut_bolts->lang_manager();
         $this->language = $this->session->language;
+        $this->ln = $this->session->ln;
         $this->lang->load(array('controller', 'view'), $this->language);
         $this->load->model('Prime_model');
     }
@@ -42,18 +45,20 @@ class Users extends CI_Controller {
                 'password' => md5($password)
             );
 
-            $query = $this->db->where($cond)->get('users')->num_rows();
+            $query = $this->db->where($cond)->get('users');
+            //echo $this->db->last_query();return;
 
-            if ($query > 0) {
+            if ($query->num_rows() > 0) {
                 $user = $query->row_array();
                 $user_data = array(
                     'user_id' => $user['id'],
                     'username' => $user['username'],
                     'email' => $user['email'],
-                    'avatar' => $user['avatar']
+                    'avatar' => $user['avatar'],
+                    'type' => $user['type']
                 );
                 $this->session->set_userdata($user_data);
-                redirect('users/profile');
+                redirect('profile?ln=' . $this->ln);
             }
         }
         $this->nut_bolts->view_loader('user', 'login', $data);
@@ -70,7 +75,7 @@ class Users extends CI_Controller {
             $this->form_validation->set_rules('email', $this->lang->line('email'), 'required|is_unique[users.email]|valid_email');
             $this->form_validation->set_rules('username', $this->lang->line('username'), 'is_unique[users.username]');
             $this->form_validation->set_message('is_unique', $this->lang->line('is_unique_msg'));
-            
+
             $username = trim($this->input->post('username', TRUE));
             $email = trim($this->input->post('email', TRUE));
             $mobile = trim($this->input->post('mobile', TRUE));
@@ -87,11 +92,17 @@ class Users extends CI_Controller {
                 return;
             } else {
                 $this->db->insert('users', $user);
+//send email for verification
                 $this->session->set_flashdata('message', $this->lang->line('register_user'));
-                redirect('profile');
+                redirect('profile?ln=' . $this->ln);
             }
         }
         $this->nut_bolts->view_loader('user', 'register', $data);
+    }
+
+    public function logout() {
+        $this->session->sess_destroy();
+        redirect('road?ln=' . $this->ln);
     }
 
 }

@@ -138,7 +138,7 @@ class Road extends CI_Controller {
             if ($stoppages) {
                 $this->db->insert_batch('stoppages', $stoppages);
             }
-            redirect('road');
+            redirect('road?ln='.$this->ln);
         }
         $this->nut_bolts->view_loader('user', 'add_route', $data);
     }

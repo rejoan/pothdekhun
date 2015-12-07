@@ -17,16 +17,16 @@
 
                 <form action="<?php echo $action; ?>" method="post">
                     <div class="form-group has-feedback">
-                        <input type="email" class="form-control" placeholder="ইমেইল" required title="আপনার ইমেইল ঠিকানা দিন">
+                        <input type="email" class="form-control" placeholder="<?php echo $this->lang->line('email');?>" name="email" required title="আপনার ইমেইল ঠিকানা দিন">
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
 
                     <div class="form-group has-feedback">
-                        <input type="password" class="form-control" placeholder="পাসওয়ার্ড" required title="পাসওয়ার্ড দিন">
+                        <input type="password" class="form-control" placeholder="<?php echo $this->lang->line('password');?>" name="password" required title="পাসওয়ার্ড দিন">
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <div class="form-group">
-                        <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="প্রবেশ"/>
+                        <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $this->lang->line('m_login');?>"/>
                     </div>
 
                 </form>

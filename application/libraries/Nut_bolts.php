@@ -343,7 +343,7 @@ class Nut_bolts {
      * @param string $redirect_url
      * @return boolean
      */
-    public function is_logged($redirect_url = 'users/login', $user_type = 1) {
+    public function is_logged($redirect_url = 'users/login', $user_type = 2) {
         $type = (int) $this->CI->session->type;
         if ($this->CI->session->user_id && $user_type === $type) {
             return TRUE;

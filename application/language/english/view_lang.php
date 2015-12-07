@@ -39,3 +39,5 @@ $lang['login_first'] = 'Login First to Add Route Info';
 $lang['facebook_login'] = 'Login Using Facebook';
 $lang['google_login'] = 'Login Using Google+';
 $lang['mobile'] = 'Mobile';
+$lang['logout'] = 'Sign Out';
+$lang['profile'] = 'Profile';

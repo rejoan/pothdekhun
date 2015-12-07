@@ -20,6 +20,16 @@ $ln = $this->session->language;
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <?php if ($this->session->user_id): ?>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $this->session->username;?><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo site_url('profile?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('profile'); ?></a></li>
+                            <li><a href="<?php echo site_url('users/logout'); ?>"><?php echo $this->lang->line('logout'); ?></a></li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+
                 <li><a href="<?php echo $ln == 'english' ? current_url() . '?ln=bn' : current_url() . '?ln=en'; ?>"><?php echo $ln == 'english' ? 'Bengali' : 'English'; ?></a></li>
             </ul>
         </div><!-- /.nav-collapse -->
