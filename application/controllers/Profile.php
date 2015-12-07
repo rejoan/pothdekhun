@@ -11,7 +11,7 @@ class Profile extends CI_Controller {
         parent::__construct();
         $this->load->library('Nut_bolts');
         $this->nut_bolts->lang_manager();
-        //$this->nut_bolts->is_logged();
+        $this->nut_bolts->is_logged();
         $this->language = $this->session->language;
         $this->lang->load(array('controller', 'view'), $this->language);
         $this->load->model('Prime_model');

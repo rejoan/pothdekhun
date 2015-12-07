@@ -11,12 +11,15 @@ $ln = $this->session->language;
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo site_url('road'); ?>"><?php echo $this->lang->line('home'); ?></a>
+            <a class="navbar-brand" href="<?php echo site_url('road?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('home'); ?></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="<?php echo $this->nut_bolts->is_selected('users/login');?>"><a href="<?php echo site_url('users/login'); ?>"><?php echo $this->lang->line('m_login'); ?></a></li>
-                <li class="<?php echo $this->nut_bolts->is_selected('users/register');?>"><a href="<?php echo site_url('users/register'); ?>"><?php echo $this->lang->line('m_register'); ?></a></li>
+                <li class="<?php echo $this->nut_bolts->is_selected('users/login'); ?>"><a href="<?php echo site_url('users/login?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('m_login'); ?></a></li>
+                <li class="<?php echo $this->nut_bolts->is_selected('users/register'); ?>"><a href="<?php echo site_url('users/register?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('m_register'); ?></a></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
                 <li><a href="<?php echo $ln == 'english' ? current_url() . '?ln=bn' : current_url() . '?ln=en'; ?>"><?php echo $ln == 'english' ? 'Bengali' : 'English'; ?></a></li>
             </ul>
         </div><!-- /.nav-collapse -->

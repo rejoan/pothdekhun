@@ -65,9 +65,9 @@ class Nut_bolts {
         $lang = $this->CI->config->item('language');
         if ($this->CI->input->get('ln') == 'en') {
             $this->CI->session->unset_userdata(array('language'));
-            $this->CI->session->set_userdata(array('language' => 'english'));
+            $this->CI->session->set_userdata(array('language' => 'english','ln' => 'en'));
         } else {
-            $this->CI->session->set_userdata(array('language' => $lang));
+            $this->CI->session->set_userdata(array('language' => $lang,'ln' => 'bn'));
         }
     }
 
