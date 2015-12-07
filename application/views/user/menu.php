@@ -15,17 +15,21 @@ $ln = $this->session->language;
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="<?php echo $this->nut_bolts->is_selected('users/login'); ?>"><a href="<?php echo site_url('users/login?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('m_login'); ?></a></li>
-                <li class="<?php echo $this->nut_bolts->is_selected('users/register'); ?>"><a href="<?php echo site_url('users/register?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('m_register'); ?></a></li>
-
+                <?php if ($this->session->user_id) { ?>
+                    <li class="<?php echo $this->nut_bolts->is_selected('profile'); ?>"><a href="<?php echo site_url('profile?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('profile'); ?></a></li>
+                    <li class="<?php echo $this->nut_bolts->is_selected('route'); ?>"><a href="<?php echo site_url('road/add_route?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('add_transport_button'); ?></a></li>
+                <?php } else { ?>
+                    <li class="<?php echo $this->nut_bolts->is_selected('users/login'); ?>"><a href="<?php echo site_url('users/login?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('m_login'); ?></a></li>
+                    <li class="<?php echo $this->nut_bolts->is_selected('users/register'); ?>"><a href="<?php echo site_url('users/register?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('m_register'); ?></a></li>
+                <?php } ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if ($this->session->user_id): ?>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $this->session->username;?><span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $this->session->username; ?><span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo site_url('profile?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('profile'); ?></a></li>
-                            <li><a href="<?php echo site_url('users/logout'); ?>"><?php echo $this->lang->line('logout'); ?></a></li>
+                            <li><a href="<?php echo site_url('profile?ln=') . $this->session->ln; ?>"><i class="fa fa-eye"></i> <?php echo $this->lang->line('profile'); ?></a></li>
+                            <li><a href="<?php echo site_url('users/logout'); ?>"><i class="fa fa-power-off"></i> <?php echo $this->lang->line('logout'); ?></a></li>
                         </ul>
                     </li>
                 <?php endif; ?>

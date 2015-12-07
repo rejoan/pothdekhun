@@ -36,6 +36,9 @@ class Users extends CI_Controller {
         if (!$this->input->get('add')) {
             $this->session->unset_userdata(array('from_login', 'to_login'));
         }
+        if ($this->session->user_id) {
+            redirect('profile?ln=' . $this->ln);
+        }
 
         if ($this->input->post('submit')) {
             $email = trim($this->input->post('email', TRUE));
