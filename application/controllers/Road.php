@@ -23,7 +23,7 @@ class Road extends CI_Controller {
     public function index() {
         $data = array(
             'title' => $this->lang->line('index'),
-            'action_pull' => site_url('road/get_routes'),
+            'action_pull' => site_url('transport/index'),
             'action_groute' => site_url('road/add_route')
         );
 

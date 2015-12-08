@@ -7,9 +7,9 @@
             </div>
             <div class="box-body">
                 <!-- route info pull form -->
-                <form action="<?php echo $action_pull; ?>" method="post">
+                <form action="<?php echo $action_pull; ?>" method="get">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="fromName" placeholder="<?php echo $this->lang->line('from_push'); ?>" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন">
+                        <input type="text" class="form-control" id="fromName" placeholder="<?php echo $this->lang->line('from_push'); ?>" name="f" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন">
                     </div>
                     <div class="form-group">
                         <label>
@@ -17,9 +17,9 @@
                         </label>
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control" id="toName" placeholder="<?php echo $this->lang->line('to_push'); ?>" required title="যেখানে যাবেন সেই জায়গার নাম দিন">
+                        <input type="text" class="form-control" id="toName" placeholder="<?php echo $this->lang->line('to_push'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন">
                     </div>
-                    <input type="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $this->lang->line('see_transport_button'); ?>"/>
+                    <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $this->lang->line('see_transport_button'); ?>"/>
                 </form>
             </div>
         </div>
