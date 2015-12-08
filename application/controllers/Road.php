@@ -8,6 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Road extends CI_Controller {
 
     private $language;
+    private $ln;
     private $user_id;
 
     public function __construct() {
@@ -15,6 +16,7 @@ class Road extends CI_Controller {
         $this->load->library('Nut_bolts');
         $this->nut_bolts->lang_manager();
         $this->language = $this->session->language;
+        $this->ln = $this->session->ln;
         $this->user_id = (int) $this->session->user_id;
         $this->lang->load(array('controller_lang', 'view_lang'), $this->language);
         $this->load->model('Prime_model');
@@ -24,10 +26,10 @@ class Road extends CI_Controller {
         $data = array(
             'title' => $this->lang->line('index'),
             'action_pull' => site_url('transport/index'),
-            'action_groute' => site_url('road/add_route')
+            'action_groute' => site_url('road/add_route?ln=' . $this->ln)
         );
 
-        $this->nut_bolts->view_loader('user', 'index', $data, TRUE, TRUE, 'latest_routes');
+        $this->nut_bolts->view_loader('user', 'index', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
     public function get_routes() {
@@ -38,7 +40,7 @@ class Road extends CI_Controller {
         $this->load->library('form_validation');
         $from_place = trim($this->input->post('from_push', TRUE));
         $to_place = trim($this->input->post('to_push', TRUE));
-        $user_ip = $this->input->ip_address();
+//        $user_ip = $this->input->ip_address();
 //        $this->load->helper('geo');
 //        //$customer_data = get_geolocation($user_ip);
 //        $customer_data = get_geolocation('114.130.13.242');
@@ -91,7 +93,7 @@ class Road extends CI_Controller {
             if ($_FILES && $_FILES['evidence']['name']) {
                 if (!$this->upload->do_upload('evidence')) {
                     $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nut_bolts->view_loader('user', 'add_route', $data, TRUE, TRUE, 'latest_routes');
+                    $this->nut_bolts->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
                     return;
                 } else {
                     $evidence = $this->upload->data();
@@ -107,7 +109,7 @@ class Road extends CI_Controller {
             $this->form_validation->set_rules('main_rent', $this->lang->line('main_rent'), 'required');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nut_bolts->view_loader('user', 'add_route', $data, TRUE, TRUE, 'latest_routes');
+                $this->nut_bolts->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
                 return;
             }
 
@@ -151,7 +153,7 @@ class Road extends CI_Controller {
             }
             redirect('road?ln=' . $this->ln);
         }
-        $this->nut_bolts->view_loader('user', 'add_route', $data, TRUE, TRUE, 'latest_routes');
+        $this->nut_bolts->view_loader('user', 'add_route', $data,TRUE, 'latest_routes', 'rightbar');
     }
 
 }

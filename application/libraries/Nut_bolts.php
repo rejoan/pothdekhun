@@ -19,8 +19,10 @@ class Nut_bolts {
      * @param string $view_name view file name
      * @param mixed $data pass any data
      * @param bool $menu whether menu to load
+     * @param bool $leftbar whether right sidebar to load
+     * @param bool $rightbar whether left sidebar to load
      */
-    public function view_loader($dirn, $view_name, $data, $menu = TRUE, $rightbar = TRUE, $leftbar = NULL) {
+    public function view_loader($dirn, $view_name, $data, $menu = TRUE, $leftbar = NULL, $rightbar = NULL) {
         $this->CI->load->view($dirn . '/header', $data);
         if ($menu) {
             $this->CI->load->view($dirn . '/menu');
@@ -29,8 +31,8 @@ class Nut_bolts {
             $this->CI->load->view($dirn . '/' . $leftbar);
         }
         $this->CI->load->view($dirn . '/' . $view_name);
-        if ($rightbar) {
-            $this->CI->load->view($dirn . '/rightbar');
+        if (!empty($rightbar)) {
+            $this->CI->load->view($dirn . '/' . $rightbar);
         }
         $this->CI->load->view($dirn . '/footer');
     }

@@ -44,6 +44,15 @@
                         </div>
                     </div>
                 <?php endif; ?>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"><?php echo $this->lang->line('departure_place'); ?><span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
+                    <div class="col-xs-10 col-md-6">
+                        <input maxlength="200" type="text" class="form-control"  name="departure_place" placeholder="<?php echo $this->lang->line('departure_placeholder'); ?>">
+                    </div>
+                </div>
+                <?php echo form_error('departure_place', '<div class="alert alert-danger">', '</div>'); ?>
+
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('transport_type'); ?></label>
                     <div class="col-xs-10 col-md-6">
@@ -63,14 +72,6 @@
                     </div>
                 </div>
                 <?php echo form_error('vehicle_name', '<div class="alert alert-danger">', '</div>'); ?>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label"><?php echo $this->lang->line('departure_place'); ?><span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
-                    <div class="col-xs-10 col-md-6">
-                        <input maxlength="200" type="text" class="form-control"  name="departure_place" placeholder="<?php echo $this->lang->line('departure_placeholder'); ?>">
-                    </div>
-                </div>
-                <?php echo form_error('departure_place', '<div class="alert alert-danger">', '</div>'); ?>
 
                 <div id="departure_perticular" class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('departure_time'); ?></label>

@@ -28,7 +28,7 @@ class Profile extends CI_Controller {
             'title' => $this->lang->line('profile'),
             'profile' => $query->row_array()
         );
-        $this->nut_bolts->view_loader('user', 'profile', $data);
+        $this->nut_bolts->view_loader('user', 'profile', $data, TRUE, NULL, 'rightbar');
     }
 
 }

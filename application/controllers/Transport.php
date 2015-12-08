@@ -19,11 +19,11 @@ class Transport extends CI_Controller {
     }
 
     public function index() {
-         $data = array(
+        $data = array(
             'title' => $this->lang->line('transport')
         );
 
-        $this->nut_bolts->view_loader('user', 'transports', $data);
+        $this->nut_bolts->view_loader('user', 'transports', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
 }
