@@ -34,3 +34,6 @@ footer {
     color: #fff;
     background: #000;
 }
+#profile .box-comments .comment-text{
+    margin-left: 0;
+}

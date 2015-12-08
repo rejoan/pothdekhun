@@ -7,145 +7,116 @@
         echo '<div class="alert alert-info">' . $message . '</div>';
     }
     ?>
-    <div class="col-xs-12 col-md-3">
+    <div  class="col-xs-12 col-md-3">
         <div class="box box-primary box-poth">
+            <div class="box-header with-border">
+                <h3 class="box-title"><?php echo $profile['username']; ?></h3>
+            </div>
             <div class="box-body box-profile">
-                <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
+                <?php
+                if (empty($profile['avatar'])) {
+                    $src = base_url('assets/images') . '/no_image.png';
+                } else {
+                    $src = base_url('avatars') . '/' . $profile['avatar'];
+                }
+                ?>
+                <img class="profile-user-img img-responsive img-circle" src="<?php echo $src; ?>" alt="User profile picture">
 
-                <h3 class="profile-username text-center">Nina Mcintire</h3>
+                <h3 class="profile-username text-center"><?php echo $profile['first_name'] . ' ' . $profile['last_name']; ?></h3>
 
-                <p class="text-muted text-center">Software Engineer</p>
+                <p class="text-muted text-center"><?php echo $profile['occupation']; ?></p>
 
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
-                        <b>Followers</b> <a class="pull-right">1,322</a>
+                        <b><?php echo $this->lang->line('route_added') ?></b> <a class="pull-right">1,322</a>
                     </li>
-                    
+                    <li class="list-group-item">
+                        <b><?php echo $this->lang->line('route_edited') ?></b> <a class="pull-right">1,322</a>
+                    </li>
                 </ul>
 
             </div>
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
-
-        <!-- About Me Box -->
-        <div class="box box-primary box-poth">
-            <div class="box-header with-border">
-                <h3 class="box-title">About Me</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
-
-                <p class="text-muted">
-                    B.S. in Computer Science from the University of Tennessee at Knoxville
-                </p>
-
-                <hr>
-
-                <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-
-                <p class="text-muted">Malibu, California</p>
-
-                <hr>
-
-                <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
-
-                <p>
-                    <span class="label label-danger">UI Design</span>
-                    <span class="label label-success">Coding</span>
-                    <span class="label label-info">Javascript</span>
-                    <span class="label label-warning">PHP</span>
-                    <span class="label label-primary">Node.js</span>
-                </p>
-
-                <hr>
-
-                <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-            </div>
-            <!-- /.box-body -->
-        </div>
     </div>
     <div class="col-xs-12 col-md-5">
         <div class="box box-primary box-poth">
             <div class="box-header with-border">
-                <h3 class="box-title">About Me</h3>
+                <h3 class="box-title"><?php echo $this->lang->line('about_me') ?></h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                <strong><i class="fa fa-book margin-r-5"></i> <?php echo $this->lang->line('occupation') ?></strong>
 
                 <p class="text-muted">
-                    B.S. in Computer Science from the University of Tennessee at Knoxville
+                    <?php echo $profile['occupation']; ?>
                 </p>
 
                 <hr>
 
-                <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-
-                <p class="text-muted">Malibu, California</p>
-
-                <hr>
-
-                <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
-
-                <p>
-                    <span class="label label-danger">UI Design</span>
-                    <span class="label label-success">Coding</span>
-                    <span class="label label-info">Javascript</span>
-                    <span class="label label-warning">PHP</span>
-                    <span class="label label-primary">Node.js</span>
-                </p>
+                <strong><i class="fa fa-map-marker margin-r-5"></i> <?php echo $this->lang->line('location') ?></strong>
+                <?php
+                $district = $thana = $country = '';
+                if (!empty($profile['district'])) {
+                    $district = ', ' . $profile['district'];
+                }
+                if (!empty($profile['country'])) {
+                    $country = ', ' . $profile['country'];
+                }
+                ?>
+                <p class="text-muted"><?php echo $profile['thana'] . $district . $country; ?></p>
 
                 <hr>
 
-                <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+
+                <strong><i class="fa fa-file-text-o margin-r-5"></i> <?php echo $this->lang->line('about_detail') ?></strong>
 
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
             </div>
             <!-- /.box-body -->
         </div>
     </div>
-    <div class="col-xs-12 col-md-4">
+    <div id="profile" class="col-xs-12 col-md-4">
+        <!-- PRODUCT LIST -->
         <div class="box box-primary box-poth">
             <div class="box-header with-border">
-                <h3 class="box-title">About Me</h3>
+                <h3 class="box-title"><?php echo $this->lang->line('recent_routes') ?></h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
-
-                <p class="text-muted">
-                    B.S. in Computer Science from the University of Tennessee at Knoxville
-                </p>
-
-                <hr>
-
-                <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-
-                <p class="text-muted">Malibu, California</p>
-
-                <hr>
-
-                <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
-
-                <p>
-                    <span class="label label-danger">UI Design</span>
-                    <span class="label label-success">Coding</span>
-                    <span class="label label-info">Javascript</span>
-                    <span class="label label-warning">PHP</span>
-                    <span class="label label-primary">Node.js</span>
-                </p>
-
-                <hr>
-
-                <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                <div class="box-footer box-comments">
+                    <div class="box-comment">
+                        <div class="comment-text">
+                            <span class="username">
+                                Maria Gonzales
+                                <span class="text-muted pull-right">8:03 PM Today</span>
+                            </span><!-- /.username -->
+                            It is a long established fact that a reader will be distracted
+                            by the readable content of a page when looking at its layout.
+                        </div>
+                        <!-- /.comment-text -->
+                    </div>
+                    <!-- /.box-comment -->
+                    <div class="box-comment">
+                        <div class="comment-text">
+                            <span class="username">
+                                Luna Stark
+                                <span class="text-muted pull-right">8:03 PM Today</span>
+                            </span><!-- /.username -->
+                            It is a long established fact that a reader will be distracted
+                            by the readable content of a page when looking at its layout.
+                        </div>
+                        <!-- /.comment-text -->
+                    </div>
+                    <!-- /.box-comment -->
+                </div>
             </div>
             <!-- /.box-body -->
+            <div class="box-footer text-center">
+                <a href="javascript::;" class="uppercase">View All Products</a>
+            </div>
+            <!-- /.box-footer -->
         </div>
     </div>
 
