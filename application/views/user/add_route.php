@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<div class="col-xs-12 col-md-6 col-md-offset-3">
+<div class="col-xs-12 col-md-6">
     <?php
     $message = $this->session->flashdata('message');
     if ($message) {
@@ -121,6 +121,5 @@
                 <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $this->lang->line('add_button'); ?>"/>
             </form>
         </div>
-
     </div>
 </div>

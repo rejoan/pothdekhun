@@ -91,7 +91,7 @@ class Road extends CI_Controller {
             if ($_FILES && $_FILES['evidence']['name']) {
                 if (!$this->upload->do_upload('evidence')) {
                     $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nut_bolts->view_loader('user', 'add_route', $data);
+                    $this->nut_bolts->view_loader('user', 'add_route', $data, TRUE, TRUE, 'latest_routes');
                     return;
                 } else {
                     $evidence = $this->upload->data();
@@ -107,7 +107,7 @@ class Road extends CI_Controller {
             $this->form_validation->set_rules('main_rent', $this->lang->line('main_rent'), 'required');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nut_bolts->view_loader('user', 'add_route', $data);
+                $this->nut_bolts->view_loader('user', 'add_route', $data, TRUE, TRUE, 'latest_routes');
                 return;
             }
 
@@ -151,7 +151,7 @@ class Road extends CI_Controller {
             }
             redirect('road?ln=' . $this->ln);
         }
-        $this->nut_bolts->view_loader('user', 'add_route', $data);
+        $this->nut_bolts->view_loader('user', 'add_route', $data, TRUE, TRUE, 'latest_routes');
     }
 
 }
