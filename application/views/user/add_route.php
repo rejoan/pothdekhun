@@ -26,7 +26,7 @@
                         <div class="col-xs-10 col-md-6">
                             <select name="country" class="selectpicker">
                                 <?php foreach ($countries as $key => $c): ?>
-                                    <option value="<?php echo $c; ?>"><?php echo $c; ?></option>
+                                    <option value="<?php echo $c; ?>" <?php echo $user_country == $c ? 'selected="yes"':'';?>><?php echo $c; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>

@@ -35,16 +35,28 @@ class Road extends CI_Controller {
     }
 
     public function add_route() {
-
         $this->load->library('form_validation');
         $from_place = trim($this->input->post('from_push', TRUE));
         $to_place = trim($this->input->post('to_push', TRUE));
+        $user_ip = $this->input->ip_address();
+        $this->load->helper('geo');
+        //$customer_data = get_geolocation($user_ip);
+        $customer_data = get_geolocation('114.130.13.242');
+        if ($customer_data != 'down') {
+            $country = $customer_data['countryName'];
+            //$city = $customer_data['cityName'];
+        } else {
+            $country = 'api failed';
+            //$city = 'api failed';
+        }
+        //var_dump($country);return;
         $data = array(
             'title' => $this->lang->line('add_route'),
             'action' => site_url('road/add_route'),
             'from_place' => $from_place,
             'to_place' => $to_place,
-            'countries' => $this->nut_bolts->get_countries()
+            'countries' => $this->nut_bolts->get_countries(),
+            'user_country' => $country
         );
         if (!$this->user_id) {
             $this->session->unset_userdata(array('from_login', 'to_login'));
@@ -138,7 +150,7 @@ class Road extends CI_Controller {
             if ($stoppages) {
                 $this->db->insert_batch('stoppages', $stoppages);
             }
-            redirect('road?ln='.$this->ln);
+            redirect('road?ln=' . $this->ln);
         }
         $this->nut_bolts->view_loader('user', 'add_route', $data);
     }
