@@ -22,7 +22,7 @@ class Profile extends CI_Controller {
     }
 
     public function index() {
-        $query = $this->db->select('p.first_name,p.last_name,p.about,p.occupation,p.thana,p.district,p.country,u.username,u.email,u.reputation,u.avatar')->from('users u')->join('profiles p', 'u.id = p.user_id','left')->where('u.id', $this->user_id)->get();
+        $query = $this->db->select('p.first_name,p.last_name,p.about,p.occupation,p.thana,p.district,p.country,u.username,u.email,u.reputation,u.avatar')->from('users u')->join('profiles p', 'u.id = p.user_id', 'left')->where('u.id', $this->user_id)->get();
         //echo $this->db->last_query();return;
         $data = array(
             'title' => $this->lang->line('profile'),

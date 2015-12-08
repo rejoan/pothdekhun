@@ -64,7 +64,7 @@ class Users extends CI_Controller {
                 redirect('profile?ln=' . $this->ln);
             }
         }
-        $this->nut_bolts->view_loader('user', 'login', $data);
+        $this->nut_bolts->view_loader('user', 'login', $data, TRUE, FALSE);
     }
 
     public function register() {
@@ -91,7 +91,7 @@ class Users extends CI_Controller {
             );
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nut_bolts->view_loader('user', 'register', $data);
+                $this->nut_bolts->view_loader('user', 'register', $data, TRUE, FALSE);
                 return;
             } else {
                 $this->db->insert('users', $user);
@@ -100,12 +100,12 @@ class Users extends CI_Controller {
                 redirect('profile?ln=' . $this->ln);
             }
         }
-        $this->nut_bolts->view_loader('user', 'register', $data);
+        $this->nut_bolts->view_loader('user', 'register', $data, TRUE, FALSE);
     }
 
     public function logout() {
         $this->session->sess_destroy();
-        redirect('road?ln=' . $this->ln);
+        redirect('road?ln=' . $this->input->get('ln'));
     }
 
 }

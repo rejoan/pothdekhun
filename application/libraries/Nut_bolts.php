@@ -20,12 +20,15 @@ class Nut_bolts {
      * @param mixed $data pass any data
      * @param bool $menu whether menu to load
      */
-    public function view_loader($dirn, $view_name, $data, $menu = TRUE) {
+    public function view_loader($dirn, $view_name, $data, $menu = TRUE, $rightbar = TRUE) {
         $this->CI->load->view($dirn . '/header', $data);
         if ($menu) {
             $this->CI->load->view($dirn . '/menu');
         }
         $this->CI->load->view($dirn . '/' . $view_name);
+        if ($rightbar) {
+            $this->CI->load->view($dirn . '/rightbar');
+        }
         $this->CI->load->view($dirn . '/footer');
     }
 
@@ -65,9 +68,9 @@ class Nut_bolts {
         $lang = $this->CI->config->item('language');
         if ($this->CI->input->get('ln') == 'en') {
             $this->CI->session->unset_userdata(array('language'));
-            $this->CI->session->set_userdata(array('language' => 'english','ln' => 'en'));
+            $this->CI->session->set_userdata(array('language' => 'english', 'ln' => 'en'));
         } else {
-            $this->CI->session->set_userdata(array('language' => $lang,'ln' => 'bn'));
+            $this->CI->session->set_userdata(array('language' => $lang, 'ln' => 'bn'));
         }
     }
 

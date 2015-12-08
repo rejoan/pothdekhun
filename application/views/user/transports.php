@@ -1,8 +1,15 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<div class="row">
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <div class="box box-poth">
+            <div class="box-header">
+                <div class="callout callout-info">
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+                </div>
+            </div>
+            <div class="box-body">
 
+            </div>
+        </div>
+    </div>
+</div><!--/row-->

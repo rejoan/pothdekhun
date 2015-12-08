@@ -23,7 +23,7 @@ class Transport extends CI_Controller {
             'title' => $this->lang->line('transport')
         );
 
-        $this->nut_bolts->view_loader('user', 'index', $data);
+        $this->nut_bolts->view_loader('user', 'transports', $data);
     }
 
 }

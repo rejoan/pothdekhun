@@ -29,7 +29,7 @@ $ln = $this->session->language;
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $this->session->username; ?><span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo site_url('profile?ln=') . $this->session->ln; ?>"><i class="fa fa-eye"></i> <?php echo $this->lang->line('profile'); ?></a></li>
-                            <li><a href="<?php echo site_url('users/logout'); ?>"><i class="fa fa-power-off"></i> <?php echo $this->lang->line('logout'); ?></a></li>
+                            <li><a href="<?php echo site_url('users/logout?ln=') . $this->session->ln; ?>"><i class="fa fa-power-off"></i> <?php echo $this->lang->line('logout'); ?></a></li>
                         </ul>
                     </li>
                 <?php endif; ?>
