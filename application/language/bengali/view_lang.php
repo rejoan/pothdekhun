@@ -51,3 +51,4 @@ $lang['about_detail'] = 'আরও তথ্য';
 $lang['activity'] = 'কার্যক্রম';
 $lang['location'] = 'অবস্থান';
 $lang['recent_routes'] = 'সম্প্রতি যেসব রুট যোগ হয়েছে';
+$lang['rightbar'] = 'ওয়েব লিংক';

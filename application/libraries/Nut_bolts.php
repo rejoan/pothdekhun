@@ -20,10 +20,13 @@ class Nut_bolts {
      * @param mixed $data pass any data
      * @param bool $menu whether menu to load
      */
-    public function view_loader($dirn, $view_name, $data, $menu = TRUE, $rightbar = TRUE) {
+    public function view_loader($dirn, $view_name, $data, $menu = TRUE, $rightbar = TRUE, $leftbar = NULL) {
         $this->CI->load->view($dirn . '/header', $data);
         if ($menu) {
             $this->CI->load->view($dirn . '/menu');
+        }
+        if (!empty($leftbar)) {
+            $this->CI->load->view($dirn . '/' . $leftbar);
         }
         $this->CI->load->view($dirn . '/' . $view_name);
         if ($rightbar) {

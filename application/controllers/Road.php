@@ -27,7 +27,7 @@ class Road extends CI_Controller {
             'action_groute' => site_url('road/add_route')
         );
 
-        $this->nut_bolts->view_loader('user', 'index', $data);
+        $this->nut_bolts->view_loader('user', 'index', $data, TRUE, TRUE, 'latest_routes');
     }
 
     public function get_routes() {

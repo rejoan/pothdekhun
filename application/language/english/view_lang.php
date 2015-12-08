@@ -49,3 +49,4 @@ $lang['about_detail'] = 'More Info';
 $lang['activity'] = 'Activity';
 $lang['location'] = 'Location';
 $lang['recent_routes'] = 'Recently Added Routes';
+$lang['rightbar'] = 'Web Links';
