@@ -16,7 +16,7 @@ class Admin extends CI_Controller {
         $data = array(
             'title' => 'Dashboard'
         );
-        $this->nut_bolts->view_admin('index', $data, TRUE, TRUE);
+        $this->nut_bolts->view_admin('index', $data, TRUE,TRUE);
     }
 
 }

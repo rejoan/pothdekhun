@@ -37,6 +37,13 @@ class Nut_bolts {
         $this->CI->load->view($dirn . '/footer');
     }
 
+    /**
+     * admin view loader
+     * @param string $view_name
+     * @param array $data
+     * @param bool $menu
+     * @param bool $rightbar
+     */
     public function view_admin($view_name, $data, $menu = TRUE, $rightbar = FALSE) {
         $this->CI->load->view('admin/header', $data);
         if ($menu) {
