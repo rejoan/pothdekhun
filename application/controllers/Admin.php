@@ -16,7 +16,38 @@ class Admin extends CI_Controller {
         $data = array(
             'title' => 'Dashboard'
         );
-        $this->nut_bolts->view_admin('index', $data, TRUE,TRUE);
+        $this->nut_bolts->view_admin('index', $data, TRUE, TRUE);
+    }
+
+    public function login() {
+        $data = array(
+            'title' => 'Login',
+            'action' => site_url('admin/login'),
+            'login' => 'yes'
+        );
+        if ($this->input->post('submit')) {
+            $email = trim($this->input->post('email', TRUE));
+            $password = trim($this->input->post('password', TRUE));
+            $cond = array(
+                'email' => $email,
+                'password' => md5($password)
+            );
+            $query = $this->db->where($cond)->get('users');
+
+            if ($query->num_rows() > 0) {
+                $user = $query->row_array();
+                $user_data = array(
+                    'user_id' => $user['id'],
+                    'username' => $user['username'],
+                    'email' => $user['email'],
+                    'avatar' => $user['avatar'],
+                    'type' => $user['type']
+                );
+                $this->session->set_userdata($user_data);
+                redirect('admin');
+            }
+        }
+        $this->nut_bolts->view_admin('login', $data, FALSE, FALSE);
     }
 
 }
