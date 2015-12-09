@@ -52,6 +52,7 @@ class Admin extends CI_Controller {
         $this->nut_bolts->view_admin('login', $data, FALSE, FALSE);
     }
 
+
     public function logout() {
         $this->session->sess_destroy();
         redirect('admin/login');
