@@ -1,22 +1,23 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <?php if (!isset($login)): ?>
-</div>
-
-</section>
-
-<footer class="main-footer">
-    <div class="pull-right hidden-xs">
-        <b>Version</b> 2.3.2
     </div>
-    <strong>Copyright &copy; 2014-2015 <a href="http://pothdekhun.com">Poth Dekhun DOT com</a>.</strong> All rights
-    reserved.
-</footer>
 
-</div>
-<!-- ./wrapper -->
-</div>
-<!-- ./content-wrapper -->
+    </section>
+
+
+    </div>
+    <!-- ./content-wrapper -->
+
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2014-2015 <a href="http://pothdekhun.com">Poth Dekhun DOT com</a>.</strong> All rights
+        reserved.
+    </footer>
+
+    </div>
+    <!-- ./wrapper -->
+
 <?php endif; ?>
+
 
 <!-- jQuery 2.1.4 -->
 <script src="<?php echo base_url('assets/plugins/jQuery/jQuery-2.1.4.min.js'); ?>"></script>

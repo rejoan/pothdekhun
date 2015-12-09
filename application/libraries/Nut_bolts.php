@@ -356,9 +356,10 @@ class Nut_bolts {
     /**
      * check is authorized user or logged in
      * @param string $redirect_url
+     * @param int $user_type
      * @return boolean
      */
-    public function is_logged($redirect_url = 'users/login', $user_type = 2) {
+    public function is_logged($redirect_url = 'users/login', $user_type = 1) {
         $type = (int) $this->CI->session->type;
         if ($this->CI->session->user_id && $user_type === $type) {
             return TRUE;
@@ -493,12 +494,12 @@ class Nut_bolts {
      * check if super admin
      * @return boolean
      */
-    public function is_admin() {
-        $level = (int) $this->CI->session->level;
-        if ($level === 4) {
+    public function is_admin($redirect_url = 'admin/login') {
+        $level = (int) $this->CI->session->type;
+        if ($level > 1) {
             return TRUE;
         } else {
-            return FALSE;
+            redirect($redirect_url);
         }
     }
 

@@ -16,6 +16,7 @@ class Admin extends CI_Controller {
         $data = array(
             'title' => 'Dashboard'
         );
+        $this->nut_bolts->is_admin();
         $this->nut_bolts->view_admin('index', $data, TRUE, TRUE);
     }
 
@@ -32,7 +33,8 @@ class Admin extends CI_Controller {
                 'email' => $email,
                 'password' => md5($password)
             );
-            $query = $this->db->where($cond)->get('users');
+            $query = $this->db->where($cond)->where('type > ', 1, NULL, FALSE)->get('users');
+            //echo $this->db->last_query();return;
 
             if ($query->num_rows() > 0) {
                 $user = $query->row_array();
@@ -48,6 +50,11 @@ class Admin extends CI_Controller {
             }
         }
         $this->nut_bolts->view_admin('login', $data, FALSE, FALSE);
+    }
+
+    public function logout() {
+        $this->session->sess_destroy();
+        redirect('admin/login');
     }
 
 }
