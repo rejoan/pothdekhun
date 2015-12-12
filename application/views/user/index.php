@@ -18,7 +18,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control" id="toName" placeholder="<?php echo $this->lang->line('to_push'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন">
                 </div>
-                <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $this->lang->line('see_transport_button'); ?>"/>
+                <input type="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $this->lang->line('see_transport_button'); ?>"/>
             </form>
         </div>
     </div>

@@ -19,10 +19,18 @@ class Transport extends CI_Controller {
     }
 
     public function index() {
-        $data = array(
-            'title' => $this->lang->line('transport')
+        $from_place = trim($this->input->get('f'), TRUE);
+        $to_place = trim($this->input->get('t'), TRUE);
+        $cond = array(
+            'r.from_place' => $from_place,
+            'r.to_place' => $to_place
         );
+        $query = $this->db->select('r.from_place,r.to_place,r.type,r.vehicle_name,r.departure_place,r.departure_time,r.rent')->from('routes r')->where($cond)->get();
 
+        $data = array(
+            'title' => $this->lang->line('transport'),
+            'transports' => $query->result_array()
+        );
         $this->nut_bolts->view_loader('user', 'transports', $data, TRUE, 'latest_routes', 'rightbar');
     }
 

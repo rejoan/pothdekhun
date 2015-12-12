@@ -4,13 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/controllers/Routes.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/admin/routes.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/admin/sidebar.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/controllers/Admin.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/admin/header.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/libraries/Nut_bolts.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/admin/footer.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/admin/login.php</file>
         </group>
     </open-files>
 </project-private>
