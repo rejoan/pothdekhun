@@ -9,7 +9,7 @@ class Routes extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('Nut_bolts');
+        $this->load->library('Nut_lib');
     }
 
     public function index() {
@@ -40,12 +40,12 @@ class Routes extends CI_Controller {
             $segment = 0;
         }
         $this->pagination->initialize($config);
-        $query = $this->db->select('r.country,r.from_place,r.to_place,r.type,r.vehicle_name,r.is_verified,r.added,r.is_publish,u.username')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->get();
+        $query = $this->db->select('r.id,r.country,r.from_place,r.to_place,r.type,r.vehicle_name,r.added,r.is_publish,u.username')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->order_by('r.id','desc')->get();
         $data = array(
             'title' => 'All Routes',
             'routes' => $query->result_array()
         );
-        $this->nut_bolts->view_admin('routes', $data, TRUE, FALSE);
+        $this->nut_lib->view_admin('routes', $data, TRUE, FALSE);
     }
 
 }

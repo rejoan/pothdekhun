@@ -11,8 +11,8 @@ class Users extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('Nut_bolts');
-        $this->nut_bolts->lang_manager();
+        $this->load->library('Nut_lib');
+        $this->nut_lib->lang_manager();
         $this->language = $this->session->language;
         $this->ln = $this->session->ln;
         $this->lang->load(array('controller', 'view'), $this->language);
@@ -25,7 +25,7 @@ class Users extends CI_Controller {
             'action_pull' => site_url('road/get_routes')
         );
 
-        $this->nut_bolts->view_loader('user', 'index', $data);
+        $this->nut_lib->view_loader('user', 'index', $data);
     }
 
     public function login() {
@@ -64,7 +64,7 @@ class Users extends CI_Controller {
                 redirect('profile?ln=' . $this->ln);
             }
         }
-        $this->nut_bolts->view_loader('user', 'login', $data, TRUE, FALSE);
+        $this->nut_lib->view_loader('user', 'login', $data, TRUE, FALSE);
     }
 
     public function register() {
@@ -91,7 +91,7 @@ class Users extends CI_Controller {
             );
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nut_bolts->view_loader('user', 'register', $data, TRUE, FALSE);
+                $this->nut_lib->view_loader('user', 'register', $data, TRUE, FALSE);
                 return;
             } else {
                 $this->db->insert('users', $user);
@@ -100,7 +100,7 @@ class Users extends CI_Controller {
                 redirect('profile?ln=' . $this->ln);
             }
         }
-        $this->nut_bolts->view_loader('user', 'register', $data, TRUE, FALSE);
+        $this->nut_lib->view_loader('user', 'register', $data, TRUE, FALSE);
     }
 
     public function logout() {

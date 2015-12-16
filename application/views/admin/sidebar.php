@@ -6,10 +6,10 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="<?php echo base_url('assets/dist/img/user2-160x160.jpg');?>" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
+                <p><?php echo $this->session->username;?></p>
             </div>
         </div>
 
@@ -18,14 +18,14 @@
             <li class="header">MAIN NAVIGATION</li>
             <li><a href="<?php echo site_url('admin'); ?>"><i class="fa fa fa-dashboard"></i> Dashboard</a></li>
 
-            <li class="treeview">
+            <li class="treeview <?php echo $this->nut_lib->is_selected('routes');?>">
                 <a href="#">
                     <i class="fa fa-table"></i> <span>Route Manager</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a target="_blank" href="<?php echo site_url('routes'); ?>"><i class="fa fa-navicon"></i> All Route</a></li>
-                    <li><a href="<?php echo site_url('road/add_route?ln=bn'); ?>"><i class="fa fa-plus"></i> Add Route</a></li>
+                    <li class="<?php echo $this->nut_lib->is_selected('routes');?>"><a href="<?php echo site_url('routes'); ?>"><i class="fa fa-navicon"></i> All Route</a></li>
+                    <li><a target="_blank" href="<?php echo site_url('road/add_route?ln=bn'); ?>"><i class="fa fa-plus"></i> Add Route</a></li>
                 </ul>
             </li>
             <li>

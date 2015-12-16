@@ -1,7 +1,7 @@
 <div class="col-xs-12">
     <div class="box box-info">
         <div class="box-header">
-            <h3 class="box-title">Responsive Hover Table</h3>
+            <h3 class="box-title"><?php echo $title;?></h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive no-padding">
@@ -19,7 +19,7 @@
                     <td><?php echo $r['to_place'];?></td>
                     <td><?php echo $r['type'];?></td>
                     <td><span class="label label-success">Approved</span></td>
-                    <td>ds</td>
+                    <td><a target="_blank" data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url('road/edit_route').'/'.$r['id'];?>"><i class="fa fa-edit"></i></a></td>
                 </tr>
                 <?php endforeach;?>
             </table>

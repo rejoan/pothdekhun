@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * utility library
  */
-class Nut_bolts {
+class Nut_lib {
 
     protected $CI;
 

@@ -11,8 +11,8 @@ class Transport extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('Nut_bolts');
-        $this->nut_bolts->lang_manager();
+        $this->load->library('Nut_lib');
+        $this->nut_lib->lang_manager();
         $this->language = $this->session->language;
         $this->lang->load(array('controller', 'view'), $this->language);
         $this->load->model('Prime_model');
@@ -31,7 +31,7 @@ class Transport extends CI_Controller {
             'title' => $this->lang->line('transport'),
             'transports' => $query->result_array()
         );
-        $this->nut_bolts->view_loader('user', 'transports', $data, TRUE, 'latest_routes', 'rightbar');
+        $this->nut_lib->view_loader('user', 'transports', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
 }

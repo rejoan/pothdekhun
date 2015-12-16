@@ -12,9 +12,9 @@ class Profile extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('Nut_bolts');
-        $this->nut_bolts->lang_manager();
-        $this->nut_bolts->is_logged();
+        $this->load->library('Nut_lib');
+        $this->nut_lib->lang_manager();
+        $this->nut_lib->is_logged();
         $this->language = $this->session->language;
         $this->user_id = (int) $this->session->user_id;
         $this->lang->load(array('controller', 'view'), $this->language);
@@ -28,7 +28,7 @@ class Profile extends CI_Controller {
             'title' => $this->lang->line('profile'),
             'profile' => $query->row_array()
         );
-        $this->nut_bolts->view_loader('user', 'profile', $data, TRUE, NULL, 'rightbar');
+        $this->nut_lib->view_loader('user', 'profile', $data, TRUE, NULL, 'rightbar');
     }
 
 }
