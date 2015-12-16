@@ -43,7 +43,8 @@ class Routes extends CI_Controller {
         $query = $this->db->select('r.id,r.country,r.from_place,r.to_place,r.type,r.vehicle_name,r.added,r.is_publish,u.username')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->order_by('r.id','desc')->get();
         $data = array(
             'title' => 'All Routes',
-            'routes' => $query->result_array()
+            'routes' => $query->result_array(),
+            'segment' => $segment
         );
         $this->nut_lib->view_admin('routes', $data, TRUE, FALSE);
     }
