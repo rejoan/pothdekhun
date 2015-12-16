@@ -13,8 +13,8 @@ class Road extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('Nut_lib');
-        $this->nut_lib->lang_manager();
+        $this->load->library('Nuts_lib');
+        $this->nuts_lib->lang_manager();
         $this->language = $this->session->language;
         $this->ln = $this->session->ln;
         $this->user_id = (int) $this->session->user_id;
@@ -29,7 +29,7 @@ class Road extends CI_Controller {
             'action_groute' => site_url('road/add_route?ln=' . $this->ln)
         );
 
-        $this->nut_lib->view_loader('user', 'index', $data, TRUE, 'latest_routes', 'rightbar');
+        $this->nuts_lib->view_loader('user', 'index', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
     public function get_routes() {
@@ -57,7 +57,7 @@ class Road extends CI_Controller {
             'action' => site_url('road/add_route'),
             'from_place' => $from_place,
             'to_place' => $to_place,
-            'countries' => $this->nut_lib->get_countries()
+            'countries' => $this->nuts_lib->get_countries()
         );
         if (!$this->user_id) {
             $this->session->unset_userdata(array('from_login', 'to_login'));
@@ -93,7 +93,7 @@ class Road extends CI_Controller {
             if ($_FILES && $_FILES['evidence']['name']) {
                 if (!$this->upload->do_upload('evidence')) {
                     $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nut_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                    $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
                     return;
                 } else {
                     $evidence = $this->upload->data();
@@ -109,7 +109,7 @@ class Road extends CI_Controller {
             $this->form_validation->set_rules('main_rent', $this->lang->line('main_rent'), 'required');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nut_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
                 return;
             }
 
@@ -153,7 +153,7 @@ class Road extends CI_Controller {
             }
             redirect('road?ln=' . $this->ln);
         }
-        $this->nut_lib->view_loader('user', 'add_route', $data,TRUE, 'latest_routes', 'rightbar');
+        $this->nuts_lib->view_loader('user', 'add_route', $data,TRUE, 'latest_routes', 'rightbar');
     }
 
 }

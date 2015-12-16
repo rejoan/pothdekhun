@@ -100,7 +100,7 @@
                             Dashboard
                             <small>Control panel</small>
                         </h1>
-                        <?php $this->nut_lib->breadcrumb(); ?>
+                        <?php $this->nuts_lib->breadcrumb(); ?>
                     </section>
 
                     <!-- Main content -->

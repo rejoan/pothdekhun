@@ -9,7 +9,7 @@ class Mentor extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('Nut_lib');
+        $this->load->library('Nuts_lib');
     }
 
     public function index() {

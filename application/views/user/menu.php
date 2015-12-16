@@ -16,11 +16,11 @@ $ln = $this->session->language;
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <?php if ($this->session->user_id) { ?>
-                    <li class="<?php echo $this->nut_lib->is_selected('profile'); ?>"><a href="<?php echo site_url('profile?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('profile'); ?></a></li>
-                    <li class="<?php echo $this->nut_lib->is_selected('route'); ?>"><a href="<?php echo site_url('road/add_route?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('add_transport_button'); ?></a></li>
+                    <li class="<?php echo $this->nuts_lib->is_selected('profile'); ?>"><a href="<?php echo site_url('profile?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('profile'); ?></a></li>
+                    <li class="<?php echo $this->nuts_lib->is_selected('route'); ?>"><a href="<?php echo site_url('road/add_route?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('add_transport_button'); ?></a></li>
                 <?php } else { ?>
-                    <li class="<?php echo $this->nut_lib->is_selected('users/login'); ?>"><a href="<?php echo site_url('users/login?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('m_login'); ?></a></li>
-                    <li class="<?php echo $this->nut_lib->is_selected('users/register'); ?>"><a href="<?php echo site_url('users/register?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('m_register'); ?></a></li>
+                    <li class="<?php echo $this->nuts_lib->is_selected('users/login'); ?>"><a href="<?php echo site_url('users/login?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('m_login'); ?></a></li>
+                    <li class="<?php echo $this->nuts_lib->is_selected('users/register'); ?>"><a href="<?php echo site_url('users/register?ln=') . $this->session->ln; ?>"><?php echo $this->lang->line('m_register'); ?></a></li>
                 <?php } ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">

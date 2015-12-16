@@ -18,13 +18,13 @@
             <li class="header">MAIN NAVIGATION</li>
             <li><a href="<?php echo site_url('admin'); ?>"><i class="fa fa fa-dashboard"></i> Dashboard</a></li>
 
-            <li class="treeview <?php echo $this->nut_lib->is_selected('routes');?>">
+            <li class="treeview <?php echo $this->nuts_lib->is_selected('routes');?>">
                 <a href="#">
                     <i class="fa fa-table"></i> <span>Route Manager</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="<?php echo $this->nut_lib->is_selected('routes');?>"><a href="<?php echo site_url('routes'); ?>"><i class="fa fa-navicon"></i> All Route</a></li>
+                    <li class="<?php echo $this->nuts_lib->is_selected('routes');?>"><a href="<?php echo site_url('routes'); ?>"><i class="fa fa-navicon"></i> All Route</a></li>
                     <li><a target="_blank" href="<?php echo site_url('road/add_route?ln=bn'); ?>"><i class="fa fa-plus"></i> Add Route</a></li>
                 </ul>
             </li>

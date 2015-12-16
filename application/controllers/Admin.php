@@ -9,15 +9,15 @@ class Admin extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('Nut_lib');
+        $this->load->library('Nuts_lib');
     }
 
     public function index() {
         $data = array(
             'title' => 'Dashboard'
         );
-        $this->nut_lib->is_admin();
-        $this->nut_lib->view_admin('index', $data, TRUE, TRUE);
+        $this->nuts_lib->is_admin();
+        $this->nuts_lib->view_admin('index', $data, TRUE, TRUE);
     }
 
     public function login() {
@@ -49,7 +49,7 @@ class Admin extends CI_Controller {
                 redirect('admin');
             }
         }
-        $this->nut_lib->view_admin('login', $data, FALSE, FALSE);
+        $this->nuts_lib->view_admin('login', $data, FALSE, FALSE);
     }
 
 

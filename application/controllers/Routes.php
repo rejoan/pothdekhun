@@ -9,7 +9,7 @@ class Routes extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('Nut_lib');
+        $this->load->library('Nuts_lib');
     }
 
     public function index() {
@@ -46,7 +46,7 @@ class Routes extends CI_Controller {
             'routes' => $query->result_array(),
             'segment' => $segment
         );
-        $this->nut_lib->view_admin('routes', $data, TRUE, FALSE);
+        $this->nuts_lib->view_admin('routes', $data, TRUE, FALSE);
     }
 
 }
