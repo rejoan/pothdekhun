@@ -147,12 +147,14 @@ class Road extends CI_Controller {
     }
 
     public function edit_route($id) {
-        $this->nuts_lib->is_logged('road?ln=' . $this->ln);
+        $this->nuts_lib->is_admin('road?ln=' . $this->ln);
         if (!empty($id)) {
             $route_id = (int) $id;
-            $query = $this->db->where('id'.$route_id)->get('routes');
+            $query = $this->db->where('id',$route_id)->get('routes');
+        } else {
+            show_404();
         }
-        
+
         $this->load->library('form_validation');
         $data = array(
             'title' => $this->lang->line('edit_route'),
