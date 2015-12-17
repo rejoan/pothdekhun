@@ -32,14 +32,10 @@ class Road extends CI_Controller {
         $this->nuts_lib->view_loader('user', 'index', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
-    public function get_routes() {
-        $data['title'] = 'Road';
-    }
-
     public function add_route() {
         $this->load->library('form_validation');
-        $from_place = trim($this->input->post('from_push', TRUE));
-        $to_place = trim($this->input->post('to_push', TRUE));
+        $from_push = trim($this->input->post('from_push', TRUE));
+        $to_push = trim($this->input->post('to_push', TRUE));
 //        $user_ip = $this->input->ip_address();
 //        $this->load->helper('geo');
 //        //$customer_data = get_geolocation($user_ip);
@@ -55,8 +51,8 @@ class Road extends CI_Controller {
         $data = array(
             'title' => $this->lang->line('add_route'),
             'action' => site_url('road/add_route'),
-            'from_place' => $from_place,
-            'to_place' => $to_place,
+            'from_push' => $from_push,
+            'to_push' => $to_push,
             'countries' => $this->nuts_lib->get_countries()
         );
         if (!$this->user_id) {
@@ -66,14 +62,7 @@ class Road extends CI_Controller {
         }
         if ($this->input->post('submit')) {
             $from = trim($this->input->post('from_place', TRUE));
-            if (empty($from)) {
-                $from = trim($this->input->post('device_from', TRUE));
-            }
             $to = trim($this->input->post('to_place', TRUE));
-            if (empty($to)) {
-                $to = trim($this->input->post('device_to', TRUE));
-            }
-
             $transport_type = $this->input->post('type', TRUE);
             $transport_name = $this->input->post('vehicle_name', TRUE);
             $departure_place = $this->input->post('departure_place', TRUE);
@@ -103,7 +92,8 @@ class Road extends CI_Controller {
                 $evidence_name = '';
             }
 //route data process
-
+             $this->form_validation->set_rules('from_place', $this->lang->line('from_view'), 'required');
+              $this->form_validation->set_rules('to_place', $this->lang->line('to_view'), 'required');
             $this->form_validation->set_rules('vehicle_name', $this->lang->line('vehicle_name'), 'required');
             $this->form_validation->set_rules('departure_place', $this->lang->line('departure_place'), 'required');
             $this->form_validation->set_rules('main_rent', $this->lang->line('main_rent'), 'required');
@@ -153,7 +143,11 @@ class Road extends CI_Controller {
             }
             redirect('road?ln=' . $this->ln);
         }
-        $this->nuts_lib->view_loader('user', 'add_route', $data,TRUE, 'latest_routes', 'rightbar');
+        $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+    }
+
+    public function edit_route($id) {
+        $data['title'] = 'Road';
     }
 
 }
