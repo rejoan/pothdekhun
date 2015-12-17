@@ -57,7 +57,7 @@
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('transport_type'); ?></label>
                     <div class="col-xs-10 col-md-6">
                         <select name="type" class="selectpicker">
-                            <option value="<?php echo $this->lang->line('bus'); ?>"><?php echo $this->lang->line('bus'); ?></option>
+                            <option value="<?php echo $this->lang->line('bus'); ?>" ><?php echo $this->lang->line('bus'); ?></option>
                             <option value="<?php echo $this->lang->line('train'); ?>"><?php echo $this->lang->line('train'); ?></option>
                             <option value="<?php echo $this->lang->line('leguna'); ?>"><?php echo $this->lang->line('leguna'); ?></option>
                             <option value="<?php echo $this->lang->line('biman'); ?>"><?php echo $this->lang->line('biman'); ?></option>
@@ -117,6 +117,7 @@
                 <input type="hidden" id="rents" value="<?php echo $this->lang->line('main_rent'); ?>"/>
 
                 <input type="hidden" id="custom_time" value="<?php echo $this->lang->line('custom_time'); ?>"/>
+                <input type="hidden" id="route_id" value="<?php echo $this->lang->line('custom_time'); ?>"/>
                 <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $this->lang->line('add_button'); ?>"/>
             </form>
         </div>
