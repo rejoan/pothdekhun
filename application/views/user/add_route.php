@@ -37,20 +37,22 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label"><?php echo ucfirst($this->lang->line('from_view')); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
+                    <label class="col-sm-3 control-label"><?php echo $this->lang->line('from_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                     <div class="col-xs-10 col-md-6">
                         <input maxlength="200" type="text" class="form-control" name="from_place" value="<?php
-                        if (isset($route['from_place'])) {
+                        if ($this->input->post('from_place')) {
+                            echo set_value('from_place');
+                        } elseif (isset($route['from_place'])) {
                             echo $route['from_place'];
                         } else {
-                            echo (!empty($from_push)) ? $from_push : set_value('from_place');
+                            echo (!empty($from_push)) ? $from_push : '';
                         }
                         ?>" placeholder="<?php echo $this->lang->line('device_from'); ?>">
                     </div>
                 </div>
-                <?php echo form_error('from_place', '<div class="alert alert-danger">', '</div>'); ?>
+<?php echo form_error('from_place', '<div class="alert alert-danger">', '</div>'); ?>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label"><?php echo ucfirst($this->lang->line('to_view')); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
+                    <label class="col-sm-3 control-label"><?php echo $this->lang->line('to_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                     <div class="col-xs-10 col-md-6">
                         <input maxlength="200" type="text" class="form-control" name="to_place" value="<?php
                         if (isset($route['to_place'])) {
@@ -61,7 +63,7 @@
                         ?>" placeholder="<?php echo $this->lang->line('device_to'); ?>">
                     </div>
                 </div>
-                <?php echo form_error('to_place', '<div class="alert alert-danger">', '</div>'); ?>
+<?php echo form_error('to_place', '<div class="alert alert-danger">', '</div>'); ?>
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('departure_place'); ?><span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
@@ -81,21 +83,27 @@
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('transport_type'); ?></label>
                     <div class="col-xs-10 col-md-6">
                         <select name="type" class="selectpicker">
-                            <option value="<?php echo $this->lang->line('bus'); ?>" <?php if (isset($route['type'])) {
-    echo $route['type'] == $this->lang->line('bus') ? 'selected="yes"' : '';
-} else {
-    $this->lang->line('bus') == $this->input->post('type') ? 'selected="yes"' : '';
-} ?>><?php echo $this->lang->line('bus'); ?></option>
-                            <option value="<?php echo $this->lang->line('train'); ?>" <?php if (isset($route['type'])) {
-    echo $route['type'] == $this->lang->line('train') ? 'selected="yes"' : '';
-} else {
-    $this->lang->line('train') == $this->input->post('type') ? 'selected="yes"' : '';
-} ?>><?php echo $this->lang->line('train'); ?></option>
-                            <option value="<?php echo $this->lang->line('leguna'); ?>" <?php if (isset($route['type'])) {
-    echo $route['type'] == $this->lang->line('leguna') ? 'selected="yes"' : '';
-} else {
-    $this->lang->line('leguna') == $this->input->post('type') ? 'selected="yes"' : '';
-} ?>><?php echo $this->lang->line('leguna'); ?></option>
+                            <option value="<?php echo $this->lang->line('bus'); ?>" <?php
+                            if (isset($route['type'])) {
+                                echo $route['type'] == $this->lang->line('bus') ? 'selected="yes"' : '';
+                            } else {
+                                $this->lang->line('bus') == $this->input->post('type') ? 'selected="yes"' : '';
+                            }
+                            ?>><?php echo $this->lang->line('bus'); ?></option>
+                            <option value="<?php echo $this->lang->line('train'); ?>" <?php
+                            if (isset($route['type'])) {
+                                echo $route['type'] == $this->lang->line('train') ? 'selected="yes"' : '';
+                            } else {
+                                $this->lang->line('train') == $this->input->post('type') ? 'selected="yes"' : '';
+                            }
+                            ?>><?php echo $this->lang->line('train'); ?></option>
+                            <option value="<?php echo $this->lang->line('leguna'); ?>" <?php
+                            if (isset($route['type'])) {
+                                echo $route['type'] == $this->lang->line('leguna') ? 'selected="yes"' : '';
+                            } else {
+                                $this->lang->line('leguna') == $this->input->post('type') ? 'selected="yes"' : '';
+                            }
+                            ?>><?php echo $this->lang->line('leguna'); ?></option>
                             <option value="<?php echo $this->lang->line('biman'); ?>"><?php echo $this->lang->line('biman'); ?></option>
                             <option value="<?php echo $this->lang->line('others'); ?>"><?php echo $this->lang->line('others'); ?></option>
                         </select>

@@ -4,6 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/controllers/Road.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/libraries/Nuts_lib.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/add_route.php</file>
         </group>
     </open-files>
