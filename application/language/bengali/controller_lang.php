@@ -20,3 +20,4 @@ $lang['username'] = 'ইউজার নাম';
 $lang['password'] = 'পাসওয়ার্ড';
 $lang['password_help'] = 'এই ইমেইল এবং পাসওয়ার্ড দিয়ে পরে লগিন করতে পারবেন';
 $lang['register_user'] = 'সফলভাবে নিবন্ধন হয়েছে';
+$lang['edit_success'] = 'সফলভাবে সম্পাদনা হয়েছে';

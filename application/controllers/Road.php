@@ -249,10 +249,15 @@ class Road extends CI_Controller {
             }
 
             if ($stoppages) {
-                //$this->
+                $this->db->where('route_id', $route_id)->delete($stopage_table);
                 $this->db->insert_batch('stoppages', $stoppages);
             }
-            redirect('road?ln=' . $this->ln);
+            $this->session->set_flashdata('message', $this->lang->line('edit_success'));
+            if ($this->nuts_lib->is_admin()) {
+                redirect('routes');
+            } else {
+                redirect('my_routes');
+            }
         }
         $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
     }
