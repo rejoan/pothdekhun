@@ -158,7 +158,7 @@ class Road extends CI_Controller {
         $this->load->library('form_validation');
         $data = array(
             'title' => $this->lang->line('edit_route'),
-            'action' => site_url('road/add_route'),
+            'action' => site_url('road/edit_route/'.$route_id),
             'countries' => $this->nuts_lib->get_countries(),
             'route' => $query->row_array()
         );

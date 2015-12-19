@@ -161,7 +161,7 @@
                 <input type="hidden" id="rents" value="<?php echo $this->lang->line('main_rent'); ?>"/>
 
                 <input type="hidden" id="custom_time" value="<?php echo $this->lang->line('custom_time'); ?>"/>
-                <input type="hidden" id="route_id" value="<?php echo isset($route['id']) ? $route['id'] : ''; ?>"/>
+                <input type="hidden" id="route_id" name="route_id" value="<?php if($this->input->post('route_id')){echo set_value('route_id');}else{ echo isset($route['id']) ? $route['id'] : '';} ?>"/>
                 <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $this->lang->line('add_button'); ?>"/>
             </form>
         </div>
