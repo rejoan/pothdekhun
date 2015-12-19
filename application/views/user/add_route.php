@@ -50,7 +50,7 @@
                         ?>" placeholder="<?php echo $this->lang->line('device_from'); ?>">
                     </div>
                 </div>
-<?php echo form_error('from_place', '<div class="alert alert-danger">', '</div>'); ?>
+                <?php echo form_error('from_place', '<div class="alert alert-danger">', '</div>'); ?>
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('to_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                     <div class="col-xs-10 col-md-6">
@@ -63,7 +63,7 @@
                         ?>" placeholder="<?php echo $this->lang->line('device_to'); ?>">
                     </div>
                 </div>
-<?php echo form_error('to_place', '<div class="alert alert-danger">', '</div>'); ?>
+                <?php echo form_error('to_place', '<div class="alert alert-danger">', '</div>'); ?>
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('departure_place'); ?><span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
@@ -77,7 +77,7 @@
                         ?>" placeholder="<?php echo $this->lang->line('departure_placeholder'); ?>">
                     </div>
                 </div>
-<?php echo form_error('departure_place', '<div class="alert alert-danger">', '</div>'); ?>
+                <?php echo form_error('departure_place', '<div class="alert alert-danger">', '</div>'); ?>
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('transport_type'); ?></label>
@@ -115,7 +115,7 @@
                         <input maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php echo isset($route['vehicle_name']) ? $route['vehicle_name'] : set_value('vehicle_name'); ?>" placeholder="<?php echo $this->lang->line('vehicle_placeholder'); ?>" required title="পরিবহনের নাম আবশ্যক">
                     </div>
                 </div>
-<?php echo form_error('vehicle_name', '<div class="alert alert-danger">', '</div>'); ?>
+                <?php echo form_error('vehicle_name', '<div class="alert alert-danger">', '</div>'); ?>
 
                 <div id="departure_perticular" class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('departure_time'); ?></label>
@@ -133,10 +133,17 @@
                         <input id="main_rent" maxlength="10" type="text" class="form-control rent" name="main_rent" value="<?php echo isset($route['rent']) ? $route['rent'] : set_value('main_rent'); ?>" placeholder="<?php echo $this->lang->line('rent_placeholder'); ?>" required title="কমপক্ষে আনুমানিক ভাড়া দিন">
                     </div>
                 </div>
-<?php echo form_error('main_rent', '<div class="alert alert-danger">', '</div>'); ?>
 
-                <div style="display: none;" id="stoppage_section">
+                <?php echo form_error('main_rent', '<div class="alert alert-danger">', '</div>'); ?>
 
+                <div style="display: <?php echo count($stoppages) > 0 ? 'block':'none';?>;" id="stoppage_section">
+                    <?php if (isset($route['id'])): ?>
+                        <?php
+                        for ($i = 0; $i < count($stoppages); $i++) {
+                            echo '<div class="form-group"><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" value="'.$stoppages[$i]['place_name'].'" placeholder="' . $this->lang->line('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]"  placeholder="' . $this->lang->line('comment') . '">'.$stoppages[$i]['comments'].'</textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" value="'.$stoppages[$i]['rent'].'"  placeholder="' . $this->lang->line('main_rent') . '"></div><a class="btn btn-danger" href="javascript:void(0)" class="cancel">' . $this->lang->line('cancel_text') . '</a></div>';
+                        }
+                        ?>
+                    <?php endif; ?>
                 </div>
 
                 <div class="form-group">
@@ -146,6 +153,8 @@
                         <span class="help-block"><?php echo $this->lang->line('add_stoppage_help'); ?></span>
                     </div>
                 </div>
+
+
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('add_file'); ?></label>
@@ -161,7 +170,13 @@
                 <input type="hidden" id="rents" value="<?php echo $this->lang->line('main_rent'); ?>"/>
 
                 <input type="hidden" id="custom_time" value="<?php echo $this->lang->line('custom_time'); ?>"/>
-                <input type="hidden" id="route_id" name="route_id" value="<?php if($this->input->post('route_id')){echo set_value('route_id');}else{ echo isset($route['id']) ? $route['id'] : '';} ?>"/>
+                <input type="hidden" id="route_id" name="route_id" value="<?php
+                if ($this->input->post('route_id')) {
+                    echo set_value('route_id');
+                } else {
+                    echo isset($route['id']) ? $route['id'] : '';
+                }
+                ?>"/>
                 <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $this->lang->line('add_button'); ?>"/>
             </form>
         </div>

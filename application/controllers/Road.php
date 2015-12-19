@@ -148,19 +148,28 @@ class Road extends CI_Controller {
 
     public function edit_route($id) {
         $this->nuts_lib->is_admin('road?ln=' . $this->ln);
+        if ($this->ln == 'bn') {
+            $route_table = 'routes';
+            $stopage_table = 'stoppages';
+        } else {
+            $route_table = 'route_translation';
+            $stopage_table = 'stoppage_translation';
+        }
         if (!empty($id)) {
             $route_id = (int) $id;
-            $query = $this->db->where('id',$route_id)->get('routes');
+            $query = $this->db->where('id', $route_id)->get($route_table);
         } else {
             show_404();
         }
 
         $this->load->library('form_validation');
+        $q_stoppage = $this->db->where('route_id', $route_id)->get($stopage_table);
         $data = array(
             'title' => $this->lang->line('edit_route'),
-            'action' => site_url('road/edit_route/'.$route_id),
+            'action' => site_url('road/edit_route/' . $route_id),
             'countries' => $this->nuts_lib->get_countries(),
-            'route' => $query->row_array()
+            'route' => $query->row_array(),
+            'stoppages' => $q_stoppage->result_array()
         );
 
         if ($this->input->post('submit')) {
