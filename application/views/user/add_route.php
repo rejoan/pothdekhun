@@ -16,6 +16,16 @@
                 <?php } ?>
             </div>
 
+            <?php if (strpos(current_url(), 'edit_route')): ?>
+                <?php
+                $url = ($this->session->ln == 'en') ? current_url() . '?ln=bn' : current_url() . '?ln=en';
+                $text_lang = ($this->session->ln == 'en') ? 'Bengali' : 'English';
+                echo $this->lang->line('edit_lang') . ' ';
+                echo '<a class="btn btn-sm btn-info" href="' . $url . '">' . $text_lang . '</a>';
+                echo ' ' . $this->lang->line('info_of');
+                ?>
+            <?php endif; ?>
+
         </div>
         <div class="box-body">
             <!-- route info push form -->
@@ -23,7 +33,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('country'); ?></label>
                     <div class="col-xs-10 col-md-6">
-                        <select name="country" class="selectpicker">
+                        <select name="country" class="selectpicker" data-width="100%">
                             <?php foreach ($countries as $key => $c): ?>
                                 <option value="<?php echo $c; ?>" <?php
                                 if (isset($route['country'])) {
@@ -66,6 +76,15 @@
                 <?php echo form_error('to_place', '<div class="alert alert-danger">', '</div>'); ?>
 
                 <div class="form-group">
+                    <label class="col-sm-3 control-label"><?php echo $this->lang->line('main_rent'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
+                    <div class="col-xs-10 col-md-6">
+                        <input id="main_rent" maxlength="10" type="text" class="form-control rent" name="main_rent" value="<?php echo isset($route['rent']) ? $route['rent'] : set_value('main_rent'); ?>" placeholder="<?php echo $this->lang->line('rent_placeholder'); ?>" required title="কমপক্ষে আনুমানিক ভাড়া দিন">
+                    </div>
+                </div>
+
+                <?php echo form_error('main_rent', '<div class="alert alert-danger">', '</div>'); ?>
+
+                <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('departure_place'); ?><span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                     <div class="col-xs-10 col-md-6">
                         <input maxlength="200" type="text" class="form-control"  name="departure_place" value="<?php
@@ -82,7 +101,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('transport_type'); ?></label>
                     <div class="col-xs-10 col-md-6">
-                        <select name="type" class="selectpicker">
+                        <select name="type" class="selectpicker" data-width="100%">
                             <option value="<?php echo $this->lang->line('bus'); ?>" <?php
                             if (isset($route['type'])) {
                                 echo $route['type'] == $this->lang->line('bus') ? 'selected="yes"' : '';
@@ -120,27 +139,18 @@
                 <div id="departure_perticular" class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('departure_time'); ?></label>
                     <div  class="col-xs-10 col-md-6">
-                        <select id="departure_time" name="departure_time" class="selectpicker">
+                        <select id="departure_time" name="departure_time" class="selectpicker" data-width="100%">
                             <option value="<?php echo $this->lang->line('after_while'); ?>"><?php echo $this->lang->line('after_while'); ?></option>
                             <option value="perticular"><?php echo $this->lang->line('perticular_time'); ?></option>
                         </select>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-sm-3 control-label"><?php echo $this->lang->line('main_rent'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
-                    <div class="col-xs-10 col-md-6">
-                        <input id="main_rent" maxlength="10" type="text" class="form-control rent" name="main_rent" value="<?php echo isset($route['rent']) ? $route['rent'] : set_value('main_rent'); ?>" placeholder="<?php echo $this->lang->line('rent_placeholder'); ?>" required title="কমপক্ষে আনুমানিক ভাড়া দিন">
-                    </div>
-                </div>
-
-                <?php echo form_error('main_rent', '<div class="alert alert-danger">', '</div>'); ?>
-
-                <div style="display: <?php echo count($stoppages) > 0 ? 'block':'none';?>;" id="stoppage_section">
+                <div style="display: <?php echo isset($stoppages) ? 'block' : 'none'; ?>;" id="stoppage_section">
                     <?php if (isset($route['id'])): ?>
                         <?php
                         for ($i = 0; $i < count($stoppages); $i++) {
-                            echo '<div class="form-group"><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" value="'.$stoppages[$i]['place_name'].'" placeholder="' . $this->lang->line('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]"  placeholder="' . $this->lang->line('comment') . '">'.$stoppages[$i]['comments'].'</textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" value="'.$stoppages[$i]['rent'].'"  placeholder="' . $this->lang->line('main_rent') . '"></div><a class="btn btn-danger" href="javascript:void(0)" class="cancel">' . $this->lang->line('cancel_text') . '</a></div>';
+                            echo '<div class="form-group"><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" value="' . $stoppages[$i]['place_name'] . '" placeholder="' . $this->lang->line('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]"  placeholder="' . $this->lang->line('comment') . '">' . $stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $stoppages[$i]['rent'] . '"  placeholder="' . $this->lang->line('main_rent') . '"></div><a class="btn btn-danger" href="javascript:void(0)" class="cancel">' . $this->lang->line('cancel_text') . '</a></div>';
                         }
                         ?>
                     <?php endif; ?>

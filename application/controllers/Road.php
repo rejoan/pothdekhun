@@ -151,9 +151,11 @@ class Road extends CI_Controller {
         if ($this->ln == 'bn') {
             $route_table = 'routes';
             $stopage_table = 'stoppages';
+            $update_id = 'id';
         } else {
             $route_table = 'route_translation';
             $stopage_table = 'stoppage_translation';
+            $update_id = 'route_id';
         }
         if (!empty($id)) {
             $route_id = (int) $id;
@@ -224,13 +226,9 @@ class Road extends CI_Controller {
                 'departure_place' => $departure_place,
                 'departure_time' => $departure_time,
                 'rent' => $main_rent,
-                'evidence' => $evidence_name,
-                'added_by' => $this->user_id
+                'evidence' => $evidence_name
             );
-            $this->db->set('added', 'NOW()', FALSE);
-            $this->db->insert('routes', $route);
-
-            $route_id = $this->db->insert_id();
+            $this->db->where($update_id, $route_id)->update($route_table, $route);
 
 //stoppage data process
             $rent = $this->input->post('rent', TRUE);
@@ -251,6 +249,7 @@ class Road extends CI_Controller {
             }
 
             if ($stoppages) {
+                //$this->
                 $this->db->insert_batch('stoppages', $stoppages);
             }
             redirect('road?ln=' . $this->ln);

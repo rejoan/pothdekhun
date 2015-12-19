@@ -50,3 +50,5 @@ $lang['activity'] = 'Activity';
 $lang['location'] = 'Location';
 $lang['recent_routes'] = 'Recently Added Routes';
 $lang['rightbar'] = 'Web Links';
+$lang['edit_lang'] = 'Edit this route\'s';
+$lang['info_of'] = 'Informations';
