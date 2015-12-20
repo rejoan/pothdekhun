@@ -34,7 +34,7 @@
                             <td>6</td>
                             <td><?php echo $r['added']; ?></td>
                             <td><?php echo $r['username']; ?></td>
-                            <td><a target="_blank" data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url('road/edit_route') . '/' . $r['id'] . '?ln=bn'; ?>"><i class="fa fa-edit"></i></a></td>
+                            <td><a target="_blank" data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url('routes/edit') . '/' . $r['id'] . '?ln=bn'; ?>"><i class="fa fa-edit"></i></a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

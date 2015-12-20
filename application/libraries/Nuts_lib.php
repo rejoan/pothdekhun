@@ -77,12 +77,12 @@ class Nuts_lib {
      * set site language
      */
     public function lang_manager() {
-        $lang = $this->CI->config->item('language');
+        $lange = $this->CI->config->item('language');
         if ($this->CI->input->get('ln') == 'en') {
             $this->CI->session->unset_userdata(array('language'));
             $this->CI->session->set_userdata(array('language' => 'english', 'ln' => 'en'));
         } else {
-            $this->CI->session->set_userdata(array('language' => $lang, 'ln' => 'bn'));
+            $this->CI->session->set_userdata(array('language' => $lange, 'ln' => 'bn'));
         }
     }
 

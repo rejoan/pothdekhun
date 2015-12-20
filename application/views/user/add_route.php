@@ -16,7 +16,7 @@
                 <?php } ?>
             </div>
 
-            <?php if (strpos(current_url(), 'edit_route')): ?>
+            <?php if (strpos(current_url(), 'edit')): ?>
                 <?php
                 $url = ($this->session->ln == 'en') ? current_url() . '?ln=bn' : current_url() . '?ln=en';
                 $text_lang = ($this->session->ln == 'en') ? 'Bengali' : 'English';
