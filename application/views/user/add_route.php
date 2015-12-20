@@ -18,7 +18,7 @@
 
             <?php if (strpos(current_url(), 'edit')): ?>
                 <?php
-                $url = ($this->input->get('ln') == 'en') ? current_url() . '?ln=bn' : current_url() . '?ln=bn';
+                $url = ($this->input->get('ln') == 'en') ? current_url() . '?ln=bn' : current_url() . '?ln=en';
                 $text_lang = ($this->input->get('ln') == 'bn') ? 'English' : 'Bengali';
                 echo $this->lang->line('edit_lang') . ' ';
                 echo '<a class="btn btn-sm btn-info" href="' . $url . '">' . $text_lang . '</a>';
@@ -50,7 +50,7 @@
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('from_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                     <div class="col-xs-10 col-md-6">
                         <input maxlength="200" type="text" class="form-control" name="from_place" value="<?php
-                        if ($this->input->post('from_place')) {
+                        if ($this->input->post('submit')) {
                             echo set_value('from_place');
                         } elseif (isset($route['from_place'])) {
                             echo $route['from_place'];
@@ -65,7 +65,9 @@
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('to_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                     <div class="col-xs-10 col-md-6">
                         <input maxlength="200" type="text" class="form-control" name="to_place" value="<?php
-                        if (isset($route['to_place'])) {
+                        if ($this->input->post('submit')) {
+                            echo set_value('to_place');
+                        } elseif (isset($route['to_place'])) {
                             echo $route['to_place'];
                         } else {
                             echo (!empty($to_push)) ? $to_push : set_value('to_place');
@@ -78,7 +80,13 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('main_rent'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                     <div class="col-xs-10 col-md-6">
-                        <input id="main_rent" maxlength="10" type="text" class="form-control rent" name="main_rent" value="<?php echo isset($route['rent']) ? $route['rent'] : set_value('main_rent'); ?>" placeholder="<?php echo $this->lang->line('rent_placeholder'); ?>" required title="কমপক্ষে আনুমানিক ভাড়া দিন">
+                        <input id="main_rent" maxlength="10" type="text" class="form-control rent" name="main_rent" value="<?php
+                        if ($this->input->post('submit')) {
+                            echo set_value('main_rent');
+                        } elseif (isset($route['rent'])) {
+                            echo $route['rent'];
+                        }
+                        ?>" placeholder="<?php echo $this->lang->line('rent_placeholder'); ?>" required title="কমপক্ষে আনুমানিক ভাড়া দিন">
                     </div>
                 </div>
 
@@ -88,14 +96,15 @@
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('departure_place'); ?><span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                     <div class="col-xs-10 col-md-6">
                         <input maxlength="200" type="text" class="form-control"  name="departure_place" value="<?php
-                        if (isset($route['departure_place'])) {
-                            echo $route['departure_place'];
-                        } else {
+                        if ($this->input->post('submit')) {
                             echo set_value('departure_place');
+                        } elseif (isset($route['departure_place'])) {
+                            echo $route['departure_place'];
                         }
                         ?>" placeholder="<?php echo $this->lang->line('departure_placeholder'); ?>">
                     </div>
                 </div>
+
                 <?php echo form_error('departure_place', '<div class="alert alert-danger">', '</div>'); ?>
 
                 <div class="form-group">
@@ -103,35 +112,47 @@
                     <div class="col-xs-10 col-md-6">
                         <select name="type" class="selectpicker" data-width="100%">
                             <option value="<?php echo $this->lang->line('bus'); ?>" <?php
-                            if (isset($route['type'])) {
+                            if ($this->input->post('submit')) {
+                                echo $this->lang->line('bus') == $this->input->post('type') ? 'selected="yes"' : '';
+                            } elseif (isset($route['type'])) {
                                 echo $route['type'] == $this->lang->line('bus') ? 'selected="yes"' : '';
-                            } else {
-                                $this->lang->line('bus') == $this->input->post('type') ? 'selected="yes"' : '';
                             }
                             ?>><?php echo $this->lang->line('bus'); ?></option>
                             <option value="<?php echo $this->lang->line('train'); ?>" <?php
-                            if (isset($route['type'])) {
+                            if ($this->input->post('submit')) {
+                                echo $this->lang->line('train') == $this->input->post('type') ? 'selected="yes"' : '';
+                            } elseif (isset($route['type'])) {
                                 echo $route['type'] == $this->lang->line('train') ? 'selected="yes"' : '';
-                            } else {
-                                $this->lang->line('train') == $this->input->post('type') ? 'selected="yes"' : '';
                             }
                             ?>><?php echo $this->lang->line('train'); ?></option>
                             <option value="<?php echo $this->lang->line('leguna'); ?>" <?php
-                            if (isset($route['type'])) {
+                            if ($this->input->post('submit')) {
+                                echo $this->lang->line('leguna') == $this->input->post('type') ? 'selected="yes"' : '';
+                            } elseif (isset($route['type'])) {
                                 echo $route['type'] == $this->lang->line('leguna') ? 'selected="yes"' : '';
-                            } else {
-                                $this->lang->line('leguna') == $this->input->post('type') ? 'selected="yes"' : '';
                             }
                             ?>><?php echo $this->lang->line('leguna'); ?></option>
-                            <option value="<?php echo $this->lang->line('biman'); ?>"><?php echo $this->lang->line('biman'); ?></option>
-                            <option value="<?php echo $this->lang->line('others'); ?>"><?php echo $this->lang->line('others'); ?></option>
+                            <option value="<?php echo $this->lang->line('biman'); ?>" <?php
+                            if ($this->input->post('submit')) {
+                                echo $this->lang->line('biman') == $this->input->post('type') ? 'selected="yes"' : '';
+                            } elseif (isset($route['type'])) {
+                                echo $route['type'] == $this->lang->line('biman') ? 'selected="yes"' : '';
+                            }
+                            ?>><?php echo $this->lang->line('biman'); ?></option>
+                            <option value="<?php echo $this->lang->line('others'); ?>" <?php
+                            if ($this->input->post('submit')) {
+                                echo $this->lang->line('others') == $this->input->post('type') ? 'selected="yes"' : '';
+                            } elseif(isset($route['type'])) {
+                                echo $route['type'] == $this->lang->line('others') ? 'selected="yes"' : '';
+                            }
+                            ?>><?php echo $this->lang->line('others'); ?></option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('vehicle_name'); ?><span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                     <div class="col-xs-10 col-md-6">
-                        <input maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php echo isset($route['vehicle_name']) ? $route['vehicle_name'] : set_value('vehicle_name'); ?>" placeholder="<?php echo $this->lang->line('vehicle_placeholder'); ?>" required title="পরিবহনের নাম আবশ্যক">
+                        <input maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php if($this->input->post('submit')){echo set_value('vehicle_name');}elseif (isset($route['vehicle_name'])) {echo $route['vehicle_name'];}?>" placeholder="<?php echo $this->lang->line('vehicle_placeholder'); ?>" required title="পরিবহনের নাম আবশ্যক">
                     </div>
                 </div>
                 <?php echo form_error('vehicle_name', '<div class="alert alert-danger">', '</div>'); ?>
@@ -140,11 +161,37 @@
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('departure_time'); ?></label>
                     <div  class="col-xs-10 col-md-6">
                         <select id="departure_time" name="departure_time" class="selectpicker" data-width="100%">
-                            <option value="<?php echo $this->lang->line('after_while'); ?>"><?php echo $this->lang->line('after_while'); ?></option>
-                            <option value="perticular"><?php echo $this->lang->line('perticular_time'); ?></option>
+                            <option value="<?php echo $this->lang->line('after_while'); ?>" <?php
+                            if (isset($route['departure_time'])) {
+                                echo $route['departure_time'] == $this->lang->line('after_while') ? 'selected="yes"' : '';
+                            } else {
+                                $this->lang->line('after_while') == $this->input->post('type') ? 'selected="yes"' : '';
+                            }
+                            ?>><?php echo $this->lang->line('after_while'); ?></option>
+                            <option value="perticular" <?php
+                            if (isset($route['departure_time'])) {
+                                echo $route['departure_time'] != $this->lang->line('after_while') ? 'selected="yes"' : '';
+                            } else {
+                                $this->lang->line('after_while') != $this->input->post('type') ? 'selected="yes"' : '';
+                            }
+                            ?>><?php echo $this->lang->line('perticular_time'); ?></option>
                         </select>
                     </div>
                 </div>
+
+                <?php if (isset($route['departure_time'])): ?>
+                    <div id="departure_dynamic" class="form-group">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-xs-10 col-md-6"><input maxlength="200" type="text" class="form-control"  name="departure_dynamic" value="<?php
+                            if (isset($route['departure_time'])) {
+                                echo $route['departure_time'];
+                            } else {
+                                echo set_value('departure_time');
+                            }
+                            ?>"></div>
+                    </div>
+                <?php endif; ?>
+
 
                 <div style="display: <?php echo isset($stoppages) ? 'block' : 'none'; ?>;" id="stoppage_section">
                     <?php if (isset($route['id'])): ?>

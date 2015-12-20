@@ -78,7 +78,7 @@ class Routes extends CI_Controller {
         $q_stoppage = $this->db->where('route_id', $route_id)->get($stopage_table);
         $data = array(
             'title' => $this->lang->line('edit_route'),
-            'action' => site_url('route/edit/' . $route_id),
+            'action' => site_url('routes/edit/' . $route_id),
             'countries' => $this->nuts_lib->get_countries(),
             'route' => $query->row_array(),
             'stoppages' => $q_stoppage->result_array()
@@ -157,9 +157,8 @@ class Routes extends CI_Controller {
                     );
                 }
             }
-
-            if ($stoppages) {
-                $this->db->where('route_id', $route_id)->delete($stopage_table);
+            $this->db->where('route_id', $route_id)->delete($stopage_table);
+            if (!empty($stoppages)) {
                 $this->db->insert_batch('stoppages', $stoppages);
             }
             $this->session->set_flashdata('message', $this->lang->line('edit_success'));

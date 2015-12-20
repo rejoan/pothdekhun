@@ -1,11 +1,11 @@
 <div class="col-xs-12">
+    <?php
+    $message = $this->session->flashdata('message');
+    if ($message) {
+        echo '<div class="alert alert-info">' . $message . '</div>';
+    }
+    ?>
     <div class="box box-info">
-        <?php
-        $message = $this->session->flashdata('message');
-        if ($message) {
-            echo '<div class="alert alert-info">' . $message . '</div>';
-        }
-        ?>
         <div class="box-header">
             <h3 class="box-title"><?php echo $title; ?></h3>
         </div>
@@ -34,7 +34,7 @@
                             <td>6</td>
                             <td><?php echo $r['added']; ?></td>
                             <td><?php echo $r['username']; ?></td>
-                            <td><a target="_blank" data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url('routes/edit') . '/' . $r['id'] . '?ln=bn'; ?>"><i class="fa fa-edit"></i></a></td>
+                            <td><a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url('routes/edit') . '/' . $r['id'] . '?ln=bn'; ?>"><i class="fa fa-edit"></i></a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
