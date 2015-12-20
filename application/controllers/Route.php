@@ -145,6 +145,8 @@ class Route extends CI_Controller {
         }
         $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
     }
+    
+    
 
     
 

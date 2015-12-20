@@ -13,8 +13,8 @@ class Routes extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->library('Nuts_lib');
-        $this->nuts_lib->is_logged('admin/login',3);
-        $this->ln = $this->session->ln;
+        $this->nuts_lib->is_logged('admin/login', 3);
+        $this->ln = $this->input->get('ln');
         $this->language = $this->session->language;
         $this->lang->load(array('controller_lang', 'view_lang'), $this->language);
         $this->load->model('Prime_model');
@@ -58,14 +58,14 @@ class Routes extends CI_Controller {
     }
 
     public function edit($id) {
-        if ($this->ln == 'bn') {
-            $route_table = 'routes';
-            $stopage_table = 'stoppages';
-            $update_id = 'id';
-        } else {
+        if ($this->ln == 'en') {
             $route_table = 'route_translation';
             $stopage_table = 'stoppage_translation';
             $update_id = 'route_id';
+        } else {
+            $route_table = 'routes';
+            $stopage_table = 'stoppages';
+            $update_id = 'id';
         }
         if (!empty($id)) {
             $route_id = (int) $id;

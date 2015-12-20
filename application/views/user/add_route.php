@@ -18,8 +18,8 @@
 
             <?php if (strpos(current_url(), 'edit')): ?>
                 <?php
-                $url = ($this->session->ln == 'en') ? current_url() . '?ln=bn' : current_url() . '?ln=en';
-                $text_lang = ($this->session->ln == 'en') ? 'Bengali' : 'English';
+                $url = ($this->input->get('ln') == 'en') ? current_url() . '?ln=bn' : current_url() . '?ln=bn';
+                $text_lang = ($this->input->get('ln') == 'bn') ? 'English' : 'Bengali';
                 echo $this->lang->line('edit_lang') . ' ';
                 echo '<a class="btn btn-sm btn-info" href="' . $url . '">' . $text_lang . '</a>';
                 echo ' ' . $this->lang->line('info_of');
