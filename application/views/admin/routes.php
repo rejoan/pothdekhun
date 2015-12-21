@@ -21,6 +21,7 @@
                         <th>Verified</th>
                         <th>Added</th>
                         <th>Added by</th>
+                        <th>Published</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -34,7 +35,10 @@
                             <td>6</td>
                             <td><?php echo $r['added']; ?></td>
                             <td><?php echo $r['username']; ?></td>
-                            <td><a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url('routes/edit') . '/' . $r['id'] . '?ln=bn'; ?>"><i class="fa fa-edit"></i></a></td>
+                            <td><?php echo $r['is_publish'] == '0' ? '<small class="label label-danger">No</small>' : '<small class="label label-success">Yes</small>'; ?></td>
+                            <td><a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url('routes/edit') . '/' . $r['id'] . '?ln=bn'; ?>"><i class="fa fa-edit"></i></a>
+                                <a data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url('route/show') . '/' . $r['id'] . '?ln=bn'; ?>"><i class="fa fa-eye"></i></a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

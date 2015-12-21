@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-$lang['index'] = 'বাংলাদেশের সব পরিবহন রুট তথ্য';
+$lang['index'] = 'সব পরিবহন রুট তথ্য';
 $lang['add_route'] = 'রুট তথ্য যোগ করুন';
 $lang['edit_route'] = 'রুট তথ্য সম্পাদনা করুন';
 $lang['register'] = 'পথদেখুন নিবন্ধন';
@@ -21,3 +21,4 @@ $lang['password'] = 'পাসওয়ার্ড';
 $lang['password_help'] = 'এই ইমেইল এবং পাসওয়ার্ড দিয়ে পরে লগিন করতে পারবেন';
 $lang['register_user'] = 'সফলভাবে নিবন্ধন হয়েছে';
 $lang['edit_success'] = 'সফলভাবে সম্পাদনা হয়েছে';
+$lang['route_info'] = 'বিস্তারিত রুট তথ্য';

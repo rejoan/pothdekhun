@@ -730,7 +730,7 @@ class Nuts_lib {
      * @param string $format
      * @return string
      */
-    public function date_formation($c_from, $d, $db_zone, $client_zone, $format) {
+    public function date_formation($c_from, $d, $db_zone = 'America/New_York', $client_zone, $format) {
         $to_time = DateTime::createFromFormat(
                         $c_from, $d, new DateTimeZone($db_zone));
         $date = $to_time->setTimeZone(new DateTimeZone($client_zone));

@@ -76,6 +76,21 @@
                     </div>
                 </div>
                 <?php echo form_error('to_place', '<div class="alert alert-danger">', '</div>'); ?>
+                
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"><?php echo $this->lang->line('departure_place'); ?><span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
+                    <div class="col-xs-10 col-md-6">
+                        <input maxlength="200" type="text" class="form-control"  name="departure_place" value="<?php
+                        if ($this->input->post('submit')) {
+                            echo set_value('departure_place');
+                        } elseif (isset($route['departure_place'])) {
+                            echo $route['departure_place'];
+                        }
+                        ?>" placeholder="<?php echo $this->lang->line('departure_placeholder'); ?>">
+                    </div>
+                </div>
+
+                <?php echo form_error('departure_place', '<div class="alert alert-danger">', '</div>'); ?>
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('main_rent'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
@@ -92,20 +107,7 @@
 
                 <?php echo form_error('main_rent', '<div class="alert alert-danger">', '</div>'); ?>
 
-                <div class="form-group">
-                    <label class="col-sm-3 control-label"><?php echo $this->lang->line('departure_place'); ?><span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
-                    <div class="col-xs-10 col-md-6">
-                        <input maxlength="200" type="text" class="form-control"  name="departure_place" value="<?php
-                        if ($this->input->post('submit')) {
-                            echo set_value('departure_place');
-                        } elseif (isset($route['departure_place'])) {
-                            echo $route['departure_place'];
-                        }
-                        ?>" placeholder="<?php echo $this->lang->line('departure_placeholder'); ?>">
-                    </div>
-                </div>
-
-                <?php echo form_error('departure_place', '<div class="alert alert-danger">', '</div>'); ?>
+                
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('transport_type'); ?></label>

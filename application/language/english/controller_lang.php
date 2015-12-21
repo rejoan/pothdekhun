@@ -22,3 +22,4 @@ $lang['password'] = 'Password';
 $lang['password_help'] = 'Login with email & password';
 $lang['register_user'] = 'Registered Successfully';
 $lang['edit_success'] = 'Edited Successfully';
+$lang['route_info'] = 'Details Route Info';

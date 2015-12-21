@@ -58,7 +58,7 @@ class Routes extends CI_Controller {
     }
 
     public function edit($id) {
-        if ($this->ln == 'en') {
+        if ($this->input->get('ln') == 'en') {
             $route_table = 'route_translation';
             $stopage_table = 'stoppage_translation';
             $update_id = 'route_id';

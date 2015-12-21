@@ -145,9 +145,38 @@ class Route extends CI_Controller {
         }
         $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
     }
-    
-    
 
-    
+    public function edit() {
+        
+    }
+
+    public function show($id) {
+        if (!empty($id)) {
+            $route_id = (int) $id;
+        } else {
+            show_404();
+        }
+        if ($this->input->get('ln') == 'en') {
+            $route_table = 'route_translation r';
+            $stopage_table = 'stoppage_translation';
+            $r_id = 'r.route_id';
+        } else {
+            $route_table = 'routes r';
+            $stopage_table = 'stoppages';
+            $r_id = 'r.id';
+        }
+
+        $query = $this->db->select('r.id,r.from_place,r.to_place,r.type,r.vehicle_name,r.departure_place,r.departure_time,r.rent,r.evidence,r.added,u.username')->from($route_table)->join('users u', 'r.added_by = u.id', 'left')->where($r_id, $route_id)->get();
+        if ($query->num_rows() < 1) {
+            $this->session->set_flashdata('message', $this->lang->line('no_route'));
+            redirect('route?ln=' . $this->ln);
+        }
+        $result = $query->row_array();
+        $data = array(
+            'title' => $result['from_place'] . ' ' . $this->lang->line('from_view') . ' ' . $result['to_place'] . ' ' . $result['vehicle_name'] . ' ' . $this->lang->line('route_info'),
+            'route' => $result
+        );
+        $this->nuts_lib->view_loader('user', 'route_details', $data, TRUE, 'latest_routes', 'rightbar');
+    }
 
 }
