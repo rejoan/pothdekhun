@@ -26,7 +26,7 @@ class Route extends CI_Controller {
         $data = array(
             'title' => $this->lang->line('index'),
             'action_pull' => site_url('transport/index'),
-            'action_groute' => site_url('route/add_route?ln=' . $this->ln)
+            'action_groute' => site_url('route/add?ln=' . $this->ln)
         );
 
         $this->nuts_lib->view_loader('user', 'index', $data, TRUE, 'latest_routes', 'rightbar');
@@ -50,7 +50,7 @@ class Route extends CI_Controller {
         //var_dump($country);return;
         $data = array(
             'title' => $this->lang->line('add_route'),
-            'action' => site_url('route/add_route'),
+            'action' => site_url('route/add'),
             'from_push' => $from_push,
             'to_push' => $to_push,
             'countries' => $this->nuts_lib->get_countries()
@@ -124,6 +124,7 @@ class Route extends CI_Controller {
             $rent = $this->input->post('rent', TRUE);
             $place_name = $this->input->post('place_name', TRUE);
             $comment = $this->input->post('comments', TRUE);
+            $position = $this->input->post('position', TRUE);
             //var_dump($place_name[0]);return;
             $stoppages = array();
             for ($p = 0; $p < count($place_name); $p++) {
@@ -133,7 +134,7 @@ class Route extends CI_Controller {
                         'comments' => $comment[$p],
                         'rent' => $rent[$p],
                         'route_id' => $route_id,
-                        'position' => $p + 1
+                        'position' => $position[$p]
                     );
                 }
             }
@@ -157,16 +158,15 @@ class Route extends CI_Controller {
             show_404();
         }
         if ($this->input->get('ln') == 'en') {
-            $route_table = 'route_translation rt';
+            $alias = 'rt';
             $stopage_table = 'stoppage_translation';
-            $r_id = 'r.route_id';
         } else {
-            $route_table = 'routes r';
+            $alias = 'r';
             $stopage_table = 'stoppages';
-            $r_id = 'r.id';
         }
 
-        $query = $this->db->select('r.id,r.from_place,r.to_place,r.type,r.vehicle_name,r.departure_place,r.departure_time,r.rent,r.evidence,r.added,u.username')->from($route_table)->join('users u', 'r.added_by = u.id', 'left')->where($r_id, $route_id)->get();
+        $query = $this->db->select('r.id,'.$alias.'.from_place,'.$alias.'.to_place,r.type,'.$alias.'.vehicle_name,'.$alias.'.departure_place,'.$alias.'.departure_time,r.rent,r.evidence,r.added,u.username')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->join('route_translation rt','r.id = rt.route_id','left')->where('r.id', $route_id)->get();
+        //echo $this->db->last_query();return;
         if ($query->num_rows() < 1) {
             $this->session->set_flashdata('message', $this->lang->line('no_route'));
             redirect('route?ln=' . $this->ln);

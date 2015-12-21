@@ -53,3 +53,4 @@ $lang['rightbar'] = 'Web Links';
 $lang['edit_lang'] = 'Edit this route\'s';
 $lang['info_of'] = 'Informations';
 $lang['stoppages'] = 'Stoppages';
+$lang['position_ord'] = 'Order';

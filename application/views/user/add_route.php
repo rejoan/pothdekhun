@@ -55,7 +55,7 @@
                         } elseif (isset($route['from_place'])) {
                             echo $route['from_place'];
                         } else {
-                            echo (!empty($from_push)) ? $from_push : '';
+                            echo (!empty($from_push)) ? $from_push : $this->session->from_login;
                         }
                         ?>" placeholder="<?php echo $this->lang->line('device_from'); ?>">
                     </div>
@@ -70,13 +70,13 @@
                         } elseif (isset($route['to_place'])) {
                             echo $route['to_place'];
                         } else {
-                            echo (!empty($to_push)) ? $to_push : set_value('to_place');
+                            echo (!empty($to_push)) ? $to_push : $this->session->to_login;
                         }
                         ?>" placeholder="<?php echo $this->lang->line('device_to'); ?>">
                     </div>
                 </div>
                 <?php echo form_error('to_place', '<div class="alert alert-danger">', '</div>'); ?>
-                
+
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('departure_place'); ?><span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                     <div class="col-xs-10 col-md-6">
@@ -107,7 +107,7 @@
 
                 <?php echo form_error('main_rent', '<div class="alert alert-danger">', '</div>'); ?>
 
-                
+
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('transport_type'); ?></label>
@@ -196,7 +196,7 @@
                         <div class="col-xs-10 col-md-6"><input maxlength="200" type="text" class="form-control"  name="departure_dynamic" value="<?php
                             if ($this->input->post('submit')) {
                                 echo set_value('departure_time');
-                            } elseif(isset($route['departure_time'])) {
+                            } elseif (isset($route['departure_time'])) {
                                 echo $route['departure_time'];
                             }
                             ?>">
@@ -237,12 +237,12 @@
                 <input type="hidden" id="place_name" value="<?php echo $this->lang->line('place_name'); ?>"/>
                 <input type="hidden" id="comment" value="<?php echo $this->lang->line('comment'); ?>"/>
                 <input type="hidden" id="rents" value="<?php echo $this->lang->line('main_rent'); ?>"/>
-
+                <input type="hidden" id="position_ord" value="<?php echo $this->lang->line('position_ord'); ?>"/>
                 <input type="hidden" id="custom_time" value="<?php echo $this->lang->line('custom_time'); ?>"/>
                 <input type="hidden" id="route_id" name="route_id" value="<?php
                 if ($this->input->post('submit')) {
                     echo set_value('route_id');
-                } elseif(isset($route['id'])) {
+                } elseif (isset($route['id'])) {
                     echo $route['id'];
                 }
                 ?>"/>

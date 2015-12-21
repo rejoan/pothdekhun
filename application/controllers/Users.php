@@ -33,9 +33,7 @@ class Users extends CI_Controller {
             'title' => $this->lang->line('login'),
             'action' => site_url('users/login')
         );
-        if (!$this->input->get('add')) {
-            $this->session->unset_userdata(array('from_login', 'to_login'));
-        }
+
         if ($this->session->user_id) {
             redirect('profile?ln=' . $this->ln);
         }
@@ -61,8 +59,15 @@ class Users extends CI_Controller {
                     'type' => $user['type']
                 );
                 $this->session->set_userdata($user_data);
-                redirect('profile?ln=' . $this->ln);
+                if ($this->session->from_login) {
+                    redirect('route/add?ln=' . $this->ln);
+                } else {
+                    redirect('profile?ln=' . $this->ln);
+                }
             }
+        }
+        if (!$this->input->get('add')) {
+            $this->session->unset_userdata(array('from_login', 'to_login'));
         }
         $this->nuts_lib->view_loader('user', 'login', $data, TRUE, FALSE);
     }
@@ -105,7 +110,7 @@ class Users extends CI_Controller {
 
     public function logout() {
         $this->session->sess_destroy();
-        redirect('road?ln=' . $this->input->get('ln'));
+        redirect('route?ln=' . $this->input->get('ln'));
     }
 
 }
