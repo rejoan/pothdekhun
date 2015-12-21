@@ -52,3 +52,4 @@ $lang['recent_routes'] = 'Recently Added Routes';
 $lang['rightbar'] = 'Web Links';
 $lang['edit_lang'] = 'Edit this route\'s';
 $lang['info_of'] = 'Informations';
+$lang['stoppages'] = 'Stoppages';

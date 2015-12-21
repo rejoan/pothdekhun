@@ -54,3 +54,4 @@ $lang['recent_routes'] = 'সম্প্রতি যেসব রুট যো
 $lang['rightbar'] = 'ওয়েব লিংক';
 $lang['edit_lang'] = 'এই রুটের';
 $lang['info_of'] = 'তথ্য সম্পাদনা করুন';
+$lang['stoppages'] = 'যেসব স্টেশনে থামবে';

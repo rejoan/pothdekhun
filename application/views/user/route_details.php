@@ -1,21 +1,50 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <div id="route_detail" class="col-xs-12 col-md-6">
     <div class="box box-poth">
-        <div class="box-header">
-            <div class="callout callout-info remove_bottom_margin">
-                <h4><?php echo $this->lang->line('route_info') . ': <span class="label label-white">' . $route['from_place'] . '</span> ' . $this->lang->line('from_view') . ' <span class="label label-white">' . $route['to_place'] . '</span>'; ?></h4>
-            </div>
+        <div class="box-header with-border">
+            <h4><?php echo $this->lang->line('route_info') . ': <span class="label label-info">' . $route['from_place'] . '</span> ' . $this->lang->line('from_view') . ' <span class="label label-info">' . $route['to_place'] . '</span>'; ?></h4>
         </div>
         <div class="box-body">
-            <div class="list-group">
-                <a href="javascript:void(0);" class="list-group-item list-group-item-info">
-                    <strong><?php echo $this->lang->line('transport_type') . '</strong> : ' . $route['type']; ?>
-                </a>
-                <li class="list-group-item"><strong><?php echo $this->lang->line('vehicle_name') . '</strong> : ' . $route['vehicle_name']; ?></li>
-                <li class="list-group-item"><strong><?php echo $this->lang->line('departure_place') . '</strong> : ' . $route['departure_place']; ?></li>
-                <li class="list-group-item"><strong><?php echo $this->lang->line('vehicle_name') . '</strong> : ' . $route['vehicle_name']; ?></li>
-                <li class="list-group-item"><strong><?php echo $this->lang->line('vehicle_name') . '</strong> : ' . $route['vehicle_name']; ?></li>
+            <h4><?php echo $this->lang->line('transport_type'); ?></h4>
+            <?php echo $route['type']; ?>
+            <hr/>
+            <h4><?php echo $this->lang->line('vehicle_name'); ?></h4>
+            <?php echo $route['vehicle_name']; ?>
+            <hr/>
+            <h4><?php echo $this->lang->line('departure_place'); ?></h4>
+            <?php echo $route['departure_place']; ?>
+            <hr/>
+            <h4><?php echo $this->lang->line('main_rent'); ?></h4>
+            <?php echo $route['rent']; ?>
+            <hr/>
+            <h4><?php echo $this->lang->line('departure_time'); ?></h4>
+            <?php echo $route['departure_time']; ?>
+            <hr/>
+            <h4><?php echo $this->lang->line('stoppages'); ?></h4>
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th><?php echo $this->lang->line('place_name'); ?></th>
+                            <th><?php echo $this->lang->line('comment'); ?></th>
+                            <th><?php echo $this->lang->line('main_rent'); ?></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($stoppages as $s):$segment++; ?>
+                            <tr>
+                                <th><?php echo $segment; ?></th>
+                                <td><?php echo $s['place_name']; ?></td>
+                                <td><?php echo $s['comments']; ?></td>
+                                <td><?php echo $s['rent']; ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
+
         </div>
     </div>
 </div>

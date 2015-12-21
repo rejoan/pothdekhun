@@ -157,7 +157,7 @@ class Route extends CI_Controller {
             show_404();
         }
         if ($this->input->get('ln') == 'en') {
-            $route_table = 'route_translation r';
+            $route_table = 'route_translation rt';
             $stopage_table = 'stoppage_translation';
             $r_id = 'r.route_id';
         } else {
@@ -172,9 +172,18 @@ class Route extends CI_Controller {
             redirect('route?ln=' . $this->ln);
         }
         $result = $query->row_array();
+        $q_stopage = $this->db->where('route_id',(int)$result['id'])->get($stopage_table);
+        if ($this->uri->segment(3)) {
+            $segment = $this->uri->segment(3);
+        } else {
+            $segment = 0;
+        }
+        
         $data = array(
             'title' => $result['from_place'] . ' ' . $this->lang->line('from_view') . ' ' . $result['to_place'] . ' ' . $result['vehicle_name'] . ' ' . $this->lang->line('route_info'),
-            'route' => $result
+            'route' => $result,
+            'stoppages' => $q_stopage->result_array(),
+            'segment' => $segment
         );
         $this->nuts_lib->view_loader('user', 'route_details', $data, TRUE, 'latest_routes', 'rightbar');
     }
