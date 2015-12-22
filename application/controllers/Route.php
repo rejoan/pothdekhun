@@ -149,17 +149,24 @@ class Route extends CI_Controller {
 
     public function edit($id) {
         if ($this->input->get('ln') == 'en') {
-            $route_table = 'route_translation';
+            $alias = 'rt';
             $stopage_table = 'stoppage_translation';
-            $update_id = 'route_id';
         } else {
-            $route_table = 'routes';
+            $alias = 'r';
             $stopage_table = 'stoppages';
-            $update_id = 'id';
         }
         if (!empty($id)) {
             $route_id = (int) $id;
-            $query = $this->db->where('id', $route_id)->get($route_table);
+            $query = $this->db->select('r.id,' . $alias . '.from_place,' . $alias . '.to_place,r.type,' . $alias . '.vehicle_name,' . $alias . '.departure_place,' . $alias . '.departure_time,r.rent,r.evidence,r.added,r.is_publish')->from('routes r')->join('route_translation rt', 'r.id = rt.route_id', 'left')->where('r.added_by', $this->user_id)->where('r.id', $route_id)->get();
+            $q_edit = $this->db->where('route_id', $route_id)->get('edited_routes')->num_rows();
+            if ($q_edit > 0) {
+                $this->session->set_flashdata('message', $this->lang->line('already_edit_submitted'));
+                redirect('profile/my_routes?ln=' . $this->ln);
+            }
+            if ($query->num_rows() < 1) {
+                $this->session->set_flashdata('message', 'Wrong Access');
+                redirect('profile/my_routes?ln=') . $this->ln;
+            }
         } else {
             show_404();
         }
@@ -168,7 +175,7 @@ class Route extends CI_Controller {
         $q_stoppage = $this->db->where('route_id', $route_id)->get($stopage_table);
         $data = array(
             'title' => $this->lang->line('edit_route'),
-            'action' => site_url('routes/edit/' . $route_id),
+            'action' => site_url('route/edit/' . $route_id),
             'countries' => $this->nuts_lib->get_countries(),
             'route' => $query->row_array(),
             'stoppages' => $q_stoppage->result_array()
@@ -218,6 +225,7 @@ class Route extends CI_Controller {
             }
 
             $route = array(
+                'route_id' => $route_id,
                 'country' => $country,
                 'from_place' => $from,
                 'to_place' => $to,
@@ -226,9 +234,11 @@ class Route extends CI_Controller {
                 'departure_place' => $departure_place,
                 'departure_time' => $departure_time,
                 'rent' => $main_rent,
-                'evidence' => $evidence_name
+                'evidence' => $evidence_name,
+                'edited_by' => $this->user_id,
+                'language_e' => $this->ln
             );
-            $this->db->where($update_id, $route_id)->update($route_table, $route);
+            $this->db->insert('edited_routes', $route);
 
 //stoppage data process
             $rent = $this->input->post('rent', TRUE);
@@ -247,12 +257,11 @@ class Route extends CI_Controller {
                     );
                 }
             }
-            $this->db->where('route_id', $route_id)->delete($stopage_table);
             if (!empty($stoppages)) {
-                $this->db->insert_batch('stoppages', $stoppages);
+                $this->db->insert_batch('edited_stoppages', $stoppages);
             }
-            $this->session->set_flashdata('message', $this->lang->line('edit_success'));
-            redirect('routes');
+            $this->session->set_flashdata('message', $this->lang->line('edit_success_user'));
+            redirect('profile/my_routes?ln=') . $this->ln;
         }
         $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
     }

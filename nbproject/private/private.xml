@@ -3,14 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/admin/routes.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/controllers/Routes.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/controllers/Users.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/assets/js/poth.js</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/controllers/Route.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/libraries/Nuts_lib.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/add_route.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/route_details.php</file>
         </group>
     </open-files>
 </project-private>

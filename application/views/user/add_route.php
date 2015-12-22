@@ -190,18 +190,20 @@
                 </div>
 
                 <?php if (isset($route['departure_time'])): ?>
+                    <?php if ($route['departure_time'] !== 'কিছুক্ষর পরপর'): ?>
 
-                    <div id="departure_dynamic" class="form-group">
-                        <label class="col-sm-3 control-label"></label>
-                        <div class="col-xs-10 col-md-6"><input maxlength="200" type="text" class="form-control"  name="departure_dynamic" value="<?php
-                            if ($this->input->post('submit')) {
-                                echo set_value('departure_time');
-                            } elseif (isset($route['departure_time'])) {
-                                echo $route['departure_time'];
-                            }
-                            ?>">
+                        <div id="departure_dynamic" class="form-group">
+                            <label class="col-sm-3 control-label"></label>
+                            <div class="col-xs-10 col-md-6"><input maxlength="200" type="text" class="form-control"  name="departure_dynamic" value="<?php
+                                if ($this->input->post('submit')) {
+                                    echo set_value('departure_time');
+                                } elseif (isset($route['departure_time'])) {
+                                    echo $route['departure_time'];
+                                }
+                                ?>">
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
                 <?php endif; ?>
 
 
@@ -209,7 +211,7 @@
                     <?php if (isset($route['id'])): ?>
                         <?php
                         for ($i = 0; $i < count($stoppages); $i++) {
-                            echo '<div class="form-group"><div class="col-xs-10 col-md-2"><input maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' .$stoppages[$i]['position']. '"></div><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" value="' . $stoppages[$i]['place_name'] . '" placeholder="' . $this->lang->line('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]"  placeholder="' . $this->lang->line('comment') . '">' . $stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $stoppages[$i]['rent'] . '"  placeholder="' . $this->lang->line('main_rent') . '"></div><a class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel">' . $this->lang->line('cancel_text') . '</a></div>';
+                            echo '<div class="form-group"><div class="col-xs-10 col-md-2"><input maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' . $stoppages[$i]['position'] . '"></div><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" value="' . $stoppages[$i]['place_name'] . '" placeholder="' . $this->lang->line('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]"  placeholder="' . $this->lang->line('comment') . '">' . $stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $stoppages[$i]['rent'] . '"  placeholder="' . $this->lang->line('main_rent') . '"></div><a class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel">' . $this->lang->line('cancel_text') . '</a></div>';
                         }
                         ?>
                     <?php endif; ?>
