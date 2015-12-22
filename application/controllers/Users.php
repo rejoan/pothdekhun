@@ -34,10 +34,7 @@ class Users extends CI_Controller {
             'action' => site_url('users/login')
         );
 
-        if ($this->session->user_id) {
-            redirect('profile?ln=' . $this->ln);
-        }
-
+       
         if ($this->input->post('submit')) {
             $email = trim($this->input->post('email', TRUE));
             $password = trim($this->input->post('password', TRUE));

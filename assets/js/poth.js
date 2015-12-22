@@ -13,14 +13,21 @@ $(document).ready(function () {
         var rents = $('#rents').val();
         var position = $('#position_ord').val();
         $('#stoppage_section').show();
+        if (pos_ord !== 0) {
+            pos_ord = parseInt($('.order_pos').last().val());
+        }
         pos_ord++;
-        $('<div class="form-group"><div class="col-xs-10 col-md-2"><input maxlength="2" type="text" class="form-control" name="position[]" value="' + pos_ord + '" placeholder="' + position + '"></div><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" placeholder="' + place_name + '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" placeholder="' + rents + '"></div><a class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel">' + cancel + '</a></div>').appendTo($('#stoppage_section')).hide().slideDown();
+        $('<div class="form-group"><div class="col-xs-10 col-md-2"><input maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' + pos_ord + '" placeholder="' + position + '"></div><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" placeholder="' + place_name + '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" placeholder="' + rents + '"></div><a class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel">' + cancel + '</a></div>').appendTo($('#stoppage_section')).hide().slideDown();
 
     });
 
     $('#stoppage_section').on('click', 'a', function () {
         $(this).parent().fadeOut('normal', function () {
             $(this).remove();
+            $('.order_pos').each(function (i) {
+                var ord = i + 1;
+                $(this).val(ord);
+            });
         });
     });
 
