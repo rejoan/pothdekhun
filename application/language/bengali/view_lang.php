@@ -56,3 +56,5 @@ $lang['edit_lang'] = 'এই রুটের';
 $lang['info_of'] = 'তথ্য সম্পাদনা করুন';
 $lang['stoppages'] = 'যেসব স্টেশনে থামবে';
 $lang['position_ord'] = 'ক্রম';
+$lang['my_routes'] = 'আপনার যোগকৃত রুটসমূহ';
+$lang['is_publish'] = 'প্রকাশিত';

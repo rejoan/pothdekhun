@@ -120,7 +120,7 @@ class Routes extends CI_Controller {
             $this->form_validation->set_rules('to_place', $this->lang->line('to_view'), 'required');
             $this->form_validation->set_rules('vehicle_name', $this->lang->line('vehicle_name'), 'required');
             $this->form_validation->set_rules('departure_place', $this->lang->line('departure_place'), 'required');
-            $this->form_validation->set_rules('main_rent', $this->lang->line('main_rent'), 'required');
+            $this->form_validation->set_rules('main_rent', $this->lang->line('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
                 $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');

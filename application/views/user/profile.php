@@ -26,7 +26,7 @@ if ($message) {
 
             <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                    <b><?php echo $this->lang->line('route_added') ?></b> <a class="pull-right">1,322</a>
+                    <a href="<?php echo site_url('profile/my_routes?ln=').$this->session->ln;?>"><b><?php echo $this->lang->line('route_added') ?></b><?php echo $route_added;?></a>
                 </li>
                 <li class="list-group-item">
                     <b><?php echo $this->lang->line('route_edited') ?></b> <a class="pull-right">1,322</a>
