@@ -238,6 +238,7 @@ class Route extends CI_Controller {
                 'edited_by' => $this->user_id,
                 'language_e' => $this->ln
             );
+            $this->db->set('submitted_at','NOW()',FALSE);
             $this->db->insert('edited_routes', $route);
 
 //stoppage data process

@@ -167,4 +167,50 @@ class Routes extends CI_Controller {
         $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
+    public function newly_edited() {
+        $this->load->library('pagination');
+        $config['base_url'] = site_url('routes/newly_edited');
+        $config['total_rows'] = $this->db->get('edited_routes')->num_rows();
+        $config['per_page'] = 10;
+        $config['num_links'] = 5;
+        $config['full_tag_open'] = '<ul class="pagination no-margin">';
+        $config['full_tag_close'] = '</ul>';
+        $config['cur_tag_open'] = '<li class="active"><a href="javascript:void();">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['next_link'] = 'Next >';
+        $config['prev_link'] = '< Prev';
+        if ($this->uri->segment(3)) {
+            $segment = $this->uri->segment(3);
+        } else {
+            $segment = 0;
+        }
+        $this->pagination->initialize($config);
+        $query = $this->db->select('r.id,r.country,r.from_place,r.to_place,r.type,r.vehicle_name,r.submitted_at,r.language_e,u.username')->from('edited_routes r')->join('users u', 'r.edited_by = u.id', 'left')->order_by('r.id', 'desc')->get();
+        $data = array(
+            'title' => 'All Edited Routes',
+            'routes' => $query->result_array(),
+            'segment' => $segment
+        );
+        $this->nuts_lib->view_admin('edited', $data, TRUE, FALSE);
+    }
+
+    public function merge() {
+        $query = $this->db->select('r.id,r.country,r.from_place,r.to_place,r.type,r.vehicle_name,r.submitted_at,r.language_e,u.username')->from('edited_routes r')->join('users u', 'r.edited_by = u.id', 'left')->order_by('r.id', 'desc')->get();
+        $data = array(
+            'title' => 'Merge with Master Route',
+            'routes' => $query->result_array()
+        );
+        $this->nuts_lib->view_admin('merge', $data, TRUE, FALSE);
+    }
+
 }

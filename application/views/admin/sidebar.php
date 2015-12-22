@@ -25,7 +25,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="<?php echo $this->nuts_lib->is_selected('routes');?>"><a href="<?php echo site_url('routes'); ?>"><i class="fa fa-navicon"></i> All Route</a></li>
-                    <li><a target="_blank" href="<?php echo site_url('road/add_route?ln=bn'); ?>"><i class="fa fa-plus"></i> Add Route</a></li>
+                    <li class="<?php echo $this->nuts_lib->is_selected('newly_edited');?>"><a href="<?php echo site_url('routes/newly_edited'); ?>"><i class="fa fa-plus"></i> Newly Edited</a></li>
                 </ul>
             </li>
             <li>
