@@ -144,7 +144,7 @@ class Routes extends CI_Controller {
             $rent = $this->input->post('rent', TRUE);
             $place_name = $this->input->post('place_name', TRUE);
             $comment = $this->input->post('comments', TRUE);
-            //var_dump($place_name[0]);return;
+            $position = $this->input->post('position', TRUE);
             $stoppages = array();
             for ($p = 0; $p < count($place_name); $p++) {
                 if ($place_name[$p]) {
@@ -153,7 +153,7 @@ class Routes extends CI_Controller {
                         'comments' => $comment[$p],
                         'rent' => $rent[$p],
                         'route_id' => $route_id,
-                        'position' => $p + 1
+                        'position' => $position[$p]
                     );
                 }
             }

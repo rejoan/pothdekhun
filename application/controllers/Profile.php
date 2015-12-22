@@ -14,7 +14,7 @@ class Profile extends CI_Controller {
         parent::__construct();
         $this->load->library('Nuts_lib');
         $this->nuts_lib->lang_manager();
-        $this->nuts_lib->is_logged();
+        $this->nuts_lib->is_logged('users/login',1);
         $this->language = $this->session->language;
         $this->user_id = (int) $this->session->user_id;
         $this->lang->load(array('controller', 'view'), $this->language);

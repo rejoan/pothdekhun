@@ -361,7 +361,7 @@ class Nuts_lib {
      */
     public function is_logged($redirect_url = 'users/login', $user_type = 1) {
         $type = (int) $this->CI->session->type;
-        if ($this->CI->session->user_id && $user_type === $type) {
+        if ($this->CI->session->user_id && $type >= $user_type) {
             return TRUE;
         } else {
             redirect($redirect_url);
