@@ -1,8 +1,12 @@
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<div class="col-xs-12 col-md-6">
+    
+    <div class="box box-poth">
+        <div class="box-header">
+           
+        </div>
+        <div class="box-body">
+            
+        </div>
+    </div>
+</div>
