@@ -56,3 +56,4 @@ $lang['stoppages'] = 'Stoppages';
 $lang['position_ord'] = 'Order';
 $lang['my_routes'] = 'Routes You Added';
 $lang['is_publish'] = 'Published';
+$lang['edited_route'] = 'Edited Route';

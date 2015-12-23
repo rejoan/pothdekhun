@@ -58,3 +58,4 @@ $lang['stoppages'] = 'যেসব স্টেশনে থামবে';
 $lang['position_ord'] = 'ক্রম';
 $lang['my_routes'] = 'আপনার যোগকৃত রুটসমূহ';
 $lang['is_publish'] = 'প্রকাশিত';
+$lang['edited_route'] = 'সম্পাদিত তথ্য';

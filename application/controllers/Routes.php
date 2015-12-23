@@ -228,30 +228,45 @@ class Routes extends CI_Controller {
     }
 
     public function merge($id) {
-        if ($this->input->get('ln') == 'en') {
+        if ($this->ln == 'en') {
+            $alias = 'rt';
+            $alias_stopage = 'st';
             $route_table = 'route_translation';
-            $stopage_table = 'stoppage_translation';
+            $stopage_table = 'stoppage_translation st';
             $update_id = 'route_id';
         } else {
             $route_table = 'routes';
-            $stopage_table = 'stoppages';
+            $stopage_table = 'stoppages s';
             $update_id = 'id';
+            $alias = 'r';
+            $alias_stopage = 's';
         }
         if (!empty($id)) {
             $route_id = (int) $id;
-            $query = $this->db->where('id', $route_id)->get($route_table);
+            $query = $this->db->select('r.id,' . $alias . '.from_place,' . $alias . '.to_place,r.type,' . $alias . '.vehicle_name,' . $alias . '.departure_place,' . $alias . '.departure_time,r.rent,r.evidence,r.added,r.is_publish')->from('routes r')->join('route_translation rt', 'r.id = rt.route_id', 'left')->where('r.id', $route_id)->get();
+            //echo $this->db->last_query();
+            if ($query->num_rows() < 1) {
+                $this->session->set_flashdata('message', 'Wrong Access');
+                redirect('routes');
+            }
         } else {
             show_404();
         }
 
         $this->load->library('form_validation');
-        $q_stoppage = $this->db->where('route_id', $route_id)->get($stopage_table);
+        $q_stoppage = $this->db->select($alias_stopage . '.place_name,' . $alias_stopage . '.comments,' . $alias_stopage . '.rent,' . $alias_stopage . '.position')->from($stopage_table)->where('route_id', $route_id)->order_by($alias_stopage . '.position', 'asc')->get();
+        
+        $q_edited = $this->db->where($update_id,$route_id)->get($route_table);
+        $q_ed_stopage = $this->db->where('route_id',$route_id)->get($stopage_table);
+        
         $data = array(
             'title' => $this->lang->line('edit_route'),
             'action' => site_url('routes/edit/' . $route_id),
             'countries' => $this->nuts_lib->get_countries(),
             'route' => $query->row_array(),
-            'stoppages' => $q_stoppage->result_array()
+            'stoppages' => $q_stoppage->result_array(),
+            'edited_route' => $q_edited->row_array(),
+            'edited_stopage' => $q_ed_stopage->result_array()
         );
 
         if ($this->input->post('submit')) {
@@ -297,17 +312,30 @@ class Routes extends CI_Controller {
                 return;
             }
 
-            $route = array(
-                'country' => $country,
-                'from_place' => $from,
-                'to_place' => $to,
-                'type' => $transport_type,
-                'vehicle_name' => $transport_name,
-                'departure_place' => $departure_place,
-                'departure_time' => $departure_time,
-                'rent' => $main_rent,
-                'evidence' => $evidence_name
-            );
+
+            if ($this->ln == 'en') {
+                $route = array(
+                    'from_place' => $from,
+                    'to_place' => $to,
+                    'vehicle_name' => $transport_name,
+                    'departure_place' => $departure_place,
+                    'departure_time' => $departure_time
+                );
+            } else {
+                $route = array(
+                    'country' => $country,
+                    'from_place' => $from,
+                    'to_place' => $to,
+                    'type' => $transport_type,
+                    'vehicle_name' => $transport_name,
+                    'departure_place' => $departure_place,
+                    'departure_time' => $departure_time,
+                    'rent' => $main_rent,
+                    'evidence' => $evidence_name
+                );
+            }
+
+
             $this->db->where($update_id, $route_id)->update($route_table, $route);
 
 //stoppage data process
@@ -329,7 +357,7 @@ class Routes extends CI_Controller {
             }
             $this->db->where('route_id', $route_id)->delete($stopage_table);
             if (!empty($stoppages)) {
-                $this->db->insert_batch('stoppages', $stoppages);
+                $this->db->insert_batch($stopage_table, $stoppages);
             }
             $this->session->set_flashdata('message', $this->lang->line('edit_success'));
             redirect('routes');

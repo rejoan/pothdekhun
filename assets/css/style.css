@@ -11,6 +11,9 @@ body {
 .btn,a,button,.btn:focus,a:focus,button:focus,.btn:active,a:active,button:active{
     outline: 0!important;
 }
+.custom_margin{
+    margin: 5px;
+}
 body {
     padding-top: 70px;
 }
