@@ -12,7 +12,10 @@ body {
     outline: 0!important;
 }
 .custom_margin{
-    margin: 5px;
+    margin: 0px 0 28px 0;
+}
+#merge_sec .control-label{
+    padding: 0;
 }
 body {
     padding-top: 70px;

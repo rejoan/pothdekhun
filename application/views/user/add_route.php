@@ -107,8 +107,6 @@
 
                 <?php echo form_error('main_rent', '<div class="alert alert-danger">', '</div>'); ?>
 
-
-
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('transport_type'); ?></label>
                     <div class="col-xs-10 col-md-6">
@@ -225,7 +223,16 @@
                     </div>
                 </div>
 
-
+                <?php if (isset($route['evidence'])): ?>
+                    <?php if (!empty($route['evidence'])): ?>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><?php echo $this->lang->line('prev_file'); ?></label>
+                            <div class="col-xs-10 col-md-6">
+                                <a href="<?php echo base_url('evidences') . '/' . $route['evidence']; ?>"><?php echo $route['evidence']; ?></a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('add_file'); ?></label>
@@ -245,6 +252,13 @@
                     echo set_value('route_id');
                 } elseif (isset($route['id'])) {
                     echo $route['id'];
+                }
+                ?>"/>
+                <input type="hidden"  name="prev_file" value="<?php
+                if ($this->input->post('submit')) {
+                    echo set_value('prev_file');
+                } elseif (isset($route['prev_file'])) {
+                    echo $route['prev_file'];
                 }
                 ?>"/>
                 <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $this->lang->line('add_button'); ?>"/>

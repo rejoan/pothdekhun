@@ -103,6 +103,7 @@ class Routes extends CI_Controller {
             $country = $this->input->post('country', TRUE);
             $departure_time = $this->input->post('departure_time', TRUE);
             $main_rent = $this->input->post('main_rent', TRUE);
+            $prev_file = $this->input->post('prev_file', TRUE);
 
             if ($departure_time == 'perticular') {
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
@@ -123,7 +124,7 @@ class Routes extends CI_Controller {
                     $evidence_name = $evidence['file_name'];
                 }
             } else {
-                $evidence_name = '';
+                $evidence_name = $prev_file;
             }
 //route data process
             $this->form_validation->set_rules('from_place', $this->lang->line('from_view'), 'required');
@@ -227,6 +228,11 @@ class Routes extends CI_Controller {
         $this->nuts_lib->view_admin('edited', $data, TRUE, FALSE);
     }
 
+    /**
+     * merge option with user edited things
+     * @param int $id
+     * @return type
+     */
     public function merge($id) {
         if ($this->ln == 'en') {
             $alias = 'rt';
@@ -243,7 +249,7 @@ class Routes extends CI_Controller {
         }
         if (!empty($id)) {
             $route_id = (int) $id;
-            $query = $this->db->select('r.id,' . $alias . '.from_place,' . $alias . '.to_place,r.type,' . $alias . '.vehicle_name,' . $alias . '.departure_place,' . $alias . '.departure_time,r.rent,r.evidence,r.added,r.is_publish')->from('routes r')->join('route_translation rt', 'r.id = rt.route_id', 'left')->where('r.id', $route_id)->get();
+            $query = $this->db->select('r.id,r.country,' . $alias . '.from_place,' . $alias . '.to_place,r.type,' . $alias . '.vehicle_name,' . $alias . '.departure_place,' . $alias . '.departure_time,r.rent,r.evidence,r.added,r.is_publish')->from('routes r')->join('route_translation rt', 'r.id = rt.route_id', 'left')->where('r.id', $route_id)->get();
             //echo $this->db->last_query();
             if ($query->num_rows() < 1) {
                 $this->session->set_flashdata('message', 'Wrong Access');
@@ -255,19 +261,9 @@ class Routes extends CI_Controller {
 
         $this->load->library('form_validation');
         $q_stoppage = $this->db->select($alias_stopage . '.place_name,' . $alias_stopage . '.comments,' . $alias_stopage . '.rent,' . $alias_stopage . '.position')->from($stopage_table)->where('route_id', $route_id)->order_by($alias_stopage . '.position', 'asc')->get();
-        
-        $q_edited = $this->db->where($update_id,$route_id)->get($route_table);
-        $q_ed_stopage = $this->db->where('route_id',$route_id)->get($stopage_table);
-        
-        $data = array(
-            'title' => $this->lang->line('edit_route'),
-            'action' => site_url('routes/edit/' . $route_id),
-            'countries' => $this->nuts_lib->get_countries(),
-            'route' => $query->row_array(),
-            'stoppages' => $q_stoppage->result_array(),
-            'edited_route' => $q_edited->row_array(),
-            'edited_stopage' => $q_ed_stopage->result_array()
-        );
+
+        $q_edited = $this->db->where('id', $route_id)->get('edited_routes');
+        $q_ed_stopage = $this->db->where('route_id', $route_id)->get('edited_stoppages');
 
         if ($this->input->post('submit')) {
             $from = trim($this->input->post('from_place', TRUE));
@@ -362,6 +358,18 @@ class Routes extends CI_Controller {
             $this->session->set_flashdata('message', $this->lang->line('edit_success'));
             redirect('routes');
         }
+        
+        $data = array(
+            'title' => $this->lang->line('edit_route'),
+            'action' => site_url('routes/edit/' . $route_id),
+            'countries' => $this->nuts_lib->get_countries(),
+            'route' => $query->row_array(),
+            'stoppages' => $q_stoppage->result_array(),
+            'edited_route' => $q_edited->row_array(),
+            'edited_stopage' => $q_ed_stopage->result_array()
+        );
+        
+        
         $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, NULL, 'merge');
     }
 
