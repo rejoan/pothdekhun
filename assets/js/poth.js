@@ -65,8 +65,75 @@ $(document).ready(function () {
             });
             is_exist('chkEmail', 'email', 'users', 'emailInfo');
         }
+    });
+
+    $('#country_edited button').click(function (e) {
+        e.preventDefault();
+        var country_edited = $('#country_edited span').text();
+        $('#country').val(country_edited).trigger('change');
+    });
+
+    $('#place_edited button').click(function (e) {
+        e.preventDefault();
+        var from_place = $('#place_edited span').text();
+        $('#from_place').val(from_place);
+    });
+
+    $('#to_edited button').click(function (e) {
+        e.preventDefault();
+        var from_place = $('#to_edited span').text();
+        $('#to_place').val(from_place);
+    });
+
+
+    $('#departure_place_edited button').click(function (e) {
+        e.preventDefault();
+        var departure_place_edited = $('#departure_place_edited span').text();
+        $('#departure_place').val(departure_place_edited);
+    });
+
+    $('#rent_edited button').click(function (e) {
+        e.preventDefault();
+        var main_rent = $('#rent_edited span').text();
+        $('#main_rent').val(main_rent);
+    });
+
+    $('#type_edited button').click(function (e) {
+        e.preventDefault();
+        var vehicle_type = $('#type_edited span').text();
+        $('#vehicle_type').val(vehicle_type).trigger('change');
+    });
+
+    $('#name_edited button').click(function (e) {
+        e.preventDefault();
+        var name_edited = $('#name_edited span').text();
+        $('#vehicle_name').val(name_edited);
+    });
+    
+     $('#stopage_edited').click(function (e) {
+        e.preventDefault();
+        
+        var edited_position = $('#edited_position_').text();
+        $('#vehicle_name').val(name_edited);
+    });
+
+    $('#time_edited button').click(function (e) {
+        e.preventDefault();
+        var time_edited = $('#time_edited span').text();
+        if (time_edited == 'কিছুক্ষর পরপর') {
+            $('#departure_time').val(time_edited).trigger('change');
+            $('#departure_dynamic input').remove();
+        } else {
+            var is_vis = $('#departure_dynamic input').is(':visible');
+            if (!is_vis) {
+                $('#departure_time').val('perticular').trigger('change');
+            }
+
+            $('#departure_dynamic input').val(time_edited);
+        }
 
     });
+
 
 
     $('#add_route').on('blur', '.rent', function () {

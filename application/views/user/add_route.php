@@ -33,7 +33,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('country'); ?></label>
                     <div class="col-xs-10 col-md-6">
-                        <select name="country" class="selectpicker" data-width="100%">
+                        <select id="country" name="country" class="selectpicker" data-width="100%">
                             <?php foreach ($countries as $key => $c): ?>
                                 <option value="<?php echo $c; ?>" <?php
                                 if (isset($route['country'])) {
@@ -49,7 +49,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('from_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                     <div class="col-xs-10 col-md-6">
-                        <input maxlength="200" type="text" class="form-control" name="from_place" value="<?php
+                        <input id="from_place" maxlength="200" type="text" class="form-control" name="from_place" value="<?php
                         if ($this->input->post('submit')) {
                             echo set_value('from_place');
                         } elseif (isset($route['from_place'])) {
@@ -64,7 +64,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('to_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                     <div class="col-xs-10 col-md-6">
-                        <input maxlength="200" type="text" class="form-control" name="to_place" value="<?php
+                        <input id="to_place" maxlength="200" type="text" class="form-control" name="to_place" value="<?php
                         if ($this->input->post('submit')) {
                             echo set_value('to_place');
                         } elseif (isset($route['to_place'])) {
@@ -80,7 +80,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('departure_place'); ?><span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                     <div class="col-xs-10 col-md-6">
-                        <input maxlength="200" type="text" class="form-control"  name="departure_place" value="<?php
+                        <input id="departure_place" maxlength="200" type="text" class="form-control"  name="departure_place" value="<?php
                         if ($this->input->post('submit')) {
                             echo set_value('departure_place');
                         } elseif (isset($route['departure_place'])) {
@@ -110,7 +110,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('transport_type'); ?></label>
                     <div class="col-xs-10 col-md-6">
-                        <select name="type" class="selectpicker" data-width="100%">
+                        <select id="vehicle_type" name="type" class="selectpicker" data-width="100%">
                             <option value="<?php echo $this->lang->line('bus'); ?>" <?php
                             if ($this->input->post('submit')) {
                                 echo $this->lang->line('bus') == $this->input->post('type') ? 'selected="yes"' : '';
@@ -152,7 +152,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('vehicle_name'); ?><span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                     <div class="col-xs-10 col-md-6">
-                        <input maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php
+                        <input id="vehicle_name" maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php
                         if ($this->input->post('submit')) {
                             echo set_value('vehicle_name');
                         } elseif (isset($route['vehicle_name'])) {
@@ -192,7 +192,8 @@
 
                         <div id="departure_dynamic" class="form-group">
                             <label class="col-sm-3 control-label"></label>
-                            <div class="col-xs-10 col-md-6"><input maxlength="200" type="text" class="form-control"  name="departure_dynamic" value="<?php
+                            <div class="col-xs-10 col-md-6">
+                                <input maxlength="200" type="text" class="form-control"  name="departure_dynamic" value="<?php
                                 if ($this->input->post('submit')) {
                                     echo set_value('departure_time');
                                 } elseif (isset($route['departure_time'])) {
@@ -209,7 +210,7 @@
                     <?php if (isset($route['id'])): ?>
                         <?php
                         for ($i = 0; $i < count($stoppages); $i++) {
-                            echo '<div class="form-group"><div class="col-xs-10 col-md-2"><input maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' . $stoppages[$i]['position'] . '"></div><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" value="' . $stoppages[$i]['place_name'] . '" placeholder="' . $this->lang->line('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]"  placeholder="' . $this->lang->line('comment') . '">' . $stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $stoppages[$i]['rent'] . '"  placeholder="' . $this->lang->line('main_rent') . '"></div><a class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel">' . $this->lang->line('cancel_text') . '</a></div>';
+                            echo '<div class="form-group"><div class="col-xs-10 col-md-2"><input id="position_"'+$i+' maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' . $stoppages[$i]['position'] . '"></div><div class="col-xs-10 col-md-3"><input id="place_"'+$i+' maxlength="150" type="text" class="form-control" name="place_name[]" value="' . $stoppages[$i]['place_name'] . '" placeholder="' . $this->lang->line('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea id="comment_"'+$i+' maxlength="1000" class="form-control" name="comments[]"  placeholder="' . $this->lang->line('comment') . '">' . $stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_"'+$i+' maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $stoppages[$i]['rent'] . '"  placeholder="' . $this->lang->line('main_rent') . '"></div><a class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel">' . $this->lang->line('cancel_text') . '</a></div>';
                         }
                         ?>
                     <?php endif; ?>

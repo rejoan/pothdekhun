@@ -5,8 +5,8 @@
         <group>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/controllers/Routes.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/assets/css/style.css</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/assets/js/poth.js</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/controllers/Route.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/libraries/Nuts_lib.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/merge.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/add_route.php</file>
         </group>
