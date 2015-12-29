@@ -129,9 +129,16 @@ $(document).ready(function () {
         if (edited_rent.length) {
             $('#rent_' + indentity).val(edited_comment);
         }
-
+        
     });
-
+    
+    $('#evidence_edited button').click(function(e){
+        e.preventDefault();
+        var evidence_file = $.trim($('#evidence_edited span').text());
+        $('#prev_file').val(evidence_file);
+        $('#prev_evidence').text(evidence_file);
+    });
+    
     $('#time_edited button').click(function (e) {
         e.preventDefault();
         var time_edited = $('#time_edited span').text();
@@ -146,7 +153,6 @@ $(document).ready(function () {
 
             $('#departure_dynamic input').val(time_edited);
         }
-
     });
 
 

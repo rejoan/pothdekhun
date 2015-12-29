@@ -64,10 +64,12 @@ class Routes extends CI_Controller {
             $alias_stopage = 'st';
             $route_table = 'route_translation';
             $stopage_table = 'stoppage_translation st';
+            $stopage_tablewa = 'stoppage_translation';
             $update_id = 'route_id';
         } else {
             $route_table = 'routes';
             $stopage_table = 'stoppages s';
+            $stopage_tablewa = 'stoppages';
             $update_id = 'id';
             $alias = 'r';
             $alias_stopage = 's';
@@ -181,9 +183,9 @@ class Routes extends CI_Controller {
                     );
                 }
             }
-            $this->db->where('route_id', $route_id)->delete($stopage_table);
+            $this->db->where('route_id', $route_id)->delete($stopage_tablewa);
             if (!empty($stoppages)) {
-                $this->db->insert_batch($stopage_table, $stoppages);
+                $this->db->insert_batch($stopage_tablewa, $stoppages);
             }
             $this->session->set_flashdata('message', $this->lang->line('edit_success'));
             redirect('routes');

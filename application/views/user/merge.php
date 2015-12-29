@@ -144,7 +144,7 @@ include 'application/libraries/finediff.php';
                         $evidence = $route['evidence'];
                         $evidence_edited = trim($edited_route['evidence']);
                         if ($evidence != $evidence_edited) {
-                            $final_evidence = '<p class="text-red">' . $evidence_edited . ' <button id="evidence_edited" class="btn btn-xs btn-success">Accept</button></p>';
+                            $final_evidence = '<p id="evidence_edited" class="text-red"><span>' . $evidence_edited . '</span><button class="btn btn-xs btn-success">Accept</button></p>';
                         } else {
                             $final_evidence = '<p class="text-green">' . $evidence_edited . '</p>';
                         }
@@ -152,7 +152,7 @@ include 'application/libraries/finediff.php';
                         <div class="form-group">
                             <label class="col-sm-3 control-label">File</label>
                             <div class="col-xs-10 col-md-6">
-                                <a href="<?php echo base_url('evidences') . '/' . $evidence_edited; ?>"><?php echo $final_evidence; ?></a>
+                                <a id="evidence_file" href="<?php echo base_url('evidences') . '/' . $evidence_edited; ?>"><?php echo $final_evidence; ?></a>
                             </div>
                         </div>
                     <?php endif; ?>
