@@ -95,10 +95,11 @@ include 'application/libraries/finediff.php';
 
                 <?php
                 for ($i = 0; $i < count($edited_stopage); $i++) {
+                    $k = $i + 1;
                     $position = $stoppages[$i]['position'];
                     $position_edited = trim($edited_stopage[$i]['position']);
                     if ($position != $position_edited) {
-                        $final_position = '<p id="edited_position_"'+$i+' class="text-red">' . $position_edited . '</p>';
+                        $final_position = '<p id="edited_position" class="text-red">' . $position_edited . '</p>';
                     } else {
                         $final_position = '<p class="text-green">' . $position_edited . '</p>';
                     }
@@ -106,7 +107,7 @@ include 'application/libraries/finediff.php';
                     $place_name = $stoppages[$i]['place_name'];
                     $place_name_edited = trim($edited_stopage[$i]['place_name']);
                     if ($place_name != $place_name_edited) {
-                        $final_place = '<p id="edited_place_"'+$i+' class="text-red">' . $place_name_edited . '</p>';
+                        $final_place = '<p id="edited_place" class="text-red">' . $place_name_edited . '</p>';
                     } else {
                         $final_place = '<p class="text-green">' . $place_name_edited . '</p>';
                     }
@@ -114,7 +115,7 @@ include 'application/libraries/finediff.php';
                     $comments = $stoppages[$i]['comments'];
                     $comments_edited = trim($edited_stopage[$i]['comments']);
                     if ($comments != $comments_edited) {
-                        $final_comment = '<p id="edited_comment_"'+$i+' class="text-red">' . $comments_edited . '</p>';
+                        $final_comment = '<p id="edited_comment" class="text-red">' . $comments_edited . '</p>';
                     } else {
                         $final_comment = '<p class="text-green">' . $comments_edited . '</p>';
                     }
@@ -122,13 +123,13 @@ include 'application/libraries/finediff.php';
                     $rent = $stoppages[$i]['rent'];
                     $rent_edited = trim($edited_stopage[$i]['rent']);
                     if ($rent != $rent_edited) {
-                        $final_rent = '<p id="edited_rent_"'+$i+' class="text-red">' . $rent_edited . '</p>';
+                        $final_rent = '<p id="edited_rent" class="text-red">' . $rent_edited . '</p>';
                     } else {
                         $final_rent = '<p class="text-green">' . $rent_edited . '</p>';
                     }
                     
                     if ($position != $position_edited || $rent != $rent_edited || $comments != $comments_edited || $place_name != $place_name_edited) {
-                        $accept_button = ' <button id="stopage_edited" class="btn btn-xs btn-success">Accept</button>';
+                        $accept_button = ' <button data-iden="'.$k.'" class="btn btn-xs btn-success stopage_edited">Accept</button>';
                     }else{
                         $accept_button = '';
                     }

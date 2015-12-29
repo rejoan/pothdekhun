@@ -109,12 +109,27 @@ $(document).ready(function () {
         var name_edited = $('#name_edited span').text();
         $('#vehicle_name').val(name_edited);
     });
-    
-     $('#stopage_edited').click(function (e) {
+
+    $('.stopage_edited').click(function (e) {
         e.preventDefault();
-        
-        var edited_position = $('#edited_position_').text();
-        $('#vehicle_name').val(name_edited);
+        var indentity = $(this).data('iden');
+        var edited_position = $.trim($(this).parent().parent().find('#edited_position').text());
+        var edited_comment = $.trim($(this).parent().parent().find('#edited_comment').text());
+        var edited_place = $.trim($(this).parent().parent().find('#edited_place').text());
+        var edited_rent = $.trim($(this).parent().parent().find('#edited_rent').text());
+        if (edited_position.length) {
+            $('#position_' + indentity).val(edited_position);
+        }
+        if (edited_comment.length) {
+            $('#comment_' + indentity).val(edited_comment);
+        }
+        if (edited_place.length) {
+            $('#place_' + indentity).val(edited_place);
+        }
+        if (edited_rent.length) {
+            $('#rent_' + indentity).val(edited_comment);
+        }
+
     });
 
     $('#time_edited button').click(function (e) {
