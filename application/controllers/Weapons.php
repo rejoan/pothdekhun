@@ -41,9 +41,7 @@ class Weapons extends CI_Controller {
                 'dp' => $f['departure_place']
             );
         }
-        echo json_encode(array(
-            $place_name
-        ));
+        echo json_encode($place_name,JSON_UNESCAPED_UNICODE);
     }
 
 }

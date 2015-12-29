@@ -28,6 +28,12 @@ $(document).ready(function () {
             }
         });
     });
+    
+    $('#suggestion').on('click','.list-group-item',function(){
+        var from_place = $(this).text();
+        $('#from_place').val(from_place);
+        $('#suggestion').empty();
+    });
 //add dynamic stoppgae as many user can
 
     $('#add_stoppage').click(function () {
