@@ -1,9 +1,33 @@
 $(document).ready(function () {
-    site_url = $('#site_url').val();
-    base_url = $('#base_url').val();
     $('.selectpicker').selectpicker();
     $('input[type=file]').bootstrapFileInput();
-
+    var xhr = null;
+    $('#from_place').on('keyup', function () {
+        if (xhr !== null) {
+            xhr.abort();
+            xhr = null;
+        }
+        var typing = $(this).val();
+        var lan = $('#lan').val();
+        var site_url = $('#site_url').val();
+        xhr = $.ajax({
+            url: site_url + 'weapons/get_fplaces',
+            type: 'get',
+            dataType: 'json',
+            cache: true,
+            data: {
+                typing: typing,
+                lan: lan
+            },
+            success: function (response) {
+                var cm = '';
+                for (var i = 0; i < Object.keys(response).length; i++) {
+                    cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i].pn + '</a>';
+                }
+                $('#suggestion').show().html(cm);
+            }
+        });
+    });
 //add dynamic stoppgae as many user can
 
     $('#add_stoppage').click(function () {
@@ -18,9 +42,7 @@ $(document).ready(function () {
         }
         pos_ord++;
         $('<div class="form-group"><div class="col-xs-10 col-md-2"><input maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' + pos_ord + '"></div><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" placeholder="' + place_name + '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" placeholder="' + rents + '"></div><a class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel">' + cancel + '</a></div>').appendTo($('#stoppage_section')).hide().slideDown();
-
     });
-
     $('#stoppage_section').on('click', 'a', function () {
         $(this).parent().fadeOut('normal', function () {
             $(this).remove();
@@ -30,7 +52,6 @@ $(document).ready(function () {
             });
         });
     });
-
     //departure_time
     $('#departure_time').change(function () {
         var custom_time = $('#custom_time').val();
@@ -42,12 +63,9 @@ $(document).ready(function () {
             });
         }
     });
-
-
     $('#chkUsername').on('blur', function () {
         is_exist('chkUsername', 'username', 'users', 'userInfo');
     });
-
     $('#chkEmail').on('blur', function () {
         var em = $('#chkEmail').val();
         var email_text = $('#email_text').val();
@@ -66,50 +84,41 @@ $(document).ready(function () {
             is_exist('chkEmail', 'email', 'users', 'emailInfo');
         }
     });
-
     $('#country_edited button').click(function (e) {
         e.preventDefault();
         var country_edited = $('#country_edited span').text();
         $('#country').val(country_edited).trigger('change');
     });
-
     $('#place_edited button').click(function (e) {
         e.preventDefault();
         var from_place = $('#place_edited span').text();
         $('#from_place').val(from_place);
     });
-
     $('#to_edited button').click(function (e) {
         e.preventDefault();
         var from_place = $('#to_edited span').text();
         $('#to_place').val(from_place);
     });
-
-
     $('#departure_place_edited button').click(function (e) {
         e.preventDefault();
         var departure_place_edited = $('#departure_place_edited span').text();
         $('#departure_place').val(departure_place_edited);
     });
-
     $('#rent_edited button').click(function (e) {
         e.preventDefault();
         var main_rent = $('#rent_edited span').text();
         $('#main_rent').val(main_rent);
     });
-
     $('#type_edited button').click(function (e) {
         e.preventDefault();
         var vehicle_type = $('#type_edited span').text();
         $('#vehicle_type').val(vehicle_type).trigger('change');
     });
-
     $('#name_edited button').click(function (e) {
         e.preventDefault();
         var name_edited = $('#name_edited span').text();
         $('#vehicle_name').val(name_edited);
     });
-
     $('.stopage_edited').click(function (e) {
         e.preventDefault();
         var indentity = $(this).data('iden');
@@ -129,16 +138,14 @@ $(document).ready(function () {
         if (edited_rent.length) {
             $('#rent_' + indentity).val(edited_comment);
         }
-        
+
     });
-    
-    $('#evidence_edited button').click(function(e){
+    $('#evidence_edited button').click(function (e) {
         e.preventDefault();
         var evidence_file = $.trim($('#evidence_edited span').text());
         $('#prev_file').val(evidence_file);
         $('#prev_evidence').text(evidence_file);
     });
-    
     $('#time_edited button').click(function (e) {
         e.preventDefault();
         var time_edited = $('#time_edited span').text();
@@ -154,12 +161,8 @@ $(document).ready(function () {
             $('#departure_dynamic input').val(time_edited);
         }
     });
-
-
-
     $('#add_route').on('blur', '.rent', function () {
         var replaced = replaceNumbers($(this).val());
         $(this).val(replaced);
     });
-
 });
