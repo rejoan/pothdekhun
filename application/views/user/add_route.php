@@ -249,6 +249,7 @@
                 <input type="hidden" id="comment" value="<?php echo $this->lang->line('comment'); ?>"/>
                 <input type="hidden" id="rents" value="<?php echo $this->lang->line('main_rent'); ?>"/>
                 <input type="hidden" id="custom_time" value="<?php echo $this->lang->line('custom_time'); ?>"/>
+                <input type="hidden" name="merger" value="merge"/>
                 <input type="hidden" id="route_id" name="route_id" value="<?php
                 if ($this->input->post('submit')) {
                     echo set_value('route_id');

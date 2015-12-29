@@ -28,6 +28,7 @@ include 'application/libraries/finediff.php';
                         <?php
                         $from_place_text = $route['from_place'];
                         $from_place_edited = trim($edited_route['from_place']);
+                        //var_dump($from_place_edited);
                         echo $from_place_text != $from_place_edited ? '<p id="place_edited" class="text-red"><span>' . $from_place_edited . '</span> <button  class="btn btn-xs btn-success">Accept</button></p>' : '<p class="text-green">' . $from_place_edited . '</p>';
                         ?>
                     </div>

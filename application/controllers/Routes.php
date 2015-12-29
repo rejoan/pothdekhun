@@ -187,6 +187,11 @@ class Routes extends CI_Controller {
             if (!empty($stoppages)) {
                 $this->db->insert_batch($stopage_tablewa, $stoppages);
             }
+            if (!empty($this->input->post('merger'))) {
+                $this->db->where('route_id', $route_id)->delete('edited_routes');
+                $this->db->where('route_id', $route_id)->delete('edited_stoppages');
+            }
+
             $this->session->set_flashdata('message', $this->lang->line('edit_success'));
             redirect('routes');
         }
@@ -221,7 +226,7 @@ class Routes extends CI_Controller {
             $segment = 0;
         }
         $this->pagination->initialize($config);
-        $query = $this->db->select('r.id,r.country,r.from_place,r.to_place,r.type,r.vehicle_name,r.submitted_at,r.language_e,u.username')->from('edited_routes r')->join('users u', 'r.edited_by = u.id', 'left')->order_by('r.id', 'desc')->get();
+        $query = $this->db->select('r.id,r.route_id,r.country,r.from_place,r.to_place,r.type,r.vehicle_name,r.submitted_at,r.language_e,u.username')->from('edited_routes r')->join('users u', 'r.edited_by = u.id', 'left')->order_by('r.id', 'desc')->get();
         $data = array(
             'title' => 'All Edited Routes',
             'routes' => $query->result_array(),
@@ -252,7 +257,7 @@ class Routes extends CI_Controller {
         if (!empty($id)) {
             $route_id = (int) $id;
             $query = $this->db->select('r.id,r.country,' . $alias . '.from_place,' . $alias . '.to_place,r.type,' . $alias . '.vehicle_name,' . $alias . '.departure_place,' . $alias . '.departure_time,r.rent,r.evidence,r.added,r.is_publish')->from('routes r')->join('route_translation rt', 'r.id = rt.route_id', 'left')->where('r.id', $route_id)->get();
-            //echo $this->db->last_query();
+            //echo $this->db->last_query();return;
             if ($query->num_rows() < 1) {
                 $this->session->set_flashdata('message', 'Wrong Access');
                 redirect('routes');
@@ -264,7 +269,7 @@ class Routes extends CI_Controller {
         $this->load->library('form_validation');
         $q_stoppage = $this->db->select($alias_stopage . '.place_name,' . $alias_stopage . '.comments,' . $alias_stopage . '.rent,' . $alias_stopage . '.position')->from($stopage_table)->where('route_id', $route_id)->order_by($alias_stopage . '.position', 'asc')->get();
 
-        $q_edited = $this->db->where('id', $route_id)->get('edited_routes');
+        $q_edited = $this->db->where('route_id', $route_id)->get('edited_routes');
         $q_ed_stopage = $this->db->where('route_id', $route_id)->get('edited_stoppages');
 
         if ($this->input->post('submit')) {
@@ -357,10 +362,11 @@ class Routes extends CI_Controller {
             if (!empty($stoppages)) {
                 $this->db->insert_batch($stopage_table, $stoppages);
             }
+
             $this->session->set_flashdata('message', $this->lang->line('edit_success'));
             redirect('routes');
         }
-        
+
         $data = array(
             'title' => $this->lang->line('edit_route'),
             'action' => site_url('routes/edit/' . $route_id),
@@ -370,8 +376,8 @@ class Routes extends CI_Controller {
             'edited_route' => $q_edited->row_array(),
             'edited_stopage' => $q_ed_stopage->result_array()
         );
-        
-        
+
+
         $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, NULL, 'merge');
     }
 
