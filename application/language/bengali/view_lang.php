@@ -60,3 +60,5 @@ $lang['my_routes'] = 'আপনার যোগকৃত রুটসমূহ';
 $lang['is_publish'] = 'প্রকাশিত';
 $lang['edited_route'] = 'সম্পাদিত তথ্য';
 $lang['prev_file'] = 'পূর্বের ফাইল';
+$lang['verify_button'] = 'তথ্য ঠিক আছে';
+$lang['verify_button_non'] = 'তথ্য ঠিক নেই';

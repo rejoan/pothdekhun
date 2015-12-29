@@ -44,7 +44,17 @@
                     </tbody>
                 </table>
             </div>
-
+        </div>
+        <div class="box-footer">
+            <a href="javascript:void(0);" class="btn btn-info"><?php echo $this->lang->line('verify_button'); ?></a>
+            <a href="javascript:void(0);" class="btn btn-info"><?php echo $this->lang->line('verify_button_non'); ?></a>
+            <hr/>
+            <a href="<?php echo site_url('route/edit').'/'.$route['id'];?>" class="btn btn-block btn-info"><?php echo $this->lang->line('edit_lang') . ' ' . $this->lang->line('info_of'); ?></a>
+            <hr/>
+            <?php if ($this->session->type > 1): ?>
+                <a href="javascript:void(0);" class="btn btn-info">Copy to Bengali</a>
+                <a href="javascript:void(0);" class="btn btn-info">Copy to English</a>
+            <?php endif; ?>
         </div>
     </div>
 </div>
