@@ -150,7 +150,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label"><?php echo $this->lang->line('vehicle_name'); ?><span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
+                    <label class="col-sm-3 control-label"><?php echo $this->lang->line('vehicle_name'); ?></label>
                     <div class="col-xs-10 col-md-6">
                         <input id="vehicle_name" maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php
                         if ($this->input->post('submit')) {
@@ -158,11 +158,10 @@
                         } elseif (isset($route['vehicle_name'])) {
                             echo $route['vehicle_name'];
                         }
-                        ?>" placeholder="<?php echo $this->lang->line('vehicle_placeholder'); ?>" required title="পরিবহনের নাম আবশ্যক">
+                        ?>" placeholder="<?php echo $this->lang->line('vehicle_placeholder'); ?>">
                     </div>
                 </div>
-                <?php echo form_error('vehicle_name', '<div class="alert alert-danger">', '</div>'); ?>
-
+               
                 <div id="departure_perticular" class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $this->lang->line('departure_time'); ?></label>
                     <div  class="col-xs-10 col-md-6">

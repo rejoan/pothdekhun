@@ -18,7 +18,7 @@
                         <th>From</th>
                         <th>To</th>
                         <th>Transport</th>
-                        <th>Verified</th>
+                        <th>Departure</th>
                         <th>Added</th>
                         <th>Added by</th>
                         <th>Published</th>
@@ -31,8 +31,8 @@
                             <th><?php echo $segment; ?></th>
                             <td><?php echo $r['from_place']; ?></td>
                             <td><?php echo $r['to_place']; ?></td>
-                            <td><?php echo $r['type']; ?></td>
-                            <td>6</td>
+                            <td><?php echo $r['vehicle_name']; ?></td>
+                            <td><?php echo $r['departure_place']; ?></td>
                             <td><?php echo $r['added']; ?></td>
                             <td><?php echo $r['username']; ?></td>
                             <td><?php echo $r['is_publish'] == '0' ? '<small class="label label-danger">No</small>' : '<small class="label label-success">Yes</small>'; ?></td>

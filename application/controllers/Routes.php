@@ -49,7 +49,7 @@ class Routes extends CI_Controller {
             $segment = 0;
         }
         $this->pagination->initialize($config);
-        $query = $this->db->select('r.id,r.country,r.from_place,r.to_place,r.type,r.vehicle_name,r.added,r.is_publish,u.username')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->order_by('r.id', 'desc')->get();
+        $query = $this->db->select('r.id,r.country,r.from_place,r.to_place,r.departure_place,r.type,r.vehicle_name,r.added,r.is_publish,u.username')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->order_by('r.id', 'desc')->get();
         $data = array(
             'title' => 'All Routes',
             'routes' => $query->result_array(),
@@ -131,8 +131,7 @@ class Routes extends CI_Controller {
 //route data process
             $this->form_validation->set_rules('from_place', $this->lang->line('from_view'), 'required');
             $this->form_validation->set_rules('to_place', $this->lang->line('to_view'), 'required');
-            $this->form_validation->set_rules('vehicle_name', $this->lang->line('vehicle_name'), 'required');
-            $this->form_validation->set_rules('departure_place', $this->lang->line('departure_place'), 'required');
+            $this->form_validation->set_rules('departure_place', $this->lang->line('departure_place'), 'required|is_unique[routes.departure_place]');
             $this->form_validation->set_rules('main_rent', $this->lang->line('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {

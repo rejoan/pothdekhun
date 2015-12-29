@@ -33,6 +33,7 @@ class Weapons extends CI_Controller {
         } else {
             $query = $this->db->select('from_place,departure_place')->from('routes')->like('from_place', $typing)->or_like('departure_place', $typing)->get();
         }
+        echo $this->db->last_query();
         $from_places = $query->result_array();
         $place_name = array();
         foreach ($from_places as $f) {

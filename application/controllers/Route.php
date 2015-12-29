@@ -94,8 +94,7 @@ class Route extends CI_Controller {
 //route data process
             $this->form_validation->set_rules('from_place', $this->lang->line('from_view'), 'required');
             $this->form_validation->set_rules('to_place', $this->lang->line('to_view'), 'required');
-            $this->form_validation->set_rules('vehicle_name', $this->lang->line('vehicle_name'), 'required');
-            $this->form_validation->set_rules('departure_place', $this->lang->line('departure_place'), 'required');
+            $this->form_validation->set_rules('departure_place', $this->lang->line('departure_place'), 'required|is_unique[routes.departure_place]');
             $this->form_validation->set_rules('main_rent', $this->lang->line('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
@@ -215,8 +214,7 @@ class Route extends CI_Controller {
 //route data process
             $this->form_validation->set_rules('from_place', $this->lang->line('from_view'), 'required');
             $this->form_validation->set_rules('to_place', $this->lang->line('to_view'), 'required');
-            $this->form_validation->set_rules('vehicle_name', $this->lang->line('vehicle_name'), 'required');
-            $this->form_validation->set_rules('departure_place', $this->lang->line('departure_place'), 'required');
+            $this->form_validation->set_rules('departure_place', $this->lang->line('departure_place'), 'required|is_unique[routes.departure_place]');
             $this->form_validation->set_rules('main_rent', $this->lang->line('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
@@ -238,7 +236,7 @@ class Route extends CI_Controller {
                 'edited_by' => $this->user_id,
                 'language_e' => $this->ln
             );
-            $this->db->set('submitted_at','NOW()',FALSE);
+            $this->db->set('submitted_at', 'NOW()', FALSE);
             $this->db->insert('edited_routes', $route);
 
 //stoppage data process
@@ -289,17 +287,12 @@ class Route extends CI_Controller {
         }
         $result = $query->row_array();
         $q_stopage = $this->db->where('route_id', (int) $result['id'])->get($stopage_table);
-        if ($this->uri->segment(3)) {
-            $segment = $this->uri->segment(3);
-        } else {
-            $segment = 0;
-        }
 
         $data = array(
             'title' => $result['from_place'] . ' ' . $this->lang->line('from_view') . ' ' . $result['to_place'] . ' ' . $result['vehicle_name'] . ' ' . $this->lang->line('route_info'),
             'route' => $result,
             'stoppages' => $q_stopage->result_array(),
-            'segment' => $segment
+            'segment' => 0
         );
         $this->nuts_lib->view_loader('user', 'route_details', $data, TRUE, 'latest_routes', 'rightbar');
     }
