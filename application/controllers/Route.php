@@ -116,8 +116,17 @@ class Route extends CI_Controller {
             );
             $this->db->set('added', 'NOW()', FALSE);
             $this->db->insert('routes', $route);
-
+            
             $route_id = $this->db->insert_id();
+            $route_eng = array(
+                'from_place' => $from,
+                'to_place' => $to,
+                'vehicle_name' => $transport_name,
+                'departure_place' => $departure_place,
+                'departure_time' => $departure_time,
+                'route_id' => $route_id
+            );
+            $this->db->insert('route_translation', $route_eng);
 
 //stoppage data process
             $rent = $this->input->post('rent', TRUE);
@@ -140,6 +149,7 @@ class Route extends CI_Controller {
 
             if ($stoppages) {
                 $this->db->insert_batch('stoppages', $stoppages);
+                $this->db->insert_batch('stoppage_translation', $stoppages);
             }
             redirect('route?ln=' . $this->ln);
         }

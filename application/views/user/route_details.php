@@ -6,19 +6,19 @@
         </div>
         <div class="box-body">
             <h4><?php echo $this->lang->line('transport_type'); ?></h4>
-            <?php echo $route['type']; ?>
+            <strong><?php echo $route['type']; ?></strong>
             <hr/>
             <h4><?php echo $this->lang->line('vehicle_name'); ?></h4>
-            <?php echo $route['vehicle_name']; ?>
+            <strong><?php echo $route['vehicle_name']; ?></strong>
             <hr/>
             <h4><?php echo $this->lang->line('departure_place'); ?></h4>
-            <?php echo $route['departure_place']; ?>
+            <strong><?php echo $route['departure_place']; ?></strong>
             <hr/>
             <h4><?php echo $this->lang->line('main_rent'); ?></h4>
-            <?php echo $route['rent']; ?>
+            <strong><?php echo $route['rent']; ?></strong>
             <hr/>
             <h4><?php echo $this->lang->line('departure_time'); ?></h4>
-            <?php echo $route['departure_time']; ?>
+            <strong><?php echo $route['departure_time']; ?></strong>
             <hr/>
             <h4><?php echo $this->lang->line('stoppages'); ?></h4>
             <div class="box-body table-responsive no-padding">
@@ -49,11 +49,9 @@
             <a href="javascript:void(0);" class="btn btn-info"><?php echo $this->lang->line('verify_button'); ?></a>
             <a href="javascript:void(0);" class="btn btn-info"><?php echo $this->lang->line('verify_button_non'); ?></a>
             <hr/>
-            <a href="<?php echo site_url('route/edit').'/'.$route['id'];?>" class="btn btn-block btn-info"><?php echo $this->lang->line('edit_lang') . ' ' . $this->lang->line('info_of'); ?></a>
-            <hr/>
+            <a href="<?php echo site_url('route/edit').'/'.$route['id'];?>" class="btn btn-block btn-info"><?php echo $this->lang->line('edit_lang') . ' ' . $this->lang->line('info_of'); ?></a>            <hr/>
             <?php if ($this->session->type > 1): ?>
-                <a href="javascript:void(0);" class="btn btn-info">Copy to Bengali</a>
-                <a href="javascript:void(0);" class="btn btn-info">Copy to English</a>
+                
             <?php endif; ?>
         </div>
     </div>
