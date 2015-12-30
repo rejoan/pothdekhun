@@ -2,13 +2,18 @@ $(document).ready(function () {
     $('.selectpicker').selectpicker();
     $('input[type=file]').bootstrapFileInput();
     var xhr = null;
-    $('#from_place').on('keyup', function () {
+    $('#from_place,#to_place').on('keyup', function (e) {
         if (xhr !== null) {
             xhr.abort();
             xhr = null;
         }
-        var typing = $(this).val();
+        var typing = $.trim($(this).val());
+        
+        if (!typing.length) {
+            return false;
+        }
         var lan = $('#lan').val();
+        var direction = e.target.id;
         var site_url = $('#site_url').val();
         xhr = $.ajax({
             url: site_url + 'weapons/get_fplaces',
@@ -17,23 +22,32 @@ $(document).ready(function () {
             cache: true,
             data: {
                 typing: typing,
-                lan: lan
+                lan: lan,
+                direction:direction
             },
             success: function (response) {
                 var cm = '';
-                for (var i = 0; i < Object.keys(response).length; i++) {
-                    cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i].pn + '</a>';
+                if (direction === 'from_place') {
+                    for (var i = 0; i < Object.keys(response).length; i++) {
+                        cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i].dp + ', ' + response[i].pn + '</a>';
+                    }
+                    $('#suggestion').show().html(cm);
+                } else {
+                    for (var i = 0; i < Object.keys(response).length; i++) {
+                        cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i].pn + '</a>';
+                    }
+                    $('#suggestion_to').show().html(cm);
                 }
-                $('#suggestion').show().html(cm);
             }
         });
     });
-    
-    $('#suggestion').on('click','.list-group-item',function(){
+
+    $('#suggestion').on('click', '.list-group-item', function () {
         var from_place = $(this).text();
         $('#from_place').val(from_place);
         $('#suggestion').empty();
     });
+
 //add dynamic stoppgae as many user can
 
     $('#add_stoppage').click(function () {

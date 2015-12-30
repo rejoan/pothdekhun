@@ -19,7 +19,10 @@
                     </label>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="toName" placeholder="<?php echo $this->lang->line('to_push'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন">
+                    <input type="text" class="form-control" id="to_place" placeholder="<?php echo $this->lang->line('to_push'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন">
+                    <div id="suggestion_to" class="list-group">
+
+                    </div>
                     <input type="hidden" class="form-control" id="lan" name="lan" value="<?php echo $this->input->get('ln'); ?>">
                 </div>
                 <input type="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $this->lang->line('see_transport_button'); ?>"/>
