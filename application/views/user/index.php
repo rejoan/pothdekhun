@@ -8,7 +8,7 @@
             <!-- route info pull form -->
             <form action="<?php echo $action_pull; ?>" method="get">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="from_place" placeholder="<?php echo $this->lang->line('from_push'); ?>" name="f" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন">
+                    <input type="text" class="form-control" id="from_place" placeholder="<?php echo $this->lang->line('from_push'); ?>" name="f" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                     <div id="suggestion" class="list-group">
 
                     </div>
@@ -19,7 +19,7 @@
                     </label>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="to_place" placeholder="<?php echo $this->lang->line('to_push'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন">
+                    <input type="text" class="form-control" id="to_place" placeholder="<?php echo $this->lang->line('to_push'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                     <div id="suggestion_to" class="list-group">
 
                     </div>

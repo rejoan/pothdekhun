@@ -46,6 +46,12 @@ $(document).ready(function () {
         $('#from_place').val(from_place);
         $('#suggestion').empty();
     });
+    
+    $('#suggestion_to').on('click', '.list-group-item', function () {
+        var to_place = $(this).text();
+        $('#to_place').val(to_place);
+        $('#suggestion_to').empty();
+    });
 
 //add dynamic stoppgae as many user can
 

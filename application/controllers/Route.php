@@ -25,7 +25,7 @@ class Route extends CI_Controller {
     public function index() {
         $data = array(
             'title' => $this->lang->line('index'),
-            'action_pull' => site_url('transport/index'),
+            'action_pull' => site_url('transport/index?ln=' . $this->ln),
             'action_groute' => site_url('route/add?ln=' . $this->ln)
         );
 
