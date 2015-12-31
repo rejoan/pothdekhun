@@ -23,7 +23,7 @@ body {
 #suggestion .list-group-item,#suggestion_to .list-group-item{
     padding: 4px;
 }
-#suggestion .list-group-item:first-child{
+#suggestion .list-group-item:first-child,#suggestion_to .list-group-item:first-child{
     border-top-left-radius:0px;
     border-top-right-radius:0px;
 }

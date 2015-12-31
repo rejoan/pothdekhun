@@ -22,14 +22,13 @@ $(document).ready(function () {
             cache: true,
             data: {
                 typing: typing,
-                lan: lan,
-                direction:direction
+                lan: lan
             },
             success: function (response) {
                 var cm = '';
                 if (direction === 'from_place') {
                     for (var i = 0; i < Object.keys(response).length; i++) {
-                        cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i].dp + ', ' + response[i].pn + '</a>';
+                        cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i].pn + '</a>';
                     }
                     $('#suggestion').show().html(cm);
                 } else {

@@ -28,26 +28,27 @@ class Weapons extends CI_Controller {
     public function get_fplaces() {
         $typing = trim($this->input->get('typing', TRUE));
         $language = trim($this->input->get('lan', TRUE));
-        $direction = trim($this->input->get('direction', TRUE));
+//        $direction = trim($this->input->get('direction', TRUE));
+//        $column = 'from_place';
         $table = 'routes';
-        $column = 'from_place';
+        
 
         if ($language == 'en') {
             $table = 'route_translation';
         }
-        if ($direction == 'to_place') {
-            $column = 'to_place';
-        }
-        $sql = 'SELECT to_place,from_place,departure_place FROM ' . $table . ' WHERE from_place LIKE "%' . $typing . '%" OR to_place LIKE "%' . $typing . '%" OR departure_place LIKE "%' . $typing . '%" GROUP BY from_place ORDER BY CASE WHEN '.$column.' like "' . $typing . '%" THEN 0 WHEN '.$column.' like "% %' . $typing . '% %" THEN 1 WHEN '.$column.' like "%' . $typing . '%" THEN 2 ELSE 3 END LIMIT 10';
+//        if ($direction == 'to_place') {
+//            $column = 'to_place';
+//        }
+
+        $sql = 'SELECT * FROM (SELECT to_place Location FROM '.$table.' UNION SELECT CONCAT_WS(", ",departure_place,from_place) FROM '.$table.') r WHERE Location LIKE "%'.$typing.'%" ORDER BY CASE WHEN Location LIKE "'.$typing.'%" THEN 0 WHEN Location LIKE "% %'.$typing.'% %" THEN 1 WHEN Location LIKE "%'.$typing.'%" THEN 2 ELSE 3 END LIMIT 8';
+
         $query = $this->db->query($sql);
         //echo $this->db->last_query();
         $places = $query->result_array();
         $place_name = array();
         foreach ($places as $f) {
             $place_name[] = array(
-                'pn' => $f['from_place'],
-                'tp' => $f['to_place'],
-                'dp' => $f['departure_place']
+                'pn' => $f['Location']
             );
         }
         echo json_encode($place_name, JSON_UNESCAPED_UNICODE);
