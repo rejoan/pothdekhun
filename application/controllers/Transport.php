@@ -30,7 +30,7 @@ class Transport extends CI_Controller {
         $sql = 'SELECT * FROM (SELECT type,rent,to_place,from_place,departure_place,departure_time,to_place Location FROM '.$table.' UNION SELECT type,rent,to_place,from_place,departure_place,departure_time,CONCAT_WS(", ",departure_place,from_place) FROM '.$table.') r WHERE Location LIKE "%'.$from_place.'%" ORDER BY CASE WHEN Location LIKE "'.$from_place.'%" THEN 0 WHEN Location LIKE "% %'.$from_place.'% %" THEN 1 WHEN Location LIKE "%'.$from_place.'%" THEN 2 ELSE 3 END LIMIT 5';
         
         $query = $this->db->query($sql);
-        echo $this->db->last_query();
+        echo $this->db->last_query();return;
         $data = array(
             'title' => $this->lang->line('transport'),
             'transports' => $query->result_array()
