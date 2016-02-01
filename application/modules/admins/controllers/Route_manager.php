@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  *
  */
-class Routes extends CI_Controller {
+class Route_manager extends CI_Controller {
 
     private $ln;
     private $language;
