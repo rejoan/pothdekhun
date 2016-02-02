@@ -18,11 +18,3 @@ $hook['post_controller_constructor'][] = array(
     'filename' => 'MyHook.php',
     'filepath' => 'hooks'
 );
-
-
-$hook['post_controller_constructor'][] = array(
-    'class' => 'MyHook',
-    'function' => 'language_load',
-    'filename' => 'MyHook.php',
-    'filepath' => 'hooks'
-);
