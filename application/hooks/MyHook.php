@@ -53,8 +53,8 @@ class myHook {
         if ($class !== 'authentication') {
             $user_type = $this->CI->session->user_type;
             if (!$user_type) {
-                $this->CI->session->set_userdata('redirectto', current_url_tr());
-                redirect('authentication/login?redirectto='.$this->CI->session->redirectto);
+                $this->CI->session->set_userdata('next', current_url_tr());
+                redirect('authentication/login?next='.$this->CI->session->redirectto);
             }
             if ($user_type == 'admin') {
                 $acs = TRUE;
@@ -75,9 +75,9 @@ class myHook {
                     die();
                 } else {
                     if (!$user_type) {
-                        redirect('authentication/login?redirectto=' . current_url_tr());
+                        redirect('authentication/login?next=' . current_url_tr());
                     } else {
-                        redirect('import/add_preload');
+                        redirect('users');
                     }
                     die();
                 }

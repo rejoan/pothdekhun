@@ -5,7 +5,7 @@ if (!defined('BASEPATH'))
 
 /**
  * This controller will handle user registration/login/forgot password etc
- * @author Ashikur Rahman
+ * @author Rejoanul Alam
  */
 class Authentication extends MX_Controller {
 
@@ -15,20 +15,20 @@ class Authentication extends MX_Controller {
         $this->load->language('authentication');
     }
 
-//    public function index() {
-//        if ($this->session->userdata('userdata')['admin_type'] != '') {
-//            redirect('dashboard');
-//        } else {
-//            $this->login();
-//        }
-//    }
+    public function index() {
+        if ($this->session->user_type) {
+            redirect('dashboard');
+        } else {
+            $this->login();
+        }
+    }
 
     /**
      * Showing signup form
      * @todo starter kit will be implemented in future
      * @todo artdata pact and privacy policy needs to come from db
      * @todo ajax country/city dropdown list
-     * @author Ashikur Rahman
+     * @author Rejoanul Alam
      */
     public function signup() {
         $this->load->library('recaptcha');
@@ -41,7 +41,7 @@ class Authentication extends MX_Controller {
     /**
      * Showing login form
      * @todo captcha integration for failed try
-     * @author Ashikur Rahman
+     * @author Rejoanul Alam
      */
     public function login() {
         $this->load->library('form_validation');
@@ -86,7 +86,7 @@ class Authentication extends MX_Controller {
      * @todo implementing all frontend validations
      * @todo implementing email sending
      * @todo need to create function for generating license code
-     * @author Ashikur Rahman
+     * @author Rejoanul Alam
      */
     public function signup_process() {
         $this->load->library('recaptcha'); //loading captcha library
@@ -126,7 +126,7 @@ class Authentication extends MX_Controller {
 
     /**
      * Callback function for checking if email exists
-     * @author Ashikur Rahman
+     * @author Rejoanul Alam
      */
     public function email_check($email) {
         if ($this->authentication->check_email($email)) {
