@@ -20,13 +20,14 @@ class Authentication_model extends CI_Model {
                 ->get('users');
         if ($is_user->num_rows()) {
             $user = $is_user->row();
-            $userdata = array(
-                'email' => $user->email,
-                'user_type' => $user->user_type,
+            $user_data = array(
+                'user_id' => $user->id,
                 'username' => $user->username,
-                'id' => $user->id
+                'email' => $user->email,
+                'avatar' => $user->avatar,
+                'type' => $user->type
             );
-            return $userdata;
+            return $user_data;
         } else {
             return false;
         }

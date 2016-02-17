@@ -11,12 +11,6 @@ class Users extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('Nuts_lib');
-        $this->nuts_lib->lang_manager();
-        $this->language = $this->session->language;
-        $this->ln = $this->session->ln;
-        $this->lang->load(array('controller', 'view'), $this->language);
-        $this->load->model('Prime_model');
     }
 
     public function index() {

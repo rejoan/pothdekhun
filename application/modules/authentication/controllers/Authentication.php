@@ -47,16 +47,16 @@ class Authentication extends MX_Controller {
         $this->load->library('form_validation');
         $data['title'] = 'login';
         if ($this->input->post('submit')) {
-            $this->form_validation->set_rules('USER_USERNAME', 'USERNAME', 'trim|required|valid_email');
-            $this->form_validation->set_rules('USER_PASSWORD', 'PASSWORD', 'trim|required');
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+            $this->form_validation->set_rules('password', 'Password', 'required');
 
             if ($this->form_validation->run() == FALSE) {
                 $data['error'] = 'No user found';
                 $this->load->view('login', $data);
                 return;
             } else {
-                $USER_USERNAME = $this->input->post('USER_USERNAME', TRUE);
-                $USER_PASSWORD = $this->input->post('USER_PASSWORD', TRUE);
+                $USER_USERNAME = $this->input->post('email', TRUE);
+                $USER_PASSWORD = $this->input->post('password', TRUE);
                 //check validity
                 $check = $this->authentication->check_credential($USER_USERNAME, $USER_PASSWORD);
 
@@ -66,7 +66,7 @@ class Authentication extends MX_Controller {
                     if ($redirectto) {
                         $redirectto = str_replace(base_url(), '', $redirectto);
                     } else {
-                        $redirectto = 'import/add_preload';
+                        $redirectto = 'dashboard';
                     }
                     $this->session->set_userdata($check);
                     $this->session->set_flashdata('message', lang('successfully_logged_in'));
