@@ -15,13 +15,13 @@ class Authentication extends MX_Controller {
         $this->load->language('authentication');
     }
 
-    public function index() {
-        if ($this->session->user_type) {
-            redirect('dashboard');
-        } else {
-            $this->login();
-        }
-    }
+//    public function index() {
+//        if ($this->session->user_type) {
+//            redirect('dashboard');
+//        } else {
+//            $this->login();
+//        }
+//    }
 
     /**
      * Showing signup form
@@ -52,7 +52,7 @@ class Authentication extends MX_Controller {
 
             if ($this->form_validation->run() == FALSE) {
                 $data['error'] = 'No user found';
-                $this->load->view('login', $data);
+                $this->nuts_lib->view_loader('users', 'login', $data, TRUE, FALSE);
                 return;
             } else {
                 $USER_USERNAME = $this->input->post('email', TRUE);
@@ -78,7 +78,7 @@ class Authentication extends MX_Controller {
             }
         }
 
-        $this->load->view('login', $data);
+        $this->nuts_lib->view_loader('user', 'login', $data, TRUE, FALSE);
     }
 
     /**

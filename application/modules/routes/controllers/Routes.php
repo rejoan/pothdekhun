@@ -5,31 +5,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  *
  */
-class Route extends CI_Controller {
-
-    private $language;
-    private $ln;
-    private $user_id;
+class Routes extends MX_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('Nuts_lib');
-        $this->nuts_lib->lang_manager();
-        $this->language = $this->session->language;
-        $this->ln = $this->session->ln;
-        $this->user_id = (int) $this->session->user_id;
-        $this->lang->load(array('controller_lang', 'view_lang'), $this->language);
-        $this->load->model('Prime_model');
+        echo 'here';return;
     }
 
     public function index() {
+        
         $data = array(
-            'title' => $this->lang->line('index'),
+            'title' => lang('index'),
             'action_pull' => site_url('transport/index?ln=' . $this->ln),
             'action_groute' => site_url('route/add?ln=' . $this->ln)
         );
-
-        $this->nuts_lib->view_loader('user', 'index', $data, TRUE, 'latest_routes', 'rightbar');
+        
+        $this->nl->view_loader('user', 'index', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
     public function add() {
@@ -53,7 +44,7 @@ class Route extends CI_Controller {
             'action' => site_url('route/add'),
             'from_push' => $from_push,
             'to_push' => $to_push,
-            'countries' => $this->nuts_lib->get_countries()
+            'countries' => $this->nl->get_countries()
         );
         if (!$this->user_id) {
             $this->session->unset_userdata(array('from_login', 'to_login'));
@@ -82,7 +73,7 @@ class Route extends CI_Controller {
             if ($_FILES && $_FILES['evidence']['name']) {
                 if (!$this->upload->do_upload('evidence')) {
                     $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                    $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
                     return;
                 } else {
                     $evidence = $this->upload->data();
@@ -98,7 +89,7 @@ class Route extends CI_Controller {
             $this->form_validation->set_rules('main_rent', $this->lang->line('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
                 return;
             }
 
@@ -153,7 +144,7 @@ class Route extends CI_Controller {
             }
             redirect('route?ln=' . $this->ln);
         }
-        $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
     public function edit($id) {
@@ -185,7 +176,7 @@ class Route extends CI_Controller {
         $data = array(
             'title' => $this->lang->line('edit_route'),
             'action' => site_url('route/edit/' . $route_id),
-            'countries' => $this->nuts_lib->get_countries(),
+            'countries' => $this->nl->get_countries(),
             'route' => $query->row_array(),
             'stoppages' => $q_stoppage->result_array()
         );
@@ -212,7 +203,7 @@ class Route extends CI_Controller {
             if ($_FILES && $_FILES['evidence']['name']) {
                 if (!$this->upload->do_upload('evidence')) {
                     $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                    $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
                     return;
                 } else {
                     $evidence = $this->upload->data();
@@ -228,7 +219,7 @@ class Route extends CI_Controller {
             $this->form_validation->set_rules('main_rent', $this->lang->line('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
                 return;
             }
 
@@ -272,7 +263,7 @@ class Route extends CI_Controller {
             $this->session->set_flashdata('message', $this->lang->line('edit_success_user'));
             redirect('profile/my_routes?ln=') . $this->ln;
         }
-        $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
     public function show($id) {
@@ -291,7 +282,8 @@ class Route extends CI_Controller {
 
         $query = $this->db->select('r.id,' . $alias . '.from_place,' . $alias . '.to_place,r.type,' . $alias . '.vehicle_name,' . $alias . '.departure_place,' . $alias . '.departure_time,r.rent,r.evidence,r.added,u.username')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->join('route_translation rt', 'r.id = rt.route_id', 'left')->where('r.id', $route_id)->get();
         //echo $this->db->last_query();return;
-        if ($query->num_rows() < 1) {
+        $exist = $query->num_rows();
+        if ($exist < 1) {
             $this->session->set_flashdata('message', $this->lang->line('no_route'));
             redirect('route?ln=' . $this->ln);
         }
@@ -304,7 +296,7 @@ class Route extends CI_Controller {
             'stoppages' => $q_stopage->result_array(),
             'segment' => 0
         );
-        $this->nuts_lib->view_loader('user', 'route_details', $data, TRUE, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'route_details', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
 }
