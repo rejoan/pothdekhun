@@ -54,7 +54,7 @@ class myHook {
             $user_type = $this->CI->session->user_type;
             if (!$user_type) {
                 $this->CI->session->set_userdata('next', current_url_tr());
-                redirect('authentication/login?next='.$this->CI->session->redirectto);
+                redirect('authentication/login?next=' . $this->CI->session->redirectto);
             }
             if ($user_type == 'admin') {
                 $acs = TRUE;
@@ -66,21 +66,12 @@ class myHook {
                 }
             }
             if ($acs !== TRUE) {
-                if ($this->CI->input->is_ajax_request()) {
-                    if (!$user_type) {
-                        echo 'logged out';
-                    } else {
-                        echo 'restricted';
-                    }
-                    die();
+                if (!$user_type) {
+                    redirect('authentication/login?next=' . current_url_tr());
                 } else {
-                    if (!$user_type) {
-                        redirect('authentication/login?next=' . current_url_tr());
-                    } else {
-                        redirect('users');
-                    }
-                    die();
+                    redirect('users');
                 }
+                die();
             }
         }
     }
