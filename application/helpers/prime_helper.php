@@ -67,7 +67,7 @@ function language_array() {
 
     $ci->db->select('lang_code, lang_name,lang_flag');
     $ci->db->where('lang_status', 1);
-    $query = $ci->db->get('language');
+    $query = $ci->db->get('languages');
 
     $languages = array();
 

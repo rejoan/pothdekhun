@@ -16,11 +16,11 @@ class Routes extends MX_Controller {
         
         $data = array(
             'title' => lang('index'),
-            'action_pull' => site_url('transport/index?ln=' . $this->ln),
-            'action_groute' => site_url('route/add?ln=' . $this->ln)
+            'action_pull' => site_url_tr('transport/index'),
+            'action_groute' => site_url_tr('route/add')
         );
-        
-        $this->nl->view_loader('user', 'index', $data, TRUE, 'latest_routes', 'rightbar');
+        $this->load->view('routes',$data);
+        //$this->nl->view_loader('user', 'index', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
     public function add() {
