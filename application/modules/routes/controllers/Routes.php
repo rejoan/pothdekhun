@@ -9,7 +9,6 @@ class Routes extends MX_Controller {
 
     public function __construct() {
         parent::__construct();
-        echo 'here';return;
     }
 
     public function index() {
@@ -19,8 +18,8 @@ class Routes extends MX_Controller {
             'action_pull' => site_url_tr('transport/index'),
             'action_groute' => site_url_tr('route/add')
         );
-        $this->load->view('routes',$data);
-        //$this->nl->view_loader('user', 'index', $data, TRUE, 'latest_routes', 'rightbar');
+        //$this->load->view('routes',$data);
+        $this->nl->view_loader('user', 'index', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
     public function add() {
