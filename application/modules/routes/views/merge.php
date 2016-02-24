@@ -6,14 +6,14 @@ include 'application/libraries/finediff.php';
     <div class="box box-poth">
         <div class="box-header">
             <div class="callout callout-info">
-                <h4><?php echo $this->lang->line('edited_route'); ?></h4>
+                <h4><?php echo lang('edited_route'); ?></h4>
             </div>
 
         </div>
         <div class="box-body">
             <form id="merge_sec" class="form-horizontal" method="post" action="">
                 <div class="form-group custom_margin">
-                    <label class="col-sm-10 col-md-3 control-label"><?php echo $this->lang->line('country'); ?></label>
+                    <label class="col-sm-10 col-md-3 control-label"><?php echo lang('country'); ?></label>
                     <div class="col-xs-10 col-md-6">
                         <?php
                         $country = $route['country'];
@@ -23,7 +23,7 @@ include 'application/libraries/finediff.php';
                     </div>
                 </div>
                 <div class="form-group custom_margin">
-                    <label class="col-sm-10 col-md-3 control-label"><?php echo $this->lang->line('from_view'); ?></label>
+                    <label class="col-sm-10 col-md-3 control-label"><?php echo lang('from_view'); ?></label>
                     <div class="col-xs-10 col-md-6">
                         <?php
                         $from_place_text = $route['from_place'];
@@ -34,7 +34,7 @@ include 'application/libraries/finediff.php';
                     </div>
                 </div>
                 <div class="form-group custom_margin">
-                    <label class="col-sm-10 col-md-3 control-label"><?php echo $this->lang->line('to_view'); ?></label>
+                    <label class="col-sm-10 col-md-3 control-label"><?php echo lang('to_view'); ?></label>
                     <div class="col-xs-10 col-md-6">
                         <?php
                         $to_place_text = $route['to_place'];
@@ -44,7 +44,7 @@ include 'application/libraries/finediff.php';
                     </div>
                 </div>
                 <div class="form-group custom_margin">
-                    <label class="col-sm-10 col-md-3 control-label"><?php echo $this->lang->line('departure_place'); ?></label>
+                    <label class="col-sm-10 col-md-3 control-label"><?php echo lang('departure_place'); ?></label>
                     <div class="col-xs-10 col-md-6">
                         <?php
                         $departure_place = $route['departure_place'];
@@ -54,7 +54,7 @@ include 'application/libraries/finediff.php';
                     </div>
                 </div>
                 <div class="form-group custom_margin">
-                    <label class="col-sm-10 col-md-3 control-label"><?php echo $this->lang->line('main_rent'); ?></label>
+                    <label class="col-sm-10 col-md-3 control-label"><?php echo lang('main_rent'); ?></label>
                     <div class="col-xs-10 col-md-6">
                         <?php
                         $rent = $route['rent'];
@@ -64,7 +64,7 @@ include 'application/libraries/finediff.php';
                     </div>
                 </div>
                 <div class="form-group custom_margin">
-                    <label class="col-sm-10 col-md-3 control-label"><?php echo $this->lang->line('transport_type'); ?></label>
+                    <label class="col-sm-10 col-md-3 control-label"><?php echo lang('transport_type'); ?></label>
                     <div class="col-xs-10 col-md-6">
                         <?php
                         $type = $route['type'];
@@ -74,7 +74,7 @@ include 'application/libraries/finediff.php';
                     </div>
                 </div>
                 <div class="form-group custom_margin">
-                    <label class="col-sm-10 col-md-3 control-label"><?php echo $this->lang->line('vehicle_name'); ?></label>
+                    <label class="col-sm-10 col-md-3 control-label"><?php echo lang('vehicle_name'); ?></label>
                     <div class="col-xs-10 col-md-6">
                         <?php
                         $vehicle_name = $route['vehicle_name'];
@@ -84,7 +84,7 @@ include 'application/libraries/finediff.php';
                     </div>
                 </div>
                 <div class="form-group custom_margin">
-                    <label class="col-sm-10 col-md-3 control-label"><?php echo $this->lang->line('departure_time'); ?></label>
+                    <label class="col-sm-10 col-md-3 control-label"><?php echo lang('departure_time'); ?></label>
                     <div class="col-xs-10 col-md-6">
                         <?php
                         $departure_time = $route['departure_time'];

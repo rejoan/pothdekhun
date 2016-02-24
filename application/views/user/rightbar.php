@@ -2,7 +2,7 @@
 <div id="profile" class="col-xs-12 col-md-3">
     <div class="box box-primary box-poth">
         <div class="box-header with-border">
-            <h3 class="box-title"><?php echo $this->lang->line('rightbar') ?></h3>
+            <h3 class="box-title"><?php echo lang('rightbar') ?></h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

@@ -26,7 +26,7 @@ class Profile extends CI_Controller {
         //echo $this->db->last_query();return;
         $total_route = $this->db->where('added_by', $this->user_id)->get('routes')->num_rows();
         $data = array(
-            'title' => $this->lang->line('profile'),
+            'title' => lang('profile'),
             'profile' => $query->row_array(),
             'route_added' => $total_route
         );
@@ -73,7 +73,7 @@ class Profile extends CI_Controller {
         $query = $this->db->select('r.id,' . $alias . '.from_place,' . $alias . '.to_place,r.type,' . $alias . '.vehicle_name,' . $alias . '.departure_place,' . $alias . '.departure_time,r.rent,r.evidence,r.added,r.is_publish')->from('routes r')->join('route_translation rt', 'r.id = rt.route_id', 'left')->where('r.added_by', $this->user_id)->get();
 
         $data = array(
-            'title' => $this->lang->line('my_routes'),
+            'title' => lang('my_routes'),
             'routes' => $query->result_array(),
             'route_added' => $query->num_rows(),
             'segment' => $segment

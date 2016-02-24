@@ -24,7 +24,7 @@ class Users extends CI_Controller {
 
     public function login() {
         $data = array(
-            'title' => $this->lang->line('login'),
+            'title' => lang('login'),
             'action' => site_url('users/login')
         );
 
@@ -65,15 +65,15 @@ class Users extends CI_Controller {
 
     public function register() {
         $data = array(
-            'title' => $this->lang->line('register'),
+            'title' => lang('register'),
             'action' => site_url('users/register')
         );
         $this->load->library('form_validation');
 
         if ($this->input->post('submit')) {
-            $this->form_validation->set_rules('email', $this->lang->line('email'), 'required|is_unique[users.email]|valid_email');
-            $this->form_validation->set_rules('username', $this->lang->line('username'), 'is_unique[users.username]');
-            $this->form_validation->set_message('is_unique', $this->lang->line('is_unique_msg'));
+            $this->form_validation->set_rules('email', lang('email'), 'required|is_unique[users.email]|valid_email');
+            $this->form_validation->set_rules('username', lang('username'), 'is_unique[users.username]');
+            $this->form_validation->set_message('is_unique', lang('is_unique_msg'));
 
             $username = trim($this->input->post('username', TRUE));
             $email = trim($this->input->post('email', TRUE));
@@ -92,7 +92,7 @@ class Users extends CI_Controller {
             } else {
                 $this->db->insert('users', $user);
 //send email for verification
-                $this->session->set_flashdata('message', $this->lang->line('register_user'));
+                $this->session->set_flashdata('message', lang('register_user'));
                 redirect('profile?ln=' . $this->ln);
             }
         }

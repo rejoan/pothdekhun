@@ -16,12 +16,12 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th><?php echo $this->lang->line('from_view');?></th>
-                            <th><?php echo $this->lang->line('to_view');?></th>
-                            <th><?php echo $this->lang->line('transport_type');?></th>
-                            <th><?php echo $this->lang->line('route_added');?></th>
-                            <th><?php echo $this->lang->line('is_publish');?></th>
-                            <th><?php echo $this->lang->line('others');?></th>
+                            <th><?php echo lang('from_view');?></th>
+                            <th><?php echo lang('to_view');?></th>
+                            <th><?php echo lang('transport_type');?></th>
+                            <th><?php echo lang('route_added');?></th>
+                            <th><?php echo lang('is_publish');?></th>
+                            <th><?php echo lang('others');?></th>
                         </tr>
                     </thead>
                     <tbody>

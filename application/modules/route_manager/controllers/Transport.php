@@ -32,7 +32,7 @@ class Transport extends CI_Controller {
         $query = $this->db->query($sql);
         echo $this->db->last_query();return;
         $data = array(
-            'title' => $this->lang->line('transport'),
+            'title' => lang('transport'),
             'transports' => $query->result_array()
         );
         $this->nuts_lib->view_loader('user', 'transports', $data, TRUE, 'latest_routes', 'rightbar');

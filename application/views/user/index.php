@@ -2,53 +2,53 @@
 <div class="col-xs-12 col-md-6">
     <div class="box box-poth">
         <div class="box-header">
-            <?php echo $this->lang->line('see_transport'); ?>
+            <?php echo lang('see_transport'); ?>
         </div>
         <div class="box-body">
             <!-- route info pull form -->
             <form action="<?php echo $action_pull; ?>" method="get">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="from_place" placeholder="<?php echo $this->lang->line('from_push'); ?>" name="f" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                    <input type="text" class="form-control" id="from_place" placeholder="<?php echo lang('from_push'); ?>" name="f" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                     <div id="suggestion" class="list-group">
 
                     </div>
                 </div>
                 <div class="form-group">
                     <label>
-                        <?php echo $this->lang->line('from_view'); ?>
+                        <?php echo lang('from_view'); ?>
                     </label>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="to_place" placeholder="<?php echo $this->lang->line('to_push'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                    <input type="text" class="form-control" id="to_place" placeholder="<?php echo lang('to_push'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                     <div id="suggestion_to" class="list-group">
 
                     </div>
                     <input type="hidden" class="form-control" id="lan" name="lan" value="<?php echo $this->input->get('ln'); ?>">
                 </div>
-                <input type="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $this->lang->line('see_transport_button'); ?>"/>
+                <input type="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('see_transport_button'); ?>"/>
             </form>
         </div>
     </div>
     <div class="box box-poth">
         <div class="box-header">
-            <?php echo $this->lang->line('add_transport_text'); ?>
+            <?php echo lang('add_transport_text'); ?>
         </div>
         <div class="box-body">
             <!-- get route info from user form -->
             <form id="provide_poth" action="<?php echo $action_groute; ?>" method="post">
                 <div class="form-group">
-                    <input id="from_push" type="text" class="form-control" name="from_push" placeholder="<?php echo $this->lang->line('from_push'); ?>" required title="যেখান থেকে  যাবে সেই জায়গার নাম দিন">
+                    <input id="from_push" type="text" class="form-control" name="from_push" placeholder="<?php echo lang('from_push'); ?>" required title="যেখান থেকে  যাবে সেই জায়গার নাম দিন">
                 </div>
                 <div class="form-group">
                     <label>
-                        <?php echo $this->lang->line('from_view'); ?>
+                        <?php echo lang('from_view'); ?>
                     </label>
                 </div>
                 <div id="lang_error" class="form-group">
-                    <input id="to_push" type="text" class="form-control" name="to_push" placeholder="<?php echo $this->lang->line('to_push'); ?>" required title="যেখানে  যাবে সেই জায়গার নাম দিন">
+                    <input id="to_push" type="text" class="form-control" name="to_push" placeholder="<?php echo lang('to_push'); ?>" required title="যেখানে  যাবে সেই জায়গার নাম দিন">
                 </div>
 
-                <input type="submit" name="push_route" class="btn btn-primary btn-lg btn-info" value="<?php echo $this->lang->line('add_transport_button'); ?>"/>
+                <input type="submit" name="push_route" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('add_transport_button'); ?>"/>
             </form>
         </div>
     </div>

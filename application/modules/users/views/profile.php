@@ -26,10 +26,10 @@ if ($message) {
 
             <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                    <a href="<?php echo site_url('profile/my_routes?ln=').$this->session->ln;?>"><b><?php echo $this->lang->line('route_added') ?></b><?php echo $route_added;?></a>
+                    <a href="<?php echo site_url('profile/my_routes?ln=').$this->session->ln;?>"><b><?php echo lang('route_added') ?></b><?php echo $route_added;?></a>
                 </li>
                 <li class="list-group-item">
-                    <b><?php echo $this->lang->line('route_edited') ?></b> <a class="pull-right">1,322</a>
+                    <b><?php echo lang('route_edited') ?></b> <a class="pull-right">1,322</a>
                 </li>
             </ul>
 
@@ -41,11 +41,11 @@ if ($message) {
 <div class="col-xs-12 col-md-6">
     <div class="box box-primary box-poth">
         <div class="box-header with-border">
-            <h3 class="box-title"><?php echo $this->lang->line('about_me') ?></h3>
+            <h3 class="box-title"><?php echo lang('about_me') ?></h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <strong><i class="fa fa-book margin-r-5"></i> <?php echo $this->lang->line('occupation') ?></strong>
+            <strong><i class="fa fa-book margin-r-5"></i> <?php echo lang('occupation') ?></strong>
 
             <p class="text-muted">
                 <?php echo $profile['occupation']; ?>
@@ -53,7 +53,7 @@ if ($message) {
 
             <hr>
 
-            <strong><i class="fa fa-map-marker margin-r-5"></i> <?php echo $this->lang->line('location') ?></strong>
+            <strong><i class="fa fa-map-marker margin-r-5"></i> <?php echo lang('location') ?></strong>
             <?php
             $district = $thana = $country = '';
             if (!empty($profile['district'])) {
@@ -68,7 +68,7 @@ if ($message) {
             <hr>
 
 
-            <strong><i class="fa fa-file-text-o margin-r-5"></i> <?php echo $this->lang->line('about_detail') ?></strong>
+            <strong><i class="fa fa-file-text-o margin-r-5"></i> <?php echo lang('about_detail') ?></strong>
 
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
         </div>

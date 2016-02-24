@@ -89,7 +89,7 @@ class Route_manager extends CI_Controller {
         $this->load->library('form_validation');
         $q_stoppage = $this->db->select($alias_stopage . '.place_name,' . $alias_stopage . '.comments,' . $alias_stopage . '.rent,' . $alias_stopage . '.position')->from($stopage_table)->where('route_id', $route_id)->order_by($alias_stopage . '.position', 'asc')->get();
         $data = array(
-            'title' => $this->lang->line('edit_route'),
+            'title' => lang('edit_route'),
             'action' => site_url('routes/edit/' . $route_id),
             'countries' => $this->nuts_lib->get_countries(),
             'route' => $query->row_array(),
@@ -129,10 +129,10 @@ class Route_manager extends CI_Controller {
                 $evidence_name = $prev_file;
             }
 //route data process
-            $this->form_validation->set_rules('from_place', $this->lang->line('from_view'), 'required');
-            $this->form_validation->set_rules('to_place', $this->lang->line('to_view'), 'required');
-            $this->form_validation->set_rules('departure_place', $this->lang->line('departure_place'), 'required|is_unique[routes.departure_place]');
-            $this->form_validation->set_rules('main_rent', $this->lang->line('main_rent'), 'required|integer');
+            $this->form_validation->set_rules('from_place', lang('from_view'), 'required');
+            $this->form_validation->set_rules('to_place', lang('to_view'), 'required');
+            $this->form_validation->set_rules('departure_place', lang('departure_place'), 'required|is_unique[routes.departure_place]');
+            $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
                 $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
@@ -191,7 +191,7 @@ class Route_manager extends CI_Controller {
                 $this->db->where('route_id', $route_id)->delete('edited_stoppages');
             }
 
-            $this->session->set_flashdata('message', $this->lang->line('edit_success'));
+            $this->session->set_flashdata('message', lang('edit_success'));
             redirect('routes');
         }
         $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
@@ -303,11 +303,11 @@ class Route_manager extends CI_Controller {
                 $evidence_name = '';
             }
 //route data process
-            $this->form_validation->set_rules('from_place', $this->lang->line('from_view'), 'required');
-            $this->form_validation->set_rules('to_place', $this->lang->line('to_view'), 'required');
-            $this->form_validation->set_rules('vehicle_name', $this->lang->line('vehicle_name'), 'required');
-            $this->form_validation->set_rules('departure_place', $this->lang->line('departure_place'), 'required');
-            $this->form_validation->set_rules('main_rent', $this->lang->line('main_rent'), 'required|integer');
+            $this->form_validation->set_rules('from_place', lang('from_view'), 'required');
+            $this->form_validation->set_rules('to_place', lang('to_view'), 'required');
+            $this->form_validation->set_rules('vehicle_name', lang('vehicle_name'), 'required');
+            $this->form_validation->set_rules('departure_place', lang('departure_place'), 'required');
+            $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
                 $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
@@ -362,12 +362,12 @@ class Route_manager extends CI_Controller {
                 $this->db->insert_batch($stopage_table, $stoppages);
             }
 
-            $this->session->set_flashdata('message', $this->lang->line('edit_success'));
+            $this->session->set_flashdata('message', lang('edit_success'));
             redirect('routes');
         }
 
         $data = array(
-            'title' => $this->lang->line('edit_route'),
+            'title' => lang('edit_route'),
             'action' => site_url('routes/edit/' . $route_id),
             'countries' => $this->nuts_lib->get_countries(),
             'route' => $query->row_array(),

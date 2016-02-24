@@ -20,7 +20,7 @@
                 </div>
             </form>
 
-            <a href="#"><?php echo $this->lang->line('forgot_pass'); ?></a><br>
+            <a href="#"><?php echo lang('forgot_pass'); ?></a><br>
 
         </div>
         <!-- /.login-box-body -->

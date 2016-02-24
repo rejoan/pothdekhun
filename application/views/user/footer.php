@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <input type="hidden" id="site_url" value="<?php echo site_url(); ?>" />
 <input type="hidden" id="base_url" value="<?php echo base_url(); ?>"/>
-<input type="hidden" id="email_text" value="<?php echo $this->lang->line('email_text'); ?>"/>
-<input type="hidden" id="email_exist" value="<?php echo $this->lang->line('email_exist'); ?>"/>
+<input type="hidden" id="email_text" value="<?php echo lang('email_text'); ?>"/>
+<input type="hidden" id="email_exist" value="<?php echo lang('email_exist'); ?>"/>
 
 </div><!-- col-->
 <footer>
