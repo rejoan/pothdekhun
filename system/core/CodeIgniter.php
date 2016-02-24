@@ -473,11 +473,9 @@ if ( ! is_php('5.4'))
 		}
 		else
 		{
-                    var_dump($RTR);return;
 			show_404($RTR->directory.$class.'/'.$method);
 		}
 	}
-        
 
 	if ($method !== '_remap')
 	{
