@@ -5,20 +5,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * 
  */
-class Profile extends CI_Controller {
+class Profile extends MX_Controller {
 
-    private $language;
     private $user_id;
-
     public function __construct() {
         parent::__construct();
-        $this->load->library('Nuts_lib');
-        $this->nuts_lib->lang_manager();
-        $this->nuts_lib->is_logged('users/login', 1);
-        $this->language = $this->session->language;
-        $this->user_id = (int) $this->session->user_id;
-        $this->lang->load(array('controller', 'view'), $this->language);
-        $this->load->model('Prime_model');
+        $this->user_id = $this->session->user_id;
     }
 
     public function index() {
@@ -30,7 +22,7 @@ class Profile extends CI_Controller {
             'profile' => $query->row_array(),
             'route_added' => $total_route
         );
-        $this->nuts_lib->view_loader('user', 'profile', $data, TRUE, NULL, 'rightbar');
+        $this->nl->view_loader('user', 'profile', NULL, $data,NULL,'rightbar');
     }
 
     public function my_routes() {

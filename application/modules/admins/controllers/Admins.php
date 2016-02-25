@@ -9,7 +9,6 @@ class Admins extends MX_Controller {
 
     public function __construct() {
         parent::__construct();
-        echo 'here';return;
     }
 
     public function index() {

@@ -5,13 +5,9 @@
         <group>
             <file>file:/C:/xampp/htdocs/pothdekhun/index.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/controllers/Routes.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/system/core/CodeIgniter.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/config/routes.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/hooks/MyHook.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/dashboard/controllers/Dashboard.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/config/config.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/libraries/Nuts_lib.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/admins/controllers/Admins.php</file>
         </group>
     </open-files>
 </project-private>

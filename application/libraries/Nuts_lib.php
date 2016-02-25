@@ -14,47 +14,36 @@ class Nuts_lib {
     }
 
     /**
-     * view loader method
-     * @param string $dirn name of the directory of view file
-     * @param string $view_name view file name
-     * @param mixed $data pass any data
-     * @param bool $menu whether menu to load
-     * @param bool $leftbar whether right sidebar to load
-     * @param bool $rightbar whether left sidebar to load
+     * 
+     * @param type $dirn
+     * @param type $view_name
+     * @param type $view_from
+     * @param type $data
+     * @param type $leftbar
      */
-    public function view_loader($dirn, $view_name, $data, $menu = TRUE, $leftbar = NULL, $rightbar = NULL) {
-        $this->CI->load->view($dirn . '/header', $data);
-        if ($menu) {
-            $this->CI->load->view($dirn . '/menu');
+    public function view_loader($dirn = NULL, $view_name = 'index', $view_from = NULL, $data = array(), $leftbar = NULL, $rightbar = NULL, $menu = 'menu') {
+        if (!empty($dirn)) {
+            $dirn = $dirn . '/';
         }
+        if (!empty($view_from)) {
+            $view_from = $view_from . '/';
+        }
+
+        $this->CI->load->view($dirn . 'header', $data);
+        if ($menu) {
+            $this->CI->load->view($dirn . $menu);
+        }
+        
         if (!empty($leftbar)) {
-            $this->CI->load->view($dirn . '/' . $leftbar);
+            $this->CI->load->view($dirn . $leftbar);
         }
-        $this->CI->load->view($dirn . '/' . $view_name);
+        $this->CI->load->view($view_from . $view_name);
+
         if (!empty($rightbar)) {
-            $this->CI->load->view($dirn . '/' . $rightbar);
-        }
-        $this->CI->load->view($dirn . '/footer');
-    }
-
-    /**
-     * admin view loader
-     * @param string $view_name
-     * @param array $data
-     * @param bool $menu
-     * @param bool $rightbar
-     */
-    public function view_admin($view_name, $data, $menu = TRUE, $rightbar = FALSE) {
-        $this->CI->load->view('admin/header', $data);
-        if ($menu) {
-            $this->CI->load->view('admin/sidebar');
-        }
-        $this->CI->load->view('admin/' . $view_name);
-        if ($rightbar) {
-            $this->CI->load->view('admin/rightbar');
+            $this->CI->load->view($dirn . $rightbar);
         }
 
-        $this->CI->load->view('admin/footer');
+        $this->CI->load->view($dirn . 'footer');
     }
 
     public function get_greetings() {
@@ -79,7 +68,7 @@ class Nuts_lib {
     public function lang_manager() {
         $lange = $this->CI->config->item('language');
         if ($this->CI->input->get('ln') == 'en') {
-            $this->CI->session->unset_userdata(array('language','ln'));
+            $this->CI->session->unset_userdata(array('language', 'ln'));
             $this->CI->session->set_userdata(array('language' => 'english', 'ln' => 'en'));
         } else {
             $this->CI->session->set_userdata(array('language' => $lange, 'ln' => 'bn'));
@@ -359,12 +348,11 @@ class Nuts_lib {
      * @param int $user_type
      * @return boolean
      */
-    public function is_logged($redirect_url = 'users/login', $user_type = 1) {
-        $type = (int) $this->CI->session->type;
-        if ($this->CI->session->user_id && $type >= $user_type) {
+    public function is_logged($redirect_url = 'authentication/login?from_here=') {
+        if ($this->CI->session->user_type) {
             return TRUE;
         } else {
-            redirect($redirect_url);
+            redirect(site_url($redirect_url));
         }
     }
 
@@ -494,11 +482,14 @@ class Nuts_lib {
      * check if super admin
      * @return boolean
      */
-    public function is_admin($redirect_url = 'admin/login') {
-        $level = (int) $this->CI->session->type;
-        if ($level > 1) {
+    public function is_admin($redirect_url = 'authentication/login', $is_view = TRUE) {
+        $level = $this->CI->session->user_type;
+        if ($level == 'admin') {
             return TRUE;
         } else {
+            if ($is_view) {
+                return FALSE;
+            }
             redirect($redirect_url);
         }
     }
@@ -508,19 +499,20 @@ class Nuts_lib {
      */
     public function breadcrumb() {
         $controller = $this->CI->router->fetch_class();
-        $act = $this->CI->router->fetch_method();
+        $method_name = $this->CI->router->fetch_method();
+        $mn = str_replace('_', ' ', $method_name);
         if ($controller != '') {
-            $action_name = '<li><a href="' . site_url($controller . "/index") . '">' . ucfirst($controller) . '</a></li>';
+            $action_name = '<li><a href="' . site_url($controller . "/index") . '">' . ucfirst($controller) . '<i class="fa fa-angle-right"></i></a></li>';
         } else {
             $action_name = '';
         }
-        if ($act != '') {
-            $act_name = '<li class="active">' . ucfirst($act) . '</li>';
+        if ($mn != '') {
+            $method = '<li class="active">' . ucwords($mn) . '</li>';
         } else {
-            $act_name = '';
+            $method = '';
         }
-        $crumb = '<ol class="breadcrumb">
-            <li><a href="javascript:void(0);"><i class="fa fa-dashboard"></i> Home</a></li>' . $action_name . $act_name . '</ol>';
+        $crumb = '<ul class="page-breadcrumb">
+            <li><a href="javascript:void(0);"><i class="fa fa-home"></i> Home<i class="fa fa-angle-right"></i></a></li>' . $action_name . $method . '</ul>';
         echo $crumb;
     }
 
@@ -577,22 +569,6 @@ class Nuts_lib {
         $from = is_int($from) ? $from : strtotime($from);
         $to = is_int($to) ? $to : strtotime($to);
         return ($date > $from) && ($date < $to);
-    }
-
-    /**
-     * check domain if online
-     * @return boolean
-     */
-    function is_connected() {
-        $connected = @fsockopen("www.bkash.com", 80);
-        //website, port  (try 80 or 443)
-        if ($connected) {
-            $is_conn = true; //action when connected
-            fclose($connected);
-        } else {
-            $is_conn = false; //action in connection failure
-        }
-        return $is_conn;
     }
 
     /**
@@ -723,18 +699,27 @@ class Nuts_lib {
 
     /**
      * format datetime as client timezone
-     * @param string $c_from
+     * @param string $format_from from which format
      * @param string $d date to format
-     * @param string $db_zone
-     * @param string $client_zone
-     * @param string $format
+     * @param string $db_zone server/database timezone
+     * @param string $client_zone client timezone
+     * @param string $to_format expected format
      * @return string
+     * @author rejoanul alam <rejoan.er@gmail.com>
      */
-    public function date_formation($c_from, $d, $db_zone = 'America/New_York', $client_zone, $format) {
+    public function date_formation($format_from, $d, $db_zone = 'America/New_York', $client_zone = 'Asia/Dhaka', $to_format = 'd M Y, h:i:s A') {
         $to_time = DateTime::createFromFormat(
-                        $c_from, $d, new DateTimeZone($db_zone));
+                        $format_from, $d, new DateTimeZone($db_zone));
         $date = $to_time->setTimeZone(new DateTimeZone($client_zone));
-        return $date->format($format);
+        return $date->format($to_format);
+    }
+
+    public function date_formatter($format, $d, $to_format = 'Y-m-d H:i:s') {
+        //var_dump($format,$d,$to_format);return;
+        $date = DateTime::createFromFormat(
+                        $format, $d);
+        $final_date = $date->format($to_format);
+        return $final_date;
     }
 
 }

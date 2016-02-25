@@ -7,7 +7,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Users extends CI_Controller {
 
-    private $ln;
 
     public function __construct() {
         parent::__construct();
@@ -19,7 +18,7 @@ class Users extends CI_Controller {
             'action_pull' => site_url('road/get_routes')
         );
 
-        $this->nuts_lib->view_loader('user', 'index', $data);
+        $this->nl->view_loader('user', 'login', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
     public function login() {
@@ -51,16 +50,14 @@ class Users extends CI_Controller {
                 );
                 $this->session->set_userdata($user_data);
                 if ($this->session->from_login) {
-                    redirect('route/add?ln=' . $this->ln);
+                    redirect('routes/add?ln=' . $this->ln);
                 } else {
-                    redirect('profile?ln=' . $this->ln);
+                    redirect_tr('profile');
                 }
             }
         }
-        if (!$this->input->get('add')) {
-            $this->session->unset_userdata(array('from_login', 'to_login'));
-        }
-        $this->nuts_lib->view_loader('user', 'login', $data, TRUE, FALSE);
+
+       $this->nl->view_loader('user', 'login', NULL, $data);
     }
 
     public function register() {
