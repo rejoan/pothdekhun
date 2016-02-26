@@ -18,3 +18,12 @@ $hook['post_controller_constructor'][] = array(
     'filename' => 'MyHook.php',
     'filepath' => 'hooks'
 );
+
+
+$hook['post_controller_constructor'][] = array(
+    'class' => 'myHook',
+    'function' => 'process_acl',
+    'filename' => 'myHook.php',
+    'filepath' => 'hooks',
+    'params' => array()
+);

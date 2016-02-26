@@ -19,7 +19,7 @@ class Routes extends MX_Controller {
             'action_groute' => site_url_tr('route/add')
         );
         //$this->load->view('routes',$data);
-        $this->nl->view_loader('user', 'index', $data, TRUE, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'routes',NULL, $data, 'latest_routes', 'rightbar');
     }
 
     public function add() {

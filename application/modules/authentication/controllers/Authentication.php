@@ -12,7 +12,6 @@ class Authentication extends MX_Controller {
     public function __construct() {
         parent :: __construct();
         $this->load->model('authentication_model', 'authentication');
-        $this->load->language('authentication');
     }
 
 //    public function index() {
@@ -45,14 +44,18 @@ class Authentication extends MX_Controller {
      */
     public function login() {
         $this->load->library('form_validation');
-        $data['title'] = 'login';
+        $data = array(
+            'title' => lang('login'),
+            'action' => site_url('users/login')
+        );
+
         if ($this->input->post('submit')) {
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
             $this->form_validation->set_rules('password', 'Password', 'required');
 
             if ($this->form_validation->run() == FALSE) {
                 $data['error'] = 'No user found';
-                $this->nuts_lib->view_loader('users', 'login', $data, TRUE, FALSE);
+                $this->nl->view_loader('user', 'login', NULL, $data);
                 return;
             } else {
                 $USER_USERNAME = $this->input->post('email', TRUE);
@@ -78,7 +81,7 @@ class Authentication extends MX_Controller {
             }
         }
 
-        $this->nuts_lib->view_loader('user', 'login', $data, TRUE, FALSE);
+        $this->nl->view_loader('user', 'login', NULL, $data);
     }
 
     /**

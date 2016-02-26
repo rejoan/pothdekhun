@@ -21,45 +21,6 @@ class Users extends CI_Controller {
         $this->nl->view_loader('user', 'login', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
-    public function login() {
-        $data = array(
-            'title' => lang('login'),
-            'action' => site_url('users/login')
-        );
-
-       
-        if ($this->input->post('submit')) {
-            $email = trim($this->input->post('email', TRUE));
-            $password = trim($this->input->post('password', TRUE));
-            $cond = array(
-                'email' => $email,
-                'password' => md5($password)
-            );
-
-            $query = $this->db->where($cond)->get('users');
-            //echo $this->db->last_query();return;
-
-            if ($query->num_rows() > 0) {
-                $user = $query->row_array();
-                $user_data = array(
-                    'user_id' => $user['id'],
-                    'username' => $user['username'],
-                    'email' => $user['email'],
-                    'avatar' => $user['avatar'],
-                    'type' => $user['type']
-                );
-                $this->session->set_userdata($user_data);
-                if ($this->session->from_login) {
-                    redirect('routes/add?ln=' . $this->ln);
-                } else {
-                    redirect_tr('profile');
-                }
-            }
-        }
-
-       $this->nl->view_loader('user', 'login', NULL, $data);
-    }
-
     public function register() {
         $data = array(
             'title' => lang('register'),

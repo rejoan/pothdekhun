@@ -15,11 +15,13 @@ class Nuts_lib {
 
     /**
      * 
-     * @param type $dirn
+     * @param string $dirn
      * @param type $view_name
-     * @param type $view_from
+     * @param string $view_from
      * @param type $data
      * @param type $leftbar
+     * @param type $rightbar
+     * @param type $menu
      */
     public function view_loader($dirn = NULL, $view_name = 'index', $view_from = NULL, $data = array(), $leftbar = NULL, $rightbar = NULL, $menu = 'menu') {
         if (!empty($dirn)) {
@@ -33,7 +35,7 @@ class Nuts_lib {
         if ($menu) {
             $this->CI->load->view($dirn . $menu);
         }
-        
+
         if (!empty($leftbar)) {
             $this->CI->load->view($dirn . $leftbar);
         }
