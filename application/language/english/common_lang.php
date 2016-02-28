@@ -24,6 +24,10 @@ $lang['register_user'] = 'Registered Successfully';
 $lang['edit_success'] = 'Edited Successfully';
 $lang['route_info'] = 'Details Route Info';
 $lang['already_edit_submitted'] = 'This Route Already edited & waiting for Admin review';
+$lang['successfully_logged_in'] = 'successfully_logged_in';
+$lang['enter_valid_user_password'] = 'enter_valid_user_password';
+
+
 
 
 

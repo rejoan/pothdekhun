@@ -12,7 +12,7 @@ function site_url_tr($url = '') {
     $CI = & get_instance();
     $lang = $CI->session->lang_code;
 
-    if (!$lang || ($lang == 'bn')) {
+    if (!$lang || ($lang == 'en')) {
         return site_url($url);
     } else {
         return site_url($lang . '/' . $url);

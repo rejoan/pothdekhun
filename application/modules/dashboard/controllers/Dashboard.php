@@ -15,7 +15,7 @@ class Dashboard extends MX_Controller {
         $data = array(
             'title' => 'Dashboard'
         );
-        $this->nl->view_admin('dashboard', $data, TRUE, TRUE);
+        $this->nl->view_admin('user', 'dashboard', NULL,$data);
     }
 
 }

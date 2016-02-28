@@ -67,7 +67,7 @@ class Authentication extends MX_Controller {
         $this->load->library('form_validation');
         $data = array(
             'title' => lang('login'),
-            'action' => site_url('users/login')
+            'action' => site_url_tr('authentication/login')
         );
 
         if ($this->input->post('submit')) {
@@ -94,7 +94,7 @@ class Authentication extends MX_Controller {
                     }
                     $this->session->set_userdata($check);
                     $this->session->set_flashdata('message', lang('successfully_logged_in'));
-                    redirect($redirectto);
+                    redirect('profile');
                 } else {
                     $this->session->set_flashdata('message', lang('enter_valid_user_password'));
                     redirect('authentication/login');

@@ -81,9 +81,9 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'bengali';
-$config['lang_code'] = 'bn';
-$config['lang_flag'] = 'bn';
+$config['language']	= 'english';
+$config['lang_code'] = 'en';
+$config['lang_flag'] = 'gb';
 /*
 |--------------------------------------------------------------------------
 | Default Character Set

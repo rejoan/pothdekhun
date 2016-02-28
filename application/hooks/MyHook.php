@@ -21,7 +21,7 @@ class myHook {
      */
     public function language_set() {
         $lang = language_array(); //calling helper function to load all languages in an array
-        $lang_code = $this->CI->uri->segment(1, 'bn');
+        $lang_code = $this->CI->uri->segment(1, 'en');
         if ($lang_code) {
             if (array_key_exists($lang_code, $lang)) {
                 $language = array(
@@ -41,6 +41,7 @@ class myHook {
             $this->CI->lang->load('common', $lang_name);
             $class = $this->CI->router->fetch_class();
             $file_name = APPPATH . 'language/' . $this->CI->session->lang_name . '/' . $class . '_lang.php';
+            //var_dump(file_exists($file_name));
             if (file_exists($file_name)) {
                 $this->CI->lang->load($class, $lang_name);
             }
