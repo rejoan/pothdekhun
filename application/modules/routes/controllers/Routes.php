@@ -12,14 +12,14 @@ class Routes extends MX_Controller {
     }
 
     public function index() {
-        
+
         $data = array(
             'title' => lang('index'),
             'action_pull' => site_url_tr('transport/index'),
-            'action_groute' => site_url_tr('route/add')
+            'action_groute' => site_url_tr('routes/add')
         );
         //$this->load->view('routes',$data);
-        $this->nl->view_loader('user', 'routes',NULL, $data, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'routes', NULL, $data, 'latest_routes', 'rightbar');
     }
 
     public function add() {
@@ -88,7 +88,7 @@ class Routes extends MX_Controller {
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                $this->nl->view_loader('user', 'add_route', NULL,$data, 'latest_routes', 'rightbar');
                 return;
             }
 
@@ -106,7 +106,7 @@ class Routes extends MX_Controller {
             );
             $this->db->set('added', 'NOW()', FALSE);
             $this->db->insert('routes', $route);
-            
+
             $route_id = $this->db->insert_id();
             $route_eng = array(
                 'from_place' => $from,
@@ -143,7 +143,7 @@ class Routes extends MX_Controller {
             }
             redirect('route?ln=' . $this->ln);
         }
-        $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'add_route', NULL,$data, 'latest_routes', 'rightbar');
     }
 
     public function edit($id) {

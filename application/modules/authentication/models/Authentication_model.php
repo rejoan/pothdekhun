@@ -25,7 +25,7 @@ class Authentication_model extends CI_Model {
                 'username' => $user->username,
                 'email' => $user->email,
                 'avatar' => $user->avatar,
-                'type' => $user->type
+                'user_type' => $user->user_type
             );
             return $user_data;
         } else {
