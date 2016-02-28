@@ -1,0 +1,112 @@
+
+ Sun, 28 Feb 2016 17:03:34 +0000 INFO : [execute] (C:\xampp\htdocs\pothdekhun\application\libraries\authorizenet\lib\net\authorize\api\controller\base\ApiOperationBase.php : 113) - Request Serialization Begin
+ Sun, 28 Feb 2016 17:03:34 +0000 DEBUG : [execute] (C:\xampp\htdocs\pothdekhun\application\libraries\authorizenet\lib\net\authorize\api\controller\base\ApiOperationBase.php : 114) - net\authorize\api\contract\v1\CreateCustomerProfileRequest Object
+(
+    [profile:net\authorize\api\contract\v1\CreateCustomerProfileRequest:private] => net\authorize\api\contract\v1\CustomerProfileType Object
+        (
+            [paymentProfiles:net\authorize\api\contract\v1\CustomerProfileType:private] => Array
+                (
+                    [0] => net\authorize\api\contract\v1\CustomerPaymentProfileType Object
+                        (
+                            [payment:net\authorize\api\contract\v1\CustomerPaymentProfileType:private] => net\authorize\api\contract\v1\PaymentType Object
+                                (
+                                    [creditCard:net\authorize\api\contract\v1\PaymentType:private] => net\authorize\api\contract\v1\CreditCardType Object
+                                        (
+                                            [cardCode:net\authorize\api\contract\v1\CreditCardType:private] => 
+                                            [isPaymentToken:net\authorize\api\contract\v1\CreditCardType:private] => 
+                                            [cryptogram:net\authorize\api\contract\v1\CreditCardType:private] => 
+                                            [cardNumber:net\authorize\api\contract\v1\CreditCardSimpleType:private] => xxxx-0027
+                                            [expirationDate:net\authorize\api\contract\v1\CreditCardSimpleType:private] => xxxx
+                                        )
+
+                                    [bankAccount:net\authorize\api\contract\v1\PaymentType:private] => 
+                                    [trackData:net\authorize\api\contract\v1\PaymentType:private] => 
+                                    [encryptedTrackData:net\authorize\api\contract\v1\PaymentType:private] => 
+                                    [payPal:net\authorize\api\contract\v1\PaymentType:private] => 
+                                    [opaqueData:net\authorize\api\contract\v1\PaymentType:private] => 
+                                )
+
+                            [driversLicense:net\authorize\api\contract\v1\CustomerPaymentProfileType:private] => 
+                            [taxId:net\authorize\api\contract\v1\CustomerPaymentProfileType:private] => 
+                            [customerType:net\authorize\api\contract\v1\CustomerPaymentProfileBaseType:private] => individual
+                            [billTo:net\authorize\api\contract\v1\CustomerPaymentProfileBaseType:private] => net\authorize\api\contract\v1\CustomerAddressType Object
+                                (
+                                    [phoneNumber:net\authorize\api\contract\v1\CustomerAddressType:private] => 
+                                    [faxNumber:net\authorize\api\contract\v1\CustomerAddressType:private] => 
+                                    [email:net\authorize\api\contract\v1\CustomerAddressType:private] => 
+                                    [firstName:net\authorize\api\contract\v1\NameAndAddressType:private] => Ellen
+                                    [lastName:net\authorize\api\contract\v1\NameAndAddressType:private] => Johnson
+                                    [company:net\authorize\api\contract\v1\NameAndAddressType:private] => Souveniropolis
+                                    [address:net\authorize\api\contract\v1\NameAndAddressType:private] => 14 Main Street
+                                    [city:net\authorize\api\contract\v1\NameAndAddressType:private] => Pecan Springs
+                                    [state:net\authorize\api\contract\v1\NameAndAddressType:private] => TX
+                                    [zip:net\authorize\api\contract\v1\NameAndAddressType:private] => 44628
+                                    [country:net\authorize\api\contract\v1\NameAndAddressType:private] => USA
+                                )
+
+                        )
+
+                )
+
+            [shipToList:net\authorize\api\contract\v1\CustomerProfileType:private] => 
+            [merchantCustomerId:net\authorize\api\contract\v1\CustomerProfileBaseType:private] => M_rejoan@gmail.com
+            [description:net\authorize\api\contract\v1\CustomerProfileBaseType:private] => Customer 2 Test PHP
+            [email:net\authorize\api\contract\v1\CustomerProfileBaseType:private] => rejoan@gmail.com
+        )
+
+    [validationMode:net\authorize\api\contract\v1\CreateCustomerProfileRequest:private] => 
+    [merchantAuthentication:net\authorize\api\contract\v1\ANetApiRequestType:private] => net\authorize\api\contract\v1\MerchantAuthenticationType Object
+        (
+            [name:net\authorize\api\contract\v1\MerchantAuthenticationType:private] => 5FuqU523
+            [transactionKey:net\authorize\api\contract\v1\MerchantAuthenticationType:private] => xxxx
+            [sessionToken:net\authorize\api\contract\v1\MerchantAuthenticationType:private] => 
+            [password:net\authorize\api\contract\v1\MerchantAuthenticationType:private] => 
+            [impersonationAuthentication:net\authorize\api\contract\v1\MerchantAuthenticationType:private] => 
+            [fingerPrint:net\authorize\api\contract\v1\MerchantAuthenticationType:private] => 
+            [mobileDeviceId:net\authorize\api\contract\v1\MerchantAuthenticationType:private] => 
+        )
+
+    [refId:net\authorize\api\contract\v1\ANetApiRequestType:private] => ref1456679014
+)
+
+ Sun, 28 Feb 2016 17:03:34 +0000 INFO : [execute] (C:\xampp\htdocs\pothdekhun\application\libraries\authorizenet\lib\net\authorize\api\controller\base\ApiOperationBase.php : 116) - Request  Serialization End
+ Sun, 28 Feb 2016 17:03:34 +0000 INFO : [_sendRequest] (C:\xampp\htdocs\pothdekhun\application\libraries\authorizenet\lib\net\authorize\util\HttpClient.php : 76) -  Url: https://apitest.authorize.net/xml/v1/request.api
+ Sun, 28 Feb 2016 17:03:34 +0000 INFO : [_sendRequest] (C:\xampp\htdocs\pothdekhun\application\libraries\authorizenet\lib\net\authorize\util\HttpClient.php : 78) - Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createCustomerProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[5FuqU523]]></name>
+    <transactionKey>xxxx</transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1456679014]]></refId>
+  <profile>
+    <merchantCustomerId><![CDATA[M_rejoan@gmail.com]]></merchantCustomerId>
+    <description><![CDATA[Customer 2 Test PHP]]></description>
+    <email><![CDATA[rejoan@gmail.com]]></email>
+    <paymentProfiles>
+      <customerType><![CDATA[individual]]></customerType>
+      <billTo>
+        <firstName><![CDATA[Ellen]]></firstName>
+        <lastName><![CDATA[Johnson]]></lastName>
+        <company><![CDATA[Souveniropolis]]></company>
+        <address><![CDATA[14 Main Street]]></address>
+        <city><![CDATA[Pecan Springs]]></city>
+        <state><![CDATA[TX]]></state>
+        <zip><![CDATA[44628]]></zip>
+        <country><![CDATA[USA]]></country>
+      </billTo>
+      <payment>
+        <creditCard>
+          <cardNumber>xxxx-0027</cardNumber>
+          <expirationDate>xxxx</expirationDate>
+        </creditCard>
+      </payment>
+    </paymentProfiles>
+  </profile>
+</createCustomerProfileRequest>
+
+ Sun, 28 Feb 2016 17:03:34 +0000 INFO : [_sendRequest] (C:\xampp\htdocs\pothdekhun\application\libraries\authorizenet\lib\net\authorize\util\HttpClient.php : 90) - Sending 'XML' Request type
+ Sun, 28 Feb 2016 17:03:34 +0000 INFO : [_sendRequest] (C:\xampp\htdocs\pothdekhun\application\libraries\authorizenet\lib\net\authorize\util\HttpClient.php : 95) - Sending http request via Curl
+ Sun, 28 Feb 2016 17:03:39 +0000 INFO : [_sendRequest] (C:\xampp\htdocs\pothdekhun\application\libraries\authorizenet\lib\net\authorize\util\HttpClient.php : 97) - Response from AnetApi: ﻿<?xml version="1.0" encoding="utf-8"?><createCustomerProfileResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1456679014</refId><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><customerProfileId>39666222</customerProfileId><customerPaymentProfileIdList><numericString>35994347</numericString></customerPaymentProfileIdList><customerShippingAddressIdList /><validationDirectResponseList /></createCustomerProfileResponse>
+ Sun, 28 Feb 2016 17:03:39 +0000 INFO : [execute] (C:\xampp\htdocs\pothdekhun\application\libraries\authorizenet\lib\net\authorize\api\controller\base\ApiOperationBase.php : 126) - Response De-Serialization Begin
+ Sun, 28 Feb 2016 17:03:39 +0000 INFO : [execute] (C:\xampp\htdocs\pothdekhun\application\libraries\authorizenet\lib\net\authorize\api\controller\base\ApiOperationBase.php : 128) - Response De-Serialization End
