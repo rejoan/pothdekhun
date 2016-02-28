@@ -22,19 +22,40 @@ class Authentication extends MX_Controller {
 //        }
 //    }
 
-    /**
-     * Showing signup form
-     * @todo starter kit will be implemented in future
-     * @todo artdata pact and privacy policy needs to come from db
-     * @todo ajax country/city dropdown list
-     * @author Rejoanul Alam
-     */
-    public function signup() {
-        $this->load->library('recaptcha');
-        $data['body']['captcha'] = $this->recaptcha->recaptcha_get_html();
-        $data['body']['page'] = "register";
-        $data['body']['countries'] = $this->common_model->get_country_list();
-        makeTemplate($data);
+     public function register() {
+        $data = array(
+            'title' => lang('register'),
+            'action' => site_url_tr('authentication/register')
+        );
+        $this->load->library('form_validation');
+
+        if ($this->input->post('submit')) {
+            $this->form_validation->set_rules('email', lang('email'), 'required|is_unique[users.email]|valid_email');
+            $this->form_validation->set_rules('username', lang('username'), 'is_unique[users.username]');
+            $this->form_validation->set_message('is_unique', lang('is_unique_msg'));
+
+            $username = trim($this->input->post('username', TRUE));
+            $email = trim($this->input->post('email', TRUE));
+            $mobile = trim($this->input->post('mobile', TRUE));
+            $password = trim($this->input->post('password', TRUE));
+            $user = array(
+                'username' => $username,
+                'email' => $email,
+                'mobile' => $mobile,
+                'password' => md5($password)
+            );
+
+            if ($this->form_validation->run() == FALSE) {
+                $this->nl->view_loader('user', 'register', $data);
+                return;
+            } else {
+                $this->db->insert('users', $user);
+//send email for verification
+                $this->session->set_flashdata('message', lang('register_user'));
+                redirect('profile?ln=' . $this->ln);
+            }
+        }
+        $this->nl->view_loader('user', 'register', NULL, $data);
     }
 
     /**
@@ -82,49 +103,6 @@ class Authentication extends MX_Controller {
         }
 
         $this->nl->view_loader('user', 'login', NULL, $data);
-    }
-
-    /**
-     * This function will handle the singup submission
-     * @todo implementing all frontend validations
-     * @todo implementing email sending
-     * @todo need to create function for generating license code
-     * @author Rejoanul Alam
-     */
-    public function signup_process() {
-        $this->load->library('recaptcha'); //loading captcha library
-        $this->load->library('form_validation'); //loading form validation library
-
-        $this->form_validation->set_rules('user_displayName', 'Name', 'trim|required');
-        $this->form_validation->set_rules('user_address', 'Address', 'trim|required');
-        $this->form_validation->set_rules('country_id', 'Country', 'trim|required');
-        $this->form_validation->set_rules('city_id', 'City', 'trim|required');
-        $this->form_validation->set_rules('user_zip_code', 'Zip Code', 'trim|required');
-        $this->form_validation->set_rules('user_regType', 'Registration Type', 'trim|required');
-        if ($this->input->post('user_regType') == "company") {
-            $this->form_validation->set_rules('user_company', 'Company', 'trim|required'); //required if reg type is company
-        }
-        if ($this->input->post('islicensee')) {
-            $this->form_validation->set_rules('user_type', 'user_type', 'trim|required|callback_userType_exist'); //required if user is licensee
-            $this->form_validation->set_rules('licensee_business_since', 'licensee_business_since', 'trim|required'); //required if user is licensee
-        }
-        $this->form_validation->set_rules('user_email', 'Email', 'trim|required|valid_email|is_unique[user.user_email]');
-        $this->form_validation->set_rules('user_password', 'Password', 'trim|required|min_length[6]');
-        $this->form_validation->set_rules('user_password_confirm', 'Password Confirm', 'trim|required|matches[user_password]');
-        $this->form_validation->set_rules('recaptcha_response_field', 'Security Code', 'trim|required|callback_captcha_check');
-
-        if ($this->form_validation->run() == FALSE) {
-            //Handle form validation failure
-            $this->signup();
-        } else {
-            $user_id = $this->authentication->signup_save();
-            if ($user_id) {
-                $this->adataemail->registration_successful($user_id);
-                redirectAlert("authentication/login", lang('auth_signup_success'));
-            } else {
-                redirectAlert("authentication/signup", lang('auth_signup_error'), 'error');
-            }
-        }
     }
 
     /**

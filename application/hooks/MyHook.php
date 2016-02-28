@@ -21,7 +21,7 @@ class myHook {
      */
     public function language_set() {
         $lang = language_array(); //calling helper function to load all languages in an array
-        $lang_code = $this->CI->uri->segment(1, 'en');
+        $lang_code = $this->CI->uri->segment(1, 'bn');
         if ($lang_code) {
             if (array_key_exists($lang_code, $lang)) {
                 $language = array(
@@ -54,7 +54,7 @@ class myHook {
             $user_type = $this->CI->session->user_type;
             if (!$user_type) {
                 $this->CI->session->set_userdata('next', current_url_tr());
-                redirect('authentication/login?next=' . $this->CI->session->redirectto);
+                redirect_tr('authentication/login?next=' . $this->CI->session->redirectto);
             }
             if ($user_type == 'admin') {
                 $acs = TRUE;
@@ -67,9 +67,9 @@ class myHook {
             }
             if ($acs !== TRUE) {
                 if (!$user_type) {
-                    redirect('authentication/login?next=' . current_url_tr());
+                    redirect_tr('authentication/login?next=' . current_url_tr());
                 } else {
-                    redirect('users');
+                    redirect_tr('profile');
                 }
                 die();
             }

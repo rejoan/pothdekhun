@@ -82,7 +82,8 @@ $config['url_suffix'] = '';
 |
 */
 $config['language']	= 'bengali';
-
+$config['lang_code'] = 'bn';
+$config['lang_flag'] = 'bn';
 /*
 |--------------------------------------------------------------------------
 | Default Character Set
