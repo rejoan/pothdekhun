@@ -9,6 +9,7 @@ class Routes extends MX_Controller {
 
     public function __construct() {
         parent::__construct();
+        //echo 'here';return;
     }
 
     public function index() {
@@ -18,26 +19,13 @@ class Routes extends MX_Controller {
             'action_pull' => site_url_tr('transport/index'),
             'action_groute' => site_url_tr('routes/add')
         );
-        //$this->load->view('routes',$data);
-        $this->nl->view_loader('user', 'routes', NULL, $data, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'index', NULL, $data, 'latest_routes', 'rightbar');
     }
 
     public function add() {
         $this->load->library('form_validation');
         $from_push = trim($this->input->post('from_push', TRUE));
         $to_push = trim($this->input->post('to_push', TRUE));
-//        $user_ip = $this->input->ip_address();
-//        $this->load->helper('geo');
-//        //$customer_data = get_geolocation($user_ip);
-//        $customer_data = get_geolocation('114.130.13.242');
-//        if ($customer_data != 'down') {
-//            $country = $customer_data['countryName'];
-//            //$city = $customer_data['cityName'];
-//        } else {
-//            $country = 'api failed';
-//            //$city = 'api failed';
-//        }
-        //var_dump($country);return;
         $data = array(
             'title' => lang('add_route'),
             'action' => site_url('route/add'),
@@ -45,11 +33,11 @@ class Routes extends MX_Controller {
             'to_push' => $to_push,
             'countries' => $this->nl->get_countries()
         );
-        if (!$this->user_id) {
-            $this->session->unset_userdata(array('from_login', 'to_login'));
-            $this->session->set_userdata(array('from_login' => $from_push, 'to_login' => $to_push));
-            redirect('users/login?add=yes');
-        }
+//        if (!$this->user_id) {
+//            $this->session->unset_userdata(array('from_login', 'to_login'));
+//            $this->session->set_userdata(array('from_login' => $from_push, 'to_login' => $to_push));
+//            redirect('users/login?add=yes');
+//        }
         if ($this->input->post('submit')) {
             $from = trim($this->input->post('from_place', TRUE));
             $to = trim($this->input->post('to_place', TRUE));

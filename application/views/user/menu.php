@@ -1,7 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-$ln = $this->session->language;
-?>
+defined('BASEPATH') OR exit('No direct script access allowed');?>
 <nav class="navbar navbar-fixed-top navbar-inverse">
     <div class="container">
         <div class="navbar-header">
