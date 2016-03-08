@@ -23,7 +23,7 @@
                     <div id="suggestion_to" class="list-group">
 
                     </div>
-                    <input type="hidden" class="form-control" id="lan" name="lan" value="<?php echo $this->input->get('ln'); ?>">
+                    <input type="hidden" id="lan" name="lan" value="<?php echo $this->session->lang_code; ?>">
                 </div>
                 <input type="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('see_transport_button'); ?>"/>
             </form>
