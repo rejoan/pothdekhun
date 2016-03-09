@@ -16,7 +16,7 @@ $(document).ready(function () {
         var direction = e.target.id;
         var site_url = $('#site_url').val();
         xhr = $.ajax({
-            url: site_url + 'weapons/get_fplaces',
+            url: site_url + 'weapons/get_place',
             type: 'get',
             dataType: 'json',
             cache: true,
