@@ -9,7 +9,6 @@ class Routes extends MX_Controller {
 
     public function __construct() {
         parent::__construct();
-        //echo 'here';return;
     }
 
     public function index() {
@@ -26,12 +25,17 @@ class Routes extends MX_Controller {
         $this->load->library('form_validation');
         $from_push = trim($this->input->post('from_push', TRUE));
         $to_push = trim($this->input->post('to_push', TRUE));
+        $name = 'name';
+        if($this->session->lang_code == 'bn'){
+            $name = 'bn_name';
+        }
         $data = array(
             'title' => lang('add_route'),
             'action' => site_url('route/add'),
             'from_push' => $from_push,
             'to_push' => $to_push,
-            'countries' => $this->nl->get_countries()
+            'districts' => $this->pm->get_data('districts'),
+            'name' => $name
         );
 //        if (!$this->user_id) {
 //            $this->session->unset_userdata(array('from_login', 'to_login'));
@@ -76,7 +80,7 @@ class Routes extends MX_Controller {
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'add_route', NULL, $data, 'latest_routes', 'rightbar');
+                $this->nl->view_loader('user', 'add', NULL, $data, 'latest_routes', 'rightbar');
                 return;
             }
 
@@ -131,7 +135,7 @@ class Routes extends MX_Controller {
             }
             redirect('routes');
         }
-        $this->nl->view_loader('user', 'add_route', NULL, $data, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'add', NULL, $data, 'latest_routes', 'rightbar');
     }
 
     public function edit($id) {
@@ -283,7 +287,7 @@ class Routes extends MX_Controller {
             'stoppages' => $q_stopage->result_array(),
             'segment' => 0
         );
-        $this->nl->view_loader('user', 'route_details', $data, TRUE, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'details', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
 }

@@ -18,10 +18,8 @@
 
             <?php if (strpos(current_url(), 'edit')): ?>
                 <?php
-                $url = ($this->input->get('ln') == 'en') ? current_url() . '?ln=bn' : current_url() . '?ln=en';
-                $text_lang = ($this->input->get('ln') == 'bn') ? 'English' : 'Bengali';
                 echo lang('edit_lang') . ' ';
-                echo '<a class="btn btn-sm btn-info" href="' . $url . '">' . $text_lang . '</a>';
+                echo '<a class="btn btn-sm btn-info" href="' . site_url_tr() . '">' . $text_lang . '</a>';
                 echo ' ' . lang('info_of');
                 ?>
             <?php endif; ?>
@@ -30,25 +28,43 @@
         <div class="box-body">
             <!-- route info push form -->
             <form id="add_route" class="form-horizontal" action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label class="col-sm-3 control-label"><?php echo lang('country'); ?></label>
-                    <div class="col-xs-10 col-md-6">
-                        <select id="country" name="country" class="selectpicker" data-width="100%">
-                            <?php foreach ($countries as $key => $c): ?>
-                                <option value="<?php echo $c; ?>" <?php
-                                if (isset($route['country'])) {
-                                    echo $route['country'] == $c ? 'selected="yes"' : '';
-                                } else {
-                                    echo $c == 'Bangladesh' ? 'selected="yes"' : '';
-                                }
-                                ?>><?php echo $c; ?></option>
-                                    <?php endforeach; ?>
-                        </select>
+
+
+                <label class="col-sm-3 control-label"><?php echo lang('from_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
+                <div class="row">
+                    <div class="col-xs-10 col-md-2">
+                        <div class="form-group">
+                            <select id="from_district" name="from_district" class="selectpicker" data-width="fit">
+                                <?php foreach ($districts as $d): ?>
+                                    <option value="<?php echo $d['id']; ?>" <?php
+                                    if (isset($route['from_district'])) {
+                                        echo $route['from_district'] == $d['id'] ? 'selected="yes"' : '';
+                                    }
+                                    ?>>
+                                                <?php echo $d[$name]; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label"><?php echo lang('from_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
-                    <div class="col-xs-10 col-md-6">
+                    
+                    <div class="col-xs-10 col-md-2">
+                        <div class="form-group">
+                            <select id="from_district" name="from_district" class="selectpicker" data-width="fit">
+                                <?php foreach ($districts as $d): ?>
+                                    <option value="<?php echo $d['id']; ?>" <?php
+                                    if (isset($route['from_district'])) {
+                                        echo $route['from_district'] == $d['id'] ? 'selected="yes"' : '';
+                                    }
+                                    ?>>
+                                                <?php echo $d[$name]; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xs-10 col-md-3">
                         <input id="from_place" maxlength="200" type="text" class="form-control" name="from_place" value="<?php
                         if ($this->input->post('submit')) {
                             echo set_value('from_place');
@@ -161,7 +177,7 @@
                         ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>">
                     </div>
                 </div>
-               
+
                 <div id="departure_perticular" class="form-group">
                     <label class="col-sm-3 control-label"><?php echo lang('departure_time'); ?></label>
                     <div  class="col-xs-10 col-md-6">
@@ -210,7 +226,7 @@
                         <?php
                         for ($i = 0; $i < count($stoppages); $i++) {
                             $k = $i + 1;
-                            echo '<div class="form-group"><div class="col-xs-10 col-md-2"><input id="position_'. $k .'" maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' . $stoppages[$i]['position'] . '"></div><div class="col-xs-10 col-md-3"><input id="place_'.$k.'" maxlength="150" type="text" class="form-control" name="place_name[]" value="' . $stoppages[$i]['place_name'] . '" placeholder="' . lang('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea id="comment_'.$k.'" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_'.$k.'" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $stoppages[$i]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><a class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel">' . lang('cancel_text') . '</a></div>';
+                            echo '<div class="form-group"><div class="col-xs-10 col-md-2"><input id="position_' . $k . '" maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' . $stoppages[$i]['position'] . '"></div><div class="col-xs-10 col-md-3"><input id="place_' . $k . '" maxlength="150" type="text" class="form-control" name="place_name[]" value="' . $stoppages[$i]['place_name'] . '" placeholder="' . lang('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea id="comment_' . $k . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $k . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $stoppages[$i]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><a class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel">' . lang('cancel_text') . '</a></div>';
                         }
                         ?>
                     <?php endif; ?>

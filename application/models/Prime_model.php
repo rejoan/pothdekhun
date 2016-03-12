@@ -125,5 +125,6 @@ class Prime_model extends CI_Model {
         $total = $this->db->get($table)->num_rows();
         return $total;
     }
+    
 
 }
