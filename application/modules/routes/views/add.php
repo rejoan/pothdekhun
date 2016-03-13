@@ -29,12 +29,11 @@
             <!-- route info push form -->
             <form id="add_route" class="form-horizontal" action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
 
-
                 <label class="col-sm-3 control-label"><?php echo lang('from_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                 <div class="row">
                     <div class="col-xs-10 col-md-2">
                         <div class="form-group">
-                            <select id="from_district" name="from_district" class="selectpicker" data-width="fit" data-live-search="true">
+                            <select id="from_district" name="from_district" class="selectpicker" data-width="100%" data-live-search="true">
                                 <?php foreach ($districts as $d): ?>
                                     <option value="<?php echo $d['id']; ?>" <?php
                                     if (isset($route['from_district'])) {
@@ -50,7 +49,7 @@
 
                     <div class="col-xs-10 col-md-2">
                         <div class="form-group">
-                            <select id="from_thana" name="from_thana" class="selectpicker" data-width="fit" data-live-search="true">
+                            <select id="from_thana" name="from_thana" class="selectpicker" data-width="100%" data-live-search="true">
 
                             </select>
                         </div>
@@ -69,9 +68,34 @@
                     </div>
                 </div>
                 <?php echo form_error('from_place', '<div class="alert alert-danger">', '</div>'); ?>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label"><?php echo lang('to_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
-                    <div class="col-xs-10 col-md-6">
+
+                <label class="col-sm-3 control-label"><?php echo lang('to_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
+                <div class="row">
+                    <div class="col-xs-10 col-md-2">
+                        <div class="form-group">
+                            <select id="to_district" name="to_district" class="selectpicker" data-width="100%" data-live-search="true">
+                                <?php foreach ($districts as $d): ?>
+                                    <option value="<?php echo $d['id']; ?>" <?php
+                                    if (isset($route['to_district'])) {
+                                        echo $route['to_district'] == $d['id'] ? 'selected="yes"' : '';
+                                    }
+                                    ?>>
+                                                <?php echo $d[$name]; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-10 col-md-2">
+                        <div class="form-group">
+                            <select id="to_thana" name="to_thana" class="selectpicker" data-width="100%" data-live-search="true">
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-10 col-md-3">
                         <input id="to_place" maxlength="200" type="text" class="form-control" name="to_place" value="<?php
                         if ($this->input->post('submit')) {
                             echo set_value('to_place');
@@ -83,22 +107,8 @@
                         ?>" placeholder="<?php echo lang('device_to'); ?>">
                     </div>
                 </div>
+
                 <?php echo form_error('to_place', '<div class="alert alert-danger">', '</div>'); ?>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label"><?php echo lang('departure_place'); ?><span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
-                    <div class="col-xs-10 col-md-6">
-                        <input id="departure_place" maxlength="200" type="text" class="form-control"  name="departure_place" value="<?php
-                        if ($this->input->post('submit')) {
-                            echo set_value('departure_place');
-                        } elseif (isset($route['departure_place'])) {
-                            echo $route['departure_place'];
-                        }
-                        ?>" placeholder="<?php echo lang('departure_placeholder'); ?>">
-                    </div>
-                </div>
-
-                <?php echo form_error('departure_place', '<div class="alert alert-danger">', '</div>'); ?>
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo lang('main_rent'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
@@ -279,9 +289,10 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#from_district').change(function () {
+        $('#from_district,#to_district').change(function () {
+            var to = 'from_thana';
             var district = $.trim($(this).val());
-
+            var from = $.trim($(this).prop('id'));
             var site_url = $('#site_url').val();
             xhr = $.ajax({
                 url: site_url + 'weapons/get_thanas',
@@ -294,10 +305,13 @@
             }).done(function (response) {
                 var th = '';
                 for (var i = 0; i < Object.keys(response).length; i++) {
-                    th += '<option value="' + response[i]['id'] + '">'  + response[i]['thana'] +  '</option>';
+                    th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
                 }
-                $('#from_thana').html(th);
-                $('#from_thana').selectpicker('refresh');
+                if(from == 'to_district'){
+                    to = 'to_thana';
+                }
+                $('#' + to).html(th);
+                $('#' + to).selectpicker('refresh');
             });
         });
     });
