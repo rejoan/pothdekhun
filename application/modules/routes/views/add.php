@@ -31,7 +31,7 @@
 
                 <label class="col-sm-3 control-label"><?php echo lang('from_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                 <div class="row">
-                    <div class="col-xs-10 col-md-2">
+                    <div class="col-xs-10 col-md-2 margin-r-5">
                         <div class="form-group">
                             <select id="from_district" name="from_district" class="selectpicker" data-width="100%" data-live-search="true">
                                 <?php foreach ($districts as $d): ?>
@@ -40,17 +40,26 @@
                                         echo $route['from_district'] == $d['id'] ? 'selected="yes"' : '';
                                     }
                                     ?>>
-                                                <?php echo $d[$name]; ?>
+
+                                        <?php echo $d[$name]; ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
-
                     <div class="col-xs-10 col-md-2">
                         <div class="form-group">
                             <select id="from_thana" name="from_thana" class="selectpicker" data-width="100%" data-live-search="true">
+                                <?php foreach ($thanas as $t): ?>
+                                    <option  value="<?php echo $t['id']; ?>" <?php
+                                    if (isset($route['to_thana'])) {
+                                        echo $route['to_thana'] == $t['id'] ? 'selected="yes"' : '';
+                                    }
+                                    ?>>
 
+                                        <?php echo $t[$name]; ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -71,16 +80,16 @@
 
                 <label class="col-sm-3 control-label"><?php echo lang('to_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                 <div class="row">
-                    <div class="col-xs-10 col-md-2">
+                    <div class="col-xs-10 col-md-2 margin-r-5">
                         <div class="form-group">
                             <select id="to_district" name="to_district" class="selectpicker" data-width="100%" data-live-search="true">
                                 <?php foreach ($districts as $d): ?>
-                                    <option value="<?php echo $d['id']; ?>" <?php
+                                    <option  value="<?php echo $d['id']; ?>" <?php
                                     if (isset($route['to_district'])) {
                                         echo $route['to_district'] == $d['id'] ? 'selected="yes"' : '';
                                     }
                                     ?>>
-                                                <?php echo $d[$name]; ?>
+                                                 <?php echo $d[$name]; ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
@@ -90,7 +99,15 @@
                     <div class="col-xs-10 col-md-2">
                         <div class="form-group">
                             <select id="to_thana" name="to_thana" class="selectpicker" data-width="100%" data-live-search="true">
-
+                                <?php foreach ($thanas as $t): ?>
+                                    <option  value="<?php echo $t['id']; ?>" <?php
+                                    if (isset($route['to_thana'])) {
+                                        echo $route['to_thana'] == $t['id'] ? 'selected="yes"' : '';
+                                    }
+                                    ?>>
+                                                 <?php echo $t[$name]; ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -286,7 +303,7 @@
         </div>
     </div>
 </div>
-
+<?php //echo $this->uri->segment(1, 'en');?>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#from_district,#to_district').change(function () {
@@ -295,7 +312,7 @@
             var from = $.trim($(this).prop('id'));
             var site_url = $('#site_url').val();
             xhr = $.ajax({
-                url: site_url + 'weapons/get_thanas',
+                url: site_url + '/weapons/get_thanas',
                 type: 'get',
                 dataType: 'json',
                 cache: true,
@@ -307,7 +324,7 @@
                 for (var i = 0; i < Object.keys(response).length; i++) {
                     th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
                 }
-                if(from == 'to_district'){
+                if (from === 'to_district') {
                     to = 'to_thana';
                 }
                 $('#' + to).html(th);

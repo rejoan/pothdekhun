@@ -25,17 +25,14 @@ class Routes extends MX_Controller {
         $this->load->library('form_validation');
         $from_push = trim($this->input->post('from_push', TRUE));
         $to_push = trim($this->input->post('to_push', TRUE));
-        $name = 'name';
-        if($this->session->lang_code == 'bn'){
-            $name = 'bn_name';
-        }
         $data = array(
             'title' => lang('add_route'),
             'action' => site_url('route/add'),
             'from_push' => $from_push,
             'to_push' => $to_push,
             'districts' => $this->pm->get_data('districts'),
-            'name' => $name
+            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1),
+            'name' => $this->nl->lang_based_data('bn_name', 'name')
         );
 //        if (!$this->user_id) {
 //            $this->session->unset_userdata(array('from_login', 'to_login'));

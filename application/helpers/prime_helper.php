@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 function site_url_tr($url = '') {
     $CI = & get_instance();
     $lang = $CI->session->lang_code;
-
+    //echo $lang;return;
     if (!$lang || ($lang == 'en')) {
         return site_url($url);
     } else {
