@@ -99,3 +99,4 @@ function language_menu() {
     $selector .= '</li></ul>';
     return $selector;
 }
+

@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col-xs-10 col-md-2">
                         <div class="form-group">
-                            <select id="from_district" name="from_district" class="selectpicker" data-width="fit">
+                            <select id="from_district" name="from_district" class="selectpicker" data-width="fit" data-live-search="true">
                                 <?php foreach ($districts as $d): ?>
                                     <option value="<?php echo $d['id']; ?>" <?php
                                     if (isset($route['from_district'])) {
@@ -47,23 +47,15 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="col-xs-10 col-md-2">
                         <div class="form-group">
-                            <select id="from_district" name="from_district" class="selectpicker" data-width="fit">
-                                <?php foreach ($districts as $d): ?>
-                                    <option value="<?php echo $d['id']; ?>" <?php
-                                    if (isset($route['from_district'])) {
-                                        echo $route['from_district'] == $d['id'] ? 'selected="yes"' : '';
-                                    }
-                                    ?>>
-                                                <?php echo $d[$name]; ?>
-                                    </option>
-                                <?php endforeach; ?>
+                            <select id="from_thana" name="from_thana" class="selectpicker" data-width="fit" data-live-search="true">
+
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="col-xs-10 col-md-3">
                         <input id="from_place" maxlength="200" type="text" class="form-control" name="from_place" value="<?php
                         if ($this->input->post('submit')) {
@@ -284,3 +276,29 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#from_district').change(function () {
+            var district = $.trim($(this).val());
+
+            var site_url = $('#site_url').val();
+            xhr = $.ajax({
+                url: site_url + 'weapons/get_thanas',
+                type: 'get',
+                dataType: 'json',
+                cache: true,
+                data: {
+                    district: district
+                }
+            }).done(function (response) {
+                var th = '';
+                for (var i = 0; i < Object.keys(response).length; i++) {
+                    th += '<option value="' + response[i]['id'] + '">'  + response[i]['thana'] +  '</option>';
+                }
+                $('#from_thana').html(th);
+                $('#from_thana').selectpicker('refresh');
+            });
+        });
+    });
+</script>

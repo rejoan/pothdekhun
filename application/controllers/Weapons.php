@@ -29,13 +29,13 @@ class Weapons extends MX_Controller {
         $typing = trim($this->input->get('typing', TRUE));
         $language = trim($this->input->get('lan', TRUE));
         $table = 'routes';
-        
+
 
         if ($language == 'en') {
             $table = 'route_translation';
         }
 
-        $sql = 'SELECT * FROM (SELECT to_place Location FROM '.$table.' UNION SELECT CONCAT_WS(", ",departure_place,from_place) FROM '.$table.') r WHERE Location LIKE "%'.$typing.'%" ORDER BY CASE WHEN Location LIKE "'.$typing.'%" THEN 0 WHEN Location LIKE "% %'.$typing.'% %" THEN 1 WHEN Location LIKE "%'.$typing.'%" THEN 2 ELSE 3 END LIMIT 8';
+        $sql = 'SELECT * FROM (SELECT to_place Location FROM ' . $table . ' UNION SELECT CONCAT_WS(", ",departure_place,from_place) FROM ' . $table . ') r WHERE Location LIKE "%' . $typing . '%" ORDER BY CASE WHEN Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END LIMIT 8';
 
         $query = $this->db->query($sql);
         echo $this->db->last_query();
@@ -47,6 +47,15 @@ class Weapons extends MX_Controller {
             );
         }
         echo json_encode($place_name, JSON_UNESCAPED_UNICODE);
+    }
+
+    public function get_thanas() {
+        $district = (int) $this->input->get('district',TRUE);
+        $name = $this->nl->lang_based_data('bn_name', 'name',' thana');
+        $query = $this->db->select('id,' . $name)->from('thanas')->where('district_id', $district)->get();
+       //echo $this->db->last_query();return;
+        $thanas = $query->result_array();
+        echo json_encode($thanas);
     }
 
 }

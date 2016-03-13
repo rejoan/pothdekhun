@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 11, 2016 at 06:44 PM
+-- Generation Time: Mar 13, 2016 at 04:52 AM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -239,10 +239,11 @@ CREATE TABLE `profiles` (
 
 CREATE TABLE `routes` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `country_id` int(11) NOT NULL,
-  `district_id` int(11) NOT NULL,
-  `thana_id` int(11) NOT NULL,
+  `from_district` int(11) NOT NULL,
+  `from_thana` int(11) NOT NULL,
   `from_place` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `to_district` int(11) NOT NULL,
+  `to_thana` int(11) NOT NULL,
   `to_place` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `type` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `vehicle_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
@@ -258,10 +259,10 @@ CREATE TABLE `routes` (
 -- Dumping data for table `routes`
 --
 
-INSERT INTO `routes` (`id`, `country_id`, `district_id`, `thana_id`, `from_place`, `to_place`, `type`, `vehicle_name`, `departure_time`, `rent`, `evidence`, `added`, `added_by`, `is_publish`) VALUES
-(1, 0, 0, 0, 'মোহাম্মদপুর', 'নতুন বাজার', 'বাস', 'তেতুলিয়া পরিবহন', 'কিছুক্ষর পরপর', 35, '', '2015-12-07 18:36:21', 2, 0),
-(2, 0, 0, 0, 'মোহাম্মদপুর', 'কাকলী', 'বাস', 'ভূইয়া পরিবহন', 'কিছুক্ষর পরপর', 25, '', '2015-12-08 09:33:55', 2, 0),
-(3, 0, 0, 0, 'রংপুর', 'ঢাকা', 'বাস', 'টিআর পরিবহন', 'সকালে ৩টা এবং রাতে ৫ টা', 550, '', '2015-12-11 11:19:04', 2, 0);
+INSERT INTO `routes` (`id`, `from_district`, `from_thana`, `from_place`, `to_district`, `to_thana`, `to_place`, `type`, `vehicle_name`, `departure_time`, `rent`, `evidence`, `added`, `added_by`, `is_publish`) VALUES
+(1, 0, 0, 'মোহাম্মদপুর', 0, 0, 'নতুন বাজার', 'বাস', 'তেতুলিয়া পরিবহন', 'কিছুক্ষর পরপর', 35, '', '2015-12-07 18:36:21', 2, 0),
+(2, 0, 0, 'মোহাম্মদপুর', 0, 0, 'কাকলী', 'বাস', 'ভূইয়া পরিবহন', 'কিছুক্ষর পরপর', 25, '', '2015-12-08 09:33:55', 2, 0),
+(3, 0, 0, 'রংপুর', 0, 0, 'ঢাকা', 'বাস', 'টিআর পরিবহন', 'সকালে ৩টা এবং রাতে ৫ টা', 550, '', '2015-12-11 11:19:04', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -835,47 +836,47 @@ INSERT INTO `thanas` (`id`, `district_id`, `name`, `bn_name`) VALUES
 (491, 54, 'Zakiganj', 'জাকিগঞ্জ'),
 (492, 54, 'Nobigonj', 'নবীগঞ্জ'),
 (493, 1, 'Mohammadpur', 'মোহাম্মাদপুর'),
-(496, 1, 'Adabor', ''),
-(497, 1, 'Badda', ''),
-(499, 1, 'Bongsal', ''),
-(500, 1, 'Bimanbandar', ''),
-(501, 1, 'Cantonment', ''),
-(502, 1, 'Chak Bazar', ''),
-(503, 1, 'Dakshinkhan', ''),
-(504, 1, 'Darus Salam', ''),
-(506, 1, 'Demra ', ''),
-(507, 1, 'Dhanmondi', ''),
-(508, 1, 'Gendaria', ''),
-(509, 1, 'Gulshan', ''),
-(510, 1, 'Hazaribagh', ''),
-(511, 1, 'Jatrabari', ''),
-(512, 1, 'Kadamtali', ''),
-(513, 1, 'Kafrul', ''),
-(514, 1, 'Kalabagan', ''),
-(515, 1, 'Kamrangirchar', ''),
-(516, 1, 'Khilgaon', ''),
-(517, 1, 'khilkhet', ''),
-(518, 1, 'Kotwali', ''),
-(519, 1, 'Lalbagh', ''),
-(520, 1, 'Mirpur', ''),
-(521, 1, 'Motijheel', ''),
-(522, 1, 'Nawabganj', ''),
-(523, 1, 'Newmarket', ''),
-(524, 1, 'Pallabi', ''),
-(525, 1, 'Paltan', ''),
-(526, 1, 'Ramna', ''),
-(527, 1, 'Rampura', ''),
-(528, 1, 'Sabujbagh', ''),
-(529, 1, 'Shah Ali', ''),
-(530, 1, 'Shahbag', ''),
-(531, 1, 'Sher-e-Bangla Nagar', ''),
-(532, 1, 'Shyampur', ''),
-(533, 1, 'Tejgaon', ''),
-(534, 1, 'Mohakhali', ''),
-(535, 1, 'Tejgaon Industrial Area', ''),
-(536, 1, 'Turag', ''),
-(537, 1, 'Uttara', ''),
-(538, 1, 'Uttar Khan', '');
+(496, 1, 'Adabor', 'আদাবর'),
+(497, 1, 'Badda', 'বাড্ডা'),
+(499, 1, 'Bongsal', 'বংশাল'),
+(500, 1, 'Bimanbandar', 'বিমানবন্দর'),
+(501, 1, 'Cantonment', 'ক্যান্টনমেন্ট'),
+(502, 1, 'Chak Bazar', 'চকবাজার'),
+(503, 1, 'Dakshinkhan', 'দক্ষিনখান'),
+(504, 1, 'Darus Salam', 'দারস সালাম'),
+(506, 1, 'Demra ', 'ডেমরা'),
+(507, 1, 'Dhanmondi', 'ধানমন্ডি'),
+(508, 1, 'Gendaria', 'গেন্ডারিয়া'),
+(509, 1, 'Gulshan', 'গুলশান'),
+(510, 1, 'Hazaribagh', 'হাজারীবাগ'),
+(511, 1, 'Jatrabari', 'যাত্রাবাড়ি'),
+(512, 1, 'Kadamtali', 'কদমতলী'),
+(513, 1, 'Kafrul', 'কাফরুল'),
+(514, 1, 'Kalabagan', 'কলাবাগান'),
+(515, 1, 'Kamrangirchar', 'কামরাঙ্গীরচর'),
+(516, 1, 'Khilgaon', 'খিলগাও'),
+(517, 1, 'khilkhet', 'খিলক্ষেত'),
+(518, 1, 'Kotwali', 'কোতয়ালী'),
+(519, 1, 'Lalbagh', 'লালবাগ'),
+(520, 1, 'Mirpur', 'মিরপুর'),
+(521, 1, 'Motijheel', 'মতিঝিল'),
+(522, 1, 'Nawabganj', 'নবাবগন্জ'),
+(523, 1, 'Newmarket', 'নিউমার্কেট'),
+(524, 1, 'Pallabi', 'পল্লবী'),
+(525, 1, 'Paltan', 'পল্টন'),
+(526, 1, 'Ramna', 'রমনা'),
+(527, 1, 'Rampura', 'রামপুরা'),
+(528, 1, 'Sabujbagh', 'সবুজবাগ'),
+(529, 1, 'Shah Ali', 'শাহআলী'),
+(530, 1, 'Shahbag', 'শাহবাগ'),
+(531, 1, 'Sher-e-Bangla Nagar', 'শের-ই-বাংলা'),
+(532, 1, 'Shyampur', 'শ্যামপুর'),
+(533, 1, 'Tejgaon', 'তেজগাও'),
+(534, 1, 'Mohakhali', 'মহাখালি'),
+(535, 1, 'Tejgaon Industrial Area', 'তেজগাও শিল্প এলাকা'),
+(536, 1, 'Turag', 'তুরাগ'),
+(537, 1, 'Uttara', 'উত্তরা'),
+(538, 1, 'Uttar Khan', 'উত্তরখান');
 
 -- --------------------------------------------------------
 
@@ -1044,7 +1045,7 @@ ALTER TABLE `profiles`
 -- AUTO_INCREMENT for table `routes`
 --
 ALTER TABLE `routes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `route_translation`
 --
@@ -1054,7 +1055,7 @@ ALTER TABLE `route_translation`
 -- AUTO_INCREMENT for table `stoppages`
 --
 ALTER TABLE `stoppages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 --
 -- AUTO_INCREMENT for table `stoppage_translation`
 --
@@ -1064,7 +1065,7 @@ ALTER TABLE `stoppage_translation`
 -- AUTO_INCREMENT for table `thanas`
 --
 ALTER TABLE `thanas`
-  MODIFY `id` int(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=543;
+  MODIFY `id` int(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=539;
 --
 -- AUTO_INCREMENT for table `users`
 --

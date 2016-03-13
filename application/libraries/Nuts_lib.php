@@ -350,4 +350,12 @@ class Nuts_lib {
         return $final_date;
     }
 
+    public function lang_based_data($bengali, $english, $alias = FALSE) {
+        $item = $english;
+        if ($this->CI->session->lang_code == 'bn') {
+            $item = $bengali;
+        }
+        return $item . $alias;
+    }
+
 }

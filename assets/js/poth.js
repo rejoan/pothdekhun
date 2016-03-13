@@ -24,7 +24,7 @@ $(document).ready(function () {
                 typing: typing,
                 lan: lan
             },
-            success: function (response) {
+            done: function (response) {
                 var cm = '';
                 if (direction === 'from_place') {
                     for (var i = 0; i < Object.keys(response).length; i++) {
