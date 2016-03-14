@@ -1,6 +1,7 @@
 $(document).ready(function () {
     $('.selectpicker').selectpicker();
     $('input[type=file]').bootstrapFileInput();
+    $('[data-toggle="tooltip"]').tooltip();
     var xhr = null;
     $('#from_place,#to_place').on('keyup', function (e) {
         if (xhr !== null) {
@@ -16,7 +17,7 @@ $(document).ready(function () {
         var direction = e.target.id;
         var site_url = $('#site_url').val();
         xhr = $.ajax({
-            url: site_url + 'weapons/get_place',
+            url: site_url + '/weapons/get_place',
             type: 'get',
             dataType: 'json',
             cache: true,

@@ -48,8 +48,8 @@
                         </div>
                     </div>
                     <div class="col-xs-10 col-md-2">
-                        <div class="form-group">
-                            <select id="from_thana" name="from_thana" class="selectpicker" data-width="100%" data-live-search="true">
+                        <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message');?>" class="form-group">
+                            <select id="from_thana" name="from_thana" class="selectpicker" data-width="100%" data-live-search="true" >
                                 <?php foreach ($thanas as $t): ?>
                                     <option  value="<?php echo $t['id']; ?>" <?php
                                     if (isset($route['to_thana'])) {

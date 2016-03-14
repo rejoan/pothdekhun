@@ -30,7 +30,6 @@ class Weapons extends MX_Controller {
         $language = trim($this->input->get('lan', TRUE));
         $table = 'routes';
 
-
         if ($language == 'en') {
             $table = 'route_translation';
         }
@@ -38,7 +37,7 @@ class Weapons extends MX_Controller {
         $sql = 'SELECT * FROM (SELECT to_place Location FROM ' . $table . ' UNION SELECT CONCAT_WS(", ",departure_place,from_place) FROM ' . $table . ') r WHERE Location LIKE "%' . $typing . '%" ORDER BY CASE WHEN Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END LIMIT 8';
 
         $query = $this->db->query($sql);
-        echo $this->db->last_query();
+        //echo $this->db->last_query();
         $places = $query->result_array();
         $place_name = array();
         foreach ($places as $f) {

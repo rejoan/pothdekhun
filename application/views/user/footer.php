@@ -21,7 +21,7 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap.file-input.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/val_lib.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/poth.js'); ?>"></script>
-
+<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/tooltip.js'); ?>"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script type="text/javascript" src="<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js'); ?>"></script>
 </body>
