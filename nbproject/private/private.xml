@@ -5,11 +5,11 @@
         <group>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/controllers/Routes.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/views/add.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/assets/css/style.css</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/assets/js/poth.js</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/header.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/hooks/MyHook.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/controllers/Weapons.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/libraries/Nuts_lib.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/footer.php</file>
         </group>
     </open-files>
 </project-private>
