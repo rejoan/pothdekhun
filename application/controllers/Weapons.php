@@ -27,14 +27,15 @@ class Weapons extends MX_Controller {
 
     public function get_place() {
         $typing = trim($this->input->get('typing', TRUE));
-        $language = trim($this->input->get('lan', TRUE));
-        $table = 'routes';
+        $district = trim($this->input->get('d', TRUE));
+        $direction = trim($this->input->get('direction', TRUE));
+        $sql = ' r.to_district = ' . (int) $district;
 
-        if ($language == 'en') {
-            $table = 'route_translation';
+        if ($direction == 'from_place') {
+            $sql = ' r.from_district = ' . (int) $district;
         }
 
-        $sql = 'SELECT * FROM (SELECT to_place Location FROM ' . $table . ' UNION SELECT CONCAT_WS(", ",departure_place,from_place) FROM ' . $table . ') r WHERE Location LIKE "%' . $typing . '%" ORDER BY CASE WHEN Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END LIMIT 8';
+        $sql = 'SELECT * FROM routes r WHERE '. $sql . ' AND r.from_place LIKE "%' . $typing . '%" ORDER BY CASE WHEN r.from_place LIKE "' . $typing . '%" THEN 0 WHEN r.from_place LIKE "% %' . $typing . '% %" THEN 1 WHEN r.from_place LIKE "%' . $typing . '%" THEN 2 ELSE 3 END LIMIT 8';
 
         $query = $this->db->query($sql);
         //echo $this->db->last_query();
@@ -49,10 +50,10 @@ class Weapons extends MX_Controller {
     }
 
     public function get_thanas() {
-        $district = (int) $this->input->get('district',TRUE);
-        $name = $this->nl->lang_based_data('bn_name', 'name',' thana');
+        $district = (int) $this->input->get('district', TRUE);
+        $name = $this->nl->lang_based_data('bn_name', 'name', ' thana');
         $query = $this->db->select('id,' . $name)->from('thanas')->where('district_id', $district)->get();
-       //echo $this->db->last_query();return;
+        //echo $this->db->last_query();return;
         $thanas = $query->result_array();
         echo json_encode($thanas);
     }

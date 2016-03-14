@@ -8,13 +8,18 @@ $(document).ready(function () {
             xhr.abort();
             xhr = null;
         }
+        var district = $('#from_district').val();
+        var direction = e.target.id;
+        if (direction === 'from_place') {
+            district = $('#from_district').val();
+        }
         var typing = $.trim($(this).val());
         
         if (!typing.length) {
             return false;
         }
         var lan = $('#lan').val();
-        var direction = e.target.id;
+        
         var site_url = $('#site_url').val();
         xhr = $.ajax({
             url: site_url + '/weapons/get_place',
@@ -23,7 +28,9 @@ $(document).ready(function () {
             cache: true,
             data: {
                 typing: typing,
-                lan: lan
+                lan: lan,
+                d : district,
+                direction:direction
             },
             done: function (response) {
                 var cm = '';
