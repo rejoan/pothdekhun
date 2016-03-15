@@ -14,12 +14,12 @@ $(document).ready(function () {
             district = $('#from_district').val();
         }
         var typing = $.trim($(this).val());
-        
+
         if (!typing.length) {
             return false;
         }
         var lan = $('#lan').val();
-        
+
         var site_url = $('#site_url').val();
         xhr = $.ajax({
             url: site_url + '/weapons/get_place',
@@ -29,22 +29,21 @@ $(document).ready(function () {
             data: {
                 typing: typing,
                 lan: lan,
-                d : district,
-                direction:direction
-            },
-            done: function (response) {
-                var cm = '';
-                if (direction === 'from_place') {
-                    for (var i = 0; i < Object.keys(response).length; i++) {
-                        cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i].pn + '</a>';
-                    }
-                    $('#suggestion').show().html(cm);
-                } else {
-                    for (var i = 0; i < Object.keys(response).length; i++) {
-                        cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i].pn + '</a>';
-                    }
-                    $('#suggestion_to').show().html(cm);
+                d: district,
+                direction: direction
+            }
+        }).done(function (response) {
+            var cm = '';
+            if (direction === 'from_place') {
+                for (var i = 0; i < Object.keys(response).length; i++) {
+                    cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i].from_place + '</a>';
                 }
+                $('#suggestion').show().html(cm);
+            } else {
+                for (var i = 0; i < Object.keys(response).length; i++) {
+                    cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i].from_place + '</a>';
+                }
+                $('#suggestion_to').show().html(cm);
             }
         });
     });
@@ -54,7 +53,7 @@ $(document).ready(function () {
         $('#from_place').val(from_place);
         $('#suggestion').empty();
     });
-    
+
     $('#suggestion_to').on('click', '.list-group-item', function () {
         var to_place = $(this).text();
         $('#to_place').val(to_place);

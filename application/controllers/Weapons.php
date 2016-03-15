@@ -29,24 +29,32 @@ class Weapons extends MX_Controller {
         $typing = trim($this->input->get('typing', TRUE));
         $district = trim($this->input->get('d', TRUE));
         $direction = trim($this->input->get('direction', TRUE));
-        $sql = ' r.to_district = ' . (int) $district;
+        $language = trim($this->input->get('lan', TRUE));
+        $filter_district = ' to_district = ' . (int) $district;
 
         if ($direction == 'from_place') {
-            $sql = ' r.from_district = ' . (int) $district;
+            $filter_district = ' from_district = ' . (int) $district;
         }
 
-        $sql = 'SELECT * FROM routes r WHERE '. $sql . ' AND r.from_place LIKE "%' . $typing . '%" ORDER BY CASE WHEN r.from_place LIKE "' . $typing . '%" THEN 0 WHEN r.from_place LIKE "% %' . $typing . '% %" THEN 1 WHEN r.from_place LIKE "%' . $typing . '%" THEN 2 ELSE 3 END LIMIT 8';
+        $sql = 'SELECT * FROM routes WHERE ' . $filter_district . ' AND from_place LIKE "%' . $typing . '%" ORDER BY CASE WHEN from_place LIKE "' . $typing . '%" THEN 0 WHEN from_place LIKE "% %' . $typing . '% %" THEN 1 WHEN from_place LIKE "%' . $typing . '%" THEN 2 ELSE 3 END LIMIT 8';
+
+
+        if ($language == 'bn') {
+            $sql = 'SELECT * FROM route_translation WHERE ' . $filter_district . ' AND from_place LIKE "%' . $typing . '%" ORDER BY CASE WHEN from_place LIKE "' . $typing . '%" THEN 0 WHEN from_place LIKE "% %' . $typing . '% %" THEN 1 WHEN from_place LIKE "%' . $typing . '%" THEN 2 ELSE 3 END LIMIT 8';
+        }
+
 
         $query = $this->db->query($sql);
         //echo $this->db->last_query();
         $places = $query->result_array();
-        $place_name = array();
-        foreach ($places as $f) {
-            $place_name[] = array(
-                'pn' => $f['Location']
-            );
-        }
-        echo json_encode($place_name, JSON_UNESCAPED_UNICODE);
+        echo json_encode($places,JSON_UNESCAPED_UNICODE);
+//        $place_name = array();
+//        foreach ($places as $f) {
+//            $place_name[] = array(
+//                'pn' => $f['Location']
+//            );
+//        }
+//        echo json_encode($place_name, JSON_UNESCAPED_UNICODE);
     }
 
     public function get_thanas() {
