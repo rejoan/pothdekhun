@@ -64,7 +64,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-10 col-md-3">
+                    <div class="col-xs-10 col-md-4">
                         <input id="from_place" maxlength="200" type="text" class="form-control" name="from_place" value="<?php
                         if ($this->input->post('submit')) {
                             echo set_value('from_place');
@@ -74,6 +74,9 @@
                             echo (!empty($from_push)) ? $from_push : $this->session->from_login;
                         }
                         ?>" placeholder="<?php echo lang('device_from'); ?>">
+                        <div id="suggestion" class="list-group">
+
+                        </div>
                     </div>
                 </div>
                 <?php echo form_error('from_place', '<div class="alert alert-danger">', '</div>'); ?>
@@ -112,7 +115,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-10 col-md-3">
+                    <div class="col-xs-10 col-md-4">
                         <input id="to_place" maxlength="200" type="text" class="form-control" name="to_place" value="<?php
                         if ($this->input->post('submit')) {
                             echo set_value('to_place');
@@ -122,6 +125,9 @@
                             echo (!empty($to_push)) ? $to_push : $this->session->to_login;
                         }
                         ?>" placeholder="<?php echo lang('device_to'); ?>">
+                        <div id="suggestion_to" class="list-group">
+
+                        </div>
                     </div>
                 </div>
 
@@ -321,7 +327,7 @@
                 }
             }).done(function (response) {
                 var th = '';
-                for (var i = 0; i < Object.keys(response).length; i++) {
+                for (var i = 0; i < response.length; i++) {
                     th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
                 }
                 if (from === 'to_district') {

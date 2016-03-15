@@ -20,6 +20,12 @@ body {
 body {
     padding-top: 70px;
 }
+#suggestion,#suggestion_to{
+    position: absolute;
+    top: 33px;
+    min-width: 85.5%;
+    z-index: 99;
+}
 #suggestion .list-group-item,#suggestion_to .list-group-item{
     padding: 4px;
 }

@@ -44,8 +44,10 @@ class Routes extends MX_Controller {
             $to = trim($this->input->post('to_place', TRUE));
             $transport_type = $this->input->post('type', TRUE);
             $transport_name = $this->input->post('vehicle_name', TRUE);
-            $departure_place = $this->input->post('departure_place', TRUE);
-            $country = $this->input->post('country', TRUE);
+            $from_district = $this->input->post('from_district', TRUE);
+            $from_thana = $this->input->post('from_thana', TRUE);
+            $to_district = $this->input->post('to_district', TRUE);
+            $to_thana = $this->input->post('to_thana', TRUE);
             $departure_time = $this->input->post('departure_time', TRUE);
             $main_rent = $this->input->post('main_rent', TRUE);
 
@@ -73,7 +75,6 @@ class Routes extends MX_Controller {
 //route data process
             $this->form_validation->set_rules('from_place', lang('from_view'), 'required');
             $this->form_validation->set_rules('to_place', lang('to_view'), 'required');
-            $this->form_validation->set_rules('departure_place', lang('departure_place'), 'required|is_unique[routes.departure_place]');
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
@@ -82,12 +83,14 @@ class Routes extends MX_Controller {
             }
 
             $route = array(
-                'country' => $country,
+                'from_district' => $from_district,
+                'from_thana' => $from_thana,
+                'to_district' => $to_district,
+                'to_thana' => $to_thana,
                 'from_place' => $from,
                 'to_place' => $to,
                 'type' => $transport_type,
                 'vehicle_name' => $transport_name,
-                'departure_place' => $departure_place,
                 'departure_time' => $departure_time,
                 'rent' => $main_rent,
                 'evidence' => $evidence_name,
@@ -101,7 +104,6 @@ class Routes extends MX_Controller {
                 'from_place' => $from,
                 'to_place' => $to,
                 'vehicle_name' => $transport_name,
-                'departure_place' => $departure_place,
                 'departure_time' => $departure_time,
                 'route_id' => $route_id
             );
@@ -130,6 +132,7 @@ class Routes extends MX_Controller {
                 $this->db->insert_batch('stoppages', $stoppages);
                 $this->db->insert_batch('stoppage_translation', $stoppages);
             }
+            $this->session->set_flashdata('message',lang('save_success'));
             redirect('routes');
         }
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest_routes', 'rightbar');

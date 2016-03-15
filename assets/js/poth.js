@@ -35,12 +35,12 @@ $(document).ready(function () {
         }).done(function (response) {
             var cm = '';
             if (direction === 'from_place') {
-                for (var i = 0; i < Object.keys(response).length; i++) {
+                for (var i = 0; i < response.length; i++) {
                     cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i].from_place + '</a>';
                 }
                 $('#suggestion').show().html(cm);
             } else {
-                for (var i = 0; i < Object.keys(response).length; i++) {
+                for (var i = 0; i < response.length; i++) {
                     cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i].from_place + '</a>';
                 }
                 $('#suggestion_to').show().html(cm);
