@@ -89,7 +89,7 @@ function language_menu() {
     $CI = & get_instance();
     $current_lang = ucfirst($CI->session->lang_name);
     $selector = '';
-    $selector .= '<li class="dropdown"><a style="color:#fff;" href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"><i class="flag-' . $CI->session->lang_flag . '"></i> ' . $current_lang . '<span class="caret"></span></a>';
+    $selector .= '<li class="dropdown"><a style="color:#fff;" href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"><i class="fa fa-' . $CI->session->lang_flag . '"></i> ' . $current_lang . '<span class="caret"></span></a>';
     $selector .= '<ul class="dropdown-menu dropdown-menu-default">';
     $languages = language_array();
     foreach ($languages as $lang) {
