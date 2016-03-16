@@ -98,11 +98,14 @@ class Nuts_lib {
      * @param int $user_type
      * @return boolean
      */
-    public function is_logged($redirect_url = 'authentication/login?from_here=') {
+    public function is_logged($redirect_url = 'authentication/login') {
         if ($this->CI->session->user_type) {
             return TRUE;
         } else {
-            redirect(site_url($redirect_url));
+            $class = $this->CI->router->fetch_class();
+            $method = $this->CI->router->fetch_method();
+            $this->CI->session->set_userdata('next', $class.'/'.$method);
+            redirect_tr($redirect_url.'?next=' . $this->CI->session->next);
         }
     }
 

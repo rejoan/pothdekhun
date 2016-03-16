@@ -1,7 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-
+$lang['index'] = 'All Transport Route Information';
+$lang['add_route'] = 'Add a Route';
+$lang['edit_route'] = 'Edit Route';
+$lang['dhaka_message'] = 'No need to select thana';
 $lang['register'] = 'Register in Pothdekhun';
 $lang['login'] = 'Login to Pothdekhun';
 $lang['vehicle_name'] = 'Vehicle Name';
@@ -22,11 +25,8 @@ $lang['register_user'] = 'Registered Successfully';
 $lang['edit_success'] = 'Edited Successfully';
 $lang['route_info'] = 'Details Route Info';
 $lang['already_edit_submitted'] = 'This Route Already edited & waiting for Admin review';
-$lang['successfully_logged_in'] = 'successfully_logged_in';
-$lang['enter_valid_user_password'] = 'enter_valid_user_password';
-
-
-
+$lang['successfully_logged_in'] = 'You have logged in Successfully';
+$lang['enter_valid_user_password'] = 'Please enter valid Credentials';
 
 
 $lang['home'] = 'Poth Dekhun';
@@ -41,8 +41,8 @@ $lang['add_transport_text'] = 'Add Your Known Route';
 $lang['from_push'] = 'Mohammadpur, Dhaka';
 $lang['to_push'] = 'Motijheel, Dhaka';
 $lang['add_transport_button'] = 'Add Route';
-$lang['device_from'] = 'Khulna';
-$lang['device_to'] = 'Sylhet';
+$lang['device_from'] = 'Farmgate';
+$lang['device_to'] = 'Gulshan 2';
 $lang['transport_type'] = 'Transport type';
 $lang['bus'] = 'Bus';
 $lang['train'] = 'Train';

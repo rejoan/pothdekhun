@@ -7,18 +7,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Route_manager extends CI_Controller {
 
-    private $ln;
-    private $language;
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('Nuts_lib');
-        $this->nuts_lib->lang_manager();
-        $this->nuts_lib->is_logged('admin/login', 3);
-        $this->ln = $this->session->ln;
-        $this->language = $this->session->language;
-        $this->lang->load(array('controller_lang', 'view_lang'), $this->language);
-        $this->load->model('Prime_model');
     }
 
     public function index() {

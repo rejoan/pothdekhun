@@ -9,6 +9,7 @@ class Routes extends MX_Controller {
 
     public function __construct() {
         parent::__construct();
+        
     }
 
     public function index() {
@@ -22,6 +23,7 @@ class Routes extends MX_Controller {
     }
 
     public function add() {
+        $this->nl->is_logged();
         $this->load->library('form_validation');
         $from_push = trim($this->input->post('from_push', TRUE));
         $to_push = trim($this->input->post('to_push', TRUE));
@@ -42,7 +44,7 @@ class Routes extends MX_Controller {
         if ($this->input->post('submit')) {
             $from = trim($this->input->post('from_place', TRUE));
             $to = trim($this->input->post('to_place', TRUE));
-            $transport_type = $this->input->post('type', TRUE);
+            $transport_type = $this->input->post('transport_type', TRUE);
             $transport_name = $this->input->post('vehicle_name', TRUE);
             $from_district = $this->input->post('from_district', TRUE);
             $from_thana = $this->input->post('from_thana', TRUE);
@@ -89,7 +91,7 @@ class Routes extends MX_Controller {
                 'to_thana' => $to_thana,
                 'from_place' => $from,
                 'to_place' => $to,
-                'type' => $transport_type,
+                'transport_type' => $transport_type,
                 'vehicle_name' => $transport_name,
                 'departure_time' => $departure_time,
                 'rent' => $main_rent,

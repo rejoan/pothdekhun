@@ -29,7 +29,7 @@
             <!-- route info push form -->
             <form id="add_route" class="form-horizontal" action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
 
-                <label class="col-sm-3 control-label"><?php echo lang('from_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
+                <label class="col-sm-2 control-label"><?php echo lang('from_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                 <div class="row">
                     <div class="col-xs-10 col-md-2 margin-r-5">
                         <div class="form-group">
@@ -47,13 +47,15 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-xs-10 col-md-2">
-                        <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message');?>" class="form-group">
+                    <div class="col-xs-10 col-md-3">
+                        <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
                             <select id="from_thana" name="from_thana" class="selectpicker" data-width="100%" data-live-search="true" >
                                 <?php foreach ($thanas as $t): ?>
                                     <option  value="<?php echo $t['id']; ?>" <?php
                                     if (isset($route['to_thana'])) {
                                         echo $route['to_thana'] == $t['id'] ? 'selected="yes"' : '';
+                                    } else {
+                                        echo $t['id'] == '493' ? 'selected="yes"' : '';
                                     }
                                     ?>>
 
@@ -79,9 +81,10 @@
                         </div>
                     </div>
                 </div>
+
                 <?php echo form_error('from_place', '<div class="alert alert-danger">', '</div>'); ?>
 
-                <label class="col-sm-3 control-label"><?php echo lang('to_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
+                <label class="col-sm-2 control-label"><?php echo lang('to_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                 <div class="row">
                     <div class="col-xs-10 col-md-2 margin-r-5">
                         <div class="form-group">
@@ -99,13 +102,15 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-10 col-md-2">
+                    <div class="col-xs-10 col-md-3">
                         <div class="form-group">
                             <select id="to_thana" name="to_thana" class="selectpicker" data-width="100%" data-live-search="true">
                                 <?php foreach ($thanas as $t): ?>
                                     <option  value="<?php echo $t['id']; ?>" <?php
                                     if (isset($route['to_thana'])) {
                                         echo $route['to_thana'] == $t['id'] ? 'selected="yes"' : '';
+                                    } else {
+                                        echo $t['id'] == '509' ? 'selected="yes"' : '';
                                     }
                                     ?>>
                                                  <?php echo $t[$name]; ?>
@@ -151,7 +156,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo lang('transport_type'); ?></label>
                     <div class="col-xs-10 col-md-6">
-                        <select id="vehicle_type" name="type" class="selectpicker" data-width="100%">
+                        <select id="vehicle_type" name="transport_type" class="selectpicker" data-width="100%">
                             <option value="<?php echo lang('bus'); ?>" <?php
                             if ($this->input->post('submit')) {
                                 echo lang('bus') == $this->input->post('type') ? 'selected="yes"' : '';
@@ -309,7 +314,7 @@
         </div>
     </div>
 </div>
-<?php //echo $this->uri->segment(1, 'en');?>
+<?php //echo $this->uri->segment(1, 'en'); ?>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#from_district,#to_district').change(function () {

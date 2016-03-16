@@ -84,17 +84,15 @@ class Authentication extends MX_Controller {
                 //check validity
                 $check = $this->authentication->check_credential($USER_USERNAME, $USER_PASSWORD);
 
-                $redirectto = $this->session->redirectto;
+                $next = $this->session->next;
                 //var_dump($redirectto);return;
                 if ($check !== FALSE) {
-                    if ($redirectto) {
-                        $redirectto = str_replace(base_url(), '', $redirectto);
-                    } else {
-                        $redirectto = 'dashboard';
+                    if (!$next) {
+                        $next = 'dashboard';
                     }
                     $this->session->set_userdata($check);
                     $this->session->set_flashdata('message', lang('successfully_logged_in'));
-                    redirect('profile');
+                    redirect_tr($next);
                 } else {
                     $this->session->set_flashdata('message', lang('enter_valid_user_password'));
                     redirect('authentication/login');
@@ -139,7 +137,7 @@ class Authentication extends MX_Controller {
      */
     public function logout() {
         $this->session->sess_destroy();
-        redirect('authentication/login');
+        redirect_tr('routes');
     }
 
     public function account_activation() {
