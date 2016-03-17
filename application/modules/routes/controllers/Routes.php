@@ -23,7 +23,6 @@ class Routes extends MX_Controller {
     }
 
     public function add() {
-        $this->nl->is_logged();
         $this->load->library('form_validation');
         $from_push = trim($this->input->post('from_push', TRUE));
         $to_push = trim($this->input->post('to_push', TRUE));

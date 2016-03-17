@@ -11,7 +11,7 @@ class Authentication extends MX_Controller {
 
     public function __construct() {
         parent :: __construct();
-        $this->load->model('authentication_model', 'authentication');
+        $this->load->model('authentication_model', 'auth');
     }
 
 //    public function index() {
@@ -82,13 +82,13 @@ class Authentication extends MX_Controller {
                 $USER_USERNAME = $this->input->post('email', TRUE);
                 $USER_PASSWORD = $this->input->post('password', TRUE);
                 //check validity
-                $check = $this->authentication->check_credential($USER_USERNAME, $USER_PASSWORD);
+                $check = $this->auth->check_credential($USER_USERNAME, $USER_PASSWORD);
 
                 $next = $this->session->next;
                 //var_dump($redirectto);return;
                 if ($check !== FALSE) {
                     if (!$next) {
-                        $next = 'dashboard';
+                        $next = 'routes';
                     }
                     $this->session->set_userdata($check);
                     $this->session->set_flashdata('message', lang('successfully_logged_in'));
@@ -108,7 +108,7 @@ class Authentication extends MX_Controller {
      * @author Rejoanul Alam
      */
     public function email_check($email) {
-        if ($this->authentication->check_email($email)) {
+        if ($this->auth->check_email($email)) {
 
             return TRUE;
         } else {
@@ -148,7 +148,7 @@ class Authentication extends MX_Controller {
             $user = getUser($id);
             $token_compare = md5($user->user_id . $user->user_email . $user->user_type);
             if ($token_compare == $token) {
-                $this->authentication->activate_account($user->user_id);
+                $this->auth->activate_account($user->user_id);
                 redirectAlert("authentication/login", lang('auth_account_activation_success'));
             } else {
                 echo "Invalid Token";
@@ -190,7 +190,7 @@ class Authentication extends MX_Controller {
         } else {
             //captcha was valid. now check login credentials
             $user_email = $this->input->post('user_email');
-            $token = $this->authentication->forgot_pw_token($user_email);
+            $token = $this->auth->forgot_pw_token($user_email);
             if ($token != FALSE) {
                 $this->adataemail->forgot_password_request_email($user_email, $token);
                 redirectAlert('authentication/login', "Password reset link has been sent. Please check your email.", 'success');
@@ -203,7 +203,7 @@ class Authentication extends MX_Controller {
     public function password_reset() {
         $email = $this->input->get('email');
         $token = $this->input->get('token');
-        $check = $this->authentication->chk_forgot_pw_token($email, $token);
+        $check = $this->auth->chk_forgot_pw_token($email, $token);
         if ($check) {
             $this->password_reset_form($email, $token);
         } else {
@@ -239,7 +239,7 @@ class Authentication extends MX_Controller {
         if ($this->form_validation->run() == FALSE) {
             $this->password_reset_form($email, $token);
         } else {
-            if ($this->authentication->reset_pw($email, $token)) {
+            if ($this->auth->reset_pw($email, $token)) {
                 redirectAlert('authentication/login', "Password has been reset successfully. You can now login.", 'success');
             } else {
                 //$this->session->set_flashdata("alertmsg","Error occured. Please try again.");

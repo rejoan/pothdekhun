@@ -51,28 +51,29 @@ class myHook {
     public function process_acl() {
         $class = $this->CI->router->fetch_class();
         $method = $this->CI->router->fetch_method();
+        $chk = $class . '/' . $method;
+
         if ($class !== 'authentication') {
             $user_type = $this->CI->session->user_type;
             if (!$user_type) {
-                $this->CI->session->set_userdata('next', current_url_tr());
-                redirect_tr('authentication/login?next=' . $this->CI->session->redirectto);
+                $user_type = 'guest';
             }
             if ($user_type == 'admin') {
                 $acs = TRUE;
             } else {
                 $accesses = $this->CI->config->item($user_type);
                 $acs = in_array($class, $accesses);
-                if (!$acs) {
-                    $acs = in_array($method, $accesses);
+                if ($acs == FALSE) {
+                    $acs = in_array($chk, $accesses);
+                    //var_dump($acs,$chk,$accesses);return;
                 }
             }
-            if ($acs !== TRUE) {
-                if (!$user_type) {
-                    redirect_tr('authentication/login?next=' . current_url_tr());
-                } else {
-                    redirect_tr('profile');
-                }
-                die();
+            //$t = ($acs !== TRUE);
+            //var_dump($acs,$t);return;
+
+            if ($acs == FALSE) {
+                $this->CI->session->set_userdata('next', $chk);
+                redirect_tr('authentication/login?next=' . $this->CI->session->next);
             }
         }
     }
