@@ -1,4 +1,4 @@
-<div class="col-xs-12">
+<div class="col-xs-12 col-sm-6">
     <?php
     $message = $this->session->flashdata('message');
     if ($message) {
@@ -18,9 +18,7 @@
                         <th>From</th>
                         <th>To</th>
                         <th>Transport</th>
-                        <th>Departure</th>
                         <th>Added</th>
-                        <th>Added by</th>
                         <th>Published</th>
                         <th>Action</th>
                     </tr>
@@ -32,12 +30,10 @@
                             <td><?php echo $r['from_place']; ?></td>
                             <td><?php echo $r['to_place']; ?></td>
                             <td><?php echo $r['vehicle_name']; ?></td>
-                            <td><?php echo $r['departure_place']; ?></td>
                             <td><?php echo $r['added']; ?></td>
-                            <td><?php echo $r['username']; ?></td>
                             <td><?php echo $r['is_publish'] == '0' ? '<small class="label label-danger">No</small>' : '<small class="label label-success">Yes</small>'; ?></td>
-                            <td><a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url('routes/edit') . '/' . $r['id'] . '?ln=bn'; ?>"><i class="fa fa-edit"></i></a>
-                                <a data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url('route/show') . '/' . $r['id'] . '?ln=bn'; ?>"><i class="fa fa-eye"></i></a>
+                            <td><a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('routes/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>
+                                <a data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url_tr('route/show') . '/' . $r['id']; ?>"><i class="fa fa-eye"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

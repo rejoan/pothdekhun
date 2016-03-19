@@ -8,9 +8,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Profile extends MX_Controller {
 
     private $user_id;
+
     public function __construct() {
         parent::__construct();
-        $this->user_id = $this->session->user_id;
+        $this->user_id = (int) $this->session->user_id;
     }
 
     public function index() {
@@ -22,47 +23,24 @@ class Profile extends MX_Controller {
             'profile' => $query->row_array(),
             'route_added' => $total_route
         );
-        $this->nl->view_loader('user', 'profile', NULL, $data,NULL,'rightbar');
+        $this->nl->view_loader('user', 'profile', NULL, $data, NULL, 'rightbar');
     }
 
     public function my_routes() {
-        $this->load->library('pagination');
-        $config['base_url'] = site_url('profile/my_routes');
-        $config['total_rows'] = $this->db->where('added_by', $this->user_id)->get('routes')->num_rows();
-        $config['per_page'] = 10;
-        $config['num_links'] = 5;
-        $config['full_tag_open'] = '<ul class="pagination no-margin">';
-        $config['full_tag_close'] = '</ul>';
-        $config['cur_tag_open'] = '<li class="active"><a href="javascript:void();">';
-        $config['cur_tag_close'] = '</a></li>';
-        $config['prev_tag_open'] = '<li>';
-        $config['prev_tag_close'] = '</li>';
-        $config['next_tag_open'] = '<li>';
-        $config['next_tag_close'] = '</li>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_close'] = '</li>';
-        $config['last_tag_open'] = '<li>';
-        $config['last_tag_close'] = '</li>';
-        $config['first_tag_open'] = '<li>';
-        $config['first_tag_close'] = '</li>';
-        $config['next_link'] = 'Next >';
-        $config['prev_link'] = '< Prev';
+        $total_rows = $this->db->where('added_by', $this->user_id)->get('routes')->num_rows();
+        $this->nl->generate_pagination('profile/my_routes', $total_rows);
         if ($this->uri->segment(3)) {
             $segment = $this->uri->segment(3);
         } else {
             $segment = 0;
         }
-        $this->pagination->initialize($config);
 
-        if ($this->input->get('ln') == 'en') {
-            $alias = 'rt';
-            $stopage_table = 'stoppage_translation';
-        } else {
-            $alias = 'r';
-            $stopage_table = 'stoppages';
-        }
+        $alias = $this->nl->lang_based_data('rt', 'r');
+        //$stopage_table = $this->nl->lang_based_data('stoppages', 'stoppage_translation');
+        $name =  $this->nl->lang_based_data('bn_name', 'name');
+        //$thana =  $this->nl->lang_based_data('bn_name', 'name');
 
-        $query = $this->db->select('r.id,' . $alias . '.from_place,' . $alias . '.to_place,r.type,' . $alias . '.vehicle_name,' . $alias . '.departure_place,' . $alias . '.departure_time,r.rent,r.evidence,r.added,r.is_publish')->from('routes r')->join('route_translation rt', 'r.id = rt.route_id', 'left')->where('r.added_by', $this->user_id)->get();
+        $query = $this->db->select('fd.'.$name.', td.'.$name.', ft.'.$name.', tt.'.$name.', r.id,' . $alias . '.from_place,' . $alias . '.to_place,r.transport_type,' . $alias . '.vehicle_name,' . $alias . '.departure_time,r.rent,r.evidence,r.added,r.is_publish')->from('routes r')->join('route_translation rt', 'r.id = rt.route_id', 'left')->join('districts fd','fd.id = r.from_district')->join('districts td','td.id = r.to_district')->join('thanas ft','ft.id = r.from_thana')->join('thanas tt','tt.id = r.to_thana')->where('r.added_by', $this->user_id)->get();
 
         $data = array(
             'title' => lang('my_routes'),
@@ -70,7 +48,7 @@ class Profile extends MX_Controller {
             'route_added' => $query->num_rows(),
             'segment' => $segment
         );
-        $this->nuts_lib->view_loader('user', 'routes', $data, TRUE, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'routes', NULL, $data, 'latest_routes', 'rightbar');
     }
 
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2016 at 04:52 AM
+-- Generation Time: Mar 19, 2016 at 06:59 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -239,13 +239,13 @@ CREATE TABLE `profiles` (
 
 CREATE TABLE `routes` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `from_district` int(11) NOT NULL,
-  `from_thana` int(11) NOT NULL,
+  `from_district` int(11) UNSIGNED NOT NULL,
+  `from_thana` int(11) UNSIGNED NOT NULL,
   `from_place` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `to_district` int(11) NOT NULL,
-  `to_thana` int(11) NOT NULL,
+  `to_district` int(11) UNSIGNED NOT NULL,
+  `to_thana` int(11) UNSIGNED NOT NULL,
   `to_place` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `type` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `transport_type` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `vehicle_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `departure_time` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `rent` int(11) NOT NULL,
@@ -259,10 +259,10 @@ CREATE TABLE `routes` (
 -- Dumping data for table `routes`
 --
 
-INSERT INTO `routes` (`id`, `from_district`, `from_thana`, `from_place`, `to_district`, `to_thana`, `to_place`, `type`, `vehicle_name`, `departure_time`, `rent`, `evidence`, `added`, `added_by`, `is_publish`) VALUES
-(1, 0, 0, 'মোহাম্মদপুর', 0, 0, 'নতুন বাজার', 'বাস', 'তেতুলিয়া পরিবহন', 'কিছুক্ষর পরপর', 35, '', '2015-12-07 18:36:21', 2, 0),
-(2, 0, 0, 'মোহাম্মদপুর', 0, 0, 'কাকলী', 'বাস', 'ভূইয়া পরিবহন', 'কিছুক্ষর পরপর', 25, '', '2015-12-08 09:33:55', 2, 0),
-(3, 0, 0, 'রংপুর', 0, 0, 'ঢাকা', 'বাস', 'টিআর পরিবহন', 'সকালে ৩টা এবং রাতে ৫ টা', 550, '', '2015-12-11 11:19:04', 2, 0);
+INSERT INTO `routes` (`id`, `from_district`, `from_thana`, `from_place`, `to_district`, `to_thana`, `to_place`, `transport_type`, `vehicle_name`, `departure_time`, `rent`, `evidence`, `added`, `added_by`, `is_publish`) VALUES
+(1, 1, 493, 'মোহাম্মদপুর', 1, 497, 'নতুন বাজার', 'বাস', 'তেতুলিয়া পরিবহন', 'কিছুক্ষর পরপর', 35, '', '2015-12-07 18:36:21', 2, 0),
+(2, 1, 493, 'মোহাম্মদপুর', 1, 509, 'কাকলী', 'বাস', 'ভূইয়া পরিবহন', 'কিছুক্ষর পরপর', 25, '', '2015-12-08 09:33:55', 2, 0),
+(3, 32, 444, 'রংপুর', 1, 504, 'ঢাকা', 'বাস', 'টিআর পরিবহন', 'সকালে ৩টা এবং রাতে ৫ টা', 550, '', '2015-12-11 11:19:04', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -276,7 +276,6 @@ CREATE TABLE `route_translation` (
   `from_place` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `to_place` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `vehicle_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `departure_place` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `departure_time` varchar(150) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -965,7 +964,11 @@ ALTER TABLE `routes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_routes_users` (`added_by`),
   ADD KEY `from_place` (`from_place`),
-  ADD KEY `to_place` (`to_place`);
+  ADD KEY `to_place` (`to_place`),
+  ADD KEY `FK_routes_districts` (`from_district`),
+  ADD KEY `FK_routes_thanas` (`from_thana`),
+  ADD KEY `FK_routes_districts_2` (`to_district`),
+  ADD KEY `FK_routes_thanas_2` (`to_thana`);
 
 --
 -- Indexes for table `route_translation`
@@ -1103,6 +1106,10 @@ ALTER TABLE `profiles`
 -- Constraints for table `routes`
 --
 ALTER TABLE `routes`
+  ADD CONSTRAINT `FK_routes_districts` FOREIGN KEY (`from_district`) REFERENCES `districts` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_routes_districts_2` FOREIGN KEY (`to_district`) REFERENCES `districts` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_routes_thanas` FOREIGN KEY (`from_thana`) REFERENCES `thanas` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_routes_thanas_2` FOREIGN KEY (`to_thana`) REFERENCES `thanas` (`id`) ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_routes_users` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON UPDATE NO ACTION;
 
 --

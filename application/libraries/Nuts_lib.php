@@ -104,8 +104,8 @@ class Nuts_lib {
         } else {
             $class = $this->CI->router->fetch_class();
             $method = $this->CI->router->fetch_method();
-            $this->CI->session->set_userdata('next', $class.'/'.$method);
-            redirect_tr($redirect_url.'?next=' . $this->CI->session->next);
+            $this->CI->session->set_userdata('next', $class . '/' . $method);
+            redirect_tr($redirect_url . '?next=' . $this->CI->session->next);
         }
     }
 
@@ -358,7 +358,35 @@ class Nuts_lib {
         if ($this->CI->session->lang_code == 'bn') {
             $item = $bengali;
         }
-        return $item . $alias;
+        if ($alias) {
+            return $item . $alias;
+        }
+        return $item;
+    }
+
+    public function generate_pagination($base_url, $total_rows, $per_page = 10, $num_link = 5) {
+        $this->CI->load->library('pagination');
+        $config['base_url'] = site_url_tr($base_url);
+        $config['total_rows'] = $total_rows;
+        $config['per_page'] = 10;
+        $config['num_links'] = 5;
+        $config['full_tag_open'] = '<ul class="pagination no-margin">';
+        $config['full_tag_close'] = '</ul>';
+        $config['cur_tag_open'] = '<li class="active"><a href="javascript:void();">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['next_link'] = 'Next >';
+        $config['prev_link'] = '< Prev';
+        return $this->CI->pagination->initialize($config);
     }
 
 }
