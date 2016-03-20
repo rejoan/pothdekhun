@@ -8,17 +8,18 @@ $(document).ready(function () {
             xhr.abort();
             xhr = null;
         }
-        var district = $('#from_district').val();
+        var district = $('#to_district').val();
+        var thana = $('#to_thana').val();
         var direction = e.target.id;
         if (direction === 'from_place') {
             district = $('#from_district').val();
+            thana = $('#from_thana').val();
         }
         var typing = $.trim($(this).val());
 
         if (!typing.length) {
             return false;
         }
-        var lan = $('#lan').val();
 
         var site_url = $('#site_url').val();
         xhr = $.ajax({
@@ -28,20 +29,20 @@ $(document).ready(function () {
             cache: true,
             data: {
                 typing: typing,
-                lan: lan,
                 d: district,
-                direction: direction
+                t: thana,
+                dir: direction
             }
         }).done(function (response) {
             var cm = '';
             if (direction === 'from_place') {
                 for (var i = 0; i < response.length; i++) {
-                    cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i].from_place + '</a>';
+                    cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['from_place'] + '</a>';
                 }
                 $('#suggestion').show().html(cm);
             } else {
                 for (var i = 0; i < response.length; i++) {
-                    cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i].from_place + '</a>';
+                    cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['from_place'] + '</a>';
                 }
                 $('#suggestion_to').show().html(cm);
             }

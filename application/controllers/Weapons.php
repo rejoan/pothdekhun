@@ -28,26 +28,28 @@ class Weapons extends MX_Controller {
     public function get_place() {
         $typing = trim($this->input->get('typing', TRUE));
         $district = trim($this->input->get('d', TRUE));
-        $direction = trim($this->input->get('direction', TRUE));
-        $language = trim($this->input->get('lan', TRUE));
-        $filter_district = ' to_district = ' . (int) $district;
+        $thana = trim($this->input->get('t', TRUE));
+        $direction = trim($this->input->get('dir', TRUE));
+        $alias = $this->nl->lang_based_data('rt','r');
+        $filter_district = ' r.to_district = ' . (int) $district;
+        $filter_thana = ' AND r.to_thana = ' . (int) $thana;
+
 
         if ($direction == 'from_place') {
-            $filter_district = ' from_district = ' . (int) $district;
-        }
+            $filter_district = ' r.from_district = ' . (int) $district;
+            $filter_thana = ' AND r.from_thana = ' . (int) $thana;
+            if ($district == 1) {
+                $filter_thana = '';
+            }
 
-        $sql = 'SELECT * FROM routes WHERE ' . $filter_district . ' AND from_place LIKE "%' . $typing . '%" ORDER BY CASE WHEN from_place LIKE "' . $typing . '%" THEN 0 WHEN from_place LIKE "% %' . $typing . '% %" THEN 1 WHEN from_place LIKE "%' . $typing . '%" THEN 2 ELSE 3 END LIMIT 8';
-
-
-        if ($language == 'bn') {
-            $sql = 'SELECT * FROM route_translation WHERE ' . $filter_district . ' AND from_place LIKE "%' . $typing . '%" ORDER BY CASE WHEN from_place LIKE "' . $typing . '%" THEN 0 WHEN from_place LIKE "% %' . $typing . '% %" THEN 1 WHEN from_place LIKE "%' . $typing . '%" THEN 2 ELSE 3 END LIMIT 8';
-        }
+            $sql = 'SELECT r.*,rt.* FROM routes r LEFT JOIN route_translation rt ON r.id = rt.route_id WHERE ' . $filter_district . $filter_thana . ' AND '.$alias.'.from_place LIKE "%' . $typing . '%" OR '.$alias.'.to_place LIKE "%' . $typing . '%" ORDER BY CASE WHEN '.$alias.'.from_place LIKE "' . $typing . '%" OR '.$alias.'.to_place LIKE "' . $typing . '%" THEN 0 WHEN '.$alias.'.from_place LIKE "% %' . $typing . '% %" OR '.$alias.'.to_place LIKE "% %' . $typing . '% %" THEN 1 WHEN '.$alias.'.from_place LIKE "%' . $typing . '%" OR '.$alias.'.to_place LIKE "%' . $typing . '%" THEN 2 ELSE 3 END LIMIT 8';
+        } 
 
 
         $query = $this->db->query($sql);
-        //echo $this->db->last_query();
+        //echo $this->db->last_query();return;
         $places = $query->result_array();
-        echo json_encode($places,JSON_UNESCAPED_UNICODE);
+        echo json_encode($places, JSON_UNESCAPED_UNICODE);
 //        $place_name = array();
 //        foreach ($places as $f) {
 //            $place_name[] = array(
