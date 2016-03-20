@@ -16,6 +16,9 @@ class Routes extends MX_Controller {
 
         $data = array(
             'title' => lang('index'),
+            'name' => $this->nl->lang_based_data('bn_name', 'name'),
+            'districts' => $this->pm->get_data('districts'),
+            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1),
             'action_pull' => site_url_tr('transport/index'),
             'action_groute' => site_url_tr('routes/add')
         );

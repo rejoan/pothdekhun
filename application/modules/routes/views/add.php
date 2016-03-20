@@ -95,7 +95,8 @@
                                         echo $route['to_district'] == $d['id'] ? 'selected="yes"' : '';
                                     }
                                     ?>>
-                                                 <?php echo $d[$name]; ?>
+
+                                        <?php echo $d[$name]; ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>

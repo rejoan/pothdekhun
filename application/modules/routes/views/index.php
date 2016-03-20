@@ -8,9 +8,35 @@
             <!-- route info pull form -->
             <form action="<?php echo $action_pull; ?>" method="get">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="from_place" placeholder="<?php echo lang('from_push'); ?>" name="f" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
-                    <div id="suggestion" class="list-group">
+                    <div class="row">
+                        <div class="col-xs-10 col-md-3">
+                            <div class="form-group">
+                                <select id="from_district" name="from_district" class="selectpicker" data-width="100%" data-live-search="true">
+                                    <?php foreach ($districts as $d): ?>
+                                        <option value="<?php echo $d['id']; ?>">
+                                            <?php echo $d[$name]; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-10 col-md-3">
+                            <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
+                                <select id="from_thana" name="from_thana" class="selectpicker" data-width="100%" data-live-search="true" >
+                                    <?php foreach ($thanas as $t): ?>
+                                        <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '493' ? 'selected="yes"' : ''; ?>>
+                                            <?php echo $t[$name]; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-10 col-md-6">
+                            <input type="text" class="form-control" id="from_place" placeholder="<?php echo lang('from_push'); ?>" name="f" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                            <div id="suggestion" class="list-group">
 
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -19,10 +45,38 @@
                     </label>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="to_place" placeholder="<?php echo lang('to_push'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
-                    <div id="suggestion_to" class="list-group">
 
+                    <div class="row">
+                        <div class="col-xs-10 col-md-3">
+                            <div class="form-group">
+                                <select id="from_district" name="from_district" class="selectpicker" data-width="100%" data-live-search="true">
+                                    <?php foreach ($districts as $d): ?>
+                                        <option value="<?php echo $d['id']; ?>">
+                                            <?php echo $d[$name]; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-10 col-md-3">
+                            <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
+                                <select id="from_thana" name="from_thana" class="selectpicker" data-width="100%" data-live-search="true" >
+                                    <?php foreach ($thanas as $t): ?>
+                                        <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '509' ? 'selected="yes"' : ''; ?>>
+                                            <?php echo $t[$name]; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-10 col-md-6">
+                            <input type="text" class="form-control" id="to_place" placeholder="<?php echo lang('device_to'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                            <div id="suggestion_to" class="list-group">
+
+                            </div>
+                        </div>
                     </div>
+
                     <input type="hidden" id="lan" name="lan" value="<?php echo $this->session->lang_code; ?>">
                 </div>
                 <input type="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('see_transport_button'); ?>"/>
