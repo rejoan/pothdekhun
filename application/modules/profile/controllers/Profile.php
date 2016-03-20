@@ -30,7 +30,7 @@ class Profile extends MX_Controller {
         $total_rows = $this->db->where('added_by', $this->user_id)->get('routes')->num_rows();
         $this->nl->generate_pagination('profile/my_routes', $total_rows);
         if ($this->uri->segment(3)) {
-            $segment = $this->uri->segment(3);
+            $segment = $this->uri->rsegment(3);
         } else {
             $segment = 0;
         }
