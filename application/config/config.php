@@ -519,7 +519,7 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 
-$config['guest']= array('routes/index');
+$config['guest']= array('weapons', 'routes/index');
 $config['manager'] = array('pre_load');
 
 $config['modules_locations'] = array(

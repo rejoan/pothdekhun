@@ -7,7 +7,7 @@ if (!defined('BASEPATH'))
  * This hook class will be loaded on post_controller_constructor event
  * @author Rejoanul Alam
  */
-class myHook {
+class MyHook {
 
     protected $CI;
 
@@ -68,8 +68,6 @@ class myHook {
                     //var_dump($acs,$chk,$accesses);return;
                 }
             }
-            //$t = ($acs !== TRUE);
-            //var_dump($acs,$t);return;
 
             if ($acs == FALSE) {
                 $this->CI->session->set_userdata('next', $chk);
