@@ -37,12 +37,12 @@ $(document).ready(function () {
             var cm = '';
             if (direction === 'from_place') {
                 for (var i = 0; i < response.length; i++) {
-                    cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['from_place'] + '</a>';
+                    cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + '</a>';
                 }
                 $('#suggestion').show().html(cm);
             } else {
                 for (var i = 0; i < response.length; i++) {
-                    cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['from_place'] + '</a>';
+                    cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + '</a>';
                 }
                 $('#suggestion_to').show().html(cm);
             }
