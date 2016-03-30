@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-xs-10 col-md-3">
                             <div class="form-group">
-                                <select id="from_district" name="from_district" class="selectpicker" data-width="100%" data-live-search="true">
+                                <select id="from_district" name="fd" class="selectpicker" data-width="100%" data-live-search="true">
                                     <?php foreach ($districts as $d): ?>
                                         <option value="<?php echo $d['id']; ?>">
                                             <?php echo $d[$name]; ?>
@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-xs-10 col-md-3">
                             <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                                <select id="from_thana" name="from_thana" class="selectpicker" data-width="100%" data-live-search="true" >
+                                <select id="from_thana" name="ft" class="selectpicker" data-width="100%" data-live-search="true" >
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '493' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $t[$name]; ?>
@@ -49,7 +49,7 @@
                     <div class="row">
                         <div class="col-xs-10 col-md-3">
                             <div class="form-group">
-                                <select id="to_district" name="to_district" class="selectpicker" data-width="100%" data-live-search="true">
+                                <select id="to_district" name="td" class="selectpicker" data-width="100%" data-live-search="true">
                                     <?php foreach ($districts as $d): ?>
                                         <option value="<?php echo $d['id']; ?>">
                                             <?php echo $d[$name]; ?>
@@ -60,7 +60,7 @@
                         </div>
                         <div class="col-xs-10 col-md-3">
                             <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                                <select id="to_thana" name="to_thana" class="selectpicker" data-width="100%" data-live-search="true">
+                                <select id="to_thana" name="th" class="selectpicker" data-width="100%" data-live-search="true">
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '509' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $t[$name]; ?>

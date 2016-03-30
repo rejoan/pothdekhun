@@ -519,8 +519,8 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 
-$config['guest']= array('weapons', 'routes/index');
-$config['manager'] = array('pre_load');
+$config['guest']= array('weapons', 'routes/index','transports');
+$config['manager'] = array('routes_manager');
 
 $config['modules_locations'] = array(
     APPPATH.'modules/' => '../modules/',

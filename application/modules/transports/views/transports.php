@@ -17,15 +17,15 @@
                     <th>Rent</th>
                     <th>Stoppages</th>
                 </tr>
-                <?php foreach($transports as $r):?>
-                <tr>
-                    <td><?php echo $r['from_place'];?></td>
-                    <td><?php echo $r['to_place'];?></td>
-                    <td><?php echo $r['type'];?></td>
-                    <td><?php echo $r['rent'];?></td>
-                    <td>ds</td>
-                </tr>
-                <?php endforeach;?>
+                <?php foreach ($transports as $r): ?>
+                    <tr>
+                        <td><?php echo $r['from_place']; ?></td>
+                        <td><?php echo $r['to_place']; ?></td>
+                        <td><?php echo $r['type']; ?></td>
+                        <td><?php echo $r['rent']; ?></td>
+                        <td>ds</td>
+                    </tr>
+                <?php endforeach; ?>
             </table>
         </div>
     </div>
