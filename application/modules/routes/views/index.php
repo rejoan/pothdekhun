@@ -6,7 +6,7 @@
         </div>
         <div class="box-body">
             <!-- route info pull form -->
-            <form action="<?php echo $action_pull; ?>" method="get">
+            <form action="<?php echo $action_pull; ?>" method="get" accept-charset="UTF-8">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-xs-10 col-md-3">

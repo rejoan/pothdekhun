@@ -21,7 +21,7 @@
                     <tr>
                         <td><?php echo $r['from_place']; ?></td>
                         <td><?php echo $r['to_place']; ?></td>
-                        <td><?php echo $r['type']; ?></td>
+                        <td><?php echo $r['transport_type']; ?></td>
                         <td><?php echo $r['rent']; ?></td>
                         <td>ds</td>
                     </tr>

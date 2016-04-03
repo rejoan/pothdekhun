@@ -71,9 +71,6 @@ class Weapons extends MX_Controller {
                      Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
                     LIMIT 8';
         }
-
-
-
         $query = $this->db->query($sql);
         //echo $this->db->last_query();return;
         $places = $query->result_array();
