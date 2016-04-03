@@ -12,7 +12,6 @@ class Transports extends MX_Controller {
     }
 
     public function index() {
-        //echo 'done';return;
         $from_place = trim($this->input->get('f', TRUE));
         $from_district = trim($this->input->get('fd', TRUE));
         //echo $from_district;return;
@@ -26,13 +25,16 @@ class Transports extends MX_Controller {
 //            $filter_thana = '';
 //        }
 
-        $sql = 'SELECT id,to_place,from_place,transport_type,rent
+        $sql = 'SELECT r.id,rt.to_place,rt.from_place,r.transport_type,rt.vehicle_name,r.rent
+                FROM routes r LEFT JOIN route_translation rt ON r.id = rt.route_id
+                WHERE r.from_district = ' . $from_district . ' AND (rt.from_place = "' . $from_place . '" OR rt.to_place = "' . $from_place . '") AND r.to_district = ' . $to_district . ' AND  (rt.from_place = "' . $to_place . '" OR rt.to_place = "' . $to_place . '")';
+
+
+        if ($this->session->lang_code == 'bn') {
+            $sql = 'SELECT id,to_place,from_place,transport_type,rent
                 FROM routes
                 WHERE from_district = ' . $from_district . ' AND (from_place = "' . $from_place . '" OR to_place = "' . $from_place . '") AND to_district = ' . $to_district . ' AND  (from_place = "' . $to_place . '" OR to_place = "' . $to_place . '")';
-//
-//        if ($this->session->lang_code == 'bn') {
-//            
-//        }
+        }
         $query = $this->db->query($sql);
 
         //echo $this->db->last_query();return;

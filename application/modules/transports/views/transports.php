@@ -4,8 +4,6 @@
         <div class="box-header">
             <div class="callout callout-info">
                 <h4>I am a success callout!</h4>
-
-                <p>This is a green callout.</p>
             </div>
         </div>
         <div class="box-body table-responsive no-padding">

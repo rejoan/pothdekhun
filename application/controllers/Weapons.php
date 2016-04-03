@@ -27,30 +27,30 @@ class Weapons extends MX_Controller {
 
     public function get_place() {
         $typing = trim($this->input->get('typing', TRUE));
-        $district = trim($this->input->get('d', TRUE));
-        $thana = trim($this->input->get('t', TRUE));
+        $district = (int) trim($this->input->get('d', TRUE));
+        $thana = (int) trim($this->input->get('t', TRUE));
         $direction = trim($this->input->get('dir', TRUE));
-        //$table = $this->nl->lang_based_data('routes', 'route_translation');
-        $filter_district = ' WHERE to_district = ' . (int) $district;
-        $filter_thana = ' AND to_thana = ' . (int) $thana;
+        //echo $district;return;
+        $filter_district = ' WHERE to_district = ' . $district;
+        $filter_thana = ' AND to_thana = ' . $thana;
 
-        $fil_dist = ' routes.to_district = ' . (int) $district;
-        $fil_thana = ' AND routes.to_thana = ' . (int) $thana;
+        $fil_dist = ' routes.to_district = ' . $district;
+        $fil_thana = ' AND routes.to_thana = ' . $thana;
 
 
         if ($direction == 'from_place') {
-            $filter_district = ' WHERE from_district = ' . (int) $district;
-            $filter_thana = ' AND from_thana = ' . (int) $thana;
-            if ($district == 1) {
-                $filter_thana = '';
-            }
+            $filter_district = ' WHERE from_district = ' . $district;
+            $filter_thana = ' AND from_thana = ' . $thana;
 
-            $fil_dist = ' routes.from_district = ' . (int) $district;
-            $fil_thana = ' AND routes.from_thana = ' . (int) $thana;
-            if ($district == 1) {
-                $fil_thana = '';
-            }
+            $fil_dist = ' routes.from_district = ' . $district;
+            $fil_thana = ' AND routes.from_thana = ' . $thana;
         }
+
+        if ($district == 1) {
+            $filter_thana = $fil_thana = '';
+        }
+
+
         $sql = 'SELECT Location FROM (
                     SELECT to_place as Location,route_id FROM route_translation
                     UNION ALL
