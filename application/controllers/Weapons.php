@@ -75,13 +75,6 @@ class Weapons extends MX_Controller {
         //echo $this->db->last_query();return;
         $places = $query->result_array();
         echo json_encode($places, JSON_UNESCAPED_UNICODE);
-//        $place_name = array();
-//        foreach ($places as $f) {
-//            $place_name[] = array(
-//                'pn' => $f['Location']
-//            );
-//        }
-//        echo json_encode($place_name, JSON_UNESCAPED_UNICODE);
     }
 
     public function get_thanas() {
@@ -90,7 +83,7 @@ class Weapons extends MX_Controller {
         $query = $this->db->select('id,' . $name)->from('thanas')->where('district_id', $district)->get();
         //echo $this->db->last_query();return;
         $thanas = $query->result_array();
-        echo json_encode($thanas);
+        echo json_encode($thanas, JSON_UNESCAPED_UNICODE);
     }
 
 }
