@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-xs-10 col-md-3">
                             <div class="form-group">
-                                <select name="fd" class="selectpicker districts" data-width="100%" data-live-search="true">
+                                <select name="fd" class="selectpicker districts" data-width="100%" data-thana="ft" data-live-search="true">
                                     <?php foreach ($districts as $d): ?>
                                         <option value="<?php echo $d['id']; ?>">
                                             <?php echo $d[$name]; ?>
@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-xs-10 col-md-3">
                             <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                                <select name="ft" class="selectpicker thanas" data-width="100%" data-live-search="true" >
+                                <select id="ft" name="ft" class="selectpicker" data-width="100%" data-live-search="true" >
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '493' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $t[$name]; ?>
@@ -49,7 +49,7 @@
                     <div class="row">
                         <div class="col-xs-10 col-md-3">
                             <div class="form-group">
-                                <select name="td" class="selectpicker districts" data-width="100%" data-live-search="true">
+                                <select name="td" class="selectpicker districts" data-width="100%" data-thana="th" data-live-search="true">
                                     <?php foreach ($districts as $d): ?>
                                         <option value="<?php echo $d['id']; ?>">
                                             <?php echo $d[$name]; ?>
@@ -60,7 +60,7 @@
                         </div>
                         <div class="col-xs-10 col-md-3">
                             <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                                <select name="th" class="selectpicker thanas" data-width="100%" data-live-search="true">
+                                <select id="th" name="th" class="selectpicker" data-width="100%" data-live-search="true">
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '509' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $t[$name]; ?>
@@ -92,7 +92,7 @@
                     <div class="row">
                         <div class="col-xs-10 col-md-3">
                             <div class="form-group">
-                                <select name="fd" class="selectpicker districts" data-width="100%" data-live-search="true">
+                                <select name="fd" class="selectpicker districts" data-width="100%" data-thana="aft" data-live-search="true">
                                     <?php foreach ($districts as $d): ?>
                                         <option value="<?php echo $d['id']; ?>">
                                             <?php echo $d[$name]; ?>
@@ -103,7 +103,7 @@
                         </div>
                         <div class="col-xs-10 col-md-3">
                             <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                                <select name="ft" class="selectpicker thanas" data-width="100%" data-live-search="true" >
+                                <select id="aft" name="ft" class="selectpicker" data-width="100%" data-live-search="true" >
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '493' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $t[$name]; ?>
@@ -129,7 +129,7 @@
                     <div class="row">
                         <div class="col-xs-10 col-md-3">
                             <div class="form-group">
-                                <select name="td" class="selectpicker districts" data-width="100%" data-live-search="true">
+                                <select name="td" class="selectpicker districts" data-width="100%" data-thana="ath" data-live-search="true">
                                     <?php foreach ($districts as $d): ?>
                                         <option value="<?php echo $d['id']; ?>">
                                             <?php echo $d[$name]; ?>
@@ -140,7 +140,7 @@
                         </div>
                         <div class="col-xs-10 col-md-3">
                             <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                                <select name="th" class="selectpicker thanas" data-width="100%" data-live-search="true">
+                                <select id="ath" name="th" class="selectpicker" data-width="100%" data-live-search="true">
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '509' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $t[$name]; ?>
@@ -168,8 +168,8 @@
         $('.districts').change(function () {
             var district = $.trim($(this).val());
             var site_url = $('#site_url').val();
-            xhr = $.ajax({
-                context: this,
+            var thana = $(this).data('thana');
+            $.ajax({
                 url: site_url + '/weapons/get_thanas',
                 type: 'get',
                 dataType: 'json',
@@ -182,11 +182,8 @@
                 for (var i = 0; i < response.length; i++) {
                     th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
                 }
-                $(this).closest('select').html(th);
-                var see = $(this).parent().parent().siblings().find('.thanas').html();
-                alert(see);
-                //return false;
-                $(this).next().closest('select').selectpicker('refresh');
+                $('#' + thana).html(th);
+                $('#' + thana).selectpicker('refresh');
             });
         });
     });
