@@ -3,18 +3,17 @@ $(document).ready(function () {
     $('input[type=file]').bootstrapFileInput();
     $('[data-toggle="tooltip"]').tooltip();
     var xhr = null;
-    $('#from_place,#to_place').on('keyup', function (e) {
+    $('.search_place').on('keyup', function (e) {
         if (xhr !== null) {
             xhr.abort();
             xhr = null;
         }
-        var district = $('#to_district').val();
-        var thana = $('#to_thana').val();
-        var direction = e.target.id;
-        if (direction === 'from_place') {
-            district = $('#from_district').val();
-            thana = $('#from_thana').val();
-        }
+        var district = $(this).parent().prev().prev().find('select').val();
+//        var see = $(this).parent().prev().prev().find('select').val();
+//        alert(see);
+        var thana = $(this).parent().prev().find('select').val();
+        var direction = e.target.name;
+
         var typing = $.trim($(this).val());
 
         if (!typing.length) {
@@ -23,7 +22,8 @@ $(document).ready(function () {
 
         var site_url = $('#site_url').val();
         xhr = $.ajax({
-            url: site_url + '/weapons/get_place',
+            context: this,
+            url: site_url + '/weapons/get_places',
             type: 'get',
             dataType: 'json',
             cache: true,
@@ -35,30 +35,17 @@ $(document).ready(function () {
             }
         }).done(function (response) {
             var cm = '';
-            if (direction === 'from_place') {
-                for (var i = 0; i < response.length; i++) {
-                    cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + '</a>';
-                }
-                $('#suggestion').show().html(cm);
-            } else {
-                for (var i = 0; i < response.length; i++) {
-                    cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + '</a>';
-                }
-                $('#suggestion_to').show().html(cm);
+            for (var i = 0; i < response.length; i++) {
+                cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + '</a>';
             }
+            $(this).next().show().html(cm);
         });
     });
 
-    $('#suggestion').on('click', '.list-group-item', function () {
-        var from_place = $(this).text();
-        $('#from_place').val(from_place);
-        $('#suggestion').empty();
-    });
-
-    $('#suggestion_to').on('click', '.list-group-item', function () {
-        var to_place = $(this).text();
-        $('#to_place').val(to_place);
-        $('#suggestion_to').empty();
+    $('.list-group').on('click', '.list-group-item', function () {
+        var place = $(this).text();
+        $(this).parent().prev().val(place);
+        $(this).parent().empty();
     });
 
 //add dynamic stoppgae as many user can

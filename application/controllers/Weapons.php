@@ -25,7 +25,7 @@ class Weapons extends MX_Controller {
         }
     }
 
-    public function get_place() {
+    public function get_places() {
         $typing = trim($this->input->get('typing', TRUE));
         $district = (int) trim($this->input->get('d', TRUE));
         $thana = (int) trim($this->input->get('t', TRUE));
@@ -38,7 +38,7 @@ class Weapons extends MX_Controller {
         $fil_thana = ' AND routes.to_thana = ' . $thana;
 
 
-        if ($direction == 'from_place') {
+        if ($direction == 'f') {
             $filter_district = ' WHERE from_district = ' . $district;
             $filter_thana = ' AND from_thana = ' . $thana;
 

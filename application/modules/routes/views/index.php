@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-xs-10 col-md-3">
                             <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                                <select id="ft" name="ft" class="selectpicker" data-width="100%" data-live-search="true" >
+                                <select id="ft" name="ft" class="selectpicker thanas" data-width="100%" data-live-search="true" >
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '493' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $t[$name]; ?>
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="col-xs-10 col-md-6">
-                            <input type="text" class="form-control" id="from_place" placeholder="<?php echo lang('from_push'); ?>" name="f" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                            <input type="text" class="form-control search_place" placeholder="<?php echo lang('from_push'); ?>" name="f" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                             <div id="suggestion" class="list-group">
 
                             </div>
@@ -60,7 +60,7 @@
                         </div>
                         <div class="col-xs-10 col-md-3">
                             <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                                <select id="th" name="th" class="selectpicker" data-width="100%" data-live-search="true">
+                                <select id="th" name="th" class="selectpicker thanas" data-width="100%" data-live-search="true">
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '509' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $t[$name]; ?>
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <div class="col-xs-10 col-md-6">
-                            <input type="text" class="form-control" id="to_place" placeholder="<?php echo lang('device_to'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                            <input type="text" class="form-control search_place" placeholder="<?php echo lang('device_to'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                             <div id="suggestion_to" class="list-group">
 
                             </div>
@@ -103,7 +103,7 @@
                         </div>
                         <div class="col-xs-10 col-md-3">
                             <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                                <select id="aft" name="ft" class="selectpicker" data-width="100%" data-live-search="true" >
+                                <select id="aft" name="ft" class="selectpicker thanas" data-width="100%" data-live-search="true" >
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '493' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $t[$name]; ?>
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                         <div class="col-xs-10 col-md-6">
-                            <input type="text" class="form-control" id="from_place" placeholder="<?php echo lang('from_push'); ?>" name="f" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                            <input type="text" class="form-control search_place"  placeholder="<?php echo lang('from_push'); ?>" name="f" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                             <div id="suggestion" class="list-group">
 
                             </div>
@@ -140,7 +140,7 @@
                         </div>
                         <div class="col-xs-10 col-md-3">
                             <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                                <select id="ath" name="th" class="selectpicker" data-width="100%" data-live-search="true">
+                                <select id="ath" name="th" class="selectpicker thanas" data-width="100%" data-live-search="true">
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '509' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $t[$name]; ?>
@@ -150,7 +150,7 @@
                             </div>
                         </div>
                         <div class="col-xs-10 col-md-6">
-                            <input type="text" class="form-control" id="to_place" placeholder="<?php echo lang('device_to'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                            <input type="text" class="form-control search_place" placeholder="<?php echo lang('device_to'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                             <div id="suggestion_to" class="list-group">
 
                             </div>
