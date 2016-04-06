@@ -9,11 +9,7 @@
     <div class="box box-poth">
         <div class="box-header">
             <div class="callout callout-info">
-                <?php if (empty($from) || empty($to)) { ?>
-                    <?php echo lang('direct_add') ?>
-                <?php } else { ?>
-                    <strong><?php echo $from; ?></strong> <?php echo lang('from_view'); ?>  <strong><?php echo $to; ?></strong>&nbsp;<?php echo lang('direct_add'); ?>
-                <?php } ?>
+                <?php echo lang('direct_add') ?>
             </div>
 
             <?php if (strpos(current_url(), 'edit')): ?>
@@ -36,8 +32,8 @@
                             <select id="from_district" name="from_district" class="selectpicker" data-width="100%" data-live-search="true">
                                 <?php foreach ($districts as $d): ?>
                                     <option value="<?php echo $d['id']; ?>" <?php
-                                    if (isset($route['fd'])) {
-                                        echo $route['fd'] == $d['id'] ? 'selected="yes"' : '';
+                                    if ($this->input->post('fd')) {
+                                        echo $this->input->post('fd') == $d['id'] ? 'selected="yes"' : '';
                                     }
                                     ?>>
 

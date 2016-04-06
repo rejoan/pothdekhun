@@ -30,22 +30,22 @@ class Routes extends MX_Controller {
         $td = trim($this->input->post('td', TRUE));
         $ft = trim($this->input->post('ft', TRUE));
         $th = trim($this->input->post('th', TRUE));
-        $from = trim($this->input->post('f', TRUE));
-        $to = trim($this->input->post('t', TRUE));
 
-        if ($fd == 1) {
-            $ft = '';
-        }
-
-        if ($td == 1) {
-            $th = '';
-        }
+//        if ($fd == 1) {
+//            $ft = '';
+//        }
+//
+//        if ($td == 1) {
+//            $th = '';
+//        }
 
         $data = array(
             'title' => lang('add_route'),
             'action' => site_url_tr('route/add'),
-            'f' => $from . ', ' . $ft . $fd,
-            't' => $to,
+            'fd' => $fd,
+            'td' => $td,
+            'ft' => $ft,
+            'th' => $th,
             'districts' => $this->pm->get_data('districts'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1),
             'name' => $this->nl->lang_based_data('bn_name', 'name')
@@ -60,10 +60,10 @@ class Routes extends MX_Controller {
             $to = trim($this->input->post('t', TRUE));
             $transport_type = $this->input->post('transport_type', TRUE);
             $transport_name = $this->input->post('vehicle_name', TRUE);
-            $from_district = $this->input->post('from_district', TRUE);
-            $from_thana = $this->input->post('from_thana', TRUE);
-            $to_district = $this->input->post('to_district', TRUE);
-            $to_thana = $this->input->post('to_thana', TRUE);
+            $from_district = $fd;
+            $from_thana = $ft;
+            $to_district = $td;
+            $to_thana = $th;
             $departure_time = $this->input->post('departure_time', TRUE);
             $main_rent = $this->input->post('main_rent', TRUE);
 
