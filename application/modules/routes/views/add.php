@@ -24,28 +24,24 @@
         <div class="box-body">
             <!-- route info push form -->
             <form id="add_route" class="form-horizontal" action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
-
-                <label class="col-sm-2 control-label"><?php echo lang('from_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                 <div class="row">
-                    <div class="col-xs-10 col-md-2 margin-r-5">
-                        <div class="form-group">
-                            <select id="from_district" name="from_district" class="selectpicker" data-width="100%" data-live-search="true">
-                                <?php foreach ($districts as $d): ?>
-                                    <option value="<?php echo $d['id']; ?>" <?php
-                                    if ($this->input->post('fd')) {
-                                        echo $this->input->post('fd') == $d['id'] ? 'selected="yes"' : '';
-                                    }
-                                    ?>>
+                    <div class="col-xs-10 col-md-3">
+                        <select name="fd" class="selectpicker districts" data-width="100%" data-thana="ft" data-live-search="true">
+                            <?php foreach ($districts as $d): ?>
+                                <option value="<?php echo $d['id']; ?>" <?php
+                                if ($this->input->post('fd')) {
+                                    echo $this->input->post('fd') == $d['id'] ? 'selected="yes"' : '';
+                                }
+                                ?>>
 
-                                        <?php echo $d[$name]; ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                                    <?php echo $d[$name]; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <div class="col-xs-10 col-md-3">
                         <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                            <select id="from_thana" name="from_thana" class="selectpicker" data-width="100%" data-live-search="true" >
+                            <select id="ft" name="ft" class="selectpicker" data-width="100%" data-live-search="true" >
                                 <?php foreach ($thanas as $t): ?>
                                     <option  value="<?php echo $t['id']; ?>" <?php
                                     if (isset($route['to_thana'])) {
@@ -62,14 +58,14 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-10 col-md-4">
-                        <input id="from_place" maxlength="200" type="text" class="form-control" name="from_place" value="<?php
+                    <div class="col-xs-10 col-md-5">
+                        <input maxlength="200" type="text" class="form-control search_place" name="f" value="<?php
                         if ($this->input->post('submit')) {
-                            echo set_value('from_place');
+                            echo set_value('f');
                         } elseif (isset($route['from_place'])) {
                             echo $route['from_place'];
                         } else {
-                            echo (!empty($from_push)) ? $from_push : $this->session->from_login;
+                            echo (!empty($from)) ? $from : $this->session->from;
                         }
                         ?>" placeholder="<?php echo lang('device_from'); ?>">
                         <div id="suggestion" class="list-group">
@@ -77,31 +73,27 @@
                         </div>
                     </div>
                 </div>
-
                 <?php echo form_error('from_place', '<div class="alert alert-danger">', '</div>'); ?>
 
-                <label class="col-sm-2 control-label"><?php echo lang('to_view'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
                 <div class="row">
-                    <div class="col-xs-10 col-md-2 margin-r-5">
-                        <div class="form-group">
-                            <select id="to_district" name="to_district" class="selectpicker" data-width="100%" data-live-search="true">
-                                <?php foreach ($districts as $d): ?>
-                                    <option  value="<?php echo $d['id']; ?>" <?php
-                                    if (isset($route['to_district'])) {
-                                        echo $route['to_district'] == $d['id'] ? 'selected="yes"' : '';
-                                    }
-                                    ?>>
+                    <div class="col-xs-10 col-md-3">
+                        <select name="td" class="selectpicker districts" data-thana="th" data-width="100%" data-live-search="true">
+                            <?php foreach ($districts as $d): ?>
+                                <option  value="<?php echo $d['id']; ?>" <?php
+                                if (isset($route['to_district'])) {
+                                    echo $route['to_district'] == $d['id'] ? 'selected="yes"' : '';
+                                }
+                                ?>>
 
-                                        <?php echo $d[$name]; ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                                    <?php echo $d[$name]; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
 
                     <div class="col-xs-10 col-md-3">
-                        <div class="form-group">
-                            <select id="to_thana" name="to_thana" class="selectpicker" data-width="100%" data-live-search="true">
+                        <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
+                            <select id="th" name="th" class="selectpicker" data-width="100%" data-live-search="true">
                                 <?php foreach ($thanas as $t): ?>
                                     <option  value="<?php echo $t['id']; ?>" <?php
                                     if (isset($route['to_thana'])) {
@@ -117,14 +109,14 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-10 col-md-4">
-                        <input id="to_place" maxlength="200" type="text" class="form-control" name="to_place" value="<?php
+                    <div class="col-xs-10 col-md-5">
+                        <input maxlength="200" type="text" class="form-control search_place" name="t" value="<?php
                         if ($this->input->post('submit')) {
-                            echo set_value('to_place');
+                            echo set_value('t');
                         } elseif (isset($route['to_place'])) {
                             echo $route['to_place'];
                         } else {
-                            echo (!empty($to_push)) ? $to_push : $this->session->to_login;
+                            echo (!empty($to)) ? $to : $this->session->to;
                         }
                         ?>" placeholder="<?php echo lang('device_to'); ?>">
                         <div id="suggestion_to" class="list-group">
@@ -132,7 +124,6 @@
                         </div>
                     </div>
                 </div>
-
                 <?php echo form_error('to_place', '<div class="alert alert-danger">', '</div>'); ?>
 
                 <div class="form-group">
@@ -314,11 +305,10 @@
 <?php //echo $this->uri->segment(1, 'en'); ?>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#from_district,#to_district').change(function () {
-            var to = 'from_thana';
+        $('.districts').change(function () {
             var district = $.trim($(this).val());
-            var from = $.trim($(this).prop('id'));
             var site_url = $('#site_url').val();
+            var thana = $(this).data('thana');
             xhr = $.ajax({
                 url: site_url + '/weapons/get_thanas',
                 type: 'get',
@@ -332,11 +322,8 @@
                 for (var i = 0; i < response.length; i++) {
                     th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
                 }
-                if (from === 'to_district') {
-                    to = 'to_thana';
-                }
-                $('#' + to).html(th);
-                $('#' + to).selectpicker('refresh');
+                $('#' + thana).html(th);
+                $('#' + thana).selectpicker('refresh');
             });
         });
     });
