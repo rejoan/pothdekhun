@@ -44,7 +44,9 @@
                             <select id="ft" name="ft" class="selectpicker" data-width="100%" data-live-search="true" >
                                 <?php foreach ($thanas as $t): ?>
                                     <option  value="<?php echo $t['id']; ?>" <?php
-                                    if (isset($route['to_thana'])) {
+                                    if ($this->input->post('ft')) {
+                                        echo $this->input->post('ft') == $t['id'] ? 'selected="yes"' : '';
+                                    } elseif (isset($route['to_thana'])) {
                                         echo $route['to_thana'] == $t['id'] ? 'selected="yes"' : '';
                                     } else {
                                         echo $t['id'] == '493' ? 'selected="yes"' : '';
@@ -64,11 +66,9 @@
                             echo set_value('f');
                         } elseif (isset($route['from_place'])) {
                             echo $route['from_place'];
-                        } else {
-                            echo (!empty($from)) ? $from : $this->session->from;
                         }
                         ?>" placeholder="<?php echo lang('device_from'); ?>">
-                        <div id="suggestion" class="list-group">
+                        <div class="list-group">
 
                         </div>
                     </div>
@@ -115,11 +115,9 @@
                             echo set_value('t');
                         } elseif (isset($route['to_place'])) {
                             echo $route['to_place'];
-                        } else {
-                            echo (!empty($to)) ? $to : $this->session->to;
                         }
                         ?>" placeholder="<?php echo lang('device_to'); ?>">
-                        <div id="suggestion_to" class="list-group">
+                        <div class="list-group">
 
                         </div>
                     </div>
