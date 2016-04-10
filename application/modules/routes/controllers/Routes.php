@@ -7,8 +7,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Routes extends MX_Controller {
 
+    private $user_id;
+
     public function __construct() {
         parent::__construct();
+        $this->user_id = $this->session->user_id;
     }
 
     public function index() {
@@ -56,13 +59,13 @@ class Routes extends MX_Controller {
             $from = trim($this->input->post('f', TRUE));
             $to = trim($this->input->post('t', TRUE));
             $transport_type = $this->input->post('transport_type', TRUE);
-            $transport_name = $this->input->post('vehicle_name', TRUE);
+            $transport_name = trim($this->input->post('vehicle_name', TRUE));
             $from_district = $fd;
             $from_thana = $ft;
             $to_district = $td;
             $to_thana = $th;
             $departure_time = $this->input->post('departure_time', TRUE);
-            $main_rent = $this->input->post('main_rent', TRUE);
+            $main_rent = trim($this->input->post('main_rent', TRUE));
 
             if ($departure_time == 'perticular') {
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
@@ -86,13 +89,26 @@ class Routes extends MX_Controller {
                 $evidence_name = '';
             }
 //route data process
-            $this->form_validation->set_rules('from_place', lang('from_view'), 'required');
-            $this->form_validation->set_rules('to_place', lang('to_view'), 'required');
+            $this->form_validation->set_rules('f', lang('from_view'), 'required');
+            $this->form_validation->set_rules('t', lang('to_view'), 'required');
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
                 $this->nl->view_loader('user', 'add', NULL, $data, 'latest_routes', 'rightbar');
                 return;
+            }
+
+            $transport = $this->cm->get_row('name', $transport_name, 'poribohons', TRUE);
+
+            if (empty($transport)) {
+                $transport_data = array(
+                    'name' => $transport_name,
+                    'added_by' => $this->user_id
+                );
+                $this->db->set('added', 'NOW()', FALSE);
+                $transport_id = $this->cm->insert_data('poribohons', $transport_data, TRUE);
+            } else {
+                $transport_id = $transport->id;
             }
 
             $route = array(
@@ -103,7 +119,7 @@ class Routes extends MX_Controller {
                 'from_place' => $from,
                 'to_place' => $to,
                 'transport_type' => $transport_type,
-                'vehicle_name' => $transport_name,
+                'poribohon_id' => $transport_id,
                 'departure_time' => $departure_time,
                 'rent' => $main_rent,
                 'evidence' => $evidence_name,

@@ -3,7 +3,7 @@
     <?php
     $message = $this->session->flashdata('message');
     if ($message) {
-        echo '<div class="alert alert-info">' . $message . '</div>';
+        echo '<div class="alert alert-warning">' . $message . '</div>';
     }
     ?>
     <div class="box box-poth">
@@ -246,7 +246,7 @@
                         <?php
                         for ($i = 0; $i < count($stoppages); $i++) {
                             $k = $i + 1;
-                            echo '<div class="form-group"><div class="col-xs-10 col-md-2"><input id="position_' . $k . '" maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' . $stoppages[$i]['position'] . '"></div><div class="col-xs-10 col-md-3"><input id="place_' . $k . '" maxlength="150" type="text" class="form-control" name="place_name[]" value="' . $stoppages[$i]['place_name'] . '" placeholder="' . lang('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea id="comment_' . $k . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $k . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $stoppages[$i]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><a class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel">' . lang('cancel_text') . '</a></div>';
+                            echo '<div class="form-group"><div class="col-xs-10 col-md-2"><input id="position_' . $k . '" maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' . $stoppages[$i]['position'] . '"></div><div class="col-xs-10 col-md-3"><input id="place_' . $k . '" maxlength="150" type="text" class="form-control" name="place_name[]" value="' . $stoppages[$i]['place_name'] . '" placeholder="' . lang('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea id="comment_' . $k . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $k . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $stoppages[$i]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
                         }
                         ?>
                     <?php endif; ?>

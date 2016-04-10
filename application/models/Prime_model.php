@@ -14,8 +14,8 @@ class Prime_model extends CI_Model {
      * insert data to any table
      * @param string $table table name where to insert data
      * @param array $data data to insert
-     * @param bool $last_id is filter data
-     * @param bool $filter whether retrun last inserted id or not
+     * @param bool $last_id whether retrun last inserted id or not
+     * @param bool $filter is filter data
      */
     public function insert_data($table, $data, $last_id = FALSE, $filter = TRUE) {
         if ($filter) {
