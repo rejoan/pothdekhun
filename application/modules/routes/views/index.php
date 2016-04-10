@@ -151,7 +151,7 @@
                         </div>
                         <div class="col-xs-10 col-md-6">
                             <input type="text" class="form-control search_place" placeholder="<?php echo lang('device_to'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
-                            <div id="suggestion_to" class="list-group">
+                            <div class="list-group">
 
                             </div>
                         </div>

@@ -9,8 +9,6 @@ $(document).ready(function () {
             xhr = null;
         }
         var district = $(this).parent().prev().prev().find('select').val();
-//        var see = $(this).parent().prev().prev().find('select').val();
-//        alert(see);
         var thana = $(this).parent().prev().find('select').val();
         var direction = e.target.name;
 
@@ -47,12 +45,15 @@ $(document).ready(function () {
         $(this).parent().prev().val(place);
         $(this).parent().empty();
     });
+    
+    $(document).click(function(){
+         $('.list-group').empty();
+    });
 
 //add dynamic stoppgae as many user can
 
     $('#add_stoppage').click(function () {
         var pos_ord = parseInt($('.order_pos').last().val());
-        var cancel = $('#cancel').val();
         var place_name = $('#place_name').val();
         var comment = $('#comment').val();
         var rents = $('#rents').val();

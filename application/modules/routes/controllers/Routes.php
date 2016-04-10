@@ -98,7 +98,7 @@ class Routes extends MX_Controller {
                 return;
             }
 
-            $transport = $this->cm->get_row('name', $transport_name, 'poribohons', TRUE);
+            $transport = $this->pm->get_row('name', $transport_name, 'poribohons', TRUE);
 
             if (empty($transport)) {
                 $transport_data = array(
@@ -106,7 +106,7 @@ class Routes extends MX_Controller {
                     'added_by' => $this->user_id
                 );
                 $this->db->set('added', 'NOW()', FALSE);
-                $transport_id = $this->cm->insert_data('poribohons', $transport_data, TRUE);
+                $transport_id = $this->pm->insert_data('poribohons', $transport_data, TRUE);
             } else {
                 $transport_id = $transport->id;
             }

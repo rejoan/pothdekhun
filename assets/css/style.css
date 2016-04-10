@@ -68,3 +68,6 @@ footer {
     display: block;
     margin-top: 0;
  }
+ .open{
+     z-index: 9999;
+ }
