@@ -63,3 +63,8 @@ footer {
 #route_detail .remove_bottom_margin{
     margin-bottom: 0;
 }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+ }

@@ -42,7 +42,7 @@
                     <div class="col-xs-10 col-md-3">
                         <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
                             <select id="ft" name="ft" class="selectpicker" data-width="100%" data-live-search="true" >
-                                <?php foreach ($thanas as $t): ?>
+                                <?php foreach ($fthanas as $t): ?>
                                     <option  value="<?php echo $t['id']; ?>" <?php
                                     if ($this->input->post('ft')) {
                                         echo $this->input->post('ft') == $t['id'] ? 'selected="yes"' : '';
@@ -66,6 +66,8 @@
                             echo set_value('f');
                         } elseif (isset($route['from_place'])) {
                             echo $route['from_place'];
+                        } elseif ($this->input->post('f')) {
+                            echo $this->input->post('f');
                         }
                         ?>" placeholder="<?php echo lang('device_from'); ?>">
                         <div class="list-group">
@@ -94,15 +96,15 @@
                     <div class="col-xs-10 col-md-3">
                         <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
                             <select id="th" name="th" class="selectpicker" data-width="100%" data-live-search="true">
-                                <?php foreach ($thanas as $t): ?>
-                                    <option  value="<?php echo $t['id']; ?>" <?php
+                                <?php foreach ($tthanas as $tt): ?>
+                                    <option  value="<?php echo $tt['id']; ?>" <?php
                                     if (isset($route['to_thana'])) {
-                                        echo $route['to_thana'] == $t['id'] ? 'selected="yes"' : '';
+                                        echo $route['to_thana'] == $tt['id'] ? 'selected="yes"' : '';
                                     } else {
-                                        echo $t['id'] == '509' ? 'selected="yes"' : '';
+                                        echo $tt['id'] == '509' ? 'selected="yes"' : '';
                                     }
                                     ?>>
-                                                 <?php echo $t[$name]; ?>
+                                                 <?php echo $tt[$name]; ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
@@ -115,6 +117,8 @@
                             echo set_value('t');
                         } elseif (isset($route['to_place'])) {
                             echo $route['to_place'];
+                        } elseif ($this->input->post('t')) {
+                            echo $this->input->post('t');
                         }
                         ?>" placeholder="<?php echo lang('device_to'); ?>">
                         <div class="list-group">

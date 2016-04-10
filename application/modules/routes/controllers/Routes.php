@@ -30,14 +30,14 @@ class Routes extends MX_Controller {
         $td = trim($this->input->post('td', TRUE));
         $ft = trim($this->input->post('ft', TRUE));
         $th = trim($this->input->post('th', TRUE));
+        $fdistrict = $tdistrict = 1;
+        if ($fd) {
+            $fdistrict = (int) $fd;
+        }
 
-//        if ($fd == 1) {
-//            $ft = '';
-//        }
-//
-//        if ($td == 1) {
-//            $th = '';
-//        }
+        if ($td) {
+            $tdistrict = (int) $td;
+        }
 
         $data = array(
             'title' => lang('add_route'),
@@ -47,14 +47,11 @@ class Routes extends MX_Controller {
             'ft' => $ft,
             'th' => $th,
             'districts' => $this->pm->get_data('districts'),
-            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1),
+            'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $fdistrict),
+            'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $tdistrict),
             'name' => $this->nl->lang_based_data('bn_name', 'name')
         );
-//        if (!$this->user_id) {
-//            $this->session->unset_userdata(array('from_login', 'to_login'));
-//            $this->session->set_userdata(array('from_login' => $from_push, 'to_login' => $to_push));
-//            redirect('users/login?add=yes');
-//        }
+
         if ($this->input->post('submit')) {
             $from = trim($this->input->post('f', TRUE));
             $to = trim($this->input->post('t', TRUE));
