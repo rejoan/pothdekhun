@@ -386,7 +386,30 @@ class Nuts_lib {
         $config['first_tag_close'] = '</li>';
         $config['next_link'] = 'Next >';
         $config['prev_link'] = '< Prev';
-        return $this->CI->pagination->initialize($config);
+        $this->CI->pagination->initialize($config);
+        return $this->CI->pagination->create_links();
+    }
+
+    /**
+     * get lat long by address
+     * @param string $address
+     * @param string $country
+     * @return array
+     */
+    public function get_lat_long($address, $country) {
+        $adds = str_replace(' ', '+', trim($address));
+        $lat_long = array();
+        $json = file_get_contents('http://maps.google.com/maps/api/geocode/json?address=' . $adds . '&sensor=false&region=' . $country);
+
+        $json = json_decode($json);
+        //var_dump($json->results);return;
+        if (!empty($json) && !empty($json->results)) {
+            $lat = $json->results[0]->geometry->location->lat;
+            $long = $json->results[0]->geometry->location->lng;
+            $lat_long['lat'] = $lat;
+            $lat_long['long'] = $long;
+        }
+        return $lat_long;
     }
 
 }

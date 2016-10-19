@@ -14,8 +14,8 @@ class Prime_model extends CI_Model {
      * insert data to any table
      * @param string $table table name where to insert data
      * @param array $data data to insert
-     * @param bool $last_id whether retrun last inserted id or not
-     * @param bool $filter is filter data
+     * @param bool $last_id is retrun last inserted id or not
+     * @param bool $filter whether filter data
      */
     public function insert_data($table, $data, $last_id = FALSE, $filter = TRUE) {
         if ($filter) {
@@ -44,6 +44,34 @@ class Prime_model extends CI_Model {
     }
 
     /**
+     * update through where in
+     * @param string $col_name name of the coulmn
+     * @param array $col_val array of values
+     * @param string $table
+     * @param array $data data to update
+     * @param bool $filter whether filter
+     */
+    public function wherein_updater($col_name, $col_val, $table, $data, $filter = TRUE) {
+        if ($filter) {
+            $data = preg_replace('%[<>\/"\%$\^\'!]%', '', $data);
+        }
+        $this->db->where_in($col_name, $col_val)->update($table, $data);
+    }
+
+    /**
+     * get data by where in clause
+     * @param string $columns comma separted column name
+     * @param string $col_name name of the column for WHERE IN clause
+     * @param array $col_val array of the coulmn value
+     * @param string $table table name
+     * @return array
+     */
+    public function wherein_extractor($columns, $col_name, $col_val, $table) {
+        $query = $this->db->select($columns)->where_in($col_name, $col_val)->get($table);
+        return $query->result_array();
+    }
+
+    /**
      * delete table
      * @param string $col_name
      * @param mixed $col_val
@@ -51,6 +79,16 @@ class Prime_model extends CI_Model {
      */
     public function deleter($col_name, $col_val, $table) {
         $this->db->where($col_name, $col_val)->delete($table);
+    }
+
+    /**
+     * delete by where in
+     * @param string $col_name
+     * @param array $col_val
+     * @param string $table
+     */
+    public function wherein_deleter($col_name, $col_val, $table) {
+        $this->db->where_in($col_name, $col_val)->delete($table);
     }
 
     /**
@@ -69,7 +107,6 @@ class Prime_model extends CI_Model {
      * @return array
      */
     public function get_data($table, $selected_col = FALSE, $col_name = FALSE, $col_val = FALSE, $second_col = FALSE, $second_val = FALSE, $logical = FALSE, $order_by = FALSE, $sorter = FALSE, $start = FALSE, $how_many = FALSE) {
-
         if ($selected_col) {
             $this->db->select($selected_col);
         }
@@ -125,6 +162,5 @@ class Prime_model extends CI_Model {
         $total = $this->db->get($table)->num_rows();
         return $total;
     }
-    
 
 }
