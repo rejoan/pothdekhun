@@ -15,7 +15,7 @@ class Routes extends MX_Controller {
     }
 
     public function index() {
-
+        
         $data = array(
             'title' => lang('index'),
             'name' => $this->nl->lang_based_data('bn_name', 'name'),
