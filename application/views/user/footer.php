@@ -6,7 +6,7 @@
 
 </div><!-- col-->
 <footer>
-    <p>&copy; Company 2014</p>
+    <p>&copy; Pothdekhun <?php echo date('Y');?></p>
 </footer>
 </div><!-- row-->
 </div><!--/.container-->
