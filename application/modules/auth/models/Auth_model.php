@@ -8,7 +8,7 @@ if (!defined('BASEPATH'))
  *
  * @author Rejoanul Alam
  */
-class Authentication_model extends CI_Model {
+class Auth_model extends CI_Model {
 
     public function check_credential($USER_USERNAME, $USER_PASSWORD) {
         $user_password_crypt = md5($USER_PASSWORD);

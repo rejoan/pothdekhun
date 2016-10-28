@@ -7,11 +7,11 @@ if (!defined('BASEPATH'))
  * This controller will handle user registration/login/forgot password etc
  * @author Rejoanul Alam
  */
-class Authentication extends MX_Controller {
+class Auth extends MX_Controller {
 
     public function __construct() {
         parent :: __construct();
-        $this->load->model('authentication_model', 'auth');
+        $this->load->model('auth_model', 'auth');
     }
 
 //    public function index() {
@@ -25,7 +25,7 @@ class Authentication extends MX_Controller {
      public function register() {
         $data = array(
             'title' => lang('register'),
-            'action' => site_url_tr('authentication/register')
+            'action' => site_url_tr('auth/register')
         );
         $this->load->library('form_validation');
 
@@ -67,7 +67,7 @@ class Authentication extends MX_Controller {
         $this->load->library('form_validation');
         $data = array(
             'title' => lang('login'),
-            'action' => site_url_tr('authentication/login')
+            'action' => site_url_tr('auth/login')
         );
 
         if ($this->input->post('submit')) {
@@ -95,7 +95,7 @@ class Authentication extends MX_Controller {
                     redirect_tr($next);
                 } else {
                     $this->session->set_flashdata('message', lang('enter_valid_user_password'));
-                    redirect('authentication/login');
+                    redirect('auth/login');
                 }
             }
         }
@@ -149,7 +149,7 @@ class Authentication extends MX_Controller {
             $token_compare = md5($user->user_id . $user->user_email . $user->user_type);
             if ($token_compare == $token) {
                 $this->auth->activate_account($user->user_id);
-                redirectAlert("authentication/login", lang('auth_account_activation_success'));
+                redirectAlert("auth/login", lang('auth_account_activation_success'));
             } else {
                 echo "Invalid Token";
                 die;
@@ -193,9 +193,9 @@ class Authentication extends MX_Controller {
             $token = $this->auth->forgot_pw_token($user_email);
             if ($token != FALSE) {
                 $this->adataemail->forgot_password_request_email($user_email, $token);
-                redirectAlert('authentication/login', "Password reset link has been sent. Please check your email.", 'success');
+                redirectAlert('auth/login', "Password reset link has been sent. Please check your email.", 'success');
             } else {
-                redirectAlert("authentication/forgot_password", "An error occured. Please try again.", 'error');
+                redirectAlert("auth/forgot_password", "An error occured. Please try again.", 'error');
             }
         }
     }
@@ -240,10 +240,10 @@ class Authentication extends MX_Controller {
             $this->password_reset_form($email, $token);
         } else {
             if ($this->auth->reset_pw($email, $token)) {
-                redirectAlert('authentication/login', "Password has been reset successfully. You can now login.", 'success');
+                redirectAlert('auth/login', "Password has been reset successfully. You can now login.", 'success');
             } else {
                 //$this->session->set_flashdata("alertmsg","Error occured. Please try again.");
-                redirectAlert('authentication/login', "Error occured. Please try again.");
+                redirectAlert('auth/login', "Error occured. Please try again.");
             }
         }
     }

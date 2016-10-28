@@ -53,7 +53,7 @@ class MyHook {
         $method = $this->CI->router->fetch_method();
         $chk = $class . '/' . $method;
 
-        if ($class !== 'authentication') {
+        if ($class !== 'auth') {
             $user_type = $this->CI->session->user_type;
             if (!$user_type) {
                 $user_type = 'guest';
@@ -71,7 +71,7 @@ class MyHook {
 
             if ($acs == FALSE) {
                 $this->CI->session->set_userdata('next', $chk);
-                redirect_tr('authentication/login?next=' . $this->CI->session->next);
+                redirect_tr('auth/login?next=' . $this->CI->session->next);
             }
         }
     }
