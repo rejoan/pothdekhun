@@ -88,77 +88,19 @@
         <div class="box-body">
             <!-- get route info from user form -->
             <form id="provide_poth" action="<?php echo $action_add; ?>" method="post" accept-charset="UTF-8">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-10 col-md-3">
-                            <div class="form-group">
-                                <select name="fd" class="selectpicker districts" data-width="100%" data-thana="aft" data-live-search="true">
-                                    <?php foreach ($districts as $d): ?>
-                                        <option value="<?php echo $d['id']; ?>">
-                                            <?php echo $d[$name]; ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-10 col-md-3">
-                            <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                                <select id="aft" name="ft" class="selectpicker thanas" data-width="100%" data-live-search="true" >
-                                    <?php foreach ($thanas as $t): ?>
-                                        <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '493' ? 'selected="yes"' : ''; ?>>
-                                            <?php echo $t[$name]; ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-10 col-md-6">
-                            <input type="text" class="form-control search_place"  placeholder="<?php echo lang('from_push'); ?>" name="f" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
-                            <div id="suggestion" class="list-group">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>
-                        <?php echo lang('from_view'); ?>
-                    </label>
-                </div>
-                <div id="lang_error" class="form-group">
-                    <div class="row">
-                        <div class="col-xs-10 col-md-3">
-                            <div class="form-group">
-                                <select name="td" class="selectpicker districts" data-width="100%" data-thana="ath" data-live-search="true">
-                                    <?php foreach ($districts as $d): ?>
-                                        <option value="<?php echo $d['id']; ?>">
-                                            <?php echo $d[$name]; ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-10 col-md-3">
-                            <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                                <select id="ath" name="th" class="selectpicker thanas" data-width="100%" data-live-search="true">
-                                    <?php foreach ($thanas as $t): ?>
-                                        <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '509' ? 'selected="yes"' : ''; ?>>
-                                            <?php echo $t[$name]; ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-10 col-md-6">
-                            <input type="text" class="form-control search_place" placeholder="<?php echo lang('device_to'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
-                            <div class="list-group">
-
-                            </div>
-                        </div>
-                    </div>
+                <div class="input-group margin">
+                    <input name="ps" type="text" class="form-control" placeholder="<?php echo lang('place_search');?>">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-info btn-flat"><?php echo lang('place_search');?></button>
+                    </span>
                 </div>
 
-                <input type="submit" name="push_route" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('add_transport_button'); ?>"/>
+                <div class="input-group margin">
+                    <input type="text" class="form-control">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-info btn-flat">Go!</button>
+                    </span>
+                </div>
             </form>
         </div>
     </div>
