@@ -101,8 +101,10 @@
                         <button type="button" class="btn btn-info btn-flat"><?php echo lang('transport_search');?></button>
                     </span>
                 </div>
+                <div class="margin">
+                    <a href="<?php echo site_url_tr('routes/add');?>" class="btn btn-default btn-block btn-flat btn-info"><strong><?php echo lang('add_route');?></strong></a>
+                </div>
                 
-                <a href="<?php echo site_url_tr('routes/add');?>" class="btn btn-default btn-block btn-flat btn-info"><strong><?php echo lang('add_route');?></strong></a>
             </form>
         </div>
     </div>

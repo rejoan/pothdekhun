@@ -70,7 +70,7 @@
                             echo $this->input->post('f');
                         }
                         ?>" placeholder="<?php echo lang('device_from'); ?>">
-                        <div class="list-group">
+                        <div id="suggestion" class="list-group">
 
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                             echo $this->input->post('t');
                         }
                         ?>" placeholder="<?php echo lang('device_to'); ?>">
-                        <div class="list-group">
+                        <div id="suggestion_to" class="list-group">
 
                         </div>
                     </div>

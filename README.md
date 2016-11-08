@@ -18,6 +18,7 @@ All features
 * All transport station addresses.
 * Rent - A - Car service
 * Browse all transport (Poribohon) by name & search
+* Search places and see available transports uses this place (via route)
 * Multilingual (Bengali & English)
 * Mobile friendly
 * Holiday tour packages
