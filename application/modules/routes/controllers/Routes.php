@@ -22,7 +22,7 @@ class Routes extends MX_Controller {
             'districts' => $this->pm->get_data('districts'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1),
             'action_transport' => site_url_tr('transports/index'),
-            'action_add' => site_url_tr('routes/add')
+            'search_action' => site_url_tr('search/index')
         );
         $this->nl->view_loader('user', 'index', NULL, $data, 'latest_routes', 'rightbar');
     }

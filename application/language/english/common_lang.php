@@ -89,3 +89,4 @@ $lang['edited_route'] = 'Edited Route';
 $lang['prev_file'] = 'Previous File';
 $lang['verify_button'] = 'Correct Information';
 $lang['verify_button_non'] = 'Informations are not Correct';
+$lang['search'] = 'Search';
