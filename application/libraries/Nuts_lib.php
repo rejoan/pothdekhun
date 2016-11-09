@@ -65,6 +65,24 @@ class Nuts_lib {
     }
 
     /**
+     * generate menu links
+     * @param string $is_selected
+     * @param string $contrler
+     * @param string $icon_class
+     * @param string $menu_text
+     */
+    public function generate_link($is_selected, $contrler, $icon_class = NULL, $menu_text = 'Menu') {
+        if (empty($icon_class)) {
+            $icon_class = '';
+        }
+        echo '<li class="' . $this->is_selected($is_selected) . '">
+                        <a href="' . site_url_tr($contrler) . '">
+                            <i class="fa ' . $icon_class . '"></i> <span>' . trim($menu_text) . '</span>
+                        </a>
+                    </li>';
+    }
+
+    /**
      * set site language
      */
     public function lang_manager() {
@@ -206,7 +224,7 @@ class Nuts_lib {
      * tab action
      */
     public function new_tab() {
-        if ($this->CI->router->fetch_class() == 'bkash') {
+        if ($this->CI->router->fetch_class() == 'routes') {
             return 'target="_blank"';
         }
     }

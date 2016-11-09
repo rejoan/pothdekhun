@@ -1,5 +1,4 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <nav class="navbar navbar-fixed-top navbar-inverse">
     <div class="container">
         <div class="navbar-header">
@@ -13,13 +12,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <?php if ($this->session->user_id) { ?>
-                    <li class="<?php echo $this->nl->is_selected('profile'); ?>"><a href="<?php echo site_url_tr('profile'); ?>"><?php echo lang('profile'); ?></a></li>
-                    <li class="<?php echo $this->nl->is_selected('route'); ?>"><a href="<?php echo site_url_tr('routes/add'); ?>"><?php echo lang('add_transport_button'); ?></a></li>
-                <?php } else { ?>
-                    <li class="<?php echo $this->nl->is_selected('users/login'); ?>"><a href="<?php echo site_url_tr('auth/login'); ?>"><?php echo lang('m_login'); ?></a></li>
-                    <li class="<?php echo $this->nl->is_selected('users/register'); ?>"><a href="<?php echo site_url_tr('auth/register'); ?>"><?php echo lang('m_register'); ?></a></li>
-                <?php } ?>
+                <?php
+                if ($this->session->user_id) {
+                    $this->nl->generate_link('profile', 'profile', NULL, lang('profile'));
+                } else {
+                    $this->nl->generate_link('auth/login', 'auth/login', NULL, lang('m_login'));
+                    $this->nl->generate_link('auth/register', 'auth/register', NULL, lang('m_register'));
+                }
+                $this->nl->generate_link('routes/all', 'routes/all', NULL, lang('all_routes'));
+                $this->nl->generate_link('routes/add', 'routes/add', NULL, lang('add_route'));
+                ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if ($this->session->user_id): ?>
