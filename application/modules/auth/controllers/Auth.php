@@ -52,7 +52,7 @@ class Auth extends MX_Controller {
                 $this->db->insert('users', $user);
 //send email for verification
                 $this->session->set_flashdata('message', lang('register_user'));
-                redirect('profile?ln=' . $this->ln);
+                redirect_tr('profile');
             }
         }
         $this->nl->view_loader('user', 'register', NULL, $data);

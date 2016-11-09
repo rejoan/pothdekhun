@@ -33,8 +33,8 @@
                                 <td><?php echo $r['transport_type']; ?></td>
                                 <td><?php echo $r['added']; ?></td>
                                 <td><?php echo $r['is_publish'] == '0' ? '<small class="label label-danger">No</small>' : '<small class="label label-success">Yes</small>'; ?></td>
-                                <td><a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('route/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url('route/show') . '/' . $r['id']; ?>"><i class="fa fa-eye"></i></a>
+                                <td><a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('routes/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url('routes/show') . '/' . $r['id']; ?>"><i class="fa fa-eye"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

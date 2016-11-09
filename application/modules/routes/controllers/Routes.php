@@ -12,6 +12,7 @@ class Routes extends MX_Controller {
     public function __construct() {
         parent::__construct();
         $this->user_id = $this->session->user_id;
+        $this->load->model('Routes_model','rm');
     }
 
     public function index() {
@@ -329,10 +330,10 @@ class Routes extends MX_Controller {
             $segment = 0;
         }
         $links = $this->nl->generate_pagination('routes/index', $total_rows, $per_page, $num_links);
-        $query = $this->db->select('r.id,r.from_place,r.to_place,r.transport_type,r.added,r.is_publish,u.username')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->order_by('r.id', 'desc')->get();
+        
         $data = array(
             'title' => 'All Routes',
-            'routes' => $query->result_array(),
+            'routes' => $this->rm->get_all(),
             'links' => $links,
             'segment' => $segment
         );

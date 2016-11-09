@@ -518,4 +518,5 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 $config['guest']= array('weapons', 'routes','transports');
+$config['user']= array('profile','weapons', 'routes','transports');
 $config['manager'] = array('routes_manager');
