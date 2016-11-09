@@ -133,7 +133,7 @@ class Nuts_lib {
         $method_name = $this->CI->router->fetch_method();
         $mn = str_replace('_', ' ', $method_name);
         if ($controller != '') {
-            $action_name = '<li><a href="' . site_url($controller . "/index") . '">' . ucfirst($controller) . '<i class="fa fa-angle-right"></i></a></li>';
+            $action_name = '<li><a href="' . site_url($controller . "/index") . '">' . ucfirst($controller) . '</a></li>';
         } else {
             $action_name = '';
         }
@@ -142,8 +142,8 @@ class Nuts_lib {
         } else {
             $method = '';
         }
-        $crumb = '<ul class="page-breadcrumb">
-            <li><a href="javascript:void(0);"><i class="fa fa-home"></i> Home<i class="fa fa-angle-right"></i></a></li>' . $action_name . $method . '</ul>';
+        $crumb = '<ol class="breadcrumb">
+            <li><a href="javascript:void(0);"><i class="fa fa-home"></i> Home </a></li>' . $action_name . $method . '</ol>';
         echo $crumb;
     }
 

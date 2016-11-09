@@ -18,14 +18,14 @@
             <li class="header">MAIN NAVIGATION</li>
             <li><a href="<?php echo site_url('admin'); ?>"><i class="fa fa fa-dashboard"></i> Dashboard</a></li>
 
-            <li class="treeview <?php echo $this->nuts_lib->is_selected('routes');?>">
+            <li class="treeview <?php echo $this->nl->is_selected('routes');?>">
                 <a href="#">
                     <i class="fa fa-table"></i> <span>Route Manager</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="<?php echo $this->nuts_lib->is_selected('routes');?>"><a href="<?php echo site_url('routes'); ?>"><i class="fa fa-navicon"></i> All Route</a></li>
-                    <li class="<?php echo $this->nuts_lib->is_selected('newly_edited');?>"><a href="<?php echo site_url('routes/newly_edited'); ?>"><i class="fa fa-bars"></i> Newly Edited</a></li>
+                    <li class="<?php echo $this->nl->is_selected('routes');?>"><a href="<?php echo site_url('routes'); ?>"><i class="fa fa-navicon"></i> All Route</a></li>
+                    <li class="<?php echo $this->nl->is_selected('newly_edited');?>"><a href="<?php echo site_url('routes/newly_edited'); ?>"><i class="fa fa-bars"></i> Newly Edited</a></li>
                 </ul>
             </li>
             <li>

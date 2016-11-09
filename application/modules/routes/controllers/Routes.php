@@ -336,7 +336,7 @@ class Routes extends MX_Controller {
             'links' => $links,
             'segment' => $segment
         );
-        $this->nl->view_loader('admin', 'routes', NULL, $data, FALSE, FALSE, FALSE);
+        $this->nl->view_loader('admin', 'routes', NULL, $data, 'leftbar', 'rightbar', FALSE);
     }
 
 }
