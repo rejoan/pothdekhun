@@ -12,42 +12,6 @@ class Route_manager extends CI_Controller {
         parent::__construct();
     }
 
-    public function index() {
-        $this->load->library('pagination');
-        $config['base_url'] = site_url('routes/index');
-        $config['total_rows'] = $this->db->get('routes')->num_rows();
-        $config['per_page'] = 10;
-        $config['num_links'] = 5;
-        $config['full_tag_open'] = '<ul class="pagination no-margin">';
-        $config['full_tag_close'] = '</ul>';
-        $config['cur_tag_open'] = '<li class="active"><a href="javascript:void();">';
-        $config['cur_tag_close'] = '</a></li>';
-        $config['prev_tag_open'] = '<li>';
-        $config['prev_tag_close'] = '</li>';
-        $config['next_tag_open'] = '<li>';
-        $config['next_tag_close'] = '</li>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_close'] = '</li>';
-        $config['last_tag_open'] = '<li>';
-        $config['last_tag_close'] = '</li>';
-        $config['first_tag_open'] = '<li>';
-        $config['first_tag_close'] = '</li>';
-        $config['next_link'] = 'Next >';
-        $config['prev_link'] = '< Prev';
-        if ($this->uri->segment(3)) {
-            $segment = $this->uri->segment(3);
-        } else {
-            $segment = 0;
-        }
-        $this->pagination->initialize($config);
-        $query = $this->db->select('r.id,r.country,r.from_place,r.to_place,r.departure_place,r.type,r.vehicle_name,r.added,r.is_publish,u.username')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->order_by('r.id', 'desc')->get();
-        $data = array(
-            'title' => 'All Routes',
-            'routes' => $query->result_array(),
-            'segment' => $segment
-        );
-        $this->nuts_lib->view_admin('routes', $data, TRUE, FALSE);
-    }
 
     public function edit($id) {
         if ($this->ln == 'en') {
@@ -82,7 +46,7 @@ class Route_manager extends CI_Controller {
         $data = array(
             'title' => lang('edit_route'),
             'action' => site_url('routes/edit/' . $route_id),
-            'countries' => $this->nuts_lib->get_countries(),
+            'countries' => $this->nl->get_countries(),
             'route' => $query->row_array(),
             'stoppages' => $q_stoppage->result_array()
         );
@@ -110,7 +74,7 @@ class Route_manager extends CI_Controller {
             if ($_FILES && $_FILES['evidence']['name']) {
                 if (!$this->upload->do_upload('evidence')) {
                     $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                    $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
                     return;
                 } else {
                     $evidence = $this->upload->data();
@@ -126,7 +90,7 @@ class Route_manager extends CI_Controller {
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
                 return;
             }
 
@@ -185,7 +149,7 @@ class Route_manager extends CI_Controller {
             $this->session->set_flashdata('message', lang('edit_success'));
             redirect('routes');
         }
-        $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
     }
 
     public function newly_edited() {
@@ -222,7 +186,7 @@ class Route_manager extends CI_Controller {
             'routes' => $query->result_array(),
             'segment' => $segment
         );
-        $this->nuts_lib->view_admin('edited', $data, TRUE, FALSE);
+        $this->nl->view_admin('edited', $data, TRUE, FALSE);
     }
 
     /**
@@ -284,7 +248,7 @@ class Route_manager extends CI_Controller {
             if ($_FILES && $_FILES['evidence']['name']) {
                 if (!$this->upload->do_upload('evidence')) {
                     $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                    $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
                     return;
                 } else {
                     $evidence = $this->upload->data();
@@ -301,7 +265,7 @@ class Route_manager extends CI_Controller {
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
                 return;
             }
 
@@ -360,7 +324,7 @@ class Route_manager extends CI_Controller {
         $data = array(
             'title' => lang('edit_route'),
             'action' => site_url('routes/edit/' . $route_id),
-            'countries' => $this->nuts_lib->get_countries(),
+            'countries' => $this->nl->get_countries(),
             'route' => $query->row_array(),
             'stoppages' => $q_stoppage->result_array(),
             'edited_route' => $q_edited->row_array(),
@@ -368,7 +332,7 @@ class Route_manager extends CI_Controller {
         );
 
 
-        $this->nuts_lib->view_loader('user', 'add_route', $data, TRUE, NULL, 'merge');
+        $this->nl->view_loader('user', 'add_route', $data, TRUE, NULL, 'merge');
     }
 
 }

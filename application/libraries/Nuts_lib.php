@@ -113,7 +113,7 @@ class Nuts_lib {
      * check if super admin
      * @return boolean
      */
-    public function is_admin($redirect_url = 'authentication/login', $is_view = TRUE) {
+    public function is_admin($redirect_url = 'auth/login', $is_view = TRUE) {
         $level = $this->CI->session->user_type;
         if ($level == 'admin') {
             return TRUE;
@@ -364,12 +364,16 @@ class Nuts_lib {
         return $item;
     }
 
-    public function generate_pagination($base_url, $total_rows, $per_page = 10, $num_link = 5) {
+    public function generate_pagination($url, $total_rows, $per_page = 10, $num_link = 5) {
         $this->CI->load->library('pagination');
-        $config['base_url'] = site_url_tr($base_url);
+        $config['base_url'] = site_url_tr($url);
         $config['total_rows'] = $total_rows;
-        $config['per_page'] = 10;
-        $config['num_links'] = 5;
+        $config['per_page'] = $per_page;
+        $config['num_links'] = ceil($total_rows / $per_page);
+        $config['enable_query_strings'] = TRUE;
+        $config['use_page_numbers'] = TRUE;
+        $config['query_string_segment'] = 'page';
+        $config['page_query_string'] = TRUE;
         $config['full_tag_open'] = '<ul class="pagination no-margin">';
         $config['full_tag_close'] = '</ul>';
         $config['cur_tag_open'] = '<li class="active"><a href="javascript:void();">';

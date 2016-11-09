@@ -16,7 +16,7 @@ class Admin extends MX_Controller {
             'title' => 'Dashboard'
         );
         $this->nl->is_admin();
-        $this->nl->view_admin('index', $data, TRUE, TRUE);
+        $this->nl->view_loader('admin', 'routes', NULL, $data, NULL, NULL, NULL);
     }
 
     public function login() {
@@ -48,9 +48,8 @@ class Admin extends MX_Controller {
                 redirect('admin');
             }
         }
-        $this->nl->view_admin('login', $data, FALSE, FALSE);
+        $this->nl->view_loader('login', $data, FALSE, FALSE);
     }
-
 
     public function logout() {
         $this->session->sess_destroy();

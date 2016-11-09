@@ -7,7 +7,7 @@
         <title><?php echo $title;?></title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <!-- Bootstrap 3.3.6 -->
+        <!-- Bootstrap 3.3.7 -->
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/font-awesome.min.css'); ?>">
@@ -100,7 +100,7 @@
                             Dashboard
                             <small>Control panel</small>
                         </h1>
-                        <?php $this->nuts_lib->breadcrumb(); ?>
+                        <?php $this->nl->breadcrumb(); ?>
                     </section>
 
                     <!-- Main content -->

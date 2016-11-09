@@ -15,7 +15,7 @@ class Routes extends MX_Controller {
     }
 
     public function index() {
-        
+
         $data = array(
             'title' => lang('index'),
             'name' => $this->nl->lang_based_data('bn_name', 'name'),
@@ -317,6 +317,26 @@ class Routes extends MX_Controller {
             'segment' => 0
         );
         $this->nl->view_loader('user', 'details', $data, TRUE, 'latest_routes', 'rightbar');
+    }
+
+    public function all() {
+        $total_rows = $this->db->get('routes')->num_rows();
+        $per_page = 10;
+        $num_links = 5;
+        if ($this->uri->segment(3)) {
+            $segment = $this->uri->segment(3);
+        } else {
+            $segment = 0;
+        }
+        $links = $this->nl->generate_pagination('routes/index', $total_rows, $per_page, $num_links);
+        $query = $this->db->select('r.id,r.from_place,r.to_place,r.transport_type,r.added,r.is_publish,u.username')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->order_by('r.id', 'desc')->get();
+        $data = array(
+            'title' => 'All Routes',
+            'routes' => $query->result_array(),
+            'links' => $links,
+            'segment' => $segment
+        );
+        $this->nl->view_loader('admin', 'routes', NULL, $data, FALSE, FALSE, FALSE);
     }
 
 }
