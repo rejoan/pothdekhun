@@ -15,7 +15,7 @@
                 <table class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th><?php echo lang('sl');?></th>
                             <th><?php echo lang('from_view');?></th>
                             <th><?php echo lang('to_view');?></th>
                             <th><?php echo lang('transport_type');?></th>

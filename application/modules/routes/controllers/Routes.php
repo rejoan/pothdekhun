@@ -7,12 +7,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Routes extends MX_Controller {
 
-    private $user_id;
+    private $user_id = 4;
 
     public function __construct() {
         parent::__construct();
-        $this->user_id = $this->session->user_id;
-        $this->load->model('Routes_model','rm');
+        if ($this->session->user_id) {
+            $this->user_id = $this->session->user_id;
+        }
+        $this->load->model('Routes_model', 'rm');
     }
 
     public function index() {
@@ -324,13 +326,15 @@ class Routes extends MX_Controller {
         $total_rows = $this->db->get('routes')->num_rows();
         $per_page = 10;
         $num_links = 5;
-        if ($this->uri->segment(3)) {
-            $segment = $this->uri->segment(3);
+
+        if ($this->input->get('page')) {
+            $sgm = (int) trim($this->input->get('page'));
+            $segment = $per_page * ($sgm - 1);
         } else {
             $segment = 0;
         }
         $links = $this->nl->generate_pagination('routes/index', $total_rows, $per_page, $num_links);
-        
+
         $data = array(
             'title' => 'All Routes',
             'routes' => $this->rm->get_all(),

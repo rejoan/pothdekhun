@@ -21,6 +21,7 @@
                 }
                 $this->nl->generate_link('routes/all', 'routes/all', NULL, lang('all_routes'));
                 $this->nl->generate_link('routes/add', 'routes/add', NULL, lang('add_route'));
+                $this->nl->generate_link('transports', 'transports', NULL, lang('all_transport'));
                 ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
