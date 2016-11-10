@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2016 at 09:06 PM
+-- Generation Time: Nov 10, 2016 at 06:51 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -151,6 +151,17 @@ INSERT INTO `districts` (`id`, `name`, `bn_name`, `lat`, `lon`, `website`) VALUE
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `drivers`
+--
+
+CREATE TABLE `drivers` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `username` varchar(250) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `edited_routes`
 --
 
@@ -287,16 +298,15 @@ CREATE TABLE `routes` (
 
 INSERT INTO `routes` (`id`, `from_district`, `from_thana`, `from_place`, `to_district`, `to_thana`, `to_place`, `to_lat_long`, `transport_type`, `poribohon_id`, `departure_time`, `rent`, `evidence`, `added`, `added_by`, `is_publish`) VALUES
 (1, 1, 493, 'জাপান গার্ডেন সিটি', 1, 497, 'আব্দুল্লাহপুর', '', 'বাস', 1, 'কিছুক্ষর পরপর', 45, '', '2015-12-07 18:36:21', 2, 0),
-(2, 1, 493, 'তাজমহল রোড', 1, 509, 'মতিঝিল', '', 'বাস', 2, 'কিছুক্ষর পরপর', 35, '', '2015-12-08 09:33:55', 2, 0),
-(3, 32, 444, 'কামারপাড়া', 1, 504, 'গাবতলী', '', 'বাস', 3, 'সকালে ৩টা এবং রাতে ৫ টা', 550, '', '2015-12-11 11:19:04', 2, 0);
+(2, 1, 493, 'তাজমহল রোড', 1, 509, 'মতিঝিল', '', 'বাস', 2, 'কিছুক্ষর পরপর', 35, '', '2015-12-08 09:33:55', 2, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `route_translation`
+-- Table structure for table `route_bn`
 --
 
-CREATE TABLE `route_translation` (
+CREATE TABLE `route_bn` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `route_id` bigint(20) UNSIGNED NOT NULL,
   `from_place` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
@@ -308,13 +318,12 @@ CREATE TABLE `route_translation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `route_translation`
+-- Dumping data for table `route_bn`
 --
 
-INSERT INTO `route_translation` (`id`, `route_id`, `from_place`, `fp_lat_long`, `to_place`, `tp_lat_long`, `vehicle_name`, `departure_time`) VALUES
+INSERT INTO `route_bn` (`id`, `route_id`, `from_place`, `fp_lat_long`, `to_place`, `tp_lat_long`, `vehicle_name`, `departure_time`) VALUES
 (1, 1, 'Japan Garden City', '', 'Abdullahpur', '', 'Tetulia Poribohon', 'Consecutively'),
-(2, 2, 'Tajmohol Road', '', 'Motijhil', '', 'Dipon CNG', 'Consecutively'),
-(3, 3, 'Kamar Para', '', 'Gabtoli', '', 'TR Poribohon', '3 in Morning and 5 in Night');
+(2, 2, 'Tajmohol Road', '', 'Motijhil', '', 'Dipon CNG', 'Consecutively');
 
 -- --------------------------------------------------------
 
@@ -340,19 +349,15 @@ INSERT INTO `stoppages` (`id`, `place_name`, `comments`, `rent`, `route_id`, `po
 (2, 'কাওরান বাজার', '', 30, 1, 2),
 (32, 'মহাখালি', '', 20, 2, 1),
 (33, 'চেয়ারমেন বাড়ি', '', 20, 2, 2),
-(34, 'আমতলী', 'একই ভাড়া', 25, 2, 3),
-(54, 'গাজিপুর', 'ভাড়া কম নিতে পারে', 550, 3, 1),
-(55, 'চান্দুরা', 'একই ভাড়া নিবে', 550, 3, 2),
-(56, 'সাভার', 'একই ভাড়া নিবে', 550, 3, 3),
-(57, 'টেকনিকাল', 'একই ভাড়া নিবে', 550, 3, 4);
+(34, 'আমতলী', 'একই ভাড়া', 25, 2, 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stoppage_translation`
+-- Table structure for table `stoppage_bn`
 --
 
-CREATE TABLE `stoppage_translation` (
+CREATE TABLE `stoppage_bn` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `route_id` bigint(20) UNSIGNED NOT NULL,
   `place_name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
@@ -848,9 +853,9 @@ INSERT INTO `thanas` (`id`, `district_id`, `name`, `bn_name`, `guesture`, `bn_gu
 (465, 52, 'Kamalganj', 'কামালগঞ্জ', '', ''),
 (466, 52, 'Kulaura', 'কুলাউরা', '', ''),
 (467, 52, 'Rajnagar', 'রাজনগর', '', ''),
-(468, 52, 'Sreemangal', 'শ্রীমঙ্গল', '', ''),
+(468, 52, 'Sreemangal', 'শ্রীমঙ্গল', 'Srimangal,Srimongol,Srimangol', ''),
 (469, 53, 'Bishwamvarpur', 'বিসশম্ভারপুর', '', ''),
-(470, 53, 'Chhatak', 'ছাতক', '', ''),
+(470, 53, 'Chhatak', 'ছাতক', 'Satak,Satok', ''),
 (471, 53, 'Derai', 'দেড়াই', '', ''),
 (472, 53, 'Dharampasha', 'ধরমপাশা', '', ''),
 (473, 53, 'Dowarabazar', 'দোয়ারাবাজার', '', ''),
@@ -942,7 +947,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `mobile`, `reg_date`, `last_logged`, `user_type`, `reputation`, `avatar`, `status`) VALUES
 (1, 'রেজওয়ান', '81dc9bdb52d04dc20036dbd8313ed055', 'rejoan.er@gmail.com', '', '2015-12-03 10:07:24', '0000-00-00 00:00:00', 'supervisor', 0, '', 1),
-(2, 'rejoan', '81dc9bdb52d04dc20036dbd8313ed055', 'rejoan.epr@gmail.com', '01961349181', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'admin', 0, '', 1);
+(2, 'rejoan', '81dc9bdb52d04dc20036dbd8313ed055', 'rejoan.epr@gmail.com', '01961349181', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'admin', 0, '', 1),
+(4, 'anonymus', '81dc9bdb52d04dc20036dbd8313ed055', 'anonymus@gmail.com', '01961349181', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'user', 0, '', 1);
 
 -- --------------------------------------------------------
 
@@ -966,6 +972,12 @@ CREATE TABLE `verifications` (
 -- Indexes for table `districts`
 --
 ALTER TABLE `districts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `drivers`
+--
+ALTER TABLE `drivers`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1018,9 +1030,9 @@ ALTER TABLE `routes`
   ADD KEY `FK_routes_poribohons` (`poribohon_id`);
 
 --
--- Indexes for table `route_translation`
+-- Indexes for table `route_bn`
 --
-ALTER TABLE `route_translation`
+ALTER TABLE `route_bn`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_route_translation_routes` (`route_id`);
 
@@ -1032,9 +1044,9 @@ ALTER TABLE `stoppages`
   ADD KEY `FK_stopages_routes` (`route_id`);
 
 --
--- Indexes for table `stoppage_translation`
+-- Indexes for table `stoppage_bn`
 --
-ALTER TABLE `stoppage_translation`
+ALTER TABLE `stoppage_bn`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK__stoppages` (`route_id`);
 
@@ -1072,6 +1084,11 @@ ALTER TABLE `verifications`
 ALTER TABLE `districts`
   MODIFY `id` int(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 --
+-- AUTO_INCREMENT for table `drivers`
+--
+ALTER TABLE `drivers`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `edited_routes`
 --
 ALTER TABLE `edited_routes`
@@ -1100,21 +1117,21 @@ ALTER TABLE `profiles`
 -- AUTO_INCREMENT for table `routes`
 --
 ALTER TABLE `routes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `route_translation`
+-- AUTO_INCREMENT for table `route_bn`
 --
-ALTER TABLE `route_translation`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `route_bn`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `stoppages`
 --
 ALTER TABLE `stoppages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
--- AUTO_INCREMENT for table `stoppage_translation`
+-- AUTO_INCREMENT for table `stoppage_bn`
 --
-ALTER TABLE `stoppage_translation`
+ALTER TABLE `stoppage_bn`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `thanas`
@@ -1125,7 +1142,7 @@ ALTER TABLE `thanas`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `verifications`
 --
@@ -1172,9 +1189,9 @@ ALTER TABLE `routes`
   ADD CONSTRAINT `FK_routes_users` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON UPDATE NO ACTION;
 
 --
--- Constraints for table `route_translation`
+-- Constraints for table `route_bn`
 --
-ALTER TABLE `route_translation`
+ALTER TABLE `route_bn`
   ADD CONSTRAINT `FK_route_translation_routes` FOREIGN KEY (`route_id`) REFERENCES `routes` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
@@ -1184,9 +1201,9 @@ ALTER TABLE `stoppages`
   ADD CONSTRAINT `FK_stoppages_routes` FOREIGN KEY (`route_id`) REFERENCES `routes` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Constraints for table `stoppage_translation`
+-- Constraints for table `stoppage_bn`
 --
-ALTER TABLE `stoppage_translation`
+ALTER TABLE `stoppage_bn`
   ADD CONSTRAINT `FK__stoppages` FOREIGN KEY (`route_id`) REFERENCES `routes` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
