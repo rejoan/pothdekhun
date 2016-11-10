@@ -21,7 +21,7 @@
                             <th><?php echo lang('transport_type');?></th>
                             <th><?php echo lang('route_added');?></th>
                             <th><?php echo lang('is_publish');?></th>
-                            <th><?php echo lang('others');?></th>
+                            <th><?php echo lang('action');?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,6 +35,9 @@
                                 <td><?php echo $r['is_publish'] == '0' ? '<small class="label label-danger">No</small>' : '<small class="label label-success">Yes</small>'; ?></td>
                                 <td><a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('routes/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>
                                     <a data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url('routes/show') . '/' . $r['id']; ?>"><i class="fa fa-eye"></i></a>
+                                    <?php if($this->nl->is_admin()):?>
+                                    <a onclick="return confirm('are you sure?')" data-toggle="tooltip" data-placement="top" title="Delete" href="<?php echo site_url('routes/delete') . '/' . $r['id']; ?>"><i class="fa fa-trash"></i></a>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

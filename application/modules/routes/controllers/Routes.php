@@ -289,6 +289,10 @@ class Routes extends MX_Controller {
         $this->nl->view_loader('user', 'add_route', NULL, $data, 'latest_routes', 'rightbar');
     }
 
+    /**
+     * show route details
+     * @param int $id
+     */
     public function show($id) {
         if (!empty($id)) {
             $route_id = (int) $id;
@@ -303,23 +307,20 @@ class Routes extends MX_Controller {
             $stopage_table = 'stoppages';
         }
 
-        $query = $this->db->select('r.id,' . $alias . '.from_place,' . $alias . '.to_place,r.type,' . $alias . '.vehicle_name,' . $alias . '.departure_place,' . $alias . '.departure_time,r.rent,r.evidence,r.added,u.username')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->join('route_translation rt', 'r.id = rt.route_id', 'left')->where('r.id', $route_id)->get();
-        //echo $this->db->last_query();return;
-        $exist = $query->num_rows();
+        $exist = $this->rm->details($alias, $route_id, FALSE);
         if ($exist < 1) {
             $this->session->set_flashdata('message', lang('no_route'));
             redirect('route?ln=' . $this->ln);
         }
-        $result = $query->row_array();
-        $q_stopage = $this->db->where('route_id', (int) $result['id'])->get($stopage_table);
-
+        $result = $this->rm->details($alias, $route_id);
+        //var_dump($result);        return;
         $data = array(
-            'title' => $result['from_place'] . ' ' . lang('from_view') . ' ' . $result['to_place'] . ' ' . $result['vehicle_name'] . ' ' . lang('route_info'),
+            'title' => $result['from_place'] . ' ' . lang('from_view') . ' ' . $result['to_place'] . ' ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),
             'route' => $result,
-            'stoppages' => $q_stopage->result_array(),
+            'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['id']),
             'segment' => 0
         );
-        $this->nl->view_loader('user', 'details', $data, TRUE, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'details', NULL, $data, 'latest_routes', 'rightbar');
     }
 
     public function all() {
@@ -342,6 +343,12 @@ class Routes extends MX_Controller {
             'segment' => $segment
         );
         $this->nl->view_loader('user', 'routes', NULL, $data, 'latest_routes', 'rightbar');
+    }
+
+    public function delete($id) {
+        $this->pm->deleter('id', $id, 'routes');
+        $this->session->set_flashdata('message', lang('success_delete'));
+        redirect_tr('routes/all');
     }
 
 }

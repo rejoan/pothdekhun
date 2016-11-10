@@ -6,13 +6,13 @@
         </div>
         <div class="box-body">
             <h4><?php echo lang('transport_type'); ?></h4>
-            <strong><?php echo $route['type']; ?></strong>
+            <strong><?php echo $route['transport_type']; ?></strong>
             <hr/>
             <h4><?php echo lang('vehicle_name'); ?></h4>
-            <strong><?php echo $route['vehicle_name']; ?></strong>
+            <strong><?php echo $route[$this->nl->lang_based_data('bn_name', 'name')]; ?></strong>
             <hr/>
             <h4><?php echo lang('departure_place'); ?></h4>
-            <strong><?php echo $route['departure_place']; ?></strong>
+            <strong><?php echo $route['to_place']; ?></strong>
             <hr/>
             <h4><?php echo lang('main_rent'); ?></h4>
             <strong><?php echo $route['rent']; ?></strong>
@@ -49,9 +49,9 @@
             <a href="javascript:void(0);" class="btn btn-info"><?php echo lang('verify_button'); ?></a>
             <a href="javascript:void(0);" class="btn btn-info"><?php echo lang('verify_button_non'); ?></a>
             <hr/>
-            <a href="<?php echo site_url('route/edit').'/'.$route['id'];?>" class="btn btn-block btn-info"><?php echo lang('edit_lang') . ' ' . lang('info_of'); ?></a>            <hr/>
+            <a href="<?php echo site_url('route/edit') . '/' . $route['id']; ?>" class="btn btn-block btn-info"><?php echo lang('edit_lang') . ' ' . lang('info_of'); ?></a>            <hr/>
             <?php if ($this->session->type > 1): ?>
-                
+
             <?php endif; ?>
         </div>
     </div>

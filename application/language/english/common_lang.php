@@ -1,4 +1,5 @@
 <?php
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['index'] = 'All Transport Route Information';
@@ -103,4 +104,5 @@ $lang['routes'] = 'Routes';
 $lang['drivers'] = 'Drivers';
 $lang['add_driver'] = 'I\'m Driver';
 $lang['need_driver'] = 'I need a Driver';
+$lang['success_delete'] = 'Successfully Deleted';
 
