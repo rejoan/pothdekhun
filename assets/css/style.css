@@ -71,3 +71,6 @@ footer {
  .open{
      z-index: 9999;
  }
+ .breadcrumb{
+     background-color: #eee;
+ }

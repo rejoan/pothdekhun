@@ -20,10 +20,10 @@ $hook['post_controller_constructor'][] = array(
 );
 
 
-$hook['post_controller_constructor'][] = array(
-    'class' => 'myHook',
-    'function' => 'process_acl',
-    'filename' => 'myHook.php',
-    'filepath' => 'hooks',
-    'params' => array()
-);
+//$hook['post_controller_constructor'][] = array(
+//    'class' => 'myHook',
+//    'function' => 'process_acl',
+//    'filename' => 'myHook.php',
+//    'filepath' => 'hooks',
+//    'params' => array()
+//);

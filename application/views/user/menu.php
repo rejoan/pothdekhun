@@ -19,10 +19,38 @@
                     $this->nl->generate_link('auth/login', 'auth/login', NULL, lang('m_login'));
                     $this->nl->generate_link('auth/register', 'auth/register', NULL, lang('m_register'));
                 }
-                $this->nl->generate_link('routes/all', 'routes/all', NULL, lang('all_routes'));
-                $this->nl->generate_link('routes/add', 'routes/add', NULL, lang('add_route'));
-                $this->nl->generate_link('transports', 'transports', NULL, lang('all_transport'));
                 ?>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo lang('routes'); ?><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <?php
+                        $this->nl->generate_link('routes/all', 'routes/all', 'fa-list', lang('all_routes'));
+                        $this->nl->generate_link('routes/add', 'routes/add', 'fa-plus', lang('add_route'));
+                        ?>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo lang('transports'); ?><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <?php
+                        $this->nl->generate_link('transports', 'transports', 'fa-list', lang('all_routes'));
+                        $this->nl->generate_link('transports/add', 'transports/add', 'fa-plus', lang('add_route'));
+                        ?>
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo lang('drivers'); ?><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <?php
+                        $this->nl->generate_link('drivers', 'drivers', 'fa-list', lang('drivers'));
+                        $this->nl->generate_link('drivers/add', 'drivers/add', 'fa-plus', lang('add_driver'));
+                         $this->nl->generate_link('drivers/hire', 'drivers/hire', 'fa-binoculars', lang('need_driver'));
+                        ?>
+                    </ul>
+                </li>
+                
+                
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if ($this->session->user_id): ?>

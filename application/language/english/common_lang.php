@@ -97,3 +97,10 @@ $lang['action'] = 'Action';
 $lang['total_vehicle'] = 'Total Vehicle';
 $lang['added_at'] = 'Added at';
 $lang['added_by'] = 'Added by';
+$lang['transports'] = 'Transports';
+$lang['add_transport'] = 'Add Transport';
+$lang['routes'] = 'Routes';
+$lang['drivers'] = 'Drivers';
+$lang['add_driver'] = 'I\'m Driver';
+$lang['need_driver'] = 'I need a Driver';
+
