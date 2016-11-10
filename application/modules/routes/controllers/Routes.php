@@ -29,6 +29,11 @@ class Routes extends MX_Controller {
         );
         $this->nl->view_loader('user', 'index', NULL, $data, 'latest_routes', 'rightbar');
     }
+    
+    /**
+     * Add a route
+     * @return type
+     */
 
     public function add() {
         $this->load->library('form_validation');
@@ -48,10 +53,6 @@ class Routes extends MX_Controller {
         $data = array(
             'title' => lang('add_route'),
             'action' => site_url_tr('route/add'),
-            'fd' => $fd,
-            'td' => $td,
-            'ft' => $ft,
-            'th' => $th,
             'districts' => $this->pm->get_data('districts'),
             'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $fdistrict),
             'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $tdistrict),
@@ -132,14 +133,14 @@ class Routes extends MX_Controller {
             $this->db->insert('routes', $route);
 
             $route_id = $this->db->insert_id();
-            $route_eng = array(
+            $route_bn = array(
                 'from_place' => $from,
                 'to_place' => $to,
                 'vehicle_name' => $transport_name,
                 'departure_time' => $departure_time,
                 'route_id' => $route_id
             );
-            $this->db->insert('route_translation', $route_eng);
+            $this->db->insert('route_bn', $route_bn);
 
 //stoppage data process
             $rent = $this->input->post('rent', TRUE);
@@ -162,7 +163,7 @@ class Routes extends MX_Controller {
 
             if ($stoppages) {
                 $this->db->insert_batch('stoppages', $stoppages);
-                $this->db->insert_batch('stoppage_translation', $stoppages);
+                $this->db->insert_batch('stoppage_bn', $stoppages);
             }
             $this->session->set_flashdata('message', lang('save_success'));
             redirect('routes');
@@ -173,14 +174,14 @@ class Routes extends MX_Controller {
     public function edit($id) {
         if ($this->input->get('ln') == 'en') {
             $alias = 'rt';
-            $stopage_table = 'stoppage_translation';
+            $stopage_table = 'stoppage_bn';
         } else {
             $alias = 'r';
             $stopage_table = 'stoppages';
         }
         if (!empty($id)) {
             $route_id = (int) $id;
-            $query = $this->db->select('r.id,' . $alias . '.from_place,' . $alias . '.to_place,r.type,' . $alias . '.vehicle_name,' . $alias . '.departure_place,' . $alias . '.departure_time,r.rent,r.evidence,r.added,r.is_publish')->from('routes r')->join('route_translation rt', 'r.id = rt.route_id', 'left')->where('r.added_by', $this->user_id)->where('r.id', $route_id)->get();
+            $query = $this->db->select('r.id,' . $alias . '.from_place,' . $alias . '.to_place,r.type,' . $alias . '.vehicle_name,' . $alias . '.departure_place,' . $alias . '.departure_time,r.rent,r.evidence,r.added,r.is_publish')->from('routes r')->join('route_bn rt', 'r.id = rt.route_id', 'left')->where('r.added_by', $this->user_id)->where('r.id', $route_id)->get();
             $q_edit = $this->db->where('route_id', $route_id)->get('edited_routes')->num_rows();
             if ($q_edit > 0) {
                 $this->session->set_flashdata('message', lang('already_edit_submitted'));
@@ -301,7 +302,7 @@ class Routes extends MX_Controller {
         }
         if ($this->input->get('ln') == 'en') {
             $alias = 'rt';
-            $stopage_table = 'stoppage_translation';
+            $stopage_table = 'stoppage_bn';
         } else {
             $alias = 'r';
             $stopage_table = 'stoppages';

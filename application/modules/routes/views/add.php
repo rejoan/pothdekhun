@@ -8,9 +8,9 @@
     ?>
     <div class="box box-poth">
         <div class="box-header">
-            <div class="callout callout-info">
+            <h4>
                 <?php echo lang('direct_add') ?>
-            </div>
+            </h4>
 
             <?php if (strpos(current_url(), 'edit')): ?>
                 <?php
