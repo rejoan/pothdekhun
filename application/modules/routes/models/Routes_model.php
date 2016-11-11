@@ -23,7 +23,7 @@ class Routes_model extends CI_Model {
      * @return int or array
      */
     public function details($alias, $route_id, $num_rows = FALSE) {
-        $query = $this->db->select('r.id,' . $alias . '.from_place,' . $alias . '.to_place,r.transport_type,' . 'p.*,' . $alias . '.departure_time,r.rent,r.evidence,r.added,u.username')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->join('route_translation rt', 'r.id = rt.route_id', 'left')->join('poribohons p', 'r.poribohon_id = p.id', 'left')->where('r.id', $route_id)->get();
+        $query = $this->db->select('r.*,' . $alias . '.from_place,' . $alias . '.to_place,' . 'p.*,' . $alias . '.departure_time,r.rent,r.evidence,r.added,u.username')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->join('route_bn rt', 'r.id = rt.route_id', 'left')->join('poribohons p', 'r.poribohon_id = p.id', 'left')->where('r.id', $route_id)->get();
         //echo $this->db->last_query();
         if ($num_rows) {
             return $query->num_rows();

@@ -106,3 +106,5 @@ $lang['add_driver'] = 'I\'m Driver';
 $lang['need_driver'] = 'I need a Driver';
 $lang['success_delete'] = 'Successfully Deleted';
 $lang['save_success'] = 'Successfully Saved';
+$lang['bangla'] = 'Bangla';
+$lang['english'] = 'English';

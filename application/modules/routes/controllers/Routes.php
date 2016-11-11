@@ -186,7 +186,7 @@ class Routes extends MX_Controller {
                 $this->session->set_flashdata('message', lang('already_edit_submitted'));
                 redirect('routes/all');
             }
-            if ($this->rm->details($alias, $id, TRUE) < 1) {//if wrong ID given direct from URL
+            if ($this->rm->details($alias, $route_id, TRUE) < 1) {//if wrong ID given direct from URL
                 $this->session->set_flashdata('message', 'Wrong Access');
                 redirect('profile/my_routes');
             }
@@ -195,11 +195,16 @@ class Routes extends MX_Controller {
         }
 
         $this->load->library('form_validation');
+        $route = $this->rm->details($alias, $route_id);
+        //var_dump($route);return;
         $data = array(
             'title' => lang('edit_route'),
+            'districts' => $this->pm->get_data('districts'),
+            'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $route['from_district']),
+            'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $route['to_district']),
             'action' => site_url('routes/edit/' . $route_id),
-            'countries' => $this->nl->get_countries(),
-            'route' => $this->rm->details($alias, $id),
+            'countries' => get_countries(),
+            'route' => $route,
             'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', $route_id)
         );
 
@@ -285,7 +290,7 @@ class Routes extends MX_Controller {
             $this->session->set_flashdata('message', lang('edit_success_user'));
             redirect_tr('routes/all');
         }
-        $this->nl->view_loader('user', 'add_route', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
     }
 
     /**

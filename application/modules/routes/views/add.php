@@ -14,8 +14,10 @@
 
             <?php if (strpos(current_url(), 'edit')): ?>
                 <?php
+                $text_lang = $this->session->lang_name == 'bengali' ? lang('english') : lang('bangla');
+                $lang_code = $this->session->lang_name == 'bengali' ? 'en' : 'bn';
                 echo lang('edit_lang') . ' ';
-                echo '<a class="btn btn-sm btn-info" href="' . site_url_tr() . '">' . $text_lang . '</a>';
+                echo '<a class="btn btn-sm btn-info" href="' . current_url_tr($lang_code) . '">' . $text_lang . '</a>';
                 echo ' ' . lang('info_of');
                 ?>
             <?php endif; ?>
@@ -34,7 +36,7 @@
                                 }
                                 ?>>
 
-                                    <?php echo $d[$name]; ?>
+                                    <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -53,7 +55,7 @@
                                     }
                                     ?>>
 
-                                        <?php echo $t[$name]; ?>
+                                        <?php echo $t[$this->nl->lang_based_data('bn_name', 'name')]; ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
@@ -87,7 +89,7 @@
                                 }
                                 ?>>
 
-                                    <?php echo $d[$name]; ?>
+                                    <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -104,7 +106,7 @@
                                         echo $tt['id'] == '509' ? 'selected="yes"' : '';
                                     }
                                     ?>>
-                                                 <?php echo $tt[$name]; ?>
+                                                 <?php echo $tt[$this->nl->lang_based_data('bn_name', 'name')]; ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
