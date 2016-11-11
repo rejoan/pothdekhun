@@ -22,14 +22,14 @@ class Drivers extends MX_Controller {
         $data = array(
             'title' => lang('index')
         );
-        $this->nl->view_loader('user', 'index', NULL, $data, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
     }
     
     public function add(){
         $data = array(
             'title' => lang('index')
         );
-        $this->nl->view_loader('user', 'add', NULL, $data, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
     }
     
     
@@ -37,7 +37,7 @@ class Drivers extends MX_Controller {
         $data = array(
             'title' => lang('index')
         );
-        $this->nl->view_loader('user', 'hire', NULL, $data, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'hire', NULL, $data, 'latest', 'rightbar');
     }
     
     

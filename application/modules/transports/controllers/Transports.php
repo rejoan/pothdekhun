@@ -30,7 +30,7 @@ class Transports extends MX_Controller {
             'links' => $links,
             'segment' => $segment
         );
-        $this->nl->view_loader('user', 'index', NULL, $data, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
     }
 
 }

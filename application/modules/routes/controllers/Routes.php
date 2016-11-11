@@ -27,14 +27,13 @@ class Routes extends MX_Controller {
             'action_transport' => site_url_tr('transports/index'),
             'search_action' => site_url_tr('search/index')
         );
-        $this->nl->view_loader('user', 'index', NULL, $data, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
     }
-    
+
     /**
      * Add a route
      * @return type
      */
-
     public function add() {
         $this->load->library('form_validation');
         $fd = trim($this->input->post('fd', TRUE));
@@ -52,7 +51,7 @@ class Routes extends MX_Controller {
 
         $data = array(
             'title' => lang('add_route'),
-            'action' => site_url_tr('route/add'),
+            'action' => site_url_tr('routes/add'),
             'districts' => $this->pm->get_data('districts'),
             'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $fdistrict),
             'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $tdistrict),
@@ -83,7 +82,7 @@ class Routes extends MX_Controller {
             if ($_FILES && $_FILES['evidence']['name']) {
                 if (!$this->upload->do_upload('evidence')) {
                     $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                    $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest', 'rightbar');
                     return;
                 } else {
                     $evidence = $this->upload->data();
@@ -98,7 +97,7 @@ class Routes extends MX_Controller {
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'add', NULL, $data, 'latest_routes', 'rightbar');
+                $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
                 return;
             }
 
@@ -166,13 +165,14 @@ class Routes extends MX_Controller {
                 $this->db->insert_batch('stoppage_bn', $stoppages);
             }
             $this->session->set_flashdata('message', lang('save_success'));
-            redirect('routes');
+            redirect('routes/all');
         }
-        $this->nl->view_loader('user', 'add', NULL, $data, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
     }
 
     public function edit($id) {
-        if ($this->input->get('ln') == 'en') {
+        //var_dump($this->session);return;
+        if ($this->session->lang_code == 'bn') {
             $alias = 'rt';
             $stopage_table = 'stoppage_bn';
         } else {
@@ -181,13 +181,12 @@ class Routes extends MX_Controller {
         }
         if (!empty($id)) {
             $route_id = (int) $id;
-            $query = $this->db->select('r.id,' . $alias . '.from_place,' . $alias . '.to_place,r.type,' . $alias . '.vehicle_name,' . $alias . '.departure_place,' . $alias . '.departure_time,r.rent,r.evidence,r.added,r.is_publish')->from('routes r')->join('route_bn rt', 'r.id = rt.route_id', 'left')->where('r.added_by', $this->user_id)->where('r.id', $route_id)->get();
-            $q_edit = $this->db->where('route_id', $route_id)->get('edited_routes')->num_rows();
-            if ($q_edit > 0) {
+            $q_edit = $this->pm->total_item('edited_routes', 'route_id', $route_id);
+            if ($q_edit > 0) {//if already an edit submitted
                 $this->session->set_flashdata('message', lang('already_edit_submitted'));
-                redirect('profile/my_routes?ln=' . $this->ln);
+                redirect('routes/all');
             }
-            if ($query->num_rows() < 1) {
+            if ($this->rm->details($alias, $id, TRUE) < 1) {//if wrong ID given direct from URL
                 $this->session->set_flashdata('message', 'Wrong Access');
                 redirect('profile/my_routes');
             }
@@ -196,13 +195,12 @@ class Routes extends MX_Controller {
         }
 
         $this->load->library('form_validation');
-        $q_stoppage = $this->db->where('route_id', $route_id)->get($stopage_table);
         $data = array(
             'title' => lang('edit_route'),
-            'action' => site_url('route/edit/' . $route_id),
+            'action' => site_url('routes/edit/' . $route_id),
             'countries' => $this->nl->get_countries(),
-            'route' => $query->row_array(),
-            'stoppages' => $q_stoppage->result_array()
+            'route' => $this->rm->details($alias, $id),
+            'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', $route_id)
         );
 
         if ($this->input->post('submit')) {
@@ -227,7 +225,7 @@ class Routes extends MX_Controller {
             if ($_FILES && $_FILES['evidence']['name']) {
                 if (!$this->upload->do_upload('evidence')) {
                     $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                    $this->nl->view_loader('user', 'add_route',NULL, $data, 'latest', 'rightbar');
                     return;
                 } else {
                     $evidence = $this->upload->data();
@@ -243,7 +241,7 @@ class Routes extends MX_Controller {
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest', 'rightbar');
                 return;
             }
 
@@ -285,9 +283,9 @@ class Routes extends MX_Controller {
                 $this->db->insert_batch('edited_stoppages', $stoppages);
             }
             $this->session->set_flashdata('message', lang('edit_success_user'));
-            redirect_tr('profile/my_routes');
+            redirect_tr('routes/all');
         }
-        $this->nl->view_loader('user', 'add_route', NULL, $data, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'add_route', NULL, $data, 'latest', 'rightbar');
     }
 
     /**
@@ -321,7 +319,7 @@ class Routes extends MX_Controller {
             'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['id']),
             'segment' => 0
         );
-        $this->nl->view_loader('user', 'details', NULL, $data, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'details', NULL, $data, 'latest', 'rightbar');
     }
 
     public function all() {
@@ -343,7 +341,7 @@ class Routes extends MX_Controller {
             'links' => $links,
             'segment' => $segment
         );
-        $this->nl->view_loader('user', 'routes', NULL, $data, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'routes', NULL, $data, 'latest', 'rightbar');
     }
 
     public function delete($id) {

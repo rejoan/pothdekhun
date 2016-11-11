@@ -48,7 +48,7 @@ class Profile extends MX_Controller {
             'route_added' => $query->num_rows(),
             'segment' => $segment
         );
-        $this->nl->view_loader('user', 'routes', NULL, $data, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'routes', NULL, $data, 'latest', 'rightbar');
     }
 
 }

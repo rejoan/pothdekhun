@@ -74,7 +74,7 @@ class Route_manager extends CI_Controller {
             if ($_FILES && $_FILES['evidence']['name']) {
                 if (!$this->upload->do_upload('evidence')) {
                     $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                    $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest', 'rightbar');
                     return;
                 } else {
                     $evidence = $this->upload->data();
@@ -90,7 +90,7 @@ class Route_manager extends CI_Controller {
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest', 'rightbar');
                 return;
             }
 
@@ -149,7 +149,7 @@ class Route_manager extends CI_Controller {
             $this->session->set_flashdata('message', lang('edit_success'));
             redirect('routes');
         }
-        $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest', 'rightbar');
     }
 
     public function newly_edited() {
@@ -248,7 +248,7 @@ class Route_manager extends CI_Controller {
             if ($_FILES && $_FILES['evidence']['name']) {
                 if (!$this->upload->do_upload('evidence')) {
                     $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                    $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest', 'rightbar');
                     return;
                 } else {
                     $evidence = $this->upload->data();
@@ -265,7 +265,7 @@ class Route_manager extends CI_Controller {
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest_routes', 'rightbar');
+                $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest', 'rightbar');
                 return;
             }
 

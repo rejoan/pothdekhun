@@ -18,7 +18,7 @@ class Users extends CI_Controller {
             'action_pull' => site_url('road/get_routes')
         );
 
-        $this->nl->view_loader('user', 'login', $data, TRUE, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'login', $data, TRUE, 'latest', 'rightbar');
     }
 
    

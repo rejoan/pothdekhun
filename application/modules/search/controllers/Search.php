@@ -45,7 +45,7 @@ class Search extends MX_Controller {
             'title' => lang('transport'),
             'transports' => $query->result_array()
         );
-        $this->nl->view_loader('user', 'transports', NULL, $data, 'latest_routes', 'rightbar');
+        $this->nl->view_loader('user', 'transports', NULL, $data, 'latest', 'rightbar');
     }
 
 }
