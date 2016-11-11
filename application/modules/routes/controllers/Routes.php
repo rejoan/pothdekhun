@@ -270,10 +270,6 @@ class Routes extends MX_Controller {
             }
 
             $route = array(
-                'from_district' => $fd,
-                'from_thana' => $ft,
-                'to_district' => $td,
-                'to_thana' => $th,
                 'route_id' => $route_id,
                 'from_place' => $from,
                 'to_place' => $to,
@@ -282,8 +278,8 @@ class Routes extends MX_Controller {
                 'departure_time' => $departure_time,
                 'rent' => $main_rent,
                 'evidence' => $evidence_name,
-                'edited_by' => $this->user_id,
-                'language_e' => $this->ln
+                'added_by' => $this->user_id,
+                'language_e' => $this->session->ln
             );
             $this->db->set('submitted_at', 'NOW()', FALSE);
             $this->db->insert('edited_routes', $route);
