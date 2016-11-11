@@ -193,8 +193,8 @@
                         <input id="vehicle_name" maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php
                         if ($this->input->post('submit')) {
                             echo set_value('vehicle_name');
-                        } elseif (isset($route['vehicle_name'])) {
-                            echo $route['vehicle_name'];
+                        } elseif (isset($route[$this->nl->lang_based_data('bn_name','name')])) {
+                            echo $route[$this->nl->lang_based_data('bn_name','name')];
                         }
                         ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>">
                     </div>

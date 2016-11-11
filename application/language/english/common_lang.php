@@ -108,3 +108,4 @@ $lang['success_delete'] = 'Successfully Deleted';
 $lang['save_success'] = 'Successfully Saved';
 $lang['bangla'] = 'Bangla';
 $lang['english'] = 'English';
+$lang['edit_success'] = 'Edit Successfully Done';

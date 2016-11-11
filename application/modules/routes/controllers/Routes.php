@@ -170,6 +170,11 @@ class Routes extends MX_Controller {
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
     }
 
+    /**
+     * edit route
+     * @param int $id
+     * @return type
+     */
     public function edit($id) {
         //var_dump($this->session);return;
         if ($this->session->lang_code == 'bn') {
@@ -209,12 +214,14 @@ class Routes extends MX_Controller {
         );
 
         if ($this->input->post('submit')) {
-            $from = trim($this->input->post('from_place', TRUE));
-            $to = trim($this->input->post('to_place', TRUE));
-            $transport_type = $this->input->post('type', TRUE);
-            $transport_name = $this->input->post('vehicle_name', TRUE);
-            $departure_place = $this->input->post('departure_place', TRUE);
-            $country = $this->input->post('country', TRUE);
+            $from = trim($this->input->post('f', TRUE));
+            $to = trim($this->input->post('t', TRUE));
+            $transport_type = $this->input->post('transport_type', TRUE);
+            $transport_name = trim($this->input->post('vehicle_name', TRUE));
+            $fd = trim($this->input->post('fd', TRUE));
+            $td = trim($this->input->post('td', TRUE));
+            $ft = trim($this->input->post('ft', TRUE));
+            $th = trim($this->input->post('th', TRUE));
             $departure_time = $this->input->post('departure_time', TRUE);
             $main_rent = $this->input->post('main_rent', TRUE);
 
@@ -230,7 +237,7 @@ class Routes extends MX_Controller {
             if ($_FILES && $_FILES['evidence']['name']) {
                 if (!$this->upload->do_upload('evidence')) {
                     $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nl->view_loader('user', 'add_route',NULL, $data, 'latest', 'rightbar');
+                    $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
                     return;
                 } else {
                     $evidence = $this->upload->data();
@@ -240,24 +247,38 @@ class Routes extends MX_Controller {
                 $evidence_name = '';
             }
 //route data process
-            $this->form_validation->set_rules('from_place', lang('from_view'), 'required');
-            $this->form_validation->set_rules('to_place', lang('to_view'), 'required');
-            $this->form_validation->set_rules('departure_place', lang('departure_place'), 'required|is_unique[routes.departure_place]');
+            $this->form_validation->set_rules('f', lang('from_view'), 'required');
+            $this->form_validation->set_rules('t', lang('to_view'), 'required');
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest', 'rightbar');
+                $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
                 return;
             }
 
+            $transport = $this->pm->get_row('name', $transport_name, 'poribohons', TRUE);
+
+            if (empty($transport)) {
+                $transport_data = array(
+                    'name' => $transport_name,
+                    'added_by' => $this->user_id
+                );
+                $this->db->set('added', 'NOW()', FALSE);
+                $transport_id = $this->pm->insert_data('poribohons', $transport_data, TRUE);
+            } else {
+                $transport_id = $transport->id;
+            }
+
             $route = array(
+                'from_district' => $fd,
+                'from_thana' => $ft,
+                'to_district' => $td,
+                'to_thana' => $th,
                 'route_id' => $route_id,
-                'country' => $country,
                 'from_place' => $from,
                 'to_place' => $to,
-                'type' => $transport_type,
+                'transport_type' => $transport_type,
                 'vehicle_name' => $transport_name,
-                'departure_place' => $departure_place,
                 'departure_time' => $departure_time,
                 'rent' => $main_rent,
                 'evidence' => $evidence_name,
@@ -287,7 +308,7 @@ class Routes extends MX_Controller {
             if (!empty($stoppages)) {
                 $this->db->insert_batch('edited_stoppages', $stoppages);
             }
-            $this->session->set_flashdata('message', lang('edit_success_user'));
+            $this->session->set_flashdata('message', lang('edit_success'));
             redirect_tr('routes/all');
         }
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
