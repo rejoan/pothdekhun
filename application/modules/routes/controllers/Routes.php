@@ -177,13 +177,15 @@ class Routes extends MX_Controller {
      */
     public function edit($id) {
         //var_dump($this->session);return;
+        $alias = 'r';
+        $stopage_table = 'stoppages';
+        $route_table = 'routes';
         if ($this->session->lang_code == 'bn') {
             $alias = 'rt';
             $stopage_table = 'stoppage_bn';
-        } else {
-            $alias = 'r';
-            $stopage_table = 'stoppages';
+            $route_table = 'route_bn';
         }
+
         if (!empty($id)) {
             $route_id = (int) $id;
             $q_edit = $this->pm->total_item('edited_routes', 'route_id', $route_id);
@@ -193,7 +195,7 @@ class Routes extends MX_Controller {
             }
             if ($this->rm->details($alias, $route_id, TRUE) < 1) {//if wrong ID given direct from URL
                 $this->session->set_flashdata('message', 'Wrong Access');
-                redirect('profile/my_routes');
+                redirect('routes');
             }
         } else {
             show_404();
@@ -214,17 +216,8 @@ class Routes extends MX_Controller {
         );
 
         if ($this->input->post('submit')) {
-            $from = trim($this->input->post('f', TRUE));
-            $to = trim($this->input->post('t', TRUE));
-            $transport_type = $this->input->post('transport_type', TRUE);
-            $transport_name = trim($this->input->post('vehicle_name', TRUE));
-            $fd = trim($this->input->post('fd', TRUE));
-            $td = trim($this->input->post('td', TRUE));
-            $ft = trim($this->input->post('ft', TRUE));
-            $th = trim($this->input->post('th', TRUE));
             $departure_time = $this->input->post('departure_time', TRUE);
-            $main_rent = $this->input->post('main_rent', TRUE);
-
+            $transport_name = trim($this->input->post('vehicle_name', TRUE));
             if ($departure_time == 'perticular') {
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
             }
@@ -270,19 +263,35 @@ class Routes extends MX_Controller {
             }
 
             $route = array(
-                'route_id' => $route_id,
-                'from_place' => $from,
-                'to_place' => $to,
-                'transport_type' => $transport_type,
+                'from_place' => trim($this->input->post('f', TRUE)),
+                'to_place' => trim($this->input->post('t', TRUE)),
+                'poribohon_id' => $transport_id,
+                'transport_type' => $this->input->post('transport_type', TRUE),
                 'vehicle_name' => $transport_name,
                 'departure_time' => $departure_time,
-                'rent' => $main_rent,
+                'rent' => $this->input->post('main_rent', TRUE),
                 'evidence' => $evidence_name,
-                'added_by' => $this->user_id,
-                'language_e' => $this->session->ln
+                'added_by' => $this->user_id
             );
-            $this->db->set('submitted_at', 'NOW()', FALSE);
-            $this->db->insert('edited_routes', $route);
+            $this->db->set('added', 'NOW()', FALSE);
+            if ($this->session->user_type == 'admin') {//if admin then direct approve/update
+                $main_info = array(
+                    'from_district' => trim($this->input->post('fd', TRUE)),
+                    'from_thana' => trim($this->input->post('ft', TRUE)),
+                    'to_district' => trim($this->input->post('td', TRUE)),
+                    'to_thana' => trim($this->input->post('th', TRUE))
+                );
+                $route_info = array_merge($route, $main_info);
+                $this->pm->updater('id', $route_id, $route_table, $route_info);
+            } else {// send to temp table for review
+                $edit_info = array(
+                    'route_id' => $route_id,
+                    'language_e' => $this->session->ln
+                );
+                $route_info = array_merge($route, $edit_info);
+                $this->db->insert('edited_routes', $route);
+            }
+
 
 //stoppage data process
             $rent = $this->input->post('rent', TRUE);
@@ -301,8 +310,14 @@ class Routes extends MX_Controller {
                     );
                 }
             }
+
             if (!empty($stoppages)) {
-                $this->db->insert_batch('edited_stoppages', $stoppages);
+                if ($this->session->user_type == 'admin') {
+                    $this->pm->deleter('route_id', $route_id, $stopage_table);
+                    $this->db->insert_batch($stopage_table, $stoppages);
+                } else {
+                    $this->db->insert_batch('edited_stoppages', $stoppages);
+                }
             }
             $this->session->set_flashdata('message', lang('edit_success'));
             redirect_tr('routes/all');
