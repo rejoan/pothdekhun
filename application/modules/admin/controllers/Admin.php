@@ -16,7 +16,7 @@ class Admin extends MX_Controller {
             'title' => 'Dashboard'
         );
         $this->nl->is_admin();
-        $this->nl->view_loader('admin', 'routes', NULL, $data, NULL, NULL, NULL);
+        $this->nl->view_loader('admin', 'index', NULL, $data, NULL, NULL, NULL);
     }
 
     public function login() {

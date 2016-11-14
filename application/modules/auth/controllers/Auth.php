@@ -22,7 +22,7 @@ class Auth extends MX_Controller {
 //        }
 //    }
 
-     public function register() {
+    public function register() {
         $data = array(
             'title' => lang('register'),
             'action' => site_url_tr('auth/register')
@@ -84,13 +84,12 @@ class Auth extends MX_Controller {
                 //check validity
                 $check = $this->auth->check_credential($USER_USERNAME, $USER_PASSWORD);
 
-                $next = $this->session->next;
-                //var_dump($redirectto);return;
+                $user_type = $this->session->user_type;
+                $next = 'admin';
                 if ($check !== FALSE) {
-                    if (!$next) {
-                        $next = 'routes';
+                    if ($user_type != 'admin') {
+                        $next = 'profile';
                     }
-                    $this->session->set_userdata($check);
                     $this->session->set_flashdata('message', lang('successfully_logged_in'));
                     redirect_tr($next);
                 } else {

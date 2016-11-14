@@ -267,7 +267,6 @@ class Routes extends MX_Controller {
                 'to_place' => trim($this->input->post('t', TRUE)),
                 'poribohon_id' => $transport_id,
                 'transport_type' => $this->input->post('transport_type', TRUE),
-                'vehicle_name' => $transport_name,
                 'departure_time' => $departure_time,
                 'rent' => $this->input->post('main_rent', TRUE),
                 'evidence' => $evidence_name,
@@ -286,10 +285,10 @@ class Routes extends MX_Controller {
             } else {// send to temp table for review
                 $edit_info = array(
                     'route_id' => $route_id,
-                    'language_e' => $this->session->ln
+                    'lang_code' => $this->session->lang_code
                 );
                 $route_info = array_merge($route, $edit_info);
-                $this->db->insert('edited_routes', $route);
+                $this->db->insert('edited_routes', $route_info);
             }
 
 
