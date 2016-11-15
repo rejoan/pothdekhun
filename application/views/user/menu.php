@@ -13,6 +13,7 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <?php
+                //var_dump($this->session);
                 if ($this->session->user_id) {
                     $this->nl->generate_link('profile', 'profile', NULL, lang('profile'));
                 } else {

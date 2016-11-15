@@ -83,10 +83,10 @@ class Auth extends MX_Controller {
                 $USER_PASSWORD = $this->input->post('password', TRUE);
                 //check validity
                 $check = $this->auth->check_credential($USER_USERNAME, $USER_PASSWORD);
-
-                $user_type = $this->session->user_type;
                 $next = 'admin';
                 if ($check !== FALSE) {
+                    $this->session->set_userdata($check);
+                    $user_type = $this->session->user_type;
                     if ($user_type != 'admin') {
                         $next = 'profile';
                     }
