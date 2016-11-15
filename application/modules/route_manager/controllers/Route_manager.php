@@ -9,43 +9,28 @@ class Route_manager extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->load->model('Route_manager_model', 'rmn');
     }
 
-    public function newly_edited() {
-        $this->load->library('pagination');
-        $config['base_url'] = site_url('routes/newly_edited');
-        $config['total_rows'] = $this->db->get('edited_routes')->num_rows();
-        $config['per_page'] = 10;
-        $config['num_links'] = 5;
-        $config['full_tag_open'] = '<ul class="pagination no-margin">';
-        $config['full_tag_close'] = '</ul>';
-        $config['cur_tag_open'] = '<li class="active"><a href="javascript:void();">';
-        $config['cur_tag_close'] = '</a></li>';
-        $config['prev_tag_open'] = '<li>';
-        $config['prev_tag_close'] = '</li>';
-        $config['next_tag_open'] = '<li>';
-        $config['next_tag_close'] = '</li>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_close'] = '</li>';
-        $config['last_tag_open'] = '<li>';
-        $config['last_tag_close'] = '</li>';
-        $config['first_tag_open'] = '<li>';
-        $config['first_tag_close'] = '</li>';
-        $config['next_link'] = 'Next >';
-        $config['prev_link'] = '< Prev';
-        if ($this->uri->segment(3)) {
-            $segment = $this->uri->segment(3);
+    public function index() {
+        $total_rows = $this->db->get('edited_routes')->num_rows();
+        $per_page = 10;
+        $num_links = 5;
+
+        if ($this->input->get('page')) {
+            $sgm = (int) trim($this->input->get('page'));
+            $segment = $per_page * ($sgm - 1);
         } else {
             $segment = 0;
         }
-        $this->pagination->initialize($config);
-        $query = $this->db->select('r.id,r.route_id,r.country,r.from_place,r.to_place,r.type,r.vehicle_name,r.submitted_at,r.language_e,u.username')->from('edited_routes r')->join('users u', 'r.edited_by = u.id', 'left')->order_by('r.id', 'desc')->get();
+        $links = $this->nl->generate_pagination('route_manager/index', $total_rows, $per_page, $num_links);
         $data = array(
             'title' => 'All Edited Routes',
-            'routes' => $query->result_array(),
-            'segment' => $segment
+            'routes' => $this->rmn->get_all(),
+            'segment' => $segment,
+            'links' => $links
         );
-        $this->nl->view_admin('edited', $data, TRUE, FALSE);
+        $this->nl->view_loader('admin', 'index', 'route_manager', $data, 'leftbar', NULL, NULL);
     }
 
     /**
