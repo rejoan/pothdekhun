@@ -163,4 +163,26 @@ class Prime_model extends CI_Model {
         return $total;
     }
 
+    /**
+     * get transport ID or create
+     * @param type $transport
+     * @param type $transport_name
+     * @param type $user_id
+     * @return type
+     */
+    public function get_trabsport_id($transport_name, $user_id) {
+        $transport = $this->pm->get_row('name', $transport_name, 'poribohons', TRUE);
+        if (empty($transport)) {
+            $transport_data = array(
+                'name' => $transport_name,
+                'added_by' => $user_id
+            );
+            $this->db->set('added', 'NOW()', FALSE);
+            $transport_id = $this->pm->insert_data('poribohons', $transport_data, TRUE);
+        } else {
+            $transport_id = $transport->id;
+        }
+        return $transport_id;
+    }
+
 }

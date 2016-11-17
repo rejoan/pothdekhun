@@ -20,9 +20,7 @@
                             <select name="fd" class="selectpicker districts" data-width="100%" data-thana="ft" data-live-search="true">
                                 <?php foreach ($districts as $d): ?>
                                     <option value="<?php echo $d['id']; ?>" <?php
-                                    if ($this->input->post('fd')) {
-                                        echo $this->input->post('fd') == $d['id'] ? 'selected="yes"' : '';
-                                    }
+                                        echo $edited_route == $d['id'] ? 'selected="yes"' : '';
                                     ?>>
 
                                         <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>

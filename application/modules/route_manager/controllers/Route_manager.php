@@ -7,8 +7,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Route_manager extends CI_Controller {
 
+    private $user_id;
+
     public function __construct() {
         parent::__construct();
+        $this->user_id = $this->session->user_id;
         $this->load->model('Route_manager_model', 'rmn');
     }
 
@@ -41,31 +44,53 @@ class Route_manager extends CI_Controller {
     public function merge($id) {
         if (!empty($id)) {
             $route_id = (int) $id;
-            $route_exist = $this->rmn->get_route($route_id, TRUE);
-            if ($route_exist < 1) {
+            $edited_route = $this->pm->total_item('edited_routes', 'route_id', $route_id);
+            if ($edited_route < 1) {
                 $this->session->set_flashdata('message', 'Wrong Access');
-                redirect('routes');
+                redirect('route_manager');
             }
         } else {
             show_404();
         }
 
-        $this->load->library('form_validation');
-        $q_stoppage = $this->db->select($alias_stopage . '.place_name,' . $alias_stopage . '.comments,' . $alias_stopage . '.rent,' . $alias_stopage . '.position')->from($stopage_table)->where('route_id', $route_id)->order_by($alias_stopage . '.position', 'asc')->get();
+        $route_table = 'routes';
+        $stoppage_table = 'stoppages';
+        if ($edited_route['lang_code'] == 'bn') {
+            $route_table = 'route_bn';
+            $stoppage_table = 'stoppage_bn';
+        }
+        $data = array(
+            'title' => lang('edit_route'),
+            'action' => site_url('route_manager/merge/' . $route_id),
+            'countries' => get_countries(),
+            'prev_route' => $this->pm->get_row('id', $route_id, $route_table),
+            'prev_stoppages' => $this->pm->get_row('route_id', $route_id, $stoppage_table),
+            'edited_route' => $this->pm->get_row('id', $route_id, 'edited_routes'),
+            'edited_stoppage' => $this->pm->get_row('route_id', $route_id, 'edited_stoppages'),
+        );
 
-        $q_edited = $this->db->where('route_id', $route_id)->get('edited_routes');
-        $q_ed_stopage = $this->db->where('route_id', $route_id)->get('edited_stoppages');
+        $this->load->library('form_validation');
 
         if ($this->input->post('submit')) {
+
+            $this->form_validation->set_rules('from_place', lang('from_view'), 'required');
+            $this->form_validation->set_rules('to_place', lang('to_view'), 'required');
+            $this->form_validation->set_rules('vehicle_name', lang('vehicle_name'), 'required');
+            
+            $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
+
+            if ($this->form_validation->run() == FALSE) {
+                $this->nl->view_loader('admin', 'merge', $data, TRUE, 'latest', NULL);
+                return;
+            }
+
             $from = trim($this->input->post('from_place', TRUE));
             $to = trim($this->input->post('to_place', TRUE));
             $transport_type = $this->input->post('type', TRUE);
             $transport_name = $this->input->post('vehicle_name', TRUE);
-            $departure_place = $this->input->post('departure_place', TRUE);
-            $country = $this->input->post('country', TRUE);
             $departure_time = $this->input->post('departure_time', TRUE);
             $main_rent = $this->input->post('main_rent', TRUE);
-
+            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id);
             if ($departure_time == 'perticular') {
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
             }
@@ -88,34 +113,18 @@ class Route_manager extends CI_Controller {
                 $evidence_name = '';
             }
 //route data process
-            $this->form_validation->set_rules('from_place', lang('from_view'), 'required');
-            $this->form_validation->set_rules('to_place', lang('to_view'), 'required');
-            $this->form_validation->set_rules('vehicle_name', lang('vehicle_name'), 'required');
-            $this->form_validation->set_rules('departure_place', lang('departure_place'), 'required');
-            $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
 
-            if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest', 'rightbar');
-                return;
-            }
-
-
-            if ($this->ln == 'en') {
+            if ($edited_route['lang_code'] == 'bn') {
                 $route = array(
                     'from_place' => $from,
                     'to_place' => $to,
-                    'vehicle_name' => $transport_name,
-                    'departure_place' => $departure_place,
-                    'departure_time' => $departure_time
+                    'vehicle_name' => $transport_name
                 );
             } else {
                 $route = array(
-                    'country' => $country,
                     'from_place' => $from,
                     'to_place' => $to,
                     'type' => $transport_type,
-                    'vehicle_name' => $transport_name,
-                    'departure_place' => $departure_place,
                     'departure_time' => $departure_time,
                     'rent' => $main_rent,
                     'evidence' => $evidence_name
@@ -151,15 +160,7 @@ class Route_manager extends CI_Controller {
             redirect('routes');
         }
 
-        $data = array(
-            'title' => lang('edit_route'),
-            'action' => site_url('routes/edit/' . $route_id),
-            'countries' => $this->nl->get_countries(),
-            'route' => $query->row_array(),
-            'stoppages' => $q_stoppage->result_array(),
-            'edited_route' => $q_edited->row_array(),
-            'edited_stopage' => $q_ed_stopage->result_array()
-        );
+
 
 
         $this->nl->view_loader('user', 'add_route', $data, TRUE, NULL, 'merge');

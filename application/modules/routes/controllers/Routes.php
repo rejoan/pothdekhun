@@ -249,18 +249,7 @@ class Routes extends MX_Controller {
                 return;
             }
 
-            $transport = $this->pm->get_row('name', $transport_name, 'poribohons', TRUE);
-
-            if (empty($transport)) {
-                $transport_data = array(
-                    'name' => $transport_name,
-                    'added_by' => $this->user_id
-                );
-                $this->db->set('added', 'NOW()', FALSE);
-                $transport_id = $this->pm->insert_data('poribohons', $transport_data, TRUE);
-            } else {
-                $transport_id = $transport->id;
-            }
+            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id);
 
             $route = array(
                 'from_place' => trim($this->input->post('f', TRUE)),
