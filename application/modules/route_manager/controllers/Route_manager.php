@@ -39,24 +39,10 @@ class Route_manager extends CI_Controller {
      * @return type
      */
     public function merge($id) {
-        if ($this->ln == 'en') {
-            $alias = 'rt';
-            $alias_stopage = 'st';
-            $route_table = 'route_translation';
-            $stopage_table = 'stoppage_translation st';
-            $update_id = 'route_id';
-        } else {
-            $route_table = 'routes';
-            $stopage_table = 'stoppages s';
-            $update_id = 'id';
-            $alias = 'r';
-            $alias_stopage = 's';
-        }
         if (!empty($id)) {
             $route_id = (int) $id;
-            $query = $this->db->select('r.id,r.country,' . $alias . '.from_place,' . $alias . '.to_place,r.type,' . $alias . '.vehicle_name,' . $alias . '.departure_place,' . $alias . '.departure_time,r.rent,r.evidence,r.added,r.is_publish')->from('routes r')->join('route_translation rt', 'r.id = rt.route_id', 'left')->where('r.id', $route_id)->get();
-            //echo $this->db->last_query();return;
-            if ($query->num_rows() < 1) {
+            $route_exist = $this->rmn->get_route($route_id, TRUE);
+            if ($route_exist < 1) {
                 $this->session->set_flashdata('message', 'Wrong Access');
                 redirect('routes');
             }

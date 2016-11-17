@@ -33,6 +33,10 @@
                                 <option value="<?php echo $d['id']; ?>" <?php
                                 if ($this->input->post('fd')) {
                                     echo $this->input->post('fd') == $d['id'] ? 'selected="yes"' : '';
+                                } elseif (isset($route['from_district'])) {
+                                    echo $route['from_district'] == $d['id'] ? 'selected="yes"' : '';
+                                } else {
+                                    echo $d['id'] == '1' ? 'selected="yes"' : '';
                                 }
                                 ?>>
 
@@ -48,8 +52,8 @@
                                     <option  value="<?php echo $t['id']; ?>" <?php
                                     if ($this->input->post('ft')) {
                                         echo $this->input->post('ft') == $t['id'] ? 'selected="yes"' : '';
-                                    } elseif (isset($route['to_thana'])) {
-                                        echo $route['to_thana'] == $t['id'] ? 'selected="yes"' : '';
+                                    } elseif (isset($route['from_thana'])) {
+                                        echo $route['from_thana'] == $t['id'] ? 'selected="yes"' : '';
                                     } else {
                                         echo $t['id'] == '493' ? 'selected="yes"' : '';
                                     }
@@ -86,6 +90,10 @@
                                 <option  value="<?php echo $d['id']; ?>" <?php
                                 if (isset($route['to_district'])) {
                                     echo $route['to_district'] == $d['id'] ? 'selected="yes"' : '';
+                                } elseif (isset($route['to_district'])) {
+                                    echo $route['to_district'] == $d['id'] ? 'selected="yes"' : '';
+                                } else {
+                                    echo $d['id'] == '1' ? 'selected="yes"' : '';
                                 }
                                 ?>>
 
@@ -100,7 +108,9 @@
                             <select id="th" name="th" class="selectpicker" data-width="100%" data-live-search="true">
                                 <?php foreach ($tthanas as $tt): ?>
                                     <option  value="<?php echo $tt['id']; ?>" <?php
-                                    if (isset($route['to_thana'])) {
+                                    if ($this->input->post('th')) {
+                                        echo $this->input->post('th') == $tt['id'] ? 'selected="yes"' : '';
+                                    } elseif (isset($route['to_thana'])) {
                                         echo $route['to_thana'] == $tt['id'] ? 'selected="yes"' : '';
                                     } else {
                                         echo $tt['id'] == '509' ? 'selected="yes"' : '';
@@ -193,8 +203,8 @@
                         <input id="vehicle_name" maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php
                         if ($this->input->post('submit')) {
                             echo set_value('vehicle_name');
-                        } elseif (isset($route[$this->nl->lang_based_data('bn_name','name')])) {
-                            echo $route[$this->nl->lang_based_data('bn_name','name')];
+                        } elseif (isset($route[$this->nl->lang_based_data('bn_name', 'name')])) {
+                            echo $route[$this->nl->lang_based_data('bn_name', 'name')];
                         }
                         ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>">
                     </div>
