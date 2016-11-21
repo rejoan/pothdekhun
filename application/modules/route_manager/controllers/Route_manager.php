@@ -55,15 +55,19 @@ class Route_manager extends CI_Controller {
 
         $route_table = 'routes';
         $stoppage_table = 'stoppages';
+        $prev_route = $this->rmn->get_route($route_id);
         if ($edited_route['lang_code'] == 'bn') {
             $route_table = 'route_bn';
             $stoppage_table = 'stoppage_bn';
+
+            //if edit in bengali then get translated data from route_bn table with main table
+            $prev_route = $this->rmn->get_row($route_id);
         }
         $data = array(
             'title' => lang('edit_route'),
             'action' => site_url('route_manager/merge/' . $route_id),
             'countries' => get_countries(),
-            'prev_route' => $this->pm->get_row('id', $route_id, $route_table),
+            'prev_route' => $prev_route,
             'prev_stoppages' => $this->pm->get_row('route_id', $route_id, $stoppage_table),
             'edited_route' => $this->pm->get_row('id', $route_id, 'edited_routes'),
             'edited_stoppage' => $this->pm->get_row('route_id', $route_id, 'edited_stoppages'),
@@ -72,11 +76,10 @@ class Route_manager extends CI_Controller {
         $this->load->library('form_validation');
 
         if ($this->input->post('submit')) {
-
             $this->form_validation->set_rules('from_place', lang('from_view'), 'required');
             $this->form_validation->set_rules('to_place', lang('to_view'), 'required');
             $this->form_validation->set_rules('vehicle_name', lang('vehicle_name'), 'required');
-            
+
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
 
             if ($this->form_validation->run() == FALSE) {
@@ -157,13 +160,10 @@ class Route_manager extends CI_Controller {
             }
 
             $this->session->set_flashdata('message', lang('edit_success'));
-            redirect('routes');
+            redirect_tr('routes');
         }
 
-
-
-
-        $this->nl->view_loader('user', 'add_route', $data, TRUE, NULL, 'merge');
+        $this->nl->view_loader('user', 'merge', NULL, $data);
     }
 
 }

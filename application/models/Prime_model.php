@@ -170,7 +170,7 @@ class Prime_model extends CI_Model {
      * @param type $user_id
      * @return type
      */
-    public function get_trabsport_id($transport_name, $user_id) {
+    public function get_transport_id($transport_name, $user_id) {
         $transport = $this->pm->get_row('name', $transport_name, 'poribohons', TRUE);
         if (empty($transport)) {
             $transport_data = array(

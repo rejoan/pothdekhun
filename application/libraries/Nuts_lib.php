@@ -364,6 +364,13 @@ class Nuts_lib {
         return $date->format($to_format);
     }
 
+    /**
+     * format a datetime from any another format
+     * @param string $format
+     * @param datetime $d
+     * @param string $to_format
+     * @return datetime
+     */
     public function date_formatter($format, $d, $to_format = 'Y-m-d H:i:s') {
         //var_dump($format,$d,$to_format);return;
         $date = DateTime::createFromFormat(
@@ -372,6 +379,13 @@ class Nuts_lib {
         return $final_date;
     }
 
+    /**
+     * get a string (column name from table) based on language
+     * @param string $bengali
+     * @param string $english
+     * @param string $alias
+     * @return string
+     */
     public function lang_based_data($bengali, $english, $alias = FALSE) {
         $item = $english;
         if ($this->CI->session->lang_code == 'bn') {
@@ -383,12 +397,20 @@ class Nuts_lib {
         return $item;
     }
 
+    /**
+     * generate pagination with query string
+     * @param string $url
+     * @param int $total_rows
+     * @param int $per_page
+     * @param int $num_link
+     * @return resource
+     */
     public function generate_pagination($url, $total_rows, $per_page = 10, $num_link = 5) {
         $this->CI->load->library('pagination');
         $config['base_url'] = site_url_tr($url);
         $config['total_rows'] = $total_rows;
         $config['per_page'] = $per_page;
-        $config['num_links'] = ceil($total_rows / $per_page);
+        $config['num_links'] = $num_link;
         $config['enable_query_strings'] = TRUE;
         $config['use_page_numbers'] = TRUE;
         $config['query_string_segment'] = 'page';
