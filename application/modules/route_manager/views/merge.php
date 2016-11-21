@@ -14,13 +14,13 @@
         </div>
         <div class="box-body">
             <div class="col-xs-12 col-md-6">
-                <form id="add_route" class="form-horizontal" action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
+                <form class="form-horizontal" action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-xs-10 col-md-3">
                             <select name="fd" class="selectpicker districts" data-width="100%" data-thana="ft" data-live-search="true">
                                 <?php foreach ($districts as $d): ?>
                                     <option value="<?php echo $d['id']; ?>" <?php
-                                        echo $edited_route == $d['id'] ? 'selected="yes"' : '';
+                                    echo $prev_route['from_district'] == $d['id'] ? 'selected="yes"' : '';
                                     ?>>
 
                                         <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
@@ -33,13 +33,7 @@
                                 <select id="ft" name="ft" class="selectpicker" data-width="100%" data-live-search="true" >
                                     <?php foreach ($fthanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php
-                                        if ($this->input->post('ft')) {
-                                            echo $this->input->post('ft') == $t['id'] ? 'selected="yes"' : '';
-                                        } elseif (isset($route['to_thana'])) {
-                                            echo $route['to_thana'] == $t['id'] ? 'selected="yes"' : '';
-                                        } else {
-                                            echo $t['id'] == '493' ? 'selected="yes"' : '';
-                                        }
+                                        echo $prev_route['to_thana'] == $t['id'] ? 'selected="yes"' : '';
                                         ?>>
 
                                             <?php echo $t[$this->nl->lang_based_data('bn_name', 'name')]; ?>
@@ -51,13 +45,7 @@
 
                         <div class="col-xs-10 col-md-5">
                             <input maxlength="200" type="text" class="form-control search_place" name="f" value="<?php
-                            if ($this->input->post('submit')) {
-                                echo set_value('f');
-                            } elseif (isset($route['from_place'])) {
-                                echo $route['from_place'];
-                            } elseif ($this->input->post('f')) {
-                                echo $this->input->post('f');
-                            }
+                                echo $prev_route[''];
                             ?>" placeholder="<?php echo lang('device_from'); ?>">
                             <div id="suggestion" class="list-group">
 
