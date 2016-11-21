@@ -20,7 +20,7 @@
                             <option value="<?php echo $d['id']; ?>" <?php
                             echo $prev_route['from_district'] == $d['id'] ? 'selected="yes"' : '';
                             ?>>
-                                <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
+                                        <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
