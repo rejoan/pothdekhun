@@ -191,11 +191,11 @@ class Routes extends MX_Controller {
             $q_edit = $this->pm->total_item('edited_routes', 'route_id', $route_id);
             if ($q_edit > 0) {//if already an edit submitted
                 $this->session->set_flashdata('message', lang('already_edit_submitted'));
-                redirect('routes/all');
+                redirect_tr('routes/all');
             }
             if ($this->rm->details($alias, $route_id, TRUE) < 1) {//if wrong ID given direct from URL
                 $this->session->set_flashdata('message', 'Wrong Access');
-                redirect('routes');
+                redirect_tr('routes');
             }
         } else {
             show_404();
@@ -252,6 +252,10 @@ class Routes extends MX_Controller {
             $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id);
 
             $route = array(
+                'from_district' => trim($this->input->post('fd', TRUE)),
+                'from_thana' => trim($this->input->post('ft', TRUE)),
+                'to_district' => trim($this->input->post('td', TRUE)),
+                'to_thana' => trim($this->input->post('th', TRUE)),
                 'from_place' => trim($this->input->post('f', TRUE)),
                 'to_place' => trim($this->input->post('t', TRUE)),
                 'poribohon_id' => $transport_id,
@@ -263,14 +267,7 @@ class Routes extends MX_Controller {
             );
             $this->db->set('added', 'NOW()', FALSE);
             if ($this->session->user_type == 'admin') {//if admin then direct approve/update
-                $main_info = array(
-                    'from_district' => trim($this->input->post('fd', TRUE)),
-                    'from_thana' => trim($this->input->post('ft', TRUE)),
-                    'to_district' => trim($this->input->post('td', TRUE)),
-                    'to_thana' => trim($this->input->post('th', TRUE))
-                );
-                $route_info = array_merge($route, $main_info);
-                $this->pm->updater('id', $route_id, $route_table, $route_info);
+                $this->pm->updater('id', $route_id, $route_table, $route);
             } else {// send to temp table for review
                 $edit_info = array(
                     'route_id' => $route_id,
