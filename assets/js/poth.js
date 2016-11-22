@@ -40,14 +40,40 @@ $(document).ready(function () {
         });
     });
 
+
+
+    $('.districts').change(function () {
+        var district = $.trim($(this).val());
+        var site_url = $('#site_url').val();
+        var thana = $(this).data('thana');
+        xhr = $.ajax({
+            url: site_url + '/weapons/get_thanas',
+            type: 'get',
+            dataType: 'json',
+            cache: true,
+            data: {
+                district: district
+            }
+        }).done(function (response) {
+            var th = '';
+            for (var i = 0; i < response.length; i++) {
+                th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
+            }
+            $('#' + thana).html(th);
+            $('#' + thana).selectpicker('refresh');
+        });
+    });
+
+
+
     $('.list-group').on('click', '.list-group-item', function () {
         var place = $(this).text();
         $(this).parent().prev().val(place);
         $(this).parent().empty();
     });
-    
-    $(document).click(function(){
-         $('.list-group').empty();
+
+    $(document).click(function () {
+        $('.list-group').empty();
     });
 
 //add dynamic stoppgae as many user can

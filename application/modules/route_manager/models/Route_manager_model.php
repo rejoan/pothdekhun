@@ -33,5 +33,10 @@ class Route_manager_model extends CI_Model {
         $query = $this->db->select('rt.from_place,rt.to_place,rt.departure_time,r.from_district,r.to_district,r.from_thana,r.to_thana,r.transport_type,r.departure_time,r.rent,r.evidence,p.*')->from('route_bn rt')->where('rt.route_id', $route_id)->join('routes t', 'rt.route_id = r.id', 'left')->join('poribohons p', 'r.poribohon_id = p.id', 'left')->get();
         return $query->row_array();
     }
+    
+    public function edited_route($route_id){
+        $query = $this->db->select('r.*,p.*')->from('edited_routes r')->join('poribohons p', 'r.poribohon_id = p.id', 'left')->where('r.id', $route_id)->get();
+        return $query->row_array();
+    }
 
 }

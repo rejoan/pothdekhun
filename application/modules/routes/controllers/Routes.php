@@ -216,11 +216,23 @@ class Routes extends MX_Controller {
         );
 
         if ($this->input->post('submit')) {
+            //route data process
+            $this->form_validation->set_rules('f', lang('from_view'), 'required');
+            $this->form_validation->set_rules('t', lang('to_view'), 'required');
+            $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer|greater_than[0]');
+
+            if ($this->form_validation->run() == FALSE) {
+                $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+                return;
+            }
+
             $departure_time = $this->input->post('departure_time', TRUE);
-            $transport_name = trim($this->input->post('vehicle_name', TRUE));
             if ($departure_time == 'perticular') {
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
             }
+            
+            $transport_name = trim($this->input->post('vehicle_name', TRUE));
+            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id);
 
             $config['upload_path'] = './evidences';
             $config['allowed_types'] = 'gif|jpg|png|jpeg|docx|doc';
@@ -239,17 +251,6 @@ class Routes extends MX_Controller {
             } else {
                 $evidence_name = '';
             }
-//route data process
-            $this->form_validation->set_rules('f', lang('from_view'), 'required');
-            $this->form_validation->set_rules('t', lang('to_view'), 'required');
-            $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
-
-            if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
-                return;
-            }
-
-            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id);
 
             $route = array(
                 'from_district' => trim($this->input->post('fd', TRUE)),

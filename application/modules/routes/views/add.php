@@ -296,7 +296,6 @@
                 <input type="hidden" id="comment" value="<?php echo lang('comment'); ?>"/>
                 <input type="hidden" id="rents" value="<?php echo lang('main_rent'); ?>"/>
                 <input type="hidden" id="custom_time" value="<?php echo lang('custom_time'); ?>"/>
-                <input type="hidden" name="merger" value="merge"/>
                 <input type="hidden" id="route_id" name="route_id" value="<?php
                 if ($this->input->post('submit')) {
                     echo set_value('route_id');
@@ -316,29 +315,3 @@
         </div>
     </div>
 </div>
-<?php //echo $this->uri->segment(1, 'en'); ?>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.districts').change(function () {
-            var district = $.trim($(this).val());
-            var site_url = $('#site_url').val();
-            var thana = $(this).data('thana');
-            xhr = $.ajax({
-                url: site_url + '/weapons/get_thanas',
-                type: 'get',
-                dataType: 'json',
-                cache: true,
-                data: {
-                    district: district
-                }
-            }).done(function (response) {
-                var th = '';
-                for (var i = 0; i < response.length; i++) {
-                    th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
-                }
-                $('#' + thana).html(th);
-                $('#' + thana).selectpicker('refresh');
-            });
-        });
-    });
-</script>
