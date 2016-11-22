@@ -66,11 +66,13 @@ class Route_manager extends CI_Controller {
         $data = array(
             'title' => lang('edit_route'),
             'action' => site_url('route_manager/merge/' . $route_id),
-            'countries' => get_countries(),
+            'districts' => $this->pm->get_data('districts'),
+            'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $prev_route['from_district']),
+            'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $prev_route['to_district']),
             'prev_route' => $prev_route,
-            'prev_stoppages' => $this->pm->get_row('route_id', $route_id, $stoppage_table),
-            'edited_route' => $this->pm->get_row('id', $route_id, 'edited_routes'),
-            'edited_stoppage' => $this->pm->get_row('route_id', $route_id, 'edited_stoppages'),
+            'prev_stoppages' => $this->pm->get_data($stoppage_table, FALSE, 'route_id', $route_id),
+            'edited_route' => $this->rmn->edited_route($route_id),
+            'edited_stoppages' => $this->pm->get_data('edited_stoppages', FALSE, 'route_id', $route_id),
         );
 
         $this->load->library('form_validation');
