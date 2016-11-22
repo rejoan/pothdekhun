@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2016 at 06:51 PM
+-- Generation Time: Nov 22, 2016 at 01:44 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -167,20 +167,29 @@ CREATE TABLE `drivers` (
 
 CREATE TABLE `edited_routes` (
   `id` int(10) UNSIGNED NOT NULL,
-  `route_id` bigint(20) UNSIGNED NOT NULL,
-  `country` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `from_district` int(10) UNSIGNED NOT NULL,
+  `from_thana` int(10) UNSIGNED NOT NULL,
   `from_place` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `to_district` int(10) UNSIGNED NOT NULL,
+  `to_thana` int(10) UNSIGNED NOT NULL,
   `to_place` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `type` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `vehicle_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `departure_place` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `transport_type` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `departure_time` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `route_id` bigint(20) UNSIGNED NOT NULL,
+  `poribohon_id` int(11) UNSIGNED NOT NULL,
   `rent` int(11) NOT NULL,
   `evidence` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `edited_by` bigint(20) UNSIGNED NOT NULL,
-  `submitted_at` datetime NOT NULL,
-  `language_e` enum('bn','en') COLLATE utf8_unicode_ci NOT NULL
+  `added_by` bigint(20) UNSIGNED NOT NULL,
+  `added` datetime NOT NULL,
+  `lang_code` enum('bn','en') COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `edited_routes`
+--
+
+INSERT INTO `edited_routes` (`id`, `from_district`, `from_thana`, `from_place`, `to_district`, `to_thana`, `to_place`, `transport_type`, `departure_time`, `route_id`, `poribohon_id`, `rent`, `evidence`, `added_by`, `added`, `lang_code`) VALUES
+(3, 28, 415, 'Goshpara', 1, 493, 'Asad Gate', 'Bus', 'Daily morning & night', 3, 4, 550, '', 4, '2016-11-21 18:55:43', 'en');
 
 -- --------------------------------------------------------
 
@@ -196,6 +205,15 @@ CREATE TABLE `edited_stoppages` (
   `route_id` bigint(20) UNSIGNED NOT NULL,
   `position` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `edited_stoppages`
+--
+
+INSERT INTO `edited_stoppages` (`id`, `place_name`, `comments`, `rent`, `route_id`, `position`) VALUES
+(1, 'Sirajgonj', 'sad', 500, 3, 1),
+(2, 'test', 'sds', 550, 3, 2),
+(3, 'sadsa', 'asda', 556, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -245,7 +263,8 @@ CREATE TABLE `poribohons` (
 INSERT INTO `poribohons` (`id`, `name`, `bn_name`, `owner`, `total_vehicles`, `added_by`, `added`) VALUES
 (1, 'Tetulia Poribohon', 'তেতুলিয়া পরিবহন', '', 0, 2, '0000-00-00 00:00:00'),
 (2, 'TR Poribohon', 'টিআর পরিবহন', '', 0, 2, '0000-00-00 00:00:00'),
-(3, 'Dipon CNG', 'দীপন সিএনজি', '', 0, 2, '0000-00-00 00:00:00');
+(3, 'Dipon CNG', 'দীপন সিএনজি', '', 0, 2, '0000-00-00 00:00:00'),
+(4, 'Haque Special', '', '', 0, 4, '2016-11-11 10:35:59');
 
 -- --------------------------------------------------------
 
@@ -298,7 +317,8 @@ CREATE TABLE `routes` (
 
 INSERT INTO `routes` (`id`, `from_district`, `from_thana`, `from_place`, `to_district`, `to_thana`, `to_place`, `to_lat_long`, `transport_type`, `poribohon_id`, `departure_time`, `rent`, `evidence`, `added`, `added_by`, `is_publish`) VALUES
 (1, 1, 493, 'জাপান গার্ডেন সিটি', 1, 497, 'আব্দুল্লাহপুর', '', 'বাস', 1, 'কিছুক্ষর পরপর', 45, '', '2015-12-07 18:36:21', 2, 0),
-(2, 1, 493, 'তাজমহল রোড', 1, 509, 'মতিঝিল', '', 'বাস', 2, 'কিছুক্ষর পরপর', 35, '', '2015-12-08 09:33:55', 2, 0);
+(2, 1, 493, 'তাজমহল রোড', 1, 509, 'মতিঝিল', '', 'বাস', 2, 'কিছুক্ষর পরপর', 35, '', '2015-12-08 09:33:55', 2, 0),
+(3, 28, 415, 'Goshpara', 1, 493, 'Asad Gate', '', 'Bus', 4, 'Daily morning & night', 550, '', '2016-11-11 10:35:59', 4, 0);
 
 -- --------------------------------------------------------
 
@@ -310,10 +330,7 @@ CREATE TABLE `route_bn` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `route_id` bigint(20) UNSIGNED NOT NULL,
   `from_place` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `fp_lat_long` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `to_place` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `tp_lat_long` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `vehicle_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `departure_time` varchar(150) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -321,9 +338,10 @@ CREATE TABLE `route_bn` (
 -- Dumping data for table `route_bn`
 --
 
-INSERT INTO `route_bn` (`id`, `route_id`, `from_place`, `fp_lat_long`, `to_place`, `tp_lat_long`, `vehicle_name`, `departure_time`) VALUES
-(1, 1, 'Japan Garden City', '', 'Abdullahpur', '', 'Tetulia Poribohon', 'Consecutively'),
-(2, 2, 'Tajmohol Road', '', 'Motijhil', '', 'Dipon CNG', 'Consecutively');
+INSERT INTO `route_bn` (`id`, `route_id`, `from_place`, `to_place`, `departure_time`) VALUES
+(1, 1, 'Japan Garden City', 'Abdullahpur', 'Consecutively'),
+(2, 2, 'Tajmohol Road', 'Motijhil', 'Consecutively'),
+(3, 3, 'Goshpara', 'Asad Gate', 'Daily morning & night');
 
 -- --------------------------------------------------------
 
@@ -946,7 +964,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `mobile`, `reg_date`, `last_logged`, `user_type`, `reputation`, `avatar`, `status`) VALUES
-(1, 'রেজওয়ান', '81dc9bdb52d04dc20036dbd8313ed055', 'rejoan.er@gmail.com', '', '2015-12-03 10:07:24', '0000-00-00 00:00:00', 'supervisor', 0, '', 1),
+(1, 'রেজওয়ান', '81dc9bdb52d04dc20036dbd8313ed055', 'rejoan.er@gmail.com', '', '2015-12-03 10:07:24', '0000-00-00 00:00:00', 'user', 0, '', 1),
 (2, 'rejoan', '81dc9bdb52d04dc20036dbd8313ed055', 'rejoan.epr@gmail.com', '01961349181', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'admin', 0, '', 1),
 (4, 'anonymus', '81dc9bdb52d04dc20036dbd8313ed055', 'anonymus@gmail.com', '01961349181', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'user', 0, '', 1);
 
@@ -986,7 +1004,12 @@ ALTER TABLE `drivers`
 ALTER TABLE `edited_routes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_edited_routes_routes` (`route_id`),
-  ADD KEY `FK_edited_routes_users` (`edited_by`);
+  ADD KEY `FK_edited_routes_users` (`added_by`),
+  ADD KEY `FK_edited_routes_poribohons` (`poribohon_id`),
+  ADD KEY `FK_edited_routes_districts` (`from_district`),
+  ADD KEY `FK_edited_routes_thanas` (`from_thana`),
+  ADD KEY `FK_edited_routes_districts_2` (`to_district`),
+  ADD KEY `FK_edited_routes_thanas_2` (`to_thana`);
 
 --
 -- Indexes for table `edited_stoppages`
@@ -1092,12 +1115,12 @@ ALTER TABLE `drivers`
 -- AUTO_INCREMENT for table `edited_routes`
 --
 ALTER TABLE `edited_routes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `edited_stoppages`
 --
 ALTER TABLE `edited_stoppages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `languages`
 --
@@ -1107,7 +1130,7 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `poribohons`
 --
 ALTER TABLE `poribohons`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `profiles`
 --
@@ -1117,12 +1140,12 @@ ALTER TABLE `profiles`
 -- AUTO_INCREMENT for table `routes`
 --
 ALTER TABLE `routes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `route_bn`
 --
 ALTER TABLE `route_bn`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `stoppages`
 --
@@ -1156,26 +1179,31 @@ ALTER TABLE `verifications`
 -- Constraints for table `edited_routes`
 --
 ALTER TABLE `edited_routes`
-  ADD CONSTRAINT `FK_edited_routes_routes` FOREIGN KEY (`route_id`) REFERENCES `routes` (`id`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_edited_routes_users` FOREIGN KEY (`edited_by`) REFERENCES `users` (`id`) ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_edited_routes_districts` FOREIGN KEY (`from_district`) REFERENCES `districts` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_edited_routes_districts_2` FOREIGN KEY (`to_district`) REFERENCES `districts` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_edited_routes_poribohons` FOREIGN KEY (`poribohon_id`) REFERENCES `poribohons` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_edited_routes_routes` FOREIGN KEY (`route_id`) REFERENCES `routes` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_edited_routes_thanas` FOREIGN KEY (`from_thana`) REFERENCES `thanas` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_edited_routes_thanas_2` FOREIGN KEY (`to_thana`) REFERENCES `thanas` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_edited_routes_users` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `edited_stoppages`
 --
 ALTER TABLE `edited_stoppages`
-  ADD CONSTRAINT `FK__routes` FOREIGN KEY (`route_id`) REFERENCES `routes` (`id`) ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK__routes` FOREIGN KEY (`route_id`) REFERENCES `routes` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `poribohons`
 --
 ALTER TABLE `poribohons`
-  ADD CONSTRAINT `FK_poribohons_users` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_poribohons_users` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `profiles`
 --
 ALTER TABLE `profiles`
-  ADD CONSTRAINT `FK_profiles_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_profiles_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `routes`
@@ -1216,8 +1244,8 @@ ALTER TABLE `thanas`
 -- Constraints for table `verifications`
 --
 ALTER TABLE `verifications`
-  ADD CONSTRAINT `FK_verifications_routes` FOREIGN KEY (`route_id`) REFERENCES `routes` (`id`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_verifications_users` FOREIGN KEY (`verified_by`) REFERENCES `users` (`id`) ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_verifications_routes` FOREIGN KEY (`route_id`) REFERENCES `routes` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_verifications_users` FOREIGN KEY (`verified_by`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
