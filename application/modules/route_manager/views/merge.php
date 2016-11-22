@@ -144,6 +144,7 @@
                                 echo $edited_route['from_district'] == $d['id'] ? 'selected="yes"' : '';
                                 ?>>
                                             <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
+
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -240,6 +241,7 @@
                     <div id="departure_dynamic" class="form-group">
                         <label class="control-label"></label>
                         <input maxlength="200" type="text" class="form-control"  name="departure_dynamic" value="<?php echo $edited_route['departure_time']; ?>">
+
                     </div>
                 <?php endif; ?>
 
@@ -257,6 +259,7 @@
                     <label class="control-label"></label>
                     <a href="javascript:void(0)" id="add_stoppage" class="btn btn-info"><?php echo lang('add_stoppage'); ?></a>
                     <span class="help-block"><?php echo lang('add_stoppage_help'); ?></span>
+
                 </div>
 
 
