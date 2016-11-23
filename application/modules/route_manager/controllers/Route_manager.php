@@ -59,7 +59,7 @@ class Route_manager extends CI_Controller {
 
         $route_table = 'routes';
         $stoppage_table = 'stoppages';
-        $prev_route = $this->rmn->get_route($route_id);
+        $prev_route = $this->rmn->get_route($route_id);//english lang route
         if ($edited_route['lang_code'] == 'bn') {
             $route_table = 'route_bn';
             $stoppage_table = 'stoppage_bn';

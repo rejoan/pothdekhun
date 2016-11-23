@@ -24,7 +24,7 @@
                         <select name="ft" class="selectpicker" data-width="100%" data-live-search="true" >
                             <?php foreach ($fthanas as $t): ?>
                                 <option  value="<?php echo $t['id']; ?>" <?php
-                                echo $prev_route['to_thana'] == $t['id'] ? 'selected="yes"' : '';
+                                echo $prev_route['from_thana'] == $t['id'] ? 'selected="yes"' : '';
                                 ?>>
 
                                     <?php echo $t[$this->nl->lang_based_data('bn_name', 'name')]; ?>
@@ -34,8 +34,11 @@
                     </div>
                 </div>
 
-                <div class="col-xs-10 col-md-5">
+                <div class="input-group col-xs-10 col-md-5">
                     <input maxlength="200" type="text" class="form-control" name="f" value="<?php echo $prev_route['from_place']; ?>" placeholder="<?php echo lang('device_from'); ?>">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-info btn-flat">Accept</button>
+                    </span>
                 </div>
             </div>
             <?php echo form_error('from_place', '<div class="alert alert-danger">', '</div>'); ?>
@@ -66,14 +69,23 @@
                     </div>
                 </div>
 
-                <div class="col-xs-10 col-md-5">
-                    <input maxlength="200" type="text" class="form-control search_place" name="t" value="<?php echo $prev_route['to_place']; ?>" placeholder="<?php echo lang('device_to'); ?>">
+                <div class="col-xs-10 col-md-5 input-group">
+                    <input maxlength="200" type="text" class="form-control search_place" name="t" value="<?php echo $prev_route['to_place']; ?>" placeholder="<?php echo lang('device_to'); ?>"> 
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-info btn-flat">Accept</button>
+                    </span>
                 </div>
             </div>
             <?php echo form_error('to_place', '<div class="alert alert-danger">', '</div>'); ?>
             <div class="form-group">
                 <label class="control-label"><?php echo lang('main_rent'); ?></label>
-                <input id="main_rent" maxlength="10" type="text" class="form-control rent" name="main_rent" value="<?php echo $prev_route['rent']; ?>" placeholder="<?php echo lang('rent_placeholder'); ?>" required title="কমপক্ষে আনুমানিক ভাড়া দিন">
+                <div class="input-group">
+                    <input id="main_rent" maxlength="10" type="text" class="form-control rent" name="main_rent" value="<?php echo $prev_route['rent']; ?>" placeholder="<?php echo lang('rent_placeholder'); ?>" required title="কমপক্ষে আনুমানিক ভাড়া দিন">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-info btn-flat">Accept</button>
+                    </span>
+                </div>
+
             </div>
 
             <?php echo form_error('main_rent', '<div class="alert alert-danger">', '</div>'); ?>
@@ -90,7 +102,13 @@
             </div>
             <div class="form-group">
                 <label class="control-label"><?php echo lang('vehicle_name'); ?></label>
-                <input id="vehicle_name" maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php echo $prev_route[$this->nl->lang_based_data('bn_name', 'name')]; ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>">
+                <div class="input-group">
+                    <input id="vehicle_name" maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php echo $prev_route[$this->nl->lang_based_data('bn_name', 'name')]; ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-info btn-flat">Accept</button>
+                    </span>
+                </div>
+
             </div>
 
             <div class="form-group">
