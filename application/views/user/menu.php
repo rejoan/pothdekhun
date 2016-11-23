@@ -13,7 +13,9 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <?php
-                //var_dump($this->session);
+                if ($this->session->user_type == 'admin') {
+                    $this->nl->generate_link('admin', 'admin', NULL, 'Admin');
+                }
                 if ($this->session->user_id) {
                     $this->nl->generate_link('profile', 'profile', NULL, lang('profile'));
                 } else {
@@ -39,19 +41,19 @@
                         ?>
                     </ul>
                 </li>
-                
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo lang('drivers'); ?><span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <?php
                         $this->nl->generate_link('drivers', 'drivers', 'fa-list', lang('drivers'));
                         $this->nl->generate_link('drivers/add', 'drivers/add', 'fa-plus', lang('add_driver'));
-                         $this->nl->generate_link('drivers/hire', 'drivers/hire', 'fa-binoculars', lang('need_driver'));
+                        $this->nl->generate_link('drivers/hire', 'drivers/hire', 'fa-binoculars', lang('need_driver'));
                         ?>
                     </ul>
                 </li>
-                
-                
+
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if ($this->session->user_id): ?>

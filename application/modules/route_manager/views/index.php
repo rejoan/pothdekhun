@@ -34,7 +34,7 @@
                             <td><?php echo $r['username']; ?></td>
                             
                             <td>
-                                <a data-toggle="tooltip" data-placement="top" title="View to Merge" href="<?php echo site_url('route_manager/merge') . '/' . $r['route_id']; ?>"><i class="fa fa-tripadvisor"></i></a>
+                                <a data-toggle="tooltip" data-placement="top" title="View to Merge" href="<?php echo site_url('route_manager/merge') . '/' . $r['edited_route_id']; ?>"><i class="fa fa-tripadvisor"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

@@ -18,7 +18,7 @@
             <li class="header">MAIN NAVIGATION</li>
             <li><a href="<?php echo site_url('admin'); ?>"><i class="fa fa fa-dashboard"></i> Dashboard</a></li>
 
-            <li class="treeview <?php echo $this->nl->is_selected('routes');?>">
+            <li class="treeview <?php echo $this->nl->is_selected('route_manager');?>">
                 <a href="#">
                     <i class="fa fa-table"></i> <span>Route Manager</span>
                     <i class="fa fa-angle-left pull-right"></i>

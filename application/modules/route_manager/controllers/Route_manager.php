@@ -43,12 +43,16 @@ class Route_manager extends CI_Controller {
      */
     public function merge($id = NULL) {
         if (!empty($id)) {
-            $route_id = (int) $id;
-            $edited_route = $this->pm->total_item('edited_routes', 'route_id', $route_id);
-            if ($edited_route < 1) {
+            $edited_route_id = (int) $id;
+            
+            $edited_route_exist = $this->pm->total_item('edited_routes', 'id', $edited_route_id);
+            
+            if ($edited_route_exist < 1) {
                 $this->session->set_flashdata('message', 'Wrong Access');
                 redirect('route_manager');
             }
+            $edited_route = $this->rmn->edited_route($edited_route_id);
+            $route_id = $edited_route['route_id'];//main route ID
         } else {
             show_404();
         }
@@ -71,8 +75,8 @@ class Route_manager extends CI_Controller {
             'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $prev_route['to_district']),
             'prev_route' => $prev_route,
             'prev_stoppages' => $this->pm->get_data($stoppage_table, FALSE, 'route_id', $route_id),
-            'edited_route' => $this->rmn->edited_route($route_id),
-            'edited_stoppages' => $this->pm->get_data('edited_stoppages', FALSE, 'route_id', $route_id),
+            'edited_route' => $edited_route,
+            'edited_stoppages' => $this->pm->get_data('edited_stoppages', FALSE, 'route_id', $edited_route_id),
         );
 
         $this->load->library('form_validation');

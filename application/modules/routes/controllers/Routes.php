@@ -230,7 +230,7 @@ class Routes extends MX_Controller {
             if ($departure_time == 'perticular') {
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
             }
-            
+
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
             $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id);
 
@@ -275,7 +275,7 @@ class Routes extends MX_Controller {
                     'lang_code' => $this->session->lang_code
                 );
                 $route_info = array_merge($route, $edit_info);
-                $this->db->insert('edited_routes', $route_info);
+                $route_id = $this->pm->insert_data('edited_routes', $route_info, TRUE);
             }
 
 
