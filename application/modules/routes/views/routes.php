@@ -3,7 +3,7 @@
     <?php
     $message = $this->session->flashdata('message');
     if ($message) {
-        echo '<div class="alert alert-info">' . $message . '</div>';
+        echo '<div class="alert alert-warning">' . $message . '</div>';
     }
     ?>
     <div class="box box-poth">

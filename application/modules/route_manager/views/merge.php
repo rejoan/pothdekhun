@@ -122,7 +122,13 @@
             <?php if ($prev_route['departure_time'] !== 'কিছুক্ষর পরপর'): ?>
                 <div class="form-group">
                     <label class="control-label"></label>
-                    <input maxlength="200" type="text" class="form-control"  name="departure_dynamic" value="<?php echo $prev_route['departure_time']; ?>">
+                    <div class="input-group">
+                        <input maxlength="200" type="text" class="form-control"  name="departure_dynamic" value="<?php echo $prev_route['departure_time']; ?>">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-info btn-flat">Accept</button>
+                        </span>
+                    </div>
+
                 </div>
             <?php endif; ?>
 
@@ -290,6 +296,7 @@
                 <input type="hidden" name="route_id" value="<?php echo $this->uri->segment(3); ?>"/>
                 <input id="edited_file" type="hidden"  name="edited_file" value="<?php echo $edited_route['evidence']; ?>"/>
                 <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="Approve"/>
+                <a href="<?php echo site_url_tr('route_manager/decline/').$this->uri->segment(3);?>" class="btn btn-primary btn-lg btn-danger">Decline</a>
             </div>
 
         </div>
@@ -301,3 +308,12 @@
         overflow:hidden;
     }
 </style>
+
+<script>
+    $(document).ready(function () {
+        
+    });
+    function sent_value(){
+        
+    }
+</script>
