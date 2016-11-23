@@ -72,7 +72,7 @@
             </div>
             <?php echo form_error('to_place', '<div class="alert alert-danger">', '</div>'); ?>
             <div class="form-group">
-                <label class="control-label"><?php echo lang('main_rent'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
+                <label class="control-label"><?php echo lang('main_rent'); ?></label>
                 <input id="main_rent" maxlength="10" type="text" class="form-control rent" name="main_rent" value="<?php echo $prev_route['rent']; ?>" placeholder="<?php echo lang('rent_placeholder'); ?>" required title="কমপক্ষে আনুমানিক ভাড়া দিন">
             </div>
 
@@ -126,7 +126,7 @@
     </div>
 </div>
 
-<form action="<?php echo site_url_tr('route_manager/merge'); ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
     <div class="col-xs-12 col-md-6">
         <div class="box box-poth">
             <div class="box-header">
@@ -231,7 +231,7 @@
 
                 <div id="departure_perticular" class="form-group">
                     <label class="control-label"><?php echo lang('departure_time'); ?></label>
-                    <select id="departure_time" name="departure_time" class="selectpicker" data-width="100%">
+                    <select id="departure_time" name="departure_time" class="selectpicker" data-width="100%" data-merge="yes">
                         <option value="<?php echo lang('after_while'); ?>" <?php echo $edited_route['departure_time'] == lang('after_while') ? 'selected="yes"' : ''; ?>><?php echo lang('after_while'); ?></option>
                         <option value="perticular" <?php echo $edited_route['departure_time'] != lang('after_while') ? 'selected="yes"' : ''; ?>><?php echo lang('perticular_time'); ?></option>
                     </select>
@@ -269,21 +269,9 @@
                 <input type="hidden" id="rents" value="<?php echo lang('main_rent'); ?>"/>
                 <input type="hidden" id="custom_time" value="<?php echo lang('custom_time'); ?>"/>
 
-                <input type="hidden" id="route_id" name="route_id" value="<?php
-                if ($this->input->post('submit')) {
-                    echo set_value('route_id');
-                } elseif (isset($route['id'])) {
-                    echo $route['id'];
-                }
-                ?>"/>
-                <input id="prev_file" type="hidden"  name="prev_file" value="<?php
-                if ($this->input->post('submit')) {
-                    echo set_value('prev_file');
-                } elseif (isset($route['evidence'])) {
-                    echo $route['evidence'];
-                }
-                ?>"/>
-                <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="Approve"/>
+                <input type="hidden" name="route_id" value="<?php echo $this->uri->segment(3); ?>"/>
+                <input id="edited_file" type="hidden"  name="edited_file" value="<?php echo $edited_route['evidence']; ?>"/>
+                <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="Approve"/>
             </div>
 
         </div>

@@ -110,6 +110,11 @@ $(document).ready(function () {
                 $('#departure_dynamic').remove();
             });
         }
+        if ($(this).data('merge') == 'yes') {
+            $('#departure_dynamic label').removeClass('col-sm-3');
+            $('#departure_dynamic label + div').removeClass('col-xs-10 col-md-6');
+
+        }
     });
     $('#chkUsername').on('blur', function () {
         is_exist('chkUsername', 'username', 'users', 'userInfo');

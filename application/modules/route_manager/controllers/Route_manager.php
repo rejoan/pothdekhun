@@ -41,7 +41,7 @@ class Route_manager extends CI_Controller {
      * @param int $id
      * @return type
      */
-    public function merge($id) {
+    public function merge($id = NULL) {
         if (!empty($id)) {
             $route_id = (int) $id;
             $edited_route = $this->pm->total_item('edited_routes', 'route_id', $route_id);
@@ -65,7 +65,7 @@ class Route_manager extends CI_Controller {
         }
         $data = array(
             'title' => lang('edit_route'),
-            'action' => site_url('route_manager/merge/' . $route_id),
+            'action' => site_url_tr('route_manager/merge/' . $route_id),
             'districts' => $this->pm->get_data('districts'),
             'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $prev_route['from_district']),
             'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $prev_route['to_district']),
@@ -78,6 +78,7 @@ class Route_manager extends CI_Controller {
         $this->load->library('form_validation');
 
         if ($this->input->post('submit')) {
+            $route_id = $this->input->post('route_id');
             $this->form_validation->set_rules('f', lang('from_view'), 'required');
             $this->form_validation->set_rules('t', lang('to_view'), 'required');
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer|greater_than[0]');
@@ -95,23 +96,23 @@ class Route_manager extends CI_Controller {
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
             $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id);
 
-            $config['upload_path'] = './evidences';
-            $config['allowed_types'] = 'gif|jpg|png|jpeg|docx|doc';
-            $config['max_size'] = 1000;
-
-            $this->load->library('upload', $config);
-            if ($_FILES && $_FILES['evidence']['name']) {
-                if (!$this->upload->do_upload('evidence')) {
-                    $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
-                    return;
-                } else {
-                    $evidence = $this->upload->data();
-                    $evidence_name = $evidence['file_name'];
-                }
-            } else {
-                $evidence_name = '';
-            }
+//            $config['upload_path'] = './evidences';
+//            $config['allowed_types'] = 'gif|jpg|png|jpeg|docx|doc';
+//            $config['max_size'] = 1000;
+//
+//            $this->load->library('upload', $config);
+//            if ($_FILES && $_FILES['evidence']['name']) {
+//                if (!$this->upload->do_upload('evidence')) {
+//                    $this->session->set_flashdata('message', $this->upload->display_errors());
+//                    $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+//                    return;
+//                } else {
+//                    $evidence = $this->upload->data();
+//                    $evidence_name = $evidence['file_name'];
+//                }
+//            } else {
+//                $evidence_name = '';
+//            }
 
             $route = array(
                 'from_district' => trim($this->input->post('fd', TRUE)),
@@ -124,11 +125,12 @@ class Route_manager extends CI_Controller {
                 'transport_type' => $this->input->post('transport_type', TRUE),
                 'departure_time' => $departure_time,
                 'rent' => $this->input->post('main_rent', TRUE),
-                'evidence' => $evidence_name,
+                'evidence' => $this->input->post('edited_file'),
                 'added_by' => $this->user_id
             );
             $this->db->set('added', 'NOW()', FALSE);
             $this->pm->updater('id', $route_id, $route_table, $route);
+            
 
             //stoppage data process
             $rent = $this->input->post('rent', TRUE);
@@ -149,9 +151,10 @@ class Route_manager extends CI_Controller {
             }
 
             if (!empty($stoppages)) {
-                $this->pm->deleter('route_id', $route_id, $stopage_table);
-                $this->db->insert_batch($stopage_table, $stoppages);
+                $this->pm->deleter('route_id', $route_id, $stoppage_table);
+                $this->db->insert_batch($stoppage_table, $stoppages);
             }
+            $this->pm->deleter('route_id', $route_id, 'edited_routes');
             $this->session->set_flashdata('message', lang('edit_success'));
             redirect_tr('route_manager');
         }
