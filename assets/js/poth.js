@@ -40,7 +40,17 @@ $(document).ready(function () {
         });
     });
 
-
+    $('input[name="evidence"]').change(function () {
+        var file = this.files[0];
+        var real_file = file.name;
+        var file_type = real_file.split('.').pop().toLowerCase();
+        var arr = ['jpg', 'png', 'gif', 'jpeg', 'pdf', 'doc', 'docx'];
+        if (file === '' || $.inArray(file_type, arr) === -1) {
+            swal('Allowed Types', 'jpg, png, gif, jpeg, pdf, doc, docx', 'warning');
+            $('.file-input-name').remove();
+            return false;
+        }
+    });
 
     $('.districts').change(function () {
         var district = $.trim($(this).val());

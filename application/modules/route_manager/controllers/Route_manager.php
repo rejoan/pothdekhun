@@ -44,22 +44,22 @@ class Route_manager extends CI_Controller {
     public function merge($id = NULL) {
         if (!empty($id)) {
             $edited_route_id = (int) $id;
-            
-            $edited_route_exist = $this->pm->total_item('edited_routes', 'id', $edited_route_id);
-            
-            if ($edited_route_exist < 1) {
-                $this->session->set_flashdata('message', 'Wrong Access');
-                redirect('route_manager');
-            }
+
+//            $edited_route_exist = $this->pm->total_item('edited_routes', 'id', $edited_route_id);
+//
+//            if ($edited_route_exist < 1) {
+//                $this->session->set_flashdata('message', 'Wrong Access');
+//                redirect('route_manager');
+//            }
             $edited_route = $this->rmn->edited_route($edited_route_id);
-            $route_id = $edited_route['route_id'];//main route ID
+            $route_id = $edited_route['route_id']; //main route ID
         } else {
             show_404();
         }
-
+//var_dump($route_id);return;
         $route_table = 'routes';
         $stoppage_table = 'stoppages';
-        $prev_route = $this->rmn->get_route($route_id);//english lang route
+        $prev_route = $this->rmn->get_route($route_id); //english lang route
         if ($edited_route['lang_code'] == 'bn') {
             $route_table = 'route_bn';
             $stoppage_table = 'stoppage_bn';
@@ -69,7 +69,7 @@ class Route_manager extends CI_Controller {
         }
         $data = array(
             'title' => lang('edit_route'),
-            'action' => site_url_tr('route_manager/merge/' . $route_id),
+            'action' => site_url_tr('route_manager/merge/' . $edited_route_id),
             'districts' => $this->pm->get_data('districts'),
             'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $prev_route['from_district']),
             'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $prev_route['to_district']),
@@ -82,7 +82,7 @@ class Route_manager extends CI_Controller {
         $this->load->library('form_validation');
 
         if ($this->input->post('submit')) {
-            $route_id = $this->input->post('route_id');
+            //$route_id = $this->input->post('route_id');
             $this->form_validation->set_rules('f', lang('from_view'), 'required');
             $this->form_validation->set_rules('t', lang('to_view'), 'required');
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer|greater_than[0]');
@@ -134,7 +134,7 @@ class Route_manager extends CI_Controller {
             );
             $this->db->set('added', 'NOW()', FALSE);
             $this->pm->updater('id', $route_id, $route_table, $route);
-            
+
 
             //stoppage data process
             $rent = $this->input->post('rent', TRUE);
@@ -164,6 +164,18 @@ class Route_manager extends CI_Controller {
         }
 
         $this->nl->view_loader('user', 'merge', NULL, $data);
+    }
+
+    public function decline($id) {
+        $route = $this->pm->get_row('id', $id, 'edited_routes');
+        $file = 'evidences/' . $route['evidence'];
+        //var_dump(is_file($file));return;
+        if (is_file($file)) {
+            unlink($file);
+        }
+        $this->pm->deleter('id', $id, 'edited_routes');
+        $this->session->set_flashdata('message', lang('delete_success'));
+        redirect_tr('route_manager');
     }
 
 }

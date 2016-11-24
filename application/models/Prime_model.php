@@ -133,7 +133,7 @@ class Prime_model extends CI_Model {
     }
 
     /**
-     * 
+     * get a row
      * @param type $col_name
      * @param type $col_id
      * @param type $table
