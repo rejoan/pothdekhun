@@ -44,18 +44,11 @@ class Route_manager extends CI_Controller {
     public function merge($id = NULL) {
         if (!empty($id)) {
             $edited_route_id = (int) $id;
-//            $edited_route_exist = $this->pm->total_item('edited_routes', 'id', $edited_route_id);
-//
-//            if ($edited_route_exist < 1) {
-//                $this->session->set_flashdata('message', 'Wrong Access');
-//                redirect('route_manager');
-//            }
-
-            $edited_route = $this->rmn->edited_route($edited_route_id);
-            $route_id = $edited_route['route_id']; //main route ID
         } else {
-            show_404();
+            $edited_route_id = $this->input->post('route_id');
         }
+        $edited_route = $this->rmn->edited_route($edited_route_id);
+        $route_id = $edited_route['route_id']; //main route ID
 //var_dump($route_id);return;
         $route_table = 'routes';
         $stoppage_table = 'stoppages';
@@ -69,7 +62,7 @@ class Route_manager extends CI_Controller {
         }
         $data = array(
             'title' => lang('edit_route'),
-            'action' => site_url_tr('route_manager/merge/' . $edited_route_id),
+            'action' => site_url_tr('route_manager/merge'),
             'districts' => $this->pm->get_data('districts'),
             'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $prev_route['from_district']),
             'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $prev_route['to_district']),
@@ -82,7 +75,6 @@ class Route_manager extends CI_Controller {
         $this->load->library('form_validation');
 
         if ($this->input->post('submit')) {
-            //$route_id = $this->input->post('route_id');
             $this->form_validation->set_rules('f', lang('from_view'), 'required');
             $this->form_validation->set_rules('t', lang('to_view'), 'required');
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer|greater_than[0]');
@@ -99,24 +91,6 @@ class Route_manager extends CI_Controller {
 
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
             $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id);
-
-//            $config['upload_path'] = './evidences';
-//            $config['allowed_types'] = 'gif|jpg|png|jpeg|docx|doc';
-//            $config['max_size'] = 1000;
-//
-//            $this->load->library('upload', $config);
-//            if ($_FILES && $_FILES['evidence']['name']) {
-//                if (!$this->upload->do_upload('evidence')) {
-//                    $this->session->set_flashdata('message', $this->upload->display_errors());
-//                    $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
-//                    return;
-//                } else {
-//                    $evidence = $this->upload->data();
-//                    $evidence_name = $evidence['file_name'];
-//                }
-//            } else {
-//                $evidence_name = '';
-//            }
 
             $route = array(
                 'from_district' => trim($this->input->post('fd', TRUE)),
