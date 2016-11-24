@@ -44,22 +44,22 @@ class Route_manager extends CI_Controller {
     public function merge($id = NULL) {
         if (!empty($id)) {
             $edited_route_id = (int) $id;
-            
+
             $edited_route_exist = $this->pm->total_item('edited_routes', 'id', $edited_route_id);
-            
+
             if ($edited_route_exist < 1) {
                 $this->session->set_flashdata('message', 'Wrong Access');
                 redirect('route_manager');
             }
             $edited_route = $this->rmn->edited_route($edited_route_id);
-            $route_id = $edited_route['route_id'];//main route ID
+            $route_id = $edited_route['route_id']; //main route ID
         } else {
             show_404();
         }
 
         $route_table = 'routes';
         $stoppage_table = 'stoppages';
-        $prev_route = $this->rmn->get_route($route_id);//english lang route
+        $prev_route = $this->rmn->get_route($route_id); //english lang route
         if ($edited_route['lang_code'] == 'bn') {
             $route_table = 'route_bn';
             $stoppage_table = 'stoppage_bn';
@@ -134,7 +134,7 @@ class Route_manager extends CI_Controller {
             );
             $this->db->set('added', 'NOW()', FALSE);
             $this->pm->updater('id', $route_id, $route_table, $route);
-            
+
 
             //stoppage data process
             $rent = $this->input->post('rent', TRUE);
@@ -164,6 +164,18 @@ class Route_manager extends CI_Controller {
         }
 
         $this->nl->view_loader('user', 'merge', NULL, $data);
+    }
+
+    public function decline($id) {
+        $route = $this->pm->get_row('id', $id, 'edited_routes');
+        $file = 'evidences/' . $route['evidence'];
+        //var_dump(is_file($file));return;
+        if (is_file($file)) {
+            unlink($file);
+        }
+        $this->pm->deleter('id', $id, 'edited_routes');
+        $this->session->set_flashdata('message', lang('delete_success'));
+        redirect_tr('route_manager');
     }
 
 }

@@ -35,9 +35,9 @@
                 </div>
 
                 <div class="input-group col-xs-10 col-md-5">
-                    <input maxlength="200" type="text" class="form-control" name="f" value="<?php echo $prev_route['from_place']; ?>" placeholder="<?php echo lang('device_from'); ?>">
+                    <input maxlength="200" type="text" class="form-control" name="f" data-sentto="from_place" value="<?php echo $prev_route['from_place']; ?>">
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-info btn-flat">Accept</button>
+                        <button type="button" class="btn btn-info btn-flat keep_it">Keep it</button>
                     </span>
                 </div>
             </div>
@@ -70,9 +70,9 @@
                 </div>
 
                 <div class="col-xs-10 col-md-5 input-group">
-                    <input maxlength="200" type="text" class="form-control search_place" name="t" value="<?php echo $prev_route['to_place']; ?>" placeholder="<?php echo lang('device_to'); ?>"> 
+                    <input maxlength="200" type="text" class="form-control search_place" name="t" data-sentto="to_place" value="<?php echo $prev_route['to_place']; ?>"> 
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-info btn-flat">Accept</button>
+                        <button type="button" class="btn btn-info btn-flat keep_it">Keep it</button>
                     </span>
                 </div>
             </div>
@@ -80,9 +80,9 @@
             <div class="form-group">
                 <label class="control-label"><?php echo lang('main_rent'); ?></label>
                 <div class="input-group">
-                    <input id="main_rent" maxlength="10" type="text" class="form-control rent" name="main_rent" value="<?php echo $prev_route['rent']; ?>" placeholder="<?php echo lang('rent_placeholder'); ?>" required title="কমপক্ষে আনুমানিক ভাড়া দিন">
+                    <input maxlength="10" type="text" class="form-control" name="main_rent" data-sentto="main_rent" value="<?php echo $prev_route['rent']; ?>">
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-info btn-flat">Accept</button>
+                        <button type="button" class="btn btn-info btn-flat keep_it">Keep it</button>
                     </span>
                 </div>
 
@@ -103,9 +103,9 @@
             <div class="form-group">
                 <label class="control-label"><?php echo lang('vehicle_name'); ?></label>
                 <div class="input-group">
-                    <input id="vehicle_name" maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php echo $prev_route[$this->nl->lang_based_data('bn_name', 'name')]; ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>">
+                    <input maxlength="200" type="text" class="form-control" name="vehicle_name" data-sentto="vehicle_name" value="<?php echo $prev_route[$this->nl->lang_based_data('bn_name', 'name')]; ?>">
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-info btn-flat">Accept</button>
+                        <button type="button" class="btn btn-info btn-flat keep_it">Keep it</button>
                     </span>
                 </div>
 
@@ -123,9 +123,9 @@
                 <div class="form-group">
                     <label class="control-label"></label>
                     <div class="input-group">
-                        <input maxlength="200" type="text" class="form-control"  name="departure_dynamic" value="<?php echo $prev_route['departure_time']; ?>">
+                        <input maxlength="200" type="text" class="form-control"  name="departure_dynamic" data-sentto="departure" value="<?php echo $prev_route['departure_time']; ?>">
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-info btn-flat">Accept</button>
+                            <button type="button" class="btn btn-info btn-flat keep_it">Keep it</button>
                         </span>
                     </div>
 
@@ -189,7 +189,7 @@
                     </div>
 
                     <div class="col-xs-10 col-md-5">
-                        <input maxlength="200" type="text" class="form-control search_place" name="f" value="<?php echo $prev_route['from_place']; ?>" placeholder="<?php echo lang('device_from'); ?>">
+                        <input id="from_place" maxlength="200" type="text" class="form-control search_place" name="f" value="<?php echo $prev_route['from_place']; ?>" placeholder="<?php echo lang('device_from'); ?>">
                         <div id="suggestion" class="list-group">
 
                         </div>
@@ -224,7 +224,7 @@
                     </div>
 
                     <div class="col-xs-10 col-md-5">
-                        <input maxlength="200" type="text" class="form-control search_place" name="t" value="<?php echo $edited_route['to_place']; ?>" placeholder="<?php echo lang('device_to'); ?>">
+                        <input id="to_place" maxlength="200" type="text" class="form-control search_place" name="t" value="<?php echo $edited_route['to_place']; ?>">
                         <div id="suggestion_to" class="list-group">
 
                         </div>
@@ -264,7 +264,7 @@
                 <?php if ($edited_route['departure_time'] !== 'কিছুক্ষর পরপর'): ?>
                     <div id="departure_dynamic" class="form-group">
                         <label class="control-label"></label>
-                        <input maxlength="200" type="text" class="form-control"  name="departure_dynamic" value="<?php echo $edited_route['departure_time']; ?>">
+                        <input id="departure" maxlength="200" type="text" class="form-control"  name="departure_dynamic" value="<?php echo $edited_route['departure_time']; ?>">
 
                     </div>
                 <?php endif; ?>
@@ -283,7 +283,10 @@
                     <label class="control-label"></label>
                     <a href="javascript:void(0)" id="add_stoppage" class="btn btn-info"><?php echo lang('add_stoppage'); ?></a>
                     <span class="help-block"><?php echo lang('add_stoppage_help'); ?></span>
-
+                </div>
+                <div class="form-group">
+                    <label class="control-label">File</label>
+                    <a href="<?php echo base_url('evidences') . '/' . $edited_route['evidence']; ?>"><?php echo $edited_route['evidence']; ?></a>
                 </div>
 
 
@@ -292,11 +295,10 @@
                 <input type="hidden" id="comment" value="<?php echo lang('comment'); ?>"/>
                 <input type="hidden" id="rents" value="<?php echo lang('main_rent'); ?>"/>
                 <input type="hidden" id="custom_time" value="<?php echo lang('custom_time'); ?>"/>
-
                 <input type="hidden" name="route_id" value="<?php echo $this->uri->segment(3); ?>"/>
-                <input id="edited_file" type="hidden"  name="edited_file" value="<?php echo $edited_route['evidence']; ?>"/>
+                <input type="hidden"  name="edited_file" value="<?php echo $edited_route['evidence']; ?>"/>
                 <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="Approve"/>
-                <a href="<?php echo site_url_tr('route_manager/decline/').$this->uri->segment(3);?>" class="btn btn-primary btn-lg btn-danger">Decline</a>
+                <a href="<?php echo site_url_tr('route_manager/decline/') . $this->uri->segment(3); ?>" class="btn btn-primary btn-lg btn-danger">Decline</a>
             </div>
 
         </div>
@@ -311,9 +313,10 @@
 
 <script>
     $(document).ready(function () {
-        
+        $('.keep_it').click(function () {
+            var item = $.trim($(this).parent().prev().val());
+            var sent_id = $.trim($(this).parent().prev().data('sentto'));
+            $('#' + sent_id).val(item);
+        });
     });
-    function sent_value(){
-        
-    }
 </script>
