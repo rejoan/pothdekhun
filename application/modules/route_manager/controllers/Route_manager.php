@@ -44,13 +44,13 @@ class Route_manager extends CI_Controller {
     public function merge($id = NULL) {
         if (!empty($id)) {
             $edited_route_id = (int) $id;
-
 //            $edited_route_exist = $this->pm->total_item('edited_routes', 'id', $edited_route_id);
 //
 //            if ($edited_route_exist < 1) {
 //                $this->session->set_flashdata('message', 'Wrong Access');
 //                redirect('route_manager');
 //            }
+
             $edited_route = $this->rmn->edited_route($edited_route_id);
             $route_id = $edited_route['route_id']; //main route ID
         } else {
