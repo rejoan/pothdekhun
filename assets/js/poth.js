@@ -227,5 +227,8 @@ $(document).ready(function () {
     $('#add_route').on('blur', '.rent', function () {
         var replaced = replaceNumbers($(this).val());
         $(this).val(replaced);
+//        if(!Math.floor(replaced) == replaced && !$.isNumeric(replaced)){
+//            alert('problem');
+//        }
     });
 });
