@@ -20,7 +20,7 @@
             <h4><?php echo lang('departure_time'); ?></h4>
             <strong><?php echo $route['departure_time']; ?></strong>
             <hr/>
-            <h4><?php echo lang('stoppages'); ?></h4>
+            <h4><?php echo lang('stoppages') .' '. lang('or') . ' '.lang('via'); ?></h4>
             <div class="box-body table-responsive no-padding">
                 <table class="table table-hover table-bordered table-striped">
                     <thead>
@@ -49,7 +49,7 @@
             <a href="javascript:void(0);" class="btn btn-info"><?php echo lang('verify_button'); ?></a>
             <a href="javascript:void(0);" class="btn btn-info"><?php echo lang('verify_button_non'); ?></a>
             <hr/>
-            <a href="<?php echo site_url('route/edit') . '/' . $route['id']; ?>" class="btn btn-block btn-info"><?php echo lang('edit_lang') . ' ' . lang('info_of'); ?></a>            <hr/>
+            <a href="<?php echo site_url('routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-block btn-info"><?php echo lang('edit_lang') . ' ' . lang('info_of'); ?></a>            <hr/>
             <?php if ($this->session->type > 1): ?>
 
             <?php endif; ?>

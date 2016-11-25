@@ -109,3 +109,5 @@ $lang['save_success'] = 'Successfully Saved';
 $lang['bangla'] = 'Bangla';
 $lang['english'] = 'English';
 $lang['edit_success'] = 'Edit Successfully Done';
+$lang['or'] = 'Or';
+$lang['via'] = 'Via';

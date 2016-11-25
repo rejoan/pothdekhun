@@ -321,27 +321,27 @@ class Routes extends MX_Controller {
         } else {
             show_404();
         }
-        if ($this->input->get('ln') == 'en') {
-            $alias = 'rt';
-            $stopage_table = 'stoppage_bn';
-        } else {
+        $alias = 'rt';
+        $stopage_table = 'stoppages';
+        if ($this->session->lang_code == 'bn') {
             $alias = 'r';
-            $stopage_table = 'stoppages';
+            $stopage_table = 'stoppage_bn';
         }
 
         $exist = $this->rm->details($alias, $route_id, FALSE);
         if ($exist < 1) {
             $this->session->set_flashdata('message', lang('no_route'));
-            redirect('route?ln=' . $this->ln);
+            redirect_tr('routes');
         }
         $result = $this->rm->details($alias, $route_id);
         //var_dump($result);        return;
         $data = array(
             'title' => $result['from_place'] . ' ' . lang('from_view') . ' ' . $result['to_place'] . ' ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),
             'route' => $result,
-            'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['id']),
+            'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['r_id']),
             'segment' => 0
         );
+        //echo $this->db->last_query();return;
         $this->nl->view_loader('user', 'details', NULL, $data, 'latest', 'rightbar');
     }
 
