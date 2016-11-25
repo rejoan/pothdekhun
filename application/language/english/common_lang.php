@@ -111,3 +111,4 @@ $lang['english'] = 'English';
 $lang['edit_success'] = 'Edit Successfully Done';
 $lang['or'] = 'Or';
 $lang['via'] = 'Via';
+$lang['translate'] = 'Translate';

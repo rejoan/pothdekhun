@@ -23,7 +23,7 @@ class Routes_model extends CI_Model {
      * @return int or array
      */
     public function details($alias, $route_id, $num_rows = FALSE) {
-        $query = $this->db->select($alias . '.from_place,' . $alias . '.to_place,' . 'p.*,' . $alias . '.departure_time,r.from_district,r.to_district,r.from_thana,r.to_thana,r.id r_id, r.rent,r.evidence,r.added,r.transport_type,u.username')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->join('route_bn rt', 'r.id = rt.route_id', 'left')->join('poribohons p', 'r.poribohon_id = p.id', 'left')->where('r.id', $route_id)->get();
+        $query = $this->db->select($alias . '.from_place,' . $alias . '.to_place,' . 'p.*,' . $alias . '.departure_time,r.from_district,r.to_district,r.from_thana,r.to_thana,r.id r_id, r.rent,r.evidence,r.added,r.transport_type,u.username,d.name,d.bn_name,td.name td_name,td.bn_name td_bn_name')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->join('route_bn rt', 'r.id = rt.route_id', 'left')->join('poribohons p', 'r.poribohon_id = p.id', 'left')->join('districts d','r.from_district = d.id','left')->join('districts td','r.to_district = td.id','left')->where('r.id', $route_id)->get();
         //echo $this->db->last_query();
         if ($num_rows) {
             return $query->num_rows();
