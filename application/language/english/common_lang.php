@@ -112,3 +112,6 @@ $lang['edit_success'] = 'Edit Successfully Done';
 $lang['or'] = 'Or';
 $lang['via'] = 'Via';
 $lang['translate'] = 'Translate';
+$lang['bengali_name'] = 'Bengali Name';
+$lang['owner_name'] = 'Owner Name';
+$lang['total_vehicles'] = 'Total Vehicle';

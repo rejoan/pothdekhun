@@ -33,4 +33,11 @@ class Transports extends MX_Controller {
         $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
     }
 
+    public function add() {
+        $data = array(
+            'title' => lang('add_transport')
+        );
+        $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+    }
+
 }
