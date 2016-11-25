@@ -137,7 +137,7 @@
                 <?php
                 for ($i = 0; $i < count($prev_stoppages); $i++) {
                     $k = $i + 1;
-                    echo '<div class="form-group"><div class="col-xs-10 col-md-2"><input maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' . $prev_stoppages[$i]['position'] . '"></div><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" value="' . $prev_stoppages[$i]['place_name'] . '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]">' . $prev_stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $prev_stoppages[$i]['rent'] . '" ></div><button class="btn btn-xs btn-info" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></div>';
+                    echo '<div id="stoppage_' . $k . '" class="form-group"><div class="col-xs-10 col-md-2"><input maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' . $prev_stoppages[$i]['position'] . '"></div><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control place" name="place_name[]" value="' . $prev_stoppages[$i]['place_name'] . '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control comment" name="comments[]">' . $prev_stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $prev_stoppages[$i]['rent'] . '" ></div><button data-stp_id="' . $k . '" class="btn btn-xs btn-info keep_stoppage" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></div>';
                 }
                 ?>
             </div>
@@ -145,7 +145,7 @@
             <div class="form-group">
                 <label class="control-label"><?php echo lang('prev_file'); ?></label>
                 <?php echo $prev_route['evidence']; ?>
-                <button class="btn btn-info">Keep File</button>
+                <button id="keep_file" data-file_name="<?php echo $prev_route['evidence']; ?>" class="btn btn-info">Keep File</button>
             </div>
         </div>
     </div>
@@ -287,7 +287,16 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">File</label>
-                    <a href="<?php echo base_url('evidences') . '/' . $edited_route['evidence']; ?>"><?php echo $edited_route['evidence']; ?></a>
+                    <?php
+                    if (empty($edited_route['evidence'])) {
+                        $file = 'No file';
+                        $href = 'javascript:void();';
+                    } else {
+                        $file = $edited_route['evidence'];
+                        $href = base_url('evidences/') . $edited_route['evidence'];
+                    }
+                    ?>
+                    <a id="edited_file" href="<?php echo $href; ?>"><?php echo $file; ?></a>
                 </div>
 
 
@@ -314,10 +323,32 @@
 
 <script>
     $(document).ready(function () {
+        var base_url = $('#base_url').val();
         $('.keep_it').click(function () {
             var item = $.trim($(this).parent().prev().val());
             var sent_id = $.trim($(this).parent().prev().data('sentto'));
             $('#' + sent_id).val(item);
+        });
+
+        $('#keep_file').click(function (e) {
+            e.preventDefault();
+            var file_name = $.trim($(this).data('file_name'));
+            if (file_name == '') {
+                swal('', 'No File', 'warning');
+            }
+            $('input[name="edited_file"]').val(file_name);
+            $('#edited_file').text(file_name);
+            $('#edited_file').prop('href', base_url + 'evidences/' + file_name);
+        });
+
+        $('.keep_stoppage').on('click', function () {
+            var stp_id = $(this).data('stp_id');
+            var place = $('#stoppage_' + stp_id + ' .place').val();
+            var comment = $('#stoppage_' + stp_id + ' .comment').val();
+            var rent = $('#stoppage_' + stp_id + ' .rent').val();
+            $('#place_' + stp_id).val(place);
+            $('#comment_' + stp_id).val(comment);
+            $('#rent_' + stp_id).val(rent);
         });
     });
 </script>
