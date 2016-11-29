@@ -50,8 +50,8 @@
                             <input name="owner_name" class="form-control" value="<?php
                             if ($this->input->post('owner_name')) {
                                 echo set_value('owner_name');
-                            } elseif (isset($transport['owner_name'])) {
-                                echo $transport['owner_name'];
+                            } elseif (isset($transport['owner'])) {
+                                echo $transport['owner'];
                             }
                             ?>"/>
                         </div>
@@ -62,8 +62,8 @@
                             <input name="total_vehicle" class="form-control" value="<?php
                             if ($this->input->post('total_vehicle')) {
                                 echo set_value('total_vehicle');
-                            } elseif (isset($transport['total_vehicle'])) {
-                                echo $transport['total_vehicle'];
+                            } elseif (isset($transport['total_vehicles'])) {
+                                echo $transport['total_vehicles'];
                             }
                             ?>"/>
                         </div>
@@ -74,6 +74,14 @@
                         echo set_value('update_id');
                     } elseif (isset($transport['id'])) {
                         echo $transport['id'];
+                    }
+                    ?>"/>
+                    
+                    <input type="hidden" name="prev_picture" value="<?php
+                    if ($this->input->post('submit')) {
+                        echo set_value('prev_picture');
+                    } elseif (isset($transport['picture'])) {
+                        echo $transport['picture'];
                     }
                     ?>"/>
 

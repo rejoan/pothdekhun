@@ -89,6 +89,7 @@ class Transports extends MX_Controller {
     }
 
     public function edit($id = NULL) {
+        $transport = '';
         if (!empty($id) && ctype_digit($id)) {
             $transport = $this->pm->get_row('id', $id, 'poribohons');
         }
@@ -122,7 +123,7 @@ class Transports extends MX_Controller {
                     $picture_name = $picture['file_name'];
                 }
             } else {
-                $picture_name = '';
+                $picture_name = $this->input->post('prev_picture');
             }
             $update_id = $this->input->post('update_id');
             $tarnsport = array(
@@ -130,7 +131,8 @@ class Transports extends MX_Controller {
                 'bn_name' => $this->input->post('bn_name', TRUE),
                 'owner' => $this->input->post('owner_name', TRUE),
                 'total_vehicles' => $this->input->post('total_vehicle', TRUE),
-                'picture' => $picture_name
+                'picture' => $picture_name,
+                'added_by' => $this->user_id
             );
             $this->pm->updater('id', $update_id, 'poribohons', $tarnsport);
             $this->session->set_flashdata('message', lang('save_success'));
