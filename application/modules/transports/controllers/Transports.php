@@ -7,9 +7,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Transports extends MX_Controller {
 
+    private $user_id = 4;
+
     public function __construct() {
         parent::__construct();
+        if ($this->session->user_id) {
+            $this->user_id = $this->session->user_id;
+        }
         $this->load->model('Transport_model', 'tm');
+        $this->load->library('security');
     }
 
     public function index() {
@@ -35,7 +41,8 @@ class Transports extends MX_Controller {
 
     public function add() {
         $data = array(
-            'title' => lang('add_transport')
+            'title' => lang('add_transport'),
+            'action' => site_url_tr('transports/add')
         );
         $this->load->library('form_validation');
 
@@ -48,7 +55,7 @@ class Transports extends MX_Controller {
             }
 
             $config['upload_path'] = './evidences';
-            $config['allowed_types'] = 'gif|jpg|png|jpeg|docx|doc';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
             $config['max_size'] = 2000;
 
             $this->load->library('upload', $config);
@@ -68,9 +75,10 @@ class Transports extends MX_Controller {
             $tarnsport = array(
                 'name' => $this->input->post('transport_name', TRUE),
                 'bn_name' => $this->input->post('bn_name', TRUE),
-                'owner_name' => $this->input->post('owner_name', TRUE),
-                'total_vehicle' => $this->input->post('total_vehicle', TRUE),
-                'picture' => $picture_name
+                'owner' => $this->input->post('owner_name', TRUE),
+                'total_vehicles' => $this->input->post('total_vehicle', TRUE),
+                'picture' => $picture_name,
+                'added_by' => $this->user_id
             );
             $this->pm->insert_data('poribohons', $tarnsport);
             $this->session->set_flashdata('message', lang('save_success'));
@@ -86,7 +94,8 @@ class Transports extends MX_Controller {
         }
         $data = array(
             'title' => lang('edit_transport'),
-            'transport' => $transport
+            'transport' => $transport,
+            'action' => site_url_tr('transports/edit')
         );
         $this->load->library('form_validation');
 
@@ -119,8 +128,8 @@ class Transports extends MX_Controller {
             $tarnsport = array(
                 'name' => $this->input->post('transport_name', TRUE),
                 'bn_name' => $this->input->post('bn_name', TRUE),
-                'owner_name' => $this->input->post('owner_name', TRUE),
-                'total_vehicle' => $this->input->post('total_vehicle', TRUE),
+                'owner' => $this->input->post('owner_name', TRUE),
+                'total_vehicles' => $this->input->post('total_vehicle', TRUE),
                 'picture' => $picture_name
             );
             $this->pm->updater('id', $update_id, 'poribohons', $tarnsport);
