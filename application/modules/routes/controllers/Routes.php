@@ -165,7 +165,7 @@ class Routes extends MX_Controller {
                 $this->db->insert_batch('stoppage_bn', $stoppages);
             }
             $this->session->set_flashdata('message', lang('save_success'));
-            redirect('routes/all');
+            redirect_tr('routes/all');
         }
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
     }
