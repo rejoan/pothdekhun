@@ -59,7 +59,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label"><?php echo lang('total_vehicles'); ?></label>
                         <div class="col-xs-10 col-md-6">
-                            <input name="total_vehicle" class="form-control" value="<?php
+                            <input name="total_vehicle" class="form-control rent" value="<?php
                             if ($this->input->post('total_vehicle')) {
                                 echo set_value('total_vehicle');
                             } elseif (isset($transport['total_vehicles'])) {
@@ -111,7 +111,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label"></label>
                         <div class="col-xs-10 col-md-6">
-                            <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('add_button'); ?>"/>
+                            <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $action_button; ?>"/>
 
                         </div>
                     </div>

@@ -42,7 +42,8 @@ class Transports extends MX_Controller {
     public function add() {
         $data = array(
             'title' => lang('add_transport'),
-            'action' => site_url_tr('transports/add')
+            'action' => site_url_tr('transports/add'),
+            'action_button' => lang('add_button')
         );
         $this->load->library('form_validation');
 
@@ -80,6 +81,7 @@ class Transports extends MX_Controller {
                 'picture' => $picture_name,
                 'added_by' => $this->user_id
             );
+            $this->db->set('added', 'NOW()', FALSE);
             $this->pm->insert_data('poribohons', $tarnsport);
             $this->session->set_flashdata('message', lang('save_success'));
             redirect_tr('transports');
@@ -96,7 +98,8 @@ class Transports extends MX_Controller {
         $data = array(
             'title' => lang('edit_transport'),
             'transport' => $transport,
-            'action' => site_url_tr('transports/edit')
+            'action' => site_url_tr('transports/edit'),
+            'action_button' => lang('edit_button')
         );
         $this->load->library('form_validation');
 
@@ -134,6 +137,7 @@ class Transports extends MX_Controller {
                 'picture' => $picture_name,
                 'added_by' => $this->user_id
             );
+            $this->db->set('added', 'NOW()', FALSE);
             $this->pm->updater('id', $update_id, 'poribohons', $tarnsport);
             $this->session->set_flashdata('message', lang('save_success'));
             redirect_tr('transports');

@@ -18,8 +18,8 @@
                     <tr>
                         <td><?php echo $segment; ?></td>
                         <td><?php echo $r[$this->nl->lang_based_data('bn_name', 'name')]; ?></td>
-                        <td><?php echo $r['total_vehicles']; ?></td>
-                        <td><?php echo $r['added'];?></td>
+                        <td><?php echo empty($r['total_vehicles']) ? 'Not Given':$r['total_vehicles']; ?></td>
+                        <td><?php echo date('d M, Y ',strtotime($r['added']));?></td>
                         <td><?php echo $r['username'];?></td>
                         <td>
                             <a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('transports/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>

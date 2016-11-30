@@ -148,11 +148,13 @@ $(document).ready(function () {
         }
     });
 
-    $('#add_route').on('blur', '.rent', function () {
+    $('form').on('blur', '.rent', function () {
         var replaced = replaceNumbers($(this).val());
         $(this).val(replaced);
-//        if(!Math.floor(replaced) == replaced && !$.isNumeric(replaced)){
-//            alert('problem');
-//        }
+        var num = parseInt(replaced);
+        if (isNaN(num) || num < 1) {
+            swal('', 'Number only & should be greater than ZERO', 'warning');
+            $(this).val('');
+        }
     });
 });

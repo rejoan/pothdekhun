@@ -115,3 +115,4 @@ $lang['translate'] = 'Translate';
 $lang['bengali_name'] = 'Bengali Name';
 $lang['owner_name'] = 'Owner Name';
 $lang['total_vehicles'] = 'Total Vehicle';
+$lang['edit_button'] = 'Update';
