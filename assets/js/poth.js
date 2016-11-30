@@ -56,7 +56,7 @@ $(document).ready(function () {
         var district = $.trim($(this).val());
         var site_url = $('#site_url').val();
         var thana = $(this).data('thana');
-        xhr = $.ajax({
+        $.ajax({
             url: site_url + '/weapons/get_thanas',
             type: 'get',
             dataType: 'json',

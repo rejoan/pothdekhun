@@ -86,4 +86,12 @@ class Weapons extends MX_Controller {
         echo json_encode($thanas, JSON_UNESCAPED_UNICODE);
     }
 
+    public function register() {
+        $user = array(
+            'username' => $this->input->post('username'),
+            'email' => $this->input->post('email')
+        );
+        //$this->db->
+    }
+
 }
