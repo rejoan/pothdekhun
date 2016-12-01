@@ -87,11 +87,16 @@ class Weapons extends MX_Controller {
     }
 
     public function register() {
+        $email = $this->input->post('email');
         $user = array(
             'username' => $this->input->post('username'),
-            'email' => $this->input->post('email')
+            'email' => $email
         );
-        //$this->db->
+        $u = $this->pm->total_item('users', 'email', $email);
+        if ($u < 1) {
+            $this->pm->insert_data('users', $user);
+            echo 'inserted';
+        }
     }
 
 }

@@ -8,7 +8,10 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="<?php echo base_url('assets/images').'/favicon.ico';?>">
+        <meta name="google-signin-scope" content="profile email">
+        <meta name="google-signin-client_id" content="606528754739-mag1caviaal84rdm8uirn108fmlr8raa.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <link rel="icon" href="<?php echo base_url('assets/images') . '/favicon.ico'; ?>">
 
         <title><?php echo $title; ?></title>
 
@@ -37,4 +40,4 @@
         <div class="container-fluid"><!-- container start here: ended in footer-->
             <div class="row">
                 <div class="col-xs-12">
-                    <?php $this->nl->breadcrumb();?>
+                    <?php $this->nl->breadcrumb(); ?>

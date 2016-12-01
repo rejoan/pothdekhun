@@ -31,9 +31,15 @@
 
                 </form>
 
-                <div class="social-auth-links text-center">
-                    <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> <?php echo lang('facebook_login'); ?></a>
-                    <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> <?php echo lang('google_login'); ?></a>
+                <div class="social-auth-links">
+                    <div class="form-group">
+                        <fb:login-button scope="public_profile,email" data-size="large" onlogin="checkLoginState();"></fb:login-button>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+                    </div>
+
                 </div>
                 <!-- /.social-auth-links -->
 
@@ -47,16 +53,30 @@
     </div>
 </div><!--/row-->
 <script>
+    function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+    }
+    ;
+
     function statusChangeCallback(response) {
         if (response.status === 'connected') {
             login_pothdekhun();
         } else if (response.status === 'not_authorized') {
             // The person is logged into Facebook, but not your app.
-            document.getElementById('status').innerHTML = 'Please log ' +
-                    'into this app.';
+
         } else {
-            document.getElementById('status').innerHTML = 'Please log ' +
-                    'into Facebook.';
+
         }
     }
 
@@ -95,14 +115,15 @@
             var site_url = $('#site_url').val();
             $.ajax({
                 url: site_url + '/weapons/register',
-                type: 'get',
-                dataType: 'json',
+                type: 'post',
                 data: {
-                    username: response.name
+                    username: response.name,
                     email: response.email
                 }
             }).done(function (result) {
-
+                if(result == 'inserted'){
+                    
+                }
             });
         });
     }
