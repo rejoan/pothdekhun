@@ -88,13 +88,21 @@ class Weapons extends MX_Controller {
 
     public function register() {
         $email = $this->input->post('email');
+        $username = $this->input->post('username');
         $user = array(
-            'username' => $this->input->post('username'),
+            'username' => $username,
             'email' => $email
         );
         $u = $this->pm->total_item('users', 'email', $email);
         if ($u < 1) {
-            $this->pm->insert_data('users', $user);
+            $user_id = $this->pm->insert_data('users', $user, TRUE);
+            $user_data = array(
+                'user_id' => $user_id,
+                'username' => $username,
+                'email' => $email,
+                'user_type' => 'user'
+            );
+            $this->session->set_userdata($user_data);
             echo 'inserted';
         }
     }
