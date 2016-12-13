@@ -64,6 +64,9 @@ class Auth extends MX_Controller {
      * @author Rejoanul Alam
      */
     public function login() {
+        if($this->session->user_id){
+            redirect_tr('profile');
+        }
         $this->load->library('form_validation');
         $data = array(
             'title' => lang('login'),
