@@ -26,7 +26,7 @@
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <div class="form-group">
-<!--                        <input type="hidden" name="<?php //echo $this->security->get_csrf_token_name();    ?>" value="<?php //echo $this->security->get_csrf_hash();    ?>" />-->
+<!--                        <input type="hidden" name="<?php //echo $this->security->get_csrf_token_name();             ?>" value="<?php //echo $this->security->get_csrf_hash();             ?>" />-->
                         <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('m_login'); ?>"/>
                     </div>
 
@@ -34,7 +34,7 @@
 
                 <div class="social-auth-links">
                     <div class="form-group">
-                        <a class="btn btn-block btn-social btn-facebook">
+                        <a id="fb_login" href="javascript:void(0)" class="btn btn-block btn-social btn-facebook">
                             <i class="fa fa-facebook"></i> Sign in with Facebook
                         </a>
                     </div>
@@ -59,7 +59,9 @@
 </div><!--/row-->
 <script>
     $(document).ready(function () {
-
+        $('#fb_login').click(function () {
+            fb_login();
+        });
     });
     function onSignIn(googleUser) {
         // Useful data for your client-side scripts:
@@ -76,23 +78,26 @@
         console.log("ID Token: " + id_token);
     }
     ;
+    function fb_login() {
+        FB.login(function (response) {
+            if (response.status === 'connected') {
+                var site_url = $('#site_url').val();
+                $.ajax({
+                    url: site_url + 'weapons/register',
+                    type: 'post',
+                    data: {
+                        email: response.email
+                    }
+                });
+                window.location.href = '<?php echo site_url_tr('profile'); ?>';
+            } else if (response.status === 'not_authorized') {
+                //login_pothdekhun();
+            } else {
 
-    function statusChangeCallback(response) {
-        if (response.status === 'connected') {
-            //login_pothdekhun();
-            //window.location.href = '<?php echo site_url_tr('profile'); ?>';
-        } else if (response.status === 'not_authorized') {
-            //login_pothdekhun();
-        } else {
-
-        }
+            }
+        }, {scope: 'public_profile,email'});
     }
 
-    function checkLoginState() {
-        FB.getLoginStatus(function (response) {
-            statusChangeCallback(response);
-        });
-    }
 
     window.fbAsyncInit = function () {
         FB.init({
@@ -100,10 +105,6 @@
             cookie: true,
             xfbml: true,
             version: 'v2.8'
-        });
-
-        FB.getLoginStatus(function (response) {
-            statusChangeCallback(response);
         });
 
     };
@@ -118,16 +119,4 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-    function login_pothdekhun() {
-        FB.api('/me?fields=email', function (response) {
-            var site_url = $('#site_url').val();
-            $.ajax({
-                url: site_url + 'weapons/register',
-                type: 'post',
-                data: {
-                    email: response.email
-                }
-            });
-        });
-    }
 </script>

@@ -116,7 +116,7 @@ class Nuts_lib {
      * @param int $user_type
      * @return boolean
      */
-    public function is_logged($redirect_url = 'authentication/login') {
+    public function is_logged($redirect_url = 'auth/login') {
         if ($this->CI->session->user_type) {
             return TRUE;
         } else {
