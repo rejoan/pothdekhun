@@ -15,6 +15,12 @@ class Profile extends MX_Controller {
     }
 
     public function index() {
+//        if($this->input->post('at')){
+//            $user = array(
+//                
+//            );
+//            $this->session->set_userdata($user);
+//        }
         $query = $this->db->select('p.first_name,p.last_name,p.about,p.occupation,p.thana,p.district,p.country,u.username,u.email,u.reputation,u.avatar')->from('users u')->join('profiles p', 'u.id = p.user_id', 'left')->where('u.id', $this->user_id)->get();
         //var_dump($this->session);return;
         $total_route = $this->db->where('added_by', $this->user_id)->get('routes')->num_rows();

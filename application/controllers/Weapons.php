@@ -106,7 +106,7 @@ class Weapons extends MX_Controller {
             'user_type' => 'user'
         );
         $this->session->set_userdata($user_data);
-        //redirect_tr('profile');
+        //var_dump($user_data);
     }
 
 }
