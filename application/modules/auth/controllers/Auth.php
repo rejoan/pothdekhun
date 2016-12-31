@@ -58,13 +58,87 @@ class Auth extends MX_Controller {
         $this->nl->view_loader('user', 'register', NULL, $data);
     }
 
+    public function back_check() {
+        include 'application/third_party/Facebook/autoload.php';
+        $fb = new Facebook\Facebook([
+            'app_id' => '913368875410866',
+            'app_secret' => '8d22aa1e325197ba9a766dc63f313210',
+            'default_graph_version' => 'v2.2',
+        ]);
+        $helper = $fb->getRedirectLoginHelper();
+
+        try {
+            $accessToken = $helper->getAccessToken();
+        } catch (Facebook\Exceptions\FacebookResponseException $e) {
+            // When Graph returns an error
+            echo 'Graph returned an error: ' . $e->getMessage();
+            exit;
+        } catch (Facebook\Exceptions\FacebookSDKException $e) {
+            // When validation fails or other local issues
+            echo 'Facebook SDK returned an error: ' . $e->getMessage();
+            exit;
+        }
+
+        if (!isset($accessToken)) {
+            if ($helper->getError()) {
+                header('HTTP/1.0 401 Unauthorized');
+//                echo "Error: " . $helper->getError() . "\n";
+//                echo "Error Code: " . $helper->getErrorCode() . "\n";
+//                echo "Error Reason: " . $helper->getErrorReason() . "\n";
+//                echo "Error Description: " . $helper->getErrorDescription() . "\n";
+                $this->session->set_flashdata('message', $helper->getErrorReason());
+                redirect_tr('auth/login');
+            } else {
+                header('HTTP/1.0 400 Bad Request');
+                echo 'Bad request';
+            }
+            exit;
+        }
+
+// Logged in
+
+        $token = $accessToken->getValue();
+
+        try {
+            $response = $fb->get('/me?fields=id,email', $token);
+        } catch (Facebook\Exceptions\FacebookResponseException $e) {
+            echo 'Graph returned an error: ' . $e->getMessage();
+            exit;
+        } catch (Facebook\Exceptions\FacebookSDKException $e) {
+            echo 'Facebook SDK returned an error: ' . $e->getMessage();
+            exit;
+        }
+        $guser = $response->getGraphUser();
+        $email = $guser->getEmail();
+        $user = array(
+            'email' => $email
+        );
+        $u = $this->pm->total_item('users', 'email', $email);
+        if ($u < 1) {
+            $this->db->set('reg_date', 'NOW()', FALSE);
+            $user_id = $this->pm->insert_data('users', $user, TRUE);
+        } else {
+            $user = $this->pm->get_row('email', $email, 'users');
+            $user_id = $user['id'];
+        }
+        $user_data = array(
+            'user_id' => $user_id,
+            'username' => $email,
+            'email' => $email,
+            'user_type' => 'user'
+        );
+        $this->session->set_userdata($user_data);
+        
+    }
+
     /**
      * Showing login form
      * @todo captcha integration for failed try
      * @author Rejoanul Alam
      */
     public function login() {
-        if($this->session->user_id){
+
+        if ($this->session->user_id) {
             redirect_tr('profile');
         }
         $this->load->library('form_validation');

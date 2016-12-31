@@ -85,28 +85,4 @@ class Weapons extends MX_Controller {
         $thanas = $query->result_array();
         echo json_encode($thanas, JSON_UNESCAPED_UNICODE);
     }
-
-    public function register() {
-        $email = $this->input->post('email');
-        $user = array(
-            'email' => $email
-        );
-        $u = $this->pm->total_item('users', 'email', $email);
-        if ($u < 1) {
-            $this->db->set('reg_date', 'NOW()', FALSE);
-            $user_id = $this->pm->insert_data('users', $user, TRUE);
-        }else{
-            $user = $this->pm->get_row('email', $email,'users');
-            $user_id = $user['id'];
-        }
-        $user_data = array(
-            'user_id' => $user_id,
-            'username' => $email,
-            'email' => $email,
-            'user_type' => 'user'
-        );
-        $this->session->set_userdata($user_data);
-        //var_dump($user_data);
-    }
-
 }

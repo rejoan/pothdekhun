@@ -1,5 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 $message = $this->session->flashdata('message');
 if ($message) {
     echo '<div class="alert alert-info">' . $message . '</div>';
