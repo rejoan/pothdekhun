@@ -129,6 +129,10 @@ class Auth extends MX_Controller {
         $this->session->set_userdata($user_data);
         redirect_tr('profile');
     }
+    
+    public function g_back_check(){
+        
+    }
 
     /**
      * Showing login form
