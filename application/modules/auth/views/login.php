@@ -16,6 +16,15 @@
 
                     $permissions = ['email']; // Optional permissions
                     $loginUrl = $helper->getLoginUrl('http://localhost/pothdekhun/auth/back_check', $permissions);
+
+                    require_once 'application/third_party/Google/autoload.php';
+
+                    $client = new Google_Client();
+                    $client->setAuthConfig('application/third_party/Google/client_secret.json');
+                    $client->setScopes(array(Google_Service_Plus::PLUS_ME));
+
+                    $client->setDeveloperKey('AIzaSyDUqpNBK-QljTLbv99d7W__0ZDCrgR9HNE');
+                    $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
                     $message = $this->session->flashdata('message');
                     if ($message) {
                         echo '<div class="alert alert-info">' . $message . '</div>';
@@ -35,7 +44,7 @@
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <div class="form-group">
-<!--                        <input type="hidden" name="<?php //echo $this->security->get_csrf_token_name();                                  ?>" value="<?php //echo $this->security->get_csrf_hash();                                  ?>" />-->
+<!--                        <input type="hidden" name="<?php //echo $this->security->get_csrf_token_name();                                   ?>" value="<?php //echo $this->security->get_csrf_hash();                                   ?>" />-->
                         <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('m_login'); ?>"/>
                     </div>
 
@@ -49,7 +58,7 @@
                     </div>
 
                     <div class="form-group">
-                        <a class="btn btn-block btn-social btn-google">
+                        <a class="btn btn-block btn-social btn-google" href="<?php echo $redirect_uri; ?>">
                             <i class="fa fa-google-plus" style="left:2px;"></i> Sign in with Google
                         </a>
                     </div>

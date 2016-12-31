@@ -84,7 +84,6 @@ class Auth extends MX_Controller {
                 header('HTTP/1.0 401 Unauthorized');
 //                echo "Error: " . $helper->getError() . "\n";
 //                echo "Error Code: " . $helper->getErrorCode() . "\n";
-//                echo "Error Reason: " . $helper->getErrorReason() . "\n";
 //                echo "Error Description: " . $helper->getErrorDescription() . "\n";
                 $this->session->set_flashdata('message', $helper->getErrorReason());
                 redirect_tr('auth/login');
@@ -102,14 +101,14 @@ class Auth extends MX_Controller {
         try {
             $response = $fb->get('/me?fields=id,email', $token);
         } catch (Facebook\Exceptions\FacebookResponseException $e) {
-            echo 'Graph returned an error: ' . $e->getMessage();
-            exit;
+            $this->session->set_flashdata('message', $e->getMessage());
+            redirect_tr('auth/login');
         } catch (Facebook\Exceptions\FacebookSDKException $e) {
-            echo 'Facebook SDK returned an error: ' . $e->getMessage();
-            exit;
+            $this->session->set_flashdata('message', $e->getMessage());
+            redirect_tr('auth/login');
         }
         $guser = $response->getGraphUser();
-        $email = $guser->getEmail();
+        $email = $guser['email'];
         $user = array(
             'email' => $email
         );
@@ -128,7 +127,7 @@ class Auth extends MX_Controller {
             'user_type' => 'user'
         );
         $this->session->set_userdata($user_data);
-        
+        redirect_tr('profile');
     }
 
     /**
