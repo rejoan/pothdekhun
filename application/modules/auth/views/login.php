@@ -17,14 +17,16 @@
                     $permissions = ['email']; // Optional permissions
                     $loginUrl = $helper->getLoginUrl('http://localhost/pothdekhun/auth/back_check', $permissions);
 
-                    require_once 'application/third_party/Google/autoload.php';
+                    require_once 'application/third_party/Google/src/Google/autoload.php';
 
+                    $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/pothdekhun/auth/g_back_check';
                     $client = new Google_Client();
-                    $client->setAuthConfig('application/third_party/Google/client_secret.json');
-                    $client->setScopes(array(Google_Service_Plus::PLUS_ME));
+                    $client->setAuthConfig('{"web":{"client_id":"606528754739-mag1caviaal84rdm8uirn108fmlr8raa.apps.googleusercontent.com","project_id":"pothdekhun","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://accounts.google.com/o/oauth2/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"zUTpLr4DVuHXor60GRDkXk9r","javascript_origins":["http://localhost"]}}');
+                    $client->setRedirectUri($redirect_uri);
+                    $client->setScopes('email');
+                    $auth_url = $client->createAuthUrl();
 
-                    $client->setDeveloperKey('AIzaSyDUqpNBK-QljTLbv99d7W__0ZDCrgR9HNE');
-                    $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+                    //$client->setDeveloperKey('AIzaSyDUqpNBK-QljTLbv99d7W__0ZDCrgR9HNE');
                     $message = $this->session->flashdata('message');
                     if ($message) {
                         echo '<div class="alert alert-info">' . $message . '</div>';
@@ -44,7 +46,7 @@
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <div class="form-group">
-<!--                        <input type="hidden" name="<?php //echo $this->security->get_csrf_token_name();                                   ?>" value="<?php //echo $this->security->get_csrf_hash();                                   ?>" />-->
+<!--                        <input type="hidden" name="<?php //echo $this->security->get_csrf_token_name();                                     ?>" value="<?php //echo $this->security->get_csrf_hash();                                     ?>" />-->
                         <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('m_login'); ?>"/>
                     </div>
 
@@ -58,7 +60,7 @@
                     </div>
 
                     <div class="form-group">
-                        <a class="btn btn-block btn-social btn-google" href="<?php echo $redirect_uri; ?>">
+                        <a class="btn btn-block btn-social btn-google" href="<?php echo $auth_url; ?>">
                             <i class="fa fa-google-plus" style="left:2px;"></i> Sign in with Google
                         </a>
                     </div>

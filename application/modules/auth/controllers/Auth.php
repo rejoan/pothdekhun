@@ -130,6 +130,31 @@ class Auth extends MX_Controller {
         redirect_tr('profile');
     }
 
+    public function g_back_check() {
+        require_once 'application/third_party/Google/src/Google/autoload.php';
+
+        $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/pothdekhun/auth/g_back_check';
+        $client = new Google_Client();
+        $client->setAuthConfig('{"web":{"client_id":"606528754739-mag1caviaal84rdm8uirn108fmlr8raa.apps.googleusercontent.com","project_id":"pothdekhun","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://accounts.google.com/o/oauth2/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"zUTpLr4DVuHXor60GRDkXk9r","javascript_origins":["http://localhost"]}}');
+        $client->setRedirectUri($redirect_uri);
+        $client->setScopes('email');
+        if (isset($_REQUEST['logout'])) {
+            unset($_SESSION['id_token_token']);
+        }
+
+        $client->authenticate($_GET['code']);
+
+        $access_token = $client->getAccessToken();
+        $access_token = json_decode($access_token);
+//        if ($access_token) {
+//            $token_data = $client->verifyIdToken();
+//        }
+        $userDetails = file_get_contents('https://www.googleapis.com/oauth2/v1/userinfo?access_token=' . $access_token->access_token);
+        $userData = json_decode($userDetails);
+
+        var_dump($userData->email);
+    }
+
     /**
      * Showing login form
      * @todo captcha integration for failed try
