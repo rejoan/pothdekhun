@@ -129,7 +129,7 @@ class Auth extends MX_Controller {
         $this->session->set_userdata($user_data);
         redirect_tr('profile');
     }
-
+    
     public function g_back_check() {
         require_once 'application/third_party/Google/src/Google/autoload.php';
 
