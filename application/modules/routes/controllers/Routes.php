@@ -24,7 +24,7 @@ class Routes extends MX_Controller {
             'name' => $this->nl->lang_based_data('bn_name', 'name'),
             'districts' => $this->pm->get_data('districts'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1),
-            'action_transport' => site_url_tr('transports/index'),
+            'action_transport' => site_url_tr('search/routes'),
             'search_action' => site_url_tr('search/index')
         );
         $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
