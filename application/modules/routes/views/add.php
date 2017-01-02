@@ -219,7 +219,7 @@
 
                                 echo lang('after_while') == $this->input->post('type') ? 'selected="yes"' : '';
                             } elseif (isset($route['departure_time'])) {
-                                echo $route['departure_time'] == lang('after_while') ? 'selected="yes"' : '';
+                                echo $route['departure_time'] == 1 ? 'selected="yes"' : '';
                             }
                             ?>><?php echo lang('after_while'); ?></option>
                             <option value="perticular" <?php
@@ -227,7 +227,7 @@
                                 echo lang('after_while') != $this->input->post('type') ? 'selected="yes"' : '';
                             } elseif (isset($route['departure_time'])) {
 
-                                echo $route['departure_time'] != lang('after_while') ? 'selected="yes"' : '';
+                                echo $route['departure_time'] == 2 ? 'selected="yes"' : '';
                             }
                             ?>><?php echo lang('perticular_time'); ?></option>
                         </select>
@@ -235,7 +235,7 @@
                 </div>
 
                 <?php if (isset($route['departure_time'])): ?>
-                    <?php if ($route['departure_time'] !== 'কিছুক্ষর পরপর'): ?>
+                    <?php if ($route['departure_time'] == 2): ?>
 
                         <div id="departure_dynamic" class="form-group">
                             <label class="col-sm-3 control-label"></label>

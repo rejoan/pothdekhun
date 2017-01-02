@@ -70,7 +70,7 @@ class Routes extends MX_Controller {
             $departure_time = $this->input->post('departure_time', TRUE);
             $main_rent = trim($this->input->post('main_rent', TRUE));
 
-            if ($departure_time == 'perticular') {
+            if ($departure_time == 2) {
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
             }
 
@@ -182,6 +182,7 @@ class Routes extends MX_Controller {
         $alias = 'r';
         $stopage_table = 'stoppages';
         $route_table = 'routes';
+        //var_dump($this->session->lang_code);return;
         if ($this->session->lang_code == 'bn') {
             $alias = 'rt';
             $stopage_table = 'stoppage_bn';
@@ -211,7 +212,7 @@ class Routes extends MX_Controller {
             'districts' => $this->pm->get_data('districts'),
             'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $route['from_district']),
             'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $route['to_district']),
-            'action' => site_url('routes/edit/' . $route_id),
+            'action' => site_url_tr('routes/edit/' . $route_id),
             'countries' => get_countries(),
             'route' => $route,
             'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', $route_id)
@@ -229,7 +230,7 @@ class Routes extends MX_Controller {
             }
 
             $departure_time = $this->input->post('departure_time', TRUE);
-            if ($departure_time == 'perticular') {
+            if ($departure_time == 2) {// if perticular time
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
             }
 
