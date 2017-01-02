@@ -444,7 +444,8 @@ class Nuts_lib {
     public function get_lat_long($address, $country) {
         $adds = str_replace(' ', '+', trim($address));
         $lat_long = array();
-        $json = file_get_contents('http://maps.google.com/maps/api/geocode/json?address=' . $adds . '&sensor=false&region=' . $country);
+        //$json = file_get_contents('http://maps.google.com/maps/api/geocode/json?address=' . $adds . '&sensor=false&region=' . $country);
+        $json = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $adds . ','.$country.'&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg');
 
         $json = json_decode($json);
         //var_dump($json->results);return;

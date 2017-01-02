@@ -170,13 +170,25 @@ class Prime_model extends CI_Model {
      * @param type $user_id
      * @return type
      */
-    public function get_transport_id($transport_name, $user_id) {
+    public function get_transport_id($transport_name, $user_id, $add = TRUE) {
         $transport = $this->pm->get_row('name', $transport_name, 'poribohons', TRUE);
         if (empty($transport)) {
-            $transport_data = array(
-                'name' => $transport_name,
-                'added_by' => $user_id
-            );
+            if ($add) {
+                $transport_data = array(
+                    'name' => $transport_name,
+                    'bn_name' => $transport_name,
+                    'added_by' => $user_id
+                );
+            } else {
+                $col_name = 'name';
+                if ($this->session->lang_code == 'bn') {
+                    $col_name = 'bn_name';
+                }
+                $transport_data = array(
+                    $col_name => $transport_name,
+                    'added_by' => $user_id
+                );
+            }
             $this->db->set('added', 'NOW()', FALSE);
             $transport_id = $this->pm->insert_data('poribohons', $transport_data, TRUE);
         } else {
