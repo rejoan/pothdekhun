@@ -135,7 +135,6 @@ class Routes extends MX_Controller {
             $route_bn = array(
                 'from_place' => $from,
                 'to_place' => $to,
-                'vehicle_name' => $transport_name,
                 'departure_time' => $departure_time,
                 'route_id' => $route_id
             );
@@ -164,7 +163,7 @@ class Routes extends MX_Controller {
                 $this->db->insert_batch('stoppages', $stoppages);
                 $this->db->insert_batch('stoppage_bn', $stoppages);
             }
-            $this->session->set_flashdata('message', lang('save_success'));
+            $this->session->set_flashdata('message', lang('route_save_success'));
             redirect_tr('routes/all');
         }
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
@@ -345,6 +344,9 @@ class Routes extends MX_Controller {
         $this->nl->view_loader('user', 'details', NULL, $data, 'latest', 'rightbar');
     }
 
+    /**
+     * all routes list GRID
+     */
     public function all() {
         $total_rows = $this->db->get('routes')->num_rows();
         $per_page = 10;
@@ -371,6 +373,10 @@ class Routes extends MX_Controller {
         $this->pm->deleter('id', $id, 'routes');
         $this->session->set_flashdata('message', lang('success_delete'));
         redirect_tr('routes/all');
+    }
+
+    public function translate($id) {
+        
     }
 
 }

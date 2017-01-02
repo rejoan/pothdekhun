@@ -2,7 +2,7 @@
 <div id="route_detail" class="col-xs-12 col-md-6">
     <div class="box box-poth">
         <div class="box-header with-border">
-            <h4><?php echo lang('route_info') . ': <span class="label label-info">' . $route['from_place'] . ', '.$route[$this->nl->lang_based_data('bn_name','name')].'</span> ' . lang('from_view') . ' <span class="label label-info">' . $route['to_place'] . ', '.$route[$this->nl->lang_based_data('td_bn_name','td_name')].'</span>'; ?></h4>
+            <h4><?php echo lang('route_info') . ': <span class="label label-info">' . $route['from_place'] . ', '.$route[$this->nl->lang_based_data('district_name_bn','district_name')].'</span> ' . lang('from_view') . ' <span class="label label-info">' . $route['to_place'] . ', '.$route[$this->nl->lang_based_data('td_bn_name','td_name')].'</span>'; ?></h4>
         </div>
         <div class="box-body">
             <h4><?php echo lang('transport_type'); ?></h4>
@@ -13,6 +13,9 @@
             <hr/>
             <h4><?php echo lang('departure_place'); ?></h4>
             <strong><?php echo $route['to_place']; ?></strong>
+            <hr/>
+            <h4><?php echo lang('destination_place'); ?></h4>
+            <strong><?php echo $route['from_place']; ?></strong>
             <hr/>
             <h4><?php echo lang('main_rent'); ?></h4>
             <strong><?php echo $route['rent']; ?></strong>
@@ -48,7 +51,7 @@
         <div class="box-footer">
             <a href="javascript:void(0);" class="btn btn-info"><?php echo lang('verify_button'); ?></a>
             <a href="javascript:void(0);" class="btn btn-info"><?php echo lang('verify_button_non'); ?></a>
-             <a href="<?php echo site_url_tr();?>" class="btn btn-info"><?php echo lang('translate'); ?></a>
+             <a href="<?php echo site_url_tr('routes/translate').'/'.$route['r_id'];?>" class="btn btn-info"><?php echo lang('translate'); ?></a>
             <hr/>
             <a href="<?php echo site_url('routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-block btn-info"><?php echo lang('edit_lang') . ' ' . lang('info_of'); ?></a>            <hr/>
             <?php if ($this->session->type > 1): ?>

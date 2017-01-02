@@ -35,20 +35,11 @@ class Search extends MX_Controller {
 
         $routes = $this->sm->get_routes($from_district, $from_place, $to_district, $to_place);
 
-        $total_rows = $this->sm->get_routes($from_district, $from_place, $to_district, $to_place, TRUE);
-        $per_page = 10;
-        $num_links = 5;
-
-        if ($this->input->get('page')) {
-            $sgm = (int) trim($this->input->get('page'));
-            $segment = $per_page * ($sgm - 1);
-        } else {
-            $segment = 0;
-        }
         $data = array(
             'title' => lang('transport'),
             'routes' => $routes,
-            'links' => $this->nl->generate_pagination('search/routes', $total_rows, $per_page, $num_links)
+            'links' => '',
+            'segment' => 0
         );
         $this->nl->view_loader('user', 'routes', 'routes', $data, 'latest', 'rightbar');
     }
