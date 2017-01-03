@@ -180,11 +180,13 @@ class Routes extends MX_Controller {
         $alias = 'r';
         $stopage_table = 'stoppages';
         $route_table = 'routes';
+        $rid = 'id';
         //var_dump($this->session->lang_code);return;
         if ($this->session->lang_code == 'bn') {
             $alias = 'rt';
             $stopage_table = 'stoppage_bn';
             $route_table = 'route_bn';
+            $rid = 'route_id';
         }
 
         if (!empty($id)) {
@@ -262,22 +264,24 @@ class Routes extends MX_Controller {
 
 
             $route = array(
-                'from_district' => $fd,
-                'from_thana' => $ft,
-                'to_district' => $td,
-                'to_thana' => $th,
                 'from_place' => $from,
                 'to_place' => $to,
-                'poribohon_id' => $transport_id,
-                'transport_type' => $this->input->post('transport_type', TRUE),
-                'departure_time' => $departure_time,
-                'rent' => $this->input->post('main_rent', TRUE),
-                'evidence' => $evidence_name,
-                'added_by' => $this->user_id
+                'departure_time' => $departure_time
             );
 
+            if ($route_table == 'routes') {
+                $route['from_district'] = $fd;
+                $route['from_thana'] = $ft;
+                $route['to_district'] = $td;
+                $route['to_thana'] = $th;
+                $route['poribohon_id'] = $transport_id;
+                $route['transport_type'] = $th;
+                $route['rent'] = $this->input->post('main_rent', TRUE);
+                $route['evidence'] = $evidence_name;
+                $route['added_by'] = $this->user_id;
+                $this->db->set('added', 'NOW()', FALSE);
+            }
 
-            $this->db->set('added', 'NOW()', FALSE);
             if ($this->session->user_type == 'admin') {//if admin then direct approve/update
                 $faddress = $this->get_address($ft, $fd, $from);
                 $taddress = $this->get_address($th, $td, $to);
@@ -287,7 +291,8 @@ class Routes extends MX_Controller {
                     $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
                     $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
                 }
-                $this->pm->updater('id', $route_id, $route_table, $route);
+                $this->pm->updater($rid, $route_id, $route_table, $route);
+                //echo $this->db->last_query();
             } else {// send to temp table for review
                 $edit_info = array(
                     'route_id' => $route_id,

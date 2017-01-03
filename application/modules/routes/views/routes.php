@@ -28,8 +28,8 @@
                         <?php foreach ($routes as $r):$segment++; ?>
                             <tr>
                                 <th><?php echo $segment; ?></th>
-                                <td><?php echo $r['from_place']; ?></td>
-                                <td><?php echo $r['to_place']; ?></td>
+                                <td><?php echo $r[$this->nl->lang_based_data('fp_bn','from_place')]; ?></td>
+                                <td><?php echo $r[$this->nl->lang_based_data('tp_bn','to_place')]; ?></td>
                                 <td><?php echo $r['transport_type']; ?></td>
                                 <td><?php echo $r['added']; ?></td>
 <!--                                <td><?php echo $r['is_publish'] == '0' ? '<small class="label label-danger">No</small>' : '<small class="label label-success">Yes</small>'; ?></td>-->
