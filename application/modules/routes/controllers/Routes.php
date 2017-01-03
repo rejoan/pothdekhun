@@ -262,23 +262,27 @@ class Routes extends MX_Controller {
             $to = trim($this->input->post('t', TRUE));
             //get thana and district name to get lat long data
 
-
-            $route = array(
-                'from_place' => $from,
-                'to_place' => $to,
-                'departure_time' => $departure_time
-            );
-
-            if ($route_table == 'routes') {
-                $route['from_district'] = $fd;
-                $route['from_thana'] = $ft;
-                $route['to_district'] = $td;
-                $route['to_thana'] = $th;
-                $route['poribohon_id'] = $transport_id;
-                $route['transport_type'] = $th;
-                $route['rent'] = $this->input->post('main_rent', TRUE);
-                $route['evidence'] = $evidence_name;
-                $route['added_by'] = $this->user_id;
+            if ($this->session->lang_code == 'bn' && $this->session->user_type == 'admin') {
+                $route = array(
+                    'from_place' => $from,
+                    'to_place' => $to,
+                    'departure_time' => $departure_time
+                );
+            } else {
+                $route = array(
+                    'from_place' => $from,
+                    'to_place' => $to,
+                    'departure_time' => $departure_time,
+                    'from_district' => $fd,
+                    'from_thana' => $ft,
+                    'to_district' => $td,
+                    'to_thana' => $th,
+                    'poribohon_id' => $transport_id,
+                    'transport_type' => $th,
+                    'rent' => $this->input->post('main_rent', TRUE),
+                    'evidence' => $evidence_name,
+                    'added_by' => $this->user_id,
+                );
                 $this->db->set('added', 'NOW()', FALSE);
             }
 
@@ -357,11 +361,11 @@ class Routes extends MX_Controller {
         } else {
             show_404();
         }
-        $alias = 'rt';
+        $alias = 'r';
         $stopage_table = 'stoppages';
         $lang_url = '/bn/';
         if ($this->session->lang_code == 'bn') {
-            $alias = 'r';
+            $alias = 'rt';
             $stopage_table = 'stoppage_bn';
             $lang_url = '';
         }

@@ -75,7 +75,7 @@
                         } elseif ($this->input->post('f')) {
                             echo $this->input->post('f');
                         }
-                        ?>" placeholder="<?php echo lang('device_from'); ?>">
+                        ?>" placeholder="<?php echo lang('device_from'); ?>" autocomplete="off">
                         <div id="suggestion" class="list-group">
 
                         </div>
@@ -132,7 +132,7 @@
                         } elseif ($this->input->post('t')) {
                             echo $this->input->post('t');
                         }
-                        ?>" placeholder="<?php echo lang('device_to'); ?>">
+                        ?>" placeholder="<?php echo lang('device_to'); ?>" autocomplete="off">
                         <div id="suggestion_to" class="list-group">
 
                         </div>
