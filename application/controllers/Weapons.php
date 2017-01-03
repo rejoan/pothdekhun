@@ -50,23 +50,23 @@ class Weapons extends MX_Controller {
             $filter_thana = $fil_thana = '';
         }
 
-
-        $sql = 'SELECT Location FROM (
-                    SELECT to_place as Location,route_id FROM route_bn
-                    UNION ALL
-                    SELECT from_place,route_id FROM route_bn
-                      ) as rtn JOIN routes ON routes.id = rtn.route_id
-                    WHERE ' . $fil_dist . $fil_thana . ' 
+        $sql = 'SELECT * FROM (
+                    SELECT to_place as Location FROM routes ' . $filter_district . $filter_thana . '
+                    UNION DISTINCT
+                    SELECT from_place FROM routes
+                      ) as rtn
                     ORDER BY CASE WHEN
                      Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
                     LIMIT 8';
 
+
         if ($this->session->lang_code == 'bn') {
-            $sql = 'SELECT * FROM (
-                    SELECT to_place as Location FROM routes ' . $filter_district . $filter_thana . '
-                    UNION ALL
-                    SELECT from_place FROM routes
-                      ) as rtn
+            $sql = 'SELECT Location FROM (
+                    SELECT to_place as Location,route_id FROM route_bn
+                    UNION DISTINCT
+                    SELECT from_place,route_id FROM route_bn
+                      ) as rtn JOIN routes ON routes.id = rtn.route_id
+                    WHERE ' . $fil_dist . $fil_thana . ' 
                     ORDER BY CASE WHEN
                      Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
                     LIMIT 8';
@@ -85,4 +85,5 @@ class Weapons extends MX_Controller {
         $thanas = $query->result_array();
         echo json_encode($thanas, JSON_UNESCAPED_UNICODE);
     }
+
 }

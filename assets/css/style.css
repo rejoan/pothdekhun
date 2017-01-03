@@ -67,13 +67,17 @@ footer {
 .dropdown:hover .dropdown-menu {
     display: block;
     margin-top: 0;
- }
- .open{
-     z-index: 9999;
- }
- .breadcrumb{
-     background-color: #eee;
- }
- .margin_top{
-     margin-top: 5px;
- }
+}
+.open{
+    z-index: 9999;
+}
+.breadcrumb{
+    background-color: #eee;
+}
+.margin_top{
+    margin-top: 5px;
+}
+
+#suggestion a.selected, #suggestion_to a.selected{
+    background: #eee;
+}

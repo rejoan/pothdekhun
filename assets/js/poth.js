@@ -3,7 +3,11 @@ $(document).ready(function () {
     $('input[type=file]').bootstrapFileInput();
     $('[data-toggle="tooltip"]').tooltip();
     var xhr = null;
-    $('.search_place').on('keyup', function (e) {
+    $('.search_place').keyup(function (e) {
+        var key = e.keyCode;
+        if (key == 40 || key == 38 || key == 13) {
+            return false;
+        }
         if (xhr !== null) {
             xhr.abort();
             xhr = null;
@@ -38,6 +42,43 @@ $(document).ready(function () {
             }
             $(this).next().show().html(cm);
         });
+    });
+
+    $('.search_place').keydown(function (e) {
+        var sugesstion_id = $(this).next().prop('id');
+        //alert(sugesstion_id);
+        var listItems = $('#' + sugesstion_id + ' a');
+        var key = e.keyCode,
+                selected = listItems.filter('.selected'),
+                current;
+        if (key != 40 && key != 38 && key != 13)
+            return;
+
+        //listItems.removeClass('selected');
+
+        if (key == 40) // Down key
+        {
+            listItems.removeClass('selected');
+            if (!selected.length || selected.is(':last-child')) {
+                current = listItems.eq(0);
+            } else {
+                current = selected.next();
+            }
+        } else if (key == 38) // Up key
+        {
+            listItems.removeClass('selected');
+            if (!selected.length || selected.is(':first-child')) {
+                current = listItems.last();
+            } else {
+                current = selected.prev();
+            }
+        } else if (key == 13) // Enter key
+        {
+            current = listItems.filter('.selected');
+            current.trigger('click');
+            return false;
+        }
+        current.addClass('selected');
     });
 
     $('input[name="evidence"]').change(function () {
