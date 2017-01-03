@@ -103,16 +103,14 @@ class Routes extends MX_Controller {
 
             $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id);
             //get thana and district name to get lat long data
-            $f_thana = $this->pm->get_row('id', $ft, 'thanas');
-            $f_district = $this->pm->get_row('id', $fd, 'districts');
-            $faddress = $from . ',' . $f_thana['name'] . ',' . $f_district['name'];
-            $t_thana = $this->pm->get_row('id', $th, 'thanas');
-            $t_district = $this->pm->get_row('id', $td, 'districts');
-            $taddress = $to . ',' . $t_thana['name'] . ',' . $t_district['name'];
+            $faddress = $this->get_address($ft, $fd, $from);
+
+            $taddress = $this->get_address($th, $td, $to);
+
             $floc = $this->nl->get_lat_long($faddress, 'Bangladesh');
             $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh');
             //lat long end
-
+            //var_dump($floc,$tloc);return;
             $route = array(
                 'from_district' => $from_district,
                 'from_thana' => $from_thana,
@@ -128,8 +126,8 @@ class Routes extends MX_Controller {
                 'added_by' => $this->user_id
             );
             if (!empty($floc) && !empty($tloc)) {//if lat long data found
-                $data['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
-                $data['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
+                $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
+                $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
             }
             $this->db->set('added', 'NOW()', FALSE);
             $this->db->insert('routes', $route);
@@ -262,28 +260,6 @@ class Routes extends MX_Controller {
             $to = trim($this->input->post('t', TRUE));
             //get thana and district name to get lat long data
 
-            $f_thana = $this->pm->get_row('id', $ft, 'thanas');
-            $t_thana = $this->pm->get_row('id', $th, 'thanas');
-            $fth_name = ',' . $f_thana['name'];
-            if ($fd == 1) {
-                $fth_name = '';
-            }
-
-            $tth_name = ',' . $t_thana['name'];
-            if ($td == 1) {
-                $tth_name = '';
-            }
-            $f_district = $this->pm->get_row('id', $fd, 'districts');
-            $faddress = $from . $fth_name . ',' . $f_district['name'];
-
-
-            $t_district = $this->pm->get_row('id', $td, 'districts');
-            $taddress = $to . $tth_name . ',' . $t_district['name'];
-            $floc = $this->nl->get_lat_long($faddress, 'Bangladesh');
-            $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh');
-            //lat long end
-//            var_dump($f_thana, $faddress, $floc, $tloc);
-//            return;
 
             $route = array(
                 'from_district' => $fd,
@@ -299,13 +275,18 @@ class Routes extends MX_Controller {
                 'evidence' => $evidence_name,
                 'added_by' => $this->user_id
             );
-            if (!empty($floc) && !empty($tloc)) {//if lat long data found
-                $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
-                $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
-            }
+
 
             $this->db->set('added', 'NOW()', FALSE);
             if ($this->session->user_type == 'admin') {//if admin then direct approve/update
+                $faddress = $this->get_address($ft, $fd, $from);
+                $taddress = $this->get_address($th, $td, $to);
+                $floc = $this->nl->get_lat_long($faddress, 'Bangladesh');
+                $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh');
+                if (!empty($floc) && !empty($tloc)) {//if lat long data found
+                    $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
+                    $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
+                }
                 $this->pm->updater('id', $route_id, $route_table, $route);
             } else {// send to temp table for review
                 $edit_info = array(
@@ -347,6 +328,18 @@ class Routes extends MX_Controller {
             redirect_tr('routes/all');
         }
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+    }
+
+    public function get_address($thana_id, $district_id, $mini_address) {
+        $thana = $this->pm->get_row('id', $thana_id, 'thanas');
+        $th_name = ',' . $thana['name'];
+        if ($district_id == 1) {
+            $th_name = '';
+        }
+
+        $district = $this->pm->get_row('id', $district_id, 'districts');
+        $address = $mini_address . $th_name . ',' . $district['name'];
+        return $address;
     }
 
     /**

@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  *
  */
-class Route_manager extends CI_Controller {
+class Route_manager extends MX_Controller {
 
     private $user_id;
 
@@ -89,16 +89,29 @@ class Route_manager extends CI_Controller {
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
             }
 
+            $fd = trim($this->input->post('fd', TRUE));
+            $ft = trim($this->input->post('ft', TRUE));
+            $td = trim($this->input->post('td', TRUE));
+            $th = trim($this->input->post('th', TRUE));
+            $from = trim($this->input->post('f', TRUE));
+            $to = trim($this->input->post('t', TRUE));
+
+            $faddress = modules::run('routes/get_address', $ft, $fd, $from);
+
+            $taddress = modules::run('routes/get_address', $th, $td, $to);
+            $floc = $this->nl->get_lat_long($faddress, 'Bangladesh');
+            $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh');
+            //var_dump($floc,$faddress);return;
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
             $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id);
 
             $route = array(
-                'from_district' => trim($this->input->post('fd', TRUE)),
-                'from_thana' => trim($this->input->post('ft', TRUE)),
-                'to_district' => trim($this->input->post('td', TRUE)),
-                'to_thana' => trim($this->input->post('th', TRUE)),
-                'from_place' => trim($this->input->post('f', TRUE)),
-                'to_place' => trim($this->input->post('t', TRUE)),
+                'from_district' => $fd,
+                'from_thana' => $ft,
+                'to_district' => $td,
+                'to_thana' => $th,
+                'from_place' => $from,
+                'to_place' => $to,
                 'poribohon_id' => $transport_id,
                 'transport_type' => $this->input->post('transport_type', TRUE),
                 'departure_time' => $departure_time,
@@ -106,6 +119,10 @@ class Route_manager extends CI_Controller {
                 'evidence' => $this->input->post('edited_file'),
                 'added_by' => $this->user_id
             );
+            if (!empty($floc) && !empty($tloc)) {//if lat long data found
+                $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
+                $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
+            }
             $this->db->set('added', 'NOW()', FALSE);
             $this->pm->updater('id', $route_id, $route_table, $route);
 
