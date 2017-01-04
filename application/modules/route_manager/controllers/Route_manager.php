@@ -53,10 +53,11 @@ class Route_manager extends MX_Controller {
         $route_table = 'routes';
         $stoppage_table = 'stoppages';
         $prev_route = $this->rmn->get_route($route_id); //english lang route
+        $rid = 'id';
         if ($edited_route['lang_code'] == 'bn') {
             $route_table = 'route_bn';
             $stoppage_table = 'stoppage_bn';
-
+            $rid = 'route_id';
             //if edit in bengali then get translated data from route_bn table with main table
             $prev_route = $this->rmn->get_row($route_id);
         }
@@ -126,14 +127,14 @@ class Route_manager extends MX_Controller {
                     'evidence' => $this->input->post('edited_file'),
                     'added_by' => $this->user_id,
                 );
+                if (!empty($floc) && !empty($tloc)) {//if lat long data found
+                    $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
+                    $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
+                }
                 $this->db->set('added', 'NOW()', FALSE);
             }
-            if (!empty($floc) && !empty($tloc)) {//if lat long data found
-                $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
-                $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
-            }
-            $this->db->set('added', 'NOW()', FALSE);
-            $this->pm->updater('id', $route_id, $route_table, $route);
+
+            $this->pm->updater($rid, $route_id, $route_table, $route);
 
 
             //stoppage data process

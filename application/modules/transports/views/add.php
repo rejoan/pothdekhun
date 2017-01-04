@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label"><?php echo lang('total_vehicles'); ?></label>
+                        <label class="col-sm-3 control-label"><?php echo lang('total_vehicle'); ?></label>
                         <div class="col-xs-10 col-md-6">
                             <input name="total_vehicle" class="form-control rent" value="<?php
                             if ($this->input->post('total_vehicle')) {

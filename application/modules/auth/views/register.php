@@ -36,7 +36,7 @@
                     <?php echo form_error('password', '<div class="alert alert-danger">', '</div>'); ?>
                     <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('register_button');?>"/>
                 </form>
-                <a href="<?php echo site_url('users/login'); ?>" class="text-center"><?php echo lang('login_link'); ?></a>
+                <a href="<?php echo site_url('auth/login'); ?>" class="text-center"><?php echo lang('login_link'); ?></a>
 
             </div>
             <!-- /.login-box-body -->
