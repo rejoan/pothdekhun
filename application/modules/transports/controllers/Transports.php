@@ -18,6 +18,9 @@ class Transports extends MX_Controller {
         $this->load->library('security');
     }
 
+    /**
+     * 
+     */
     public function index() {
         $total_rows = $this->db->get('poribohons')->num_rows();
         $per_page = 10;
@@ -90,6 +93,11 @@ class Transports extends MX_Controller {
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
     }
 
+    /**
+     * edit a transport
+     * @param int $id
+     * @return type
+     */
     public function edit($id = NULL) {
         $transport = '';
         if (!empty($id) && ctype_digit($id)) {
@@ -144,6 +152,12 @@ class Transports extends MX_Controller {
         }
 
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+    }
+
+    public function delete($id) {
+        $this->pm->deleter('id', $id, 'poribohons');
+        $this->session->set_flashdata('message', lang('delete_success'));
+        redirect_tr('transports');
     }
 
 }
