@@ -278,7 +278,7 @@ class Routes extends MX_Controller {
                     'to_district' => $td,
                     'to_thana' => $th,
                     'poribohon_id' => $transport_id,
-                    'transport_type' => $th,
+                    'transport_type' => $this->input->post('transport_type', TRUE),
                     'rent' => $this->input->post('main_rent', TRUE),
                     'evidence' => $evidence_name,
                     'added_by' => $this->user_id,

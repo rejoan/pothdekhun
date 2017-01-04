@@ -105,20 +105,29 @@ class Route_manager extends MX_Controller {
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
             $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id);
 
-            $route = array(
-                'from_district' => $fd,
-                'from_thana' => $ft,
-                'to_district' => $td,
-                'to_thana' => $th,
-                'from_place' => $from,
-                'to_place' => $to,
-                'poribohon_id' => $transport_id,
-                'transport_type' => $this->input->post('transport_type', TRUE),
-                'departure_time' => $departure_time,
-                'rent' => $this->input->post('main_rent', TRUE),
-                'evidence' => $this->input->post('edited_file'),
-                'added_by' => $this->user_id
-            );
+            if ($edited_route['lang_code'] == 'bn') {
+                $route = array(
+                    'from_place' => $from,
+                    'to_place' => $to,
+                    'departure_time' => $departure_time
+                );
+            } else {
+                $route = array(
+                    'from_place' => $from,
+                    'to_place' => $to,
+                    'departure_time' => $departure_time,
+                    'from_district' => $fd,
+                    'from_thana' => $ft,
+                    'to_district' => $td,
+                    'to_thana' => $th,
+                    'poribohon_id' => $transport_id,
+                    'transport_type' => $this->input->post('transport_type', TRUE),
+                    'rent' => $this->input->post('main_rent', TRUE),
+                    'evidence' => $this->input->post('edited_file'),
+                    'added_by' => $this->user_id,
+                );
+                $this->db->set('added', 'NOW()', FALSE);
+            }
             if (!empty($floc) && !empty($tloc)) {//if lat long data found
                 $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
                 $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
