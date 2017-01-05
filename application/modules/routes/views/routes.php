@@ -34,7 +34,9 @@
                                 <td><?php echo $r[$this->nl->lang_based_data('bn_name','name')]; ?></td>
 <!--                                <td><?php echo $r['is_publish'] == '0' ? '<small class="label label-danger">No</small>' : '<small class="label label-success">Yes</small>'; ?></td>-->
                                 <td><a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('routes/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>
+                                    &nbsp;
                                     <a data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url_tr('routes/show') . '/' . $r['id']; ?>"><i class="fa fa-eye"></i></a>
+                                    &nbsp;
                                     <?php if($this->nl->is_admin()):?>
                                     <a onclick="return confirm('are you sure?')" data-toggle="tooltip" data-placement="top" title="Delete" href="<?php echo site_url('routes/delete') . '/' . $r['id']; ?>"><i class="fa fa-trash"></i></a>
                                     <?php endif; ?>

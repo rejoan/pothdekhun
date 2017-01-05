@@ -142,9 +142,9 @@ $(document).ready(function () {
             $('#' + thana).html(th);
             $('#' + thana).selectpicker('refresh');
             if (district == 1) {//if dhaka show tooltip
-                $('#t' + thana).tooltip('show');
+                $('#t' + thana).tooltip('enable');
             } else {
-                $('#t' + thana).tooltip('hide');
+                $('#t' + thana).tooltip('disable');
             }
         });
     });

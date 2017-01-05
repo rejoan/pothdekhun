@@ -361,21 +361,19 @@ class Routes extends MX_Controller {
         } else {
             show_404();
         }
-        $alias = 'r';
         $stopage_table = 'stoppages';
         $lang_url = '/bn/';
         if ($this->session->lang_code == 'bn') {
-            $alias = 'rt';
             $stopage_table = 'stoppage_bn';
             $lang_url = '';
         }
 
-        $exist = $this->rm->details($alias, $route_id, FALSE);
+        $exist = $this->rm->details($route_id, FALSE);
         if ($exist < 1) {
             $this->session->set_flashdata('message', lang('no_route'));
             redirect_tr('routes');
         }
-        $result = $this->rm->details($alias, $route_id);
+        $result = $this->rm->details($route_id);
         //var_dump($result);        return;
         $data = array(
             'title' => $result['from_place'] . ' ' . lang('from_view') . ' ' . $result['to_place'] . ' ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),

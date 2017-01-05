@@ -1,5 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <div class="col-xs-12 col-md-6">
+    <?php
+    $message = $this->session->flashdata('message');
+    if ($message) {
+        echo '<div class="alert alert-warning">' . $message . '</div>';
+    }
+    ?>
     <div class="box box-poth">
         <div class="box-header">
             <?php echo lang('see_transport'); ?>
@@ -21,7 +27,7 @@
                             </div>
                         </div>
                         <div class="col-xs-10 col-md-3">
-                            <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
+                            <div id="tft" data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
                                 <select id="ft" name="ft" class="selectpicker thanas" data-width="100%" data-live-search="true" >
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '493' ? 'selected="yes"' : ''; ?>>
@@ -59,7 +65,7 @@
                             </div>
                         </div>
                         <div class="col-xs-10 col-md-3">
-                            <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
+                            <div id="tth" data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
                                 <select id="th" name="th" class="selectpicker thanas" data-width="100%" data-live-search="true">
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '509' ? 'selected="yes"' : ''; ?>>
@@ -89,22 +95,22 @@
             <!-- get route info from user form -->
             <form action="<?php echo $search_action; ?>" method="get" accept-charset="UTF-8">
                 <div class="input-group margin">
-                    <input name="ps" type="text" class="form-control" placeholder="<?php echo lang('place_search');?>">
+                    <input name="ps" type="text" class="form-control" placeholder="<?php echo lang('place_search'); ?>">
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-info btn-flat"><?php echo lang('search');?></button>
+                        <button type="button" class="btn btn-info btn-flat"><?php echo lang('search'); ?></button>
                     </span>
                 </div>
 
                 <div class="input-group margin">
-                    <input type="text" name="ts" class="form-control" placeholder="<?php echo lang('transport_search_placeholder');?>">
+                    <input type="text" name="ts" class="form-control" placeholder="<?php echo lang('transport_search_placeholder'); ?>">
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-info btn-flat"><?php echo lang('transport_search');?></button>
+                        <button type="button" class="btn btn-info btn-flat"><?php echo lang('transport_search'); ?></button>
                     </span>
                 </div>
                 <div class="margin">
-                    <a href="<?php echo site_url_tr('routes/add');?>" class="btn btn-default btn-block btn-flat btn-info"><strong><?php echo lang('add_route');?></strong></a>
+                    <a href="<?php echo site_url_tr('routes/add'); ?>" class="btn btn-default btn-block btn-flat btn-info"><strong><?php echo lang('add_route'); ?></strong></a>
                 </div>
-                
+
             </form>
         </div>
     </div>
