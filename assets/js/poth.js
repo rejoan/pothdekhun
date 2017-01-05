@@ -15,9 +15,7 @@ $(document).ready(function () {
         var district = $(this).parent().prev().prev().find('select').val();
         var thana = $(this).parent().prev().find('select').val();
         var direction = e.target.name;
-
         var typing = $.trim($(this).val());
-
         if (!typing.length) {
             return false;
         }
@@ -43,7 +41,6 @@ $(document).ready(function () {
             $(this).next().show().html(cm);
         });
     });
-
     $('.search_place,#vehicle_name').keydown(function (e) {
         var sugesstion_id = $(this).next().prop('id');
         //alert(sugesstion_id);
@@ -53,7 +50,6 @@ $(document).ready(function () {
                 current;
         if (key != 40 && key != 38 && key != 13)
             return;
-
         //listItems.removeClass('selected');
 
         if (key == 40) // Down key
@@ -80,7 +76,6 @@ $(document).ready(function () {
         }
         current.addClass('selected');
     });
-
     var txhr = null;
     $('#vehicle_name').keyup(function (e) {
         var key = e.keyCode;
@@ -93,7 +88,6 @@ $(document).ready(function () {
         }
 
         var typing = $.trim($(this).val());
-
         if (!typing.length) {
             return false;
         }
@@ -116,8 +110,6 @@ $(document).ready(function () {
             $(this).next().show().html(cm);
         });
     });
-
-
     $('input[name="evidence"]').change(function () {
         var file = this.files[0];
         var real_file = file.name;
@@ -129,12 +121,12 @@ $(document).ready(function () {
             return false;
         }
     });
-
     $('.districts').change(function () {
         var district = $.trim($(this).val());
         var site_url = $('#site_url').val();
         var thana = $(this).data('thana');
         $.ajax({
+            context: this,
             url: site_url + '/weapons/get_thanas',
             type: 'get',
             dataType: 'json',
@@ -149,21 +141,21 @@ $(document).ready(function () {
             }
             $('#' + thana).html(th);
             $('#' + thana).selectpicker('refresh');
+            if (district == 1) {//if dhaka show tooltip
+                $('#t' + thana).tooltip('show');
+            } else {
+                $('#t' + thana).tooltip('hide');
+            }
         });
     });
-
-
-
     $('.list-group').on('click', '.list-group-item', function () {
         var place = $(this).text();
         $(this).parent().prev().val(place);
         $(this).parent().empty();
     });
-
     $(document).click(function () {
         $('.list-group').empty();
     });
-
 //add dynamic stoppgae as many user can
 
     $('#add_stoppage').click(function () {
@@ -201,7 +193,6 @@ $(document).ready(function () {
         if ($(this).data('merge') == 'yes') {
             $('#departure_dynamic label').removeClass('col-sm-3');
             $('#departure_dynamic label + div').removeClass('col-xs-10 col-md-6');
-
         }
     });
     $('#chkUsername').on('blur', function () {
@@ -225,7 +216,6 @@ $(document).ready(function () {
             is_exist('chkEmail', 'email', 'users', 'emailInfo');
         }
     });
-
     $('form').on('blur', '.rent', function () {
         var replaced = replaceNumbers($(this).val());
         $(this).val(replaced);

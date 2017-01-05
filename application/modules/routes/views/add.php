@@ -46,7 +46,7 @@
                         </select>
                     </div>
                     <div class="col-xs-10 col-md-3">
-                        <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
+                        <div id="tft" data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
                             <select id="ft" name="ft" class="selectpicker" data-width="100%" data-live-search="true" >
                                 <?php foreach ($fthanas as $t): ?>
                                     <option  value="<?php echo $t['id']; ?>" <?php
@@ -104,7 +104,7 @@
                     </div>
 
                     <div class="col-xs-10 col-md-3">
-                        <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
+                        <div id="tth" data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
                             <select id="th" name="th" class="selectpicker" data-width="100%" data-live-search="true">
                                 <?php foreach ($tthanas as $tt): ?>
                                     <option  value="<?php echo $tt['id']; ?>" <?php
