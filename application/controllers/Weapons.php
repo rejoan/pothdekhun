@@ -86,4 +86,16 @@ class Weapons extends MX_Controller {
         echo json_encode($thanas, JSON_UNESCAPED_UNICODE);
     }
 
+    public function get_transports() {
+        $typing = $this->input->get('typing', TRUE);
+        $lname = $this->nl->lang_based_data('bn_name', 'name');
+        $name = $this->nl->lang_based_data('bn_name', 'name', ' poribohon');
+        $this->db->select($name);
+        $this->db->like($lname, $typing);
+        $this->db->limit(5);
+        $query = $this->db->get('poribohons');
+        $transports = $query->result_array();
+        echo json_encode($transports, JSON_UNESCAPED_UNICODE);
+    }
+
 }

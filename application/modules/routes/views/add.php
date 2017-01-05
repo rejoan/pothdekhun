@@ -207,6 +207,9 @@
                             echo $route[$this->nl->lang_based_data('bn_name', 'name')];
                         }
                         ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>">
+                        <div id="suggestion_p" class="list-group">
+                            
+                        </div>
                     </div>
                 </div>
 

@@ -44,7 +44,7 @@ $(document).ready(function () {
         });
     });
 
-    $('.search_place').keydown(function (e) {
+    $('.search_place,#vehicle_name').keydown(function (e) {
         var sugesstion_id = $(this).next().prop('id');
         //alert(sugesstion_id);
         var listItems = $('#' + sugesstion_id + ' a');
@@ -80,6 +80,43 @@ $(document).ready(function () {
         }
         current.addClass('selected');
     });
+
+    var txhr = null;
+    $('#vehicle_name').keyup(function (e) {
+        var key = e.keyCode;
+        if (key == 40 || key == 38 || key == 13) {
+            return false;
+        }
+        if (txhr !== null) {
+            txhr.abort();
+            txhr = null;
+        }
+
+        var typing = $.trim($(this).val());
+
+        if (!typing.length) {
+            return false;
+        }
+
+        var site_url = $('#site_url').val();
+        txhr = $.ajax({
+            context: this,
+            url: site_url + '/weapons/get_transports',
+            type: 'get',
+            dataType: 'json',
+            cache: true,
+            data: {
+                typing: typing
+            }
+        }).done(function (response) {
+            var cm = '';
+            for (var i = 0; i < response.length; i++) {
+                cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['poribohon'] + '</a>';
+            }
+            $(this).next().show().html(cm);
+        });
+    });
+
 
     $('input[name="evidence"]').change(function () {
         var file = this.files[0];
