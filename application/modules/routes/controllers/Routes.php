@@ -176,14 +176,10 @@ class Routes extends MX_Controller {
      * @return type
      */
     public function edit($id) {
-        //var_dump($this->session);return;
-        $alias = 'r';
         $stopage_table = 'stoppages';
         $route_table = 'routes';
         $rid = 'id';
-        //var_dump($this->session->lang_code);return;
         if ($this->session->lang_code == 'bn') {
-            $alias = 'rt';
             $stopage_table = 'stoppage_bn';
             $route_table = 'route_bn';
             $rid = 'route_id';
@@ -196,7 +192,7 @@ class Routes extends MX_Controller {
                 $this->session->set_flashdata('message', lang('already_edit_submitted'));
                 redirect_tr('routes/all');
             }
-            if ($this->rm->details($alias, $route_id, TRUE) < 1) {//if wrong ID given direct from URL
+            if ($this->rm->details($route_id, TRUE) < 1) {//if wrong ID given direct from URL
                 $this->session->set_flashdata('message', 'Wrong Access');
                 redirect_tr('routes');
             }
@@ -205,7 +201,7 @@ class Routes extends MX_Controller {
         }
 
         $this->load->library('form_validation');
-        $route = $this->rm->details($alias, $route_id);
+        $route = $this->rm->details($route_id);
         //var_dump($route);return;
         $data = array(
             'title' => lang('edit_route'),
@@ -215,7 +211,7 @@ class Routes extends MX_Controller {
             'action' => site_url_tr('routes/edit/' . $route_id),
             'countries' => get_countries(),
             'route' => $route,
-            'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', $route_id)
+            'stoppages' => $this->pm->get_data($stopage_table, FALSE, 'route_id', $route_id)
         );
 
         if ($this->input->post('submit')) {

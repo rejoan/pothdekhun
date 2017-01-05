@@ -208,7 +208,7 @@
                         }
                         ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>">
                         <div id="suggestion_p" class="list-group">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -257,7 +257,7 @@
 
 
                 <div style="display: <?php echo isset($stoppages) ? 'block' : 'none'; ?>;" id="stoppage_section">
-                    <?php if (isset($route['id'])): ?>
+                    <?php if (isset($route['r_id'])): ?>
                         <?php
                         for ($i = 0; $i < count($stoppages); $i++) {
                             $k = $i + 1;
@@ -319,3 +319,12 @@
         </div>
     </div>
 </div>
+<?php if (isset($route['r_id'])): ?>
+    <script>
+        $(document).ready(function () {
+            $('.glyphicon-remove').parent().on('on',function(){
+                
+            });
+        });
+    </script>
+<?php endif; ?>
