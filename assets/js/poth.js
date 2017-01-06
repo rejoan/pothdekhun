@@ -126,7 +126,7 @@ $(document).ready(function () {
         var thana = $(this).data('thana');
         get_thanas(district, thana);
     });
-     $('select[name="td"]').change(function () {
+    $('select[name="td"]').change(function () {
         var district = $.trim($(this).val());
         var thana = $(this).data('thana');
         get_thanas(district, thana);
@@ -151,34 +151,35 @@ $(document).ready(function () {
             pos_ord = 0;
         }
         pos_ord++;
-        $('<div class="form-group"><div class="col-xs-10 col-md-2"><input maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' + pos_ord + '"></div><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control" name="place_name[]" placeholder="' + place_name + '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" placeholder="' + rents + '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>').appendTo($('#stoppage_section')).hide().slideDown();
+        $('<div class="form-group stoppage"><div class="col-xs-10 col-md-2"><input maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' + pos_ord + '"></div><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control place_name" name="place_name[]" placeholder="' + place_name + '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" placeholder="' + rents + '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>').appendTo($('#stoppage_section')).hide().slideDown();
     });
     $('#stoppage_section').on('click', 'button', function (e) {
         e.preventDefault();
+
         var site_url = $('#site_url').val();
         var pri = $('#route_id').val();
-        var obs = parseInt($(this).parent().find('.order_pos').val());
+        var jaig = $(this).parent().find('.place_name').val();
         if (confirm('Are you Sure?')) {
             $.ajax({
                 context: this,
-                url: site_url + '/weapons/delete_stopage',
+                url: site_url + 'weapons/delete_stopage',
                 type: 'get',
                 dataType: 'json',
                 cache: true,
                 data: {
                     pri: pri,
-                    obs: obs
+                    jaig: jaig
                 }
             }).done(function (response) {
-                $(this).parent().fadeOut('normal', function () {
-                    $(this).remove();
-                    $('.order_pos').each(function (i) {
-                        var ord = i + 1;
-                        $(this).val(ord);
-                    });
+
+            });
+            $(this).parent().fadeOut('normal', function () {
+                $(this).remove();
+                $('.order_pos').each(function (i) {
+                    var ord = i + 1;
+                    $(this).val(ord);
                 });
             });
-
         }
     });
     //departure_time

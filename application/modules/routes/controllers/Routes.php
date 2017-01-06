@@ -308,7 +308,11 @@ class Routes extends MX_Controller {
             $place_name = $this->input->post('place_name', TRUE);
             $comment = $this->input->post('comments', TRUE);
             $position = $this->input->post('position', TRUE);
-            $stoppages = array();
+            $new = $this->input->post('new', TRUE);
+            $stoppages = $new_stoppages = array();
+            $rest_table = $this->nl->lang_based_data('stoppages', 'stoppage_bn');
+            $new_position = $this->rm->get_last_position($route_id, $rest_table);
+
             for ($p = 0; $p < count($place_name); $p++) {
                 if ($place_name[$p]) {
                     $stoppages[] = array(
@@ -319,12 +323,27 @@ class Routes extends MX_Controller {
                         'position' => $position[$p]
                     );
                 }
+                if ($this->session->user_type == 'admin') {
+                    if (!empty($place_name[$p]) && $new[$p] == 'yes') {
+                        $new_stoppages[] = array(
+                            'place_name' => $place_name[$p],
+                            'comments' => $comment[$p],
+                            'rent' => $rent[$p],
+                            'route_id' => $route_id,
+                            'position' => $new_position
+                        );
+                    }
+                }
+                $new_position++;
             }
 
             if (!empty($stoppages)) {
                 if ($this->session->user_type == 'admin') {
                     $this->pm->deleter('route_id', $route_id, $stopage_table);
                     $this->db->insert_batch($stopage_table, $stoppages);
+                    if (!empty($new_stoppages)) {
+                        $this->db->insert_batch($rest_table, $new_stoppages);
+                    }
                 } else {
                     $this->db->insert_batch('edited_stoppages', $stoppages);
                 }

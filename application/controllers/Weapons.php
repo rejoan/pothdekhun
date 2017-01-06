@@ -100,10 +100,10 @@ class Weapons extends MX_Controller {
 
     public function delete_stopage() {
         $route_id = $this->input->get('pri', TRUE);
-        $position = $this->input->get('obs', TRUE);
+        $place_name = trim($this->input->get('jaig', TRUE));
 
-        $this->db->where('route_id', $route_id)->where('position', $position)->delete('stoppages');
-        $this->db->where('route_id', $route_id)->where('position', $position)->delete('stoppage_bn');
+        $this->db->where('route_id', $route_id)->where('place_name', $place_name)->delete('stoppages');
+        $this->db->where('route_id', $route_id)->where('place_name', $place_name)->delete('stoppage_bn');
         $this->db->query('SET @a = 0');
         $this->db->query('UPDATE stoppages SET position = @a:=@a+1 WHERE route_id = ' . $route_id);
         $this->db->query('SET @a = 0');
