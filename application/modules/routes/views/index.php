@@ -115,28 +115,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.districts').change(function () {
-            var district = $.trim($(this).val());
-            var site_url = $('#site_url').val();
-            var thana = $(this).data('thana');
-            $.ajax({
-                url: site_url + '/weapons/get_thanas',
-                type: 'get',
-                dataType: 'json',
-                cache: true,
-                data: {
-                    district: district
-                }
-            }).done(function (response) {
-                var th = '';
-                for (var i = 0; i < response.length; i++) {
-                    th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
-                }
-                $('#' + thana).html(th);
-                $('#' + thana).selectpicker('refresh');
-            });
-        });
-    });
-</script>

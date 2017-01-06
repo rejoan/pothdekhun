@@ -98,4 +98,16 @@ class Weapons extends MX_Controller {
         echo json_encode($transports, JSON_UNESCAPED_UNICODE);
     }
 
+    public function delete_stopage() {
+        $route_id = $this->input->get('pri', TRUE);
+        $position = $this->input->get('obs', TRUE);
+
+        $this->db->where('route_id', $route_id)->where('position', $position)->delete('stoppages');
+        $this->db->where('route_id', $route_id)->where('position', $position)->delete('stoppage_bn');
+        $this->db->query('SET @a = 0');
+        $this->db->query('UPDATE stoppages SET position = @a:=@a+1 WHERE route_id = ' . $route_id);
+        $this->db->query('SET @a = 0');
+        $this->db->query('UPDATE stoppage_bn SET position = @a:=@a+1 WHERE route_id = ' . $route_id);
+    }
+
 }

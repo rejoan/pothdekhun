@@ -121,32 +121,15 @@ $(document).ready(function () {
             return false;
         }
     });
-    $('.districts').change(function () {
+    $('select[name="fd"]').change(function () {
         var district = $.trim($(this).val());
-        var site_url = $('#site_url').val();
         var thana = $(this).data('thana');
-        $.ajax({
-            context: this,
-            url: site_url + '/weapons/get_thanas',
-            type: 'get',
-            dataType: 'json',
-            cache: true,
-            data: {
-                district: district
-            }
-        }).done(function (response) {
-            var th = '';
-            for (var i = 0; i < response.length; i++) {
-                th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
-            }
-            $('#' + thana).html(th);
-            $('#' + thana).selectpicker('refresh');
-            if (district == 1) {//if dhaka show tooltip
-                $('#t' + thana).tooltip('enable');
-            } else {
-                $('#t' + thana).tooltip('disable');
-            }
-        });
+        get_thanas(district, thana);
+    });
+     $('select[name="td"]').change(function () {
+        var district = $.trim($(this).val());
+        var thana = $(this).data('thana');
+        get_thanas(district, thana);
     });
     $('.list-group').on('click', '.list-group-item', function () {
         var place = $(this).text();
@@ -172,13 +155,31 @@ $(document).ready(function () {
     });
     $('#stoppage_section').on('click', 'button', function (e) {
         e.preventDefault();
-        $(this).parent().fadeOut('normal', function () {
-            $(this).remove();
-            $('.order_pos').each(function (i) {
-                var ord = i + 1;
-                $(this).val(ord);
+        var site_url = $('#site_url').val();
+        var pri = $('#route_id').val();
+        var obs = parseInt($(this).parent().find('.order_pos').val());
+        if (confirm('Are you Sure?')) {
+            $.ajax({
+                context: this,
+                url: site_url + '/weapons/delete_stopage',
+                type: 'get',
+                dataType: 'json',
+                cache: true,
+                data: {
+                    pri: pri,
+                    obs: obs
+                }
+            }).done(function (response) {
+                $(this).parent().fadeOut('normal', function () {
+                    $(this).remove();
+                    $('.order_pos').each(function (i) {
+                        var ord = i + 1;
+                        $(this).val(ord);
+                    });
+                });
             });
-        });
+
+        }
     });
     //departure_time
     $('#departure_time').change(function () {
@@ -226,3 +227,29 @@ $(document).ready(function () {
         }
     });
 });
+
+function get_thanas(district, thana) {
+    var site_url = $('#site_url').val();
+    $.ajax({
+        context: this,
+        url: site_url + 'weapons/get_thanas/',
+        type: 'get',
+        dataType: 'json',
+        cache: true,
+        data: {
+            district: district
+        }
+    }).done(function (response) {
+        var th = '';
+        for (var i = 0; i < response.length; i++) {
+            th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
+        }
+        $('#' + thana).html(th);
+        $('#' + thana).selectpicker('refresh');
+        if (district == 1) {//if dhaka show tooltip
+            $('#t' + thana).tooltip('enable');
+        } else {
+            $('#t' + thana).tooltip('disable');
+        }
+    });
+}

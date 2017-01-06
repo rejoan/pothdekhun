@@ -46,7 +46,7 @@
                         </select>
                     </div>
                     <div class="col-xs-10 col-md-3">
-                        <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
+                        <div id="tft" data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
                             <select id="ft" name="ft" class="selectpicker" data-width="100%" data-live-search="true" >
                                 <?php foreach ($fthanas as $t): ?>
                                     <option  value="<?php echo $t['id']; ?>" <?php
@@ -104,7 +104,7 @@
                     </div>
 
                     <div class="col-xs-10 col-md-3">
-                        <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
+                        <div id="tth" data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
                             <select id="th" name="th" class="selectpicker" data-width="100%" data-live-search="true">
                                 <?php foreach ($tthanas as $tt): ?>
                                     <option  value="<?php echo $tt['id']; ?>" <?php
@@ -302,8 +302,8 @@
                 <input type="hidden" id="route_id" name="route_id" value="<?php
                 if ($this->input->post('submit')) {
                     echo set_value('route_id');
-                } elseif (isset($route['id'])) {
-                    echo $route['id'];
+                } elseif (isset($route['r_id'])) {
+                    echo $route['r_id'];
                 }
                 ?>"/>
                 <input id="prev_file" type="hidden"  name="prev_file" value="<?php
@@ -319,12 +319,12 @@
         </div>
     </div>
 </div>
-<?php if (isset($route['r_id'])): ?>
+<?php if (isset($route['r_id']) && $this->session->user_type == 'admin'): ?>
     <script>
         $(document).ready(function () {
-            $('.glyphicon-remove').parent().on('on',function(){
-                
-            });
+           $('#add_stoppage').click(function () {
+               
+           });
         });
     </script>
 <?php endif; ?>

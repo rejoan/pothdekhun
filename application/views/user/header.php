@@ -10,7 +10,7 @@
         <meta name="author" content="">
         <meta name="google-signin-scope" content="profile email">
         <meta name="google-signin-client_id" content="606528754739-mag1caviaal84rdm8uirn108fmlr8raa.apps.googleusercontent.com">
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
+<!--        <script src="https://apis.google.com/js/platform.js" async defer></script>-->
         <link rel="icon" href="<?php echo base_url('assets/images') . '/favicon.ico'; ?>">
 
         <title><?php echo $title; ?></title>
