@@ -223,11 +223,8 @@ $(document).ready(function () {
         $(this).val(replaced);
         var num = parseInt(replaced);
         if (isNaN(num) || num < 1) {
-            alert($(this).parent().hasClass('alert'));
-            if (!$(this).parent().hasClass('alert')) {
-                $(this).parent().append('<div class="alert alert-danger">Number only & should be greater than ZERO</div>').slideDown();
-            }
-
+            $(this).parent().find('.alert').remove();
+            $(this).parent().append('<div class="alert alert-danger">Numbers only</div>');
             $(this).val('');
         } else {
             $(this).parent().find('.alert').remove();
