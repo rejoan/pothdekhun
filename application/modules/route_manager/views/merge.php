@@ -151,6 +151,7 @@
     </div>
 </div>
 
+<!--suggested or edited route STARTED -->
 <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
     <div class="col-xs-12 col-md-6">
         <div class="box box-poth">
@@ -190,7 +191,7 @@
                     </div>
 
                     <div class="col-xs-10 col-md-5">
-                        <input id="from_place" maxlength="200" type="text" class="form-control search_place" name="f" value="<?php echo $prev_route['from_place']; ?>" placeholder="<?php echo lang('device_from'); ?>">
+                        <input id="from_place" maxlength="200" type="text" class="form-control search_place" name="f" value="<?php echo $edited_route['from_place']; ?>" placeholder="<?php echo lang('device_from'); ?>">
                         <div id="suggestion" class="list-group">
 
                         </div>
@@ -251,18 +252,18 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label"><?php echo lang('vehicle_name'); ?></label>
-                    <input id="vehicle_name" maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php echo $edited_route[$this->nl->lang_based_data('bn_name', 'name')]; ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>">
+                    <input id="vehicle_name" maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php echo $edited_route[$this->nl->lang_based_data('name', 'bn_name')]; ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>">
                 </div>
 
                 <div id="departure_perticular" class="form-group">
                     <label class="control-label"><?php echo lang('departure_time'); ?></label>
                     <select id="departure_time" name="departure_time" class="selectpicker" data-width="100%" data-merge="yes">
-                        <option value="<?php echo lang('after_while'); ?>" <?php echo $edited_route['departure_time'] == lang('after_while') ? 'selected="yes"' : ''; ?>><?php echo lang('after_while'); ?></option>
-                        <option value="perticular" <?php echo $edited_route['departure_time'] != lang('after_while') ? 'selected="yes"' : ''; ?>><?php echo lang('perticular_time'); ?></option>
+                        <option value="1" <?php echo $edited_route['departure_time'] == 1 ? 'selected="yes"' : ''; ?>><?php echo lang('after_while'); ?></option>
+                        <option value="2" <?php echo $edited_route['departure_time'] != 1 ? 'selected="yes"' : ''; ?>><?php echo lang('perticular_time'); ?></option>
                     </select>
                 </div>
 
-                <?php if ($edited_route['departure_time'] !== 'কিছুক্ষর পরপর'): ?>
+                <?php if ($edited_route['departure_time'] != 1): ?>
                     <div id="departure_dynamic" class="form-group">
                         <label class="control-label"></label>
                         <input id="departure" maxlength="200" type="text" class="form-control"  name="departure_dynamic" value="<?php echo $edited_route['departure_time']; ?>">

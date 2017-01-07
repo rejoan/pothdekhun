@@ -49,17 +49,19 @@ class Route_manager extends MX_Controller {
         }
         $edited_route = $this->rmn->edited_route($edited_route_id);
         $route_id = $edited_route['route_id']; //main route ID
-//var_dump($route_id);return;
+        $col_name = 'bn_name';
+        $col_name_rev = 'name';
         $route_table = 'routes';
         $stoppage_table = 'stoppages';
-        $prev_route = $this->rmn->get_route($route_id); //english lang route
+        $prev_route = $this->rmn->get_row($route_id);
         $rid = 'id';
         if ($edited_route['lang_code'] == 'bn') {
             $route_table = 'route_bn';
             $stoppage_table = 'stoppage_bn';
             $rid = 'route_id';
+            $col_name = 'name';
+            $col_name_rev = 'bn_name';
             //if edit in bengali then get translated data from route_bn table with main table
-            $prev_route = $this->rmn->get_row($route_id);
         }
         $data = array(
             'title' => lang('edit_route'),
@@ -70,7 +72,7 @@ class Route_manager extends MX_Controller {
             'prev_route' => $prev_route,
             'prev_stoppages' => $this->pm->get_data($stoppage_table, FALSE, 'route_id', $route_id),
             'edited_route' => $edited_route,
-            'edited_stoppages' => $this->pm->get_data('edited_stoppages', FALSE, 'route_id', $edited_route_id),
+            'edited_stoppages' => $this->pm->get_data('edited_stoppages', FALSE, 'route_id', $edited_route_id)
         );
 
         $this->load->library('form_validation');
@@ -86,7 +88,7 @@ class Route_manager extends MX_Controller {
             }
 
             $departure_time = $this->input->post('departure_time', TRUE);
-            if ($departure_time == 'perticular') {
+            if ($departure_time != 1) {
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
             }
 
@@ -104,7 +106,7 @@ class Route_manager extends MX_Controller {
             $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh');
             //var_dump($floc,$faddress);return;
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
-            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id);
+            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name, $col_name_rev);
 
             if ($edited_route['lang_code'] == 'bn') {
                 $route = array(

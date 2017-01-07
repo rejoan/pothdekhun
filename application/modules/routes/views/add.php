@@ -217,20 +217,20 @@
                     <label class="col-sm-3 control-label"><?php echo lang('departure_time'); ?></label>
                     <div  class="col-xs-10 col-md-6">
                         <select id="departure_time" name="departure_time" class="selectpicker" data-width="100%">
-                            <option value="<?php echo lang('after_while'); ?>" <?php
+                            <option value="1" <?php
                             if ($this->input->post('submit')) {
 
-                                echo lang('after_while') == $this->input->post('type') ? 'selected="yes"' : '';
+                                echo $this->input->post('departure_time') == 1 ? 'selected="yes"' : '';
                             } elseif (isset($route['departure_time'])) {
                                 echo $route['departure_time'] == 1 ? 'selected="yes"' : '';
                             }
                             ?>><?php echo lang('after_while'); ?></option>
-                            <option value="perticular" <?php
+                            <option value="2" <?php
                             if ($this->input->post('submit')) {
-                                echo lang('after_while') != $this->input->post('type') ? 'selected="yes"' : '';
+                                echo $this->input->post('departure_time') != 1 ? 'selected="yes"' : '';
                             } elseif (isset($route['departure_time'])) {
 
-                                echo $route['departure_time'] == 2 ? 'selected="yes"' : '';
+                                echo $route['departure_time'] != 1 ? 'selected="yes"' : '';
                             }
                             ?>><?php echo lang('perticular_time'); ?></option>
                         </select>

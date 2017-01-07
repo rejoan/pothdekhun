@@ -70,7 +70,7 @@ class Routes extends MX_Controller {
             $departure_time = $this->input->post('departure_time', TRUE);
             $main_rent = trim($this->input->post('main_rent', TRUE));
 
-            if ($departure_time == 2) {
+            if ($departure_time != 1) {//if not consecutively
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
             }
 
@@ -176,14 +176,9 @@ class Routes extends MX_Controller {
      * @return type
      */
     public function edit($id) {
-        $stopage_table = 'stoppages';
-        $route_table = 'routes';
-        $rid = 'id';
-        if ($this->session->lang_code == 'bn') {
-            $stopage_table = 'stoppage_bn';
-            $route_table = 'route_bn';
-            $rid = 'route_id';
-        }
+        $stopage_table = $this->nl->lang_based_data('stoppages','stoppage_bn');
+        $route_table = $this->nl->lang_based_data('routes','route_bn');;
+        $rid = $this->nl->lang_based_data('id','route_id');
 
         if (!empty($id)) {
             $route_id = (int) $id;
@@ -226,12 +221,14 @@ class Routes extends MX_Controller {
             }
 
             $departure_time = $this->input->post('departure_time', TRUE);
-            if ($departure_time == 2) {// if perticular time
+            if ($departure_time != 1) {// if perticular time
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
             }
 
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
-            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id);
+            $col_name_rev = $this->nl->lang_based_data('name','bn_name');
+            $col_name = $this->nl->lang_based_data('bn_name','name');
+            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id,$col_name,$col_name_rev);
 
             $config['upload_path'] = './evidences';
             $config['allowed_types'] = 'gif|jpg|png|jpeg|docx|doc';

@@ -164,14 +164,16 @@ class Prime_model extends CI_Model {
     }
 
     /**
-     * get transport ID or create
-     * @param type $transport
+     * 
      * @param type $transport_name
      * @param type $user_id
+     * @param type $col_name
+     * @param type $add
      * @return type
      */
-    public function get_transport_id($transport_name, $user_id, $add = TRUE) {
-        $transport = $this->pm->get_row('name', $transport_name, 'poribohons', TRUE);
+    public function get_transport_id($transport_name, $user_id, $col_name = 'name',$col_name_rev = NUll, $add = TRUE) {
+        $transport = $this->pm->get_row($col_name, $transport_name, 'poribohons', TRUE);
+        //echo $this->db->last_query();return;
         if (empty($transport)) {
             if ($add) {
                 $transport_data = array(
@@ -180,12 +182,8 @@ class Prime_model extends CI_Model {
                     'added_by' => $user_id
                 );
             } else {
-                $col_name = 'name';
-                if ($this->session->lang_code == 'bn') {
-                    $col_name = 'bn_name';
-                }
                 $transport_data = array(
-                    $col_name => $transport_name,
+                    $col_name_rev => $transport_name,
                     'added_by' => $user_id
                 );
             }
