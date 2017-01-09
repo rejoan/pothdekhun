@@ -15,6 +15,9 @@ class Route_manager extends MX_Controller {
         $this->load->model('Route_manager_model', 'rmn');
     }
 
+    /**
+     * 
+     */
     public function index() {
         $total_rows = $this->db->get('edited_routes')->num_rows();
         $per_page = 10;
@@ -49,20 +52,13 @@ class Route_manager extends MX_Controller {
         }
         $edited_route = $this->rmn->edited_route($edited_route_id);
         $route_id = $edited_route['route_id']; //main route ID
-        $col_name = 'bn_name';
-        $col_name_rev = 'name';
-        $route_table = 'routes';
-        $stoppage_table = 'stoppages';
+        $col_name_rev = $this->nl->lang_based_data('name', 'bn_name', FALSE, $edited_route['lang_code']);
+        $col_name = $this->nl->lang_based_data('bn_name', 'name', FALSE, $edited_route['lang_code']);
+        $route_table = $this->nl->lang_based_data('route_bn', 'routes', FALSE, $edited_route['lang_code']);
+        $stoppage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', FALSE, $edited_route['lang_code']);
+        $rid = $this->nl->lang_based_data('route_id', 'id', FALSE, $edited_route['lang_code']);
         $prev_route = $this->rmn->get_row($route_id);
-        $rid = 'id';
-        if ($edited_route['lang_code'] == 'bn') {
-            $route_table = 'route_bn';
-            $stoppage_table = 'stoppage_bn';
-            $rid = 'route_id';
-            $col_name = 'name';
-            $col_name_rev = 'bn_name';
-            //if edit in bengali then get translated data from route_bn table with main table
-        }
+
         $data = array(
             'title' => lang('edit_route'),
             'action' => site_url_tr('route_manager/merge'),
@@ -169,6 +165,10 @@ class Route_manager extends MX_Controller {
         $this->nl->view_loader('user', 'merge', NULL, $data);
     }
 
+    /**
+     * decline an edit
+     * @param int $id
+     */
     public function decline($id) {
         $route = $this->pm->get_row('id', $id, 'edited_routes');
         $file = 'evidences/' . $route['evidence'];

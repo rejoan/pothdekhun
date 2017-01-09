@@ -386,9 +386,12 @@ class Nuts_lib {
      * @param string $alias alias of resultant column
      * @return string name of the column
      */
-    public function lang_based_data($bengali, $english, $alias = FALSE) {
+    public function lang_based_data($bengali, $english, $alias = FALSE, $lang_code = NULL) {
         $item = $english;
-        if ($this->CI->session->lang_code == 'bn') {
+        if (empty($lang_code)) {
+            $lang_code = $this->CI->session->lang_code;
+        }
+        if ($lang_code == 'bn') {
             $item = $bengali;
         }
         if ($alias) {

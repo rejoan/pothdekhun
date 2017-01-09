@@ -103,12 +103,12 @@ class Routes extends MX_Controller {
 
             $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id);
             //get thana and district name to get lat long data
-            $faddress = $this->get_address($ft, $fd, $from);
-
-            $taddress = $this->get_address($th, $td, $to);
-
-            $floc = $this->nl->get_lat_long($faddress, 'Bangladesh');
-            $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh');
+//            $faddress = $this->get_address($ft, $fd, $from);
+//
+//            $taddress = $this->get_address($th, $td, $to);
+//
+//            $floc = $this->nl->get_lat_long($faddress, 'Bangladesh');
+//            $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh');
             //lat long end
             //var_dump($floc,$tloc);return;
             $route = array(
@@ -125,10 +125,10 @@ class Routes extends MX_Controller {
                 'evidence' => $evidence_name,
                 'added_by' => $this->user_id
             );
-            if (!empty($floc) && !empty($tloc)) {//if lat long data found
-                $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
-                $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
-            }
+//            if (!empty($floc) && !empty($tloc)) {//if lat long data found
+//                $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
+//                $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
+//            }
             $this->db->set('added', 'NOW()', FALSE);
             $this->db->insert('routes', $route);
 

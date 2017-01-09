@@ -20,7 +20,6 @@
                             <th><?php echo lang('to_view');?></th>
                             <th><?php echo lang('transport_type');?></th>
                             <th><?php echo lang('vehicle_name');?></th>
-<!--                            <th><?php echo lang('is_publish');?></th>-->
                             <th><?php echo lang('action');?></th>
                         </tr>
                     </thead>
@@ -32,10 +31,9 @@
                                 <td><?php echo $r[$this->nl->lang_based_data('tp_bn','to_place')]; ?></td>
                                 <td><?php echo $r['transport_type']; ?></td>
                                 <td><?php echo $r[$this->nl->lang_based_data('bn_name','name')]; ?></td>
-<!--                                <td><?php echo $r['is_publish'] == '0' ? '<small class="label label-danger">No</small>' : '<small class="label label-success">Yes</small>'; ?></td>-->
-                                <td><a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('routes/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>
+                                <td><a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('routes/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>
                                     &nbsp;
-                                    <a data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url_tr('routes/show') . '/' . $r['id']; ?>"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url_tr('routes/show') . '/' . $r['id']; ?>"><i class="fa fa-eye"></i></a>
                                     &nbsp;
                                     <?php if($this->nl->is_admin()):?>
                                     <a onclick="return confirm('are you sure?')" data-toggle="tooltip" data-placement="top" title="Delete" href="<?php echo site_url('routes/delete') . '/' . $r['id']; ?>"><i class="fa fa-trash"></i></a>
