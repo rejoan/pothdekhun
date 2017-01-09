@@ -164,12 +164,13 @@ class Prime_model extends CI_Model {
     }
 
     /**
-     * 
-     * @param type $transport_name
-     * @param type $user_id
-     * @param type $col_name
-     * @param type $add
-     * @return type
+     * get transport ID or create
+     * @param stirng $transport_name
+     * @param int $user_id
+     * @param string $col_name benglai or english name of the column
+     * @param string $col_name_rev rest colum where to insert
+     * @param bool $add whether from add
+     * @return int
      */
     public function get_transport_id($transport_name, $user_id, $col_name = 'name',$col_name_rev = NUll, $add = TRUE) {
         $transport = $this->pm->get_row($col_name, $transport_name, 'poribohons', TRUE);

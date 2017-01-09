@@ -100,8 +100,9 @@ class Routes extends MX_Controller {
                 $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
                 return;
             }
-
-            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id);
+            $col_name_rev = $this->nl->lang_based_data('name','bn_name');
+            $col_name = $this->nl->lang_based_data('bn_name','name');
+            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id,$col_name,$col_name_rev);
             //get thana and district name to get lat long data
 //            $faddress = $this->get_address($ft, $fd, $from);
 //
