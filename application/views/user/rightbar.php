@@ -10,7 +10,7 @@
                 <div class="box-comment">
                     <div class="comment-text">
                         <a href="http://www.webcoachbd.com">Webcoachbd</a>
-                        Largest Bengali tutorial site in thi splanet
+                        Largest Bengali tutorial site in this planet
                     </div>
                     <!-- /.comment-text -->
                 </div>
