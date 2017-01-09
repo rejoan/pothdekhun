@@ -457,13 +457,37 @@ class Nuts_lib {
         $json = @file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $adds . ',' . $country . '&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $ctx);
 
         $json = json_decode($json);
-        //var_dump($json->results);return;
-        if (!empty($json) && !empty($json->results)) {
-            $lat = $json->results[0]->geometry->location->lat;
-            $long = $json->results[0]->geometry->location->lng;
+        //var_dump($json);return;
+        if (empty($json) || empty($json->results)) {
+            $prediction_api = @file_get_contents('https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' . $adds . '&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $ctx);
+            $predictions = json_decode($prediction_api);
+            $place_id = $predictions->predictions[0]->place_id;
+            //var_dump($predictions->predictions[0]->description,$predictions->predictions[0]->place_id,$place_id);return;
+            //$first_prediction = $predictions->predictions[0]->description;
+//            $pos = strpos($first_prediction, ',', strpos($first_prediction, ',') + 1);
+//            if ($pos === FALSE) {
+//                $adds = $first_prediction;
+//            } else {
+//                $adds = substr($first_prediction, 0, $pos);
+//            }
+//            $adds = str_replace(' ', '+', trim($adds));
+            $json = @file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $place_id . '&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $ctx);
+
+            $json = json_decode($json);
+            $lat = $json->result->geometry->location->lat;
+            $long = $json->result->geometry->location->lng;
             $lat_long['lat'] = $lat;
             $lat_long['long'] = $long;
+
+            return $lat_long;
+            //var_dump($json->result->geometry->location->lat);return;
         }
+        //var_dump($json);return;
+        $lat = $json->results[0]->geometry->location->lat;
+        $long = $json->results[0]->geometry->location->lng;
+        $lat_long['lat'] = $lat;
+        $lat_long['long'] = $long;
+
         return $lat_long;
     }
 

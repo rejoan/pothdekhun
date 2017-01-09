@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2016 at 01:44 PM
+-- Generation Time: Jan 09, 2017 at 01:05 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -184,13 +184,6 @@ CREATE TABLE `edited_routes` (
   `lang_code` enum('bn','en') COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `edited_routes`
---
-
-INSERT INTO `edited_routes` (`id`, `from_district`, `from_thana`, `from_place`, `to_district`, `to_thana`, `to_place`, `transport_type`, `departure_time`, `route_id`, `poribohon_id`, `rent`, `evidence`, `added_by`, `added`, `lang_code`) VALUES
-(3, 28, 415, 'Goshpara', 1, 493, 'Asad Gate', 'Bus', 'Daily morning & night', 3, 4, 550, '', 4, '2016-11-21 18:55:43', 'en');
-
 -- --------------------------------------------------------
 
 --
@@ -202,18 +195,9 @@ CREATE TABLE `edited_stoppages` (
   `place_name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `comments` text COLLATE utf8_unicode_ci NOT NULL,
   `rent` int(11) NOT NULL,
-  `route_id` bigint(20) UNSIGNED NOT NULL,
+  `route_id` int(10) UNSIGNED NOT NULL,
   `position` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `edited_stoppages`
---
-
-INSERT INTO `edited_stoppages` (`id`, `place_name`, `comments`, `rent`, `route_id`, `position`) VALUES
-(1, 'Sirajgonj', 'sad', 500, 3, 1),
-(2, 'test', 'sds', 550, 3, 2),
-(3, 'sadsa', 'asda', 556, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -237,8 +221,8 @@ CREATE TABLE `languages` (
 --
 
 INSERT INTO `languages` (`id`, `lang_code`, `lang_name`, `lang_flag`, `lang_order`, `lang_status`, `lang_createDate`, `lang_updateDate`) VALUES
-(1, 'bn', 'bengali', 'bn', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 'en', 'english', 'en', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(1, 'bn', 'bengali', 'Bangladesh', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'en', 'english', 'England', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -252,6 +236,7 @@ CREATE TABLE `poribohons` (
   `bn_name` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `owner` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `total_vehicles` int(11) NOT NULL,
+  `picture` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `added_by` bigint(20) UNSIGNED NOT NULL,
   `added` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -260,11 +245,16 @@ CREATE TABLE `poribohons` (
 -- Dumping data for table `poribohons`
 --
 
-INSERT INTO `poribohons` (`id`, `name`, `bn_name`, `owner`, `total_vehicles`, `added_by`, `added`) VALUES
-(1, 'Tetulia Poribohon', 'তেতুলিয়া পরিবহন', '', 0, 2, '0000-00-00 00:00:00'),
-(2, 'TR Poribohon', 'টিআর পরিবহন', '', 0, 2, '0000-00-00 00:00:00'),
-(3, 'Dipon CNG', 'দীপন সিএনজি', '', 0, 2, '0000-00-00 00:00:00'),
-(4, 'Haque Special', '', '', 0, 4, '2016-11-11 10:35:59');
+INSERT INTO `poribohons` (`id`, `name`, `bn_name`, `owner`, `total_vehicles`, `picture`, `added_by`, `added`) VALUES
+(1, 'Tetulia Poribohon', 'তেতুলিয়া পরিবহন', '', 40, '', 4, '0000-00-00 00:00:00'),
+(2, 'TR Poribohon', 'টিআর পরিবহন', '', 0, '', 4, '2016-11-30 11:25:31'),
+(3, 'Dipon CNG', 'দীপন সিএনজি', '', 0, '', 4, '2016-11-30 11:25:17'),
+(4, 'Haque Special', 'হক স্পেশাল', 'পনির মিয়া', 15, '', 4, '2016-11-11 10:35:59'),
+(6, 'bikash poribohon', 'বিকাশ পরিবহন', '', 20, '828947-1_ll1.jpg', 4, '2016-11-30 11:25:40'),
+(7, 'Projapoti Poribohon', 'প্রজাপতি পরিবহন', '', 0, '', 4, '2016-11-30 11:20:29'),
+(8, 'Bhuyian Poribohon', 'ভূইয়া পরিবহন', '', 0, '', 4, '2017-01-02 17:10:12'),
+(9, 'Bengal Motors', 'বেঙ্গল মটরস', '', 0, '', 4, '2017-01-03 01:19:49'),
+(12, 'Sadhin Bangla', 'স্বাধীন বাংলা', '', 0, '', 4, '2017-01-03 14:41:11');
 
 -- --------------------------------------------------------
 
@@ -297,11 +287,12 @@ CREATE TABLE `routes` (
   `from_district` int(11) UNSIGNED NOT NULL,
   `from_thana` int(11) UNSIGNED NOT NULL,
   `from_place` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `from_latlong` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `to_district` int(11) UNSIGNED NOT NULL,
   `to_thana` int(11) UNSIGNED NOT NULL,
   `to_place` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `to_lat_long` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `transport_type` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `to_latlong` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `transport_type` enum('bus','train','leguna','biman','others') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'bus',
   `poribohon_id` int(11) UNSIGNED NOT NULL,
   `departure_time` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `rent` int(11) NOT NULL,
@@ -315,10 +306,10 @@ CREATE TABLE `routes` (
 -- Dumping data for table `routes`
 --
 
-INSERT INTO `routes` (`id`, `from_district`, `from_thana`, `from_place`, `to_district`, `to_thana`, `to_place`, `to_lat_long`, `transport_type`, `poribohon_id`, `departure_time`, `rent`, `evidence`, `added`, `added_by`, `is_publish`) VALUES
-(1, 1, 493, 'জাপান গার্ডেন সিটি', 1, 497, 'আব্দুল্লাহপুর', '', 'বাস', 1, 'কিছুক্ষর পরপর', 45, '', '2015-12-07 18:36:21', 2, 0),
-(2, 1, 493, 'তাজমহল রোড', 1, 509, 'মতিঝিল', '', 'বাস', 2, 'কিছুক্ষর পরপর', 35, '', '2015-12-08 09:33:55', 2, 0),
-(3, 28, 415, 'Goshpara', 1, 493, 'Asad Gate', '', 'Bus', 4, 'Daily morning & night', 550, '', '2016-11-11 10:35:59', 4, 0);
+INSERT INTO `routes` (`id`, `from_district`, `from_thana`, `from_place`, `from_latlong`, `to_district`, `to_thana`, `to_place`, `to_latlong`, `transport_type`, `poribohon_id`, `departure_time`, `rent`, `evidence`, `added`, `added_by`, `is_publish`) VALUES
+(1, 1, 493, 'mirpur-1', '23.7956037,90.3536548', 1, 509, 'Jhigatola', '23.7414675,90.3702192', 'leguna', 12, '1', 23, '', '2017-01-08 00:08:15', 4, 0),
+(2, 1, 493, 'Japan Garden City', '23.7653461,90.3571495', 1, 509, 'AbdullahPur', '23.8932542,90.387477', 'bus', 8, '1', 40, '', '2017-01-09 09:28:03', 2, 0),
+(3, 1, 509, 'Mirpur-1', '23.7956037,90.3536548', 1, 509, 'AbdullahPur', '23.8932542,90.387477', 'bus', 9, '1', 40, '', '2017-01-09 11:18:23', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -331,17 +322,18 @@ CREATE TABLE `route_bn` (
   `route_id` bigint(20) UNSIGNED NOT NULL,
   `from_place` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `to_place` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `departure_time` varchar(150) COLLATE utf8_unicode_ci NOT NULL
+  `departure_time` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `translation_status` enum('1','2','3') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1' COMMENT '1=incomplete,2=partial,3=complete'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `route_bn`
 --
 
-INSERT INTO `route_bn` (`id`, `route_id`, `from_place`, `to_place`, `departure_time`) VALUES
-(1, 1, 'Japan Garden City', 'Abdullahpur', 'Consecutively'),
-(2, 2, 'Tajmohol Road', 'Motijhil', 'Consecutively'),
-(3, 3, 'Goshpara', 'Asad Gate', 'Daily morning & night');
+INSERT INTO `route_bn` (`id`, `route_id`, `from_place`, `to_place`, `departure_time`, `translation_status`) VALUES
+(1, 1, 'মিরপুর-১', 'ঝিগাতলা', '1', '1'),
+(2, 2, 'জাপান গার্ডেন সিটি', 'আব্দুল্লাহপুর', '1', '1'),
+(3, 3, 'মিরপুর-১', 'আব্দুল্লাহপুর', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -363,11 +355,13 @@ CREATE TABLE `stoppages` (
 --
 
 INSERT INTO `stoppages` (`id`, `place_name`, `comments`, `rent`, `route_id`, `position`) VALUES
-(1, 'ফার্মগেট', '', 25, 1, 1),
-(2, 'কাওরান বাজার', '', 30, 1, 2),
-(32, 'মহাখালি', '', 20, 2, 1),
-(33, 'চেয়ারমেন বাড়ি', '', 20, 2, 2),
-(34, 'আমতলী', 'একই ভাড়া', 25, 2, 3);
+(1, 'Technical', '', 5, 1, 1),
+(4, 'Mohakhali', '', 20, 2, 1),
+(5, 'Chairmenbari', '', 25, 2, 2),
+(9, 'Mohakhali', '', 20, 3, 1),
+(10, 'Chairmenbari', '', 20, 3, 2),
+(11, 'Sainik Club', '', 25, 3, 3),
+(12, 'Kakoli', '', 25, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -383,6 +377,20 @@ CREATE TABLE `stoppage_bn` (
   `rent` int(11) NOT NULL,
   `position` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `stoppage_bn`
+--
+
+INSERT INTO `stoppage_bn` (`id`, `route_id`, `place_name`, `comments`, `rent`, `position`) VALUES
+(2, 1, 'টেকনিকাল', '', 5, 1),
+(3, 1, 'দারুসসালাম', '', 5, 2),
+(4, 2, 'মহাখালী', '', 20, 1),
+(5, 2, 'চেয়ারমেনবাড়ি', '', 25, 2),
+(12, 3, 'মহাখালী', '', 20, 1),
+(13, 3, 'চেয়ারম্যান বাড়ী', '', 20, 2),
+(14, 3, 'সৈনিক ক্লাব', '', 25, 3),
+(15, 3, 'কাকলী', '', 25, 4);
 
 -- --------------------------------------------------------
 
@@ -966,7 +974,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `mobile`, `reg_date`, `last_logged`, `user_type`, `reputation`, `avatar`, `status`) VALUES
 (1, 'রেজওয়ান', '81dc9bdb52d04dc20036dbd8313ed055', 'rejoan.er@gmail.com', '', '2015-12-03 10:07:24', '0000-00-00 00:00:00', 'user', 0, '', 1),
 (2, 'rejoan', '81dc9bdb52d04dc20036dbd8313ed055', 'rejoan.epr@gmail.com', '01961349181', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'admin', 0, '', 1),
-(4, 'anonymus', '81dc9bdb52d04dc20036dbd8313ed055', 'anonymus@gmail.com', '01961349181', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'user', 0, '', 1);
+(4, 'anonymus', '81dc9bdb52d04dc20036dbd8313ed055', 'anonymus@gmail.com', '01961349181', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'user', 0, '', 1),
+(6, '', '', 'refatju@yahoo.com', '', '2016-12-31 12:51:48', '0000-00-00 00:00:00', 'user', 0, '', 1);
 
 -- --------------------------------------------------------
 
@@ -1029,6 +1038,8 @@ ALTER TABLE `languages`
 --
 ALTER TABLE `poribohons`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`),
+  ADD UNIQUE KEY `bn_name` (`bn_name`),
   ADD KEY `FK_poribohons_users` (`added_by`);
 
 --
@@ -1115,12 +1126,12 @@ ALTER TABLE `drivers`
 -- AUTO_INCREMENT for table `edited_routes`
 --
 ALTER TABLE `edited_routes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `edited_stoppages`
 --
 ALTER TABLE `edited_stoppages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `languages`
 --
@@ -1130,7 +1141,7 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `poribohons`
 --
 ALTER TABLE `poribohons`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `profiles`
 --
@@ -1150,12 +1161,12 @@ ALTER TABLE `route_bn`
 -- AUTO_INCREMENT for table `stoppages`
 --
 ALTER TABLE `stoppages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `stoppage_bn`
 --
 ALTER TABLE `stoppage_bn`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `thanas`
 --
@@ -1165,7 +1176,7 @@ ALTER TABLE `thanas`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `verifications`
 --
@@ -1191,7 +1202,7 @@ ALTER TABLE `edited_routes`
 -- Constraints for table `edited_stoppages`
 --
 ALTER TABLE `edited_stoppages`
-  ADD CONSTRAINT `FK__routes` FOREIGN KEY (`route_id`) REFERENCES `routes` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_edited_stoppages_edited_routes` FOREIGN KEY (`route_id`) REFERENCES `edited_routes` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `poribohons`

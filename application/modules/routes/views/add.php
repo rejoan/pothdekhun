@@ -238,7 +238,7 @@
                 </div>
 
                 <?php if (isset($route['departure_time'])): ?>
-                    <?php if ($route['departure_time'] == 2): ?>
+                    <?php if ($route['departure_time'] != 1): ?>
 
                         <div id="departure_dynamic" class="form-group">
                             <label class="col-sm-3 control-label"></label>

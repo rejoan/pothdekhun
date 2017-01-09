@@ -9,6 +9,7 @@ class Routes extends MX_Controller {
 
     private $user_id = 4;
     public $latest_routes;
+
     public function __construct() {
         parent::__construct();
         if ($this->session->user_id) {
@@ -183,7 +184,6 @@ class Routes extends MX_Controller {
     public function edit($id) {
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
         $route_table = $this->nl->lang_based_data('route_bn', 'routes');
-        ;
         $rid = $this->nl->lang_based_data('route_id', 'id');
 
         if (!empty($id)) {
@@ -292,6 +292,7 @@ class Routes extends MX_Controller {
                 $taddress = $this->get_address($th, $td, $to);
                 $floc = $this->nl->get_lat_long($faddress, 'Bangladesh');
                 $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh');
+                //var_dump($faddress,$taddress,$floc,$tloc);return;
                 if (!empty($floc) && !empty($tloc)) {//if lat long data found
                     $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
                     $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
@@ -355,7 +356,7 @@ class Routes extends MX_Controller {
                     $this->db->insert_batch('edited_stoppages', $stoppages);
                 }
             }
-            
+
             redirect_tr('routes/all');
         }
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
@@ -376,7 +377,12 @@ class Routes extends MX_Controller {
         }
 
         $district = $this->pm->get_row('id', $district_id, 'districts');
-        $address = $mini_address . $th_name . ',' . $district['name'];
+        $dis = ','.$district['name'];
+        if (strtolower($mini_address) == strtolower($district['name'])) {
+            $dis = '';
+            $th_name = '';
+        }
+        $address = $mini_address . $th_name . $dis;
         return $address;
     }
 
