@@ -58,7 +58,7 @@ class Route_manager extends MX_Controller {
         $stoppage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', FALSE, $edited_route['lang_code']);
         $rid = $this->nl->lang_based_data('route_id', 'id', FALSE, $edited_route['lang_code']);
         $prev_route = $this->rmn->get_row($route_id);
-
+        //var_dump($col_name,$col_name_rev);return;
         $data = array(
             'title' => lang('edit_route'),
             'action' => site_url_tr('route_manager/merge'),

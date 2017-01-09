@@ -243,16 +243,16 @@
                 <div class="form-group">
                     <label class="control-label"><?php echo lang('transport_type'); ?></label>
                     <select id="vehicle_type" name="transport_type" class="selectpicker" data-width="100%">
-                        <option value="<?php echo lang('bus'); ?>" <?php echo $edited_route['transport_type'] == lang('bus') ? 'selected="yes"' : ''; ?>><?php echo lang('bus'); ?></option>
-                        <option value="<?php echo lang('train'); ?>" <?php echo $edited_route['transport_type'] == lang('train') ? 'selected="yes"' : ''; ?>><?php echo lang('train'); ?></option>
-                        <option value="<?php echo lang('leguna'); ?>" <?php echo $edited_route['transport_type'] == lang('leguna') ? 'selected="yes"' : ''; ?>><?php echo lang('leguna'); ?></option>
-                        <option value="<?php echo lang('biman'); ?>" <?php echo $edited_route['transport_type'] == lang('biman') ? 'selected="yes"' : ''; ?>><?php echo lang('biman'); ?></option>
-                        <option value="<?php echo lang('others'); ?>" <?php echo $edited_route['transport_type'] == lang('others') ? 'selected="yes"' : ''; ?>><?php echo lang('others'); ?></option>
+                        <option value="bus" <?php echo $edited_route['transport_type'] == 'bus' ? 'selected="yes"' : ''; ?>><?php echo lang('bus'); ?></option>
+                        <option value="train" <?php echo $edited_route['transport_type'] == 'train' ? 'selected="yes"' : ''; ?>><?php echo lang('train'); ?></option>
+                        <option value="leguna" <?php echo $edited_route['transport_type'] == 'leguna' ? 'selected="yes"' : ''; ?>><?php echo lang('leguna'); ?></option>
+                        <option value="biman" <?php echo $edited_route['transport_type'] == 'biman' ? 'selected="yes"' : ''; ?>><?php echo lang('biman'); ?></option>
+                        <option value="others" <?php echo $edited_route['transport_type'] == 'others' ? 'selected="yes"' : ''; ?>><?php echo lang('others'); ?></option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="control-label"><?php echo lang('vehicle_name'); ?></label>
-                    <input id="vehicle_name" maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php echo $edited_route[$this->nl->lang_based_data('name', 'bn_name')]; ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>">
+                    <input id="vehicle_name" maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php echo $edited_route[$this->nl->lang_based_data('bn_name', 'name',FALSE,$edited_route['lang_code'])]; ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>">
                 </div>
 
                 <div id="departure_perticular" class="form-group">
@@ -276,7 +276,7 @@
                     <?php
                     for ($e = 0; $e < count($edited_stoppages); $e++) {
                         $m = $e + 1;
-                        echo '<div class="form-group"><div class="col-xs-10 col-md-2"><input id="position_' . $m . '" maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' . $edited_stoppages[$e]['position'] . '"></div><div class="col-xs-10 col-md-3"><input id="place_' . $m . '" maxlength="150" type="text" class="form-control" name="place_name[]" value="' . $edited_stoppages[$e]['place_name'] . '" placeholder="' . lang('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea id="comment_' . $m . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $edited_stoppages[$e]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $m . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $edited_stoppages[$e]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
+                        echo '<div class="form-group"><div class="col-xs-10 col-md-2"><input id="position_' . $m . '" maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' . $edited_stoppages[$e]['position'] . '"></div><div class="col-xs-10 col-md-3"><input id="place_' . $m . '" maxlength="150" type="text" class="form-control place_name" name="place_name[]" value="' . $edited_stoppages[$e]['place_name'] . '" placeholder="' . lang('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea id="comment_' . $m . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $edited_stoppages[$e]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $m . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $edited_stoppages[$e]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
                     }
                     ?>
                 </div>
@@ -306,7 +306,7 @@
                 <input type="hidden" id="comment" value="<?php echo lang('comment'); ?>"/>
                 <input type="hidden" id="rents" value="<?php echo lang('main_rent'); ?>"/>
                 <input type="hidden" id="custom_time" value="<?php echo lang('custom_time'); ?>"/>
-                <input type="hidden" name="route_id" value="<?php echo $this->uri->segment(3); ?>"/>
+                <input id="route_id" type="hidden" name="route_id" value="<?php echo $this->uri->segment(3); ?>"/>
                 <input type="hidden"  name="edited_file" value="<?php echo $edited_route['evidence']; ?>"/>
                 <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="Approve"/>
                 <a href="<?php echo site_url_tr('route_manager/decline/') . $this->uri->segment(3); ?>" class="btn btn-primary btn-lg btn-danger">Decline</a>

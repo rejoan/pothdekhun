@@ -343,11 +343,13 @@ class Routes extends MX_Controller {
                     if (!empty($new_stoppages)) {
                         $this->db->insert_batch($rest_table, $new_stoppages);
                     }
+                    $this->session->set_flashdata('message', lang('edit_success'));
                 } else {
+                    $this->session->set_flashdata('message', lang('edit_success_user'));
                     $this->db->insert_batch('edited_stoppages', $stoppages);
                 }
             }
-            $this->session->set_flashdata('message', lang('edit_success'));
+            
             redirect_tr('routes/all');
         }
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
@@ -394,7 +396,7 @@ class Routes extends MX_Controller {
         $result = $this->rm->details($route_id);
         //var_dump($result);        return;
         $data = array(
-            'title' => $result[$this->nl->lang_based_data('fp_bn', 'from_place')] . ' ' . lang('from_view') . ' ' . $result[$this->nl->lang_based_data('tp_bn', 'from_place')] . ', ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),
+            'title' => ucfirst($result[$this->nl->lang_based_data('fp_bn', 'from_place')]) . ' ' . lang('from_view') . ' ' . ucfirst($result[$this->nl->lang_based_data('tp_bn', 'to_place')]) . ', ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),
             'route' => $result,
             'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['r_id']),
             'segment' => 0,

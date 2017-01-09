@@ -115,3 +115,4 @@ $lang['translate'] = 'Translate';
 $lang['bengali_name'] = 'Bengali Name';
 $lang['owner_name'] = 'Owner Name';
 $lang['edit_button'] = 'Update';
+$lang['edit_success_user'] = 'Success :) Your edits submitted for admin review';

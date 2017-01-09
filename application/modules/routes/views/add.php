@@ -70,8 +70,8 @@
                         <input maxlength="200" type="text" class="form-control search_place" name="f" value="<?php
                         if ($this->input->post('submit')) {
                             echo set_value('f');
-                        } elseif (isset($route['from_place'])) {
-                            echo $route['from_place'];
+                        } elseif (isset($route[$this->nl->lang_based_data('fp_bn', 'from_place')])) {
+                            echo $route[$this->nl->lang_based_data('fp_bn', 'from_place')];
                         } elseif ($this->input->post('f')) {
                             echo $this->input->post('f');
                         }
@@ -127,8 +127,8 @@
                         <input maxlength="200" type="text" class="form-control search_place" name="t" value="<?php
                         if ($this->input->post('submit')) {
                             echo set_value('t');
-                        } elseif (isset($route['to_place'])) {
-                            echo $route['to_place'];
+                        } elseif (isset($route[$this->nl->lang_based_data('tp_bn', 'to_place')])) {
+                            echo $route[$this->nl->lang_based_data('tp_bn', 'to_place')];
                         } elseif ($this->input->post('t')) {
                             echo $this->input->post('t');
                         }
