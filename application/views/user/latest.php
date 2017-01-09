@@ -6,32 +6,15 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <div class="box-footer box-comments">
-                <div class="box-comment">
-                    <div class="comment-text">
-                        <span class="username">
-                            Maria Gonzales
-                            <span class="text-muted pull-right">8:03 PM Today</span>
-                        </span><!-- /.username -->
-                        It is a long established fact that a reader will be distracted
-                        by the readable content of a page when looking at its layout.
-                    </div>
-                    <!-- /.comment-text -->
+            <?php foreach ($latest_routes as $latest): ?>
+                <div class="box-title">
+                    <p><a href="<?php echo site_url_tr('routes/show') . '/' . $latest['id']; ?>"><?php echo ucfirst($latest[$this->nl->lang_based_data('fp_bn', 'from_place')]) . ', ' . ucfirst($latest[$this->nl->lang_based_data('district_name_bn', 'district_name')]) . ' ' . lang('to_view') . ' ' . $latest[$this->nl->lang_based_data('tp_bn', 'to_place')] . ', ' . $latest[$this->nl->lang_based_data('td_bn_name', 'td_name')]; ?></a></p>
+
+                    <span class="text-muted pull-right"><?php echo $this->nl->date_formation('Y-m-d H:i:s', $latest['added'], $settings->db_timezone, $settings->client_timezone, 'd M, Y'); ?></span>
+                    <?php echo $latest[$this->nl->lang_based_data('bn_name', 'name')]; ?>
                 </div>
-                <!-- /.box-comment -->
-                <div class="box-comment">
-                    <div class="comment-text">
-                        <span class="username">
-                            Luna Stark
-                            <span class="text-muted pull-right">8:03 PM Today</span>
-                        </span><!-- /.username -->
-                        It is a long established fact that a reader will be distracted
-                        by the readable content of a page when looking at its layout.
-                    </div>
-                    <!-- /.comment-text -->
-                </div>
-                <!-- /.box-comment -->
-            </div>
+            <hr/>
+            <?php endforeach ?>
         </div>
         <!-- /.box-body -->
     </div>

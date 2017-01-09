@@ -190,7 +190,7 @@ class Nuts_lib {
      */
     public function get_config() {
         $this->CI->load->helper('file');
-        $xml = read_file('./application/config/bksh_config.xml');
+        $xml = read_file('./application/config/poth_config.xml');
         $obj = new SimpleXMLElement($xml);
         return $obj;
         //return json_decode(json_encode($obj), TRUE);
