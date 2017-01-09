@@ -100,9 +100,9 @@ class Routes extends MX_Controller {
                 $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
                 return;
             }
-            $col_name_rev = $this->nl->lang_based_data('name','bn_name');
-            $col_name = $this->nl->lang_based_data('bn_name','name');
-            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id,$col_name,$col_name_rev);
+            $col_name_rev = $this->nl->lang_based_data('name', 'bn_name');
+            $col_name = $this->nl->lang_based_data('bn_name', 'name');
+            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name, $col_name_rev);
             //get thana and district name to get lat long data
 //            $faddress = $this->get_address($ft, $fd, $from);
 //
@@ -177,9 +177,10 @@ class Routes extends MX_Controller {
      * @return type
      */
     public function edit($id) {
-        $stopage_table = $this->nl->lang_based_data('stoppages','stoppage_bn');
-        $route_table = $this->nl->lang_based_data('routes','route_bn');;
-        $rid = $this->nl->lang_based_data('id','route_id');
+        $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
+        $route_table = $this->nl->lang_based_data('route_bn', 'routes');
+        ;
+        $rid = $this->nl->lang_based_data('route_id', 'id');
 
         if (!empty($id)) {
             $route_id = (int) $id;
@@ -227,9 +228,9 @@ class Routes extends MX_Controller {
             }
 
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
-            $col_name_rev = $this->nl->lang_based_data('name','bn_name');
-            $col_name = $this->nl->lang_based_data('bn_name','name');
-            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id,$col_name,$col_name_rev);
+            $col_name_rev = $this->nl->lang_based_data('name', 'bn_name');
+            $col_name = $this->nl->lang_based_data('bn_name', 'name');
+            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name, $col_name_rev);
 
             $config['upload_path'] = './evidences';
             $config['allowed_types'] = 'gif|jpg|png|jpeg|docx|doc';
@@ -352,6 +353,13 @@ class Routes extends MX_Controller {
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
     }
 
+    /**
+     * get address for google map API
+     * @param int $thana_id
+     * @param int $district_id
+     * @param string $mini_address
+     * @return string
+     */
     public function get_address($thana_id, $district_id, $mini_address) {
         $thana = $this->pm->get_row('id', $thana_id, 'thanas');
         $th_name = ',' . $thana['name'];
@@ -374,12 +382,9 @@ class Routes extends MX_Controller {
         } else {
             show_404();
         }
-        $stopage_table = 'stoppages';
+        $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
         $lang_url = '/bn/';
-        if ($this->session->lang_code == 'bn') {
-            $stopage_table = 'stoppage_bn';
-            $lang_url = '';
-        }
+        $this->nl->lang_based_data('/bn/', '');
 
         $exist = $this->rm->details($route_id, FALSE);
         if ($exist < 1) {
@@ -389,7 +394,7 @@ class Routes extends MX_Controller {
         $result = $this->rm->details($route_id);
         //var_dump($result);        return;
         $data = array(
-            'title' => $result['from_place'] . ' ' . lang('from_view') . ' ' . $result['to_place'] . ' ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),
+            'title' => $result[$this->nl->lang_based_data('fp_bn', 'from_place')] . ' ' . lang('from_view') . ' ' . $result[$this->nl->lang_based_data('tp_bn', 'from_place')] . ', ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),
             'route' => $result,
             'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['r_id']),
             'segment' => 0,
