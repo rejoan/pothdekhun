@@ -62,11 +62,12 @@ class Weapons extends MX_Controller {
 
         if ($this->session->lang_code == 'bn') {
             $sql = 'SELECT Location FROM (
-                    SELECT to_place as Location,route_id FROM route_bn
+                    SELECT LOWER(to_place) as Location,route_id FROM route_bn
                     UNION DISTINCT
                     SELECT from_place,route_id FROM route_bn
                       ) as rtn JOIN routes ON routes.id = rtn.route_id
                     WHERE ' . $fil_dist . $fil_thana . ' 
+                        GROUP BY Location
                     ORDER BY CASE WHEN
                      Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
                     LIMIT 8';

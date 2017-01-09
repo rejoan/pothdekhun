@@ -89,11 +89,15 @@ function language_menu() {
     $CI = & get_instance();
     $current_lang = ucfirst($CI->session->lang_name);
     $selector = '';
-    $selector .= '<li class="dropdown"><a style="color:#fff;" href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"><i class="fa fa-' . $CI->session->lang_flag . '"></i> ' . $current_lang . '<span class="caret"></span></a>';
+    $flag = 'England';
+    if ($current_lang == 'Bengali') {
+        $flag = 'Bangladesh';
+    }
+    $selector .= '<li id="lang_menu" class="dropdown"><a style="color:#fff;" href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"><img src="' . base_url('assets/flags/16') . '/' . $flag . '.png" alt="'.$flag.'"/> ' . $current_lang . '<span class="caret"></span></a>';
     $selector .= '<ul class="dropdown-menu dropdown-menu-default">';
     $languages = language_array();
     foreach ($languages as $lang) {
-        $selector .= '<li><a href="' . current_url_tr($lang['lang_code']) . '"><i class="flag-' . $lang['lang_flag'] . '"></i> ' . ucfirst($lang['lang_name']) . '</a></li>';
+        $selector .= '<li><a class="padding_left" href="' . current_url_tr($lang['lang_code']) . '"><img src="' . base_url('assets/flags/16') . '/' . trim($lang['lang_flag']) . '.png" alt="'.$lang['lang_flag'].'"/> ' . ucfirst($lang['lang_name']) . '</a></li>';
     }
 
     $selector .= '</li></ul>';

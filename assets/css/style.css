@@ -78,7 +78,9 @@ footer {
 .margin_top{
     margin-top: 5px;
 }
-
+#lang_menu .padding_left{
+    padding-left: 5px;
+}
 #suggestion a.selected, #suggestion_to a.selected,#suggestion_p a.selected{
     background: #eee;
 }
