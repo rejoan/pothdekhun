@@ -13,6 +13,7 @@ class Search extends MX_Controller {
         parent::__construct();
         $this->user_id = $this->session->user_id;
         $this->load->model('Search_model', 'sm');
+		$this->latest_routes = $this->pm->latest_routes();
     }
 
     public function index() {
@@ -39,6 +40,8 @@ class Search extends MX_Controller {
             'title' => lang('transport'),
             'routes' => $routes,
             'links' => '',
+			'latest_routes' => $this->latest_routes,
+            'settings' => $this->nl->get_config(),
             'segment' => 0
         );
         $this->nl->view_loader('user', 'routes', 'routes', $data, 'latest', 'rightbar');
