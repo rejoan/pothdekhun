@@ -32,26 +32,27 @@ class Auth extends MX_Controller {
         $this->load->library('form_validation');
 
         if ($this->input->post('submit')) {
+              $this->form_validation->set_rules('g-recaptcha-response', lang('security_code'), 'callback_captcha_check');
             $this->form_validation->set_rules('email', lang('email'), 'required|is_unique[users.email]|valid_email');
-            $this->form_validation->set_rules('username', lang('username'), 'is_unique[users.username]');
-            $this->form_validation->set_rules('g-recaptcha-response', lang('security_code'), 'callback_captcha_check');
+            $this->form_validation->set_rules('username', lang('username'), 'required|is_unique[users.username]');
             $this->form_validation->set_message('is_unique', lang('is_unique_msg'));
 
-            $username = trim($this->input->post('username', TRUE));
-            $email = trim($this->input->post('email', TRUE));
-            $mobile = trim($this->input->post('mobile', TRUE));
-            $password = trim($this->input->post('password', TRUE));
-            $user = array(
-                'username' => $username,
-                'email' => $email,
-                'mobile' => $mobile,
-                'password' => md5($password)
-            );
+          
 
-            if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'register', $data);
+            if ($this->form_validation->run($this) == FALSE) {
+                $this->nl->view_loader('user', 'register', NULL, $data);
                 return;
             } else {
+                $username = trim($this->input->post('username', TRUE));
+                $email = trim($this->input->post('email', TRUE));
+                $mobile = trim($this->input->post('mobile', TRUE));
+                $password = trim($this->input->post('password', TRUE));
+                $user = array(
+                    'username' => $username,
+                    'email' => $email,
+                    'mobile' => $mobile,
+                    'password' => md5($password)
+                );
                 $this->db->insert('users', $user);
 //send email for verification
                 $this->session->set_flashdata('message', lang('register_user'));

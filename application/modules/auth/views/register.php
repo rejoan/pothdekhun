@@ -13,13 +13,13 @@
                 </p>
                 <form  action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
                     <div id="userInfo" class="form-group has-feedback">
-                        <input id="chkUsername" type="text" class="form-control" placeholder="<?php echo lang('username'); ?>" name="username" required title="আপনার ইউজার নাম দিন">
+                        <input id="chkUsername" type="text" class="form-control" placeholder="<?php echo lang('username'); ?>" name="username" required title="আপনার ইউজার নাম দিন" value="<?php echo set_value('username');?>">
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     </div>
                     <?php echo form_error('username', '<div class="alert alert-danger">', '</div>'); ?>
 
                     <div id="emailInfo" class="form-group has-feedback">
-                        <input id="chkEmail" type="email" class="form-control" placeholder="<?php echo lang('email'); ?>" name="email" required title="আপনার ইমেইল দিন">
+                        <input id="chkEmail" type="email" class="form-control" placeholder="<?php echo lang('email'); ?>" name="email" required title="আপনার ইমেইল দিন" value="<?php echo set_value('email');?>">
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
                     <?php echo form_error('email', '<div class="alert alert-danger">', '</div>'); ?>

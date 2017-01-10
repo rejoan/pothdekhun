@@ -105,7 +105,7 @@ class Routes extends MX_Controller {
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
             $this->form_validation->set_rules('g-recaptcha-response', lang('security_code'), 'callback_captcha_check');
 
-            if ($this->form_validation->run() == FALSE) {
+            if ($this->form_validation->run($this) == FALSE) {
                 $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
                 return;
             }
