@@ -313,8 +313,15 @@
                     echo $route['evidence'];
                 }
                 ?>"/>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"><?php echo lang('tick_here'); ?></label>
+                    <div class="col-xs-10 col-md-6">
+                        <?php echo $captcha;?>
+                    </div>
+                </div>
+                <?php echo form_error('g-recaptcha-response', '<div class="alert alert-danger">', '</div>'); ?>
                 <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>" />
-                <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('add_button'); ?>"/>
+                <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $action_button; ?>"/>
             </form>
         </div>
     </div>

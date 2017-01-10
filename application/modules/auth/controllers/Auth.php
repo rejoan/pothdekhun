@@ -23,15 +23,18 @@ class Auth extends MX_Controller {
 //    }
 
     public function register() {
+        $this->load->library('recaptcha');
         $data = array(
             'title' => lang('register'),
-            'action' => site_url_tr('auth/register')
+            'action' => site_url_tr('auth/register'),
+            'captcha' => $this->recaptcha->recaptcha_get_html()
         );
         $this->load->library('form_validation');
 
         if ($this->input->post('submit')) {
             $this->form_validation->set_rules('email', lang('email'), 'required|is_unique[users.email]|valid_email');
             $this->form_validation->set_rules('username', lang('username'), 'is_unique[users.username]');
+            $this->form_validation->set_rules('g-recaptcha-response', lang('security_code'), 'callback_captcha_check');
             $this->form_validation->set_message('is_unique', lang('is_unique_msg'));
 
             $username = trim($this->input->post('username', TRUE));
@@ -222,18 +225,15 @@ class Auth extends MX_Controller {
     }
 
     /**
-     * Function to check if user type is defined in configuration file
-     * @param string $type
-     * @return boolean
+     * Callback function for checking captcha
+     * @author Rejoanul Alam
      */
-    public function userType_exist($type) {
-        $uTypeLicense = $this->config->item('uTypeLicense');
-        if (array_key_exists($type, $uTypeLicense)) {
-            return TRUE;
-        } else {
-            $this->form_validation->set_message('userType_exist', lang('auth_invalid_captcha'));
-            return FALSE;
-        }
+    public function captcha_check() {
+        $captcha = $this->input->post('g-recaptcha-response');
+        $this->load->library('recaptcha');
+        $result = $this->recaptcha->recaptcha_check_answer($captcha);
+        $this->form_validation->set_message('captcha_check', lang('auth_invalid_captcha'));
+        return $result['success'];
     }
 
     /**

@@ -39,6 +39,7 @@ class Routes extends MX_Controller {
      * @return type
      */
     public function add() {
+        $this->load->library('recaptcha');
         $this->load->library('form_validation');
         $fd = trim($this->input->post('fd', TRUE));
         $td = trim($this->input->post('td', TRUE));
@@ -56,11 +57,13 @@ class Routes extends MX_Controller {
         $data = array(
             'title' => lang('add_route'),
             'action' => site_url_tr('routes/add'),
+            'action_button' => lang('add_button'),
             'districts' => $this->pm->get_data('districts'),
             'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $fdistrict),
             'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $tdistrict),
             'latest_routes' => $this->latest_routes,
-            'settings' => $this->nl->get_config()
+            'settings' => $this->nl->get_config(),
+            'captcha' => $this->recaptcha->recaptcha_get_html()
         );
 
         if ($this->input->post('submit')) {
@@ -100,6 +103,7 @@ class Routes extends MX_Controller {
             $this->form_validation->set_rules('f', lang('from_view'), 'required');
             $this->form_validation->set_rules('t', lang('to_view'), 'required');
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
+            $this->form_validation->set_rules('g-recaptcha-response', lang('security_code'), 'callback_captcha_check');
 
             if ($this->form_validation->run() == FALSE) {
                 $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
@@ -175,6 +179,14 @@ class Routes extends MX_Controller {
         }
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
     }
+    
+    public function captcha_check() {
+        $captcha = $this->input->post('g-recaptcha-response');
+        $this->load->library('recaptcha');
+        $result = $this->recaptcha->recaptcha_check_answer($captcha);
+        $this->form_validation->set_message('captcha_check', lang('auth_invalid_captcha'));
+        return $result['success'];
+    }
 
     /**
      * edit route
@@ -182,6 +194,7 @@ class Routes extends MX_Controller {
      * @return type
      */
     public function edit($id) {
+        $this->load->library('recaptcha');
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
         $route_table = $this->nl->lang_based_data('route_bn', 'routes');
         $rid = $this->nl->lang_based_data('route_id', 'id');
@@ -214,7 +227,9 @@ class Routes extends MX_Controller {
             'route' => $route_detail,
             'stoppages' => $this->pm->get_data($stopage_table, FALSE, 'route_id', $route_id),
             'latest_routes' => $this->latest_routes,
-            'settings' => $this->nl->get_config()
+            'settings' => $this->nl->get_config(),
+            'action_button' => lang('edit_button'),
+            'captcha' => $this->recaptcha->recaptcha_get_html()
         );
 
         if ($this->input->post('submit')) {
@@ -222,8 +237,9 @@ class Routes extends MX_Controller {
             $this->form_validation->set_rules('f', lang('from_view'), 'required');
             $this->form_validation->set_rules('t', lang('to_view'), 'required');
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer|greater_than[0]');
+            $this->form_validation->set_rules('g-recaptcha-response', lang('security_code'), 'callback_captcha_check');
 
-            if ($this->form_validation->run() == FALSE) {
+            if ($this->form_validation->run($this) == FALSE) {
                 $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
                 return;
             }

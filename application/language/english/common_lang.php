@@ -118,3 +118,6 @@ $lang['edit_button'] = 'Update';
 $lang['edit_success_user'] = 'Success :) Your edits submitted for admin review';
 $lang['guess_distance'] = 'Approximate Distance';
 $lang['guess_duration'] = 'Approximate Duration';
+$lang['security_code'] = 'Security Code';
+$lang['tick_here'] = 'Tick Mark Please';
+$lang['auth_invalid_captcha'] = 'ক্যাপচা সঠিক হয়নি';

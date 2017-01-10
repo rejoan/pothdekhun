@@ -116,3 +116,6 @@ $lang['edit_button'] = 'আপডেট';
 $lang['edit_success_user'] = 'সফল :) আপনার সম্পাদনা রিভিউয়ের জন্য পাঠানো হল';
 $lang['guess_distance'] = 'আনুমানিক দুরত্ব';
 $lang['guess_duration'] = 'আনুমানিক সময়';
+$lang['security_code'] = 'নিরাপত্তা কোড';
+$lang['tick_here'] = 'টিকমার্ক দিন';
+$lang['auth_invalid_captcha'] = 'ক্যাপচা সঠিক হয়নি';
