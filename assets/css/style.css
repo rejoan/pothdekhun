@@ -52,7 +52,7 @@ footer {
 }
 .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover{
     color: #fff;
-    background: #000;
+    background: #006699;
 }
 #profile .box-comments .comment-text{
     margin-left: 0;
