@@ -54,23 +54,27 @@ class Weapons extends MX_Controller {
                     SELECT to_place as Location FROM routes ' . $filter_district . $filter_thana . '
                     UNION DISTINCT
                     SELECT from_place FROM routes
+                    UNION DISTINCT
+                    SELECT place_name FROM stoppages
                       ) as rtn
                     ORDER BY CASE WHEN
                      Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
-                    LIMIT 8';
+                    LIMIT 7';
 
 
         if ($this->session->lang_code == 'bn') {
             $sql = 'SELECT Location FROM (
-                    SELECT LOWER(to_place) as Location,route_id FROM route_bn
+                    SELECT to_place as Location,route_id FROM route_bn
                     UNION DISTINCT
                     SELECT from_place,route_id FROM route_bn
+                    UNION DISTINCT
+                    SELECT place_name,route_id FROM stoppage_bn
                       ) as rtn JOIN routes ON routes.id = rtn.route_id
                     WHERE ' . $fil_dist . $fil_thana . ' 
                         GROUP BY Location
                     ORDER BY CASE WHEN
                      Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
-                    LIMIT 8';
+                    LIMIT 7';
         }
         $query = $this->db->query($sql);
         //echo $this->db->last_query();return;

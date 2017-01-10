@@ -42,9 +42,7 @@ $(document).ready(function () {
         });
     });
     $('.search_place,#vehicle_name').keydown(function (e) {
-        var sugesstion_id = $(this).next().prop('id');
-        //alert(sugesstion_id);
-        var listItems = $('#' + sugesstion_id + ' a');
+        var listItems = $(this).next().find('a');
         var key = e.keyCode,
                 selected = listItems.filter('.selected'),
                 current;
@@ -137,7 +135,7 @@ $(document).ready(function () {
         $(this).parent().empty();
     });
     $(document).click(function () {
-        $('.list-group').empty();
+        $('#landing_page .list-group').empty();
     });
 //add dynamic stoppgae as many user can
 

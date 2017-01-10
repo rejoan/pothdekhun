@@ -27,8 +27,8 @@
                         <?php foreach ($routes as $r):$segment++; ?>
                             <tr>
                                 <th><?php echo $segment; ?></th>
-                                <td><?php echo ucfirst($r[$this->nl->lang_based_data('fp_bn','from_place')]); ?></td>
-                                <td><?php echo ucfirst($r[$this->nl->lang_based_data('tp_bn','to_place')]); ?></td>
+                                <td><?php echo mb_convert_case($r[$this->nl->lang_based_data('fp_bn','from_place')], MB_CASE_TITLE, 'UTF-8'); ?></td>
+                                <td><?php echo mb_convert_case($r[$this->nl->lang_based_data('tp_bn','to_place')], MB_CASE_TITLE, 'UTF-8'); ?></td>
                                 <td><?php echo get_tr_type($r['transport_type']); ?></td>
                                 <td><?php echo $r[$this->nl->lang_based_data('bn_name','name')]; ?></td>
                                 <td><a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('routes/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>

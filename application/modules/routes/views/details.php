@@ -48,7 +48,7 @@
             </div>
             <hr/>
             <p><?php echo lang('guess_distance'); ?></p>
-            <h3 class="margin_top"><?php echo ($route['distance'] / 1000) . ' KM'; ?></h3>
+            <h3 class="margin_top"><?php echo ($route['distance'] / 1000) . $this->nl->lang_based_data(' কি.মি',' KM'); ?></h3>
             <hr/>
             <p><?php echo lang('guess_duration'); ?></p>
             <h3 class="margin_top"><?php echo $this->nl->seconds_to_time($route['duration']); ?></h3>

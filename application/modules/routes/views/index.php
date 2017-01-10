@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<div class="col-xs-12 col-md-6">
+<div id="landing_page" class="col-xs-12 col-md-6">
     <?php
     $message = $this->session->flashdata('message');
     if ($message) {
@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-xs-10 col-md-6">
                             <input type="text" class="form-control search_place" placeholder="<?php echo lang('from_push'); ?>" name="f" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
-                            <div id="suggestion" class="list-group">
+                            <div class="list-group suggestion">
 
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="col-xs-10 col-md-6">
                             <input type="text" class="form-control search_place" placeholder="<?php echo lang('device_to'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
-                            <div id="suggestion_to" class="list-group">
+                            <div class="list-group suggestion">
 
                             </div>
                         </div>
@@ -95,16 +95,10 @@
             <!-- get route info from user form -->
             <form action="<?php echo $search_action; ?>" method="get" accept-charset="UTF-8">
                 <div class="input-group margin">
-                    <input name="ps" type="text" class="form-control" placeholder="<?php echo lang('place_search'); ?>">
+                    <input name="ps" type="text" class="form-control search_place" placeholder="<?php echo lang('place_search'); ?>">
+                    <div class="list-group suggestion"></div>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-info btn-flat"><?php echo lang('search'); ?></button>
-                    </span>
-                </div>
-
-                <div class="input-group margin">
-                    <input type="text" name="ts" class="form-control" placeholder="<?php echo lang('transport_search_placeholder'); ?>">
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-info btn-flat"><?php echo lang('transport_search'); ?></button>
                     </span>
                 </div>
                 <div class="margin">

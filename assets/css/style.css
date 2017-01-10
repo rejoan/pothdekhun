@@ -21,16 +21,16 @@ body {
 body {
     padding-top: 70px;
 }
-#suggestion,#suggestion_to,#suggestion_p{
+#landing_page .suggestion{
     position: absolute;
     top: 33px;
     min-width: 85.5%;
     z-index: 99;
 }
-#suggestion .list-group-item,#suggestion_to .list-group-item,#suggestion_p .list-group-item{
+#landing_page .suggestion .list-group-item{
     padding: 4px;
 }
-#suggestion .list-group-item:first-child,#suggestion_to .list-group-item:first-child,#suggestion_p .list-group-item:first-child{
+#landing_page .suggestion .list-group-item:first-child{
     border-top-left-radius:0px;
     border-top-right-radius:0px;
 }
@@ -52,6 +52,9 @@ footer {
 }
 .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover{
     color: #fff;
+    background: #006699;
+}
+.nav>li>a:hover, .nav>li>a:active, .nav>li>a:focus,.navbar-inverse .navbar-nav>.active>a{
     background: #006699;
 }
 #profile .box-comments .comment-text{
@@ -81,6 +84,6 @@ footer {
 #lang_menu .padding_left{
     padding-left: 5px;
 }
-#suggestion a.selected, #suggestion_to a.selected,#suggestion_p a.selected{
+#landing_page .suggestion .selected{
     background: #eee;
 }
