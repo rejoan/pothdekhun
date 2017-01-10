@@ -103,24 +103,21 @@ class Routes extends MX_Controller {
             $this->form_validation->set_rules('f', lang('from_view'), 'required');
             $this->form_validation->set_rules('t', lang('to_view'), 'required');
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
-            $this->form_validation->set_rules('g-recaptcha-response', lang('security_code'), 'callback_captcha_check');
+            $captcha_response = $this->recaptcha->recaptcha_check_answer($this->input->post('g-recaptcha-response'));
+            if (!$captcha_response['success']) {
+                $this->session->set_flashdata('message', lang('auth_invalid_captcha'));
+                redirect_tr('routes/add');
+            }
+            //$this->form_validation->set_rules('g-recaptcha-response', lang('security_code'), 'callback_captcha_check');
 
-            if ($this->form_validation->run($this) == FALSE) {
+            if ($this->form_validation->run() == FALSE) {
                 $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
                 return;
             }
             $col_name_rev = $this->nl->lang_based_data('name', 'bn_name');
             $col_name = $this->nl->lang_based_data('bn_name', 'name');
             $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name, $col_name_rev);
-            //get thana and district name to get lat long data
-//            $faddress = $this->get_address($ft, $fd, $from);
-//
-//            $taddress = $this->get_address($th, $td, $to);
-//
-//            $floc = $this->nl->get_lat_long($faddress, 'Bangladesh');
-//            $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh');
-            //lat long end
-            //var_dump($floc,$tloc);return;
+
             $route = array(
                 'from_district' => $from_district,
                 'from_thana' => $from_thana,
@@ -135,10 +132,7 @@ class Routes extends MX_Controller {
                 'evidence' => $evidence_name,
                 'added_by' => $this->user_id
             );
-//            if (!empty($floc) && !empty($tloc)) {//if lat long data found
-//                $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
-//                $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
-//            }
+
             $this->db->set('added', 'NOW()', FALSE);
             $this->db->insert('routes', $route);
 
@@ -179,7 +173,7 @@ class Routes extends MX_Controller {
         }
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
     }
-    
+
     public function captcha_check() {
         $captcha = $this->input->post('g-recaptcha-response');
         $this->load->library('recaptcha');
@@ -237,9 +231,13 @@ class Routes extends MX_Controller {
             $this->form_validation->set_rules('f', lang('from_view'), 'required');
             $this->form_validation->set_rules('t', lang('to_view'), 'required');
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer|greater_than[0]');
-            $this->form_validation->set_rules('g-recaptcha-response', lang('security_code'), 'callback_captcha_check');
+             $captcha_response = $this->recaptcha->recaptcha_check_answer($this->input->post('g-recaptcha-response'));
+            if (!$captcha_response['success']) {
+                $this->session->set_flashdata('message', lang('auth_invalid_captcha'));
+                redirect_tr('routes/edit/'.$route_id);
+            }
 
-            if ($this->form_validation->run($this) == FALSE) {
+            if ($this->form_validation->run() == FALSE) {
                 $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
                 return;
             }

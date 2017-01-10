@@ -32,14 +32,17 @@ class Auth extends MX_Controller {
         $this->load->library('form_validation');
 
         if ($this->input->post('submit')) {
-              $this->form_validation->set_rules('g-recaptcha-response', lang('security_code'), 'callback_captcha_check');
+
             $this->form_validation->set_rules('email', lang('email'), 'required|is_unique[users.email]|valid_email');
             $this->form_validation->set_rules('username', lang('username'), 'required|is_unique[users.username]');
             $this->form_validation->set_message('is_unique', lang('is_unique_msg'));
+            $captcha_response = $this->recaptcha->recaptcha_check_answer($this->input->post('g-recaptcha-response'));
+            if (!$captcha_response['success']) {
+                $this->session->set_flashdata('message', lang('auth_invalid_captcha'));
+                redirect_tr('auth/register');
+            }
 
-          
-
-            if ($this->form_validation->run($this) == FALSE) {
+            if ($this->form_validation->run() == FALSE) {
                 $this->nl->view_loader('user', 'register', NULL, $data);
                 return;
             } else {
@@ -53,8 +56,15 @@ class Auth extends MX_Controller {
                     'mobile' => $mobile,
                     'password' => md5($password)
                 );
-                $this->db->insert('users', $user);
-//send email for verification
+
+                $user_id = $this->pm->insert_data('users', $user, TRUE);
+                $user_data = array(
+                    'user_id' => $user_id,
+                    'username' => $username,
+                    'email' => $email,
+                    'user_type' => 'user'
+                );
+                $this->session->set_userdata($user_data);
                 $this->session->set_flashdata('message', lang('register_user'));
                 redirect_tr('profile');
             }

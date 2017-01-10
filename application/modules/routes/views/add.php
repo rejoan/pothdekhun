@@ -319,7 +319,7 @@
                         <?php echo $captcha;?>
                     </div>
                 </div>
-                <?php echo form_error('g-recaptcha-response', '<div class="alert alert-danger">', '</div>'); ?>
+                <?php //echo form_error('g-recaptcha-response', '<div class="alert alert-danger">', '</div>'); ?>
                 <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>" />
                 <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $action_button; ?>"/>
             </form>
