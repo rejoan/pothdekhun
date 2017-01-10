@@ -434,7 +434,7 @@ class Routes extends MX_Controller {
         $result = $this->rm->details($route_id);
         //var_dump($result);        return;
         $data = array(
-            'title' => ucfirst($result[$this->nl->lang_based_data('fp_bn', 'from_place')]) . ' ' . lang('from_view') . ' ' . ucfirst($result[$this->nl->lang_based_data('tp_bn', 'to_place')]) . ', ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),
+            'title' => mb_convert_case($result[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('from_view') . ' ' . mb_convert_case($result[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),
             'route' => $result,
             'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['r_id']),
             'segment' => 0,
