@@ -2,7 +2,7 @@
 <div id="route_detail" class="col-xs-12 col-md-6">
     <div class="box box-poth">
         <div class="box-header with-border">
-            <p><?php echo lang('route_info') . ':</p> <h3><span class="label label-info">' . ucfirst($route[$this->nl->lang_based_data('fp_bn', 'from_place')]) . ', '.ucfirst($route[$this->nl->lang_based_data('district_name_bn','district_name')]).'</span> ' . lang('to_view') . ' <span class="label label-info">' . $route[$this->nl->lang_based_data('tp_bn', 'to_place')] . ', '.$route[$this->nl->lang_based_data('td_bn_name','td_name')].'</span>'; ?></h3>
+            <p><?php echo lang('route_info') . ':</p> <h3><span class="label label-info">' . ucfirst($route[$this->nl->lang_based_data('fp_bn', 'from_place')]) . ', '.ucfirst($route[$this->nl->lang_based_data('district_name_bn','district_name')]).'</span> ' . lang('to_view') . ' <span class="label label-info">' . ucfirst($route[$this->nl->lang_based_data('tp_bn', 'to_place')]) . ', '.ucfirst($route[$this->nl->lang_based_data('td_bn_name','td_name')]).'</span>'; ?></h3>
         </div>
         <div class="box-body">
             <p class="no-margin"><?php echo lang('transport_type'); ?></p>
@@ -46,6 +46,12 @@
                     </tbody>
                 </table>
             </div>
+            <hr/>
+            <p><?php echo lang('guess_distance'); ?></p>
+            <h3 class="margin_top"><?php echo ($route['distance']/1000).' KM'; ?></h3>
+            <hr/>
+            <p><?php echo lang('guess_duration'); ?></p>
+            <h3 class="margin_top"><?php echo $this->nl->seconds_to_time($route['duration']); ?></h3>
         </div>
         <div class="box-footer">
             <a href="javascript:void(0);" class="btn btn-info"><?php echo lang('verify_button'); ?></a>

@@ -116,3 +116,5 @@ $lang['bengali_name'] = 'Bengali Name';
 $lang['owner_name'] = 'Owner Name';
 $lang['edit_button'] = 'Update';
 $lang['edit_success_user'] = 'Success :) Your edits submitted for admin review';
+$lang['guess_distance'] = 'Approximate Distance';
+$lang['guess_duration'] = 'Approximate Duration';

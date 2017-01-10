@@ -114,3 +114,5 @@ $lang['bengali_name'] = 'বাংলা নাম';
 $lang['owner_name'] = 'মালিক';
 $lang['edit_button'] = 'আপডেট';
 $lang['edit_success_user'] = 'সফল :) আপনার সম্পাদনা রিভিউয়ের জন্য পাঠানো হল';
+$lang['guess_distance'] = 'আনুমানিক দুরত্ব';
+$lang['guess_duration'] = 'আনুমানিক সময়';

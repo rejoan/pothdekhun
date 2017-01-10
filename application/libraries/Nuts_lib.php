@@ -241,6 +241,9 @@ class Nuts_lib {
         $h = floor(($ss % 86400) / 3600);
         $d = floor(($ss % 2592000) / 86400);
         $M = floor($ss / 2592000);
+        $hr = $this->lang_based_data(' ঘন্টা ', ' Hr. ');
+        $mn = $this->lang_based_data(' মি. ', ' Min. ');;
+        $sec = $this->lang_based_data(' সে. ', ' Sec. ');;
 
         $s = $s < 10 ? '0' . $s : $s;
         $m = $m < 10 ? '0' . $m : $m;
@@ -249,7 +252,7 @@ class Nuts_lib {
         $M = $M < 10 ? '0' . $M : $M;
         $month = $M < 1 ? '' : $M . ' mon ';
         $day = $d < 1 ? '' : $d . ' day ';
-        return $month . $day . $h . ':' . $m . ':' . $s;
+        return $month . $day . $h . $hr . $m . $mn . $s.$sec;
     }
 
     /**
@@ -462,15 +465,9 @@ class Nuts_lib {
             $prediction_api = @file_get_contents('https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' . $adds . '&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $ctx);
             $predictions = json_decode($prediction_api);
             $place_id = $predictions->predictions[0]->place_id;
-            //var_dump($predictions->predictions[0]->description,$predictions->predictions[0]->place_id,$place_id);return;
+
             //$first_prediction = $predictions->predictions[0]->description;
-//            $pos = strpos($first_prediction, ',', strpos($first_prediction, ',') + 1);
-//            if ($pos === FALSE) {
-//                $adds = $first_prediction;
-//            } else {
-//                $adds = substr($first_prediction, 0, $pos);
-//            }
-//            $adds = str_replace(' ', '+', trim($adds));
+
             $json = @file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $place_id . '&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $ctx);
 
             $json = json_decode($json);
@@ -480,7 +477,6 @@ class Nuts_lib {
             $lat_long['long'] = $long;
 
             return $lat_long;
-            //var_dump($json->result->geometry->location->lat);return;
         }
         //var_dump($json);return;
         $lat = $json->results[0]->geometry->location->lat;
@@ -490,5 +486,23 @@ class Nuts_lib {
 
         return $lat_long;
     }
+
+    public function get_distance($from_latlong,$to_latlong) {
+        $dis_dur = array();
+        $api = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins='.$from_latlong.'&destinations='.$to_latlong.'&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg';
+        $ctx = stream_context_create(array('http' =>
+            array(
+                'timeout' => 60,
+            )
+        ));
+
+        $json = @file_get_contents($api, false, $ctx);
+
+        $json = json_decode($json);
+        $dis_dur['distance'] = $json->rows[0]->elements[0]->distance->value;
+        $dis_dur['duration'] = $json->rows[0]->elements[0]->duration->value;
+        return $dis_dur;
+    }
+    
 
 }

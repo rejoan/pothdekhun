@@ -202,16 +202,16 @@ class Routes extends MX_Controller {
         }
 
         $this->load->library('form_validation');
-        $route = $this->rm->details($route_id);
+        $route_detail = $this->rm->details($route_id);
         //var_dump($route);return;
         $data = array(
             'title' => lang('edit_route'),
             'districts' => $this->pm->get_data('districts'),
-            'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $route['from_district']),
-            'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $route['to_district']),
+            'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $route_detail['from_district']),
+            'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $route_detail['to_district']),
             'action' => site_url_tr('routes/edit/' . $route_id),
             'countries' => get_countries(),
-            'route' => $route,
+            'route' => $route_detail,
             'stoppages' => $this->pm->get_data($stopage_table, FALSE, 'route_id', $route_id),
             'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config()
@@ -288,15 +288,27 @@ class Routes extends MX_Controller {
             }
 
             if ($this->session->user_type == 'admin') {//if admin then direct approve/update
-                $faddress = $this->get_address($ft, $fd, $from);
-                $taddress = $this->get_address($th, $td, $to);
-                $floc = $this->nl->get_lat_long($faddress, 'Bangladesh');
-                $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh');
-                //var_dump($faddress,$taddress,$floc,$tloc);return;
-                if (!empty($floc) && !empty($tloc)) {//if lat long data found
-                    $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
-                    $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
+                $from_place = $route_detail['from_place'];
+                $to_place = $route_detail['to_place'];
+
+                if (($this->session->lang_code == 'en') && (strtolower($from_place) != strtolower($from) || strtolower($to_place) != strtolower($to) || empty($route_detail['from_latlong']) || empty($route_detail['to_latlong']))) {
+// if lat long not available OR from/to changed and lang is english
+                    $faddress = $this->get_address($ft, $fd, $from);
+                    $taddress = $this->get_address($th, $td, $to);
+                    $floc = $this->nl->get_lat_long($faddress, 'Bangladesh');
+                    $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh');
+                    //var_dump($faddress,$taddress,$floc,$tloc);return;
+                    if (!empty($floc) && !empty($tloc)) {//if lat long data found
+                        $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
+                        $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
+                        $dis_dur = $this->nl->get_distance($route['from_latlong'], $route['to_latlong']);
+                        if (!empty($dis_dur)) {
+                            $route['distance'] = $dis_dur['distance'];
+                            $route['duration'] = $dis_dur['duration'];
+                        }
+                    }
                 }
+
                 $this->pm->updater($rid, $route_id, $route_table, $route);
                 //echo $this->db->last_query();
             } else {// send to temp table for review
@@ -377,7 +389,7 @@ class Routes extends MX_Controller {
         }
 
         $district = $this->pm->get_row('id', $district_id, 'districts');
-        $dis = ','.$district['name'];
+        $dis = ',' . $district['name'];
         if (strtolower($mini_address) == strtolower($district['name'])) {
             $dis = '';
             $th_name = '';

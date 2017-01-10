@@ -95,11 +95,6 @@ class Route_manager extends MX_Controller {
             $from = trim($this->input->post('f', TRUE));
             $to = trim($this->input->post('t', TRUE));
 
-            $faddress = modules::run('routes/get_address', $ft, $fd, $from);
-
-            $taddress = modules::run('routes/get_address', $th, $td, $to);
-            $floc = $this->nl->get_lat_long($faddress, 'Bangladesh');
-            $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh');
             //var_dump($floc,$faddress);return;
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
             $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name, $col_name_rev);
@@ -111,6 +106,7 @@ class Route_manager extends MX_Controller {
                     'departure_time' => $departure_time
                 );
             } else {
+
                 $route = array(
                     'from_place' => $from,
                     'to_place' => $to,
@@ -125,10 +121,27 @@ class Route_manager extends MX_Controller {
                     'evidence' => $this->input->post('edited_file'),
                     'added_by' => $this->user_id,
                 );
-                if (!empty($floc) && !empty($tloc)) {//if lat long data found
-                    $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
-                    $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
+
+                $from_place = $edited_route['from_place'];
+                $to_place = $edited_route['to_place'];
+                if (($edited_route['lang_code'] == 'en') && (strtolower($from_place) != strtolower($from) || strtolower($to_place) != strtolower($to) || empty($prev_route['from_latlong']) || empty($prev_route['to_latlong']))) {
+
+                    $faddress = modules::run('routes/get_address', $ft, $fd, $from);
+                    $taddress = modules::run('routes/get_address', $th, $td, $to);
+                    $floc = $this->nl->get_lat_long($faddress, 'Bangladesh');
+                    $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh');
+
+                    if (!empty($floc) && !empty($tloc)) {//if lat long data found
+                        $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
+                        $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
+                        $dis_dur = $this->nl->get_distance($route['from_latlong'], $route['to_latlong']);
+                        if (!empty($dis_dur)) {
+                            $route['distance'] = $dis_dur['distance'];
+                            $route['duration'] = $dis_dur['duration'];
+                        }
+                    }
                 }
+
                 $this->db->set('added', 'NOW()', FALSE);
             }
 
