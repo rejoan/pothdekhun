@@ -423,8 +423,8 @@ class Routes extends MX_Controller {
             show_404();
         }
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
-        $lang_url = '/bn/';
-        $this->nl->lang_based_data('/bn/', '');
+        $lang_url = $this->nl->lang_based_data('', '/bn/');
+        
 
         $exist = $this->rm->details($route_id, FALSE);
         if ($exist < 1) {

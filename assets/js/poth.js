@@ -1,5 +1,10 @@
 $(document).ready(function () {
     $('.selectpicker').selectpicker();
+    $('.dataTable').DataTable({
+        "paging": false,
+        "info": false,
+        "searching": false
+    });
     $('input[type=file]').bootstrapFileInput();
     $('[data-toggle="tooltip"]').tooltip();
     var xhr = null;
@@ -41,7 +46,7 @@ $(document).ready(function () {
             $(this).next().show().html(cm);
         });
     });
-    
+
     var sxhr = null;
     $('#search_place').keyup(function (e) {
         var key = e.keyCode;
@@ -77,8 +82,8 @@ $(document).ready(function () {
             $(this).next().show().html(cm);
         });
     });
-    
-   
+
+
     $('.search_place,#vehicle_name').keydown(function (e) {
         var listItems = $(this).next().find('a');
         var key = e.keyCode,
@@ -173,7 +178,7 @@ $(document).ready(function () {
         $(this).parent().empty();
     });
     $(document).click(function () {
-        $('#landing_page .list-group').empty();
+        $('#suggestion_page .list-group').empty();
     });
 //add dynamic stoppgae as many user can
 

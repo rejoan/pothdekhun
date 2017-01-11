@@ -27,10 +27,10 @@ body {
     min-width: 85.5%;
     z-index: 99;
 }
-#landing_page .suggestion .list-group-item{
+#suggestion_page .suggestion .list-group-item{
     padding: 4px;
 }
-#landing_page .suggestion .list-group-item:first-child{
+#suggestion_page .suggestion .list-group-item:first-child{
     border-top-left-radius:0px;
     border-top-right-radius:0px;
 }
@@ -84,6 +84,6 @@ footer {
 #lang_menu .padding_left{
     padding-left: 5px;
 }
-#landing_page .suggestion .selected{
+#suggestion_page .suggestion .selected{
     background: #eee;
 }

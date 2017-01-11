@@ -12,7 +12,7 @@
         </div>
         <div class="box-body">
             <div class="box-body table-responsive no-padding">
-                <table class="table table-hover table-bordered table-striped">
+                <table class="table table-hover table-bordered table-striped dataTable">
                     <thead>
                         <tr>
                             <th><?php echo lang('sl');?></th>
