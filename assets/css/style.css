@@ -21,7 +21,7 @@ body {
 body {
     padding-top: 70px;
 }
-#landing_page .suggestion{
+#suggestion_page .suggestion{
     position: absolute;
     top: 33px;
     min-width: 85.5%;

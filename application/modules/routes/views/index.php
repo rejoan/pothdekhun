@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<div id="landing_page" class="col-xs-12 col-md-6">
+<div id="suggestion_page" class="col-xs-12 col-md-6">
     <?php
     $message = $this->session->flashdata('message');
     if ($message) {

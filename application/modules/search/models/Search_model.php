@@ -10,7 +10,7 @@ if (!defined('BASEPATH'))
  */
 class Search_model extends CI_Model {
 
-    public function get_routes($from_district, $from_place, $to_district, $to_place, $pagination = FALSE) {
+    public function get_routes($district, $thana, $place) {
         $sql = 'SELECT r.id,r.to_place,r.from_place,r.transport_type,r.rent,p.name,p.bn_name
                 FROM routes r
 				LEFT JOIN poribohons p ON p.id = r.poribohon_id

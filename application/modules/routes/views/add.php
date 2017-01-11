@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<div class="col-xs-12 col-md-6">
+<div id="suggestion_page" class="col-xs-12 col-md-6">
     <?php
     $message = $this->session->flashdata('message');
     if ($message) {
@@ -76,7 +76,7 @@
                             echo $this->input->post('f');
                         }
                         ?>" placeholder="<?php echo lang('device_from'); ?>" autocomplete="off">
-                        <div id="suggestion" class="list-group">
+                        <div class="list-group suggestion">
 
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                             echo $this->input->post('t');
                         }
                         ?>" placeholder="<?php echo lang('device_to'); ?>" autocomplete="off">
-                        <div id="suggestion_to" class="list-group">
+                        <div class="list-group suggestion">
 
                         </div>
                     </div>
