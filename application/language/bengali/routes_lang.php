@@ -9,3 +9,4 @@ $lang['transport_search'] = 'পরিবহন অনুসন্ধান';
 $lang['route_save_success'] = 'রুট সফলভাবে যোগ হয়েছে';
 $lang['destination_place'] = 'গন্তব্যস্থান';
 $lang['no_route'] = 'Route doesn\' exist';
+$lang['show_transport'] = 'Show Transports';

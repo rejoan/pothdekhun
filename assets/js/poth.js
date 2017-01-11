@@ -41,6 +41,45 @@ $(document).ready(function () {
             $(this).next().show().html(cm);
         });
     });
+
+
+    var sxhr = null;
+    $('#search_place').keyup(function (e) {
+        var key = e.keyCode;
+        if (key == 40 || key == 38 || key == 13) {
+            return false;
+        }
+        if (sxhr !== null) {
+            sxhr.abort();
+            sxhr = null;
+        }
+        var district = $('#district').val();
+        var typing = $.trim($(this).val());
+        if (!typing.length) {
+            return false;
+        }
+
+        var site_url = $('#site_url').val();
+        xhr = $.ajax({
+            context: this,
+            url: site_url + '/weapons/search_places',
+            type: 'get',
+            dataType: 'json',
+            cache: true,
+            data: {
+                typing: typing,
+                d: district
+            }
+        }).done(function (response) {
+            var cm = '';
+            for (var i = 0; i < response.length; i++) {
+                cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + ', ' + response[i]['Thana'] + '</a>';
+            }
+            $(this).next().show().html(cm);
+        });
+    });
+
+
     $('.search_place,#vehicle_name').keydown(function (e) {
         var listItems = $(this).next().find('a');
         var key = e.keyCode,

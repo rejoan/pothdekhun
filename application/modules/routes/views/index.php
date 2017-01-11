@@ -94,17 +94,32 @@
         <div class="box-body">
             <!-- get route info from user form -->
             <form action="<?php echo $search_action; ?>" method="get" accept-charset="UTF-8">
-                <div class="input-group margin">
-                    <input name="ps" type="text" class="form-control search_place" placeholder="<?php echo lang('place_search'); ?>">
-                    <div class="list-group suggestion"></div>
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-info btn-flat"><?php echo lang('search'); ?></button>
-                    </span>
-                </div>
-                <div class="margin">
-                    <a href="<?php echo site_url_tr('routes/add'); ?>" class="btn btn-default btn-block btn-flat btn-info"><strong><?php echo lang('add_route'); ?></strong></a>
-                </div>
+                <div class="row">
+                    <div class="col-xs-10 col-md-3">
+                        <div class="form-group">
+                            <select id="district" name="ds" class="selectpicker" data-width="100%" data-thana="th" data-live-search="true">
+                                <?php foreach ($districts as $d): ?>
+                                    <option value="<?php echo $d['id']; ?>">
+                                        <?php echo $d[$name]; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
 
+                    <div class="col-xs-10 col-md-6">
+                        <input id="search_place" type="text" class="form-control" placeholder="<?php echo lang('place_search'); ?>" name="sp" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                        <div class="list-group suggestion">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <input type="submit" class="btn btn-primary btn-info" value="<?php echo lang('show_transport'); ?>"/>  
+                    </div>
+                </div>
             </form>
         </div>
     </div>

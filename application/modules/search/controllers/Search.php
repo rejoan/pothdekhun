@@ -13,11 +13,23 @@ class Search extends MX_Controller {
         parent::__construct();
         $this->user_id = $this->session->user_id;
         $this->load->model('Search_model', 'sm');
-		$this->latest_routes = $this->pm->latest_routes();
+        $this->latest_routes = $this->pm->latest_routes();
     }
 
     public function index() {
-        
+        $place = trim($this->input->get('sp', TRUE));
+        $district = trim($this->input->get('ds', TRUE));
+        $place_arr = explode(',', $place);
+        $place_name = $place_arr[0];
+        $thana = trim($place_arr[1]);
+        $routes = $this->sm->get_routes($district,$thana,$place_name);
+        $data = array(
+            'title' => lang('transport'),
+            'routes' => $routes,
+            'latest_routes' => $this->latest_routes,
+            'settings' => $this->nl->get_config()
+        );
+        $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
     }
 
     public function routes() {
@@ -40,7 +52,7 @@ class Search extends MX_Controller {
             'title' => lang('transport'),
             'routes' => $routes,
             'links' => '',
-			'latest_routes' => $this->latest_routes,
+            'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config(),
             'segment' => 0
         );

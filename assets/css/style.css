@@ -7,7 +7,7 @@ body {
     overflow-x: hidden; /* Prevent scroll on narrow devices */
     font-family:Verdana,SolaimanLipi;
     background: #eee;
-    font-size: 16px;
+    font-size: 15px;
 }
 .btn,a,button,.btn:focus,a:focus,button:focus,.btn:active,a:active,button:active{
     outline: 0!important;
