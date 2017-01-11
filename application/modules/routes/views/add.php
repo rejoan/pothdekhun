@@ -206,7 +206,7 @@
                         } elseif (isset($route[$this->nl->lang_based_data('bn_name', 'name')])) {
                             echo $route[$this->nl->lang_based_data('bn_name', 'name')];
                         }
-                        ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>">
+                        ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>" autocomplete="off">
                         <div class="list-group suggestion">
 
                         </div>
@@ -289,8 +289,26 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo lang('add_file'); ?></label>
                     <div class="col-xs-10 col-md-6">
-                        <input type="file" class="form-control btn-info" name="evidence">
+                        <input type="file" class="form-control btn-info evidence" name="evidence1" multiple="">
                         <span class="help-block"><?php echo lang('add_file_help'); ?></span>
+                    </div>
+                </div>
+                
+                <?php if (isset($route['evidence2'])): ?>
+                    <?php if (!empty($route['evidence2'])): ?>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><?php echo lang('prev_file'); ?></label>
+                            <div class="col-xs-10 col-md-6">
+                                <a id="prev_evidence2" href="<?php echo base_url('evidences') . '/' . $route['evidence2']; ?>"><?php echo $route['evidence2']; ?></a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"><?php echo lang('another_file'); ?></label>
+                    <div class="col-xs-10 col-md-6">
+                        <input type="file" class="form-control btn-info evidence" name="evidence2" multiple="">
+                        <span class="help-block"><?php echo lang('more_help'); ?></span>
                     </div>
                 </div>
 
@@ -313,10 +331,17 @@
                     echo $route['evidence'];
                 }
                 ?>"/>
+                <input id="prev_file2" type="hidden"  name="prev_file2" value="<?php
+                if ($this->input->post('submit')) {
+                    echo set_value('prev_file2');
+                } elseif (isset($route['evidence2'])) {
+                    echo $route['evidence2'];
+                }
+                ?>"/>
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo lang('tick_here'); ?></label>
                     <div class="col-xs-10 col-md-6">
-                        <?php echo $captcha;?>
+                        <?php //echo $captcha;?>
                     </div>
                 </div>
                 <?php //echo form_error('g-recaptcha-response', '<div class="alert alert-danger">', '</div>'); ?>
@@ -334,7 +359,7 @@
                     $('#stoppage_section .stoppage:last-child').append('<input class="new" type="hidden" name="new[]" value="yes"/>');
                 }, 500);
 
-            });          
+            });
         });
     </script>
 <?php endif; ?>

@@ -1,5 +1,6 @@
 $(document).ready(function () {
     $('.selectpicker').selectpicker();
+    $('.fancybox').fancybox();
     $('.dataTable').DataTable({
         "paging": false,
         "info": false,
@@ -151,13 +152,13 @@ $(document).ready(function () {
             $(this).next().show().html(cm);
         });
     });
-    $('input[name="evidence"]').change(function () {
+    $('.evidence').change(function () {
         var file = this.files[0];
         var real_file = file.name;
         var file_type = real_file.split('.').pop().toLowerCase();
-        var arr = ['jpg', 'png', 'gif', 'jpeg', 'pdf', 'doc', 'docx'];
+        var arr = ['jpg', 'png', 'gif', 'jpeg'];
         if (file === '' || $.inArray(file_type, arr) === -1) {
-            swal('Allowed Types', 'jpg, png, gif, jpeg, pdf, doc, docx', 'warning');
+            swal('Allowed Types', 'jpg, png, gif, jpeg', 'warning');
             $('.file-input-name').remove();
             return false;
         }

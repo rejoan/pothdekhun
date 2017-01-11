@@ -119,3 +119,6 @@ $lang['guess_duration'] = 'আনুমানিক সময়';
 $lang['security_code'] = 'নিরাপত্তা কোড';
 $lang['tick_here'] = 'টিকমার্ক দিন';
 $lang['auth_invalid_captcha'] = 'ক্যাপচা সঠিক হয়নি';
+$lang['ID'] = 'ID';
+$lang['another_file'] = 'More File';
+$lang['more_help'] = 'Another photo like ticket,back side of this transport with number etc';

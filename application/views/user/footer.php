@@ -24,6 +24,7 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/poth.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/tooltip.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/plugins/datatables/media/js/jquery.dataTables.min.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.pack.js'); ?>"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script type="text/javascript" src="<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js'); ?>"></script>
 </body>

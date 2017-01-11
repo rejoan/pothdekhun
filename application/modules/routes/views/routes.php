@@ -15,7 +15,7 @@
                 <table class="table table-hover table-bordered table-striped dataTable">
                     <thead>
                         <tr>
-                            <th><?php echo lang('sl');?></th>
+                            <th><?php echo lang('ID');?></th>
                             <th><?php echo lang('from_view');?></th>
                             <th><?php echo lang('to_view');?></th>
                             <th><?php echo lang('transport_type');?></th>
@@ -26,7 +26,7 @@
                     <tbody>
                         <?php foreach ($routes as $r):$segment++; ?>
                             <tr>
-                                <th><?php echo $segment; ?></th>
+                                <th><?php echo $r['id']; ?></th>
                                 <td><?php echo mb_convert_case($r[$this->nl->lang_based_data('fp_bn','from_place')], MB_CASE_TITLE, 'UTF-8'); ?></td>
                                 <td><?php echo mb_convert_case($r[$this->nl->lang_based_data('tp_bn','to_place')], MB_CASE_TITLE, 'UTF-8'); ?></td>
                                 <td><?php echo get_tr_type($r['transport_type']); ?></td>

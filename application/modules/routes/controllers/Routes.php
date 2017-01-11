@@ -83,31 +83,35 @@ class Routes extends MX_Controller {
             }
 
             $config['upload_path'] = './evidences';
-            $config['allowed_types'] = 'gif|jpg|png|jpeg|docx|doc';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
             $config['max_size'] = 1000;
 
             $this->load->library('upload', $config);
-            if ($_FILES && $_FILES['evidence']['name']) {
-                if (!$this->upload->do_upload('evidence')) {
-                    $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nl->view_loader('user', 'add_route', $data, TRUE, 'latest', 'rightbar');
-                    return;
-                } else {
-                    $evidence = $this->upload->data();
-                    $evidence_name = $evidence['file_name'];
+            $cpt = count($_FILES);
+            $evidence_name = array();
+            for ($f = 1; $f < ($cpt + 1); $f++) {
+                $evidence_name[$f] = '';
+                if (!empty($_FILES['evidence' . $f]['name'])) {
+                    if (!$this->upload->do_upload('evidence' . $f)) {
+                        $this->session->set_flashdata('message', $this->upload->display_errors());
+                        $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+                        return;
+                    } else {
+                        $evidence = $this->upload->data();
+                        $evidence_name[$f] = $evidence['file_name'];
+                    }
                 }
-            } else {
-                $evidence_name = '';
             }
+            //var_dump($evidence_name);return;
 //route data process
             $this->form_validation->set_rules('f', lang('from_view'), 'required');
             $this->form_validation->set_rules('t', lang('to_view'), 'required');
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
-            $captcha_response = $this->recaptcha->recaptcha_check_answer($this->input->post('g-recaptcha-response'));
-            if (!$captcha_response['success']) {
-                $this->session->set_flashdata('message', lang('auth_invalid_captcha'));
-                redirect_tr('routes/add');
-            }
+//            $captcha_response = $this->recaptcha->recaptcha_check_answer($this->input->post('g-recaptcha-response'));
+//            if (!$captcha_response['success']) {
+//                $this->session->set_flashdata('message', lang('auth_invalid_captcha'));
+//                redirect_tr('routes/add');
+//            }
             //$this->form_validation->set_rules('g-recaptcha-response', lang('security_code'), 'callback_captcha_check');
 
             if ($this->form_validation->run() == FALSE) {
@@ -129,7 +133,8 @@ class Routes extends MX_Controller {
                 'poribohon_id' => $transport_id,
                 'departure_time' => $departure_time,
                 'rent' => $main_rent,
-                'evidence' => $evidence_name,
+                'evidence' => $evidence_name[1],
+                'evidence2' => $evidence_name[2],
                 'added_by' => $this->user_id
             );
 
@@ -231,11 +236,11 @@ class Routes extends MX_Controller {
             $this->form_validation->set_rules('f', lang('from_view'), 'required');
             $this->form_validation->set_rules('t', lang('to_view'), 'required');
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer|greater_than[0]');
-             $captcha_response = $this->recaptcha->recaptcha_check_answer($this->input->post('g-recaptcha-response'));
-            if (!$captcha_response['success']) {
-                $this->session->set_flashdata('message', lang('auth_invalid_captcha'));
-                redirect_tr('routes/edit/'.$route_id);
-            }
+//             $captcha_response = $this->recaptcha->recaptcha_check_answer($this->input->post('g-recaptcha-response'));
+//            if (!$captcha_response['success']) {
+//                $this->session->set_flashdata('message', lang('auth_invalid_captcha'));
+//                redirect_tr('routes/edit/'.$route_id);
+//            }
 
             if ($this->form_validation->run() == FALSE) {
                 $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
@@ -253,21 +258,25 @@ class Routes extends MX_Controller {
             $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name, $col_name_rev);
 
             $config['upload_path'] = './evidences';
-            $config['allowed_types'] = 'gif|jpg|png|jpeg|docx|doc';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
             $config['max_size'] = 1000;
 
             $this->load->library('upload', $config);
-            if ($_FILES && $_FILES['evidence']['name']) {
-                if (!$this->upload->do_upload('evidence')) {
-                    $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
-                    return;
-                } else {
-                    $evidence = $this->upload->data();
-                    $evidence_name = $evidence['file_name'];
+            $cpt = count($_FILES);
+            $evidence_name = array();
+            $evidence_name[1] = trim($this->input->post('prev_file', TRUE));
+            $evidence_name[2] = trim($this->input->post('prev_file2', TRUE));
+            for ($f = 1; $f < ($cpt + 1); $f++) {
+                if (!empty($_FILES['evidence' . $f]['name'])) {
+                    if (!$this->upload->do_upload('evidence' . $f)) {
+                        $this->session->set_flashdata('message', $this->upload->display_errors());
+                        $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+                        return;
+                    } else {
+                        $evidence = $this->upload->data();
+                        $evidence_name[$f] = $evidence['file_name'];
+                    }
                 }
-            } else {
-                $evidence_name = '';
             }
             $fd = trim($this->input->post('fd', TRUE));
             $ft = trim($this->input->post('ft', TRUE));
@@ -295,7 +304,8 @@ class Routes extends MX_Controller {
                     'poribohon_id' => $transport_id,
                     'transport_type' => $this->input->post('transport_type', TRUE),
                     'rent' => $this->input->post('main_rent', TRUE),
-                    'evidence' => $evidence_name,
+                    'evidence' => $evidence_name[1],
+                    'evidence2' => $evidence_name[2],
                     'added_by' => $this->user_id,
                 );
                 $this->db->set('added', 'NOW()', FALSE);
@@ -424,7 +434,7 @@ class Routes extends MX_Controller {
         }
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
         $lang_url = $this->nl->lang_based_data('', '/bn/');
-        
+
 
         $exist = $this->rm->details($route_id, FALSE);
         if ($exist < 1) {

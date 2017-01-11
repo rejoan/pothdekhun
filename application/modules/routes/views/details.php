@@ -5,6 +5,18 @@
             <p><?php echo lang('route_info') . ':</p> <h3><span class="label label-info">' . mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . '</span> ' . lang('to_view') . ' <span class="label label-info">' . mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8') . '</span>'; ?></h3>
         </div>
         <div class="box-body">
+            <div class="row">
+                <?php if (!empty($route['evidence'])): ?>
+                    <div class="col-md-4">
+                        <a class="fancybox" href="<?php echo base_url('evidences') . '/' . $route['evidence']; ?>"><img class="img-responsive img-thumbnail" src="<?php echo base_url('evidences') . '/' . $route['evidence']; ?>" alt="<?php echo $route['evidence']; ?>"/></a>
+                    </div>
+                <?php endif; ?>
+                <?php if (!empty($route['evidence2'])): ?>
+                    <div class="col-md-4">
+                        <a class="fancybox" href="<?php echo base_url('evidences') . '/' . $route['evidence2']; ?>"><img class="img-responsive img-thumbnail" src="<?php echo base_url('evidences') . '/' . $route['evidence2']; ?>" alt="<?php echo $route['evidence2']; ?>"/></a>
+                    </div>
+                <?php endif; ?>
+            </div>
             <p class="no-margin"><?php echo lang('transport_type'); ?></p>
             <h3 class="margin_top"><?php echo get_tr_type($route['transport_type']); ?></h3>
             <hr/>
@@ -48,7 +60,7 @@
             </div>
             <hr/>
             <p><?php echo lang('guess_distance'); ?></p>
-            <h3 class="margin_top"><?php echo ($route['distance'] / 1000) . $this->nl->lang_based_data(' কি.মি',' KM'); ?></h3>
+            <h3 class="margin_top"><?php echo ($route['distance'] / 1000) . $this->nl->lang_based_data(' কি.মি', ' KM'); ?></h3>
             <hr/>
             <p><?php echo lang('guess_duration'); ?></p>
             <h3 class="margin_top"><?php echo $this->nl->seconds_to_time($route['duration']); ?></h3>
