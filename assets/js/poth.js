@@ -41,8 +41,7 @@ $(document).ready(function () {
             $(this).next().show().html(cm);
         });
     });
-
-
+    
     var sxhr = null;
     $('#search_place').keyup(function (e) {
         var key = e.keyCode;
@@ -78,8 +77,8 @@ $(document).ready(function () {
             $(this).next().show().html(cm);
         });
     });
-
-
+    
+   
     $('.search_place,#vehicle_name').keydown(function (e) {
         var listItems = $(this).next().find('a');
         var key = e.keyCode,
