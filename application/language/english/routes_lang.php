@@ -7,3 +7,4 @@ $lang['transport_search'] = 'Search Transport';
 $lang['route_save_success'] = 'Route Added Successfully';
 $lang['destination_place'] = 'Destination Place';
 $lang['no_route'] = 'Route doesn\' exist';
+$lang['show_transport'] = 'Show Transports';

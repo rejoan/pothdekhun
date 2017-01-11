@@ -38,7 +38,7 @@ class Weapons extends MX_Controller {
         $fil_thana = ' AND routes.to_thana = ' . $thana;
 
 
-        if ($direction == 'f') {
+        if ($direction == 'f') {// if typing in FROM box
             $filter_district = ' WHERE from_district = ' . $district;
             $filter_thana = ' AND from_thana = ' . $thana;
 
@@ -46,7 +46,7 @@ class Weapons extends MX_Controller {
             $fil_thana = ' AND routes.from_thana = ' . $thana;
         }
 
-        if ($district == 1) {
+        if ($district == 1) {//if dhaka no filer required for Thana
             $filter_thana = $fil_thana = '';
         }
 
@@ -62,7 +62,7 @@ class Weapons extends MX_Controller {
                     LIMIT 7';
 
 
-        if ($this->session->lang_code == 'bn') {
+        if ($this->session->lang_code == 'bn') {// when searching in  bengali
             $sql = 'SELECT Location FROM (
                     SELECT to_place as Location,route_id FROM route_bn
                     UNION DISTINCT
@@ -71,6 +71,42 @@ class Weapons extends MX_Controller {
                     SELECT place_name,route_id FROM stoppage_bn
                       ) as rtn JOIN routes ON routes.id = rtn.route_id
                     WHERE ' . $fil_dist . $fil_thana . ' 
+                        GROUP BY Location
+                    ORDER BY CASE WHEN
+                     Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
+                    LIMIT 7';
+        }
+        $query = $this->db->query($sql);
+        //echo $this->db->last_query();return;
+        $places = $query->result_array();
+        echo json_encode($places, JSON_UNESCAPED_UNICODE);
+    }
+
+    public function search_places() {
+        $typing = trim($this->input->get('typing', TRUE));
+        $district = (int) trim($this->input->get('d', TRUE));
+
+        $sql = 'SELECT * FROM (
+                    SELECT to_place as Location FROM routes WHERE from_district = ' . $district . ' OR to_district = ' . $district . '
+                    UNION DISTINCT
+                    SELECT from_place FROM routes WHERE from_district = ' . $district . ' OR to_district = ' . $district . '
+                    UNION DISTINCT
+                    SELECT place_name FROM stoppages
+                      ) as rtn
+                    ORDER BY CASE WHEN
+                     Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
+                    LIMIT 7';
+
+
+        if ($this->session->lang_code == 'bn') {// when searching in  bengali
+            $sql = 'SELECT Location FROM (
+                    SELECT to_place as Location,route_id FROM route_bn
+                    UNION DISTINCT
+                    SELECT from_place,route_id FROM route_bn
+                    UNION DISTINCT
+                    SELECT place_name,route_id FROM stoppage_bn
+                      ) as rtn JOIN routes ON routes.id = rtn.route_id
+                    WHERE routes.from_district = ' . $district . ' OR routes.to_district = '.$district.'
                         GROUP BY Location
                     ORDER BY CASE WHEN
                      Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
