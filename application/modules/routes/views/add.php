@@ -280,7 +280,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label"><?php echo lang('prev_file'); ?></label>
                             <div class="col-xs-10 col-md-6">
-                                <a id="prev_evidence" href="<?php echo base_url('evidences') . '/' . $route['evidence']; ?>"><?php echo $route['evidence']; ?></a>
+                                <a class="fancybox" id="prev_evidence" href="<?php echo base_url('evidences') . '/' . $route['evidence']; ?>"><?php echo $route['evidence']; ?></a>
                             </div>
                         </div>
                     <?php endif; ?>
@@ -299,7 +299,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label"><?php echo lang('prev_file'); ?></label>
                             <div class="col-xs-10 col-md-6">
-                                <a id="prev_evidence2" href="<?php echo base_url('evidences') . '/' . $route['evidence2']; ?>"><?php echo $route['evidence2']; ?></a>
+                                <a class="fancybox" id="prev_evidence2" href="<?php echo base_url('evidences') . '/' . $route['evidence2']; ?>"><?php echo $route['evidence2']; ?></a>
                             </div>
                         </div>
                     <?php endif; ?>

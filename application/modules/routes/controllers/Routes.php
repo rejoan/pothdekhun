@@ -82,16 +82,18 @@ class Routes extends MX_Controller {
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
             }
 
-            $config['upload_path'] = './evidences';
-            $config['allowed_types'] = 'gif|jpg|png|jpeg';
-            $config['max_size'] = 1000;
-
-            $this->load->library('upload', $config);
+            $this->load->library('upload');
             $cpt = count($_FILES);
             $evidence_name = array();
             for ($f = 1; $f < ($cpt + 1); $f++) {
                 $evidence_name[$f] = '';
                 if (!empty($_FILES['evidence' . $f]['name'])) {
+                    $config['upload_path'] = './evidences';
+                    $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                    $config['max_size'] = 1000;
+                    $new_name = time() . $_FILES['evidence' . $f]['name'];
+                    $config['file_name'] = $new_name;
+                    $this->upload->initialize($config);
                     if (!$this->upload->do_upload('evidence' . $f)) {
                         $this->session->set_flashdata('message', $this->upload->display_errors());
                         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
@@ -257,22 +259,32 @@ class Routes extends MX_Controller {
             $col_name = $this->nl->lang_based_data('bn_name', 'name');
             $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name, $col_name_rev);
 
-            $config['upload_path'] = './evidences';
-            $config['allowed_types'] = 'gif|jpg|png|jpeg';
-            $config['max_size'] = 1000;
 
-            $this->load->library('upload', $config);
+            $this->load->library('upload');
             $cpt = count($_FILES);
             $evidence_name = array();
             $evidence_name[1] = trim($this->input->post('prev_file', TRUE));
             $evidence_name[2] = trim($this->input->post('prev_file2', TRUE));
             for ($f = 1; $f < ($cpt + 1); $f++) {
                 if (!empty($_FILES['evidence' . $f]['name'])) {
+                    $config['upload_path'] = './evidences';
+                    $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                    $config['max_size'] = 1000;
+                    $new_name = time() . $_FILES['evidence' . $f]['name'];
+                    $config['file_name'] = $new_name;
+                    $this->upload->initialize($config);
                     if (!$this->upload->do_upload('evidence' . $f)) {
                         $this->session->set_flashdata('message', $this->upload->display_errors());
                         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
                         return;
                     } else {
+                        $file = 'evidences/' . $evidence_name[$f];
+                        if ($this->session->user_type == 'admin') {
+                            if (is_file($file)) {
+                                unlink($file);
+                            }
+                        }
+
                         $evidence = $this->upload->data();
                         $evidence_name[$f] = $evidence['file_name'];
                     }

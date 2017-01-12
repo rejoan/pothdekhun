@@ -119,6 +119,7 @@ class Route_manager extends MX_Controller {
                     'transport_type' => $this->input->post('transport_type', TRUE),
                     'rent' => $this->input->post('main_rent', TRUE),
                     'evidence' => $this->input->post('edited_file'),
+                    'evidence2' => $this->input->post('edited_file2'),
                     'added_by' => $this->user_id,
                 );
 
@@ -185,9 +186,13 @@ class Route_manager extends MX_Controller {
     public function decline($id) {
         $route = $this->pm->get_row('id', $id, 'edited_routes');
         $file = 'evidences/' . $route['evidence'];
+        $file = 'evidences/' . $route['evidence2'];
         //var_dump(is_file($file));return;
         if (is_file($file)) {
             unlink($file);
+        }
+        if (is_file($file2)) {
+            unlink($file2);
         }
         $this->pm->deleter('id', $id, 'edited_routes');
         $this->session->set_flashdata('message', lang('delete_success'));
