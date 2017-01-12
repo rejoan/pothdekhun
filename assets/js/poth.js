@@ -20,7 +20,6 @@ $(document).ready(function () {
         }
         var district = $(this).parent().prev().prev().find('select').val();
         var thana = $(this).parent().prev().find('select').val();
-        var direction = e.target.name;
         var typing = $.trim($(this).val());
         if (!typing.length) {
             return false;
@@ -36,8 +35,7 @@ $(document).ready(function () {
             data: {
                 typing: typing,
                 d: district,
-                t: thana,
-                dir: direction
+                t: thana
             }
         }).done(function (response) {
             var cm = '';
