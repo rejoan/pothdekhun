@@ -147,6 +147,11 @@
                 <?php echo $prev_route['evidence']; ?>
                 <button id="keep_file" data-file_name="<?php echo $prev_route['evidence']; ?>" class="btn btn-info">Keep File</button>
             </div>
+            <div class="form-group">
+                <label class="control-label"><?php echo lang('prev_file'); ?></label>
+                <?php echo $prev_route['evidence2']; ?>
+                <button id="keep_file2" data-file_name="<?php echo $prev_route['evidence2']; ?>" class="btn btn-info">Keep File</button>
+            </div>
         </div>
     </div>
 </div>
@@ -299,6 +304,20 @@
                     ?>
                     <a id="edited_file" href="<?php echo $href; ?>"><?php echo $file; ?></a>
                 </div>
+                
+                <div class="form-group">
+                    <label class="control-label">File</label>
+                    <?php
+                    if (empty($edited_route['evidence2'])) {
+                        $file = 'No file';
+                        $href = 'javascript:void();';
+                    } else {
+                        $file = $edited_route['evidence2'];
+                        $href = base_url('evidences/') . $edited_route['evidence2'];
+                    }
+                    ?>
+                    <a id="edited_file2" href="<?php echo $href; ?>"><?php echo $file; ?></a>
+                </div>
 
 
                 <input type="hidden" id="cancel" value="<?php echo lang('cancel_text'); ?>"/>
@@ -308,6 +327,7 @@
                 <input type="hidden" id="custom_time" value="<?php echo lang('custom_time'); ?>"/>
                 <input id="route_id" type="hidden" name="route_id" value="<?php echo $this->uri->segment(3); ?>"/>
                 <input type="hidden"  name="edited_file" value="<?php echo $edited_route['evidence']; ?>"/>
+                <input type="hidden"  name="edited_file2" value="<?php echo $edited_route['evidence2']; ?>"/>
                 <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="Approve"/>
                 <a href="<?php echo site_url_tr('route_manager/decline/') . $this->uri->segment(3); ?>" class="btn btn-primary btn-lg btn-danger">Decline</a>
             </div>
@@ -340,6 +360,17 @@
             $('input[name="edited_file"]').val(file_name);
             $('#edited_file').text(file_name);
             $('#edited_file').prop('href', base_url + 'evidences/' + file_name);
+        });
+        
+        $('#keep_file2').click(function (e) {
+            e.preventDefault();
+            var file_name = $.trim($(this).data('file_name'));
+            if (file_name == '') {
+                swal('', 'No File', 'warning');
+            }
+            $('input[name="edited_file2"]').val(file_name);
+            $('#edited_file2').text(file_name);
+            $('#edited_file2').prop('href', base_url + 'evidences/' + file_name);
         });
 
         $('.keep_stoppage').on('click', function () {

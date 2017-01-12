@@ -31,7 +31,7 @@
                                 <td><?php echo mb_convert_case($r[$this->nl->lang_based_data('tp_bn','to_place')], MB_CASE_TITLE, 'UTF-8'); ?></td>
                                 <td><?php echo get_tr_type($r['transport_type']); ?></td>
                                 <td><?php echo $r[$this->nl->lang_based_data('bn_name','name')]; ?></td>
-                                <td><a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('routes/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>
+                                <td><a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('routes/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>
                                     &nbsp;
                                     <a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url_tr('routes/show') . '/' . $r['id']; ?>"><i class="fa fa-eye"></i></a>
                                     &nbsp;
