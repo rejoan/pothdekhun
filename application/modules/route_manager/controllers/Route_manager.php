@@ -53,7 +53,6 @@ class Route_manager extends MX_Controller {
         $edited_route = $this->rmn->edited_route($edited_route_id);
         $route_id = $edited_route['route_id']; //main route ID
         $col_name_rev = $this->nl->lang_based_data('name', 'bn_name', FALSE, $edited_route['lang_code']);
-        $col_name = $this->nl->lang_based_data('bn_name', 'name', FALSE, $edited_route['lang_code']);
         $route_table = $this->nl->lang_based_data('route_bn', 'routes', FALSE, $edited_route['lang_code']);
         $stoppage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', FALSE, $edited_route['lang_code']);
         $rid = $this->nl->lang_based_data('route_id', 'id', FALSE, $edited_route['lang_code']);
@@ -97,7 +96,7 @@ class Route_manager extends MX_Controller {
 
             //var_dump($floc,$faddress);return;
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
-            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name, $col_name_rev);
+            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name_rev);
 
             if ($edited_route['lang_code'] == 'bn') {
                 $route = array(

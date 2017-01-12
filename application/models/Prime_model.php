@@ -172,17 +172,18 @@ class Prime_model extends CI_Model {
      * @param bool $add whether from add
      * @return int
      */
-    public function get_transport_id($transport_name, $user_id, $col_name = 'name',$col_name_rev = NUll, $add = TRUE) {
-        $transport = $this->pm->get_row($col_name, $transport_name, 'poribohons', TRUE);
+    public function get_transport_id($transport_name, $user_id, $col_name_rev = NUll, $add = TRUE) {
+        $query = $this->db->where('name', $transport_name)->or_where('bn_name', $transport_name)->get('poribohons');
+
         //echo $this->db->last_query();return;
-        if (empty($transport)) {
-            if ($add) {
+        if (empty($query->num_rows() < 1)) {// transport not available
+            if ($add) {// if from add form
                 $transport_data = array(
                     'name' => $transport_name,
                     'bn_name' => $transport_name,
                     'added_by' => $user_id
                 );
-            } else {
+            } else {//update corresponding column
                 $transport_data = array(
                     $col_name_rev => $transport_name,
                     'added_by' => $user_id
@@ -191,12 +192,13 @@ class Prime_model extends CI_Model {
             $this->db->set('added', 'NOW()', FALSE);
             $transport_id = $this->pm->insert_data('poribohons', $transport_data, TRUE);
         } else {
+            $transport = $query->row();
             $transport_id = $transport->id;
         }
         return $transport_id;
     }
-    
-    public function latest_routes(){
+
+    public function latest_routes() {
         $query = $this->db->select('r.id,r.from_place,r.to_place,r.transport_type,r.added,r.is_publish,r.from_district,r.to_district,r.from_thana,r.to_thana,u.username,rbn.from_place fp_bn,rbn.to_place tp_bn,rbn.departure_time,p.name,p.bn_name,d.name district_name,d.bn_name district_name_bn,td.name td_name,td.bn_name td_bn_name')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->join('route_bn rbn', 'rbn.route_id = r.id', 'left')->join('poribohons p', 'r.poribohon_id = p.id', 'left')->join('districts d', 'r.from_district = d.id', 'left')->join('districts td', 'r.to_district = td.id', 'left')->order_by('r.id', 'desc')->limit(5)->get();
         return $query->result_array();
     }

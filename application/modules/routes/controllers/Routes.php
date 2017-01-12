@@ -121,8 +121,7 @@ class Routes extends MX_Controller {
                 return;
             }
             $col_name_rev = $this->nl->lang_based_data('name', 'bn_name');
-            $col_name = $this->nl->lang_based_data('bn_name', 'name');
-            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name, $col_name_rev);
+            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name_rev);
 
             $route = array(
                 'from_district' => $from_district,
@@ -256,8 +255,7 @@ class Routes extends MX_Controller {
 
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
             $col_name_rev = $this->nl->lang_based_data('name', 'bn_name');
-            $col_name = $this->nl->lang_based_data('bn_name', 'name');
-            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name, $col_name_rev);
+            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name_rev);
 
 
             $this->load->library('upload');
