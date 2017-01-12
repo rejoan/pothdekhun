@@ -87,3 +87,7 @@ footer {
 #suggestion_page .suggestion .selected{
     background: #eee;
 }
+
+a.details:hover{
+    text-decoration: underline;
+}

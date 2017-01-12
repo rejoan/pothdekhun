@@ -172,13 +172,17 @@ class Nuts_lib {
      * @param string $id name of colum need comma separated data
      * @return string
      */
-    public function get_all_ids($results, $id = 'id') {
+    public function get_all_ids($results, $id = 'id', $is_space = FALSE) {
         $all_id = '';
         foreach ($results as $key => $val) {
             if ($key == 0) {
                 $all_id .= $val[$id];
             } else {
-                $all_id .= ',' . $val[$id];
+                $space = ',';
+                if ($is_space) {
+                    $space = ', ';
+                }
+                $all_id .= $space . $val[$id];
             }
         }
         return $all_id;
@@ -242,8 +246,10 @@ class Nuts_lib {
         $d = floor(($ss % 2592000) / 86400);
         $M = floor($ss / 2592000);
         $hr = $this->lang_based_data(' ঘন্টা ', ' Hr. ');
-        $mn = $this->lang_based_data(' মি. ', ' Min. ');;
-        $sec = $this->lang_based_data(' সে. ', ' Sec. ');;
+        $mn = $this->lang_based_data(' মি. ', ' Min. ');
+        ;
+        $sec = $this->lang_based_data(' সে. ', ' Sec. ');
+        ;
 
         $s = $s < 10 ? '0' . $s : $s;
         $m = $m < 10 ? '0' . $m : $m;
@@ -252,7 +258,7 @@ class Nuts_lib {
         $M = $M < 10 ? '0' . $M : $M;
         $month = $M < 1 ? '' : $M . ' mon ';
         $day = $d < 1 ? '' : $d . ' day ';
-        return $month . $day . $h . $hr . $m . $mn . $s.$sec;
+        return $month . $day . $h . $hr . $m . $mn . $s . $sec;
     }
 
     /**
@@ -487,9 +493,9 @@ class Nuts_lib {
         return $lat_long;
     }
 
-    public function get_distance($from_latlong,$to_latlong) {
+    public function get_distance($from_latlong, $to_latlong) {
         $dis_dur = array();
-        $api = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins='.$from_latlong.'&destinations='.$to_latlong.'&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg';
+        $api = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $from_latlong . '&destinations=' . $to_latlong . '&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg';
         $ctx = stream_context_create(array('http' =>
             array(
                 'timeout' => 60,
@@ -503,6 +509,5 @@ class Nuts_lib {
         $dis_dur['duration'] = $json->rows[0]->elements[0]->duration->value;
         return $dis_dur;
     }
-    
 
 }

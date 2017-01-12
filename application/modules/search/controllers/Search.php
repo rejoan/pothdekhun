@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Search extends MX_Controller {
 
-    private $user_id;
+    private $user_id = 4;
 
     public function __construct() {
         parent::__construct();
@@ -22,10 +22,10 @@ class Search extends MX_Controller {
         $place_arr = explode(',', $place);
         $place_name = $place_arr[0];
         $thana = trim($place_arr[1]);
-        $routes = $this->sm->get_routes($district,$thana,$place_name);
+        $route = $this->sm->single_route($district, $thana, $place_name);
         $data = array(
             'title' => lang('transport'),
-            'routes' => $routes,
+            'route' => $routes,
             'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config()
         );
@@ -40,23 +40,22 @@ class Search extends MX_Controller {
         $to_place = trim($this->input->get('t', TRUE));
         $to_district = trim($this->input->get('td', TRUE));
         $to_thana = trim($this->input->get('th', TRUE));
+        $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
 
-//        $filter_thana = ' AND from_thana = ' . (int) $thana;
-//        if ($district == 1) {
-//            $filter_thana = '';
-//        }
+        $routes = $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place);
 
-        $routes = $this->sm->get_routes($from_district, $from_place, $to_district, $to_place);
+        array_walk($routes, function(&$a) use($stopage_table) {
+            $stoppage = $this->pm->get_data($stopage_table, FALSE, 'route_id', $a['r_id']);
+            $a['stoppages'] = $this->nl->get_all_ids($stoppage,'place_name',TRUE);
+        });
 
         $data = array(
-            'title' => lang('transport'),
+            'title' => lang('search_result'),
             'routes' => $routes,
-            'links' => '',
             'latest_routes' => $this->latest_routes,
-            'settings' => $this->nl->get_config(),
-            'segment' => 0
+            'settings' => $this->nl->get_config()
         );
-        $this->nl->view_loader('user', 'routes', 'routes', $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
     }
 
 }
