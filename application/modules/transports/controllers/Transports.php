@@ -8,6 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Transports extends MX_Controller {
 
     private $user_id = 4;
+    public $latest_routes;
 
     public function __construct() {
         parent::__construct();
@@ -15,7 +16,8 @@ class Transports extends MX_Controller {
             $this->user_id = $this->session->user_id;
         }
         $this->load->model('Transport_model', 'tm');
-        $this->load->library('security');
+        //$this->load->library('security');
+        $this->latest_routes = $this->pm->latest_routes();
     }
 
     /**
@@ -37,7 +39,9 @@ class Transports extends MX_Controller {
             'title' => lang('all_transport'),
             'transports' => $this->tm->get_all(),
             'links' => $links,
-            'segment' => $segment
+            'segment' => $segment,
+            'latest_routes' => $this->latest_routes,
+            'settings' => $this->nl->get_config()
         );
         $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
     }
@@ -46,7 +50,9 @@ class Transports extends MX_Controller {
         $data = array(
             'title' => lang('add_transport'),
             'action' => site_url_tr('transports/add'),
-            'action_button' => lang('add_button')
+            'action_button' => lang('add_button'),
+            'latest_routes' => $this->latest_routes,
+            'settings' => $this->nl->get_config()
         );
         $this->load->library('form_validation');
 
