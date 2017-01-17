@@ -39,7 +39,7 @@ class Routes_model extends CI_Model {
     public function get_last_position($route_id, $table) {
         $query = $this->db->where('route_id', $route_id)->order_by('position', 'desc')->limit(1)->get($table);
         if ($query->num_rows() < 1) {
-            $position = 0;
+            $position = 1;
         } else {
             $result = $query->row_array();
             $position = (int) $result['position'];

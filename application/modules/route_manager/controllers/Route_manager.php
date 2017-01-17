@@ -52,7 +52,7 @@ class Route_manager extends MX_Controller {
         }
         $edited_route = $this->rmn->edited_route($edited_route_id);
         $route_id = $edited_route['route_id']; //main route ID
-        $col_name_rev = $this->nl->lang_based_data('name', 'bn_name', FALSE, $edited_route['lang_code']);
+        $col_name_rev = $this->nl->lang_based_data('bn_name', 'name', FALSE, $edited_route['lang_code']);
         $route_table = $this->nl->lang_based_data('route_bn', 'routes', FALSE, $edited_route['lang_code']);
         $stoppage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', FALSE, $edited_route['lang_code']);
         $rid = $this->nl->lang_based_data('route_id', 'id', FALSE, $edited_route['lang_code']);
