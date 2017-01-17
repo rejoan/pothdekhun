@@ -200,6 +200,13 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo lang('vehicle_name'); ?></label>
                     <div class="col-xs-10 col-md-6">
+                        <input type="hidden"  name="janba" value="<?php
+                        if ($this->input->post('submit')) {
+                            echo set_value('poribohon_id');
+                        } elseif (isset($route['poribohon_id'])) {
+                            echo $this->encryption->encrypt($route['poribohon_id']);
+                        }
+                        ?>"/>
                         <input id="vehicle_name" maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php
                         if ($this->input->post('submit')) {
                             echo set_value('vehicle_name');
@@ -293,7 +300,7 @@
                         <span class="help-block"><?php echo lang('add_file_help'); ?></span>
                     </div>
                 </div>
-                
+
                 <?php if (isset($route['evidence2'])): ?>
                     <?php if (!empty($route['evidence2'])): ?>
                         <div class="form-group">
@@ -317,13 +324,6 @@
                 <input type="hidden" id="comment" value="<?php echo lang('comment'); ?>"/>
                 <input type="hidden" id="rents" value="<?php echo lang('main_rent'); ?>"/>
                 <input type="hidden" id="custom_time" value="<?php echo lang('custom_time'); ?>"/>
-                <input type="hidden" id="route_id" name="route_id" value="<?php
-                if ($this->input->post('submit')) {
-                    echo set_value('route_id');
-                } elseif (isset($route['r_id'])) {
-                    echo $route['r_id'];
-                }
-                ?>"/>
                 <input id="prev_file" type="hidden"  name="prev_file" value="<?php
                 if ($this->input->post('submit')) {
                     echo set_value('prev_file');
@@ -341,10 +341,10 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo lang('tick_here'); ?></label>
                     <div class="col-xs-10 col-md-6">
-                        <?php //echo $captcha;?>
+                        <?php //echo $captcha; ?>
                     </div>
                 </div>
-                <?php //echo form_error('g-recaptcha-response', '<div class="alert alert-danger">', '</div>'); ?>
+                <?php //echo form_error('g-recaptcha-response', '<div class="alert alert-danger">', '</div>');  ?>
                 <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>" />
                 <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $action_button; ?>"/>
             </form>

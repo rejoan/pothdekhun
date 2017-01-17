@@ -194,6 +194,13 @@ class Routes extends MX_Controller {
      * @return type
      */
     public function edit($id) {
+        $this->load->library('encryption');
+        $this->encryption->initialize(
+                array(
+                    'cipher' => 'des',
+                    'mode' => 'ECB'
+                )
+        );
         $this->load->library('recaptcha');
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
         $route_table = $this->nl->lang_based_data('route_bn', 'routes');
@@ -255,7 +262,7 @@ class Routes extends MX_Controller {
 
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
             $col_name_rev = $this->nl->lang_based_data('name', 'bn_name');
-            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name_rev);
+            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name_rev,FALSE);
 
 
             $this->load->library('upload');

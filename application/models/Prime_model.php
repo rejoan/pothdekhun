@@ -176,21 +176,30 @@ class Prime_model extends CI_Model {
         $query = $this->db->where('name', $transport_name)->or_where('bn_name', $transport_name)->get('poribohons');
 
         //echo $this->db->last_query();return;
-        if (empty($query->num_rows() < 1)) {// transport not available
+        if ($query->num_rows() < 1) {// transport not available
             if ($add) {// if from add form
                 $transport_data = array(
                     'name' => $transport_name,
                     'bn_name' => $transport_name,
                     'added_by' => $user_id
                 );
+                $this->db->set('added', 'NOW()', FALSE);
+                $transport_id = $this->pm->insert_data('poribohons', $transport_data, TRUE);
             } else {//update corresponding column
+                $this->load->library('encryption');
+                $this->encryption->initialize(
+                        array(
+                            'cipher' => 'des',
+                            'mode' => 'ECB'
+                        )
+                );
                 $transport_data = array(
                     $col_name_rev => $transport_name,
                     'added_by' => $user_id
                 );
+                $transport_id = $this->encryption->decrypt($this->input->post('janba'));
+                $this->pm->updater('id', $transport_id, 'poribohons', $transport_data);
             }
-            $this->db->set('added', 'NOW()', FALSE);
-            $transport_id = $this->pm->insert_data('poribohons', $transport_data, TRUE);
         } else {
             $transport = $query->row();
             $transport_id = $transport->id;
