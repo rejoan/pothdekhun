@@ -491,7 +491,7 @@ class Routes extends MX_Controller {
 
         $data = array(
             'title' => lang('all_routes'),
-            'routes' => $this->rm->get_all(),
+            'routes' => $this->rm->get_all($per_page, $segment),
             'links' => $links,
             'segment' => $segment,
             'latest_routes' => $this->latest_routes,

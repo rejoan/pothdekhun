@@ -40,7 +40,7 @@ class Transports extends MX_Controller {
 
         $data = array(
             'title' => lang('all_transport'),
-            'transports' => $this->tm->get_all($input, $poribohon_name),
+            'transports' => $this->tm->get_all($input, $poribohon_name,FALSE,$per_page,$segment),
             'links' => $links,
             'segment' => $segment,
             'latest_routes' => $this->latest_routes,

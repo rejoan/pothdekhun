@@ -49,7 +49,7 @@
             </table>
 
         </div>
-        <div class="box-header">
+        <div class="box-footer">
             <?php echo $links; ?>
         </div>
     </div>
