@@ -487,7 +487,7 @@ class Routes extends MX_Controller {
         } else {
             $segment = 0;
         }
-        $links = $this->nl->generate_pagination('routes/index', $total_rows, $per_page, $num_links);
+        $links = $this->nl->generate_pagination('routes/all', $total_rows, $per_page, $num_links);
 
         $data = array(
             'title' => lang('all_routes'),

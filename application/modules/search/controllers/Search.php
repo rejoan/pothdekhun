@@ -22,7 +22,7 @@ class Search extends MX_Controller {
         $place_arr = explode(',', $place);
         $place_name = $place_arr[0];
         $thana = trim($place_arr[1]);
-        $route = $this->sm->single_route($district, $thana, $place_name);
+        $routes = $this->sm->single_route($district, $thana, $place_name);
         $data = array(
             'title' => lang('transport'),
             'route' => $routes,

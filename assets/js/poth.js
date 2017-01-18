@@ -39,7 +39,11 @@ $(document).ready(function () {
             }
         }).done(function (response) {
             var cm = '';
+            var from = $('input[name="f"]').val();
             for (var i = 0; i < response.length; i++) {
+                if (response[i]['Location'] == from) {
+                    response.splice(i, 1);
+                }
                 cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + '</a>';
             }
             $(this).next().show().html(cm);
