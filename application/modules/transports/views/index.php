@@ -5,9 +5,9 @@
             <h3 class="box-title"><?php echo $title; ?></h3>
         </div>
         <div class="box-body table-responsive no-padding">
-            <form id="add_route" class="form-horizontal" action="<?php echo site_url_tr('transports/index'); ?>" method="post">
+            <form id="add_route" class="form-horizontal" action="<?php echo site_url_tr('transports/index'); ?>" method="get">
                 <div class="input-group margin">
-                    <input id="vehicle_name" type="text" class="form-control" name="t">
+                    <input id="vehicle_name" type="text" class="form-control" name="t" value="<?php echo trim($this->input->get('t',TRUE));?>">
                     <div class="list-group suggestion">
 
                     </div>
@@ -21,7 +21,7 @@
                 <thead>
                     <tr>
                         <th><?php echo lang('sl'); ?></th>
-                        <th><?php echo lang('transport_name'); ?></th>
+                        <th><?php echo lang('vehicle_name'); ?></th>
                         <th><?php echo lang('total_vehicle'); ?></th>
                         <th><?php echo lang('added_at'); ?></th>
                         <th><?php echo lang('added_by'); ?></th>

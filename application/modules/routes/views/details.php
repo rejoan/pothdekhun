@@ -21,7 +21,7 @@
             <h3 class="margin_top"><?php echo get_tr_type($route['transport_type']); ?></h3>
             <hr/>
             <p><?php echo lang('vehicle_name'); ?></p>
-            <h3 class="margin_top"><?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></h3>
+            <h3 class="margin_top"><a href="<?php echo site_url_tr('transports/show').'/'.$route['poribohon_id'];?>"><?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></a></h3>
             <hr/>
             <p><?php echo lang('departure_place'); ?></p>
             <h3 class="margin_top"><?php echo mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8'); ?></h3>

@@ -24,7 +24,10 @@ class Transports extends MX_Controller {
      * 
      */
     public function index() {
-        $total_rows = $this->db->get('poribohons')->num_rows();
+        $input = trim($this->input->get('t', TRUE));
+        $poribohon_name = $this->nl->lang_based_data('bn_name', 'name');
+
+        $total_rows = $this->tm->get_all($input, $poribohon_name, TRUE);
         $per_page = 10;
         $num_links = 5;
         if ($this->input->get('page')) {
@@ -37,7 +40,7 @@ class Transports extends MX_Controller {
 
         $data = array(
             'title' => lang('all_transport'),
-            'transports' => $this->tm->get_all(),
+            'transports' => $this->tm->get_all($input, $poribohon_name),
             'links' => $links,
             'segment' => $segment,
             'latest_routes' => $this->latest_routes,
@@ -113,7 +116,9 @@ class Transports extends MX_Controller {
             'title' => lang('edit_transport'),
             'transport' => $transport,
             'action' => site_url_tr('transports/edit'),
-            'action_button' => lang('edit_button')
+            'action_button' => lang('edit_button'),
+            'latest_routes' => $this->latest_routes,
+            'settings' => $this->nl->get_config()
         );
         $this->load->library('form_validation');
 
@@ -164,6 +169,31 @@ class Transports extends MX_Controller {
         $this->pm->deleter('id', $id, 'poribohons');
         $this->session->set_flashdata('message', lang('delete_success'));
         redirect_tr('transports');
+    }
+
+    public function show($id) {
+        if (!empty($id)) {
+            $poribohon_id = (int) $id;
+        } else {
+            show_404();
+        }
+        $lang_url = $this->nl->lang_based_data('', '/bn/');
+
+        $exist = $this->tm->details($poribohon_id);
+        if ($exist < 1) {
+            $this->session->set_flashdata('message', lang('no_poribohon'));
+            redirect_tr('transports');
+        }
+        $result = $this->tm->details($poribohon_id, FALSE);
+        $data = array(
+            'title' => mb_convert_case($result[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('poribohon_info'),
+            'poribohon' => $result,
+            'lang_url' => $lang_url,
+            'latest_routes' => $this->latest_routes,
+            'settings' => $this->nl->get_config()
+        );
+        //echo $this->db->last_query();return;
+        $this->nl->view_loader('user', 'details', NULL, $data, 'latest', 'rightbar');
     }
 
 }

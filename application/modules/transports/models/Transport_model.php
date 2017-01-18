@@ -10,9 +10,53 @@ if (!defined('BASEPATH'))
  */
 class Transport_model extends CI_Model {
 
-    public function get_all() {
-        $query = $this->db->select('p.*,u.username')->from('poribohons p')->join('users u', 'p.added_by = u.id', 'left')->order_by('p.id', 'desc')->get();
+    /**
+     * get data based on search term
+     * @param string $input
+     * @param string $col_name
+     * @param bool $pagination
+     * @return mixed
+     */
+    public function get_all($input, $col_name, $pagination = FALSE) {
+        if (!empty($input)) {
+            $poribohon = $this->pm->total_item('poribohons c', 'c.' . $col_name, $input);
+            if ($poribohon < 1) {
+                $this->db->select('p.*,u.username');
+                $this->db->from('poribohons p');
+                $this->db->join('users u', 'p.added_by = u.id', 'left');
+                $this->db->like('p.' . $col_name, $input);
+            } else {
+                $this->db->select('p.*,u.username');
+                $this->db->from('poribohons p');
+                $this->db->join('users u', 'p.added_by = u.id', 'left');
+                $this->db->where('p.' . $col_name, $input);
+            }
+        } else {
+            $this->db->select('p.*,u.username');
+            $this->db->from('poribohons p');
+            $this->db->join('users u', 'p.added_by = u.id', 'left');
+        }
+        $this->db->order_by('p.id', 'desc');
+        $query = $this->db->get();
+        //echo $this->db->last_query();return;
+        if ($pagination) {
+            return $query->num_rows();
+        }
         return $query->result_array();
+    }
+
+    public function details($poribohon_id, $num_rows = TRUE) {
+        $this->db->select('p.*,u.username');
+        $this->db->from('poribohons p');
+        $this->db->join('users u', 'p.added_by = u.id', 'left');
+        $this->db->where('p.id', $poribohon_id);
+        $this->db->order_by('p.id', 'desc');
+        $query = $this->db->get();
+        //echo $this->db->last_query();
+        if ($num_rows) {
+            return $query->num_rows();
+        }
+        return $query->row_array();
     }
 
 }
