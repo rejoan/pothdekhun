@@ -38,9 +38,9 @@ class Weapons extends MX_Controller {
         }
 
         $sql = 'SELECT * FROM (
-                    SELECT to_place as Location FROM routes WHERE to_district = ' . $district . $to_thana . '
+                    SELECT to_place as Location FROM routes WHERE to_district = ' . $district . $to_thana . ' AND to_place LIKE "%%'.$typing.'%%"
                     UNION DISTINCT
-                    SELECT from_place FROM routes WHERE from_district = ' . $district . $from_thana . '
+                    SELECT from_place FROM routes WHERE from_district = ' . $district . $from_thana . ' AND from_place LIKE "%%'.$typing.'%%"
                       ) as rtn
                     ORDER BY CASE WHEN
                      Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
@@ -49,9 +49,9 @@ class Weapons extends MX_Controller {
 
         if ($this->session->lang_code == 'bn') {// when searching in  bengali
             $sql = 'SELECT * FROM (
-                    SELECT route_bn.to_place as Location FROM route_bn JOIN routes ON routes.id = route_bn.route_id WHERE to_district = ' . $district . $to_thana . '
+                    SELECT route_bn.to_place as Location FROM route_bn JOIN routes ON routes.id = route_bn.route_id WHERE to_district = ' . $district . $to_thana . ' AND route_bn.to_place LIKE "%%'.$typing.'%%"
                     UNION DISTINCT
-                    SELECT route_bn.from_place FROM route_bn route_bn JOIN routes ON routes.id = route_bn.route_id WHERE from_district = ' . $district . $from_thana . '
+                    SELECT route_bn.from_place FROM route_bn route_bn JOIN routes ON routes.id = route_bn.route_id WHERE from_district = ' . $district . $from_thana . ' AND route_bn.from_place LIKE "%%'.$typing.'%%"
                       ) as rtn 
                     GROUP BY Location
                     ORDER BY CASE WHEN

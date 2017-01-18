@@ -127,3 +127,5 @@ $lang['ID'] = 'ID';
 $lang['another_file'] = 'More File';
 $lang['more_help'] = 'Another photo like ticket,back side of this transport with number etc';
 $lang['edit'] = 'Edit';
+$lang['and'] = 'and';
+$lang['via_route'] = 'Available transports uses following stoppages';

@@ -40,18 +40,19 @@ class Search extends MX_Controller {
         $to_place = trim($this->input->get('t', TRUE));
         $to_district = trim($this->input->get('td', TRUE));
         $to_thana = trim($this->input->get('th', TRUE));
-        $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
+        $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', ' s');
 
-        $routes = $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place);
+        $routes = $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $stopage_table);
 
-        array_walk($routes, function(&$a) use($stopage_table) {
-            $stoppage = $this->pm->get_data($stopage_table, FALSE, 'route_id', $a['r_id']);
-            $a['stoppages'] = $this->nl->get_all_ids($stoppage,'place_name',TRUE);
+        array_walk($routes[0], function(&$a) use($stopage_table) {
+            $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
+            $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
         });
 
         $data = array(
             'title' => lang('search_result'),
-            'routes' => $routes,
+            'routes' => $routes[0],
+            'found_in' => $routes[1],
             'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config()
         );

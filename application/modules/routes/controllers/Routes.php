@@ -232,7 +232,7 @@ class Routes extends MX_Controller {
             'action' => site_url_tr('routes/edit/' . $route_id),
             'countries' => get_countries(),
             'route' => $route_detail,
-            'stoppages' => $this->pm->get_data($stopage_table, FALSE, 'route_id', $route_id),
+            'stoppages' => $this->pm->get_data($stopage_table, FALSE, 'route_id', $route_id, FALSE, FALSE, FALSE, 'position', 'asc'),
             'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config(),
             'action_button' => lang('edit_button'),
@@ -262,7 +262,7 @@ class Routes extends MX_Controller {
 
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
             $col_name_rev = $this->nl->lang_based_data('bn_name', 'name');
-            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name_rev,FALSE);
+            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name_rev, FALSE);
 
 
             $this->load->library('upload');
@@ -369,7 +369,7 @@ class Routes extends MX_Controller {
             $position = $this->input->post('position', TRUE);
             $new = $this->input->post('new', TRUE);
             $stoppages = $new_stoppages = array();
-            $rest_table = $this->nl->lang_based_data('stoppages', 'stoppage_bn');
+            $rest_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
             $new_position = $this->rm->get_last_position($route_id, $rest_table);
 
             for ($p = 0; $p < count($place_name); $p++) {
@@ -463,7 +463,7 @@ class Routes extends MX_Controller {
         $data = array(
             'title' => mb_convert_case($result[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('from_view') . ' ' . mb_convert_case($result[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),
             'route' => $result,
-            'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['r_id']),
+            'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['r_id'], FALSE, FALSE, FALSE, 'position', 'asc'),
             'segment' => 0,
             'lang_url' => $lang_url,
             'latest_routes' => $this->latest_routes,

@@ -5,7 +5,6 @@
         <group>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/controllers/Routes.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/transports/views/index.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/views/add.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/transports/controllers/Transports.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/transports/models/Transport_model.php</file>
         </group>

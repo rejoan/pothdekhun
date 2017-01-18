@@ -392,7 +392,7 @@ class Nuts_lib {
      * get a string (column name from table) based on language
      * @param string $bengali bangla name from column or alias
      * @param string $english english name from column
-     * @param string $alias alias of resultant column
+     * @param string $alias alias of resultant column [front space required]
      * @return string name of the column
      */
     public function lang_based_data($bengali, $english, $alias = FALSE, $lang_code = NULL) {
