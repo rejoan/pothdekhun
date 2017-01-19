@@ -4,8 +4,10 @@
         <div class="box-header with-border">
             <?php if (isset($routes[0][$this->nl->lang_based_data('fp_bn', 'from_place')]) && isset($routes[0][$this->nl->lang_based_data('tp_bn', 'to_place')]) && empty($found_in)) { ?>
                 <h3><?php echo mb_convert_case($routes[0][$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($routes[0][$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . ' <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> ' . mb_convert_case($routes[0][$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($routes[0][$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8'); ?></h3>
+            <?php } else if ($found_in == 'stoppage') { ?>
+                <?php echo '<p>' . lang('via_route') . '</p><span class="label label-info">' . mb_convert_case($this->input->get('f', TRUE), MB_CASE_TITLE, 'UTF-8') . '</span> ' . lang('and') . ' <span class="label label-info">' . mb_convert_case($this->input->get('t', TRUE), MB_CASE_TITLE, 'UTF-8') . '</span>'; ?>
             <?php } else { ?>
-                <?php echo '<p>'.lang('via_route').'</p><span class="label label-info">'. mb_convert_case($this->input->get('f',TRUE), MB_CASE_TITLE, 'UTF-8').'</span> '.lang('and').' <span class="label label-info">'.mb_convert_case($this->input->get('t',TRUE), MB_CASE_TITLE, 'UTF-8').'</span>';?>
+                <?php echo '<p>' . lang('suggestions') . '</p><span class="label label-info">' . mb_convert_case($this->input->get('f', TRUE), MB_CASE_TITLE, 'UTF-8') . '</span> ' . lang('and') . ' <span class="label label-info">' . mb_convert_case($this->input->get('t', TRUE), MB_CASE_TITLE, 'UTF-8') . '</span>'; ?>
             <?php } ?>
         </div>
         <div class="box-body">
