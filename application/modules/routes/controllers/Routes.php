@@ -243,12 +243,6 @@ class Routes extends MX_Controller {
             $this->form_validation->set_rules('f', lang('from_view'), 'required');
             $this->form_validation->set_rules('t', lang('to_view'), 'required');
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer|greater_than[0]');
-//             $captcha_response = $this->recaptcha->recaptcha_check_answer($this->input->post('g-recaptcha-response'));
-//            if (!$captcha_response['success']) {
-//                $this->session->set_flashdata('message', lang('auth_invalid_captcha'));
-//                redirect_tr('routes/edit/'.$route_id);
-//            }
-
             if ($this->form_validation->run() == FALSE) {
                 $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
                 return;
@@ -413,6 +407,8 @@ class Routes extends MX_Controller {
         }
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
     }
+    
+    
 
     /**
      * get address for google map API

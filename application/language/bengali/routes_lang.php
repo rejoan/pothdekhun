@@ -8,5 +8,5 @@ $lang['transport_search_placeholder'] = 'উদা: জাবালে নুর
 $lang['transport_search'] = 'পরিবহন অনুসন্ধান';
 $lang['route_save_success'] = 'রুট সফলভাবে যোগ হয়েছে';
 $lang['destination_place'] = 'গন্তব্যস্থান';
-$lang['no_route'] = 'Route doesn\' exist';
-$lang['show_transport'] = 'Show Transports';
+$lang['no_route'] = 'রুটটি পাওয়া যায়নি';
+$lang['show_transport'] = 'যানবাহন দেখান';

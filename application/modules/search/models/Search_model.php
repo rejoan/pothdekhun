@@ -131,4 +131,38 @@ WHERE ((r.from_district = ' . $district . ' AND LOWER(r.from_place) = "' . $plac
         return $query->result_array();
     }
 
+    /**
+     * 
+     * @param type $district
+     * @param type $thana
+     * @param type $place_name
+     * @return type
+     */
+    public function get_routes($district, $thana, $place_name) {
+        $sql_thana = $sql_tothana = $found_in = '';
+        if ($district != 1) {//if not dhaka then filter thana
+            $sql_thana .= ' AND r.from_thana = ' . $thana;
+        }
+        if ($district != 1) {
+            $sql_tothana .= ' AND r.to_thana = ' . $thana;
+        }
+        $query = $this->db->query('SELECT r.id r_id, r.from_district, r.to_district, r.from_thana, r.to_thana, r.rent, r.evidence, r.evidence2, r.added, r.transport_type, r.from_place, r.to_place, r.from_latlong, r.to_latlong, r.distance, r.duration, p.name, p.bn_name, r.departure_time, u.username, d.name district_name, d.bn_name district_name_bn, td.name td_name, td.bn_name td_bn_name, rt.from_place fp_bn, rt.to_place tp_bn, rt.departure_time dt_bn, rt.translation_status
+                    FROM routes r
+                    LEFT JOIN route_bn rt ON r.id = rt.route_id
+                    LEFT JOIN poribohons p ON r.poribohon_id = p.id
+                    LEFT JOIN districts d ON r.from_district = d.id
+                    LEFT JOIN districts td ON r.to_district = td.id
+                    LEFT JOIN users u ON r.added_by = u.id
+WHERE ((r.from_district = ' . $district . ' AND LOWER(r.from_place) = "' . $place_name . '") OR (r.to_district = ' . $district . ' AND LOWER(r.to_place) = "' . $place_name . '"))');
+        //echo $this->db->last_query();
+        $found_in = 'places';
+        return array($query->result_array(), $found_in);
+    }
+
+    public function get_thana_id($col_name, $col_val) {
+        $query = $this->db->where($col_name, $col_val)->get('thanas');
+        $result = $query->row_array();
+        return $result['id'];
+    }
+
 }

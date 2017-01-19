@@ -198,4 +198,7 @@ class Route_manager extends MX_Controller {
         redirect_tr('route_manager');
     }
 
+    public function get_lat_long(){
+        
+    }
 }
