@@ -488,18 +488,23 @@ class Routes extends MX_Controller {
         }
         $links = $this->nl->generate_pagination('routes/all', $total_rows, $per_page, $num_links);
 
-        $d = trim($this->input->get('d',TRUE));
-        $t = trim($this->input->get('t',TRUE));
-        
+        $d = trim($this->input->get('fd', TRUE));
+        $t = trim($this->input->get('ft', TRUE));
+        $ttype = trim($this->input->get('t', TRUE));
+        $district_id = $d;
+        if (empty($d)) {
+            $district_id = 1;
+        }
+
         $data = array(
             'title' => lang('all_routes'),
-            'routes' => $this->rm->get_all($per_page, $segment,$d,$t),
+            'routes' => $this->rm->get_all($per_page, $segment, $d, $t, $ttype),
             'links' => $links,
             'segment' => $segment,
             'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config(),
             'districts' => $this->pm->get_data('districts'),
-            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1)
+            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $district_id)
         );
         $this->nl->view_loader('user', 'routes', NULL, $data, 'latest', 'rightbar');
     }

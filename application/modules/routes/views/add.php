@@ -162,36 +162,43 @@
                             <option value="bus" <?php
                             if ($this->input->post('submit')) {
                                 echo $this->input->post('type') == 'bus' ? 'selected="yes"' : '';
-                            } elseif (isset($route['type'])) {
-                                echo $route['type'] == 'bus' ? 'selected="yes"' : '';
+                            } elseif (isset($route['transport_type'])) {
+                                echo $route['transport_type'] == 'bus' ? 'selected="yes"' : '';
                             }
                             ?>><?php echo lang('bus'); ?></option>
                             <option value="train" <?php
                             if ($this->input->post('submit')) {
                                 echo $this->input->post('type') == 'train' ? 'selected="yes"' : '';
-                            } elseif (isset($route['type'])) {
-                                echo $route['type'] == 'train' ? 'selected="yes"' : '';
+                            } elseif (isset($route['transport_type'])) {
+                                echo $route['transport_type'] == 'train' ? 'selected="yes"' : '';
+                            }
+                            ?>><?php echo lang('train'); ?></option>
+                            <option value="launch" <?php
+                            if ($this->input->post('submit')) {
+                                echo $this->input->post('type') == 'launch' ? 'selected="yes"' : '';
+                            } elseif (isset($route['transport_type'])) {
+                                echo $route['transport_type'] == 'launch' ? 'selected="yes"' : '';
                             }
                             ?>><?php echo lang('train'); ?></option>
                             <option value="leguna" <?php
                             if ($this->input->post('submit')) {
                                 echo $this->input->post('type') == 'leguna' ? 'selected="yes"' : '';
-                            } elseif (isset($route['type'])) {
-                                echo $route['type'] == 'leguna' ? 'selected="yes"' : '';
+                            } elseif (isset($route['transport_type'])) {
+                                echo $route['transport_type'] == 'leguna' ? 'selected="yes"' : '';
                             }
                             ?>><?php echo lang('leguna'); ?></option>
                             <option value="biman" <?php
                             if ($this->input->post('submit')) {
                                 echo $this->input->post('type') == 'biman' ? 'selected="yes"' : '';
-                            } elseif (isset($route['type'])) {
-                                echo $route['type'] == 'biman' ? 'selected="yes"' : '';
+                            } elseif (isset($route['transport_type'])) {
+                                echo $route['transport_type'] == 'biman' ? 'selected="yes"' : '';
                             }
                             ?>><?php echo lang('biman'); ?></option>
                             <option value="others" <?php
                             if ($this->input->post('submit')) {
                                 echo $this->input->post('type') == 'others' ? 'selected="yes"' : '';
-                            } elseif (isset($route['type'])) {
-                                echo $route['type'] == 'others' ? 'selected="yes"' : '';
+                            } elseif (isset($route['transport_type'])) {
+                                echo $route['transport_type'] == 'others' ? 'selected="yes"' : '';
                             }
                             ?>><?php echo lang('others'); ?></option>
                         </select>

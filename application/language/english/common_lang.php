@@ -129,3 +129,4 @@ $lang['more_help'] = 'Another photo like ticket,back side of this transport with
 $lang['edit'] = 'Edit';
 $lang['and'] = 'and';
 $lang['via_route'] = 'Available transports uses following stoppages';
+$lang['launch'] = 'Launch';

@@ -100,7 +100,7 @@
                             <select id="district" name="ds" class="selectpicker" data-width="100%" data-thana="th" data-live-search="true">
                                 <?php foreach ($districts as $d): ?>
                                     <option value="<?php echo $d['id']; ?>">
-                                        <?php echo $d[$name]; ?>
+                                        <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
