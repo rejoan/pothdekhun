@@ -9,14 +9,15 @@ class Admin extends MX_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->nl->is_admin();
     }
 
     public function index() {
         $data = array(
             'title' => 'Dashboard'
         );
-        $this->nl->is_admin();
-        $this->nl->view_loader('admin', 'index', NULL, $data, 'leftbar', NULl, NULL);
+        
+        $this->nl->view_loader('admin', 'index', NULL, $data, NULL, NULl, NULL);
     }
 
 }

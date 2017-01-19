@@ -14,12 +14,12 @@ class Nuts_lib {
     }
 
     /**
-     * 
-     * @param string $dirn
-     * @param type $view_name
-     * @param string $view_from
-     * @param type $data
-     * @param type $leftbar
+     * load views
+     * @param string $dirn header footer directory name
+     * @param type $view_name main view file
+     * @param string $view_from directory name from where MAIN view file load
+     * @param type $data pass data array
+     * @param type $leftbar leftbar
      * @param type $rightbar
      * @param type $menu
      */
