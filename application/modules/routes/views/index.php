@@ -20,7 +20,7 @@
                                 <select name="fd" class="selectpicker districts" data-width="100%" data-thana="ft" data-live-search="true">
                                     <?php foreach ($districts as $d): ?>
                                         <option value="<?php echo $d['id']; ?>">
-                                            <?php echo $d[$name]; ?>
+                                            <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
@@ -31,7 +31,7 @@
                                 <select id="ft" name="ft" class="selectpicker thanas" data-width="100%" data-live-search="true" >
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '493' ? 'selected="yes"' : ''; ?>>
-                                            <?php echo $t[$name]; ?>
+                                            <?php echo $t[$this->nl->lang_based_data('bn_name', 'name')]; ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
@@ -58,7 +58,7 @@
                                 <select name="td" class="selectpicker districts" data-width="100%" data-thana="th" data-live-search="true">
                                     <?php foreach ($districts as $d): ?>
                                         <option value="<?php echo $d['id']; ?>">
-                                            <?php echo $d[$name]; ?>
+                                            <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
@@ -69,7 +69,7 @@
                                 <select id="th" name="th" class="selectpicker thanas" data-width="100%" data-live-search="true">
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '509' ? 'selected="yes"' : ''; ?>>
-                                            <?php echo $t[$name]; ?>
+                                            <?php echo $t[$this->nl->lang_based_data('bn_name', 'name')]; ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
