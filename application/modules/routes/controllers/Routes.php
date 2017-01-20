@@ -439,6 +439,13 @@ class Routes extends MX_Controller {
      * @param int $id
      */
     public function show($id) {
+        $this->load->library('encryption');
+        $this->encryption->initialize(
+                array(
+                    'cipher' => 'des',
+                    'mode' => 'ECB'
+                )
+        );
         if (!empty($id)) {
             $route_id = (int) $id;
         } else {
@@ -462,7 +469,8 @@ class Routes extends MX_Controller {
             'segment' => 0,
             'lang_url' => $lang_url,
             'latest_routes' => $this->latest_routes,
-            'settings' => $this->nl->get_config()
+            'settings' => $this->nl->get_config(),
+            'comments' => $this->rm->get_comments($route_id)
         );
         //echo $this->db->last_query();return;
         $this->nl->view_loader('user', 'details', NULL, $data, 'latest', 'rightbar');

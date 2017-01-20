@@ -89,45 +89,53 @@
         <!-- /.box-header -->
         <div id="comments" class="box-body direct-chat direct-chat-info">
             <div class="direct-chat-messages">
-                <div class="direct-chat-msg">
-                    <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-left">Alexander Pierce</span>
-                        <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
-                    </div>
-                    <!-- /.direct-chat-info -->
-                    <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
-                    <div class="direct-chat-text">
-                        Is this template really for free? That's unbelievable!
-                    </div>
-                    <!-- /.direct-chat-text -->
-                </div>
-                <div class="direct-chat-msg right">
-                    <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                        <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
-                    </div>
-                    <!-- /.direct-chat-info -->
-                    <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
-                    <div class="direct-chat-text">
-                        You better believe it!
-                    </div>
-                    <!-- /.direct-chat-text -->
-                </div>
+                <?php
+                foreach ($comments as $c) {
+                    if (empty($c['avatar'])) {
+                        $img = 'no_image.png';
+                    } else {
+                        $img = $c['avatar'];
+                    }
+                    if ($c['position'] == 'left') {
+                        ?>
+                        <div class="direct-chat-msg">
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name pull-left"><?php echo $c['username']; ?></span>
+                                <span class="direct-chat-timestamp pull-right"><?php echo date('d M, y', strtotime($c['added'])); ?></span>
+                            </div>
+                            <!-- /.direct-chat-info -->
+                            <img class="direct-chat-img" src="<?php echo base_url('assets/avatars') . '/' . $img; ?>" alt="Message User Image"><!-- /.direct-chat-img -->
+                            <div class="direct-chat-text">
+                                <?php echo $c['comment']; ?>
+                            </div>
+                            <!-- /.direct-chat-text -->
+                        </div>
+                    <?php } else { ?>
+                        <div class="direct-chat-msg right">
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name pull-right"><?php echo $c['username']; ?></span>
+                                <span class="direct-chat-timestamp pull-left"><?php echo date('d M, y', strtotime($c['added'])); ?></span>
+                            </div>
+                            <!-- /.direct-chat-info -->
+                            <img class="direct-chat-img" src="<?php echo base_url('assets/avatars') . '/' . $img; ?>" alt="Message User Image"><!-- /.direct-chat-img -->
+                            <div class="direct-chat-text">
+                                <?php echo $c['comment']; ?>
+                            </div>
+                            <!-- /.direct-chat-text -->
+                        </div>
+                    <?php } ?>
+                <?php } ?>
             </div>
 
             <form role="form" action="<?php echo site_url_tr('comments/add'); ?>" method="POST">
-                <!-- text input -->
-                <div class="form-group">
-                    <label><?php echo lang('name'); ?></label>
-                    <input type="text" class="form-control" placeholder="Your Name">
-                </div>
                 <!-- textarea -->
                 <div class="form-group">
                     <label><?php echo lang('comment'); ?></label>
-                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                    <textarea name="comment" class="form-control" rows="3" placeholder="Enter ..."></textarea>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-info" value="<?php echo lang('add_button'); ?>"> 
+                    <input type="hidden"  name="pd_identity" value="<?php echo $this->encryption->encrypt($this->uri->segment(3)); ?>"/>
+                    <input type="submit" class="btn btn-info" name="submit" value="<?php echo lang('add_button'); ?>"> 
                 </div>
 
             </form>

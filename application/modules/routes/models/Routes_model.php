@@ -23,9 +23,9 @@ class Routes_model extends CI_Model {
             $sql = '(r.from_district = ' . $d . ' OR ' . 'r.to_district)';
             if (!empty($t) && $d != 1) {
                 //$this->db->where('r.from_thana', $t)->or_where('r.to_thana', $t);
-                $sql .= 'AND (r.from_thana = '.$t.' OR r.to_thana = '.$t.')';
+                $sql .= 'AND (r.from_thana = ' . $t . ' OR r.to_thana = ' . $t . ')';
             }
-            $this->db->where($sql,NULL,FALSE);
+            $this->db->where($sql, NULL, FALSE);
         }
 
         $this->db->order_by('r.id', 'desc');
@@ -66,6 +66,11 @@ class Routes_model extends CI_Model {
         }
 
         return $position;
+    }
+
+    public function get_comments($route_id) {
+        $query = $this->db->select('c.*,u.username,u.avatar')->from('comments c')->join('users u', 'u.id = c.user_id', 'left')->where('c.route_id',$route_id)->get();
+        return $query->result_array();
     }
 
 }
