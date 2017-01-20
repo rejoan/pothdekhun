@@ -91,3 +91,6 @@ footer {
 a.details:hover{
     text-decoration: underline;
 }
+#comments .direct-chat-messages{
+    height: auto;
+}

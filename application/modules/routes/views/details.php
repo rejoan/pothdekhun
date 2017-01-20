@@ -21,7 +21,7 @@
             <h3 class="margin_top"><?php echo get_tr_type($route['transport_type']); ?></h3>
             <hr/>
             <p><?php echo lang('vehicle_name'); ?></p>
-            <h3 class="margin_top"><a href="<?php echo site_url_tr('transports/show').'/'.$route['poribohon_id'];?>"><?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></a></h3>
+            <h3 class="margin_top"><a href="<?php echo site_url_tr('transports/show') . '/' . $route['poribohon_id']; ?>"><?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></a></h3>
             <hr/>
             <p><?php echo lang('departure_place'); ?></p>
             <h3 class="margin_top"><?php echo mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8'); ?></h3>
@@ -66,11 +66,72 @@
             <h3 class="margin_top"><?php echo $this->nl->seconds_to_time($route['duration']); ?></h3>
         </div>
         <div class="box-footer">
-            <?php if ($route['translation_status'] < 3): ?>
-                <a href="<?php echo site_url($lang_url . 'routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-info"><?php echo lang('translate'); ?></a>
-            <?php endif; ?>
-            <hr/>
-            <a href="<?php echo site_url_tr('routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-block btn-info"><?php echo lang('edit_lang') . ' ' . lang('info_of'); ?></a>            <hr/>
+            <div class="row">
+
+                <?php if ($route['translation_status'] < 3): ?>
+                    <div class="col-xs-5">
+                        <a href="<?php echo site_url($lang_url . 'routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-info btn-block"><?php echo lang('translate'); ?></a>
+                    </div>
+                <?php endif; ?>
+                <div class="col-xs-5">
+                    <a href="<?php echo site_url_tr('routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-info"><?php echo lang('edit_lang') . ' ' . lang('info_of'); ?></a>  
+                </div>
+            </div>
+
         </div>
+
+
+    </div>
+    <div class="box box-warning">
+        <div class="box-header with-border">
+            <h3 class="box-title"><?php echo lang('comment'); ?></h3>
+        </div>
+        <!-- /.box-header -->
+        <div id="comments" class="box-body direct-chat direct-chat-info">
+            <div class="direct-chat-messages">
+                <div class="direct-chat-msg">
+                    <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                        <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+                    </div>
+                    <!-- /.direct-chat-info -->
+                    <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                    <div class="direct-chat-text">
+                        Is this template really for free? That's unbelievable!
+                    </div>
+                    <!-- /.direct-chat-text -->
+                </div>
+                <div class="direct-chat-msg right">
+                    <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-right">Sarah Bullock</span>
+                        <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                    </div>
+                    <!-- /.direct-chat-info -->
+                    <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                    <div class="direct-chat-text">
+                        You better believe it!
+                    </div>
+                    <!-- /.direct-chat-text -->
+                </div>
+            </div>
+
+            <form role="form" action="<?php echo site_url_tr('comments/add'); ?>" method="POST">
+                <!-- text input -->
+                <div class="form-group">
+                    <label><?php echo lang('name'); ?></label>
+                    <input type="text" class="form-control" placeholder="Your Name">
+                </div>
+                <!-- textarea -->
+                <div class="form-group">
+                    <label><?php echo lang('comment'); ?></label>
+                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-info" value="<?php echo lang('add_button'); ?>"> 
+                </div>
+
+            </form>
+        </div>
+        <!-- /.box-body -->
     </div>
 </div>
