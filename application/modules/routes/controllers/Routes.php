@@ -439,6 +439,7 @@ class Routes extends MX_Controller {
      * @param int $id
      */
     public function show($id) {
+        $this->load->library('form_validation');
         $this->load->library('encryption');
         $this->encryption->initialize(
                 array(

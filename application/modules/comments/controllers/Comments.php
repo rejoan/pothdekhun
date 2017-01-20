@@ -26,10 +26,10 @@ class Comments extends MX_Controller {
     }
 
     public function add() {
-        $data = array(
-            'title' => lang('index')
-        );
+        $this->load->library('form_validation');
         if ($this->input->post('submit')) {
+            $this->form_validation->set_rules('comment', 'Comment', 'required');
+
             $this->load->library('encryption');
             $this->encryption->initialize(
                     array(
@@ -38,13 +38,17 @@ class Comments extends MX_Controller {
                     )
             );
             $route_id = $this->encryption->decrypt($this->input->post('pd_identity'));
+            if ($this->form_validation->run() == FALSE) {
+                $this->session->set_flashdata('message', lang('comment_required'));
+                redirect_tr('routes/show/' . $route_id);
+            }
             $total_comments = $this->pm->total_item('comments', 'route_id', $route_id);
             if ($total_comments == 0) {// if no comment then left
                 $position = 'left';
             } elseif ($total_comments % 2 == 0) {// if even then right
-                $position = 'right';
-            } else {
                 $position = 'left';
+            } else {
+                $position = 'right';
             }
             $comment_data = array(
                 'route_id' => $route_id,
@@ -52,11 +56,13 @@ class Comments extends MX_Controller {
                 'user_id' => $this->session->user_id,
                 'position' => $position
             );
+            $this->db->set('added', 'NOW()', FALSE);
             $this->pm->insert_data('comments', $comment_data);
             $this->session->set_flashdata('message', lang('comment_added'));
-            redirect_tr('routes/show') . '/' . $route_id;
+            //var_dump($route_id);return;
+            redirect_tr('routes/show/' . $route_id);
         }
-        $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+        redirect_tr('routes');
     }
 
     public function hire() {

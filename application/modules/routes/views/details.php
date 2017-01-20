@@ -1,5 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <div id="route_detail" class="col-xs-12 col-md-6">
+    <?php
+    $message = $this->session->flashdata('message');
+    if ($message) {
+        echo '<div class="alert alert-warning">' . $message . '</div>';
+    }
+    ?>
     <div class="box box-poth">
         <div class="box-header with-border">
             <p><?php echo lang('route_info') . ':</p> <h3><span class="label label-info">' . mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . '</span> ' . lang('to_view') . ' <span class="label label-info">' . mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8') . '</span>'; ?></h3>
@@ -96,15 +102,16 @@
                     } else {
                         $img = $c['avatar'];
                     }
+                    //var_dump($c['username']);return;
                     if ($c['position'] == 'left') {
                         ?>
                         <div class="direct-chat-msg">
                             <div class="direct-chat-info clearfix">
-                                <span class="direct-chat-name pull-left"><?php echo $c['username']; ?></span>
+                                <span class="direct-chat-name pull-left"><?php echo empty($c['username']) ? 'Social' : $c['username']; ?></span>
                                 <span class="direct-chat-timestamp pull-right"><?php echo date('d M, y', strtotime($c['added'])); ?></span>
                             </div>
                             <!-- /.direct-chat-info -->
-                            <img class="direct-chat-img" src="<?php echo base_url('assets/avatars') . '/' . $img; ?>" alt="Message User Image"><!-- /.direct-chat-img -->
+                            <img class="direct-chat-img" src="<?php echo base_url('avatars') . '/' . $img; ?>" alt="Message User Image"><!-- /.direct-chat-img -->
                             <div class="direct-chat-text">
                                 <?php echo $c['comment']; ?>
                             </div>
@@ -113,11 +120,11 @@
                     <?php } else { ?>
                         <div class="direct-chat-msg right">
                             <div class="direct-chat-info clearfix">
-                                <span class="direct-chat-name pull-right"><?php echo $c['username']; ?></span>
+                                <span class="direct-chat-name pull-right"><?php echo empty($c['username']) ? 'Social' : $c['username']; ?></span>
                                 <span class="direct-chat-timestamp pull-left"><?php echo date('d M, y', strtotime($c['added'])); ?></span>
                             </div>
                             <!-- /.direct-chat-info -->
-                            <img class="direct-chat-img" src="<?php echo base_url('assets/avatars') . '/' . $img; ?>" alt="Message User Image"><!-- /.direct-chat-img -->
+                            <img class="direct-chat-img" src="<?php echo base_url('avatars') . '/' . $img; ?>" alt="Message User Image"><!-- /.direct-chat-img -->
                             <div class="direct-chat-text">
                                 <?php echo $c['comment']; ?>
                             </div>
@@ -126,19 +133,25 @@
                     <?php } ?>
                 <?php } ?>
             </div>
+            <?php if ($this->session->user_id) { ?>
+                <form role="form" action="<?php echo site_url_tr('comments/add'); ?>" method="POST">
+                    <!-- textarea -->
+                    <div class="form-group">
+                        <label><?php echo lang('comment'); ?></label>
+                        <textarea name="comment" class="form-control" rows="3" placeholder="Your Comment" required></textarea>
+                    </div>
 
-            <form role="form" action="<?php echo site_url_tr('comments/add'); ?>" method="POST">
-                <!-- textarea -->
-                <div class="form-group">
-                    <label><?php echo lang('comment'); ?></label>
-                    <textarea name="comment" class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                </div>
-                <div class="form-group">
-                    <input type="hidden"  name="pd_identity" value="<?php echo $this->encryption->encrypt($this->uri->segment(3)); ?>"/>
-                    <input type="submit" class="btn btn-info" name="submit" value="<?php echo lang('add_button'); ?>"> 
-                </div>
+                    <div class="form-group">
+                        <input type="hidden"  name="pd_identity" value="<?php echo $this->encryption->encrypt($this->uri->segment(3)); ?>"/>
+                        <input type="submit" class="btn btn-info" name="submit" value="<?php echo lang('add_button'); ?>"> 
+                    </div>
+                </form>
 
-            </form>
+            <?php } else { ?>
+                <div class="col-xs-5">
+                    <a href="<?php echo site_url('auth/login'); ?>" class="btn btn-info btn-block"><?php echo lang('comment_login'); ?></a>
+                </div>
+            <?php } ?>
         </div>
         <!-- /.box-body -->
     </div>

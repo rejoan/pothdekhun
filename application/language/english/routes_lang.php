@@ -8,3 +8,6 @@ $lang['route_save_success'] = 'Route Added Successfully';
 $lang['destination_place'] = 'Destination Place';
 $lang['no_route'] = 'Route doesn\' exist';
 $lang['show_transport'] = 'Show Transports';
+$lang['comment_login'] = 'Please login to Comment';
+$lang['comment_added'] = 'Comment Added Successfully';
+$lang['comment_required'] = 'Comment Field is Required';
