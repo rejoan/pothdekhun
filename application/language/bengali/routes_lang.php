@@ -13,3 +13,4 @@ $lang['show_transport'] = 'যানবাহন দেখান';
 $lang['comment_login'] = 'মন্তব্য করতে লগিন করুন';
 $lang['comment_added'] = 'মন্তব্য যোগ হয়েছে';
 $lang['comment_required'] = 'মন্তব্য ফিল্ড ফাকা আছে';
+$lang['route_exist'] = 'রুটটি বিদ্যমান, আরেকটি চেষ্টা করুন';

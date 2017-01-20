@@ -69,8 +69,23 @@ class Routes_model extends CI_Model {
     }
 
     public function get_comments($route_id) {
-        $query = $this->db->select('c.*,u.username,u.avatar')->from('comments c')->join('users u', 'u.id = c.user_id', 'left')->where('c.route_id',$route_id)->get();
+        $query = $this->db->select('c.*,u.username,u.avatar')->from('comments c')->join('users u', 'u.id = c.user_id', 'left')->where('c.route_id', $route_id)->get();
         return $query->result_array();
+    }
+
+    public function check_duplicate($from_place,$to_place,$vehicle_name) {
+        $cond = array(
+            'r.from_place' => $from_place,
+            'r.to_place' => $to_place,
+            'p.name' => $vehicle_name
+        );
+        $or_cond = array(
+            'rt.from_place' => $from_place,
+            'rt.to_place' => $to_place,
+            'p.bn_name' => $vehicle_name
+        );
+        $query = $this->db->select('r.id')->from('routes r')->join('route_bn rt', 'rt.route_id = r.id', 'left')->join('poribohons p', 'p.id = r.poribohon_id', 'left')->where($cond)->or_where($or_cond)->get();
+        return $query->num_rows();
     }
 
 }

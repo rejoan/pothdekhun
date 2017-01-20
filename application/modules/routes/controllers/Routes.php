@@ -70,6 +70,11 @@ class Routes extends MX_Controller {
             $to = trim($this->input->post('t', TRUE));
             $transport_type = $this->input->post('transport_type', TRUE);
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
+            $route_exist = $this->rm->check_duplicate($from, $to, $transport_name);
+            if ($route_exist > 0) {
+                $this->session->set_flashdata('message', lang('route_exist'));
+                redirect_tr('routes/add');
+            }
             $from_district = $fd;
             $from_thana = $ft;
             $to_district = $td;
@@ -407,8 +412,6 @@ class Routes extends MX_Controller {
         }
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
     }
-    
-    
 
     /**
      * get address for google map API

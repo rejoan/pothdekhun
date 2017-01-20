@@ -154,6 +154,23 @@ $(document).ready(function () {
             $(this).next().show().html(cm);
         });
     });
+
+    $('#vehicle_name').on('blur change', function () {
+        var vh = $(this).val();
+        var fp = $('input[name="f"]').val();
+        var tp = $('input[name="t"]').val();
+        check_duplicacy(vh, fp, tp);
+    });
+
+    $('#vehicle .list-group').on('click','.list-group-item',function () {
+        var vh = $(this).text();
+        var fp = $('input[name="f"]').val();
+        var tp = $('input[name="t"]').val();
+        check_duplicacy(vh, fp, tp);
+    });
+
+
+
     $('.evidence').change(function () {
         var file = this.files[0];
         var real_file = file.name;
@@ -299,5 +316,25 @@ function get_thanas(district, thana) {
         } else {
             $('#t' + thana).tooltip('disable');
         }
+    });
+}
+function check_duplicacy(vh, fp, tp) {
+    var site_url = $('#site_url').val();
+    $.ajax({
+        context: this,
+        url: site_url + '/weapons/check_duplicate',
+        type: 'get',
+        dataType: 'json',
+        cache: true,
+        data: {
+            vh: vh,
+            fp: fp,
+            tp: tp
+        }
+    }).done(function (response) {
+        if (response.exist > 0) {
+            swal('Route Exist Already', 'Please try another', 'warning');
+        }
+
     });
 }

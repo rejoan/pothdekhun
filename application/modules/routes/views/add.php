@@ -179,7 +179,7 @@
                             } elseif (isset($route['transport_type'])) {
                                 echo $route['transport_type'] == 'launch' ? 'selected="yes"' : '';
                             }
-                            ?>><?php echo lang('train'); ?></option>
+                            ?>><?php echo lang('launch'); ?></option>
                             <option value="leguna" <?php
                             if ($this->input->post('submit')) {
                                 echo $this->input->post('type') == 'leguna' ? 'selected="yes"' : '';
@@ -204,7 +204,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
+                <div id="vehicle" class="form-group">
                     <label class="col-sm-3 control-label"><?php echo lang('vehicle_name'); ?></label>
                     <div class="col-xs-10 col-md-6">
                         <input type="hidden"  name="janba" value="<?php

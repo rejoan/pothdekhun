@@ -38,9 +38,9 @@ class Weapons extends MX_Controller {
         }
 
         $sql = 'SELECT * FROM (
-                    SELECT to_place as Location FROM routes WHERE to_district = ' . $district . $to_thana . ' AND to_place LIKE "%%'.$typing.'%%"
+                    SELECT to_place as Location FROM routes WHERE to_district = ' . $district . $to_thana . ' AND to_place LIKE "%%' . $typing . '%%"
                     UNION DISTINCT
-                    SELECT from_place FROM routes WHERE from_district = ' . $district . $from_thana . ' AND from_place LIKE "%%'.$typing.'%%"
+                    SELECT from_place FROM routes WHERE from_district = ' . $district . $from_thana . ' AND from_place LIKE "%%' . $typing . '%%"
                       ) as rtn
                     ORDER BY CASE WHEN
                      Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
@@ -49,9 +49,9 @@ class Weapons extends MX_Controller {
 
         if ($this->session->lang_code == 'bn') {// when searching in  bengali
             $sql = 'SELECT * FROM (
-                    SELECT route_bn.to_place as Location FROM route_bn JOIN routes ON routes.id = route_bn.route_id WHERE to_district = ' . $district . $to_thana . ' AND route_bn.to_place LIKE "%%'.$typing.'%%"
+                    SELECT route_bn.to_place as Location FROM route_bn JOIN routes ON routes.id = route_bn.route_id WHERE to_district = ' . $district . $to_thana . ' AND route_bn.to_place LIKE "%%' . $typing . '%%"
                     UNION DISTINCT
-                    SELECT route_bn.from_place FROM route_bn route_bn JOIN routes ON routes.id = route_bn.route_id WHERE from_district = ' . $district . $from_thana . ' AND route_bn.from_place LIKE "%%'.$typing.'%%"
+                    SELECT route_bn.from_place FROM route_bn route_bn JOIN routes ON routes.id = route_bn.route_id WHERE from_district = ' . $district . $from_thana . ' AND route_bn.from_place LIKE "%%' . $typing . '%%"
                       ) as rtn 
                     GROUP BY Location
                     ORDER BY CASE WHEN
@@ -140,6 +140,37 @@ class Weapons extends MX_Controller {
         $this->db->query('UPDATE stoppages SET position = @a:=@a+1 WHERE route_id = ' . $route_id);
         $this->db->query('SET @a = 0');
         $this->db->query('UPDATE stoppage_bn SET position = @a:=@a+1 WHERE route_id = ' . $route_id);
+    }
+
+    public function check_duplicate() {
+        $vehicle_name = trim($this->input->get('vh', TRUE));
+        $from_place = trim($this->input->get('fp', TRUE));
+        $to_place = trim($this->input->get('tp', TRUE));
+        $edit_id = $this->uri->segment(3);
+        var_dump($edit_id);
+        $cond = array(
+            'r.from_place' => $from_place,
+            'r.to_place' => $to_place,
+            'p.name' => $vehicle_name
+        );
+        $or_cond = array(
+            'rt.from_place' => $from_place,
+            'rt.to_place' => $to_place,
+            'p.bn_name' => $vehicle_name
+        );
+        $this->db->select('r.id');
+        $this->db->from('routes r');
+        $this->db->join('route_bn rt', 'rt.route_id = r.id', 'left');
+        $this->db->join('poribohons p', 'p.id = r.poribohon_id', 'left');
+        $this->db->where($cond);
+        $this->db->or_where($or_cond);
+        if (!empty($edit_id)) {
+            $exclude = array($edit_id);
+            $this->db->where_not_in('r.id', $exclude);
+        }
+        $query = $this->db->get();
+        echo $this->db->last_query();
+        echo json_encode(array('exist' => $query->num_rows()));
     }
 
 }
