@@ -143,33 +143,39 @@ class Weapons extends MX_Controller {
     }
 
     public function check_duplicate() {
+
         $vehicle_name = trim($this->input->get('vh', TRUE));
         $from_place = trim($this->input->get('fp', TRUE));
         $to_place = trim($this->input->get('tp', TRUE));
-        $edit_id = $this->uri->segment(3);
-        var_dump($edit_id);
+        $edit_id = trim($this->input->get('pd', TRUE));
+        //var_dump($edit_id);
         $cond = array(
             'r.from_place' => $from_place,
             'r.to_place' => $to_place,
             'p.name' => $vehicle_name
         );
-        $or_cond = array(
-            'rt.from_place' => $from_place,
-            'rt.to_place' => $to_place,
-            'p.bn_name' => $vehicle_name
-        );
         $this->db->select('r.id');
         $this->db->from('routes r');
         $this->db->join('route_bn rt', 'rt.route_id = r.id', 'left');
         $this->db->join('poribohons p', 'p.id = r.poribohon_id', 'left');
-        $this->db->where($cond);
-        $this->db->or_where($or_cond);
         if (!empty($edit_id)) {
-            $exclude = array($edit_id);
+            $this->load->library('encryption');
+            $this->encryption->initialize(
+                    array(
+                        'cipher' => 'des',
+                        'mode' => 'ECB'
+                    )
+            );
+            $route_id = $this->encryption->decrypt($edit_id);
+            //var_dump($route_id);
+            $exclude = array($route_id);
             $this->db->where_not_in('r.id', $exclude);
         }
+        $this->db->where($cond);
+        $this->db->or_where('(rt.from_place = "' . $from_place . '" AND rt.to_place = "' . $to_place . '" AND p.bn_name = "' . $vehicle_name.'")', NULL, FALSE);
+
         $query = $this->db->get();
-        echo $this->db->last_query();
+        //echo $this->db->last_query();
         echo json_encode(array('exist' => $query->num_rows()));
     }
 

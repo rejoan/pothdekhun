@@ -320,6 +320,7 @@ function get_thanas(district, thana) {
 }
 function check_duplicacy(vh, fp, tp) {
     var site_url = $('#site_url').val();
+    var pd_identity = $('input[name="pd_identity"]').val();
     $.ajax({
         context: this,
         url: site_url + '/weapons/check_duplicate',
@@ -329,7 +330,8 @@ function check_duplicacy(vh, fp, tp) {
         data: {
             vh: vh,
             fp: fp,
-            tp: tp
+            tp: tp,
+            pd:pd_identity
         }
     }).done(function (response) {
         if (response.exist > 0) {

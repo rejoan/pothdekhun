@@ -73,18 +73,25 @@ class Routes_model extends CI_Model {
         return $query->result_array();
     }
 
-    public function check_duplicate($from_place,$to_place,$vehicle_name) {
+    public function check_duplicate($from_place, $to_place, $vehicle_name, $edit = FALSE, $route_id = NULL) {
         $cond = array(
             'r.from_place' => $from_place,
             'r.to_place' => $to_place,
             'p.name' => $vehicle_name
         );
-        $or_cond = array(
-            'rt.from_place' => $from_place,
-            'rt.to_place' => $to_place,
-            'p.bn_name' => $vehicle_name
-        );
-        $query = $this->db->select('r.id')->from('routes r')->join('route_bn rt', 'rt.route_id = r.id', 'left')->join('poribohons p', 'p.id = r.poribohon_id', 'left')->where($cond)->or_where($or_cond)->get();
+
+        $this->db->select('r.id');
+        $this->db->from('routes r');
+        $this->db->join('route_bn rt', 'rt.route_id = r.id', 'left');
+        $this->db->join('poribohons p', 'p.id = r.poribohon_id', 'left');
+        if ($edit) {
+            $exclude = array($route_id);
+            $this->db->where_no_in('r.id', $exclude);
+        }
+        $this->db->where($cond);
+        $this->db->or_where('(rt.from_place = "' . $from_place . '" AND rt.to_place = "' . $to_place . '" AND p.bn_name = "' . $vehicle_name . '")', NULL, FALSE);
+
+        $query = $this->db->get();
         return $query->num_rows();
     }
 

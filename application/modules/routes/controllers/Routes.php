@@ -257,8 +257,14 @@ class Routes extends MX_Controller {
             if ($departure_time != 1) {// if perticular time
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
             }
-
+            $from = trim($this->input->post('f', TRUE));
+            $to = trim($this->input->post('t', TRUE));
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
+            $route_exist = $this->rm->check_duplicate($from, $to, $transport_name, TRUE, $route_id);
+            if ($route_exist > 0) {
+                $this->session->set_flashdata('message', lang('route_exist'));
+                redirect_tr('routes/edit/' . $route_id);
+            }
             $col_name_rev = $this->nl->lang_based_data('bn_name', 'name');
             $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name_rev, FALSE);
 
@@ -297,8 +303,7 @@ class Routes extends MX_Controller {
             $ft = trim($this->input->post('ft', TRUE));
             $td = trim($this->input->post('td', TRUE));
             $th = trim($this->input->post('th', TRUE));
-            $from = trim($this->input->post('f', TRUE));
-            $to = trim($this->input->post('t', TRUE));
+
             //get thana and district name to get lat long data
 
             if ($this->session->lang_code == 'bn' && $this->session->user_type == 'admin') {
