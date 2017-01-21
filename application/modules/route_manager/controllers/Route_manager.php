@@ -120,6 +120,7 @@ class Route_manager extends MX_Controller {
                     'evidence' => $this->input->post('edited_file'),
                     'evidence2' => $this->input->post('edited_file2'),
                     'added_by' => $this->user_id,
+                    'is_publish' => 1
                 );
 
                 $from_place = $edited_route['from_place'];

@@ -37,7 +37,7 @@ class Search_model extends CI_Model {
                     LEFT JOIN districts d ON r.from_district = d.id
                     LEFT JOIN districts td ON r.to_district = td.id
                     LEFT JOIN users u ON r.added_by = u.id
-WHERE ((r.from_district = ' . $district . ' AND LOWER(r.from_place) = "' . $place . '") OR (r.to_district = ' . $district . ' AND LOWER(r.to_place) = "' . $place . '")) AND ((r.to_district = ' . $to_district . ' AND (LOWER(r.to_place) = "' . $to_place . '"' . $sql_tothana . ')) OR (r.from_district = ' . $to_district . ' AND (LOWER(r.from_place) = "' . $to_place . '"' . $sql_thana . ')))');
+WHERE r.is_publish = 1 AND ((r.from_district = ' . $district . ' AND LOWER(r.from_place) = "' . $place . '") OR (r.to_district = ' . $district . ' AND LOWER(r.to_place) = "' . $place . '")) AND ((r.to_district = ' . $to_district . ' AND (LOWER(r.to_place) = "' . $to_place . '"' . $sql_tothana . ')) OR (r.from_district = ' . $to_district . ' AND (LOWER(r.from_place) = "' . $to_place . '"' . $sql_thana . ')))');
         if ($query->num_rows() < 1) {// if no route found
             //$all_places = $this->pm->get_data($stopage_table, 'route_id', 'place_name', $place);
             $all_place_q = $this->db->query('SELECT *
@@ -82,7 +82,7 @@ WHERE ((r.from_district = ' . $district . ' AND LOWER(r.from_place) = "' . $plac
                     LEFT JOIN users u ON r.added_by = u.id 
                     LEFT JOIN districts d ON r.from_district = d.id 
                     LEFT JOIN districts td ON r.to_district = td.id 
-                    WHERE r.id IN(' . $all_routes_id . ')');
+                    WHERE r.is_publish = 1 AND  r.id IN(' . $all_routes_id . ')');
             $found_in = 'stoppage';
             //echo $this->db->last_query();
         }
@@ -127,7 +127,7 @@ WHERE ((r.from_district = ' . $district . ' AND LOWER(r.from_place) = "' . $plac
                     LEFT JOIN users u ON r.added_by = u.id 
                     LEFT JOIN districts d ON r.from_district = d.id 
                     LEFT JOIN districts td ON r.to_district = td.id 
-                    WHERE r.id IN(' . $all_routes_id . ')');
+                    WHERE is_publish = 1 AND r.id IN(' . $all_routes_id . ')');
         return $query->result_array();
     }
 
@@ -153,7 +153,7 @@ WHERE ((r.from_district = ' . $district . ' AND LOWER(r.from_place) = "' . $plac
                     LEFT JOIN districts d ON r.from_district = d.id
                     LEFT JOIN districts td ON r.to_district = td.id
                     LEFT JOIN users u ON r.added_by = u.id
-WHERE ((r.from_district = ' . $district . ' AND LOWER(r.from_place) = "' . $place_name . '") OR (r.to_district = ' . $district . ' AND LOWER(r.to_place) = "' . $place_name . '"))');
+WHERE r.is_publish = 1 AND  ((r.from_district = ' . $district . ' AND LOWER(r.from_place) = "' . $place_name . '") OR (r.to_district = ' . $district . ' AND LOWER(r.to_place) = "' . $place_name . '"))');
         //echo $this->db->last_query();
         $found_in = 'places';
         return array($query->result_array(), $found_in);

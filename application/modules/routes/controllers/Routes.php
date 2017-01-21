@@ -142,7 +142,9 @@ class Routes extends MX_Controller {
                 'evidence2' => $evidence_name[2],
                 'added_by' => $this->user_id
             );
-
+            if ($this->session->user_type == 'admin') {
+                $route['is_publish'] = 1;
+            }
             $this->db->set('added', 'NOW()', FALSE);
             $this->db->insert('routes', $route);
 
@@ -489,7 +491,7 @@ class Routes extends MX_Controller {
      * all routes list GRID
      */
     public function all() {
-        $total_rows = $this->db->get('routes')->num_rows();
+        $total_rows = $this->db->where('is_publish',1)->get('routes')->num_rows();
         $per_page = 10;
         $num_links = 5;
 
