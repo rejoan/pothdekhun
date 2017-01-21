@@ -180,7 +180,11 @@ class Routes extends MX_Controller {
                 $this->db->insert_batch('stoppages', $stoppages);
                 $this->db->insert_batch('stoppage_bn', $stoppages);
             }
-            $this->session->set_flashdata('message', lang('route_save_success'));
+            if ($this->session->user_type == 'admin') {
+                $this->session->set_flashdata('message', lang('route_save_success'));
+            } else {
+                $this->session->set_flashdata('message', lang('route_sent_review'));
+            }
             redirect_tr('routes/all');
         }
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
@@ -491,7 +495,7 @@ class Routes extends MX_Controller {
      * all routes list GRID
      */
     public function all() {
-        $total_rows = $this->db->where('is_publish',1)->get('routes')->num_rows();
+        $total_rows = $this->db->where('is_publish', 1)->get('routes')->num_rows();
         $per_page = 10;
         $num_links = 5;
 

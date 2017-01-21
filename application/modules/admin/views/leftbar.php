@@ -20,8 +20,11 @@
                 <a href="<?php echo site_url('admin'); ?>"><i class="fa fa fa-dashboard"></i> Dashboard</a>
             </li>
 
-            <li class="<?php echo $this->nl->is_selected('route_manager'); ?>">
+            <li class="<?php echo $this->nl->is_selected('route_manager/index'); ?>">
                 <a href="<?php echo site_url('route_manager'); ?>"><i class="fa fa-navicon"></i> Edited Routes</a>
+            </li>
+            <li class="<?php echo $this->nl->is_selected('route_manager/latest'); ?>">
+                <a href="<?php echo site_url('route_manager/latest'); ?>"><i class="fa fa-navicon"></i> Latest Added</a>
             </li>
             <li>
                 <a href="<?php echo site_url('users'); ?>">

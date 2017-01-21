@@ -39,6 +39,26 @@ class Route_manager extends MX_Controller {
         $this->nl->view_loader('admin', 'index', 'route_manager', $data, 'leftbar', NULL, NULL);
     }
 
+    public function latest() {
+//        $total_rows = $this->db->get('edited_routes')->num_rows();
+//        $per_page = 10;
+//        $num_links = 5;
+//
+//        if ($this->input->get('page')) {
+//            $sgm = (int) trim($this->input->get('page'));
+//            $segment = $per_page * ($sgm - 1);
+//        } else {
+//            $segment = 0;
+//        }
+//        $links = $this->nl->generate_pagination('route_manager/latest', $total_rows, $per_page, $num_links);
+        $data = array(
+            'title' => 'All Latest Added Routes',
+            'routes' => $this->rmn->newly_added(),
+            'segment' => 0
+        );
+        $this->nl->view_loader('admin', 'latest', 'route_manager', $data, 'leftbar', NULL, NULL);
+    }
+
     /**
      * merge option with user edited things
      * @param int $id
@@ -199,7 +219,16 @@ class Route_manager extends MX_Controller {
         redirect_tr('route_manager');
     }
 
-    public function get_lat_long(){
-        
+    public function accept($id) {
+        $this->pm->updater('id', $id, 'routes', array('is_publish' => 1));
+        $this->session->set_flashdata('message', 'Published Succesfully');
+        redirect_tr('route_manager');
     }
+
+    public function reject($id) {
+        $this->pm->deleter('id', $id, 'routes');
+        $this->session->set_flashdata('message', 'Deleted Succesfully');
+        redirect_tr('route_manager');
+    }
+
 }

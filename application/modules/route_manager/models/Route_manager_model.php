@@ -15,6 +15,13 @@ class Route_manager_model extends CI_Model {
         //echo $this->db->last_query();
         return $query->result_array();
     }
+    
+     public function newly_added() {
+        $query = $this->db->select('r.id r_id,r.is_publish,r.from_place,r.to_place,r.transport_type,p.*,r.added,u.username')->from('routes r')->join('users u', 'r.added = u.id', 'left')->join('poribohons p', 'r.poribohon_id = p.id', 'left')->where('r.is_publish',0)->order_by('r.id', 'desc')->get();
+        //echo $this->db->last_query();
+        return $query->result_array();
+    }
+
 
    /**
      * get route_bn table data with main tables data

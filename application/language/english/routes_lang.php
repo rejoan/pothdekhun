@@ -12,3 +12,4 @@ $lang['comment_login'] = 'Please login to Comment';
 $lang['comment_added'] = 'Comment Added Successfully';
 $lang['comment_required'] = 'Comment Field is Required';
 $lang['route_exist'] = 'Route Exist already, Please try another';
+$lang['route_sent_review'] = 'Route added, Will be published immidiately after review';

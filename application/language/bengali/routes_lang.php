@@ -14,3 +14,4 @@ $lang['comment_login'] = 'মন্তব্য করতে লগিন কর
 $lang['comment_added'] = 'মন্তব্য যোগ হয়েছে';
 $lang['comment_required'] = 'মন্তব্য ফিল্ড ফাকা আছে';
 $lang['route_exist'] = 'রুটটি বিদ্যমান, আরেকটি চেষ্টা করুন';
+$lang['route_sent_review'] = 'রুট যোগ হয়েছে, এডমিন দেখে শীঘ্রই প্রকাশ করা হবে।';

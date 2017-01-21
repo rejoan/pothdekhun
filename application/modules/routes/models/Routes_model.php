@@ -87,12 +87,13 @@ class Routes_model extends CI_Model {
         $this->db->join('poribohons p', 'p.id = r.poribohon_id', 'left');
         if ($edit) {
             $exclude = array($route_id);
-            $this->db->where_no_in('r.id', $exclude);
+            $this->db->where_not_in('r.id', $exclude);
         }
         $this->db->where($cond);
-        $this->db->or_where('(rt.from_place = "' . $from_place . '" AND rt.to_place = "' . $to_place . '" AND p.bn_name = "' . $vehicle_name . '")', NULL, FALSE);
+        $this->db->where('(rt.from_place = "' . $from_place . '" AND rt.to_place = "' . $to_place . '" AND p.bn_name = "' . $vehicle_name . '")', NULL, FALSE);
 
         $query = $this->db->get();
+        //echo $this->db->last_query();return;
         return $query->num_rows();
     }
 
