@@ -67,6 +67,7 @@ if ($message) {
             <strong><i class="fa fa-file-text-o margin-r-5"></i> <?php echo lang('about_detail') ?></strong>
 
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+            <a class="btn btn-info" href="<?php echo site_url_tr('profile/edit');?>"><?php echo lang('edit');?></a>
         </div>
         <!-- /.box-body -->
     </div>

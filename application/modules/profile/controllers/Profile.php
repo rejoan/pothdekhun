@@ -8,28 +8,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Profile extends MX_Controller {
 
     private $user_id;
+    public $latest_routes;
 
     public function __construct() {
         parent::__construct();
+        $this->nl->is_logged();
         $this->user_id = (int) $this->session->user_id;
+        $this->load->model('Profile_model', 'prm');
+        $this->latest_routes = $this->pm->latest_routes();
     }
 
     public function index() {
-        $this->nl->is_logged();
-        //var_dump($this->session);
-        $query = $this->db->select('p.first_name,p.last_name,p.about,p.occupation,p.thana,p.district,p.country,u.username,u.email,u.reputation,u.avatar')->from('users u')->join('profiles p', 'u.id = p.user_id', 'left')->where('u.id', $this->user_id)->get();
-        //var_dump($this->session);return;
-        $total_route = $this->db->where('added_by', $this->user_id)->get('routes')->num_rows();
+        $total_route = $this->pm->total_item('routes', 'added_by', $this->user_id);
         $data = array(
             'title' => lang('profile'),
-            'profile' => $query->row_array(),
-            'route_added' => $total_route
+            'profile' => $this->prm->get_profile($this->user_id),
+            'latest_routes' => $this->latest_routes,
+            'tot_added' => $total_route,
+            'settings' => $this->nl->get_config()
         );
         $this->nl->view_loader('user', 'index', NULL, $data, NULL, 'latest');
     }
 
     public function my_routes() {
-        $total_rows = $this->db->where('added_by', $this->user_id)->get('routes')->num_rows();
+        $total_rows = $this->pm->total_item('routes', 'added_by', $this->user_id);
         $this->nl->generate_pagination('profile/my_routes', $total_rows);
         if ($this->uri->segment(3)) {
             $segment = $this->uri->rsegment(3);
@@ -51,6 +53,20 @@ class Profile extends MX_Controller {
             'segment' => $segment
         );
         $this->nl->view_loader('user', 'routes', NULL, $data, 'latest', 'rightbar');
+    }
+    
+    public function edit(){
+        $total_route = $this->pm->total_item('routes', 'added_by', $this->user_id);
+        $data = array(
+            'title' => lang('my_profile_edit'),
+            'latest_routes' => $this->latest_routes,
+            'settings' => $this->nl->get_config(),
+            'profile' => $this->prm->get_profile($this->user_id),
+            'tot_added' => $total_route,
+            'districts' => $this->pm->get_data('districts'),
+            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1)
+        );
+        $this->nl->view_loader('user', 'edit', NULL, $data, NULL, 'rightbar');
     }
 
 }
