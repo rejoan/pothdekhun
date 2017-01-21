@@ -11,7 +11,7 @@ if (!defined('BASEPATH'))
 class Profile_model extends CI_Model {
 
     public function get_profile($user_id) {
-        $query = $this->db->select('p.first_name,p.last_name,p.about,p.occupation,p.thana,p.district,p.country,u.username,u.email,u.reputation,u.avatar')->from('users u')->join('profiles p', 'u.id = p.user_id', 'left')->where('u.id', $user_id)->get();
+        $query = $this->db->select('p.first_name,p.last_name,p.about,p.occupation,p.thana,p.district,p.about,u.username,u.email,u.reputation,u.avatar,u.mobile,u.password,d.name,d.bn_name,t.name th_name,t.bn_name thbn_name')->from('users u')->join('profiles p', 'u.id = p.user_id', 'left')->join('districts d','d.id = p.district','left')->join('thanas t','t.id = p.thana','left')->where('u.id', $user_id)->get();
         return $query->row_array();
     }
 

@@ -54,8 +54,15 @@ class Profile extends MX_Controller {
         );
         $this->nl->view_loader('user', 'routes', NULL, $data, 'latest', 'rightbar');
     }
-    
-    public function edit(){
+
+    public function edit() {
+        $this->load->library('encryption');
+        $this->encryption->initialize(
+                array(
+                    'cipher' => 'des',
+                    'mode' => 'ECB'
+                )
+        );
         $total_route = $this->pm->total_item('routes', 'added_by', $this->user_id);
         $data = array(
             'title' => lang('my_profile_edit'),
@@ -66,6 +73,56 @@ class Profile extends MX_Controller {
             'districts' => $this->pm->get_data('districts'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1)
         );
+        if ($this->input->post('submit')) {
+            $prev_pic = $this->encryption->decrypt($this->input->post('pd_ps', TRUE));
+            $config['upload_path'] = './avatars';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size'] = 2000;
+
+            $this->load->library('upload', $config);
+            if ($_FILES && $_FILES['avatar']['name']) {
+                if (!$this->upload->do_upload('avatar')) {
+                    $this->session->set_flashdata('message', $this->upload->display_errors());
+                    $this->nl->view_loader('user', 'edit', NULL, $data, NULL, 'rightbar');
+                    return;
+                } else {
+                    $picture = $this->upload->data();
+                    $picture_name = $picture['file_name'];
+                    $file = 'avatars/' . $prev_pic;
+                    if (is_file($file)) {
+                        unlink($file);
+                    }
+                }
+            } else {
+                $picture_name = $prev_pic;
+            }
+            $user = array(
+                'email' => trim($this->input->post('email', TRUE)),
+                'username' => trim($this->input->post('username', TRUE)),
+                'password' => md5($this->input->post('password', TRUE)),
+                'mobile' => trim($this->input->post('mobile', TRUE)),
+                'avatar' => $picture_name
+            );
+            $this->pm->updater('id', $this->user_id, 'users', $user);
+            $profile = array(
+                'first_name' => trim($this->input->post('first_name', TRUE)),
+                'last_name' => trim($this->input->post('last_name', TRUE)),
+                'sex' => md5($this->input->post('sex', TRUE)),
+                'about' => trim($this->input->post('about_me', TRUE)),
+                'district' => $this->input->post('fd', TRUE),
+                'thana' => $this->input->post('ft', TRUE)
+            );
+            $profile_exist = $this->pm->total_item('profiles', 'user_id', $this->user_id);
+            if ($profile_exist > 0) {
+                $this->pm->updater('user_id', $this->user_id, 'profiles', $profile);
+            } else {
+                $profile['user_id'] = $this->user_id;
+                $this->pm->insert_data('profiles', $profile);
+            }
+
+            $this->session->set_flashdata('message', lang('profile_update_success'));
+            redirect_tr('profile');
+        }
         $this->nl->view_loader('user', 'edit', NULL, $data, NULL, 'rightbar');
     }
 

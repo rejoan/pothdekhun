@@ -21,11 +21,10 @@ if ($message) {
 
             <h3 class="profile-username text-center"><?php echo $profile['first_name'] . ' ' . $profile['last_name']; ?></h3>
 
-            <p class="text-muted text-center"><?php echo $profile['occupation']; ?></p>
 
             <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                    <a href="<?php echo site_url_tr('profile/my_routes');?>"><b><?php echo lang('route_added') ?></b> <?php echo $route_added;?></a>
+                    <a href="<?php echo site_url_tr('profile/my_routes');?>"><b><?php echo lang('route_added') ?></b> <?php echo $tot_added;?></a>
                 </li>
             </ul>
 
@@ -41,25 +40,10 @@ if ($message) {
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <strong><i class="fa fa-book margin-r-5"></i> <?php echo lang('occupation') ?></strong>
-
-            <p class="text-muted">
-                <?php echo $profile['occupation']; ?>
-            </p>
-
-            <hr>
+           
 
             <strong><i class="fa fa-map-marker margin-r-5"></i> <?php echo lang('location') ?></strong>
-            <?php
-            $district = $thana = $country = '';
-            if (!empty($profile['district'])) {
-                $district = ', ' . $profile['district'];
-            }
-            if (!empty($profile['country'])) {
-                $country = ', ' . $profile['country'];
-            }
-            ?>
-            <p class="text-muted"><?php echo $profile['thana'] . $district . $country; ?></p>
+            <p class="text-muted"><?php echo $profile[$this->nl->lang_based_data('bn_name','name')] .', '. $profile[$this->nl->lang_based_data('thbn_name','th_name')]; ?></p>
 
             <hr>
 

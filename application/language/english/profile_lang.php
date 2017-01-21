@@ -8,3 +8,6 @@ $lang['sex'] = 'Sex';
 $lang['male'] = 'Male';
 $lang['female'] = 'Female';
 $lang['other'] = 'Other';
+$lang['profile_image'] = 'Profile Picture';
+$lang['profile_update_success'] = 'Profile Updated Successfully';
+$lang['prev_image'] = 'Previous Picture';
