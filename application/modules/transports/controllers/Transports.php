@@ -55,7 +55,9 @@ class Transports extends MX_Controller {
             'action' => site_url_tr('transports/add'),
             'action_button' => lang('add_button'),
             'latest_routes' => $this->latest_routes,
-            'settings' => $this->nl->get_config()
+            'settings' => $this->nl->get_config(),
+            'districts' => $this->pm->get_data('districts'),
+            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1)
         );
         $this->load->library('form_validation');
 
@@ -67,30 +69,29 @@ class Transports extends MX_Controller {
                 return;
             }
 
-            $config['upload_path'] = './evidences';
-            $config['allowed_types'] = 'gif|jpg|png|jpeg';
-            $config['max_size'] = 2000;
-
-            $this->load->library('upload', $config);
-            if ($_FILES && $_FILES['picture']['name']) {
-                if (!$this->upload->do_upload('picture')) {
-                    $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nl->view_loader('user', 'add', $data, TRUE, 'latest', 'rightbar');
-                    return;
-                } else {
-                    $picture = $this->upload->data();
-                    $picture_name = $picture['file_name'];
-                }
-            } else {
-                $picture_name = '';
-            }
+//            $config['upload_path'] = './evidences';
+//            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+//            $config['max_size'] = 2000;
+//
+//            $this->load->library('upload', $config);
+//            if ($_FILES && $_FILES['picture']['name']) {
+//                if (!$this->upload->do_upload('picture')) {
+//                    $this->session->set_flashdata('message', $this->upload->display_errors());
+//                    $this->nl->view_loader('user', 'add', $data, TRUE, 'latest', 'rightbar');
+//                    return;
+//                } else {
+//                    $picture = $this->upload->data();
+//                    $picture_name = $picture['file_name'];
+//                }
+//            } else {
+//                $picture_name = '';
+//            }
 
             $tarnsport = array(
                 'name' => $this->input->post('transport_name', TRUE),
                 'bn_name' => $this->input->post('bn_name', TRUE),
                 'owner' => $this->input->post('owner_name', TRUE),
                 'total_vehicles' => $this->input->post('total_vehicle', TRUE),
-                'picture' => $picture_name,
                 'added_by' => $this->user_id
             );
             $this->db->set('added', 'NOW()', FALSE);

@@ -76,11 +76,11 @@
 
                 <?php if ($route['translation_status'] < 3): ?>
                     <div class="col-xs-5">
-                        <a href="<?php echo site_url($lang_url . 'routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-info btn-block"><?php echo lang('translate'); ?></a>
+                        <a href="<?php echo site_url($lang_url . 'routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-info btn-block"><i class="fa fa-language"></i> <?php echo lang('translate'); ?></a>
                     </div>
                 <?php endif; ?>
                 <div class="col-xs-5">
-                    <a href="<?php echo site_url_tr('routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-info"><?php echo lang('edit_lang') . ' ' . lang('info_of'); ?></a>  
+                    <a href="<?php echo site_url_tr('routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-info"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></a>  
                 </div>
             </div>
 
@@ -143,7 +143,7 @@
 
                     <div class="form-group">
                         <input type="hidden"  name="pd_identity" value="<?php echo $this->encryption->encrypt($this->uri->segment(3)); ?>"/>
-                        <input type="submit" class="btn btn-info" name="submit" value="<?php echo lang('add_button'); ?>"> 
+                        <input type="submit" class="btn btn-info" name="submit" value="<?php echo lang('add_button'); ?>">
                     </div>
                 </form>
 

@@ -162,7 +162,7 @@ $(document).ready(function () {
         check_duplicacy(vh, fp, tp);
     });
 
-    $('#vehicle .list-group').on('click','.list-group-item',function () {
+    $('#vehicle .list-group').on('click', '.list-group-item', function () {
         var vh = $(this).text();
         var fp = $('input[name="f"]').val();
         var tp = $('input[name="t"]').val();
@@ -182,6 +182,12 @@ $(document).ready(function () {
             return false;
         }
     });
+    $('.add_district').on('change',function () {
+        var district = $.trim($(this).val());
+        var thana = $(this).data('thana');
+        get_thana_normal(district, thana);
+    });
+    
     $('select[name="fd"]').change(function () {
         var district = $.trim($(this).val());
         var thana = $(this).data('thana');
@@ -214,6 +220,8 @@ $(document).ready(function () {
         pos_ord++;
         $('<div class="form-group stoppage"><div class="col-xs-10 col-md-2"><input maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' + pos_ord + '"></div><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control place_name" name="place_name[]" placeholder="' + place_name + '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" placeholder="' + rents + '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>').appendTo($('#stoppage_section')).hide().slideDown();
     });
+
+
     $('#stoppage_section').on('click', 'button', function (e) {
         e.preventDefault();
 
@@ -242,6 +250,25 @@ $(document).ready(function () {
                 });
             });
         }
+    });
+
+    ftpos = 1;
+    $('#add_address').click(function () {
+        ftpos++;
+        var mycontent = $('div#address:first');
+        
+        var content = mycontent.clone(true);
+        content.find('select[name="ad"]').attr('data-thana', 'ft' + ftpos);
+        content.find('select[name="ft"]').prop('id', 'ft' + ftpos);
+        $(content).insertAfter('div#address:last').hide().slideDown();
+        $('<button class="btn btn-xs btn-danger remove_address"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>').insertAfter('div#address:last .add_details');
+
+    });
+
+    $('#transport').on('click', '.remove_address', function (e) {
+        e.preventDefault();
+        $(this).parent().remove();
+        return false;
     });
     //departure_time
     $('#departure_time').change(function () {
@@ -310,12 +337,33 @@ function get_thanas(district, thana) {
             th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
         }
         $('#' + thana).html(th);
+
         $('#' + thana).selectpicker('refresh');
         if (district == 1) {//if dhaka show tooltip
             $('#t' + thana).tooltip('enable');
         } else {
             $('#t' + thana).tooltip('disable');
         }
+    });
+}
+
+function get_thana_normal(district, thana) {
+    var site_url = $('#site_url').val();
+    $.ajax({
+        context: this,
+        url: site_url + 'weapons/get_thanas/',
+        type: 'get',
+        dataType: 'json',
+        cache: true,
+        data: {
+            district: district
+        }
+    }).done(function (response) {
+        var th = '';
+        for (var i = 0; i < response.length; i++) {
+            th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
+        }
+        $('#' + thana).html(th);
     });
 }
 function check_duplicacy(vh, fp, tp) {
@@ -331,7 +379,7 @@ function check_duplicacy(vh, fp, tp) {
             vh: vh,
             fp: fp,
             tp: tp,
-            pd:pd_identity
+            pd: pd_identity
         }
     }).done(function (response) {
         if (response.exist > 0) {

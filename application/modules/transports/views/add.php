@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<div class="col-xs-12 col-md-6">
+<div id="transport" class="col-xs-12 col-md-6">
     <?php
     $message = $this->session->flashdata('message');
     if ($message) {
@@ -76,34 +76,87 @@
                         echo $transport['id'];
                     }
                     ?>"/>
-                    
-                    <input type="hidden" name="prev_picture" value="<?php
-                    if ($this->input->post('submit')) {
-                        echo set_value('prev_picture');
-                    } elseif (isset($transport['picture'])) {
-                        echo $transport['picture'];
-                    }
-                    ?>"/>
+
+<!--                    <input type="hidden" name="prev_picture" value="<?php
+//                    if ($this->input->post('submit')) {
+//                        echo set_value('prev_picture');
+//                    } elseif (isset($transport['picture'])) {
+//                        echo $transport['picture'];
+//                    }
+//                    
+                    ?>"/>-->
 
                     <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>" />
 
 
-                    <?php if (isset($transport['picture'])): ?>
-                        <?php if (!empty($transport['picture'])): ?>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label"><?php echo lang('prev_file'); ?></label>
-                                <div class="col-xs-10 col-md-6">
-                                    <a  href="<?php echo base_url('evidences') . '/' . $transport['picture']; ?>"><?php echo $transport['picture']; ?></a>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                    <?php endif; ?>
+                    <?php //if (isset($transport['picture'])): ?>
+                    <?php //if (!empty($transport['picture'])):  ?>
+                    <!--                            <div class="form-group">
+                                                    <label class="col-sm-3 control-label"><?php echo lang('prev_file'); ?></label>
+                                                    <div class="col-xs-10 col-md-6">
+                                                        <a  href="<?php echo base_url('evidences') . '/' . $transport['picture']; ?>"><?php echo $transport['picture']; ?></a>
+                                                    </div>
+                                                </div>-->
+                    <?php //endif; ?>
+                    <?php //endif;  ?>
 
+                    <!--                    <div class="form-group">
+                                            <label class="col-sm-3 control-label"><?php //echo lang('tarnsport_picture');      ?></label>
+                                            <div class="col-xs-10 col-md-6">
+                                                <input type="file" class="form-control btn-info" name="picture">
+                                                <span class="help-block"><?php //echo lang('piture_help');      ?></span>
+                                            </div>
+                                        </div>-->
+
+                    <div id="address" class="row form-group">
+                        <div class="col-xs-12">
+                            <div class="col-xs-10 col-md-3">
+                                <select name="ad" class="add_district" data-width="100%" data-thana="ft" data-live-search="true">
+                                    <?php foreach ($districts as $d): ?>
+                                        <option value="<?php echo $d['id']; ?>" <?php
+                                        if ($this->input->post('fd')) {
+                                            echo $this->input->post('fd') == $d['id'] ? 'selected="yes"' : '';
+                                        } elseif (isset($profile['district'])) {
+                                            echo $profile['district'] == $d['id'] ? 'selected="yes"' : '';
+                                        } else {
+                                            echo $d['id'] == '1' ? 'selected="yes"' : '';
+                                        }
+                                        ?>>
+
+                                            <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-xs-10 col-md-4">
+                                <select id="ft" name="ft" data-width="100%" data-live-search="true" >
+                                    <?php foreach ($thanas as $t): ?>
+                                        <option  value="<?php echo $t['id']; ?>" <?php
+                                        if ($this->input->post('ft')) {
+                                            echo $this->input->post('ft') == $t['id'] ? 'selected="yes"' : '';
+                                        } elseif (isset($profile['thana'])) {
+                                            echo $profile['thana'] == $t['id'] ? 'selected="yes"' : '';
+                                        } else {
+                                            echo $t['id'] == '493' ? 'selected="yes"' : '';
+                                        }
+                                        ?>>
+
+                                            <?php echo $t[$this->nl->lang_based_data('bn_name', 'name')]; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-xs-10 col-md-4 add_details">
+                                <textarea class="form-control" name="details" placeholder="<?php echo lang('address_details'); ?>"></textarea>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
                     <div class="form-group">
-                        <label class="col-sm-3 control-label"><?php echo lang('tarnsport_picture'); ?></label>
+                        <label class="col-sm-3 control-label"></label>
                         <div class="col-xs-10 col-md-6">
-                            <input type="file" class="form-control btn-info" name="picture">
-                            <span class="help-block"><?php echo lang('piture_help'); ?></span>
+                            <a href="javascript:void(0)" id="add_address" class="btn btn-info"><i class="fa fa-plus"></i> <?php echo lang('add_address'); ?></a>
                         </div>
                     </div>
 
