@@ -90,12 +90,30 @@ class Transports extends MX_Controller {
             $tarnsport = array(
                 'name' => $this->input->post('transport_name', TRUE),
                 'bn_name' => $this->input->post('bn_name', TRUE),
-                'owner' => $this->input->post('owner_name', TRUE),
                 'total_vehicles' => $this->input->post('total_vehicle', TRUE),
                 'added_by' => $this->user_id
             );
             $this->db->set('added', 'NOW()', FALSE);
-            $this->pm->insert_data('poribohons', $tarnsport);
+            $poribohon_id = $this->pm->insert_data('poribohons', $tarnsport, TRUE);
+
+            $district = $this->input->post('ad', TRUE);
+            $thana = $this->input->post('thana', TRUE);
+            $details = $this->input->post('details', TRUE);
+            $counter_address = array();
+            for ($p = 0; $p < count($district); $p++) {
+                if ($district[$p]) {
+                    $counter_address[] = array(
+                        'district' => $district[$p],
+                        'thana' => $thana[$p],
+                        'address' => $details[$p],
+                        'poribohon_id' => $poribohon_id
+                    );
+                }
+            }
+
+            if ($counter_address) {
+                $this->db->insert_batch('counter_address', $counter_address);
+            }
             $this->session->set_flashdata('message', lang('save_success'));
             redirect_tr('transports');
         }
@@ -109,6 +127,13 @@ class Transports extends MX_Controller {
      * @return type
      */
     public function edit($id = NULL) {
+        $this->load->library('encryption');
+        $this->encryption->initialize(
+                array(
+                    'cipher' => 'des',
+                    'mode' => 'ECB'
+                )
+        );
         $transport = '';
         if (!empty($id) && ctype_digit($id)) {
             $transport = $this->pm->get_row('id', $id, 'poribohons');
@@ -119,7 +144,9 @@ class Transports extends MX_Controller {
             'action' => site_url_tr('transports/edit'),
             'action_button' => lang('edit_button'),
             'latest_routes' => $this->latest_routes,
-            'settings' => $this->nl->get_config()
+            'settings' => $this->nl->get_config(),
+            'districts' => $this->pm->get_data('districts'),
+            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1)
         );
         $this->load->library('form_validation');
 
@@ -131,30 +158,11 @@ class Transports extends MX_Controller {
                 return;
             }
 
-            $config['upload_path'] = './evidences';
-            $config['allowed_types'] = 'gif|jpg|png|jpeg|docx|doc';
-            $config['max_size'] = 2000;
-
-            $this->load->library('upload', $config);
-            if ($_FILES && $_FILES['picture']['name']) {
-                if (!$this->upload->do_upload('picture')) {
-                    $this->session->set_flashdata('message', $this->upload->display_errors());
-                    $this->nl->view_loader('user', 'add', $data, TRUE, 'latest', 'rightbar');
-                    return;
-                } else {
-                    $picture = $this->upload->data();
-                    $picture_name = $picture['file_name'];
-                }
-            } else {
-                $picture_name = $this->input->post('prev_picture');
-            }
-            $update_id = $this->input->post('update_id');
+            $update_id = $this->encryption->decrypt($this->input->post('update_id'));
             $tarnsport = array(
                 'name' => $this->input->post('transport_name', TRUE),
                 'bn_name' => $this->input->post('bn_name', TRUE),
-                'owner' => $this->input->post('owner_name', TRUE),
                 'total_vehicles' => $this->input->post('total_vehicle', TRUE),
-                'picture' => $picture_name,
                 'added_by' => $this->user_id
             );
             $this->db->set('added', 'NOW()', FALSE);
@@ -190,6 +198,8 @@ class Transports extends MX_Controller {
             'title' => mb_convert_case($result[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('poribohon_info'),
             'poribohon' => $result,
             'lang_url' => $lang_url,
+            'routes' => $this->tm->get_routes($poribohon_id),
+            'counters' => $this->tm->get_counters($poribohon_id),
             'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config()
         );

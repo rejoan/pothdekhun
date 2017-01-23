@@ -182,11 +182,7 @@ $(document).ready(function () {
             return false;
         }
     });
-    $('.add_district').on('change',function () {
-        var district = $.trim($(this).val());
-        var thana = $(this).data('thana');
-        get_thana_normal(district, thana);
-    });
+   
     
     $('select[name="fd"]').change(function () {
         var district = $.trim($(this).val());
@@ -198,7 +194,7 @@ $(document).ready(function () {
         var thana = $(this).data('thana');
         get_thanas(district, thana);
     });
-    $('.list-group').on('click', '.list-group-item', function () {
+    $('#suggestion_page .list-group').on('click', '.list-group-item', function () {
         var place = $(this).text();
         $(this).parent().prev().val(place);
         $(this).parent().empty();
@@ -258,18 +254,26 @@ $(document).ready(function () {
         var mycontent = $('div#address:first');
         
         var content = mycontent.clone(true);
-        content.find('select[name="ad"]').attr('data-thana', 'ft' + ftpos);
-        content.find('select[name="ft"]').prop('id', 'ft' + ftpos);
+        content.find('.add_district').attr('data-thana', 'ft' + ftpos);
+        content.find('.thana').prop('id', 'ft' + ftpos);
         $(content).insertAfter('div#address:last').hide().slideDown();
         $('<button class="btn btn-xs btn-danger remove_address"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>').insertAfter('div#address:last .add_details');
-
+        //content.find('select').selectpicker();
     });
 
     $('#transport').on('click', '.remove_address', function (e) {
         e.preventDefault();
-        $(this).parent().remove();
+        $(this).parent().parent().remove();
         return false;
     });
+    
+     $('.add_district').on('change',function () {
+        var district = $.trim($(this).val());
+        var thana = $(this).data('thana');
+        get_thana_normal(district, thana);
+    });
+    
+    
     //departure_time
     $('#departure_time').change(function () {
         var custom_time = $('#custom_time').val();

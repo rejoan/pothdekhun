@@ -62,4 +62,14 @@ class Transport_model extends CI_Model {
         return $query->row_array();
     }
 
+    public function get_routes($poribohon_id) {
+        $query = $this->db->select('r.id r_id,r.poribohon_id,r.from_district,r.to_district,r.from_thana,r.to_thana,r.from_place,r.to_place,rt.from_place fp_bn,rt.to_place tp_bn,d.name district_name, d.bn_name district_name_bn, td.name td_name, td.bn_name td_bn_name')->from('routes r')->join('route_bn rt', 'r.id = rt.route_id', 'left')->join('districts d', 'd.id = r.from_district', 'left')->join('districts td', 'td.id = r.to_district', 'left')->where('r.poribohon_id', $poribohon_id)->get();
+        return $query->result_array();
+    }
+
+    public function get_counters($poribohon_id) {
+        $query = $this->db->select('c.address,d.name, d.bn_name,t.name thana,t.bn_name thana_bn')->from('counter_address c')->join('districts d', 'd.id = c.district', 'left')->join('thanas t', 't.id = c.thana', 'left')->where('c.poribohon_id', $poribohon_id)->get();
+        return $query->result_array();
+    }
+
 }

@@ -453,7 +453,7 @@ class Nuts_lib {
      * @param string $country
      * @return array
      */
-    public function get_lat_long($address, $country) {
+    public function get_lat_long($address, $country, $thana = NULL, $district = NULL) {
         $adds = str_replace(' ', '+', trim($address));
         $lat_long = array();
         //$json = file_get_contents('http://maps.google.com/maps/api/geocode/json?address=' . $adds . '&sensor=false&region=' . $country);
@@ -470,21 +470,29 @@ class Nuts_lib {
         if (empty($json) || empty($json->results)) {
             $prediction_api = @file_get_contents('https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' . $adds . '&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $ctx);
             $predictions = json_decode($prediction_api);
-            $place_id = $predictions->predictions[0]->place_id;
+            //var_dump($thana,$district);return;
+            if (empty($predictions->predictions)) {
+                $json = @file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . str_replace(' ', '+', trim($thana)) . ',' . $district . ',' . $country . '&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $ctx);
 
-            //$first_prediction = $predictions->predictions[0]->description;
+                $json = json_decode($json);
+                //var_dump($json);return;
+            } else {
+                $place_id = $predictions->predictions[0]->place_id;
 
-            $json = @file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $place_id . '&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $ctx);
+                //$first_prediction = $predictions->predictions[0]->description;
 
-            $json = json_decode($json);
-            $lat = $json->result->geometry->location->lat;
-            $long = $json->result->geometry->location->lng;
-            $lat_long['lat'] = $lat;
-            $lat_long['long'] = $long;
+                $json = @file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $place_id . '&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $ctx);
 
-            return $lat_long;
+                $json = json_decode($json);
+                $lat = $json->result->geometry->location->lat;
+                $long = $json->result->geometry->location->lng;
+                $lat_long['lat'] = $lat;
+                $lat_long['long'] = $long;
+
+                return $lat_long;
+            }
         }
-        //var_dump($json);return;
+        //var_dump($json->results[0]->geometry);return;
         $lat = $json->results[0]->geometry->location->lat;
         $long = $json->results[0]->geometry->location->lng;
         $lat_long['lat'] = $lat;
