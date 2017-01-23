@@ -1,6 +1,8 @@
 $(document).ready(function () {
     $('.selectpicker').selectpicker();
     $('.fancybox').fancybox();
+    $('#stoppage_section').sortable();
+    $('#stoppage_section').disableSelection();
     $('.dataTable').DataTable({
         "paging": false,
         "info": false,
@@ -205,16 +207,12 @@ $(document).ready(function () {
 //add dynamic stoppgae as many user can
 
     $('#add_stoppage').click(function () {
-        var pos_ord = parseInt($('.order_pos').last().val());
         var place_name = $('#place_name').val();
         var comment = $('#comment').val();
         var rents = $('#rents').val();
         $('#stoppage_section').show();
-        if (!pos_ord) {
-            pos_ord = 0;
-        }
-        pos_ord++;
-        $('<div class="form-group stoppage"><div class="col-xs-10 col-md-2"><input maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' + pos_ord + '"></div><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control place_name" name="place_name[]" placeholder="' + place_name + '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" placeholder="' + rents + '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>').appendTo($('#stoppage_section')).hide().slideDown();
+
+        $('<div class="form-group stoppage"><div class="col-xs-10 col-md-4"><input maxlength="150" type="text" class="form-control place_name" name="place_name[]" placeholder="' + place_name + '"></div><div class="col-xs-10 col-md-5"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" placeholder="' + rents + '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>').appendTo($('#stoppage_section')).hide().slideDown();
     });
 
 

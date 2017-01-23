@@ -173,7 +173,6 @@ class Route_manager extends MX_Controller {
             $rent = $this->input->post('rent', TRUE);
             $place_name = $this->input->post('place_name', TRUE);
             $comment = $this->input->post('comments', TRUE);
-            $position = $this->input->post('position', TRUE);
             $stoppages = array();
             for ($p = 0; $p < count($place_name); $p++) {
                 if ($place_name[$p]) {
@@ -182,7 +181,7 @@ class Route_manager extends MX_Controller {
                         'comments' => $comment[$p],
                         'rent' => $rent[$p],
                         'route_id' => $route_id,
-                        'position' => $position[$p]
+                        'position' => $p + 1
                     );
                 }
             }

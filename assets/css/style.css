@@ -94,3 +94,9 @@ a.details:hover{
 #comments .direct-chat-messages{
     height: auto;
 }
+#stoppage_section .stoppage{
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}

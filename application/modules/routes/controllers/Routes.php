@@ -161,7 +161,6 @@ class Routes extends MX_Controller {
             $rent = $this->input->post('rent', TRUE);
             $place_name = $this->input->post('place_name', TRUE);
             $comment = $this->input->post('comments', TRUE);
-            $position = $this->input->post('position', TRUE);
             //var_dump($place_name[0]);return;
             $stoppages = array();
             for ($p = 0; $p < count($place_name); $p++) {
@@ -171,7 +170,7 @@ class Routes extends MX_Controller {
                         'comments' => $comment[$p],
                         'rent' => $rent[$p],
                         'route_id' => $route_id,
-                        'position' => $position[$p]
+                        'position' => $p + 1
                     );
                 }
             }
@@ -348,12 +347,12 @@ class Routes extends MX_Controller {
 // if lat long not available OR from/to changed and lang is english
                     $faddress = $this->get_address($ft, $fd, $from);
                     $taddress = $this->get_address($th, $td, $to);
-                    $fthana = $this->pm->get_row('id',$ft,'thanas');
-                    $fdis = $this->pm->get_row('id',$fd,'districts');
-                    $tthana = $this->pm->get_row('id',$th,'thanas');
-                    $tdis = $this->pm->get_row('id',$td,'districts');
-                    $floc = $this->nl->get_lat_long($faddress, 'Bangladesh',$fthana['name'],$fdis['name']);
-                    $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh',$tthana['name'],$tdis['name']);
+                    $fthana = $this->pm->get_row('id', $ft, 'thanas');
+                    $fdis = $this->pm->get_row('id', $fd, 'districts');
+                    $tthana = $this->pm->get_row('id', $th, 'thanas');
+                    $tdis = $this->pm->get_row('id', $td, 'districts');
+                    $floc = $this->nl->get_lat_long($faddress, 'Bangladesh', $fthana['name'], $fdis['name']);
+                    $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh', $tthana['name'], $tdis['name']);
                     //var_dump($faddress,$taddress,$floc,$tloc);return;
                     if (!empty($floc) && !empty($tloc)) {//if lat long data found
                         $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
@@ -382,7 +381,6 @@ class Routes extends MX_Controller {
             $rent = $this->input->post('rent', TRUE);
             $place_name = $this->input->post('place_name', TRUE);
             $comment = $this->input->post('comments', TRUE);
-            $position = $this->input->post('position', TRUE);
             $stoppages = array();
 
             for ($p = 0; $p < count($place_name); $p++) {
@@ -392,7 +390,7 @@ class Routes extends MX_Controller {
                         'comments' => $comment[$p],
                         'rent' => $rent[$p],
                         'route_id' => $route_id,
-                        'position' => $position[$p]
+                        'position' => $p + 1
                     );
                 }
             }
