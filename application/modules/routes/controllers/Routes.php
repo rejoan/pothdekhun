@@ -211,6 +211,7 @@ class Routes extends MX_Controller {
                     'mode' => 'ECB'
                 )
         );
+        //echo $this->encryption->encrypt('81');return
         $this->load->library('recaptcha');
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
         $route_table = $this->nl->lang_based_data('route_bn', 'routes');
@@ -278,8 +279,10 @@ class Routes extends MX_Controller {
             $this->load->library('upload');
             $cpt = count($_FILES);
             $evidence_name = array();
-            $evidence_name[1] = trim($this->input->post('prev_file', TRUE));
-            $evidence_name[2] = trim($this->input->post('prev_file2', TRUE));
+            //first file
+            $evidence_name[1] = trim($this->input->post('pd_pthm', TRUE));
+            //second file
+            $evidence_name[2] = trim($this->input->post('pd_pthmnx', TRUE));
             for ($f = 1; $f < ($cpt + 1); $f++) {
                 if (!empty($_FILES['evidence' . $f]['name'])) {
                     $config['upload_path'] = './evidences';
@@ -380,10 +383,7 @@ class Routes extends MX_Controller {
             $place_name = $this->input->post('place_name', TRUE);
             $comment = $this->input->post('comments', TRUE);
             $position = $this->input->post('position', TRUE);
-            $new = $this->input->post('new', TRUE);
-            $stoppages = $new_stoppages = array();
-            $rest_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
-            $new_position = $this->rm->get_last_position($route_id, $rest_table);
+            $stoppages = array();
 
             for ($p = 0; $p < count($place_name); $p++) {
                 if ($place_name[$p]) {
@@ -395,27 +395,12 @@ class Routes extends MX_Controller {
                         'position' => $position[$p]
                     );
                 }
-                if ($this->session->user_type == 'admin') {
-                    if (!empty($place_name[$p]) && $new[$p] == 'yes') {
-                        $new_stoppages[] = array(
-                            'place_name' => $place_name[$p],
-                            'comments' => $comment[$p],
-                            'rent' => $rent[$p],
-                            'route_id' => $route_id,
-                            'position' => $new_position
-                        );
-                    }
-                }
-                $new_position++;
             }
 
             if (!empty($stoppages)) {
                 if ($this->session->user_type == 'admin') {
                     $this->pm->deleter('route_id', $route_id, $stopage_table);
                     $this->db->insert_batch($stopage_table, $stoppages);
-                    if (!empty($new_stoppages)) {
-                        $this->db->insert_batch($rest_table, $new_stoppages);
-                    }
                     $this->session->set_flashdata('message', lang('edit_success'));
                 } else {
                     $this->session->set_flashdata('message', lang('edit_success_user'));

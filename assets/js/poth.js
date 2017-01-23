@@ -25,10 +25,10 @@ $(document).ready(function () {
             return false;
         }
 
-        var site_url = $('#site_url').val();
+        var pd_stu = $('#pd_stu').val();
         xhr = $.ajax({
             context: this,
-            url: site_url + '/weapons/get_places',
+            url: pd_stu + '/weapons/get_places',
             type: 'get',
             dataType: 'json',
             cache: true,
@@ -66,10 +66,10 @@ $(document).ready(function () {
             return false;
         }
 
-        var site_url = $('#site_url').val();
+        var pd_stu = $('#pd_stu').val();
         xhr = $.ajax({
             context: this,
-            url: site_url + '/weapons/search_places',
+            url: pd_stu + '/weapons/search_places',
             type: 'get',
             dataType: 'json',
             cache: true,
@@ -136,10 +136,10 @@ $(document).ready(function () {
             return false;
         }
 
-        var site_url = $('#site_url').val();
+        var pd_stu = $('#pd_stu').val();
         txhr = $.ajax({
             context: this,
-            url: site_url + '/weapons/get_transports',
+            url: pd_stu + '/weapons/get_transports',
             type: 'get',
             dataType: 'json',
             cache: true,
@@ -221,13 +221,13 @@ $(document).ready(function () {
     $('#stoppage_section').on('click', 'button', function (e) {
         e.preventDefault();
 
-        var site_url = $('#site_url').val();
-        var pri = $('#route_id').val();
+        var pd_stu = $('#pd_stu').val();
+        var pri = $('#pd_identity').val();
         var jaig = $(this).parent().find('.place_name').val();
         if (confirm('Are you Sure?')) {
             $.ajax({
                 context: this,
-                url: site_url + 'weapons/delete_stopage',
+                url: pd_stu + 'weapons/delete_stopage',
                 type: 'get',
                 dataType: 'json',
                 cache: true,
@@ -325,10 +325,10 @@ $(document).ready(function () {
 });
 
 function get_thanas(district, thana) {
-    var site_url = $('#site_url').val();
+    var pd_stu = $('#pd_stu').val();
     $.ajax({
         context: this,
-        url: site_url + 'weapons/get_thanas/',
+        url: pd_stu + 'weapons/get_thanas/',
         type: 'get',
         dataType: 'json',
         cache: true,
@@ -352,10 +352,10 @@ function get_thanas(district, thana) {
 }
 
 function get_thana_normal(district, thana) {
-    var site_url = $('#site_url').val();
+    var pd_stu = $('#pd_stu').val();
     $.ajax({
         context: this,
-        url: site_url + 'weapons/get_thanas/',
+        url: pd_stu + 'weapons/get_thanas/',
         type: 'get',
         dataType: 'json',
         cache: true,
@@ -371,11 +371,11 @@ function get_thana_normal(district, thana) {
     });
 }
 function check_duplicacy(vh, fp, tp) {
-    var site_url = $('#site_url').val();
+    var pd_stu = $('#pd_stu').val();
     var pd_identity = $('input[name="pd_identity"]').val();
     $.ajax({
         context: this,
-        url: site_url + '/weapons/check_duplicate',
+        url: pd_stu + '/weapons/check_duplicate',
         type: 'get',
         dataType: 'json',
         cache: true,

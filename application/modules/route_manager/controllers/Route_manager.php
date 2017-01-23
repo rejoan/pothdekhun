@@ -206,7 +206,7 @@ class Route_manager extends MX_Controller {
     public function decline($id) {
         $route = $this->pm->get_row('id', $id, 'edited_routes');
         $file = 'evidences/' . $route['evidence'];
-        $file = 'evidences/' . $route['evidence2'];
+        $file2 = 'evidences/' . $route['evidence2'];
         //var_dump(is_file($file));return;
         if (is_file($file)) {
             unlink($file);

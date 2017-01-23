@@ -131,19 +131,24 @@ class Weapons extends MX_Controller {
     }
 
     public function delete_stopage() {
-        $route_id = $this->input->get('pri', TRUE);
+        $this->load->library('encryption');
+        $this->encryption->initialize(
+                array(
+                    'cipher' => 'des',
+                    'mode' => 'ECB'
+                )
+        );
+        $route_id = $this->encryption->decrypt($this->input->get('pri', TRUE));
         $place_name = trim($this->input->get('jaig', TRUE));
+        $stoppage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
 
-        $this->db->where('route_id', $route_id)->where('place_name', $place_name)->delete('stoppages');
-        $this->db->where('route_id', $route_id)->where('place_name', $place_name)->delete('stoppage_bn');
+        $this->db->where('route_id', $route_id)->where('place_name', $place_name)->delete($stoppage_table);
+
         $this->db->query('SET @a = 0');
-        $this->db->query('UPDATE stoppages SET position = @a:=@a+1 WHERE route_id = ' . $route_id);
-        $this->db->query('SET @a = 0');
-        $this->db->query('UPDATE stoppage_bn SET position = @a:=@a+1 WHERE route_id = ' . $route_id);
+        $this->db->query('UPDATE ' . $stoppage_table . ' SET position = @a:=@a+1 WHERE route_id = ' . $route_id);
     }
 
     public function check_duplicate() {
-
         $vehicle_name = trim($this->input->get('vh', TRUE));
         $from_place = trim($this->input->get('fp', TRUE));
         $to_place = trim($this->input->get('tp', TRUE));
@@ -172,7 +177,7 @@ class Weapons extends MX_Controller {
             $this->db->where_not_in('r.id', $exclude);
         }
         $this->db->where($cond);
-        $this->db->or_where('(rt.from_place = "' . $from_place . '" AND rt.to_place = "' . $to_place . '" AND p.bn_name = "' . $vehicle_name.'")', NULL, FALSE);
+        $this->db->or_where('(rt.from_place = "' . $from_place . '" AND rt.to_place = "' . $to_place . '" AND p.bn_name = "' . $vehicle_name . '")', NULL, FALSE);
 
         $query = $this->db->get();
         //echo $this->db->last_query();

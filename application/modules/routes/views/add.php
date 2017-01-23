@@ -214,7 +214,7 @@
                             echo $this->encryption->encrypt($route['poribohon_id']);
                         }
                         ?>"/>
-                        <input type="hidden"  name="pd_identity" value="<?php
+                        <input id="pd_identity" type="hidden"  name="pd_identity" value="<?php
                         if ($this->input->post('submit')) {
                             echo set_value('pd_identity');
                         } elseif (isset($route['r_id'])) {
@@ -282,7 +282,7 @@
                         <?php
                         for ($i = 0; $i < count($stoppages); $i++) {
                             $k = $i + 1;
-                            echo '<div class="form-group"><div class="col-xs-10 col-md-2"><input id="position_' . $k . '" maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' . $stoppages[$i]['position'] . '"></div><div class="col-xs-10 col-md-3"><input id="place_' . $k . '" maxlength="150" type="text" class="form-control place_name" name="place_name[]" value="' . $stoppages[$i]['place_name'] . '" placeholder="' . lang('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea id="comment_' . $k . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $k . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $stoppages[$i]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button><input class="new" type="hidden" name="new[]" value="no"/></div>';
+                            echo '<div class="form-group"><div class="col-xs-10 col-md-2"><input id="position_' . $k . '" maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' . $stoppages[$i]['position'] . '"></div><div class="col-xs-10 col-md-3"><input id="place_' . $k . '" maxlength="150" type="text" class="form-control place_name" name="place_name[]" value="' . $stoppages[$i]['place_name'] . '" placeholder="' . lang('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea id="comment_' . $k . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $k . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $stoppages[$i]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
                         }
                         ?>
                     <?php endif; ?>
@@ -338,20 +338,21 @@
                 <input type="hidden" id="comment" value="<?php echo lang('comment'); ?>"/>
                 <input type="hidden" id="rents" value="<?php echo lang('main_rent'); ?>"/>
                 <input type="hidden" id="custom_time" value="<?php echo lang('custom_time'); ?>"/>
-                <input id="prev_file" type="hidden"  name="prev_file" value="<?php
+                <input id="pd_pthm" type="hidden"  name="pd_pthm" value="<?php
                 if ($this->input->post('submit')) {
-                    echo set_value('prev_file');
+                    echo set_value('pd_pthm');
                 } elseif (isset($route['evidence'])) {
                     echo $route['evidence'];
                 }
                 ?>"/>
-                <input id="prev_file2" type="hidden"  name="prev_file2" value="<?php
+                <input id="pd_pthmnx" type="hidden"  name="pd_pthmnx" value="<?php
                 if ($this->input->post('submit')) {
-                    echo set_value('prev_file2');
+                    echo set_value('pd_pthmnx');
                 } elseif (isset($route['evidence2'])) {
                     echo $route['evidence2'];
                 }
                 ?>"/>
+
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo lang('tick_here'); ?></label>
                     <div class="col-xs-10 col-md-6">
@@ -359,21 +360,9 @@
                     </div>
                 </div>
                 <?php //echo form_error('g-recaptcha-response', '<div class="alert alert-danger">', '</div>');  ?>
-                <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>" />
+                
                 <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $action_button; ?>"/>
             </form>
         </div>
     </div>
 </div>
-<?php if (isset($route['r_id']) && $this->session->user_type == 'admin'): ?>
-    <script>
-        $(document).ready(function () {
-            $('#add_stoppage').click(function () {
-                setTimeout(function () {
-                    $('#stoppage_section .stoppage:last-child').append('<input class="new" type="hidden" name="new[]" value="yes"/>');
-                }, 500);
-
-            });
-        });
-    </script>
-<?php endif; ?>
