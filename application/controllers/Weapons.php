@@ -64,6 +64,9 @@ class Weapons extends MX_Controller {
         echo json_encode($places, JSON_UNESCAPED_UNICODE);
     }
 
+    /**
+     * search place from homw page
+     */
     public function search_places() {
         $typing = trim($this->input->get('typing', TRUE));
         $district = (int) trim($this->input->get('d', TRUE));
@@ -182,6 +185,19 @@ class Weapons extends MX_Controller {
         $query = $this->db->get();
         //echo $this->db->last_query();
         echo json_encode(array('exist' => $query->num_rows()));
+    }
+
+    public function stoppage_search() {
+        $typing = trim($this->input->get('typing', TRUE));
+        $stoppages_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
+        $query = $this->db->query('SELECT place_name
+                FROM ' . $stoppages_table . '
+                WHERE place_name LIKE "%%' . $typing . '%%"
+                ORDER BY CASE WHEN
+                 place_name LIKE "' . $typing . '%" THEN 0 WHEN place_name LIKE "%%' . $typing . '%%" THEN 1 WHEN place_name LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
+                LIMIT 5');
+        $places = $query->result_array();
+        echo json_encode($places, JSON_UNESCAPED_UNICODE);
     }
 
 }

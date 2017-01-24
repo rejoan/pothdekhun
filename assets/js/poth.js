@@ -1,8 +1,10 @@
 $(document).ready(function () {
     $('.selectpicker').selectpicker();
     $('.fancybox').fancybox();
-    $('#stoppage_section').sortable();
-    $('#stoppage_section').disableSelection();
+    $('#stoppage_section').sortable({
+        placeholder: 'ui-state-highlight'
+    });
+    //$('#stoppage_section').disableSelection();
     $('.dataTable').DataTable({
         "paging": false,
         "info": false,
@@ -52,6 +54,44 @@ $(document).ready(function () {
         });
     });
 
+
+    var stp = null;
+    $('#stoppage_section').on('keyup', '.place_name', function (e) {
+        var key = e.keyCode;
+        if (key == 40 || key == 38 || key == 13) {
+            return false;
+        }
+        if (stp !== null) {
+            stp.abort();
+            stp = null;
+        }
+        var typing = $.trim($(this).val());
+        if (!typing.length) {
+            return false;
+        }
+
+        var pd_stu = $('#pd_stu').val();
+        xhr = $.ajax({
+            context: this,
+            url: pd_stu + 'weapons/stoppage_search',
+            type: 'get',
+            dataType: 'json',
+            cache: true,
+            data: {
+                typing: typing
+            }
+        }).done(function (response) {
+            var cm = '';
+            for (var i = 0; i < response.length; i++) {
+                cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + '</a>';
+            }
+            if (cm) {
+                $(cm).wrapAll('<div class="list-group suggestion"></div>');
+                $(this).next().html(cm);
+            }
+        });
+    });
+
     var sxhr = null;
     $('#search_place').keyup(function (e) {
         var key = e.keyCode;
@@ -89,7 +129,7 @@ $(document).ready(function () {
     });
 
 
-    $('.search_place,#vehicle_name').keydown(function (e) {
+    $('.search_place,#vehicle_name,.place_name').keydown(function (e) {
         var listItems = $(this).next().find('a');
         var key = e.keyCode,
                 selected = listItems.filter('.selected'),
@@ -212,7 +252,7 @@ $(document).ready(function () {
         var rents = $('#rents').val();
         $('#stoppage_section').show();
 
-        $('<div class="form-group stoppage"><div class="col-xs-10 col-md-4"><input maxlength="150" type="text" class="form-control place_name" name="place_name[]" placeholder="' + place_name + '"></div><div class="col-xs-10 col-md-5"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" placeholder="' + rents + '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>').appendTo($('#stoppage_section')).hide().slideDown();
+        $('<div class="form-group stoppage"><div class="col-xs-10 col-md-4"><input maxlength="150" type="text" class="form-control place_name" name="place_name[]" placeholder="' + place_name + '" autocomplete="off"></div><div class="col-xs-10 col-md-5"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" placeholder="' + rents + '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>').appendTo($('#stoppage_section')).hide().slideDown();
     });
 
 
