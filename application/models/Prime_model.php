@@ -183,6 +183,9 @@ class Prime_model extends CI_Model {
                     'bn_name' => $transport_name,
                     'added_by' => $user_id
                 );
+                if ($this->session->user_type == 'admin') {
+                    $transport_data['is_publish'] = 1;
+                }
                 $this->db->set('added', 'NOW()', FALSE);
                 $transport_id = $this->pm->insert_data('poribohons', $transport_data, TRUE);
             } else {//update corresponding column
