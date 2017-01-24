@@ -22,7 +22,8 @@ class Search_model extends CI_Model {
      */
     public function routes($district, $thana, $place, $to_district, $to_thana, $to_place, $stopage_table) {
 
-        $sql_thana = $sql_tothana = $found_in = '';
+        $sql_thana = $sql_tothana = '';
+        $found_in = 'main';
         if ($district != 1) {//if not dhaka then filter thana
             $sql_thana .= ' AND r.from_thana = ' . $thana;
         }
@@ -55,6 +56,7 @@ WHERE r.is_publish = 1 AND ((r.from_district = ' . $district . ' AND LOWER(r.fro
             //echo $this->db->last_query();return;
             $all_places = $all_place_q->result_array();
             $from_route_id = $this->nl->get_all_ids($all_places, 'route_id');
+
             if (empty($from_route_id)) {
                 $found_in = 'suggestion';
                 return array($this->get_suggestions($place, $stopage_table, $to_place), $found_in);
@@ -74,7 +76,11 @@ WHERE r.is_publish = 1 AND ((r.from_district = ' . $district . ' AND LOWER(r.fro
             //echo $this->db->last_query();return;
             $to_places = $to_place_q->result_array();
             $all_routes_id = $this->nl->get_all_ids($to_places, 'route_id');
-
+            if (empty($all_routes_id)) {
+                $found_in = 'not_found';
+                return array(array(), $found_in);
+            }
+            //var_dump($all_routes_id);return;
             $query = $this->db->query('SELECT r.id r_id, r.from_district, r.to_district, r.from_thana, r.to_thana, r.rent, r.evidence, r.evidence2, r.added, r.transport_type, r.from_place, r.to_place, r.from_latlong, r.to_latlong, r.distance, r.duration, p.name, p.bn_name, r.departure_time, u.username, d.name district_name, d.bn_name district_name_bn, td.name td_name, td.bn_name td_bn_name, rt.from_place fp_bn, rt.to_place tp_bn, rt.departure_time dt_bn, rt.translation_status 
                     FROM routes r 
                     LEFT JOIN route_bn rt ON rt.route_id = r.id 
@@ -103,6 +109,7 @@ WHERE r.is_publish = 1 AND ((r.from_district = ' . $district . ' AND LOWER(r.fro
         //echo $this->db->last_query();return;
         $all_places = $all_place_q->result_array();
         $from_route_id = $this->nl->get_all_ids($all_places, 'route_id');
+
         if (empty($from_route_id)) {
             return array();
         }
@@ -119,7 +126,9 @@ WHERE r.is_publish = 1 AND ((r.from_district = ' . $district . ' AND LOWER(r.fro
         //echo $this->db->last_query();return;
         $to_places = $to_place_q->result_array();
         $all_routes_id = $this->nl->get_all_ids($to_places, 'route_id');
-
+        if (empty($all_routes_id)) {
+            return array();
+        }
         $query = $this->db->query('SELECT r.id r_id, r.from_district, r.to_district, r.from_thana, r.to_thana, r.rent, r.evidence, r.evidence2, r.added, r.transport_type, r.from_place, r.to_place, r.from_latlong, r.to_latlong, r.distance, r.duration, p.name, p.bn_name, r.departure_time, u.username, d.name district_name, d.bn_name district_name_bn, td.name td_name, td.bn_name td_bn_name, rt.from_place fp_bn, rt.to_place tp_bn, rt.departure_time dt_bn, rt.translation_status 
                     FROM routes r 
                     LEFT JOIN route_bn rt ON rt.route_id = r.id 
@@ -127,7 +136,7 @@ WHERE r.is_publish = 1 AND ((r.from_district = ' . $district . ' AND LOWER(r.fro
                     LEFT JOIN users u ON r.added_by = u.id 
                     LEFT JOIN districts d ON r.from_district = d.id 
                     LEFT JOIN districts td ON r.to_district = td.id 
-                    WHERE is_publish = 1 AND r.id IN(' . $all_routes_id . ')');
+                    WHERE r.is_publish = 1 AND r.id IN(' . $all_routes_id . ')');
         return $query->result_array();
     }
 

@@ -95,7 +95,7 @@ class Routes extends MX_Controller {
                 if (!empty($_FILES['evidence' . $f]['name'])) {
                     $config['upload_path'] = './evidences';
                     $config['allowed_types'] = 'gif|jpg|png|jpeg';
-                    $config['max_size'] = 1000;
+                    $config['max_size'] = 2500;
                     $new_name = time() . $_FILES['evidence' . $f]['name'];
                     $config['file_name'] = $new_name;
                     $this->upload->initialize($config);
@@ -288,7 +288,7 @@ class Routes extends MX_Controller {
                 if (!empty($_FILES['evidence' . $f]['name'])) {
                     $config['upload_path'] = './evidences';
                     $config['allowed_types'] = 'gif|jpg|png|jpeg';
-                    $config['max_size'] = 1000;
+                    $config['max_size'] = 2500;
                     $new_name = time() . $_FILES['evidence' . $f]['name'];
                     $config['file_name'] = $new_name;
                     $this->upload->initialize($config);
