@@ -276,13 +276,15 @@
                     <?php endif; ?>
                 <?php endif; ?>
 
-
-                <div style="display: <?php echo isset($stoppages) ? 'block' : 'none'; ?>;" id="stoppage_section">
+                <?php
+                $overflow = $this->agent->is_browser('Firefox') ? 'overflow:auto;' : '';
+                ?>
+                <div style="display: <?php echo isset($stoppages) ? 'block;'.$overflow : 'none;'.$overflow; ?>" id="stoppage_section">
                     <?php if (isset($route['r_id'])): ?>
                         <?php
                         for ($i = 0; $i < count($stoppages); $i++) {
                             $k = $i + 1;
-                            echo '<div class="form-group stoppage"><div class="col-xs-10 col-md-4"><input id="place_' . $k . '" maxlength="150" type="text" class="form-control place_name" name="place_name[]" value="' . $stoppages[$i]['place_name'] . '" placeholder="' . lang('place_name') . '" autocomplete="off"></div><div class="col-xs-10 col-md-5"><textarea id="comment_' . $k . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $k . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $stoppages[$i]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
+                            echo '<div class="form-group stoppage"><div class="col-xs-10 col-md-4"><input id="place_' . $k . '" maxlength="150" type="text" class="form-control place_name" name="place_name[]" value="' . $stoppages[$i]['place_name'] . '" placeholder="' . lang('place_name') . '" autocomplete="off"><div class="list-group suggestion"></div></div><div class="col-xs-10 col-md-5"><textarea id="comment_' . $k . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $k . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $stoppages[$i]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
                         }
                         ?>
                     <?php endif; ?>
@@ -356,11 +358,11 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo lang('tick_here'); ?></label>
                     <div class="col-xs-10 col-md-6">
-                        <?php //echo $captcha; ?>
+                        <?php //echo $captcha;  ?>
                     </div>
                 </div>
-                <?php //echo form_error('g-recaptcha-response', '<div class="alert alert-danger">', '</div>');  ?>
-                
+                <?php //echo form_error('g-recaptcha-response', '<div class="alert alert-danger">', '</div>');   ?>
+
                 <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $action_button; ?>"/>
             </form>
         </div>

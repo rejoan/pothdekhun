@@ -25,7 +25,7 @@ body {
     position: absolute;
     top: 33px;
     min-width: 85.5%;
-    z-index: 99;
+    z-index: 999999;
 }
 #suggestion_page .suggestion .list-group-item{
     padding: 4px;

@@ -81,14 +81,14 @@ $(document).ready(function () {
                 typing: typing
             }
         }).done(function (response) {
+            //var cm = '<div class="list-group suggestion">';
             var cm = '';
             for (var i = 0; i < response.length; i++) {
-                cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + '</a>';
+                cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['place_name'] + '</a>';
             }
-            if (cm) {
-                $(cm).wrapAll('<div class="list-group suggestion"></div>');
-                $(this).next().html(cm);
-            }
+            $(this).next().show().html(cm);
+            //cm += '</div>';
+            //$(this).parent().append(cm);
         });
     });
 
@@ -128,8 +128,7 @@ $(document).ready(function () {
         });
     });
 
-
-    $('.search_place,#vehicle_name,.place_name').keydown(function (e) {
+    $('#stoppage_section').on('keydown', '.place_name', function (e) {
         var listItems = $(this).next().find('a');
         var key = e.keyCode,
                 selected = listItems.filter('.selected'),
@@ -162,6 +161,40 @@ $(document).ready(function () {
         }
         current.addClass('selected');
     });
+    $('.search_place,#vehicle_name').on('keydown', function (e) {
+        var listItems = $(this).next().find('a');
+        var key = e.keyCode,
+                selected = listItems.filter('.selected'),
+                current;
+        if (key != 40 && key != 38 && key != 13)
+            return;
+        //listItems.removeClass('selected');
+
+        if (key == 40) // Down key
+        {
+            listItems.removeClass('selected');
+            if (!selected.length || selected.is(':last-child')) {
+                current = listItems.eq(0);
+            } else {
+                current = selected.next();
+            }
+        } else if (key == 38) // Up key
+        {
+            listItems.removeClass('selected');
+            if (!selected.length || selected.is(':first-child')) {
+                current = listItems.last();
+            } else {
+                current = selected.prev();
+            }
+        } else if (key == 13) // Enter key
+        {
+            current = listItems.filter('.selected');
+            current.trigger('click');
+            return false;
+        }
+        current.addClass('selected');
+    });
+
     var txhr = null;
     $('#vehicle_name').keyup(function (e) {
         var key = e.keyCode;
@@ -241,6 +274,14 @@ $(document).ready(function () {
         $(this).parent().prev().val(place);
         $(this).parent().empty();
     });
+    
+    $('#stoppage_section .list-group-item').live('click', function () {
+        var place = $(this).text();
+        $(this).parent().prev().val(place);
+        $(this).parent().empty();
+    });
+    
+    
     $(document).click(function () {
         $('#suggestion_page .list-group').empty();
     });
@@ -252,7 +293,7 @@ $(document).ready(function () {
         var rents = $('#rents').val();
         $('#stoppage_section').show();
 
-        $('<div class="form-group stoppage"><div class="col-xs-10 col-md-4"><input maxlength="150" type="text" class="form-control place_name" name="place_name[]" placeholder="' + place_name + '" autocomplete="off"></div><div class="col-xs-10 col-md-5"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" placeholder="' + rents + '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>').appendTo($('#stoppage_section')).hide().slideDown();
+        $('<div class="form-group stoppage"><div class="col-xs-10 col-md-4"><input maxlength="150" type="text" class="form-control place_name" name="place_name[]" placeholder="' + place_name + '" autocomplete="off"><div class="list-group suggestion"></div></div><div class="col-xs-10 col-md-5"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" placeholder="' + rents + '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>').appendTo($('#stoppage_section')).hide().slideDown();
     });
 
 

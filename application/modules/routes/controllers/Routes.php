@@ -38,6 +38,7 @@ class Routes extends MX_Controller {
      * @return type
      */
     public function add() {
+        $this->load->library('user_agent');
         $this->load->library('recaptcha');
         $this->load->library('form_validation');
         $fd = trim($this->input->post('fd', TRUE));
@@ -203,6 +204,7 @@ class Routes extends MX_Controller {
      * @return type
      */
     public function edit($id) {
+        $this->load->library('user_agent');
         $this->load->library('encryption');
         $this->encryption->initialize(
                 array(

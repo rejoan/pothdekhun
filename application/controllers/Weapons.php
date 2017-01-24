@@ -193,6 +193,7 @@ class Weapons extends MX_Controller {
         $query = $this->db->query('SELECT place_name
                 FROM ' . $stoppages_table . '
                 WHERE place_name LIKE "%%' . $typing . '%%"
+                GROUP BY place_name
                 ORDER BY CASE WHEN
                  place_name LIKE "' . $typing . '%" THEN 0 WHEN place_name LIKE "%%' . $typing . '%%" THEN 1 WHEN place_name LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
                 LIMIT 5');

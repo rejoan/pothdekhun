@@ -57,7 +57,7 @@ class Transports extends MX_Controller {
     }
 
     public function add() {
-
+        $col_name = $this->nl->lang_based_data('bn_name', 'name');
         $data = array(
             'title' => lang('add_transport'),
             'action' => site_url_tr('transports/add'),
