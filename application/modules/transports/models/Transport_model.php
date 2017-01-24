@@ -20,7 +20,7 @@ class Transport_model extends CI_Model {
     public function get_all($input, $col_name, $pagination = FALSE, $per_page = 10, $segment = 3) {
         if (!empty($input)) {
             $poribohon = $this->pm->total_item('poribohons c', 'c.' . $col_name, $input);
-            if ($poribohon < 1) {
+            if ($poribohon < 1) {// if not found
                 $this->db->select('p.*,u.username');
                 $this->db->from('poribohons p');
                 $this->db->join('users u', 'p.added_by = u.id', 'left');
@@ -36,6 +36,7 @@ class Transport_model extends CI_Model {
             $this->db->from('poribohons p');
             $this->db->join('users u', 'p.added_by = u.id', 'left');
         }
+        $this->db->where('p.is_publish', 1);
         $this->db->order_by('p.id', 'desc');
         if (!$pagination) {
             $this->db->limit($per_page, $segment);

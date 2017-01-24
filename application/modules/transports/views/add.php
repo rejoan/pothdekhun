@@ -58,9 +58,9 @@
                         </div>
                     </div>
 
-                    <input type="hidden" name="update_id" value="<?php
+                    <input type="hidden" name="pd_identity" value="<?php
                     if ($this->input->post('submit')) {
-                        echo set_value('update_id');
+                        echo set_value('pd_identity');
                     } elseif (isset($transport['id'])) {
                         echo $this->encryption->encrypt($transport['id']);
                     }
@@ -68,51 +68,44 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label">Counter Addresses</label>
                     </div>
+                    <?php if (isset($counter_address)): ?>
+                        <?php for ($i = 0; $i < count($counter_address); $i++) { ?>
+                            <div id="address" class="row form-group">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-10 col-md-3">
+                                        <select name="ad[]" class="add_district" data-width="100%" data-thana="ft" data-live-search="true">
+                                            <?php foreach ($districts as $d): ?>
+                                                <option value="<?php echo $d['id']; ?>" <?php
+                                                echo $counter_address[$i]['district'] == $d['id'] ? 'selected="yes"' : '';
+                                                ?>>
 
-                    <div id="address" class="row form-group">
-                        <div class="col-xs-12">
-                            <div class="col-xs-10 col-md-3">
-                                <select name="ad[]" class="add_district" data-width="100%" data-thana="ft" data-live-search="true">
-                                    <?php foreach ($districts as $d): ?>
-                                        <option value="<?php echo $d['id']; ?>" <?php
-                                        if ($this->input->post('fd')) {
-                                            echo $this->input->post('fd') == $d['id'] ? 'selected="yes"' : '';
-                                        } elseif (isset($profile['district'])) {
-                                            echo $profile['district'] == $d['id'] ? 'selected="yes"' : '';
-                                        } else {
-                                            echo $d['id'] == '1' ? 'selected="yes"' : '';
-                                        }
-                                        ?>>
+                                                    <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-10 col-md-4">
+                                        <select id="ft" class="thana" name="thana[]" data-width="100%">
+                                            <?php foreach ($thanas as $t): ?>
+                                                <option  value="<?php echo $t['id']; ?>" <?php echo $counter_address[$i]['thana'] == $t['id'] ? 'selected="yes"' : ''; ?>>
 
-                                            <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
+                                                    <?php echo $t[$this->nl->lang_based_data('bn_name', 'name')]; ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-10 col-md-4 add_details">
+                                        <textarea class="form-control" name="details[]" placeholder="<?php echo lang('address_details'); ?>"><?php echo $counter_address[$i]['address']; ?></textarea>
+                                    </div>
+                                    <?php
+                                    if ($i > 0) {
+                                        echo '<button class="btn btn-xs btn-danger remove_address"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';
+                                    }
+                                    ?>
+                                </div>
                             </div>
-                            <div class="col-xs-10 col-md-4">
-                                <select id="ft" class="thana" name="thana[]" data-width="100%">
-                                    <?php foreach ($thanas as $t): ?>
-                                        <option  value="<?php echo $t['id']; ?>" <?php
-                                        if ($this->input->post('ft')) {
-                                            echo $this->input->post('ft') == $t['id'] ? 'selected="yes"' : '';
-                                        } elseif (isset($profile['thana'])) {
-                                            echo $profile['thana'] == $t['id'] ? 'selected="yes"' : '';
-                                        } else {
-                                            echo $t['id'] == '493' ? 'selected="yes"' : '';
-                                        }
-                                        ?>>
-
-                                            <?php echo $t[$this->nl->lang_based_data('bn_name', 'name')]; ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="col-xs-10 col-md-4 add_details">
-                                <textarea class="form-control" name="details[]" placeholder="<?php echo lang('address_details'); ?>"></textarea>
-                            </div>
-
-                        </div>
-                    </div>
+                        <?php } ?>
+                    <?php endif; ?>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label"></label>

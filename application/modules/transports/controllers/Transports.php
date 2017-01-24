@@ -9,6 +9,7 @@ class Transports extends MX_Controller {
 
     private $user_id = 4;
     public $latest_routes;
+    public $address = array();
 
     public function __construct() {
         parent::__construct();
@@ -18,6 +19,12 @@ class Transports extends MX_Controller {
         $this->load->model('Transport_model', 'tm');
         //$this->load->library('security');
         $this->latest_routes = $this->pm->latest_routes();
+        $this->address = array(0 => array(
+                'district' => 1,
+                'thana' => 493,
+                'address' => ''
+            )
+        );
     }
 
     /**
@@ -50,14 +57,16 @@ class Transports extends MX_Controller {
     }
 
     public function add() {
+
         $data = array(
             'title' => lang('add_transport'),
             'action' => site_url_tr('transports/add'),
+            'counter_address' => $this->address,
             'action_button' => lang('add_button'),
             'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config(),
-            'districts' => $this->pm->get_data('districts'),
-            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1)
+            'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
+            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1, FALSE, FALSE, FALSE, $col_name, 'asc')
         );
         $this->load->library('form_validation');
 
@@ -93,6 +102,10 @@ class Transports extends MX_Controller {
                 'total_vehicles' => $this->input->post('total_vehicle', TRUE),
                 'added_by' => $this->user_id
             );
+
+            if ($this->session->user_type == 'admin') {
+                $tarnsport['is_publish'] = 1;
+            }
             $this->db->set('added', 'NOW()', FALSE);
             $poribohon_id = $this->pm->insert_data('poribohons', $tarnsport, TRUE);
 
@@ -101,7 +114,7 @@ class Transports extends MX_Controller {
             $details = $this->input->post('details', TRUE);
             $counter_address = array();
             for ($p = 0; $p < count($district); $p++) {
-                if ($district[$p]) {
+                if (!empty($details[$p])) {
                     $counter_address[] = array(
                         'district' => $district[$p],
                         'thana' => $thana[$p],
@@ -111,7 +124,7 @@ class Transports extends MX_Controller {
                 }
             }
 
-            if ($counter_address) {
+            if (!empty($counter_address)) {
                 $this->db->insert_batch('counter_address', $counter_address);
             }
             $this->session->set_flashdata('message', lang('save_success'));
@@ -138,15 +151,21 @@ class Transports extends MX_Controller {
         if (!empty($id) && ctype_digit($id)) {
             $transport = $this->pm->get_row('id', $id, 'poribohons');
         }
+        $col_name = $this->nl->lang_based_data('bn_name', 'name');
+        $counter_address = $this->pm->get_data('counter_address', FALSE, 'poribohon_id', $id);
+        if (empty($counter_address)) {
+            $counter_address = $this->address;
+        }
         $data = array(
             'title' => lang('edit_transport'),
             'transport' => $transport,
+            'counter_address' => $counter_address,
             'action' => site_url_tr('transports/edit'),
             'action_button' => lang('edit_button'),
             'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config(),
-            'districts' => $this->pm->get_data('districts'),
-            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1)
+            'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
+            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1, FALSE, FALSE, FALSE, $col_name, 'asc')
         );
         $this->load->library('form_validation');
 
@@ -158,7 +177,7 @@ class Transports extends MX_Controller {
                 return;
             }
 
-            $update_id = $this->encryption->decrypt($this->input->post('update_id'));
+            $update_id = $this->encryption->decrypt($this->input->post('pd_identity'));
             $tarnsport = array(
                 'name' => $this->input->post('transport_name', TRUE),
                 'bn_name' => $this->input->post('bn_name', TRUE),
@@ -166,8 +185,40 @@ class Transports extends MX_Controller {
                 'added_by' => $this->user_id
             );
             $this->db->set('added', 'NOW()', FALSE);
-            $this->pm->updater('id', $update_id, 'poribohons', $tarnsport);
-            $this->session->set_flashdata('message', lang('save_success'));
+            if ($this->session->user_type == 'admin') {
+                $tarnsport['is_publish'] = 1;
+                $this->pm->updater('id', $update_id, 'poribohons', $tarnsport);
+            } else {
+                $this->pm->insert_data('edited_poribohons', $tarnsport);
+            }
+
+            $district = $this->input->post('ad', TRUE);
+            $thana = $this->input->post('thana', TRUE);
+            $details = $this->input->post('details', TRUE);
+
+            $counter_address = array();
+            for ($p = 0; $p < count($district); $p++) {
+                if (!empty($details[$p])) {
+                    $counter_address[] = array(
+                        'district' => $district[$p],
+                        'thana' => $thana[$p],
+                        'address' => $details[$p],
+                        'poribohon_id' => $update_id
+                    );
+                }
+            }
+
+            if (!empty($counter_address)) {
+                if ($this->session->user_type == 'admin') {
+                    $this->pm->deleter('poribohon_id', $update_id, 'counter_address');
+                    $this->db->insert_batch('counter_address', $counter_address);
+                    $this->session->set_flashdata('message', lang('edit_success'));
+                } else {
+                    $this->session->set_flashdata('message', lang('edit_success_user'));
+                    $this->db->insert_batch('edited_counters', $counter_address);
+                }
+            }
+
             redirect_tr('transports');
         }
 

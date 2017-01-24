@@ -184,8 +184,8 @@ $(document).ready(function () {
             return false;
         }
     });
-   
-    
+
+
     $('select[name="fd"]').change(function () {
         var district = $.trim($(this).val());
         var thana = $(this).data('thana');
@@ -250,7 +250,7 @@ $(document).ready(function () {
     $('#add_address').click(function () {
         ftpos++;
         var mycontent = $('div#address:first');
-        
+
         var content = mycontent.clone(true);
         content.find('.add_district').attr('data-thana', 'ft' + ftpos);
         content.find('.thana').prop('id', 'ft' + ftpos);
@@ -261,17 +261,20 @@ $(document).ready(function () {
 
     $('#transport').on('click', '.remove_address', function (e) {
         e.preventDefault();
-        $(this).parent().parent().remove();
-        return false;
+        if (confirm('Are you Sure?')) {
+            $(this).parent().parent().remove();
+            return false;
+        }
+
     });
-    
-     $('.add_district').on('change',function () {
+
+    $('.add_district').on('change', function () {
         var district = $.trim($(this).val());
         var thana = $(this).data('thana');
         get_thana_normal(district, thana);
     });
-    
-    
+
+
     //departure_time
     $('#departure_time').change(function () {
         var custom_time = $('#custom_time').val();
