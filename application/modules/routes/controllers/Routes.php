@@ -38,6 +38,7 @@ class Routes extends MX_Controller {
      * @return type
      */
     public function add() {
+        $this->nl->is_logged();
         $this->load->library('user_agent');
         $this->load->library('recaptcha');
         $this->load->library('form_validation');
@@ -204,6 +205,7 @@ class Routes extends MX_Controller {
      * @return type
      */
     public function edit($id) {
+        $this->nl->is_logged();
         $this->load->library('user_agent');
         $this->load->library('encryption');
         $this->encryption->initialize(
@@ -518,13 +520,10 @@ class Routes extends MX_Controller {
     }
 
     public function delete($id) {
+        $this->nl->is_logged();
         $this->pm->deleter('id', $id, 'routes');
         $this->session->set_flashdata('message', lang('success_delete'));
         redirect_tr('routes/all');
-    }
-
-    public function translate($id) {
-        
     }
 
 }

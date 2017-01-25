@@ -50,7 +50,7 @@ $this->load->view('leftbar');
                     <label for="inputExperience" class="col-sm-3 control-label"><?php echo lang('password'); ?></label>
 
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="password" placeholder="<?php echo lang('password'); ?>">
+                        <input type="password" class="form-control" name="password" placeholder="<?php echo lang('password'); ?>">
                     </div>
                 </div>
 

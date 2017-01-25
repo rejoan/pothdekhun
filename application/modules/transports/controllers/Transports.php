@@ -57,6 +57,7 @@ class Transports extends MX_Controller {
     }
 
     public function add() {
+        $this->nl->is_logged();
         $col_name = $this->nl->lang_based_data('bn_name', 'name');
         $data = array(
             'title' => lang('add_transport'),
@@ -140,6 +141,7 @@ class Transports extends MX_Controller {
      * @return type
      */
     public function edit($id = NULL) {
+        $this->nl->is_logged();
         $this->load->library('encryption');
         $this->encryption->initialize(
                 array(
@@ -226,6 +228,7 @@ class Transports extends MX_Controller {
     }
 
     public function delete($id) {
+        $this->nl->is_logged();
         $this->pm->deleter('id', $id, 'poribohons');
         $this->session->set_flashdata('message', lang('delete_success'));
         redirect_tr('transports');

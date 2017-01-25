@@ -41,23 +41,23 @@
                     <div class="col-xs-3">
 
                         <select name="t" class="selectpicker" data-width="100%" data-live-search="true" >
-                            <option value="bus" <?php echo trim($this->input->get('t', TRUE)) == 'bus' ? 'selected="yes"' : '';?>>
-                                    <?php echo lang('bus'); ?>
+                            <option value="bus" <?php echo trim($this->input->get('t', TRUE)) == 'bus' ? 'selected="yes"' : ''; ?>>
+                                <?php echo lang('bus'); ?>
                             </option>
-                            <option value="train" <?php echo trim($this->input->get('t', TRUE)) == 'train' ? 'selected="yes"' : '';?>>
-                                    <?php echo lang('train'); ?>
+                            <option value="train" <?php echo trim($this->input->get('t', TRUE)) == 'train' ? 'selected="yes"' : ''; ?>>
+                                <?php echo lang('train'); ?>
                             </option>
-                            <option value="launch" <?php echo trim($this->input->get('t', TRUE)) == 'launch' ? 'selected="yes"' : '';?>>
-                                    <?php echo lang('launch'); ?>
+                            <option value="launch" <?php echo trim($this->input->get('t', TRUE)) == 'launch' ? 'selected="yes"' : ''; ?>>
+                                <?php echo lang('launch'); ?>
                             </option>
-                            <option value="leguna" <?php echo trim($this->input->get('t', TRUE)) == 'leguna' ? 'selected="yes"' : '';?>>
-                                    <?php echo lang('leguna'); ?>
+                            <option value="leguna" <?php echo trim($this->input->get('t', TRUE)) == 'leguna' ? 'selected="yes"' : ''; ?>>
+                                <?php echo lang('leguna'); ?>
                             </option>
-                            <option value="biman" <?php echo trim($this->input->get('t', TRUE)) == 'biman' ? 'selected="yes"' : '';?>>
-                                    <?php echo lang('biman'); ?>
+                            <option value="biman" <?php echo trim($this->input->get('t', TRUE)) == 'biman' ? 'selected="yes"' : ''; ?>>
+                                <?php echo lang('biman'); ?>
                             </option>
-                            <option value="others" <?php echo trim($this->input->get('t', TRUE)) == 'others' ? 'selected="yes"' : '';?>>
-                                    <?php echo lang('others'); ?>
+                            <option value="others" <?php echo trim($this->input->get('t', TRUE)) == 'others' ? 'selected="yes"' : ''; ?>>
+                                <?php echo lang('others'); ?>
                             </option>
                         </select>
                     </div>
@@ -87,7 +87,9 @@
                             <td><?php echo get_tr_type($r['transport_type']); ?></td>
                             <td><?php echo $r[$this->nl->lang_based_data('bn_name', 'name')]; ?></td>
                             <td>
-                                <a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('routes/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>
+                                <?php if ($this->session->user_id): ?>
+                                    <a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('routes/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>
+                                <?php endif; ?>
                                 &nbsp;
                                 <a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url_tr('routes/show') . '/' . $r['id']; ?>"><i class="fa fa-eye"></i></a>
                                 &nbsp;
