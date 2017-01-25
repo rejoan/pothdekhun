@@ -206,6 +206,8 @@ class Routes extends MX_Controller {
      */
     public function edit($id) {
         $this->nl->is_logged();
+        //check admin, if so then editable even is not published
+        $this->pm->is_authorize($id);
         $this->load->library('user_agent');
         $this->load->library('encryption');
         $this->encryption->initialize(

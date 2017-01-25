@@ -11,6 +11,7 @@ class Route_manager extends MX_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->nl->is_admin('auth/login', FALSE);
         $this->user_id = $this->session->user_id;
         $this->load->model('Route_manager_model', 'rmn');
     }
@@ -219,9 +220,26 @@ class Route_manager extends MX_Controller {
     }
 
     public function accept($id) {
+        $route = $this->pm->get_row('id', $id, 'routes');
+        $point = 3;
+        if (!empty($route['evidence'])) {
+            $point += 5;
+        }
+        if (!empty($route['evidence2'])) {
+            $point += 5;
+        }
         $this->pm->updater('id', $id, 'routes', array('is_publish' => 1));
         $this->session->set_flashdata('message', 'Published Succesfully');
         redirect_tr('route_manager');
+    }
+
+    public function delete_file() {
+        $file_name = $this->input->post('file');
+        $file = 'evidences/' . $file_name;
+        if (is_file($file)) {
+            unlink($file);
+        }
+        echo json_encode(array('deleted' => 'done'));
     }
 
     public function reject($id) {

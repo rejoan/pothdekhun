@@ -219,4 +219,11 @@ class Prime_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function is_authorize($id) {
+        $route = $this->get_row('id', $id, 'routes');
+        if ($route['is_publish'] == 0 && $this->session->user_type != 'admin') {
+            redirect('routes');
+        }
+    }
+
 }

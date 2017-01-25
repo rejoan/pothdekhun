@@ -279,12 +279,12 @@
                 <?php
                 $overflow = $this->agent->is_browser('Firefox') ? 'overflow:auto;' : '';
                 ?>
-                <div style="display: <?php echo isset($stoppages) ? 'block;'.$overflow : 'none;'.$overflow; ?>" id="stoppage_section">
+                <div style="display: <?php echo isset($stoppages) ? 'block;' . $overflow : 'none;' . $overflow; ?>" id="stoppage_section">
                     <?php if (isset($route['r_id'])): ?>
                         <?php
                         for ($i = 0; $i < count($stoppages); $i++) {
                             $k = $i + 1;
-                            echo '<div class="form-group stoppage"><div class="col-xs-10 col-md-4"><input id="place_' . $k . '" maxlength="150" type="text" class="form-control place_name" name="place_name[]" value="' . $stoppages[$i]['place_name'] . '" placeholder="' . lang('place_name') . '" autocomplete="off"><div class="list-group suggestion"></div></div><div class="col-xs-10 col-md-5"><textarea id="comment_' . $k . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $k . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $stoppages[$i]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
+                            echo '<div class="form-group stoppage"><div class="col-xs-10 col-md-4"><input id="place_' . $k . '" maxlength="150" type="text" class="form-control place_name" name="place_name[]" value="' . $stoppages[$i]['place_name'] . '" placeholder="' . lang('place_name') . '" autocomplete="off"><div class="list-group suggestion"></div></div><div class="col-xs-10 col-md-5"><textarea id="comment_' . $k . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $k . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $stoppages[$i]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><button class="btn btn-xs btn-danger cancel" href="javascript:void(0)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
                         }
                         ?>
                     <?php endif; ?>
@@ -304,6 +304,9 @@
                             <label class="col-sm-3 control-label"><?php echo lang('prev_file'); ?></label>
                             <div class="col-xs-10 col-md-6">
                                 <a class="fancybox" id="prev_evidence" href="<?php echo base_url('evidences') . '/' . $route['evidence']; ?>"><?php echo $route['evidence']; ?></a>
+                                <?php if ($this->nl->is_admin()): ?>
+                                    <button data-file_name="<?php echo $route['evidence2']; ?>" class="btn btn-xs btn-danger remove_file" href="javascript:void(0)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                <?php endif; ?>
                             </div>
                         </div>
                     <?php endif; ?>
@@ -323,6 +326,9 @@
                             <label class="col-sm-3 control-label"><?php echo lang('prev_file'); ?></label>
                             <div class="col-xs-10 col-md-6">
                                 <a class="fancybox" id="prev_evidence2" href="<?php echo base_url('evidences') . '/' . $route['evidence2']; ?>"><?php echo $route['evidence2']; ?></a>
+                                <?php if ($this->nl->is_admin()): ?>
+                                    <button data-file_name="<?php echo $route['evidence2']; ?>" class="btn btn-xs btn-danger remove_file" href="javascript:void(0)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                <?php endif; ?>
                             </div>
                         </div>
                     <?php endif; ?>
@@ -368,3 +374,27 @@
         </div>
     </div>
 </div>
+<?php if ($this->nl->is_admin()): ?>
+    <script>
+        $(document).ready(function () {
+            $('.remove_file').click(function () {
+                var name = $(this).data('file_name');
+                var pd_stu = $('#pd_stu').val();
+                $.ajax({
+                    context: this,
+                    url: pd_stu + 'route_manager/delete_file',
+                    type: 'get',
+                    dataType: 'json',
+                    cache: true,
+                    data: {
+                        file: name
+                    }
+                }).done(function (response) {
+                    if (response.deleted == 'done') {
+                        
+                    }
+                });
+            });
+        });
+    </script>
+<?php endif; ?>
