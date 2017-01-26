@@ -499,11 +499,14 @@ class Routes extends MX_Controller {
         } else {
             $segment = 0;
         }
-        $links = $this->nl->generate_pagination('routes/all', $total_rows, $per_page, $num_links);
 
         $d = trim($this->input->get('fd', TRUE));
         $t = trim($this->input->get('ft', TRUE));
         $ttype = trim($this->input->get('t', TRUE));
+
+        $url = 'routes/all?fd=' . $d . '&ft=' . $t . '&t=' . $ttype;
+        $links = $this->nl->generate_pagination($url, $total_rows, $per_page, $num_links);
+
         $district_id = $d;
         if (empty($d)) {
             $district_id = 1;

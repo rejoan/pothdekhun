@@ -108,7 +108,7 @@
                     </div>
 
                     <div class="col-xs-10 col-md-6">
-                        <input id="search_place" type="text" class="form-control" placeholder="<?php echo lang('place_search'); ?>" name="sp" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                        <input id="search_place" type="text" class="form-control" placeholder="<?php echo lang('place_search'); ?>" name="f" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                         <div class="list-group suggestion">
                         </div>
                     </div>

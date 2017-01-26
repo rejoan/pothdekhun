@@ -122,7 +122,11 @@ $(document).ready(function () {
         }).done(function (response) {
             var cm = '';
             for (var i = 0; i < response.length; i++) {
-                cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + ', ' + response[i]['Thana'] + '</a>';
+                var thana = ', ' + response[i]['Thana'];
+                if(district == 1){
+                    thana = '';
+                }
+                cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + thana + '</a>';
             }
             $(this).next().show().html(cm);
         });
@@ -161,7 +165,7 @@ $(document).ready(function () {
         }
         current.addClass('selected');
     });
-    $('.search_place,#vehicle_name').on('keydown', function (e) {
+    $('.search_place,#vehicle_name,#search_place').on('keydown', function (e) {
         var listItems = $(this).next().find('a');
         var key = e.keyCode,
                 selected = listItems.filter('.selected'),

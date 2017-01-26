@@ -17,22 +17,23 @@ class Search extends MX_Controller {
     }
 
     public function index() {
-        $place = trim($this->input->get('sp', TRUE));
+        $place = trim($this->input->get('f', TRUE));
         $district = trim($this->input->get('ds', TRUE));
         $place_arr = explode(',', $place);
         $place_name = $place_arr[0];
-        $thana_name = trim($place_arr[1]);
-        $col_name = $this->nl->lang_based_data('bn_name','name');
+        
+        $thana_name = isset($place_arr[1]) ? trim($place_arr[1]):'';
+        
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', ' s');
-        $thana_id = $this->sm->get_thana_id($col_name,$thana_name);
-        $routes = $this->sm->get_routes($district, $thana_id, $place_name);
+        
+        $routes = $this->sm->get_routes($district, $thana_name, $place_name);
         //var_dump($routes[1]);        return;
         array_walk($routes[0], function(&$a) use($stopage_table) {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
         });
         $data = array(
-            'title' => lang('transport'),
+            'title' => lang('search_result'),
             'routes' => $routes[0],
             'found_in' => $routes[1],
             'latest_routes' => $this->latest_routes,
