@@ -220,6 +220,13 @@ class Route_manager extends MX_Controller {
     }
 
     public function accept($id) {
+
+        $this->pm->updater('id', $id, 'routes', array('is_publish' => 1));
+        $this->session->set_flashdata('message', 'Published Succesfully');
+        redirect_tr('route_manager');
+    }
+
+    public function calculate_point($id) {
         $route = $this->pm->get_row('id', $id, 'routes');
         $point = 3;
         if (!empty($route['evidence'])) {
@@ -228,9 +235,11 @@ class Route_manager extends MX_Controller {
         if (!empty($route['evidence2'])) {
             $point += 5;
         }
-        $this->pm->updater('id', $id, 'routes', array('is_publish' => 1));
-        $this->session->set_flashdata('message', 'Published Succesfully');
-        redirect_tr('route_manager');
+        $stoppages = $this->pm->total_item('stoppages', 'route_id', $id);
+        if ($stoppages > 0) {
+            $point += $stoppages;
+        }
+        return $point;
     }
 
     public function delete_file() {
