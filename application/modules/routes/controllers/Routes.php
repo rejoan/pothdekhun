@@ -369,6 +369,7 @@ class Routes extends MX_Controller {
                             $route['duration'] = $dis_dur['duration'];
                         }
                     }
+                    $route['is_publish'] = 1;
                 }
 
                 $this->pm->updater($rid, $route_id, $route_table, $route);

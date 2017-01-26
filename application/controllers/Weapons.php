@@ -180,7 +180,7 @@ class Weapons extends MX_Controller {
             $this->db->where_not_in('r.id', $exclude);
         }
         $this->db->where($cond);
-        $this->db->or_where('(rt.from_place = "' . $from_place . '" AND rt.to_place = "' . $to_place . '" AND p.bn_name = "' . $vehicle_name . '")', NULL, FALSE);
+        $this->db->or_where('(r.id NOT IN('.$route_id.') AND rt.from_place = "' . $from_place . '" AND rt.to_place = "' . $to_place . '" AND p.bn_name = "' . $vehicle_name . '")', NULL, FALSE);
 
         $query = $this->db->get();
         //echo $this->db->last_query();

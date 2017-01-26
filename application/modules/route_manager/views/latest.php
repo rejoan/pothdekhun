@@ -34,8 +34,8 @@
                             <td><?php echo $r['username']; ?></td>
 
                             <td>
-                                <a target="_blank" data-toggle="tooltip" data-placement="top" title="View to Merge" href="<?php echo site_url('routes/show') . '/' . $r['r_id']; ?>"><i class="fa fa-link"></i></a>
-                                <a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="Accept" href="<?php echo site_url('route_manager/accept') . '/' . $r['r_id']; ?>"><i class="fa fa-check-square"></i></a>
+                                <a class="btn btn-info" target="_blank" data-toggle="tooltip" data-placement="top" title="Update" href="<?php echo site_url('routes/edit') . '/' . $r['r_id']; ?>"><i class="fa fa-link"></i></a>
+                                <a data-toggle="tooltip" data-placement="top" title="Accept" href="<?php echo site_url('route_manager/accept') . '/' . $r['r_id']; ?>"></a>
                                 <a class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Decline" href="<?php echo site_url('route_manager/reject') . '/' . $r['r_id']; ?>"><i class="fa fa-close"></i></a>
                             </td>
                         </tr>

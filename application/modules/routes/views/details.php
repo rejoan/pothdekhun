@@ -79,9 +79,11 @@
                         <a href="<?php echo site_url($lang_url . 'routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-info btn-block"><i class="fa fa-language"></i> <?php echo lang('translate'); ?></a>
                     </div>
                 <?php endif; ?>
+                <?php if ($this->session->user_id): ?>
                 <div class="col-xs-5">
                     <a href="<?php echo site_url_tr('routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-info"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></a>  
                 </div>
+                <?php endif; ?>
             </div>
 
         </div>

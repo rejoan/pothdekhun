@@ -305,7 +305,7 @@
                             <div class="col-xs-10 col-md-6">
                                 <a class="fancybox" id="prev_evidence" href="<?php echo base_url('evidences') . '/' . $route['evidence']; ?>"><?php echo $route['evidence']; ?></a>
                                 <?php if ($this->nl->is_admin()): ?>
-                                    <button data-file_name="<?php echo $route['evidence2']; ?>" class="btn btn-xs btn-danger remove_file" href="javascript:void(0)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                    <button data-file_name="<?php echo $route['evidence2']; ?>" data-hidden_id="pd_pthm" class="btn btn-xs btn-danger remove_file" href="javascript:void(0)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -327,7 +327,7 @@
                             <div class="col-xs-10 col-md-6">
                                 <a class="fancybox" id="prev_evidence2" href="<?php echo base_url('evidences') . '/' . $route['evidence2']; ?>"><?php echo $route['evidence2']; ?></a>
                                 <?php if ($this->nl->is_admin()): ?>
-                                    <button data-file_name="<?php echo $route['evidence2']; ?>" class="btn btn-xs btn-danger remove_file" href="javascript:void(0)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                    <button data-file_name="<?php echo $route['evidence2']; ?>" data-hidden_id="pd_pthmnx" class="btn btn-xs btn-danger remove_file" href="javascript:void(0)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -377,13 +377,15 @@
 <?php if ($this->nl->is_admin()): ?>
     <script>
         $(document).ready(function () {
-            $('.remove_file').click(function () {
+            $('.remove_file').click(function (e) {
+                e.preventDefault();
                 var name = $(this).data('file_name');
+                var hidden_id = $(this).data('hidden_id');
                 var pd_stu = $('#pd_stu').val();
                 $.ajax({
                     context: this,
                     url: pd_stu + 'route_manager/delete_file',
-                    type: 'get',
+                    type: 'POST',
                     dataType: 'json',
                     cache: true,
                     data: {
@@ -391,7 +393,8 @@
                     }
                 }).done(function (response) {
                     if (response.deleted == 'done') {
-                        
+                        $(this).parent().parent().remove();
+                        $('#'+hidden_id).val('');
                     }
                 });
             });
