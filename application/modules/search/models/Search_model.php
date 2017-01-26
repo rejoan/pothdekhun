@@ -152,6 +152,8 @@ WHERE r.is_publish = 1 AND ((r.from_district = ' . $district . ' AND LOWER(r.fro
         if (!empty($thana)) {
             $col_name = $this->nl->lang_based_data('bn_name', 'name');
             $thana_id = $this->sm->get_thana_id($col_name, $thana);
+            //var_dump($thana_id);return;
+            
             if ($district != 1) {//if not dhaka then filter thana
                 $sql_thana .= ' AND r.from_thana = ' . $thana_id;
             }
@@ -172,13 +174,14 @@ WHERE r.is_publish = 1 AND ((r.from_district = ' . $district . ' AND LOWER(r.fro
         $this->db->where('r.is_publish = 1 AND  ((r.from_district = ' . $district . $sql_thana . ' AND LOWER(r.from_place) = "' . $place_name . '") OR (r.to_district = ' . $district . $sql_tothana . ' AND LOWER(r.to_place) = "' . $place_name . '")) OR s.place_name = "'.$place_name.'"', NULL, FALSE);
         $this->db->group_by('r.id');
         $query = $this->db->get();
-        //echo $this->db->last_query();
+        echo $this->db->last_query();
         $found_in = 'places';
         return array($query->result_array(), $found_in);
     }
 
     public function get_thana_id($col_name, $col_val) {
         $query = $this->db->where($col_name, $col_val)->get('thanas');
+        //echo $this->db->last_query();return;
         $result = $query->row_array();
         return $result['id'];
     }

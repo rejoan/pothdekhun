@@ -19,10 +19,9 @@ class Search extends MX_Controller {
     public function index() {
         $place = trim($this->input->get('f', TRUE));
         $district = trim($this->input->get('ds', TRUE));
-        $place_arr = explode(',', $place);
-        $place_name = $place_arr[0];
+        $place_name = trim(substr($place, 0, strrpos($place, ',')));
         
-        $thana_name = isset($place_arr[1]) ? trim($place_arr[1]):'';
+        $thana_name = trim(substr($place, strrpos($place, ',') + 1));
         
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', ' s');
         
