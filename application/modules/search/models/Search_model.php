@@ -159,28 +159,20 @@ WHERE r.is_publish = 1 AND ((r.from_district = ' . $district . ' AND LOWER(r.fro
                 $sql_tothana .= ' AND r.to_thana = ' . $thana_id;
             }
         }
-
-        $query = $this->db->query('SELECT r.id r_id, r.from_district, r.to_district, r.from_thana, r.to_thana, r.rent, r.evidence, r.evidence2, r.added, r.transport_type, r.from_place, r.to_place, r.from_latlong, r.to_latlong, r.distance, r.duration, p.name, p.bn_name, r.departure_time, u.username, d.name district_name, d.bn_name district_name_bn, td.name td_name, td.bn_name td_bn_name, rt.from_place fp_bn, rt.to_place tp_bn, rt.departure_time dt_bn, rt.translation_status
-                    FROM routes r
-                    LEFT JOIN route_bn rt ON r.id = rt.route_id
-                    LEFT JOIN poribohons p ON r.poribohon_id = p.id
-                    LEFT JOIN districts d ON r.from_district = d.id
-                    LEFT JOIN districts td ON r.to_district = td.id
-                    LEFT JOIN users u ON r.added_by = u.id
-WHERE r.is_publish = 1 AND  ((r.from_district = ' . $district . $sql_thana.' AND LOWER(r.from_place) = "' . $place_name . '") OR (r.to_district = ' . $district .$sql_tothana. ' AND LOWER(r.to_place) = "' . $place_name . '"))');
+        $stoppage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', ' s');
+        $this->db->select('r.id r_id, r.from_district, r.to_district, r.from_thana, r.to_thana, r.rent, r.evidence, r.evidence2, r.added, r.transport_type, r.from_place, r.to_place, r.from_latlong, r.to_latlong, r.distance, r.duration, p.name, p.bn_name, r.departure_time, u.username, d.name district_name, d.bn_name district_name_bn, td.name td_name, td.bn_name td_bn_name, rt.from_place fp_bn, rt.to_place tp_bn, rt.departure_time dt_bn, rt.translation_status');
+        
+        $this->db->from($stoppage_table);
+        $this->db->join('routes r', 'r.id = s.route_id', 'left');
+        $this->db->join('route_bn rt', 's.route_id = rt.route_id', 'left');
+        $this->db->join('poribohons p', 'r.poribohon_id = p.id', 'left');
+        $this->db->join('districts d', 'r.from_district = d.id', 'left');
+        $this->db->join(' districts td', 'r.to_district = td.id', 'left');
+        $this->db->join('users u', 'r.added_by = u.id', 'left');
+        $this->db->where('r.is_publish = 1 AND  ((r.from_district = ' . $district . $sql_thana . ' AND LOWER(r.from_place) = "' . $place_name . '") OR (r.to_district = ' . $district . $sql_tothana . ' AND LOWER(r.to_place) = "' . $place_name . '")) OR s.place_name = "'.$place_name.'"', NULL, FALSE);
+        $this->db->group_by('r.id');
+        $query = $this->db->get();
         //echo $this->db->last_query();
-        if($query->num_rows() < 1){
-            $stoppage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages',' s');
-            $query = $this->db->query('SELECT r.id r_id, r.from_district, r.to_district, r.from_thana, r.to_thana, r.rent, r.evidence, r.evidence2, r.added, r.transport_type, r.from_place, r.to_place, r.from_latlong, r.to_latlong, r.distance, r.duration, p.name, p.bn_name, r.departure_time, u.username, d.name district_name, d.bn_name district_name_bn, td.name td_name, td.bn_name td_bn_name, rt.from_place fp_bn, rt.to_place tp_bn, rt.departure_time dt_bn, rt.translation_status
-                    FROM '.$stoppage_table.'
-                    LEFT JOIN routes r ON r.id = s.route_id
-                    LEFT JOIN route_bn rt ON s.route_id = rt.route_id
-                    LEFT JOIN poribohons p ON r.poribohon_id = p.id
-                    LEFT JOIN districts d ON r.from_district = d.id
-                    LEFT JOIN districts td ON r.to_district = td.id
-                    LEFT JOIN users u ON r.added_by = u.id
-                    WHERE r.is_publish = 1 AND s.place_name = "' . $place_name.'"');
-        }
         $found_in = 'places';
         return array($query->result_array(), $found_in);
     }

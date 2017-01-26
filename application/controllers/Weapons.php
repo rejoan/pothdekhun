@@ -80,6 +80,7 @@ class Weapons extends MX_Controller {
                 FROM routes sr LEFT JOIN thanas ft ON ft.id = sr.from_thana
                 WHERE sr.from_district = ' . $district . '
                 ) AS rtn
+                GROUP BY Location
                 ORDER BY CASE WHEN
                  Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END LIMIT 7';
 
