@@ -23,53 +23,125 @@
                     </div>
                 <?php endif; ?>
             </div>
-            <p class="no-margin"><?php echo lang('transport_type'); ?></p>
-            <h3 class="margin_top"><?php echo get_tr_type($route['transport_type']); ?></h3>
-            <hr/>
-            <p><?php echo lang('vehicle_name'); ?></p>
-            <h3 class="margin_top"><a href="<?php echo site_url_tr('transports/show') . '/' . $route['poribohon_id']; ?>"><?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></a></h3>
-            <hr/>
-            <p><?php echo lang('departure_place'); ?></p>
-            <h3 class="margin_top"><?php echo mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8'); ?></h3>
-            <hr/>
-            <p><?php echo lang('destination_place'); ?></p>
-            <h3 class="margin_top"><?php echo mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8'); ?></h3>
-            <hr/>
-            <p><?php echo lang('main_rent'); ?></p>
-            <h3 class="margin_top"><?php echo $route['rent']; ?></h3>
-            <hr/>
-            <p><?php echo lang('departure_time'); ?></p>
-            <h3 class="margin_top"><?php echo $route['departure_time'] == 1 ? lang('after_while') : $route['departure_time']; ?></h3>
-            <hr/>
-            <h4><?php echo lang('stoppages') . ' ' . lang('or') . ' ' . lang('via'); ?></h4>
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-hover table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th><?php echo lang('place_name'); ?></th>
-                            <th><?php echo lang('comment'); ?></th>
-                            <th><?php echo lang('main_rent'); ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($stoppages as $s):$segment++; ?>
-                            <tr>
-                                <th><?php echo $segment; ?></th>
-                                <td><?php echo $s['place_name']; ?></td>
-                                <td><?php echo $s['comments']; ?></td>
-                                <td><?php echo $s['rent']; ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+            <div class="row custom_margin">
+                <div class="col-xs-3">
+                    <p class="no-margin"><?php echo lang('transport_type'); ?></p>
+                </div>
+                <div class="col-xs-6">
+                    <h3 class="no-margin"><?php echo get_tr_type($route['transport_type']); ?></h3>
+                </div>
+
+
             </div>
-            <hr/>
-            <p><?php echo lang('guess_distance'); ?></p>
-            <h3 class="margin_top"><?php echo ($route['distance'] / 1000) . $this->nl->lang_based_data(' কি.মি', ' KM'); ?></h3>
-            <hr/>
-            <p><?php echo lang('guess_duration'); ?></p>
-            <h3 class="margin_top"><?php echo $this->nl->seconds_to_time($route['duration']); ?></h3>
+            <div class="row custom_margin">
+                <div class="col-xs-3">
+                    <p><?php echo lang('vehicle_name'); ?></p>
+                </div>
+                <div class="col-xs-6">
+                    <h3 class="no-margin"><a href="<?php echo site_url_tr('transports/show') . '/' . $route['poribohon_id']; ?>"><?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></a></h3>
+                </div>
+            </div>
+
+            <div class="row custom_margin">
+                <div class="col-xs-3">
+                    <p><?php echo lang('departure_place'); ?></p>
+                </div>
+                <div class="col-xs-6">
+                    <h3 class="no-margin"><?php echo mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8'); ?></h3>
+                </div>
+
+
+            </div>
+            <div class="row custom_margin">
+                <div class="col-xs-3">
+                    <p><?php echo lang('destination_place'); ?></p>
+                </div>
+                <div class="col-xs-6">
+                    <h3 class="no-margin"><?php echo mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8'); ?></h3>
+                </div>
+
+
+            </div>
+
+            <div class="row custom_margin">
+                <div class="col-xs-3">
+                    <p><?php echo lang('main_rent'); ?></p>
+
+                </div>
+                <div class="col-xs-4">
+                    <h3 class="no-margin"><?php echo $route['rent'].' '.lang('tk'); ?></h3>
+                </div>
+                <div class="col-xs-4">
+                    <a data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_ok'); ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_not_ok'); ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                </div>
+            </div>
+
+
+            <div class="row custom_margin">
+                <div class="col-xs-3">
+                    <p><?php echo lang('departure_time'); ?></p>
+                </div>
+                <div class="col-xs-6">
+                    <h3 class="no-margin"><?php echo $route['departure_time'] == 1 ? lang('after_while') : $route['departure_time']; ?></h3>
+                </div>
+            </div>
+
+            <div class="row custom_margin">
+                <div class="col-xs-12">
+                    <h4><?php echo lang('stoppages') . ' ' . lang('or') . ' ' . lang('via'); ?></h4>
+                </div>
+                <div class="col-xs-12">
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th><?php echo lang('place_name'); ?></th>
+                                    <th><?php echo lang('comment'); ?></th>
+                                    <th><?php echo lang('main_rent'); ?></th>
+                                    <th><?php echo lang('fare_verify'); ?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($stoppages as $s):$segment++; ?>
+                                    <tr>
+                                        <th><?php echo $segment; ?></th>
+                                        <td><?php echo $s['place_name']; ?></td>
+                                        <td><?php echo $s['comments']; ?></td>
+                                        <td>
+                                            <?php echo $s['rent'].' '.lang('tk'); ?>
+                                            
+                                        </td>
+                                        <td>
+                                            <a data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_ok'); ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_not_ok'); ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row custom_margin">
+                <div class="col-xs-4">
+                    <p><?php echo lang('guess_distance'); ?></p>
+                </div>
+                <div class="col-xs-5">
+                    <h3 class="no-margin"><?php echo ($route['distance'] / 1000) . $this->nl->lang_based_data(' কি.মি', ' KM'); ?></h3>
+                </div>
+            </div>
+
+            <div class="row custom_margin">
+                <div class="col-xs-4">
+                    <p><?php echo lang('guess_duration'); ?></p>
+                </div>
+                <div class="col-xs-5">
+                    <h3 class="no-margin"><?php echo $this->nl->seconds_to_time($route['duration']); ?></h3>
+                </div>
+            </div>
         </div>
         <div class="box-footer">
             <div class="row">
@@ -80,9 +152,9 @@
                     </div>
                 <?php endif; ?>
                 <?php if ($this->session->user_id): ?>
-                <div class="col-xs-5">
-                    <a href="<?php echo site_url_tr('routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-info"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></a>  
-                </div>
+                    <div class="col-xs-5">
+                        <a href="<?php echo site_url_tr('routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-info"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></a>  
+                    </div>
                 <?php endif; ?>
             </div>
 
