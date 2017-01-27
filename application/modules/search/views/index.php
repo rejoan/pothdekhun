@@ -9,7 +9,7 @@
             <?php } elseif ($found_in == 'suggestion') { ?>
                 <?php echo '<p>' . lang('suggestions') . '</p><span id="gfrom" class="label label-info">' . mb_convert_case($this->input->get('f', TRUE), MB_CASE_TITLE, 'UTF-8') . '</span> ' . lang('and') . ' <span id="gto" class="label label-info">' . mb_convert_case($this->input->get('t', TRUE), MB_CASE_TITLE, 'UTF-8') . '</span>'; ?>
             <?php } else { ?>
-                <?php echo '<p>' . lang('transports_of_place') . '</p><span class="label label-info">' . mb_convert_case($this->input->get('f', TRUE), MB_CASE_TITLE, 'UTF-8') . '</span>'; ?>
+                <?php echo '<p>' . lang('transports_of_place') . ' ['.lang('total_route').' '.$total_route.']</p><span class="label label-info">' . mb_convert_case($this->input->get('f', TRUE), MB_CASE_TITLE, 'UTF-8') . '</span>'; ?>
             <?php } ?>
         </div>
         <div class="box-body">
@@ -39,10 +39,11 @@
 
                         <p><?php echo lang('via') . ' ' . preg_replace($patterns, $replacements, $route['stoppages']); ?></p>
                     </div>
-
                 </div>
-
             <?php endforeach; ?>
+        </div>
+         <div class="box-footer">
+            <?php echo $links; ?>
         </div>
     </div>
 </div>

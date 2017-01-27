@@ -19,13 +19,32 @@ class Search extends MX_Controller {
     public function index() {
         $place = trim($this->input->get('f', TRUE));
         $district = trim($this->input->get('ds', TRUE));
-        $place_name = trim(substr($place, 0, strrpos($place, ',')));
-        
-        $thana_name = trim(substr($place, strrpos($place, ',') + 1));
-        
+
+        if (strpos($place, ',') !== false) {
+            $place_name = trim(substr($place, 0, strrpos($place, ',')));
+            $thana_name = trim(substr($place, strrpos($place, ',') + 1));
+        } else {
+            $place_name = $place;
+            $thana_name = '';
+        }
+
+
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', ' s');
-        
-        $routes = $this->sm->get_routes($district, $thana_name, $place_name);
+        $per_page = 5;
+        $num_links = 5;
+        if ($this->input->get('page')) {
+            $sgm = (int) trim($this->input->get('page'));
+            $segment = $per_page * ($sgm - 1);
+        } else {
+            $segment = 0;
+        }
+        $routes = $this->sm->get_routes($district, $thana_name, $place_name, FALSE, $per_page, $segment);
+
+        $total_rows = $this->sm->get_routes($district, $thana_name, $place_name, TRUE);
+
+
+        $url = 'search/index?ds=' . $district . '&f=' . $place;
+        $links = $this->nl->generate_pagination($url, $total_rows, $per_page, $num_links);
         //var_dump($routes[1]);        return;
         array_walk($routes[0], function(&$a) use($stopage_table) {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
@@ -36,7 +55,9 @@ class Search extends MX_Controller {
             'routes' => $routes[0],
             'found_in' => $routes[1],
             'latest_routes' => $this->latest_routes,
-            'settings' => $this->nl->get_config()
+            'settings' => $this->nl->get_config(),
+            'links' => $links,
+            'total_route' => $total_rows
         );
         $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
     }
