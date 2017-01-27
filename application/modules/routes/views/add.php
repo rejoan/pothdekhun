@@ -316,7 +316,7 @@
                     <label class="col-sm-3 control-label"><?php echo lang('add_file'); ?></label>
                     <div class="col-xs-10 col-md-6">
                         <input type="file" class="form-control btn-info evidence" name="evidence1" multiple="">
-                        <span class="help-block"><?php echo lang('add_file_help'); ?></span>
+                        <span class="help-block"><?php echo lang('add_file_help'); ?> [Max:2MB]</span>
                     </div>
                 </div>
 
@@ -337,7 +337,7 @@
                     <label class="col-sm-3 control-label"><?php echo lang('another_file'); ?></label>
                     <div class="col-xs-10 col-md-6">
                         <input type="file" class="form-control btn-info evidence" name="evidence2" multiple="">
-                        <span class="help-block"><?php echo lang('more_help'); ?></span>
+                        <span class="help-block"><?php echo lang('more_help'); ?> [Max:2MB]</span>
                     </div>
                 </div>
 
@@ -361,7 +361,7 @@
                 }
                 ?>"/>
 
-                <?php if ($this->session->user_type == 'admin'): ?>
+                <?php if ($this->nl->is_admin() && $this->input->get('pd_rev')): ?>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Point</label>
                         <div class="col-xs-10 col-md-6">

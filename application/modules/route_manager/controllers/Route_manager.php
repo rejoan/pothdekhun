@@ -229,10 +229,10 @@ class Route_manager extends MX_Controller {
     public function calculate_point($id) {
         $route = $this->pm->get_row('id', $id, 'routes');
         $point = 3;
-        if (!empty($route['evidence'])) {
+        if ($route['evidence'] != '') {
             $point += 5;
         }
-        if (!empty($route['evidence2'])) {
+        if ($route['evidence2'] != '') {
             $point += 5;
         }
         $stoppages = $this->pm->total_item('stoppages', 'route_id', $id);
@@ -257,15 +257,16 @@ class Route_manager extends MX_Controller {
         redirect_tr('route_manager');
     }
 
-    public function create_points($route_id, $user_id, $point, $note) {
+    public function create_points($route_id, $user_id, $point, $note, $action = 'add') {
         $points = array(
             'route_id' => $route_id,
             'user_id' => $user_id,
             'point' => $point,
-            'note' => $note
+            'note' => $note,
+            'notification_msg' => 'Eearned <strong>' . $point . '</strong> point for ' . $action . ' route'
         );
         $this->db->set('happned_at', 'NOW()', FALSE);
-        $this->pm->insert_data('route_points', $points);
+        $this->db->insert('route_points', $points);
     }
 
 }

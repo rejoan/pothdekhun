@@ -13,7 +13,6 @@ class Search extends MX_Controller {
         parent::__construct();
         $this->user_id = $this->session->user_id;
         $this->load->model('Search_model', 'sm');
-        $this->latest_routes = $this->pm->latest_routes();
     }
 
     public function index() {
@@ -54,7 +53,6 @@ class Search extends MX_Controller {
             'title' => lang('search_result'),
             'routes' => $routes[0],
             'found_in' => $routes[1],
-            'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config(),
             'links' => $links,
             'total_route' => $total_rows
@@ -83,7 +81,6 @@ class Search extends MX_Controller {
             'title' => lang('search_result'),
             'routes' => $routes[0],
             'found_in' => $routes[1],
-            'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config()
         );
         $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');

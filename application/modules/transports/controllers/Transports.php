@@ -8,7 +8,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Transports extends MX_Controller {
 
     private $user_id = 4;
-    public $latest_routes;
     public $address = array();
 
     public function __construct() {
@@ -18,7 +17,6 @@ class Transports extends MX_Controller {
         }
         $this->load->model('Transport_model', 'tm');
         //$this->load->library('security');
-        $this->latest_routes = $this->pm->latest_routes();
         $this->address = array(0 => array(
                 'district' => 1,
                 'thana' => 493,
@@ -50,7 +48,6 @@ class Transports extends MX_Controller {
             'transports' => $this->tm->get_all($input, $poribohon_name, FALSE, $per_page, $segment),
             'links' => $links,
             'segment' => $segment,
-            'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config()
         );
         $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
@@ -64,7 +61,6 @@ class Transports extends MX_Controller {
             'action' => site_url_tr('transports/add'),
             'counter_address' => $this->address,
             'action_button' => lang('add_button'),
-            'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config(),
             'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1, FALSE, FALSE, FALSE, $col_name, 'asc')
@@ -164,7 +160,6 @@ class Transports extends MX_Controller {
             'counter_address' => $counter_address,
             'action' => site_url_tr('transports/edit'),
             'action_button' => lang('edit_button'),
-            'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config(),
             'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1, FALSE, FALSE, FALSE, $col_name, 'asc')
@@ -254,7 +249,6 @@ class Transports extends MX_Controller {
             'lang_url' => $lang_url,
             'routes' => $this->tm->get_routes($poribohon_id),
             'counters' => $this->tm->get_counters($poribohon_id),
-            'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config()
         );
         //echo $this->db->last_query();return;

@@ -8,14 +8,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Profile extends MX_Controller {
 
     private $user_id;
-    public $latest_routes;
 
     public function __construct() {
         parent::__construct();
         $this->nl->is_logged();
         $this->user_id = (int) $this->session->user_id;
         $this->load->model('Profile_model', 'prm');
-        $this->latest_routes = $this->pm->latest_routes();
     }
 
     public function index() {
@@ -23,7 +21,6 @@ class Profile extends MX_Controller {
         $data = array(
             'title' => lang('profile'),
             'profile' => $this->prm->get_profile($this->user_id),
-            'latest_routes' => $this->latest_routes,
             'tot_added' => $total_route,
             'settings' => $this->nl->get_config()
         );
@@ -35,7 +32,6 @@ class Profile extends MX_Controller {
         $data = array(
             'title' => lang('profile'),
             'profile' => $this->prm->get_profile($id),
-            'latest_routes' => $this->latest_routes,
             'tot_added' => $total_route,
             'settings' => $this->nl->get_config()
         );
@@ -78,7 +74,6 @@ class Profile extends MX_Controller {
         $total_route = $this->pm->total_item('routes', 'added_by', $this->user_id);
         $data = array(
             'title' => lang('my_profile_edit'),
-            'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config(),
             'profile' => $this->prm->get_profile($this->user_id),
             'tot_added' => $total_route,

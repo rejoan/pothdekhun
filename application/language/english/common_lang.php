@@ -131,3 +131,5 @@ $lang['and'] = 'and';
 $lang['via_route'] = 'Available transports uses following stoppages';
 $lang['launch'] = 'Launch';
 $lang['suggestions'] = 'Suggestions';
+$lang['notifications'] = 'notifications';
+$lang['you_have'] = 'You have';

@@ -8,7 +8,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Routes extends MX_Controller {
 
     private $user_id = 4;
-    public $latest_routes;
 
     public function __construct() {
         parent::__construct();
@@ -16,7 +15,6 @@ class Routes extends MX_Controller {
             $this->user_id = $this->session->user_id;
         }
         $this->load->model('Routes_model', 'rm');
-        $this->latest_routes = $this->pm->latest_routes();
     }
 
     public function index() {
@@ -27,7 +25,6 @@ class Routes extends MX_Controller {
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1),
             'action_transport' => site_url_tr('search/routes'),
             'search_action' => site_url_tr('search/index'),
-            'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config()
         );
         $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
@@ -62,7 +59,6 @@ class Routes extends MX_Controller {
             'districts' => $this->pm->get_data('districts'),
             'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $fdistrict),
             'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $tdistrict),
-            'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config(),
             'captcha' => $this->recaptcha->recaptcha_get_html()
         );
@@ -238,7 +234,7 @@ class Routes extends MX_Controller {
 
         $this->load->library('form_validation');
         $route_detail = $this->rm->details($route_id);
-        //var_dump($route);return;
+        //var_dump($route_detail);return;
         $data = array(
             'title' => lang('edit_route'),
             'districts' => $this->pm->get_data('districts'),
@@ -248,7 +244,6 @@ class Routes extends MX_Controller {
             'countries' => get_countries(),
             'route' => $route_detail,
             'stoppages' => $this->pm->get_data($stopage_table, FALSE, 'route_id', $route_id, FALSE, FALSE, FALSE, 'position', 'asc'),
-            'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config(),
             'action_button' => lang('edit_button')
         );
@@ -342,7 +337,7 @@ class Routes extends MX_Controller {
                     'evidence' => $evidence_name[1],
                     'evidence2' => $evidence_name[2]
                 );
-                if (!$this->input->get('pd_rev')) {//if not from admin review
+                if (!$this->input->post('point')) {//if not from admin review
                     $route['added_by'] = $this->user_id;
                 }
                 $this->db->set('added', 'NOW()', FALSE);
@@ -372,9 +367,10 @@ class Routes extends MX_Controller {
                             $route['duration'] = $dis_dur['duration'];
                         }
                     }
-                    $route['is_publish'] = 1;
+                    
                 }
-
+                $route['is_publish'] = 1;
+                //var_dump($route);return;
                 $this->pm->updater($rid, $route_id, $route_table, $route);
                 //echo $this->db->last_query();
             } else {// send to temp table for review
@@ -415,7 +411,11 @@ class Routes extends MX_Controller {
                     $this->db->insert_batch('edited_stoppages', $stoppages);
                 }
             }
-            modules::run('route_manager/create_points', $route_id, $data['route']['user_id'], $this->input->post('point'), $this->input->post('note'));
+
+            if ($this->input->post('point')) {
+                modules::run('route_manager/create_points', $route_id, $data['route']['user_id'], $this->input->post('point'), $this->input->post('note'));
+            }
+
             redirect_tr('routes/all');
         }
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
@@ -480,7 +480,6 @@ class Routes extends MX_Controller {
             'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['r_id'], FALSE, FALSE, FALSE, 'position', 'asc'),
             'segment' => 0,
             'lang_url' => $lang_url,
-            'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config(),
             'comments' => $this->rm->get_comments($route_id)
         );
@@ -520,7 +519,6 @@ class Routes extends MX_Controller {
             'routes' => $this->rm->get_all($per_page, $segment, $d, $t, $ttype),
             'links' => $links,
             'segment' => $segment,
-            'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config(),
             'districts' => $this->pm->get_data('districts'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $district_id)

@@ -93,11 +93,11 @@ function language_menu() {
     if ($current_lang == 'Bengali') {
         $flag = 'Bangladesh';
     }
-    $selector .= '<li id="lang_menu" class="dropdown"><a style="color:#fff;" href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"><img src="' . base_url('assets/flags/16') . '/' . $flag . '.png" alt="'.$flag.'"/> ' . $current_lang . '<span class="caret"></span></a>';
+    $selector .= '<li id="lang_menu" class="dropdown"><a style="color:#fff;" href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"><img src="' . base_url('assets/flags/16') . '/' . $flag . '.png" alt="' . $flag . '"/> ' . $current_lang . '<span class="caret"></span></a>';
     $selector .= '<ul class="dropdown-menu dropdown-menu-default">';
     $languages = language_array();
     foreach ($languages as $lang) {
-        $selector .= '<li><a class="padding_left" href="' . current_url_tr($lang['lang_code']) . '"><img src="' . base_url('assets/flags/16') . '/' . trim($lang['lang_flag']) . '.png" alt="'.$lang['lang_flag'].'"/> ' . ucfirst($lang['lang_name']) . '</a></li>';
+        $selector .= '<li><a class="padding_left" href="' . current_url_tr($lang['lang_code']) . '"><img src="' . base_url('assets/flags/16') . '/' . trim($lang['lang_flag']) . '.png" alt="' . $lang['lang_flag'] . '"/> ' . ucfirst($lang['lang_name']) . '</a></li>';
     }
 
     $selector .= '</li></ul>';
@@ -127,4 +127,20 @@ function get_tr_type($type) {
     }
 
     return $transport;
+}
+
+function notify($count = FALSE) {
+    $CI = & get_instance();
+    $user_id = $CI->session->user_id;
+    $CI->load->model('notifications/Notification_model','nm');
+    if ($count) {
+        return $CI->nm->total_notifications($user_id);
+    }
+    return $CI->pm->get_data('route_points', FALSE, 'read', 0);
+}
+
+function latest_routes() {
+    $CI = & get_instance();
+    $query = $CI->db->select('r.id,r.from_place,r.to_place,r.transport_type,r.added,r.is_publish,r.from_district,r.to_district,r.from_thana,r.to_thana,u.username,rbn.from_place fp_bn,rbn.to_place tp_bn,rbn.departure_time,p.name,p.bn_name,d.name district_name,d.bn_name district_name_bn,td.name td_name,td.bn_name td_bn_name')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->join('route_bn rbn', 'rbn.route_id = r.id', 'left')->join('poribohons p', 'r.poribohon_id = p.id', 'left')->join('districts d', 'r.from_district = d.id', 'left')->join('districts td', 'r.to_district = td.id', 'left')->where('r.is_publish', 1)->order_by('r.id', 'desc')->limit(4)->get();
+    return $query->result_array();
 }
