@@ -29,6 +29,18 @@ class Profile extends MX_Controller {
         );
         $this->nl->view_loader('user', 'index', NULL, $data, NULL, 'latest');
     }
+    
+    public function show($id) {
+        $total_route = $this->pm->total_item('routes', 'added_by', $id);
+        $data = array(
+            'title' => lang('profile'),
+            'profile' => $this->prm->get_profile($id),
+            'latest_routes' => $this->latest_routes,
+            'tot_added' => $total_route,
+            'settings' => $this->nl->get_config()
+        );
+        $this->nl->view_loader('user', 'index', NULL, $data, NULL, 'latest');
+    }
 
     public function my_routes() {
         $total_rows = $this->pm->total_item('routes', 'added_by', $this->user_id);

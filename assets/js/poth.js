@@ -320,7 +320,13 @@ $(document).ready(function () {
                     jaig: jaig
                 }
             }).done(function (response) {
-
+                if (response.deleted == 'done') {
+                    if ($('#point').length > 0) {//admin works
+                        var point = parseInt($('#point').val());
+                        var new_pint = point - 1;
+                        $('#point').val(new_pint);
+                    }
+                }
             });
             $(this).parent().fadeOut('normal', function () {
                 $(this).remove();

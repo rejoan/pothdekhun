@@ -216,8 +216,7 @@ class Routes extends MX_Controller {
                     'mode' => 'ECB'
                 )
         );
-        //echo $this->encryption->encrypt('81');return
-        $this->load->library('recaptcha');
+
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
         $route_table = $this->nl->lang_based_data('route_bn', 'routes');
         $rid = $this->nl->lang_based_data('route_id', 'id');
@@ -251,9 +250,11 @@ class Routes extends MX_Controller {
             'stoppages' => $this->pm->get_data($stopage_table, FALSE, 'route_id', $route_id, FALSE, FALSE, FALSE, 'position', 'asc'),
             'latest_routes' => $this->latest_routes,
             'settings' => $this->nl->get_config(),
-            'action_button' => lang('edit_button'),
-            'captcha' => $this->recaptcha->recaptcha_get_html()
+            'action_button' => lang('edit_button')
         );
+        if ($this->nl->is_admin()) {
+            $data['point'] = modules::run('route_manager/calculate_point', $route_id);
+        }
 
         if ($this->input->post('submit')) {
             //route data process
@@ -302,7 +303,7 @@ class Routes extends MX_Controller {
                         return;
                     } else {
                         $file = 'evidences/' . $evidence_name[$f];
-                        if ($this->session->user_type == 'admin') {
+                        if ($this->nl->is_admin()) {
                             if (is_file($file)) {
                                 unlink($file);
                             }
@@ -320,7 +321,7 @@ class Routes extends MX_Controller {
 
             //get thana and district name to get lat long data
 
-            if ($this->session->lang_code == 'bn' && $this->session->user_type == 'admin') {
+            if ($this->session->lang_code == 'bn' && $this->nl->is_admin()) {
                 $route = array(
                     'from_place' => $from,
                     'to_place' => $to,
@@ -339,13 +340,15 @@ class Routes extends MX_Controller {
                     'transport_type' => $this->input->post('transport_type', TRUE),
                     'rent' => $this->input->post('main_rent', TRUE),
                     'evidence' => $evidence_name[1],
-                    'evidence2' => $evidence_name[2],
-                    'added_by' => $this->user_id,
+                    'evidence2' => $evidence_name[2]
                 );
+                if (!$this->input->get('pd_rev')) {//if not from admin review
+                    $route['added_by'] = $this->user_id;
+                }
                 $this->db->set('added', 'NOW()', FALSE);
             }
 
-            if ($this->session->user_type == 'admin') {//if admin then direct approve/update
+            if ($this->nl->is_admin()) {//if admin then direct approve/update
                 $from_place = $route_detail['from_place'];
                 $to_place = $route_detail['to_place'];
 
@@ -403,7 +406,7 @@ class Routes extends MX_Controller {
             }
 
             if (!empty($stoppages)) {
-                if ($this->session->user_type == 'admin') {
+                if ($this->nl->is_admin()) {
                     $this->pm->deleter('route_id', $route_id, $stopage_table);
                     $this->db->insert_batch($stopage_table, $stoppages);
                     $this->session->set_flashdata('message', lang('edit_success'));
@@ -412,7 +415,7 @@ class Routes extends MX_Controller {
                     $this->db->insert_batch('edited_stoppages', $stoppages);
                 }
             }
-
+            modules::run('route_manager/create_points', $route_id, $data['route']['user_id'], $this->input->post('point'), $this->input->post('note'));
             redirect_tr('routes/all');
         }
         $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');

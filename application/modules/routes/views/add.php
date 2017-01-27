@@ -361,13 +361,23 @@
                 }
                 ?>"/>
 
-                <div class="form-group">
-                    <label class="col-sm-3 control-label"><?php echo lang('tick_here'); ?></label>
-                    <div class="col-xs-10 col-md-6">
-                        <?php //echo $captcha;  ?>
+                <?php if ($this->session->user_type == 'admin'): ?>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Point</label>
+                        <div class="col-xs-10 col-md-6">
+                            <input id="point" type="text" class="form-control" name="point" value="<?php echo $point; ?>">
+
+                        </div>
                     </div>
-                </div>
-                <?php //echo form_error('g-recaptcha-response', '<div class="alert alert-danger">', '</div>');   ?>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Note</label>
+                        <div class="col-xs-10 col-md-6">
+                            <textarea class="form-control" name="note">
+                                    
+                            </textarea>
+                        </div>
+                    </div>
+                <?php endif; ?>
 
                 <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $action_button; ?>"/>
             </form>
@@ -394,10 +404,14 @@
                 }).done(function (response) {
                     if (response.deleted == 'done') {
                         $(this).parent().parent().remove();
-                        $('#'+hidden_id).val('');
+                        $('#' + hidden_id).val('');
+                        var point = parseInt($('#point').val());
+                        var new_pint = point - 5;
+                        $('#point').val(new_pint);
                     }
                 });
             });
+
         });
     </script>
 <?php endif; ?>

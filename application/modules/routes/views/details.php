@@ -11,7 +11,7 @@
             <p><?php echo lang('route_info') . ':</p> <h4><span class="label label-info">' . mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . '</span> ' . lang('to_view') . ' <span class="label label-info">' . mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8') . '</span>'; ?></h4>
         </div>
         <div class="box-body">
-            <div class="row">
+            <div class="row custom_margin">
                 <?php if (!empty($route['evidence'])): ?>
                     <div class="col-md-4">
                         <a class="fancybox" href="<?php echo base_url('evidences') . '/' . $route['evidence']; ?>"><img class="img-responsive img-thumbnail" src="<?php echo base_url('evidences') . '/' . $route['evidence']; ?>" alt="<?php echo $route['evidence']; ?>"/></a>
@@ -28,7 +28,7 @@
                     <p class="no-margin"><?php echo lang('transport_type'); ?></p>
                 </div>
                 <div class="col-xs-6">
-                    <h3 class="no-margin"><?php echo get_tr_type($route['transport_type']); ?></h3>
+                    <h4 class="no-margin"><?php echo get_tr_type($route['transport_type']); ?></h4>
                 </div>
 
 
@@ -38,7 +38,7 @@
                     <p><?php echo lang('vehicle_name'); ?></p>
                 </div>
                 <div class="col-xs-6">
-                    <h3 class="no-margin"><a href="<?php echo site_url_tr('transports/show') . '/' . $route['poribohon_id']; ?>"><?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></a></h3>
+                    <h4 class="no-margin"><a href="<?php echo site_url_tr('transports/show') . '/' . $route['poribohon_id']; ?>"><?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></a></h4>
                 </div>
             </div>
 
@@ -47,7 +47,7 @@
                     <p><?php echo lang('departure_place'); ?></p>
                 </div>
                 <div class="col-xs-6">
-                    <h3 class="no-margin"><?php echo mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8'); ?></h3>
+                    <h4 class="no-margin"><?php echo mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8'); ?></h4>
                 </div>
 
 
@@ -57,7 +57,7 @@
                     <p><?php echo lang('destination_place'); ?></p>
                 </div>
                 <div class="col-xs-6">
-                    <h3 class="no-margin"><?php echo mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8'); ?></h3>
+                    <h4 class="no-margin"><?php echo mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8'); ?></h4>
                 </div>
 
 
@@ -69,7 +69,7 @@
 
                 </div>
                 <div class="col-xs-4">
-                    <h3 class="no-margin"><?php echo $route['rent'].' '.lang('tk'); ?></h3>
+                    <h4 class="no-margin"><?php echo $route['rent'].' '.lang('tk'); ?></h4>
                 </div>
                 <div class="col-xs-4">
                     <a data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_ok'); ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
@@ -83,7 +83,7 @@
                     <p><?php echo lang('departure_time'); ?></p>
                 </div>
                 <div class="col-xs-6">
-                    <h3 class="no-margin"><?php echo $route['departure_time'] == 1 ? lang('after_while') : $route['departure_time']; ?></h3>
+                    <h4 class="no-margin"><?php echo $route['departure_time'] == 1 ? lang('after_while') : $route['departure_time']; ?></h4>
                 </div>
             </div>
 
@@ -100,7 +100,7 @@
                                     <th><?php echo lang('place_name'); ?></th>
                                     <th><?php echo lang('comment'); ?></th>
                                     <th><?php echo lang('main_rent'); ?></th>
-                                    <th><?php echo lang('fare_verify'); ?></th>
+<!--                                    <th><?php //echo lang('fare_verify'); ?></th>-->
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,12 +111,11 @@
                                         <td><?php echo $s['comments']; ?></td>
                                         <td>
                                             <?php echo $s['rent'].' '.lang('tk'); ?>
-                                            
                                         </td>
-                                        <td>
-                                            <a data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_ok'); ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
-                    <a data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_not_ok'); ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
-                                        </td>
+<!--                                        <td>
+                                            <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok'); ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok'); ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                                        </td>-->
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -130,7 +129,7 @@
                     <p><?php echo lang('guess_distance'); ?></p>
                 </div>
                 <div class="col-xs-5">
-                    <h3 class="no-margin"><?php echo ($route['distance'] / 1000) . $this->nl->lang_based_data(' কি.মি', ' KM'); ?></h3>
+                    <h4 class="no-margin"><?php echo ($route['distance'] / 1000) . $this->nl->lang_based_data(' কি.মি', ' KM'); ?></h4>
                 </div>
             </div>
 
@@ -139,7 +138,15 @@
                     <p><?php echo lang('guess_duration'); ?></p>
                 </div>
                 <div class="col-xs-5">
-                    <h3 class="no-margin"><?php echo $this->nl->seconds_to_time($route['duration']); ?></h3>
+                    <h4 class="no-margin"><?php echo $this->nl->seconds_to_time($route['duration']); ?></h4>
+                </div>
+            </div>
+            <div class="row custom_margin">
+                <div class="col-xs-4">
+                    <p><?php echo lang('added_by'); ?></p>
+                </div>
+                <div class="col-xs-5">
+                    <h4 class="no-margin"><a href="<?php echo site_url_tr('profile/show/').$route['user_id'];?>"><?php echo $route['username']; ?></a></h4>
                 </div>
             </div>
         </div>

@@ -257,4 +257,15 @@ class Route_manager extends MX_Controller {
         redirect_tr('route_manager');
     }
 
+    public function create_points($route_id, $user_id, $point, $note) {
+        $points = array(
+            'route_id' => $route_id,
+            'user_id' => $user_id,
+            'point' => $point,
+            'note' => $note
+        );
+        $this->db->set('happned_at', 'NOW()', FALSE);
+        $this->pm->insert_data('route_points', $points);
+    }
+
 }

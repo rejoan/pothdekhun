@@ -5,9 +5,10 @@
         <group>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/search/controllers/Search.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/search/models/Search_model.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/models/Routes_model.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/controllers/Routes.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/views/details.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/views/add.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/route_manager/controllers/Route_manager.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/controllers/Weapons.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/search/views/index.php</file>
         </group>
     </open-files>

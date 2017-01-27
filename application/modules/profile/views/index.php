@@ -1,4 +1,5 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 $message = $this->session->flashdata('message');
 if ($message) {
     echo '<div class="alert alert-info">' . $message . '</div>';
@@ -24,7 +25,7 @@ if ($message) {
 
             <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                    <a href="<?php echo site_url_tr('profile/my_routes');?>"><b><?php echo lang('route_added') ?></b> <?php echo $tot_added;?></a>
+                    <a href="<?php echo site_url_tr('profile/my_routes'); ?>"><b><?php echo lang('route_added') ?></b> <?php echo $tot_added; ?></a>
                 </li>
             </ul>
 
@@ -40,18 +41,22 @@ if ($message) {
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-           
+
 
             <strong><i class="fa fa-map-marker margin-r-5"></i> <?php echo lang('location') ?></strong>
-            <p class="text-muted"><?php echo $profile[$this->nl->lang_based_data('bn_name','name')] .', '. $profile[$this->nl->lang_based_data('thbn_name','th_name')]; ?></p>
+            <p class="text-muted"><?php echo $profile[$this->nl->lang_based_data('bn_name', 'name')] . ', ' . $profile[$this->nl->lang_based_data('thbn_name', 'th_name')]; ?></p>
 
             <hr>
 
 
             <strong><i class="fa fa-file-text-o margin-r-5"></i> <?php echo lang('about_detail') ?></strong>
 
-            <p><?php echo $profile['about'];?></p>
-            <a class="btn btn-info" href="<?php echo site_url_tr('profile/edit');?>"><?php echo lang('edit');?></a>
+            <p><?php echo $profile['about']; ?></p>
+            
+            <?php if ($this->session->user_id == $profile['user_id']): ?>
+                <a class="btn btn-info" href="<?php echo site_url_tr('profile/edit'); ?>"><?php echo lang('edit'); ?></a>
+
+            <?php endif; ?>
         </div>
         <!-- /.box-body -->
     </div>

@@ -73,7 +73,7 @@
                         <th><?php echo lang('ID'); ?></th>
                         <th><?php echo lang('from_view'); ?></th>
                         <th><?php echo lang('to_view'); ?></th>
-                        <th><?php echo lang('transport_type'); ?></th>
+                        <th><?php echo lang('type'); ?></th>
                         <th><?php echo lang('vehicle_name'); ?></th>
                         <th><?php echo lang('action'); ?></th>
                     </tr>

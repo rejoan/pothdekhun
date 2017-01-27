@@ -215,7 +215,7 @@ class Prime_model extends CI_Model {
      * @return array
      */
     public function latest_routes() {
-        $query = $this->db->select('r.id,r.from_place,r.to_place,r.transport_type,r.added,r.is_publish,r.from_district,r.to_district,r.from_thana,r.to_thana,u.username,rbn.from_place fp_bn,rbn.to_place tp_bn,rbn.departure_time,p.name,p.bn_name,d.name district_name,d.bn_name district_name_bn,td.name td_name,td.bn_name td_bn_name')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->join('route_bn rbn', 'rbn.route_id = r.id', 'left')->join('poribohons p', 'r.poribohon_id = p.id', 'left')->join('districts d', 'r.from_district = d.id', 'left')->join('districts td', 'r.to_district = td.id', 'left')->order_by('r.id', 'desc')->limit(4)->get();
+        $query = $this->db->select('r.id,r.from_place,r.to_place,r.transport_type,r.added,r.is_publish,r.from_district,r.to_district,r.from_thana,r.to_thana,u.username,rbn.from_place fp_bn,rbn.to_place tp_bn,rbn.departure_time,p.name,p.bn_name,d.name district_name,d.bn_name district_name_bn,td.name td_name,td.bn_name td_bn_name')->from('routes r')->join('users u', 'r.added_by = u.id', 'left')->join('route_bn rbn', 'rbn.route_id = r.id', 'left')->join('poribohons p', 'r.poribohon_id = p.id', 'left')->join('districts d', 'r.from_district = d.id', 'left')->join('districts td', 'r.to_district = td.id', 'left')->where('r.is_publish',1)->order_by('r.id', 'desc')->limit(4)->get();
         return $query->result_array();
     }
 

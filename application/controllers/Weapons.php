@@ -150,6 +150,7 @@ class Weapons extends MX_Controller {
 
         $this->db->query('SET @a = 0');
         $this->db->query('UPDATE ' . $stoppage_table . ' SET position = @a:=@a+1 WHERE route_id = ' . $route_id);
+        echo json_encode(array('deleted' => 'done'));
     }
 
     public function check_duplicate() {
