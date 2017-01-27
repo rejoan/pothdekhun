@@ -6,9 +6,10 @@ $(document).ready(function () {
     });
     //$('#stoppage_section').disableSelection();
     $('.dataTable').DataTable({
-        "paging": false,
-        "info": false,
-        "searching": false
+        'paging': false,
+        'info': false,
+        'searching': false,
+        'order': [[0, 'desc']]
     });
     $('input[type=file]').bootstrapFileInput();
     $('[data-toggle="tooltip"]').tooltip();
@@ -123,7 +124,7 @@ $(document).ready(function () {
             var cm = '';
             for (var i = 0; i < response.length; i++) {
                 var thana = ', ' + response[i]['Thana'];
-                if(district == 1){
+                if (district == 1) {
                     thana = '';
                 }
                 cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + thana + '</a>';
@@ -278,14 +279,14 @@ $(document).ready(function () {
         $(this).parent().prev().val(place);
         $(this).parent().empty();
     });
-    
+
     $('#stoppage_section .list-group-item').live('click', function () {
         var place = $(this).text();
         $(this).parent().prev().val(place);
         $(this).parent().empty();
     });
-    
-    
+
+
     $(document).click(function () {
         $('#suggestion_page .list-group').empty();
     });
