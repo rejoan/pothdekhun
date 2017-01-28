@@ -197,6 +197,7 @@ class Transports extends MX_Controller {
                 $tarnsport['is_publish'] = 1;
                 $this->pm->updater('id', $update_id, 'poribohons', $tarnsport);
             } else {
+                $tarnsport['poribohon_id'] = $update_id;
                 $this->pm->insert_data('edited_poribohons', $tarnsport);
             }
 

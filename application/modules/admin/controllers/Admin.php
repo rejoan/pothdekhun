@@ -43,5 +43,15 @@ class Admin extends MX_Controller {
         $this->db->insert('transport_points', $points);
         $this->db->query('UPDATE users SET reputation = reputation + ' . (int) $point . ' WHERE id = ' . (int) $user_id);
     }
+    
+    public function edited_poribohons(){
+        $data = array(
+            'title' => 'Edited Transports',
+            'poribohons' => $this->am->edited_poribohons(),
+            'segment' => 1
+        );
+
+        $this->nl->view_loader('admin', 'edited_poribohons', NULL, $data, NULL, NULL, NULL);
+    }
 
 }

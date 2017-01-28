@@ -14,5 +14,10 @@ class Admin_model extends CI_Model {
         $query = $this->db->select('p.*,u.username')->from('poribohons p')->join('users u', 'u.id = p.added_by', 'left')->where('p.is_publish', 0)->get();
         return $query->result_array();
     }
+    
+    public function edited_poribohons() {
+        $query = $this->db->select('p.*,u.username')->from('edited_poribohons p')->join('users u', 'u.id = p.added_by', 'left')->get();
+        return $query->result_array();
+    }
 
 }

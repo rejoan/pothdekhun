@@ -29,6 +29,9 @@
             <li class="<?php echo $this->nl->is_selected('admin/latest_poribohon'); ?>">
                 <a href="<?php echo site_url('admin/latest_poribohon'); ?>"><i class="fa fa-navicon"></i> Latest Poribohons</a>
             </li>
+            <li class="<?php echo $this->nl->is_selected('admin/edited_poribohon'); ?>">
+                <a href="<?php echo site_url('admin/edited_poribohons'); ?>"><i class="fa fa-navicon"></i> Edited Poribohons</a>
+            </li>
             <li>
                 <a href="<?php echo site_url('users'); ?>">
                     <i class="fa fa-users"></i> <span>User Manager</span>
