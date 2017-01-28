@@ -206,7 +206,7 @@ class Route_manager extends MX_Controller {
                 modules::run('route_manager/create_points', $route_id, $rut['added_by'], $this->input->post('point'), $this->input->post('note'), 'edit');
             }
             $this->pm->deleter('route_id', $route_id, 'edited_routes');
-            
+
             $this->session->set_flashdata('message', lang('edit_success'));
             redirect_tr('route_manager');
         }
@@ -293,6 +293,7 @@ class Route_manager extends MX_Controller {
         );
         $this->db->set('happened_at', 'NOW()', FALSE);
         $this->db->insert('route_points', $points);
+        $this->db->query('UPDATE users SET reputation = reputation + ' . (int) $point . ' WHERE id = ' . (int) $user_id);
     }
 
 }

@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * 
  */
-class Profile extends MX_Controller {
+class Reputation extends MX_Controller {
 
     private $user_id;
 
@@ -13,7 +13,7 @@ class Profile extends MX_Controller {
         parent::__construct();
         $this->nl->is_logged();
         $this->user_id = (int) $this->session->user_id;
-        $this->load->model('Profile_model', 'prm');
+        $this->load->model('Reputation_model', 'rpm');
     }
 
     public function index() {

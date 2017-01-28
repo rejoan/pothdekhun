@@ -13,7 +13,7 @@
 
 
         <div class="box-body table-responsive">
-            <form action="<?php echo site_url_tr('routes/all'); ?>" method="get" accept-charset="UTF-8">
+            <form action="<?php echo $action; ?>" method="get" accept-charset="UTF-8">
                 <div class="row">
                     <div class="col-xs-3">
                         <div class="form-group">

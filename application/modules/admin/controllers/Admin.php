@@ -41,6 +41,7 @@ class Admin extends MX_Controller {
         );
         $this->db->set('happened_at', 'NOW()', FALSE);
         $this->db->insert('transport_points', $points);
+        $this->db->query('UPDATE users SET reputation = reputation + ' . (int) $point . ' WHERE id = ' . (int) $user_id);
     }
 
 }

@@ -517,6 +517,7 @@ class Routes extends MX_Controller {
             'routes' => $this->rm->get_all($per_page, $segment, $d, $t, $ttype),
             'links' => $links,
             'segment' => $segment,
+            'action' => site_url_tr('routes/all'),
             'settings' => $this->nl->get_config(),
             'districts' => $this->pm->get_data('districts'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $district_id)
