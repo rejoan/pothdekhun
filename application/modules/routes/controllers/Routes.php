@@ -465,8 +465,6 @@ class Routes extends MX_Controller {
             show_404();
         }
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
-        $lang_url = $this->nl->lang_based_data('', '/bn/');
-
 
         $exist = $this->rm->details($route_id, FALSE);
         if ($exist < 1) {
@@ -480,7 +478,6 @@ class Routes extends MX_Controller {
             'route' => $result,
             'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['r_id'], FALSE, FALSE, FALSE, 'position', 'asc'),
             'segment' => 0,
-            'lang_url' => $lang_url,
             'settings' => $this->nl->get_config(),
             'comments' => $this->rm->get_comments($route_id)
         );

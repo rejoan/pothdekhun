@@ -5,11 +5,10 @@
         <group>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/helpers/prime_helper.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/controllers/Routes.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/route_manager/controllers/Route_manager.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/notifications/views/index.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/transports/controllers/Transports.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/notifications/models/Notification_model.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/menu.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/notifications/controllers/Notifications.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/admin/controllers/Admin.php</file>
         </group>
     </open-files>
 </project-private>

@@ -66,6 +66,13 @@ class Route_manager extends MX_Controller {
      * @return type
      */
     public function merge($id = NULL) {
+        $this->load->library('encryption');
+        $this->encryption->initialize(
+                array(
+                    'cipher' => 'des',
+                    'mode' => 'ECB'
+                )
+        );
         if (!empty($id)) {
             $edited_route_id = (int) $id;
         } else {
@@ -88,7 +95,8 @@ class Route_manager extends MX_Controller {
             'prev_route' => $prev_route,
             'prev_stoppages' => $this->pm->get_data($stoppage_table, FALSE, 'route_id', $route_id),
             'edited_route' => $edited_route,
-            'edited_stoppages' => $this->pm->get_data('edited_stoppages', FALSE, 'route_id', $edited_route_id)
+            'edited_stoppages' => $this->pm->get_data('edited_stoppages', FALSE, 'route_id', $edited_route_id),
+            'point' => modules::run('route_manager/calculate_point', $route_id, 'edited_routes', 5)
         );
 
         $this->load->library('form_validation');
@@ -117,7 +125,7 @@ class Route_manager extends MX_Controller {
 
             //var_dump($floc,$faddress);return;
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
-            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name_rev);
+            $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name_rev, FALSE);
 
             if ($edited_route['lang_code'] == 'bn') {
                 $route = array(
@@ -139,9 +147,7 @@ class Route_manager extends MX_Controller {
                     'transport_type' => $this->input->post('transport_type', TRUE),
                     'rent' => $this->input->post('main_rent', TRUE),
                     'evidence' => $this->input->post('edited_file'),
-                    'evidence2' => $this->input->post('edited_file2'),
-                    'added_by' => $this->user_id,
-                    'is_publish' => 1
+                    'evidence2' => $this->input->post('edited_file2')
                 );
 
                 $from_place = $edited_route['from_place'];
@@ -150,8 +156,12 @@ class Route_manager extends MX_Controller {
 
                     $faddress = modules::run('routes/get_address', $ft, $fd, $from);
                     $taddress = modules::run('routes/get_address', $th, $td, $to);
-                    $floc = $this->nl->get_lat_long($faddress, 'Bangladesh');
-                    $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh');
+                    $fthana = $this->pm->get_row('id', $ft, 'thanas');
+                    $fdis = $this->pm->get_row('id', $fd, 'districts');
+                    $tthana = $this->pm->get_row('id', $th, 'thanas');
+                    $tdis = $this->pm->get_row('id', $td, 'districts');
+                    $floc = $this->nl->get_lat_long($faddress, 'Bangladesh', $fthana['name'], $fdis['name']);
+                    $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh', $tthana['name'], $tdis['name']);
 
                     if (!empty($floc) && !empty($tloc)) {//if lat long data found
                         $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
@@ -191,7 +201,12 @@ class Route_manager extends MX_Controller {
                 $this->pm->deleter('route_id', $route_id, $stoppage_table);
                 $this->db->insert_batch($stoppage_table, $stoppages);
             }
+            if ($this->input->post('point')) {
+                $rut = $this->pm->get_row('id', $route_id, 'edited_routes');
+                modules::run('route_manager/create_points', $route_id, $rut['added_by'], $this->input->post('point'), $this->input->post('note'), 'edit');
+            }
             $this->pm->deleter('route_id', $route_id, 'edited_routes');
+            
             $this->session->set_flashdata('message', lang('edit_success'));
             redirect_tr('route_manager');
         }
@@ -226,29 +241,40 @@ class Route_manager extends MX_Controller {
         redirect_tr('route_manager');
     }
 
-    public function calculate_point($id) {
-        $route = $this->pm->get_row('id', $id, 'routes');
-        $point = 3;
+    public function calculate_point($id, $table = 'routes', $default = 3) {
+        $route = $this->pm->get_row('id', $id, $table);
+        $point = $default;
         if ($route['evidence'] != '') {
             $point += 5;
         }
         if ($route['evidence2'] != '') {
             $point += 5;
         }
-        $stoppages = $this->pm->total_item('stoppages', 'route_id', $id);
-        if ($stoppages > 0) {
-            $point += $stoppages;
+
+        if ($table == 'routes') {
+            $stoppages = $this->pm->total_item('stoppages', 'route_id', $id);
+            if ($stoppages > 0) {
+                $point += $stoppages;
+            }
         }
+
         return $point;
     }
 
     public function delete_file() {
         $file_name = $this->input->post('file');
         $file = 'evidences/' . $file_name;
-        if (is_file($file)) {
-            unlink($file);
+        if (empty($file_name)) {
+            echo json_encode(array('deleted' => 'no_file'));
+            return;
         }
-        echo json_encode(array('deleted' => 'done'));
+        if (is_file($file)) {
+            if (unlink($file)) {
+                echo json_encode(array('deleted' => 'done'));
+            } else {
+                echo json_encode(array('deleted' => 'wrong'));
+            }
+        }
     }
 
     public function reject($id) {

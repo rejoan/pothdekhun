@@ -114,12 +114,12 @@
             <div class="form-group">
                 <label class="control-label"><?php echo lang('departure_time'); ?></label>
                 <select name="departure_time" class="selectpicker" data-width="100%">
-                    <option value="<?php echo lang('after_while'); ?>" <?php echo $prev_route['departure_time'] == lang('after_while') ? 'selected="yes"' : ''; ?>><?php echo lang('after_while'); ?></option>
-                    <option value="perticular" <?php echo $prev_route['departure_time'] != lang('after_while') ? 'selected="yes"' : ''; ?>><?php echo lang('perticular_time'); ?></option>
+                    <option value="1" <?php echo $prev_route['departure_time'] == 1 ? 'selected="yes"' : ''; ?>><?php echo lang('after_while'); ?></option>
+                    <option value="2" <?php echo $prev_route['departure_time'] != 1 ? 'selected="yes"' : ''; ?>><?php echo lang('perticular_time'); ?></option>
                 </select>
             </div>
 
-            <?php if ($prev_route['departure_time'] !== 'কিছুক্ষর পরপর'): ?>
+            <?php if ($prev_route['departure_time'] != 1): ?>
                 <div class="form-group">
                     <label class="control-label"></label>
                     <div class="input-group">
@@ -137,7 +137,7 @@
                 <?php
                 for ($i = 0; $i < count($prev_stoppages); $i++) {
                     $k = $i + 1;
-                    echo '<div id="stoppage_' . $k . '" class="form-group"><div class="col-xs-10 col-md-2"><input maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' . $prev_stoppages[$i]['position'] . '"></div><div class="col-xs-10 col-md-3"><input maxlength="150" type="text" class="form-control place" name="place_name[]" value="' . $prev_stoppages[$i]['place_name'] . '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control comment" name="comments[]">' . $prev_stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $prev_stoppages[$i]['rent'] . '" ></div><button data-stp_id="' . $k . '" class="btn btn-xs btn-info keep_stoppage" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></div>';
+                    echo '<div id="stoppage_' . $k . '" class="form-group"><div class="col-xs-10 col-md-4"><input maxlength="150" type="text" class="form-control place" name="place_name[]" value="' . $prev_stoppages[$i]['place_name'] . '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control comment" name="comments[]">' . $prev_stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $prev_stoppages[$i]['rent'] . '" ></div><button data-stp_id="' . $k . '" class="btn btn-xs btn-info keep_stoppage" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></div>';
                 }
                 ?>
             </div>
@@ -257,7 +257,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label"><?php echo lang('vehicle_name'); ?></label>
-                    <input id="vehicle_name" maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php echo $edited_route[$this->nl->lang_based_data('bn_name', 'name',FALSE,$edited_route['lang_code'])]; ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>">
+                    <input id="vehicle_name" maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php echo $edited_route[$this->nl->lang_based_data('bn_name', 'name', FALSE, $edited_route['lang_code'])]; ?>" placeholder="<?php echo lang('vehicle_placeholder'); ?>">
                 </div>
 
                 <div id="departure_perticular" class="form-group">
@@ -281,7 +281,7 @@
                     <?php
                     for ($e = 0; $e < count($edited_stoppages); $e++) {
                         $m = $e + 1;
-                        echo '<div class="form-group"><div class="col-xs-10 col-md-2"><input id="position_' . $m . '" maxlength="2" type="text" class="form-control order_pos" name="position[]" value="' . $edited_stoppages[$e]['position'] . '"></div><div class="col-xs-10 col-md-3"><input id="place_' . $m . '" maxlength="150" type="text" class="form-control place_name" name="place_name[]" value="' . $edited_stoppages[$e]['place_name'] . '" placeholder="' . lang('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea id="comment_' . $m . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $edited_stoppages[$e]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $m . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $edited_stoppages[$e]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
+                        echo '<div class="form-group"><div class="col-xs-10 col-md-4"><input id="place_' . $m . '" maxlength="150" type="text" class="form-control place_name" name="place_name[]" value="' . $edited_stoppages[$e]['place_name'] . '" placeholder="' . lang('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea id="comment_' . $m . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $edited_stoppages[$e]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $m . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $edited_stoppages[$e]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
                     }
                     ?>
                 </div>
@@ -303,8 +303,9 @@
                     }
                     ?>
                     <a id="edited_file" href="<?php echo $href; ?>"><?php echo $file; ?></a>
+                    <button data-file_name="<?php echo $edited_route['evidence']; ?>" data-hidden_id="pd_pthmnx" class="btn btn-xs btn-danger remove_file" href="javascript:void(0)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="control-label">File</label>
                     <?php
@@ -317,8 +318,10 @@
                     }
                     ?>
                     <a id="edited_file2" href="<?php echo $href; ?>"><?php echo $file; ?></a>
+                    <button data-file_name="<?php echo $edited_route['evidence2']; ?>" data-hidden_id="pd_pthmnx" class="btn btn-xs btn-danger remove_file" href="javascript:void(0)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                 </div>
 
+                
 
                 <input type="hidden" id="cancel" value="<?php echo lang('cancel_text'); ?>"/>
                 <input type="hidden" id="place_name" value="<?php echo lang('place_name'); ?>"/>
@@ -326,8 +329,21 @@
                 <input type="hidden" id="rents" value="<?php echo lang('main_rent'); ?>"/>
                 <input type="hidden" id="custom_time" value="<?php echo lang('custom_time'); ?>"/>
                 <input id="route_id" type="hidden" name="route_id" value="<?php echo $this->uri->segment(3); ?>"/>
-                <input type="hidden"  name="edited_file" value="<?php echo $edited_route['evidence']; ?>"/>
-                <input type="hidden"  name="edited_file2" value="<?php echo $edited_route['evidence2']; ?>"/>
+                <input id="pd_pthm" type="hidden"  name="edited_file" value="<?php echo $edited_route['evidence']; ?>"/>
+                <input id="pd_pthmnx" type="hidden"  name="edited_file2" value="<?php echo $edited_route['evidence2']; ?>"/>
+                
+                <input type="hidden"  name="janba" value="<?php echo $this->encryption->encrypt($edited_route['poribohon_id']);?>"/>
+
+                <div class="form-group">
+                    <label class="control-label">Point</label>
+                    <input id="point" type="text" class="form-control" name="point" value="<?php echo $point; ?>">
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Note</label>
+                    <textarea class="form-control" name="note"></textarea>
+                </div>
+
                 <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="Approve"/>
                 <a href="<?php echo site_url_tr('route_manager/decline/') . $this->uri->segment(3); ?>" class="btn btn-primary btn-lg btn-danger">Decline</a>
             </div>
@@ -361,7 +377,7 @@
             $('#edited_file').text(file_name);
             $('#edited_file').prop('href', base_url + 'evidences/' + file_name);
         });
-        
+
         $('#keep_file2').click(function (e) {
             e.preventDefault();
             var file_name = $.trim($(this).data('file_name'));
@@ -382,5 +398,33 @@
             $('#comment_' + stp_id).val(comment);
             $('#rent_' + stp_id).val(rent);
         });
+
+        $('.remove_file').click(function (e) {
+            e.preventDefault();
+            var name = $(this).data('file_name');
+            var hidden_id = $(this).data('hidden_id');
+            var pd_stu = $('#pd_stu').val();
+            $.ajax({
+                context: this,
+                url: pd_stu + 'route_manager/delete_file',
+                type: 'POST',
+                dataType: 'json',
+                cache: true,
+                data: {
+                    file: name
+                }
+            }).done(function (response) {
+                if (response.deleted == 'done') {
+                    $(this).prev().text('');
+                    $(this).prev().attr('href','');
+                    $('#' + hidden_id).val('');
+                    var point = parseInt($('#point').val());
+                    var new_pint = point - 5;
+                    $('#point').val(new_pint);
+                }
+            });
+        });
+
+
     });
 </script>
