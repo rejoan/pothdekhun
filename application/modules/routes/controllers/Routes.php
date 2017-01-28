@@ -413,7 +413,8 @@ class Routes extends MX_Controller {
             }
 
             if ($this->input->post('point')) {
-                modules::run('route_manager/create_points', $route_id, $data['route']['user_id'], $this->input->post('point'), $this->input->post('note'));
+                $rut = $this->pm->get_row('id',$route_id,'routes');
+                modules::run('route_manager/create_points', $route_id, $rut['added_by'], $this->input->post('point'), $this->input->post('note'));
             }
 
             redirect_tr('routes/all');

@@ -372,9 +372,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Note</label>
                         <div class="col-xs-10 col-md-6">
-                            <textarea class="form-control" name="note">
-                                    
-                            </textarea>
+                            <textarea class="form-control" name="note"></textarea>
                         </div>
                     </div>
                 <?php endif; ?>

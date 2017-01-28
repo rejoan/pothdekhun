@@ -265,7 +265,7 @@ class Route_manager extends MX_Controller {
             'note' => $note,
             'notification_msg' => 'Eearned <strong>' . $point . '</strong> point for ' . $action . ' route'
         );
-        $this->db->set('happned_at', 'NOW()', FALSE);
+        $this->db->set('happened_at', 'NOW()', FALSE);
         $this->db->insert('route_points', $points);
     }
 

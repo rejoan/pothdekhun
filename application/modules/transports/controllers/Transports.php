@@ -100,7 +100,7 @@ class Transports extends MX_Controller {
                 'added_by' => $this->user_id
             );
 
-            if ($this->session->user_type == 'admin') {
+            if ($this->nl->is_admin()) {
                 $tarnsport['is_publish'] = 1;
             }
             $this->db->set('added', 'NOW()', FALSE);
@@ -124,7 +124,12 @@ class Transports extends MX_Controller {
             if (!empty($counter_address)) {
                 $this->db->insert_batch('counter_address', $counter_address);
             }
-            $this->session->set_flashdata('message', lang('save_success'));
+            if ($this->nl->is_admin()) {
+                $this->session->set_flashdata('message', lang('save_success'));
+            } else {
+                $this->session->set_flashdata('message', lang('edit_success_user'));
+            }
+
             redirect_tr('transports');
         }
 
@@ -164,9 +169,13 @@ class Transports extends MX_Controller {
             'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1, FALSE, FALSE, FALSE, $col_name, 'asc')
         );
+        if ($this->nl->is_admin()) {
+            $data['point'] = $this->calculate_point($id);
+        }
         $this->load->library('form_validation');
 
         if ($this->input->post('submit')) {
+            //var_dump($data['transport']);return;
             $this->form_validation->set_rules('transport_name', lang('transport_name'), 'required');
 
             if ($this->form_validation->run() == FALSE) {
@@ -178,11 +187,13 @@ class Transports extends MX_Controller {
             $tarnsport = array(
                 'name' => $this->input->post('transport_name', TRUE),
                 'bn_name' => $this->input->post('bn_name', TRUE),
-                'total_vehicles' => $this->input->post('total_vehicle', TRUE),
-                'added_by' => $this->user_id
+                'total_vehicles' => $this->input->post('total_vehicle', TRUE)
             );
+            if (!$this->input->post('point')) {//if not from admin review
+                $tarnsport['added_by'] = $this->user_id;
+            }
             $this->db->set('added', 'NOW()', FALSE);
-            if ($this->session->user_type == 'admin') {
+            if ($this->nl->is_admin()) {
                 $tarnsport['is_publish'] = 1;
                 $this->pm->updater('id', $update_id, 'poribohons', $tarnsport);
             } else {
@@ -206,7 +217,7 @@ class Transports extends MX_Controller {
             }
 
             if (!empty($counter_address)) {
-                if ($this->session->user_type == 'admin') {
+                if ($this->nl->is_admin()) {
                     $this->pm->deleter('poribohon_id', $update_id, 'counter_address');
                     $this->db->insert_batch('counter_address', $counter_address);
                     $this->session->set_flashdata('message', lang('edit_success'));
@@ -214,6 +225,11 @@ class Transports extends MX_Controller {
                     $this->session->set_flashdata('message', lang('edit_success_user'));
                     $this->db->insert_batch('edited_counters', $counter_address);
                 }
+            }
+
+            if ($this->input->post('point')) {
+                $poribohon = $this->pm->get_row('id',$update_id,'poribohons');
+                modules::run('admin/create_points', $update_id, $poribohon['added_by'], $this->input->post('point'), $this->input->post('note'));
             }
 
             redirect_tr('transports');
@@ -253,6 +269,16 @@ class Transports extends MX_Controller {
         );
         //echo $this->db->last_query();return;
         $this->nl->view_loader('user', 'details', NULL, $data, 'latest', 'rightbar');
+    }
+
+    public function calculate_point($id) {
+        $point = 3;
+
+        $counters = $this->pm->total_item('counter_address', 'poribohon_id', $id);
+        if ($counters > 0) {
+            $point += $counters;
+        }
+        return $point;
     }
 
 }

@@ -183,7 +183,7 @@ class Prime_model extends CI_Model {
                     'bn_name' => $transport_name,
                     'added_by' => $user_id
                 );
-                if ($this->session->user_type == 'admin') {
+                if ($this->nl->is_admin()) {
                     $transport_data['is_publish'] = 1;
                 }
                 $this->db->set('added', 'NOW()', FALSE);
@@ -200,6 +200,9 @@ class Prime_model extends CI_Model {
                     $col_name_rev => $transport_name,
                     'added_by' => $user_id
                 );
+                if ($this->nl->is_admin()) {
+                    $transport_data['is_publish'] = 1;
+                }
                 $transport_id = $this->encryption->decrypt($this->input->post('janba'));
                 $this->pm->updater('id', $transport_id, 'poribohons', $transport_data);
             }

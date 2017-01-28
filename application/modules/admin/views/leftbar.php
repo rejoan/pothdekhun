@@ -26,6 +26,9 @@
             <li class="<?php echo $this->nl->is_selected('route_manager/latest'); ?>">
                 <a href="<?php echo site_url('route_manager/latest'); ?>"><i class="fa fa-navicon"></i> Latest Added</a>
             </li>
+            <li class="<?php echo $this->nl->is_selected('admin/latest_poribohon'); ?>">
+                <a href="<?php echo site_url('admin/latest_poribohon'); ?>"><i class="fa fa-navicon"></i> Latest Poribohons</a>
+            </li>
             <li>
                 <a href="<?php echo site_url('users'); ?>">
                     <i class="fa fa-users"></i> <span>User Manager</span>

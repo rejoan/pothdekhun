@@ -114,6 +114,22 @@
                         </div>
                     </div>
 
+                    <?php if ($this->nl->is_admin() && $this->input->get('pd_rev')): ?>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Point</label>
+                            <div class="col-xs-10 col-md-6">
+                                <input id="point" type="text" class="form-control" name="point" value="<?php echo $point; ?>">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Note</label>
+                            <div class="col-xs-10 col-md-6">
+                                <textarea class="form-control" name="note"></textarea>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
 
                     <div class="form-group">
                         <label class="col-sm-1 control-label"></label>
@@ -128,3 +144,10 @@
         </form>
     </div>
 </div>
+<?php if ($this->nl->is_admin()): ?>
+    <script>
+        $(document).ready(function () {
+            
+        });
+    </script>
+<?php endif; ?>
