@@ -71,6 +71,7 @@ class Search extends MX_Controller {
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', ' s');
 
         $routes = $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $stopage_table);
+        //var_dump($routes);return;
 
         array_walk($routes[0], function(&$a) use($stopage_table) {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');

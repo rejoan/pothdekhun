@@ -6,12 +6,12 @@
                 <h3><?php echo mb_convert_case($routes[0][$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($routes[0][$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . ' <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> ' . mb_convert_case($routes[0][$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($routes[0][$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8'); ?></h3>
             <?php } else if ($found_in == 'stoppage') { ?>
                 <?php echo '<p>' . lang('via_route') . '</p><span id="gfrom" class="label label-info">' . mb_convert_case($this->input->get('f', TRUE), MB_CASE_TITLE, 'UTF-8') . '</span> ' . lang('and') . ' <span id="gto" class="label label-info">' . mb_convert_case($this->input->get('t', TRUE), MB_CASE_TITLE, 'UTF-8') . '</span>'; ?>
-            <?php } elseif ($found_in == 'suggestion') { ?>
-                <?php echo '<p>' . lang('suggestions') . '</p><span id="gfrom" class="label label-info">' . mb_convert_case($this->input->get('f', TRUE), MB_CASE_TITLE, 'UTF-8') . '</span> ' . lang('and') . ' <span id="gto" class="label label-info">' . mb_convert_case($this->input->get('t', TRUE), MB_CASE_TITLE, 'UTF-8') . '</span>'; ?>
+            <?php } elseif ($found_in == 'suggestion' || $found_in == 'possible') { ?>
+                <?php echo '<p>' . lang($found_in) . '</p><span id="gfrom" class="label label-info">' . mb_convert_case($this->input->get('f', TRUE), MB_CASE_TITLE, 'UTF-8') . '</span> ' . lang('and') . ' <span id="gto" class="label label-info">' . mb_convert_case($this->input->get('t', TRUE), MB_CASE_TITLE, 'UTF-8') . '</span>'; ?>
             <?php } elseif ($found_in == 'places') { ?>
                 <?php echo '<p>' . lang('transports_of_place') . ' [' . lang('total_route') . ' ' . $total_route . ']</p><span class="label label-info">' . mb_convert_case($this->input->get('f', TRUE), MB_CASE_TITLE, 'UTF-8') . '</span>'; ?>
             <?php } else { ?>
-                NOTHING FOUND
+                <p>Nothing Found</p>
             <?php } ?>
         </div>
         <div class="box-body">
@@ -34,7 +34,7 @@
                         }
                         ?>
 
-                        <?php if ($found_in == 'stoppage' || $found_in == 'suggestion' || $found_in == 'places'): ?>
+                        <?php if ($found_in != 'main'): ?>
                             <p><?php echo lang('main_route'); ?> : <strong><?php echo preg_replace($patterns, $replacements, mb_convert_case($routes[0][$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . ' <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> ' . mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8')); ?></strong></p>
                         <?php endif; ?>
                         <p><?php echo lang('guess_distance') . ' <strong>' . ($route['distance'] / 1000) . $this->nl->lang_based_data(' কি.মি', ' KM'); ?></strong></p>

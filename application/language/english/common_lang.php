@@ -138,3 +138,4 @@ $lang['contact_us'] = 'Contact Us';
 $lang['about_us_details'] = 'Details';
 $lang['send'] = 'Send';
 $lang['name'] = 'Name';
+$lang['possible'] = 'Possible Matches';
