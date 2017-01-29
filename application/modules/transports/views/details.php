@@ -28,7 +28,11 @@
 
         </div>
         <div class="box-footer">
+            <?php if ($this->input->get('pd_rev')) { ?>
             <a href="<?php echo site_url_tr('transports/edit') . '/' . $poribohon['id']; ?>" class="btn btn-block btn-info"><?php echo lang('edit'); ?></a>
+            <?php } else { ?>
+                <a href="<?php echo site_url_tr('transports/edit') . '/' . $poribohon['id']; ?>" class="btn btn-block btn-info"><?php echo lang('edit'); ?></a>
+            <?php } ?>
         </div>
     </div>
 </div>

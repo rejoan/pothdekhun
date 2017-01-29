@@ -150,18 +150,27 @@ class Transports extends MX_Controller {
                     'mode' => 'ECB'
                 )
         );
+        $poribohon_id = 'id';
         $transport = '';
+        $table = 'poribohons';
+        $counter_table = 'counter_address';
+        if ($this->input->get('pd_rev')) {
+            $table = 'edited_poribohons';
+            $counter_table = 'edited_counters';
+            $poribohon_id = 'poribohon_id';
+        }
         if (!empty($id) && ctype_digit($id)) {
-            $transport = $this->pm->get_row('id', $id, 'poribohons');
+            $transport = $this->pm->get_row($poribohon_id, $id, $table);
         }
         $col_name = $this->nl->lang_based_data('bn_name', 'name');
-        $counter_address = $this->pm->get_data('counter_address', FALSE, 'poribohon_id', $id);
+        $counter_address = $this->pm->get_data($counter_table, FALSE, 'poribohon_id', $id);
         if (empty($counter_address)) {
             $counter_address = $this->address;
         }
         $data = array(
             'title' => lang('edit_transport'),
             'transport' => $transport,
+            'poribohon_id' => $poribohon_id,
             'counter_address' => $counter_address,
             'action' => site_url_tr('transports/edit'),
             'action_button' => lang('edit_button'),
@@ -169,7 +178,7 @@ class Transports extends MX_Controller {
             'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1, FALSE, FALSE, FALSE, $col_name, 'asc')
         );
-        if ($this->nl->is_admin()) {
+        if ($this->nl->is_admin() && $this->input->get('pd_rev')) {
             $data['point'] = $this->calculate_point($id);
         }
         $this->load->library('form_validation');
@@ -189,14 +198,13 @@ class Transports extends MX_Controller {
                 'bn_name' => $this->input->post('bn_name', TRUE),
                 'total_vehicles' => $this->input->post('total_vehicle', TRUE)
             );
-            if (!$this->input->post('point')) {//if not from admin review
-                $tarnsport['added_by'] = $this->user_id;
-            }
+
             $this->db->set('added', 'NOW()', FALSE);
             if ($this->nl->is_admin()) {
                 $tarnsport['is_publish'] = 1;
                 $this->pm->updater('id', $update_id, 'poribohons', $tarnsport);
             } else {
+                $tarnsport['added_by'] = $this->user_id;
                 $tarnsport['poribohon_id'] = $update_id;
                 $this->pm->insert_data('edited_poribohons', $tarnsport);
             }
@@ -229,10 +237,11 @@ class Transports extends MX_Controller {
             }
 
             if ($this->input->post('point')) {
-                $poribohon = $this->pm->get_row('id',$update_id,'poribohons');
+                $poribohon = $this->pm->get_row('id', $update_id, 'poribohons');
                 modules::run('admin/create_points', $update_id, $poribohon['added_by'], $this->input->post('point'), $this->input->post('note'));
             }
-
+            $this->pm->deleter('poribohon_id', $update_id, 'edited_poribohons');
+            $this->pm->deleter('poribohon_id', $update_id, 'edited_counters');
             redirect_tr('transports');
         }
 
@@ -252,7 +261,6 @@ class Transports extends MX_Controller {
         } else {
             show_404();
         }
-        $lang_url = $this->nl->lang_based_data('', '/bn/');
 
         $exist = $this->tm->details($poribohon_id);
         if ($exist < 1) {
@@ -263,7 +271,6 @@ class Transports extends MX_Controller {
         $data = array(
             'title' => mb_convert_case($result[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('poribohon_info'),
             'poribohon' => $result,
-            'lang_url' => $lang_url,
             'routes' => $this->tm->get_routes($poribohon_id),
             'counters' => $this->tm->get_counters($poribohon_id),
             'settings' => $this->nl->get_config()

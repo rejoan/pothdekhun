@@ -247,7 +247,7 @@ class Routes extends MX_Controller {
             'settings' => $this->nl->get_config(),
             'action_button' => lang('edit_button')
         );
-        if ($this->nl->is_admin()) {
+        if ($this->nl->is_admin() && $this->input->get('pd_rev')) {
             $data['point'] = modules::run('route_manager/calculate_point', $route_id);
         }
 
@@ -337,9 +337,6 @@ class Routes extends MX_Controller {
                     'evidence' => $evidence_name[1],
                     'evidence2' => $evidence_name[2]
                 );
-                if (!$this->input->post('point')) {//if not from admin review
-                    $route['added_by'] = $this->user_id;
-                }
                 $this->db->set('added', 'NOW()', FALSE);
             }
 
@@ -376,7 +373,8 @@ class Routes extends MX_Controller {
             } else {// send to temp table for review
                 $edit_info = array(
                     'route_id' => $route_id,
-                    'lang_code' => $this->session->lang_code
+                    'lang_code' => $this->session->lang_code,
+                    'added_by' => $this->user_id
                 );
                 $route_info = array_merge($route, $edit_info);
                 $route_id = $this->pm->insert_data('edited_routes', $route_info, TRUE);
@@ -474,7 +472,7 @@ class Routes extends MX_Controller {
         $result = $this->rm->details($route_id);
         //var_dump($result);        return;
         $data = array(
-            'title' => mb_convert_case($result[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('from_view') . ' ' . mb_convert_case($result[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),
+            'title' => mb_convert_case($result[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('to_view') . ' ' . mb_convert_case($result[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),
             'route' => $result,
             'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['r_id'], FALSE, FALSE, FALSE, 'position', 'asc'),
             'segment' => 0,
