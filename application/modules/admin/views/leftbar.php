@@ -19,19 +19,41 @@
             <li>
                 <a href="<?php echo site_url('admin'); ?>"><i class="fa fa fa-dashboard"></i> Dashboard</a>
             </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Route Manager</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="<?php echo $this->nl->is_selected('route_manager/index'); ?>">
+                        <a href="<?php echo site_url('route_manager'); ?>"><i class="fa fa-circle-o"></i> Edited Routes</a>
+                    </li>
+                    <li class="<?php echo $this->nl->is_selected('route_manager/latest'); ?>">
+                        <a href="<?php echo site_url('route_manager/latest'); ?>"><i class="fa fa-circle-o"></i> Latest Added</a>
+                    </li>
+                </ul>
+            </li>
 
-            <li class="<?php echo $this->nl->is_selected('route_manager/index'); ?>">
-                <a href="<?php echo site_url('route_manager'); ?>"><i class="fa fa-navicon"></i> Edited Routes</a>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Transport Manager</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="<?php echo $this->nl->is_selected('admin/latest_poribohon'); ?>">
+                        <a href="<?php echo site_url('admin/latest_poribohon'); ?>"><i class="fa fa-circle-o"></i> Latest Poribohons</a>
+                    </li>
+                    <li class="<?php echo $this->nl->is_selected('admin/edited_poribohon'); ?>">
+                        <a href="<?php echo site_url('admin/edited_poribohons'); ?>"><i class="fa fa-circle-o"></i> Edited Poribohons</a>
+                    </li>
+                </ul>
+
             </li>
-            <li class="<?php echo $this->nl->is_selected('route_manager/latest'); ?>">
-                <a href="<?php echo site_url('route_manager/latest'); ?>"><i class="fa fa-navicon"></i> Latest Added</a>
-            </li>
-            <li class="<?php echo $this->nl->is_selected('admin/latest_poribohon'); ?>">
-                <a href="<?php echo site_url('admin/latest_poribohon'); ?>"><i class="fa fa-navicon"></i> Latest Poribohons</a>
-            </li>
-            <li class="<?php echo $this->nl->is_selected('admin/edited_poribohon'); ?>">
-                <a href="<?php echo site_url('admin/edited_poribohons'); ?>"><i class="fa fa-navicon"></i> Edited Poribohons</a>
-            </li>
+
             <li>
                 <a href="<?php echo site_url('users'); ?>">
                     <i class="fa fa-users"></i> <span>User Manager</span>

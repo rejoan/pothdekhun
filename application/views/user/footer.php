@@ -5,10 +5,21 @@
 <input type="hidden" id="email_exist" value="<?php echo lang('email_exist'); ?>"/>
 
 </div><!-- col-->
-<footer>
-    <p>&copy; Pothdekhun <?php echo date('Y'); ?></p>
-</footer>
+
+
 </div><!-- row-->
+<footer class="footer">
+    <div id="footer_section" class="row">
+        <div class="col-xs-12">
+            <ul id="footer_nav">
+                <li>&copy; Copyright PothDekhun <?php echo date('Y');?></li>
+                <li><a href="<?php echo site_url_tr('pages/about_us'); ?>"><?php echo lang('about_us'); ?></a></li>
+                <li><a href="<?php echo site_url_tr('pages/contact_us'); ?>"><?php echo lang('contact_us'); ?></a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
 </div><!--/.container-->
 
 
