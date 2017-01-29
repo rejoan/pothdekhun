@@ -56,6 +56,34 @@ $(document).ready(function () {
     });
 
 
+    $('#fare_verfication a').click(function (e) {
+        e.preventDefault();
+        var pd_identity = $('#pd_identity').val();
+        var pd_stu = $('#pd_stu').val();
+        var pd_sts = $(this).data('pd_fp');
+        $.ajax({
+            context: this,
+            url: pd_stu + 'weapons/update_meta',
+            type: 'post',
+            dataType: 'json',
+            cache: true,
+            data: {
+                pd_identity: pd_identity,
+                pd_sts: pd_sts
+            }
+        }).done(function (response) {
+            if (response.msg == 'exist') {
+                swal('Already given', 'You vote once earlier in this route', 'warning');
+            }
+            if (response.msg == 'updated') {
+                swal('Thank you', 'You vote taken', 'success');
+                if(pd){
+                    
+                }
+            }
+        });
+    });
+
     var stp = null;
     $('#stoppage_section').on('keyup', '.place_name', function (e) {
         var key = e.keyCode;

@@ -69,12 +69,16 @@
 
                 </div>
                 <div class="col-xs-4">
-                    <h4 class="no-margin"><?php echo $route['rent'].' '.lang('tk'); ?></h4>
+                    <h4 class="no-margin"><?php echo $route['rent'] . ' ' . lang('tk'); ?></h4>
                 </div>
-                <div class="col-xs-4">
-                    <a data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_ok'); ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
-                    <a data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_not_ok'); ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
-                </div>
+                <?php if ($this->session->user_id): ?>
+                    <div id="fare_verfication" class="col-xs-4">
+                        <small id="correct" class="text-muted text-success">10</small>
+                        <a data-pd_fp="pd_fpk" data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_ok'); ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                        <a data-pd_fp="pd_fpnk" data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_not_ok'); ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                        <small id="wrong" class="text-muted text-danger">10</small>
+                    </div>
+                <?php endif; ?>
             </div>
 
 
@@ -100,7 +104,7 @@
                                     <th><?php echo lang('place_name'); ?></th>
                                     <th><?php echo lang('comment'); ?></th>
                                     <th><?php echo lang('main_rent'); ?></th>
-<!--                                    <th><?php //echo lang('fare_verify'); ?></th>-->
+<!--                                    <th><?php //echo lang('fare_verify');    ?></th>-->
                                 </tr>
                             </thead>
                             <tbody>
@@ -110,11 +114,11 @@
                                         <td><?php echo $s['place_name']; ?></td>
                                         <td><?php echo $s['comments']; ?></td>
                                         <td>
-                                            <?php echo $s['rent'].' '.lang('tk'); ?>
+                                            <?php echo $s['rent'] . ' ' . lang('tk'); ?>
                                         </td>
-<!--                                        <td>
-                                            <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok'); ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
-                    <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok'); ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+    <!--                                        <td>
+                                            <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');    ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');    ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
                                         </td>-->
                                     </tr>
                                 <?php endforeach; ?>
@@ -129,7 +133,7 @@
                     <p><?php echo lang('guess_distance'); ?></p>
                 </div>
                 <div class="col-xs-5">
-                    <h4 class="no-margin"><?php echo ($route['distance'] / 1000) . $this->nl->lang_based_data(' কি.মি', ' KM'); ?></h4>
+                    <p class="no-margin"><?php echo ($route['distance'] / 1000) . $this->nl->lang_based_data(' কি.মি', ' KM'); ?> <small class="text-muted">[<?php echo lang('by_google'); ?>]</small></p>
                 </div>
             </div>
 
@@ -137,8 +141,12 @@
                 <div class="col-xs-4">
                     <p><?php echo lang('guess_duration'); ?></p>
                 </div>
-                <div class="col-xs-5">
-                    <h4 class="no-margin"><?php echo $this->nl->seconds_to_time($route['duration']); ?></h4>
+                <div class="col-xs-6">
+                    <p class="no-margin"><?php echo $this->nl->seconds_to_time($route['duration']); ?><small class="text-muted">[<?php echo lang('by_google'); ?>]</small></p>
+
+                </div>
+                <div class="col-xs-2">
+
                 </div>
             </div>
             <div class="row custom_margin">
@@ -146,7 +154,7 @@
                     <p><?php echo lang('added_by'); ?></p>
                 </div>
                 <div class="col-xs-5">
-                    <h4 class="no-margin"><a href="<?php echo site_url_tr('profile/show/').$route['user_id'];?>"><?php echo $route['username']; ?></a></h4>
+                    <h4 class="no-margin"><a href="<?php echo site_url_tr('profile/show/') . $route['user_id']; ?>"><?php echo $route['username']; ?></a></h4>
                 </div>
             </div>
         </div>

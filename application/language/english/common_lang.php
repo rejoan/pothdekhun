@@ -139,3 +139,5 @@ $lang['about_us_details'] = 'Details';
 $lang['send'] = 'Send';
 $lang['name'] = 'Name';
 $lang['possible'] = 'Possible Matches';
+$lang['about'] = 'About';
+$lang['reputation'] = 'Reputation';

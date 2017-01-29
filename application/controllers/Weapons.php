@@ -182,7 +182,7 @@ class Weapons extends MX_Controller {
             $this->db->where_not_in('r.id', $exclude);
         }
         $this->db->where($cond);
-        $this->db->or_where('(r.id NOT IN('.$route_id.') AND rt.from_place = "' . $from_place . '" AND rt.to_place = "' . $to_place . '" AND p.bn_name = "' . $vehicle_name . '")', NULL, FALSE);
+        $this->db->or_where('(r.id NOT IN(' . $route_id . ') AND rt.from_place = "' . $from_place . '" AND rt.to_place = "' . $to_place . '" AND p.bn_name = "' . $vehicle_name . '")', NULL, FALSE);
 
         $query = $this->db->get();
         //echo $this->db->last_query();
@@ -201,6 +201,45 @@ class Weapons extends MX_Controller {
                 LIMIT 5');
         $places = $query->result_array();
         echo json_encode($places, JSON_UNESCAPED_UNICODE);
+    }
+
+    public function update_meta() {
+        $this->load->library('encryption');
+        $this->encryption->initialize(
+                array(
+                    'cipher' => 'des',
+                    'mode' => 'ECB'
+                )
+        );
+        $route_id = $this->encryption->decrypt($this->input->post('pd_identity'));
+        if (empty($route_id)) {
+            echo json_encode(array('msg' => 'wrong'));
+            return;
+        }
+        $user_id = $this->session->user_id;
+        $cond = array(
+            'user_id' => $user_id,
+            'route_id' => $route_id
+        );
+        $query = $this->db->where($cond)->get('route_complains');
+        if ($query->num_rows() > 0) {
+            echo json_encode(array('msg' => 'exist'));
+            return;
+        }
+        $pd_sts = $this->input->post('pd_sts', TRUE);
+        $calc = ' fare_downvote = fare_downvote + 1';
+
+        if ($pd_sts == 'pd_fpk') {//if upvote
+            $calc = ' fare_upvote =  fare_upvote + 1';
+        }
+        $update = $this->db->query('UPDATE route_complains SET ' . $calc . ' WHERE user_id = ' . (int) $user_id . ' AND route_id = ' . $route_id);
+        $vote = $this->pm->get_row();
+        if ($pd_sts == 'pd_fpk') {//if upvote
+            $calc = ' fare_upvote =  fare_upvote + 1';
+        }
+        if ($update) {
+            echo json_encode(array('msg' => 'updated', 'v' => $vot));
+        }
     }
 
 }

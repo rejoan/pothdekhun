@@ -18,3 +18,4 @@ $lang['fare_not_ok'] = 'Wrong fare provided';
 $lang['tk'] = 'Tk.';
 $lang['fare_verify'] = 'verify Fare';
 $lang['type'] = 'Type';
+$lang['by_google'] = 'By Google';

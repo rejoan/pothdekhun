@@ -22,13 +22,13 @@ if ($message) {
 
             <h3 class="profile-username text-center"><?php echo $profile['first_name'] . ' ' . $profile['last_name']; ?></h3>
 
-
-            <ul class="list-group list-group-unbordered">
-                <li class="list-group-item">
-                    <a href="<?php echo site_url_tr('profile/my_routes'); ?>"><b><?php echo lang('route_added') ?></b> <?php echo $tot_added; ?></a>
-                </li>
-            </ul>
-
+            <?php if ($profile['user_id'] == $this->session->user_id): ?>
+                <ul class="list-group list-group-unbordered">
+                    <li class="list-group-item">
+                        <a href="<?php echo site_url_tr('profile/my_routes'); ?>"><b><?php echo lang('route_added') ?></b> <?php echo $tot_added; ?></a>
+                    </li>
+                </ul>
+            <?php endif; ?>
         </div>
         <!-- /.box-body -->
     </div>
@@ -37,17 +37,19 @@ if ($message) {
 <div class="col-xs-12 col-md-6">
     <div class="box box-primary box-poth">
         <div class="box-header with-border">
-            <h3 class="box-title"><?php echo lang('about_me') ?></h3>
+            <h3 class="box-title"><?php echo lang('about') ?></h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <strong><i class="fa fa-at margin-r-5"></i> <?php echo lang('email') ?></strong>
-            <p class="text-muted"><?php echo $profile['email']; ?></p>
-            <hr>
-            <strong><i class="fa fa-mobile margin-r-5"></i> <?php echo lang('your_mobile') ?></strong>
-            <p class="text-muted"><?php echo $profile['mobile']; ?></p>
-            <hr>
-            <strong><i class="fa fa-database margin-r-5"></i> <?php echo lang('your_reputation') ?></strong>
+            <?php if ($profile['user_id'] == $this->session->user_id): ?>
+                <strong><i class="fa fa-at margin-r-5"></i> <?php echo lang('email') ?></strong>
+                <p class="text-muted"><?php echo $profile['email']; ?></p>
+                <hr>
+                <strong><i class="fa fa-mobile margin-r-5"></i> <?php echo lang('mobile') ?></strong>
+                <p class="text-muted"><?php echo $profile['mobile']; ?></p>
+                <hr>
+            <?php endif; ?>
+            <strong><i class="fa fa-database margin-r-5"></i> <?php echo lang('reputation') ?></strong>
             <p><label class="label label-success"><?php echo $profile['reputation']; ?></label></p>
             <hr>
 
