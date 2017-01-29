@@ -33,8 +33,10 @@ class Notification_model extends CI_Model {
             'user_id' => $user_id,
             'read' => 0
         );
-        $query = $this->db->where($cond)->get('route_points');
-        return $query->num_rows();
+        $query1 = $this->db->where($cond)->get('route_points');
+        $query2 = $this->db->where($cond)->get('transport_points');
+        $total_unread = $query1->num_rows() + $query2->num_rows();
+        return $total_unread;
     }
 
 }

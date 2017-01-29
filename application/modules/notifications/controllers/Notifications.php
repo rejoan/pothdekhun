@@ -11,14 +11,14 @@ class Notifications extends MX_Controller {
 
     public function __construct() {
         parent::__construct();
-        if ($this->session->user_id) {
-            $this->user_id = $this->session->user_id;
-        }
+        $this->nl->is_logged();
+        $this->user_id = $this->session->user_id;
         $this->load->model('Notification_model', 'nm');
     }
 
     public function index() {
         $this->pm->updater('user_id', $this->user_id, 'route_points', array('read' => 1));
+        $this->pm->updater('user_id', $this->user_id, 'transport_points', array('read' => 1));
         $data = array(
             'title' => 'Notifications',
             'settings' => $this->nl->get_config(),

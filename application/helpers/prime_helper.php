@@ -132,11 +132,14 @@ function get_tr_type($type) {
 function notify($count = FALSE) {
     $CI = & get_instance();
     $user_id = $CI->session->user_id;
-    $CI->load->model('notifications/Notification_model','nm');
+    $CI->load->model('notifications/Notification_model', 'nm');
     if ($count) {
         return $CI->nm->total_notifications($user_id);
     }
-    return $CI->pm->get_data('route_points', FALSE, 'read', 0);
+    $route_points = $CI->pm->get_data('route_points', FALSE, 'read', 0, FALSE, FALSE, FALSE, FALSE, 'id', 'desc', 0, 2);
+    $transport_points = $CI->pm->get_data('transport_points', FALSE, 'read', 0, FALSE, FALSE, FALSE, FALSE, 'id', 'desc', 0, 2);
+    $all_notifictions = $transport_points + $route_points;
+    return $all_notifictions;
 }
 
 function latest_routes() {
