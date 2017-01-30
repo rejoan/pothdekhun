@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['index'] = 'সব পরিবহন রুট তথ্য';
+$lang['index'] = 'সারা বাংলাদেশের সকল পরিবহন এবং রুট তথ্য বের করুন দ্রুত';
+$lang['home_page_meta'] = 'সারা বাংলাদেশের বাস লেগুনা বিমান লঞ্চ ট্রেনসহ সকল পরিবহন এবং রুট তথ্য বের করুন';
 $lang['add_route'] = 'রুট তথ্য যোগ করুন';
 $lang['edit_route'] = 'রুট তথ্য সম্পাদনা করুন';
 $lang['dhaka_message'] = 'ঢাকা জেলার জন্য থানা নির্বাচন জরুরী নয়';
