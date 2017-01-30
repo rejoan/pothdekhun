@@ -18,7 +18,7 @@
             <?php foreach ($routes as $key => $route): ?>
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
-                    <div class="panel-heading"><h4 class="no-margin"><a class="details" href="<?php echo site_url_tr('routes/show/') . $route['r_id']; ?>"><?php echo $route[$this->nl->lang_based_data('bn_name', 'name')]; ?></a>&nbsp;<a class="btn btn-info btn-xs" href="<?php echo site_url_tr('routes/show/') . $route['r_id']; ?>"><i class="fa fa-eye"></i> <?php echo lang('about_detail'); ?></a></h4></div>
+                    <div class="panel-heading"><h4 class="no-margin"><a class="details" href="<?php echo site_url_tr('routes/show/') . $route['r_id']; ?>"><?php echo $route[$this->nl->lang_based_data('bn_name', 'name')]; ?></a>&nbsp;[<?php echo mb_convert_case($route['transport_type'], MB_CASE_TITLE, 'UTF-8');?>] <a class="btn btn-info btn-xs" href="<?php echo site_url_tr('routes/show/') . $route['r_id']; ?>"><i class="fa fa-eye"></i> <?php echo lang('about_detail'); ?></a></h4></div>
                     <div class="panel-body">
                         <?php
                         $patterns = array();

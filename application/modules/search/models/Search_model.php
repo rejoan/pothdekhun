@@ -79,12 +79,14 @@ WHERE r.is_publish = 1 AND ((r.from_district = ' . $district . ' AND LOWER(r.fro
             $all_routes_id = $this->nl->get_all_ids($to_places, 'route_id');
             if (!empty($all_routes_id)) {//found in stoppages
                 $found_in = 'stoppage';
+                //var_dump($found_in);return;
                 return array($this->final_result($all_routes_id), $found_in);
             }
         }
 
         //Step 3: search for suggestions
         $suggestions = $this->get_suggestions($place, $stopage_table, $to_place);
+        //var_dump($suggestions);return;
         if (!empty($suggestions)) {//if even suggestion not found
             $found_in = 'suggestion';
             return array($suggestions, $found_in);
@@ -230,6 +232,9 @@ WHERE r.is_publish = 1 AND ((r.from_district = ' . $district . ' AND LOWER(r.fro
                                     WHERE place_name SOUNDS LIKE "' . $to_place . '"
                                     ) AS rtn');
             $all_routes_id = $this->nl->get_all_ids($query->result_array(), 'route_id');
+            if (empty($all_routes_id)) {
+                return array();
+            }
             return $this->final_result($all_routes_id);
         }
 
@@ -261,6 +266,10 @@ WHERE r.is_publish = 1 AND ((r.from_district = ' . $district . ' AND LOWER(r.fro
                                     WHERE place_name SOUNDS LIKE "' . $place . '"
                                     ) AS rtn');
             $all_routes_id = $this->nl->get_all_ids($query->result_array(), 'route_id');
+            //var_dump($all_routes_id);return;
+            if (empty($all_routes_id)) {
+                return array();
+            }
             return $this->final_result($all_routes_id);
         }
 
@@ -294,6 +303,10 @@ WHERE r.is_publish = 1 AND ((r.from_district = ' . $district . ' AND LOWER(r.fro
                                     ) AS rtn WHERE rtn.route_id IN (' . $from_routes_id . ') ORDER BY tplace ASC LIMIT 7');
             //echo $this->db->last_query();return;
             $all_routes_id = $this->nl->get_all_ids($query->result_array(), 'route_id');
+            //var_dump($all_routes_id);return;
+            if (empty($all_routes_id)) {
+                return array();
+            }
             return $this->final_result($all_routes_id);
         }
         return array();
