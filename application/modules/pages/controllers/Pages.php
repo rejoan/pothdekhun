@@ -51,7 +51,7 @@ class Pages extends MX_Controller {
             if ($this->email->send()) {
                 $this->session->set_flashdata('message', lang('mail_sent'));
                 redirect_tr('pages/contact_us');
-            }else{
+            } else {
                 //echo $this->email->print_debugger();
             }
         }

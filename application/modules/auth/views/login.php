@@ -68,7 +68,7 @@
                 </div>
                 <!-- /.social-auth-links -->
 
-                <a href="#"><?php echo lang('forgot_pass'); ?></a><br>
+                <a href="<?php echo site_url_tr('auth/forgot_password'); ?>"><?php echo lang('forgot_pass'); ?></a><br>
                 <a href="<?php echo site_url_tr('auth/register'); ?>" class="text-center"><?php echo lang('register_link'); ?></a>
 
             </div>

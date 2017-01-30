@@ -179,7 +179,6 @@ class Auth extends MX_Controller {
      * @author Rejoanul Alam
      */
     public function login() {
-
         if ($this->session->user_id) {
             redirect_tr('profile');
         }
@@ -279,13 +278,50 @@ class Auth extends MX_Controller {
      * Password reset form
      */
     public function forgot_password() {
-        if ($this->session->userdata('userdata')) {
-            $this->logout();
+        $this->load->library('form_validation');
+        $data = array(
+            'title' => lang('forgot_password'),
+            'action' => site_url_tr('auth/forgot_password')
+        );
+
+        if ($this->input->post('submit')) {
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+
+            if ($this->form_validation->run() == FALSE) {
+                $data['error'] = 'No user found';
+                $this->nl->view_loader('user', 'forgot_password', NULL, $data);
+                return;
+            }
+            $email = trim($this->input->post('email', TRUE));
+            $check = $this->pm->get_row('email', $email);
+            if (count($check) > 0) {
+                $str = str_shuffle('!poth@:');
+                $str .= rand(99999, 11111);
+                $this->load->library('email');
+                $subject = 'Pothdekhun Password Recovery';
+                $body = '<p>Your Password: ' . $str . '</p><p>Please Change this password after Login</p>';
+                $config['mailtype'] = 'html';
+                $config['protocol'] = 'sendmail';
+                $this->email->initialize($config);
+                $this->email->from('rejoan.er@gmail.com', 'PothDekhun');
+                $this->email->to($email);
+                $this->email->subject($subject);
+                $this->email->message($body);
+
+                if ($this->email->send()) {
+                    $this->pm->updater('id', $check['id'], 'users', array('password' => md5($str)));
+                    $this->session->set_flashdata('message', lang('mail_sent_recover'));
+                    redirect_tr('auth/login');
+                } else {
+                    //echo $this->email->print_debugger();
+                }
+            } else {
+                $this->session->set_flashdata('message', lang('enter_valid_user_password'));
+                redirect('auth/login');
+            }
         }
-        $this->load->library('recaptcha');
-        $data['body']['captcha'] = $this->recaptcha->recaptcha_get_html();
-        $data['body']['page'] = "login_forgot_password_view";
-        makeTemplate($data);
+
+        $this->nl->view_loader('user', 'forgot_password', NULL, $data);
     }
 
     /**

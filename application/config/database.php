@@ -85,9 +85,9 @@ if (ENVIRONMENT == 'development') {
 $db['default'] = array(
     'dsn' => '',
     'hostname' => 'localhost',
-    'username' => '',
-    'password' => '',
-    'database' => '',
+    'username' => $main_username,
+    'password' => $main_pass,
+    'database' => $dbs,
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => FALSE,
