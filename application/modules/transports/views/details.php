@@ -32,7 +32,7 @@
                 <a href="<?php echo site_url_tr('transports/edit') . '/' . $poribohon['id']; ?>" class="btn btn-block btn-info"><?php echo lang('edit'); ?></a>
             <?php endif; ?>
             <?php if ($this->nl->is_admin()): ?>
-                <a href="<?php echo site_url_tr('transports/accept') . '/' . $poribohon['id']; ?>" class="btn btn-block btn-info"><?php echo lang('accept'); ?></a>
+                <a href="<?php echo site_url_tr('transports/accept') . '/' . $poribohon['id']; ?>" class="btn btn-block btn-info">Accept</a>
             <?php endif; ?>
         </div>
     </div>

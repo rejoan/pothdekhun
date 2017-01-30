@@ -11,5 +11,3 @@ $lang['edit_transport'] = 'Edit a Transport';
 $lang['available_route'] = 'This Transport\'s routes';
 $lang['available_counter'] = 'Counter Addresses';
 $lang['transport_name'] = 'Transport Name';
-$lang['accept'] = 'Accept';
-$lang['accpted'] = 'Accepted Success';

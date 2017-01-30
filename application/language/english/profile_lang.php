@@ -12,5 +12,3 @@ $lang['profile_image'] = 'Profile Picture';
 $lang['profile_update_success'] = 'Profile Updated Successfully';
 $lang['prev_image'] = 'Previous Picture';
 $lang['all_routes_your'] = 'Your Added Routes';
-$lang['your_mobile'] = 'Your Mobile';
-$lang['your_reputation'] = 'Your Total Reputation/Point';

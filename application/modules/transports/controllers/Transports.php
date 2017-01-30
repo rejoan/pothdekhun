@@ -251,14 +251,14 @@ class Transports extends MX_Controller {
     public function delete($id) {
         $this->nl->is_admin('errors', FALSE);
         $this->pm->deleter('id', $id, 'poribohons');
-        $this->session->set_flashdata('message', lang('delete_success'));
+        $this->session->set_flashdata('message', 'Deleted Successfully');
         redirect_tr('transports');
     }
 
     public function accept($id) {
         $this->nl->is_admin('errors', FALSE);
         $this->pm->updater('id', $id, 'poribohons', array('is_publish' => 1));
-        $this->session->set_flashdata('message', lang('accpted'));
+        $this->session->set_flashdata('message', 'Accepted Successfully');
         redirect_tr('transports');
     }
 
