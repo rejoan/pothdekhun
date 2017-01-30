@@ -337,6 +337,9 @@ class Routes extends MX_Controller {
                     'evidence' => $evidence_name[1],
                     'evidence2' => $evidence_name[2]
                 );
+                if ($this->nl->is_admin()) {
+                    $route['is_publish'] = 1;
+                }
                 $this->db->set('added', 'NOW()', FALSE);
             }
 
@@ -365,7 +368,6 @@ class Routes extends MX_Controller {
                         }
                     }
                 }
-                $route['is_publish'] = 1;
                 //var_dump($route);return;
                 $this->pm->updater($rid, $route_id, $route_table, $route);
                 //echo $this->db->last_query();
