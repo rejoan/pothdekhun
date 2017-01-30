@@ -19,7 +19,7 @@
             <li>
                 <a href="<?php echo site_url('b_janina'); ?>"><i class="fa fa fa-dashboard"></i> Dashboard</a>
             </li>
-            <li class="treeview <?php echo $this->nl->is_selected('route_manager/latest,route_manager/latest'); ?>">
+            <li class="treeview <?php echo $this->nl->is_selected('route_manager,route_manager/latest'); ?>">
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>Route Manager</span>
                     <span class="pull-right-container">

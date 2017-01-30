@@ -376,6 +376,7 @@ class Routes extends MX_Controller {
                     'added_by' => $this->user_id
                 );
                 $route_info = array_merge($route, $edit_info);
+                //var_dump($route_info);return;
                 $route_id = $this->pm->insert_data('edited_routes', $route_info, TRUE);
             }
 

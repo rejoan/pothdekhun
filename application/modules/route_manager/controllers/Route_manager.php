@@ -202,7 +202,7 @@ class Route_manager extends MX_Controller {
                 $this->db->insert_batch($stoppage_table, $stoppages);
             }
             if ($this->input->post('point')) {
-                $rut = $this->pm->get_row('id', $route_id, 'edited_routes');
+                $rut = $this->pm->get_row('route_id', $route_id, 'edited_routes');
                 modules::run('route_manager/create_points', $route_id, $rut['added_by'], $this->input->post('point'), $this->input->post('note'), 'edit');
             }
             $this->pm->deleter('route_id', $route_id, 'edited_routes');
