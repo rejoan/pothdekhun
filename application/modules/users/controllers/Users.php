@@ -9,7 +9,7 @@ class Users extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->nl->is_admin();
+        $this->nl->is_admin('errors', FALSE);
         $this->load->model('Users_model', 'um');
     }
 

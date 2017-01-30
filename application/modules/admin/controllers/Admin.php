@@ -9,7 +9,10 @@ class Admin extends MX_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->nl->is_admin();
+        if ($this->uri->segment(1) == 'admin') {
+            show_404();
+        }
+        $this->nl->is_admin('auth/login',FALSE);
         $this->load->model('Admin_model', 'am');
     }
 
@@ -43,8 +46,8 @@ class Admin extends MX_Controller {
         $this->db->insert('transport_points', $points);
         $this->db->query('UPDATE users SET reputation = reputation + ' . (int) $point . ' WHERE id = ' . (int) $user_id);
     }
-    
-    public function edited_poribohons(){
+
+    public function edited_poribohons() {
         $data = array(
             'title' => 'Edited Transports',
             'poribohons' => $this->am->edited_poribohons(),

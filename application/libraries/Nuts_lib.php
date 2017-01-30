@@ -133,6 +133,7 @@ class Nuts_lib {
      */
     public function is_admin($redirect_url = 'auth/login', $is_view = TRUE) {
         $level = $this->CI->session->user_type;
+        //var_dump($level);
         if ($level == 'admin') {
             return TRUE;
         } else {

@@ -14,7 +14,7 @@
             <ul class="nav navbar-nav">
                 <?php
                 if ($this->session->user_type == 'admin') {
-                    $this->nl->generate_link('admin', 'admin', NULL, 'Admin');
+                    $this->nl->generate_link('admin', 'b_janina', NULL, 'Admin');
                 }
                 if ($this->session->user_id) {
                     $this->nl->generate_link('profile', 'profile', NULL, lang('profile'));

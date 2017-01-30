@@ -11,7 +11,7 @@ class Route_manager extends MX_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->nl->is_admin('auth/login', FALSE);
+        $this->nl->is_admin('errors', FALSE);
         $this->user_id = $this->session->user_id;
         $this->load->model('Route_manager_model', 'rmn');
     }

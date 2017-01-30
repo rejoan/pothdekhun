@@ -17,7 +17,7 @@
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             <li>
-                <a href="<?php echo site_url('admin'); ?>"><i class="fa fa fa-dashboard"></i> Dashboard</a>
+                <a href="<?php echo site_url('b_janina'); ?>"><i class="fa fa fa-dashboard"></i> Dashboard</a>
             </li>
             <li class="treeview <?php echo $this->nl->is_selected('route_manager/latest,route_manager/latest'); ?>">
                 <a href="#">
@@ -45,10 +45,10 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="<?php echo $this->nl->is_selected('admin/latest_poribohon'); ?>">
-                        <a href="<?php echo site_url('admin/latest_poribohon'); ?>"><i class="fa fa-circle-o"></i> Latest Poribohons</a>
+                        <a href="<?php echo site_url('b_janina/latest_poribohon'); ?>"><i class="fa fa-circle-o"></i> Latest Poribohons</a>
                     </li>
                     <li class="<?php echo $this->nl->is_selected('admin/edited_poribohon'); ?>">
-                        <a href="<?php echo site_url('admin/edited_poribohons'); ?>"><i class="fa fa-circle-o"></i> Edited Poribohons</a>
+                        <a href="<?php echo site_url('b_janina/edited_poribohons'); ?>"><i class="fa fa-circle-o"></i> Edited Poribohons</a>
                     </li>
                 </ul>
 
