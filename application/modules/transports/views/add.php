@@ -22,26 +22,26 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label"><?php echo lang('vehicle_name'); ?></label>
                         <div class="col-xs-10 col-md-6">
-                            <input name="transport_name" class="form-control" value="<?php
+                            <input name="transport_name" class="form-control transport_name" value="<?php
                             if ($this->input->post('transport_name')) {
                                 echo set_value('transport_name');
                             } elseif (isset($transport['name'])) {
                                 echo $transport['name'];
                             }
-                            ?>"/>
+                            ?>" placeholder="Name in English" required/>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label"><?php echo lang('bengali_name'); ?></label>
                         <div class="col-xs-10 col-md-6">
-                            <input name="bn_name" class="form-control" value="<?php
+                            <input name="bn_name" class="form-control transport_name" value="<?php
                             if ($this->input->post('bn_name')) {
                                 echo set_value('bn_name');
                             } elseif (isset($transport['bn_name'])) {
                                 echo $transport['bn_name'];
                             }
-                            ?>"/>
+                            ?>" placeholder="Name in Bengali"/>
                         </div>
                     </div>
 

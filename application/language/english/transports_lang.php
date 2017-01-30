@@ -10,3 +10,4 @@ $lang['add_address'] = 'More Address';
 $lang['edit_transport'] = 'Edit a Transport';
 $lang['available_route'] = 'This Transport\'s routes';
 $lang['available_counter'] = 'Counter Addresses';
+$lang['transport_name'] = 'Transport Name';

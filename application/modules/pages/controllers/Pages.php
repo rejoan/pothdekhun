@@ -25,6 +25,7 @@ class Pages extends MX_Controller {
             'title' => lang('contact_us'),
             'settings' => $this->nl->get_config(),
         );
+        
         $this->nl->view_loader('user', 'contact', NULL, $data, 'latest', 'rightbar');
     }
 

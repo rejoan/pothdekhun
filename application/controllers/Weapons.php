@@ -247,4 +247,14 @@ class Weapons extends MX_Controller {
         }
     }
 
+    public function transport_duplicacy() {
+        $name = trim($this->input->post('name', TRUE));
+        $query = $this->db->where('name', $name)->or_where('bn_name', $name)->get('poribohons');
+        if ($query->num_rows() > 0) {
+            echo json_encode(array('exist' => 'yes'));
+            return;
+        }
+        echo json_encode(array('exist' => 'no'));
+    }
+
 }

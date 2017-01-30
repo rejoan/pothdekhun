@@ -279,6 +279,25 @@ $(document).ready(function () {
         check_duplicacy(vh, fp, tp);
     });
 
+    $('.transport_name').on('blur change', function () {
+        var pd_stu = $('#pd_stu').val();
+        var name = $(this).val();
+        $.ajax({
+            context: this,
+            url: pd_stu + 'weapons/transport_duplicacy',
+            type: 'post',
+            dataType: 'json',
+            cache: true,
+            data: {
+                name: name
+            }
+        }).done(function (response) {
+            if (response.exist == 'yes') {
+                swal('Transpport Exist', 'This transport already exist', 'error');
+            }
+        });
+    });
+
 
 
     $('.evidence').change(function () {
