@@ -36,7 +36,7 @@
                 </ul>
             </li>
 
-            <li class="treeview <?php echo $this->nl->is_selected('admin/latest_poribohon,admin/edited_poribohon'); ?>">
+            <li class="treeview <?php echo $this->nl->is_selected('b_janina/latest_poribohon,b_janina/edited_poribohon'); ?>">
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>Transport Manager</span>
                     <span class="pull-right-container">

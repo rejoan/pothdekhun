@@ -28,11 +28,12 @@
 
         </div>
         <div class="box-footer">
-            <?php if ($this->input->get('pd_rev')) { ?>
-            <a href="<?php echo site_url_tr('transports/edit') . '/' . $poribohon[$poribohon_id]; ?>" class="btn btn-block btn-info"><?php echo lang('edit'); ?></a>
-            <?php } else { ?>
-                <a href="<?php echo site_url_tr('transports/edit') . '/' . $poribohon[$poribohon_id]; ?>" class="btn btn-block btn-info"><?php echo lang('edit'); ?></a>
-            <?php } ?>
+            <?php if ($this->session->user_id): ?>
+                <a href="<?php echo site_url_tr('transports/edit') . '/' . $poribohon['id']; ?>" class="btn btn-block btn-info"><?php echo lang('edit'); ?></a>
+            <?php endif; ?>
+            <?php if ($this->nl->is_admin()): ?>
+                <a href="<?php echo site_url_tr('transports/accept') . '/' . $poribohon['id']; ?>" class="btn btn-block btn-info"><?php echo lang('accept'); ?></a>
+            <?php endif; ?>
         </div>
     </div>
 </div>

@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/auth/views/forgot_password.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/auth/views/login.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/controllers/Routes.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/config/routes.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/route_manager/controllers/Route_manager.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/libraries/Nuts_lib.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/admin/controllers/Admin.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/controllers/Errors.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/views/add.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/auth/controllers/Auth.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/pages/controllers/Pages.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/admin/views/leftbar.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/pages/views/contact.php</file>
         </group>
     </open-files>
 </project-private>
