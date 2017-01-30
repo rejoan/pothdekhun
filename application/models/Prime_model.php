@@ -220,4 +220,10 @@ class Prime_model extends CI_Model {
         }
     }
 
+    public function get_sum($col_name, $col_val, $sum_col, $table) {
+        $query = $this->db->where($col_name, $col_val)->select_sum($sum_col)->get($table);
+        $result = $query->row_array();
+        return $result[$sum_col];
+    }
+
 }

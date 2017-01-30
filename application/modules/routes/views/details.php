@@ -73,10 +73,10 @@
                 </div>
                 <?php if ($this->session->user_id): ?>
                     <div id="fare_verfication" class="col-xs-4">
-                        <small id="correct" class="text-muted text-success">10</small>
+                        <small id="pd_crc" class="text-muted text-success"><?php echo $route['fare_upvote']; ?></small>
                         <a data-pd_fp="pd_fpk" data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_ok'); ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
                         <a data-pd_fp="pd_fpnk" data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_not_ok'); ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
-                        <small id="wrong" class="text-muted text-danger">10</small>
+                        <small id="pd_wrn" class="text-muted text-danger"><?php echo $route['fare_downvote']; ?></small>
                     </div>
                 <?php endif; ?>
             </div>
@@ -104,7 +104,7 @@
                                     <th><?php echo lang('place_name'); ?></th>
                                     <th><?php echo lang('comment'); ?></th>
                                     <th><?php echo lang('main_rent'); ?></th>
-<!--                                    <th><?php //echo lang('fare_verify');    ?></th>-->
+<!--                                    <th><?php //echo lang('fare_verify');     ?></th>-->
                                 </tr>
                             </thead>
                             <tbody>
@@ -117,8 +117,8 @@
                                             <?php echo $s['rent'] . ' ' . lang('tk'); ?>
                                         </td>
     <!--                                        <td>
-                                            <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');    ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
-                    <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');    ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');     ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');     ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
                                         </td>-->
                                     </tr>
                                 <?php endforeach; ?>
@@ -225,7 +225,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="hidden"  name="pd_identity" value="<?php echo $this->encryption->encrypt($this->uri->segment(3)); ?>"/>
+                        <input id="pd_identity" type="hidden"  name="pd_identity" value="<?php echo $this->encryption->encrypt($this->uri->segment(3)); ?>"/>
                         <input type="submit" class="btn btn-info" name="submit" value="<?php echo lang('add_button'); ?>">
                     </div>
                 </form>

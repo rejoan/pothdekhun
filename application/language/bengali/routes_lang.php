@@ -20,3 +20,4 @@ $lang['fare_not_ok'] = 'ভাড়া ভুল দেয়া হয়েছে';
 $lang['tk'] = 'টাকা';
 $lang['fare_verify'] = 'ভাড়া যাচাই';
 $lang['type'] = 'ধরন';
+$lang['by_google'] = 'গুগল প্রদত্ত';

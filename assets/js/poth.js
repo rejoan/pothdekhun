@@ -77,8 +77,10 @@ $(document).ready(function () {
             }
             if (response.msg == 'updated') {
                 swal('Thank you', 'You vote taken', 'success');
-                if(pd){
-                    
+                if (pd_sts == 'pd_fpk') {
+                    $('#pd_crc').text(response.v);
+                } else {
+                    $('#pd_wrn').text(response.v);
                 }
             }
         });

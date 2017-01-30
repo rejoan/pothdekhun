@@ -227,17 +227,22 @@ class Weapons extends MX_Controller {
             return;
         }
         $pd_sts = $this->input->post('pd_sts', TRUE);
-        $calc = ' fare_downvote = fare_downvote + 1';
+        $data = array('fare_downvote' => 1);
 
         if ($pd_sts == 'pd_fpk') {//if upvote
-            $calc = ' fare_upvote =  fare_upvote + 1';
+            $data = array(
+                'fare_upvote' => 1,
+                'user_id' => $user_id,
+                'route_id' => $route_id
+            );
         }
-        $update = $this->db->query('UPDATE route_complains SET ' . $calc . ' WHERE user_id = ' . (int) $user_id . ' AND route_id = ' . $route_id);
-        $vote = $this->pm->get_row();
+        $this->db->set('added', 'NOW()', FALSE);
+        $insert = $this->pm->insert_data('route_complains', $data, TRUE);
+        $vot = $this->pm->get_sum('route_id', $route_id, 'fare_downvote', 'route_complains');
         if ($pd_sts == 'pd_fpk') {//if upvote
-            $calc = ' fare_upvote =  fare_upvote + 1';
+            $vot = $this->pm->get_sum('route_id', $route_id, 'fare_upvote', 'route_complains');
         }
-        if ($update) {
+        if ($insert) {
             echo json_encode(array('msg' => 'updated', 'v' => $vot));
         }
     }

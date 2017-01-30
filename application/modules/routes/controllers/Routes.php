@@ -469,6 +469,11 @@ class Routes extends MX_Controller {
             redirect_tr('routes');
         }
         $result = $this->rm->details($route_id);
+
+        //array_walk($result, function(&$a) use($route_id) {
+        $result['fare_upvote'] = $this->pm->get_sum('route_id', $route_id, 'fare_upvote', 'route_complains');
+        $result['fare_downvote'] = $this->pm->get_sum('route_id', $route_id, 'fare_downvote', 'route_complains');
+        //});
         //var_dump($result);        return;
         $data = array(
             'title' => mb_convert_case($result[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($result[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('to_view') . ' ' . mb_convert_case($result[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($result[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8') . ' ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . mb_convert_case($result['transport_type'], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('route_info'),
@@ -478,7 +483,7 @@ class Routes extends MX_Controller {
             'settings' => $this->nl->get_config(),
             'comments' => $this->rm->get_comments($route_id)
         );
-        $data['meta_title'] = $data['title'].lang('meta_title_route');
+        $data['meta_title'] = $data['title'] . lang('meta_title_route');
         //echo $this->db->last_query();return;
         $this->nl->view_loader('user', 'details', NULL, $data, 'latest', 'rightbar');
     }
