@@ -141,3 +141,5 @@ $lang['name'] = 'Name';
 $lang['possible'] = 'Possible Matches';
 $lang['about'] = 'About';
 $lang['reputation'] = 'Reputation';
+$lang['meta_title_route'] = ' with stoppages, via and fare';
+$lang['meta_title_transport'] = ' with routes, counter addresses';

@@ -6,14 +6,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="keywords" content="<?php echo isset($meta_title)? make_keywords($meta_title): make_keywords($title); ?>" />
+        <meta name="description" content="<?php echo isset($meta_title) ? $meta_title : $title; ?>">
+        <meta name="author" content="Rejoanul Alam">
         <meta name="google-signin-scope" content="profile email">
         <meta name="google-signin-client_id" content="606528754739-mag1caviaal84rdm8uirn108fmlr8raa.apps.googleusercontent.com">
 <!--        <script src="https://apis.google.com/js/platform.js" async defer></script>-->
         <link rel="icon" href="<?php echo base_url('assets/images') . '/favicon.ico'; ?>">
 
-        <title><?php echo $title; ?></title>
+        <title><?php echo $title; ?> | PothDekhun</title>
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" >

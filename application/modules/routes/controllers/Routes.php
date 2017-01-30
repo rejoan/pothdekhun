@@ -364,7 +364,6 @@ class Routes extends MX_Controller {
                             $route['duration'] = $dis_dur['duration'];
                         }
                     }
-                    
                 }
                 $route['is_publish'] = 1;
                 //var_dump($route);return;
@@ -411,7 +410,7 @@ class Routes extends MX_Controller {
             }
 
             if ($this->input->post('point')) {
-                $rut = $this->pm->get_row('id',$route_id,'routes');
+                $rut = $this->pm->get_row('id', $route_id, 'routes');
                 modules::run('route_manager/create_points', $route_id, $rut['added_by'], $this->input->post('point'), $this->input->post('note'));
             }
 
@@ -472,13 +471,14 @@ class Routes extends MX_Controller {
         $result = $this->rm->details($route_id);
         //var_dump($result);        return;
         $data = array(
-            'title' => mb_convert_case($result[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('to_view') . ' ' . mb_convert_case($result[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),
+            'title' => mb_convert_case($result[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($result[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('to_view') . ' ' . mb_convert_case($result[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($result[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8') . ' ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . mb_convert_case($result['transport_type'], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('route_info'),
             'route' => $result,
             'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['r_id'], FALSE, FALSE, FALSE, 'position', 'asc'),
             'segment' => 0,
             'settings' => $this->nl->get_config(),
             'comments' => $this->rm->get_comments($route_id)
         );
+        $data['meta_title'] = $data['title'].lang('meta_title_route');
         //echo $this->db->last_query();return;
         $this->nl->view_loader('user', 'details', NULL, $data, 'latest', 'rightbar');
     }

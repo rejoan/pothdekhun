@@ -275,6 +275,7 @@ class Transports extends MX_Controller {
             'counters' => $this->tm->get_counters($poribohon_id),
             'settings' => $this->nl->get_config()
         );
+        $data['meta_title'] = $data['title'] . lang('meta_title_transport');
         //echo $this->db->last_query();return;
         $this->nl->view_loader('user', 'details', NULL, $data, 'latest', 'rightbar');
     }
