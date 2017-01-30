@@ -293,7 +293,7 @@ class Auth extends MX_Controller {
                 return;
             }
             $email = trim($this->input->post('email', TRUE));
-            $check = $this->pm->get_row('email', $email);
+            $check = $this->pm->get_row('email', $email,'users');
             if (count($check) > 0) {
                 $str = str_shuffle('!poth@:');
                 $str .= rand(99999, 11111);

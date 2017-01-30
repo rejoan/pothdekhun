@@ -146,3 +146,4 @@ $lang['meta_title_transport'] = ' with routes, counter addresses';
 $lang['mail_sent_recover'] = 'Please check your email for Password';
 $lang['forgot_password'] = 'Recover Password';
 $lang['sent_pass'] = 'Send Password';
+$lang['mail_sent'] = 'Thank You for your Comment';
