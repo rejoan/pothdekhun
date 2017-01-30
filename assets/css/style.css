@@ -121,3 +121,29 @@ a.details:hover{
     background: #fff;
     padding-top: 15px;
 }
+
+
+#social_link1,#social_link2{
+    position:fixed;
+    top:50px;
+    right:0;
+    min-width:40px;
+    padding:3px 5px;
+    background:#eee;
+    text-decoration: none;
+   /*  border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
+    border-left:1px solid #eee; */
+}
+#social_link2{
+    top:96px;
+}
+
+#social_link1:hover{
+    background:#3a5795;
+    color: #fff;
+}
+#social_link2:hover{
+    background:#0084B4;
+    color: #fff;
+}

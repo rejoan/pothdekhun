@@ -22,7 +22,8 @@
 
 </div><!--/.container-->
 
-
+<a target="_blank" id="social_link1" href="https://www.facebook.com/PothDekhun"><img src="http://www.webcoachbd.com/templates/protostar/images/facebook.png" alt="ফেইসবুক"/></a>
+        <a target="_blank" id="social_link2" href="https://www.twitter.com/PothDekhun"><img src="http://www.webcoachbd.com/templates/protostar/images/twitter.png" alt="টুইটার"/></a>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->

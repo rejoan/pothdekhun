@@ -464,6 +464,49 @@ $(document).ready(function () {
             $(this).parent().find('.alert').remove();
         }
     });
+
+
+    jQuery('#social_link1').hover(function () {
+        jQuery(this).stop(true, true).animate({
+            width: '+=105px',
+        }, 100, '', function () {
+            if (jQuery(this).children('span').length < 1) {
+                jQuery(this).append('<span>ফেইসবুকে আমরা</span>');
+            }
+        });
+
+
+    }, function () {
+        jQuery(this).children('span').remove();
+        jQuery(this).stop(true, true).animate({
+            width: '-=105px',
+        });
+
+    });
+
+    $('#social_link2').hover(function () {
+        $(this).stop(true, true).animate({
+            width: '+=105px',
+        }, 100, '', function () {
+            if ($(this).children('span').length < 1) {
+                $(this).append('<span>টুইটারে আমরা</span>');
+            }
+        });
+
+
+    }, function () {
+        $(this).children('span').remove();
+        $(this).stop(true, true).animate({
+            width: '-=105px',
+        });
+
+    });
+
+    $('#social_link1,#social_link2').mouseleave(function () {
+        $(this).children('span').remove();
+    });
+
+
 });
 
 function get_thanas(district, thana) {
