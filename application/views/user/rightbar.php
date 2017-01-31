@@ -4,7 +4,14 @@
         <div class="box-header with-border">
             <h3 class="box-title"><?php echo lang('rightbar') ?></h3>
         </div>
-        <!-- /.box-header -->
+
+        <div class="box-body">
+
+            <a target="_blank" href="http://www.w3space.net"><img class="img-responsive" src="<?php echo base_url('assets/images/') . 'sponsor.jpg'; ?>" alt="Hosting Sponsor"/></a>
+
+        </div>
+
+<hr/>
         <div class="box-body">
             <div class="box-footer box-comments">
                 <div class="box-comment">
@@ -14,7 +21,6 @@
                     </div>
                     <!-- /.comment-text -->
                 </div>
-               
             </div>
         </div>
         <!-- /.box-body -->
