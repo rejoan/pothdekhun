@@ -35,7 +35,7 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap.file-input.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/bootstrap-sweetalert/dist/sweetalert.min.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/val_lib.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/js/poth.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/sturgon-slider-1.2.1.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/tooltip.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/plugins/datatables/media/js/jquery.dataTables.min.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.pack.js'); ?>"></script>
