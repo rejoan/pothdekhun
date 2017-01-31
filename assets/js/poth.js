@@ -31,9 +31,10 @@ $(document).ready(function () {
         }
 
         var pd_stu = $('#pd_stu').val();
+        var pd_btu = $('#pd_btu').val();
         xhr = $.ajax({
             context: this,
-            url: pd_stu + '/weapons/get_places',
+            url: pd_stu + 'weapons/get_places',
             type: 'get',
             dataType: 'json',
             cache: true,
@@ -41,8 +42,15 @@ $(document).ready(function () {
                 typing: typing,
                 d: district,
                 t: thana
+            },
+            beforeSend: function () {
+                $(this).parent().append('<img id="loader" src="' + pd_btu + 'assets/images/loading.gif" alt="Loaind"/>');
+            },
+            complete: function () {
+                $('#loader').remove();
             }
         }).done(function (response) {
+            $('#loader').remove();
             var cm = '';
             var from = $('input[name="f"]').val();
             for (var i = 0; i < response.length; i++) {
@@ -51,6 +59,7 @@ $(document).ready(function () {
                 }
                 cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + '</a>';
             }
+
             $(this).next().show().html(cm);
         });
     });
@@ -144,6 +153,7 @@ $(document).ready(function () {
         }
 
         var pd_stu = $('#pd_stu').val();
+        var pd_btu = $('#pd_stu').val();
         xhr = $.ajax({
             context: this,
             url: pd_stu + '/weapons/search_places',
@@ -153,9 +163,17 @@ $(document).ready(function () {
             data: {
                 typing: typing,
                 d: district
+            },
+            beforeSend: function () {
+                $(this).parent().append('<img id="loader" src="' + pd_btu + 'assets/images/loading.gif" alt="Loaind"/>');
+            },
+            complete: function () {
+                $('#loader').remove();
             }
         }).done(function (response) {
+            $('#loader').remove();
             var cm = '';
+
             for (var i = 0; i < response.length; i++) {
                 var thana = ', ' + response[i]['Thana'];
                 if (district == 1) {
@@ -251,6 +269,7 @@ $(document).ready(function () {
         }
 
         var pd_stu = $('#pd_stu').val();
+        var pd_btu = $('#pd_btu').val();
         txhr = $.ajax({
             context: this,
             url: pd_stu + '/weapons/get_transports',
@@ -259,8 +278,15 @@ $(document).ready(function () {
             cache: true,
             data: {
                 typing: typing
+            },
+            beforeSend: function () {
+                $(this).parent().append('<img id="loader" src="' + pd_btu + 'assets/images/loading.gif" alt="Loaind"/>');
+            },
+            complete: function () {
+                $('#loader').remove();
             }
         }).done(function (response) {
+            $('#loader').remove();
             var cm = '';
             for (var i = 0; i < response.length; i++) {
                 cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['poribohon'] + '</a>';

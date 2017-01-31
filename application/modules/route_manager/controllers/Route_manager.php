@@ -245,16 +245,16 @@ class Route_manager extends MX_Controller {
         $route = $this->pm->get_row('id', $id, $table);
         $point = $default;
         if ($route['evidence'] != '') {
-            $point += 5;
+            $point += 6;
         }
         if ($route['evidence2'] != '') {
-            $point += 5;
+            $point += 6;
         }
 
         if ($table == 'routes') {
             $stoppages = $this->pm->total_item('stoppages', 'route_id', $id);
             if ($stoppages > 0) {
-                $point += $stoppages;
+                $point += ($stoppages*2);
             }
         }
 

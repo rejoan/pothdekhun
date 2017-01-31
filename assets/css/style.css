@@ -131,9 +131,9 @@ a.details:hover{
     padding:3px 5px;
     background:#eee;
     text-decoration: none;
-   /*  border-top:1px solid #eee;
-    border-bottom:1px solid #eee;
-    border-left:1px solid #eee; */
+    /*  border-top:1px solid #eee;
+     border-bottom:1px solid #eee;
+     border-left:1px solid #eee; */
 }
 #social_link2{
     top:96px;
@@ -146,4 +146,12 @@ a.details:hover{
 #social_link2:hover{
     background:#0084B4;
     color: #fff;
+}
+.suggestion_sec{
+    position: relative;
+}
+#loader{
+    position: absolute;
+    right: 16px;
+    top: 12px;
 }

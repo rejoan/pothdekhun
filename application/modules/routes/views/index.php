@@ -37,7 +37,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xs-10 col-md-6">
+                        <div class="col-xs-10 col-md-6 suggestion_sec">
                             <input type="text" class="form-control search_place" placeholder="<?php echo lang('from_push'); ?>" name="f" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                             <div class="list-group suggestion">
 
@@ -75,7 +75,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xs-10 col-md-6">
+                        <div class="col-xs-10 col-md-6 suggestion_sec">
                             <input type="text" class="form-control search_place" placeholder="<?php echo lang('device_to'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                             <div class="list-group suggestion">
 
