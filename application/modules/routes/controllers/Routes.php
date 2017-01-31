@@ -18,11 +18,11 @@ class Routes extends MX_Controller {
     }
 
     public function index() {
-        //var_dump($this->session);return;
+        $col_name = $this->nl->lang_based_data('bn_name', 'name');
         $data = array(
             'title' => lang('index'),
-            'districts' => $this->pm->get_data('districts'),
-            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1),
+            'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
+            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1, FALSE, FALSE, FALSE, $col_name, 'asc'),
             'action_transport' => site_url_tr('search/routes'),
             'search_action' => site_url_tr('search/index'),
             'settings' => $this->nl->get_config(),

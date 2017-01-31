@@ -19,7 +19,7 @@
                             <div class="form-group">
                                 <select name="fd" class="selectpicker districts" data-width="100%" data-thana="ft" data-live-search="true">
                                     <?php foreach ($districts as $d): ?>
-                                        <option value="<?php echo $d['id']; ?>">
+                                        <option value="<?php echo $d['id']; ?>" <?php echo $d['id'] == '1' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                     <label>
-                        <?php echo lang('from_view'); ?>
+                        <?php echo lang('to_view'); ?>
                     </label>
                 </div>
                 <div class="form-group">
@@ -57,7 +57,7 @@
                             <div class="form-group">
                                 <select name="td" class="selectpicker districts" data-width="100%" data-thana="th" data-live-search="true">
                                     <?php foreach ($districts as $d): ?>
-                                        <option value="<?php echo $d['id']; ?>">
+                                        <option value="<?php echo $d['id']; ?>" <?php echo $d['id'] == '1' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -99,7 +99,7 @@
                         <div class="form-group">
                             <select id="district" name="ds" class="selectpicker" data-width="100%" data-thana="th" data-live-search="true">
                                 <?php foreach ($districts as $d): ?>
-                                    <option value="<?php echo $d['id']; ?>">
+                                    <option value="<?php echo $d['id']; ?>" <?php echo $d['id'] == '1' ? 'selected="yes"' : ''; ?>>
                                         <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
                                     </option>
                                 <?php endforeach; ?>
