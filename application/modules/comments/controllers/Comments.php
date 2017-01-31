@@ -21,8 +21,7 @@ class Comments extends MX_Controller {
         $this->nl->is_admin('errors', FALSE);
         $data = array(
             'title' => 'Comments GRID',
-            'comments' => $this->cm->get_comments(),
-            'settings' => $this->nl->get_config(),
+            'comments' => $this->cm->get_comments()
         );
         $this->nl->view_loader('admin', 'index', NULL, $data, NULL, NULL, NULL);
     }

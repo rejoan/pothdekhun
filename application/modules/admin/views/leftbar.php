@@ -52,6 +52,7 @@
             <?php
             $this->nl->generate_link('users', 'users', 'fa-circle-o', 'User Manager');
             $this->nl->generate_link('comments', 'comments', 'fa-circle-o', 'Comment Manager');
+            $this->nl->generate_link('contact', 'comments/contact', 'fa-circle-o', 'Contact Manager');
             ?>
             <li>
                 <a href="<?php echo site_url('routes'); ?>" target="_blank">
