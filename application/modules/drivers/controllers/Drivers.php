@@ -16,30 +16,31 @@ class Drivers extends MX_Controller {
         }
         $this->load->model('Driver_model', 'dm');
     }
-    
-     public function index() {
 
+    public function index() {
         $data = array(
-            'title' => lang('index')
+            'title' => lang('index'),
+            'settings' => $this->nl->get_config(),
+            'drivers' => $this->pm->get_data('drivers')
         );
         $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
     }
-    
-    public function add(){
-        $data = array(
-            'title' => lang('index')
-        );
-        $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
-    }
-    
-    
-    public function hire(){
-        $data = array(
-            'title' => lang('index')
-        );
-        $this->nl->view_loader('user', 'hire', NULL, $data, 'latest', 'rightbar');
-    }
-    
-    
 
+    public function add() {
+        $data = array(
+            'title' => lang('index'),
+            'settings' => $this->nl->get_config(),
+            'drivers' => $this->pm->get_data('drivers')
+        );
+        $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
+    }
+
+    public function hire() {
+        $data = array(
+            'title' => lang('index'),
+            'settings' => $this->nl->get_config(),
+            'drivers' => $this->pm->get_data('drivers')
+        );
+        $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
+    }
 }
