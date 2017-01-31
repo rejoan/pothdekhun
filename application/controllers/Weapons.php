@@ -227,7 +227,11 @@ class Weapons extends MX_Controller {
             return;
         }
         $pd_sts = $this->input->post('pd_sts', TRUE);
-        $data = array('fare_downvote' => 1);
+        $data = array(
+            'fare_downvote' => 1,
+            'user_id' => $user_id,
+            'route_id' => $route_id
+        );
 
         if ($pd_sts == 'pd_fpk') {//if upvote
             $data = array(

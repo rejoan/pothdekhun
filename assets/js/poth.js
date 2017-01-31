@@ -70,19 +70,23 @@ $(document).ready(function () {
             data: {
                 pd_identity: pd_identity,
                 pd_sts: pd_sts
+            },
+            beforeSend: function () {
+                $(this).addClass('disabled');
             }
         }).done(function (response) {
-            if (response.msg == 'exist') {
+            if (response.msg === 'exist') {
                 swal('Already given', 'You vote once earlier in this route', 'warning');
             }
-            if (response.msg == 'updated') {
+            if (response.msg === 'updated') {
                 swal('Thank you', 'You vote taken', 'success');
-                if (pd_sts == 'pd_fpk') {
+                if (pd_sts === 'pd_fpk') {
                     $('#pd_crc').text(response.v);
                 } else {
                     $('#pd_wrn').text(response.v);
                 }
             }
+            $(this).removeClass('disabled');
         });
     });
 
