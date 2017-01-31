@@ -35,25 +35,32 @@ class Pages extends MX_Controller {
                 $this->nl->view_loader('user', 'contact', NULL, $data, 'latest', 'rightbar');
                 return;
             }
-            $from_mail = trim($this->input->post('email', TRUE));
-            $comment = trim($this->input->post('comment', TRUE));
-            $this->load->library('email');
-            $subject = 'Pothdekhun contact';
-            $body = '<p>Comment: ' . $comment . '</p>';
-            $config['mailtype'] = 'html';
-            $config['protocol'] = 'sendmail';
-            $this->email->initialize($config);
-            $this->email->from($from_mail, 'PothDekhun');
-            $this->email->to('rejoan.er@gmail.com');
-            $this->email->subject($subject);
-            $this->email->message($body);
-
-            if ($this->email->send()) {
-                $this->session->set_flashdata('message', lang('mail_sent'));
-                redirect_tr('pages/contact_us');
-            } else {
-                //echo $this->email->print_debugger();
-            }
+            //var_dump($this->input->post());
+            $posts = $this->input->post();
+            unset($posts['submit']);
+//            $from_mail = trim($this->input->post('email', TRUE));
+//            $comment = trim($this->input->post('comment', TRUE));
+//            $this->load->library('email');
+//            $subject = 'Pothdekhun contact';
+//            $body = '<p>Comment: ' . $comment . '</p>';
+//            $config['mailtype'] = 'html';
+//            $config['protocol'] = 'sendmail';
+//            $this->email->initialize($config);
+//            $this->email->from($from_mail, 'PothDekhun');
+//            $this->email->to('rejoan.er@gmail.com');
+//            $this->email->subject($subject);
+//            $this->email->message($body);
+//
+//            if ($this->email->send()) {
+//                $this->session->set_flashdata('message', lang('mail_sent'));
+//                redirect_tr('pages/contact_us');
+//            } else {
+//                //echo $this->email->print_debugger();
+//            }
+            $this->db->set('added', 'NOW()', FALSE);
+            $this->pm->insert_data('contact_us', $posts);
+            $this->session->set_flashdata('message', lang('comment_sent'));
+            redirect_tr('pages/contact_us');
         }
         $this->nl->view_loader('user', 'contact', NULL, $data, 'latest', 'rightbar');
     }

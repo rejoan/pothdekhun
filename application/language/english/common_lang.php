@@ -1,5 +1,4 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['index'] = 'Quickly Find All Transport and Route Information of Bangladesh';
