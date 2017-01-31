@@ -64,5 +64,13 @@ class Pages extends MX_Controller {
         }
         $this->nl->view_loader('user', 'contact', NULL, $data, 'latest', 'rightbar');
     }
+    
+    public function point_rules(){
+        $data = array(
+            'title' => lang('point_rules'),
+            'settings' => $this->nl->get_config(),
+        );
+        $this->nl->view_loader('user', 'point', NULL, $data, 'latest', 'rightbar');
+    }
 
 }

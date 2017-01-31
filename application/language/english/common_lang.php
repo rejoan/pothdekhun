@@ -147,3 +147,4 @@ $lang['mail_sent_recover'] = 'Please check your email for Password';
 $lang['forgot_password'] = 'Recover Password';
 $lang['sent_pass'] = 'Send Password';
 $lang['mail_sent'] = 'Thank You for your Comment';
+$lang['point_rules'] = 'Point Rules';
