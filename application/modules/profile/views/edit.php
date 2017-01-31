@@ -141,7 +141,7 @@ $this->load->view('leftbar');
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo lang('profile_image'); ?></label>
                     <div class="col-xs-10 col-md-6">
-                        <input type="file" class="form-control btn-info" name="avatar">
+                        <input type="file" class="form-control btn-info evidence" name="avatar">
                     </div>
                 </div>
                 <div class="form-group">

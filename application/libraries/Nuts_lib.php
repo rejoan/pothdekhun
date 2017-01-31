@@ -76,7 +76,7 @@ class Nuts_lib {
             $icon_class = '';
         }
         echo '<li class="' . $this->is_selected($is_selected) . '">
-                        <a href="' . site_url_tr($contrler) . '">
+                        <a href="' . site_url($contrler) . '">
                             <i class="fa ' . $icon_class . '"></i> <span>' . trim($menu_text) . '</span>
                         </a>
                     </li>';

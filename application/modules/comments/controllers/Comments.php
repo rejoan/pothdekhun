@@ -18,11 +18,20 @@ class Comments extends MX_Controller {
     }
 
     public function index() {
-
+        $this->nl->is_admin('errors', FALSE);
         $data = array(
-            'title' => lang('index')
+            'title' => 'Comments GRID',
+            'comments' => $this->cm->get_comments(),
+            'settings' => $this->nl->get_config(),
         );
-        $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('admin', 'index', NULL, $data, NULL, NULL, NULL);
+    }
+
+    public function delete($id) {
+        $this->nl->is_admin('errors', FALSE);
+        $this->pm->deleter('id', $id, 'comments');
+        $this->session->set_flashdata('message', 'Comments Deleted');
+        redirect('comments');
     }
 
     public function add() {
@@ -63,13 +72,6 @@ class Comments extends MX_Controller {
             redirect_tr('routes/show/' . $route_id);
         }
         redirect_tr('routes');
-    }
-
-    public function hire() {
-        $data = array(
-            'title' => lang('index')
-        );
-        $this->nl->view_loader('user', 'hire', NULL, $data, 'latest', 'rightbar');
     }
 
 }

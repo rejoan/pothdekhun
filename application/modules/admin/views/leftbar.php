@@ -16,9 +16,8 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li>
-                <a href="<?php echo site_url('b_janina'); ?>"><i class="fa fa fa-dashboard"></i> Dashboard</a>
-            </li>
+            <?php $this->nl->generate_link('b_janina', 'b_janina', 'fa-dashboard', 'Dashboard'); ?>
+
             <li class="treeview <?php echo $this->nl->is_selected('route_manager,route_manager/latest'); ?>">
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>Route Manager</span>
@@ -27,12 +26,10 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="<?php echo $this->nl->is_selected('route_manager/index'); ?>">
-                        <a href="<?php echo site_url('route_manager'); ?>"><i class="fa fa-circle-o"></i> Edited Routes</a>
-                    </li>
-                    <li class="<?php echo $this->nl->is_selected('route_manager/latest'); ?>">
-                        <a href="<?php echo site_url('route_manager/latest'); ?>"><i class="fa fa-circle-o"></i> Latest Added</a>
-                    </li>
+                    <?php
+                    $this->nl->generate_link('route_manager/index', 'route_manager', 'fa-circle-o', 'Edited Routes');
+                    $this->nl->generate_link('route_manager/latest', 'route_manager/latest', 'fa-circle-o', 'Latest Added');
+                    ?>
                 </ul>
             </li>
 
@@ -44,21 +41,18 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="<?php echo $this->nl->is_selected('admin/latest_poribohon'); ?>">
-                        <a href="<?php echo site_url('b_janina/latest_poribohon'); ?>"><i class="fa fa-circle-o"></i> Latest Poribohons</a>
-                    </li>
-                    <li class="<?php echo $this->nl->is_selected('admin/edited_poribohon'); ?>">
-                        <a href="<?php echo site_url('b_janina/edited_poribohons'); ?>"><i class="fa fa-circle-o"></i> Edited Poribohons</a>
-                    </li>
+                    <?php
+                    $this->nl->generate_link('admin/edited_poribohon', 'b_janina/edited_poribohons', 'fa-circle-o', 'Edited Poribohons');
+                    $this->nl->generate_link('admin/latest_poribohon', 'b_janina/latest_poribohon', 'fa-circle-o', 'Latest Poribohons');
+                    ?>
                 </ul>
 
             </li>
 
-            <li>
-                <a href="<?php echo site_url('users'); ?>">
-                    <i class="fa fa-users"></i> <span>User Manager</span>
-                </a>
-            </li>
+            <?php
+            $this->nl->generate_link('users', 'users', 'fa-circle-o', 'User Manager');
+            $this->nl->generate_link('comments', 'comments', 'fa-circle-o', 'Comment Manager');
+            ?>
             <li>
                 <a href="<?php echo site_url('routes'); ?>" target="_blank">
                     <i class="fa fa-anchor"></i> <span>Front End</span>
