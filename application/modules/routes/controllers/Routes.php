@@ -259,7 +259,7 @@ class Routes extends MX_Controller {
             $this->form_validation->set_rules('t', lang('to_view'), 'required');
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer|greater_than[0]');
             if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+                $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
                 return;
             }
 

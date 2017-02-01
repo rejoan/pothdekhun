@@ -376,7 +376,7 @@
                         </div>
                     </div>
                 <?php endif; ?>
-                <?php if ($this->nl->is_admin()): ?>
+                <?php if ($this->nl->is_admin() && isset($route)): ?>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
                             <div class="col-sm-6">
