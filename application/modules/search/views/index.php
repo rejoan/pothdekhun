@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<div id="route_detail" class="col-xs-12 col-md-6">
+<div id="route_detail" class="col-sm-6 col-sm-push-3">
     <div class="box box-poth">
         <div class="box-header with-border">
             <?php

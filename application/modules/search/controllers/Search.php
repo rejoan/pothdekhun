@@ -57,7 +57,7 @@ class Search extends MX_Controller {
             'links' => $links,
             'total_route' => $total_rows
         );
-        $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
     }
 
     public function routes() {
@@ -102,7 +102,7 @@ class Search extends MX_Controller {
             'links' => $links,
             'segment' => $segment
         );
-        $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
     }
 
 }

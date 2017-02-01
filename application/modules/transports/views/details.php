@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<div id="route_detail" class="col-xs-12 col-md-6">
+<div id="route_detail" class="col-sm-6 col-sm-push-3">
     <div class="box box-poth">
         <div class="box-header with-border">
             <p><?php echo lang('poribohon_info') . ':</p> <h3><span class="label label-info">' . mb_convert_case($poribohon[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></h3>

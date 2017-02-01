@@ -50,7 +50,7 @@ class Transports extends MX_Controller {
             'segment' => $segment,
             'settings' => $this->nl->get_config()
         );
-        $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar','menu',TRUE);
     }
 
     public function add() {
@@ -71,7 +71,7 @@ class Transports extends MX_Controller {
             $this->form_validation->set_rules('transport_name', lang('transport_name'), 'required|is_unique[poribohons.name]');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+                $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
                 return;
             }
 
@@ -133,7 +133,7 @@ class Transports extends MX_Controller {
             redirect_tr('transports');
         }
 
-        $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
     }
 
     /**
@@ -188,7 +188,7 @@ class Transports extends MX_Controller {
             $this->form_validation->set_rules('transport_name', lang('transport_name'), 'required');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+                $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
                 return;
             }
 
@@ -245,7 +245,7 @@ class Transports extends MX_Controller {
             redirect_tr('transports');
         }
 
-        $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
     }
 
     public function delete($id) {
@@ -284,7 +284,7 @@ class Transports extends MX_Controller {
         );
         $data['meta_title'] = $data['title'] . lang('meta_title_transport');
         //echo $this->db->last_query();return;
-        $this->nl->view_loader('user', 'details', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'details', 'rightbar','menu',TRUE);
     }
 
     public function calculate_point($id) {

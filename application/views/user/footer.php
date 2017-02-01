@@ -4,7 +4,7 @@
 <input type="hidden" id="email_text" value="<?php echo lang('email_text'); ?>"/>
 <input type="hidden" id="email_exist" value="<?php echo lang('email_exist'); ?>"/>
 
-</div><!-- col-->
+<!--</div> col-xs-12 end-->
 
 
 </div><!-- row-->

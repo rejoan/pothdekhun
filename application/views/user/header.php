@@ -43,5 +43,5 @@
     <body>
         <div class="container-fluid"><!-- container start here: ended in footer-->
             <div class="row">
-                <div class="col-xs-12">
+<!--                <div class="col-xs-12"> col-xs-12 started-->
                     <?php $this->nl->breadcrumb(); ?>

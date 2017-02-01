@@ -17,7 +17,7 @@ class Pages extends MX_Controller {
             'title' => lang('about_us'),
             'settings' => $this->nl->get_config(),
         );
-        $this->nl->view_loader('user', 'about', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'about', 'rightbar', 'menu', TRUE);
     }
 
     public function contact_us() {
@@ -62,15 +62,15 @@ class Pages extends MX_Controller {
             $this->session->set_flashdata('message', lang('comment_sent'));
             redirect_tr('pages/contact_us');
         }
-        $this->nl->view_loader('user', 'contact', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'contact', 'rightbar', 'menu', TRUE);
     }
-    
-    public function point_rules(){
+
+    public function point_rules() {
         $data = array(
             'title' => lang('point_rules'),
             'settings' => $this->nl->get_config(),
         );
-        $this->nl->view_loader('user', 'point', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'point', 'rightbar', 'menu', TRUE);
     }
 
 }

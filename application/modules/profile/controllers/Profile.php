@@ -24,7 +24,8 @@ class Profile extends MX_Controller {
             'tot_added' => $total_route,
             'settings' => $this->nl->get_config()
         );
-        $this->nl->view_loader('user', 'index', NULL, $data, NULL, 'latest');
+        $this->view_loader($data, NULL, 'index');
+        //$this->nl->view_loader('user', 'leftbar', NULL, $data, 'index', 'latest', 'menu', TRUE);
     }
 
     public function show($id) {
@@ -35,7 +36,17 @@ class Profile extends MX_Controller {
             'tot_added' => $total_route,
             'settings' => $this->nl->get_config()
         );
-        $this->nl->view_loader('user', 'index', NULL, $data, NULL, 'latest');
+        $this->view_loader($data, NULL, 'index');
+        //$this->nl->view_loader('user', 'index', NULL, $data, NULL, 'latest');
+    }
+
+    protected function view_loader($data, $view_from = NULL, $view = NULL) {
+        $this->load->view('user/header', $data);
+        $this->load->view('user/menu');
+        $this->load->view($view_from . $view);
+        $this->load->view('leftbar');
+        $this->load->view('rightbar');
+        $this->load->view('user/footer');
     }
 
     public function my_routes() {
@@ -61,7 +72,6 @@ class Profile extends MX_Controller {
         if (empty($d)) {
             $district_id = 1;
         }
-
         $data = array(
             'title' => lang('all_routes_your'),
             'routes' => $this->prm->get_all($this->user_id, $per_page, $segment, $d, $t, $ttype),
@@ -72,7 +82,12 @@ class Profile extends MX_Controller {
             'districts' => $this->pm->get_data('districts'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $district_id)
         );
-        $this->nl->view_loader('user', 'routes', 'routes', $data, 'latest', 'rightbar');
+        $this->load->view('user/header', $data);
+        $this->load->view('user/menu');
+        $this->load->view('routes/routes');
+        $this->load->view('user/latest');
+        $this->load->view('user/rightbar');
+        $this->load->view('user/footer');
     }
 
     public function edit() {
@@ -142,7 +157,9 @@ class Profile extends MX_Controller {
             $this->session->set_flashdata('message', lang('profile_update_success'));
             redirect_tr('profile');
         }
-        $this->nl->view_loader('user', 'edit', NULL, $data, NULL, 'rightbar');
+        $this->view_loader($data, NULL, 'edit');
+        
+        //$this->nl->view_loader('user', 'edit', NULL, $data, NULL, 'rightbar');
     }
 
 }

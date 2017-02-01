@@ -23,7 +23,7 @@ class Nuts_lib {
      * @param type $rightbar
      * @param type $menu
      */
-    public function view_loader($dirn = NULL, $view_name = 'index', $view_from = NULL, $data = array(), $leftbar = NULL, $rightbar = NULL, $menu = 'menu') {
+    public function view_loader($dirn = NULL, $view_name = 'index', $view_from = NULL, $data = array(), $leftbar = NULL, $rightbar = NULL, $menu = 'menu', $responsive = FALSE) {
         if (!empty($dirn)) {
             $dirn = $dirn . '/';
         }
@@ -37,9 +37,11 @@ class Nuts_lib {
         }
 
         if (!empty($leftbar)) {
-            $this->CI->load->view($dirn . $leftbar);
+            $left_to_main = $responsive ? '' : $dirn;
+            $this->CI->load->view($left_to_main . $leftbar);
         }
-        $this->CI->load->view($view_from . $view_name);
+        $main_from = $responsive ? $dirn : $view_from;
+        $this->CI->load->view($main_from . $view_name);
 
         if (!empty($rightbar)) {
             $this->CI->load->view($dirn . $rightbar);

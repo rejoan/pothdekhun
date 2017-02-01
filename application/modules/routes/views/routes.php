@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<div class="col-xs-12 col-md-6">
+<div class="col-sm-6 col-sm-push-3">
     <?php
     $message = $this->session->flashdata('message');
     if ($message) {
@@ -12,10 +12,10 @@
         </div>
 
 
-        <div class="box-body table-responsive">
+        <div class="box-body">
             <form action="<?php echo $action; ?>" method="get" accept-charset="UTF-8">
                 <div class="row">
-                    <div class="col-xs-3">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <select name="fd" class="selectpicker districts" data-width="100%" data-thana="ft" data-live-search="true">
                                 <?php foreach ($districts as $d): ?>
@@ -27,7 +27,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-3">
+                    <div class="col-md-3">
                         <div id="tft" data-toggle="tooltip" data-placement="bottom" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
                             <select id="ft" name="ft" class="selectpicker thanas" data-width="100%" data-live-search="true" >
                                 <?php foreach ($thanas as $t): ?>
@@ -38,7 +38,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-md-3">
 
                         <select name="t" class="selectpicker" data-width="100%" data-live-search="true" >
                             <option value="bus" <?php echo trim($this->input->get('t', TRUE)) == 'bus' ? 'selected="yes"' : ''; ?>>
@@ -61,13 +61,13 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-xs-2">
+                    <div class="col-md-2">
                         <input type="submit" class="btn btn--sm btn-info" value="<?php echo lang('see_transport_button'); ?>"/>
                     </div>
                 </div>
             </form>
-
-            <table class="table table-hover table-bordered table-striped dataTable">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered table-striped dataTable">
                 <thead>
                     <tr>
                         <th><?php echo lang('ID'); ?></th>
@@ -101,6 +101,8 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            </div>
+            
         </div>
         <div class="box-footer">
             <?php echo $links; ?>

@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<div id="profile" class="col-sm-3 col-sm-pull-6">
+<div id="profile" class="col-sm-3">
     <div class="box box-primary box-poth">
         <div class="box-header with-border">
             <h3 class="box-title"><?php echo lang('recent_routes') ?></h3>

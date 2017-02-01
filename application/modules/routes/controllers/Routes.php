@@ -26,9 +26,10 @@ class Routes extends MX_Controller {
             'action_transport' => site_url_tr('search/routes'),
             'search_action' => site_url_tr('search/index'),
             'settings' => $this->nl->get_config(),
-            'meta_title' => lang('home_page_meta')
+            'meta_title' => lang('home_page _meta')
         );
-        $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
+
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar','menu',TRUE);
     }
 
     /**
@@ -38,7 +39,7 @@ class Routes extends MX_Controller {
     public function add() {
         $this->nl->is_logged();
         $this->load->library('user_agent');
-        $this->load->library('recaptcha');
+        //$this->load->library('recaptcha');
         $this->load->library('form_validation');
         $fd = trim($this->input->post('fd', TRUE));
         $td = trim($this->input->post('td', TRUE));
@@ -61,7 +62,7 @@ class Routes extends MX_Controller {
             'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $fdistrict),
             'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $tdistrict),
             'settings' => $this->nl->get_config(),
-            'captcha' => $this->recaptcha->recaptcha_get_html()
+//            'captcha' => $this->recaptcha->recaptcha_get_html()
         );
 
         if ($this->input->post('submit')) {
@@ -120,7 +121,7 @@ class Routes extends MX_Controller {
             //$this->form_validation->set_rules('g-recaptcha-response', lang('security_code'), 'callback_captcha_check');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+                $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
                 return;
             }
             $col_name_rev = $this->nl->lang_based_data('bn_name', 'name');
@@ -185,7 +186,7 @@ class Routes extends MX_Controller {
             }
             redirect_tr('routes/all');
         }
-        $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
     }
 
     public function captcha_check() {
@@ -295,7 +296,7 @@ class Routes extends MX_Controller {
                     $this->upload->initialize($config);
                     if (!$this->upload->do_upload('evidence' . $f)) {
                         $this->session->set_flashdata('message', $this->upload->display_errors());
-                        $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+                        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
                         return;
                     } else {
                         $file = 'evidences/' . $evidence_name[$f];
@@ -420,7 +421,7 @@ class Routes extends MX_Controller {
 
             redirect_tr('routes/all');
         }
-        $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
     }
 
     /**
@@ -489,7 +490,7 @@ class Routes extends MX_Controller {
         );
         $data['meta_title'] = $data['title'] . lang('meta_title_route');
         //echo $this->db->last_query();return;
-        $this->nl->view_loader('user', 'details', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'details', 'rightbar','menu',TRUE);
     }
 
     /**
@@ -529,7 +530,7 @@ class Routes extends MX_Controller {
             'districts' => $this->pm->get_data('districts'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $district_id)
         );
-        $this->nl->view_loader('user', 'routes', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'routes', 'rightbar','menu',TRUE);
     }
 
     public function delete($id) {

@@ -24,7 +24,7 @@ class Reputation extends MX_Controller {
             'tot_added' => $total_route,
             'settings' => $this->nl->get_config()
         );
-        $this->nl->view_loader('user', 'index', NULL, $data, NULL, 'latest');
+        $this->nl->view_loader('user', 'index', NULL, $data, NULL, 'latest','menu',TRUE);
     }
 
     public function show($id) {

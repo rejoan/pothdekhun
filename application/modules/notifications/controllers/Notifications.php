@@ -24,7 +24,7 @@ class Notifications extends MX_Controller {
             'settings' => $this->nl->get_config(),
             'notifications' => $this->nm->all_notification($this->user_id)
         );
-        $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar','menu',TRUE);
     }
 
     public function details($id) {
@@ -34,7 +34,7 @@ class Notifications extends MX_Controller {
             'settings' => $this->nl->get_config(),
             'notification' => $this->nm->get_notification($id, $this->user_id)
         );
-        $this->nl->view_loader('user', 'details', NULL, $data, 'latest', 'rightbar');
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'details', 'rightbar','menu',TRUE);
     }
 
 }
