@@ -29,7 +29,7 @@ class Routes extends MX_Controller {
             'meta_title' => lang('home_page _meta')
         );
 
-        $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar','menu',TRUE);
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
     }
 
     /**
@@ -121,7 +121,7 @@ class Routes extends MX_Controller {
             //$this->form_validation->set_rules('g-recaptcha-response', lang('security_code'), 'callback_captcha_check');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
+                $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
                 return;
             }
             $col_name_rev = $this->nl->lang_based_data('bn_name', 'name');
@@ -186,7 +186,7 @@ class Routes extends MX_Controller {
             }
             redirect_tr('routes/all');
         }
-        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
     }
 
     public function captcha_check() {
@@ -296,7 +296,7 @@ class Routes extends MX_Controller {
                     $this->upload->initialize($config);
                     if (!$this->upload->do_upload('evidence' . $f)) {
                         $this->session->set_flashdata('message', $this->upload->display_errors());
-                        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
+                        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
                         return;
                     } else {
                         $file = 'evidences/' . $evidence_name[$f];
@@ -405,8 +405,10 @@ class Routes extends MX_Controller {
 
             if (!empty($stoppages)) {
                 if ($this->nl->is_admin()) {
-                    $this->pm->deleter('route_id', $route_id, $stopage_table);
-                    $this->db->insert_batch($stopage_table, $stoppages);
+                    if ($this->input->post('stoppage_update') == 'yes') {//if delete insert stoppage
+                        $this->pm->deleter('route_id', $route_id, $stopage_table);
+                        $this->db->insert_batch($stopage_table, $stoppages);
+                    }
                     $this->session->set_flashdata('message', lang('edit_success'));
                 } else {
                     $this->session->set_flashdata('message', lang('edit_success_user'));
@@ -421,7 +423,7 @@ class Routes extends MX_Controller {
 
             redirect_tr('routes/all');
         }
-        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
     }
 
     /**
@@ -490,7 +492,7 @@ class Routes extends MX_Controller {
         );
         $data['meta_title'] = $data['title'] . lang('meta_title_route');
         //echo $this->db->last_query();return;
-        $this->nl->view_loader('user', 'latest', NULL, $data, 'details', 'rightbar','menu',TRUE);
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'details', 'rightbar', 'menu', TRUE);
     }
 
     /**
@@ -530,7 +532,7 @@ class Routes extends MX_Controller {
             'districts' => $this->pm->get_data('districts'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $district_id)
         );
-        $this->nl->view_loader('user', 'latest', NULL, $data, 'routes', 'rightbar','menu',TRUE);
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'routes', 'rightbar', 'menu', TRUE);
     }
 
     public function delete($id) {

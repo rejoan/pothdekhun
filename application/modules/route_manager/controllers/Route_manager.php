@@ -220,13 +220,14 @@ class Route_manager extends MX_Controller {
      */
     public function decline($id) {
         $route = $this->pm->get_row('id', $id, 'edited_routes');
+        $main_route = $this->pm->get_row('id', $route['route_id'], 'routes');
         $file = 'evidences/' . $route['evidence'];
         $file2 = 'evidences/' . $route['evidence2'];
         //var_dump(is_file($file));return;
-        if (is_file($file)) {
+        if (is_file($file) && ($main_route['evidence'] != $route['evidence'])) {
             unlink($file);
         }
-        if (is_file($file2)) {
+        if (is_file($file2) && ($main_route['evidence2'] != $route['evidence2'])) {
             unlink($file2);
         }
         $this->pm->deleter('id', $id, 'edited_routes');

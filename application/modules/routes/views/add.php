@@ -376,7 +376,24 @@
                         </div>
                     </div>
                 <?php endif; ?>
+                <?php if ($this->nl->is_admin()): ?>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            <div class="col-sm-6">
+                                <input type="radio" name="stoppage_update" value="yes">
+                                Update stoppage
+                            </div>
+                        </label>
 
+                        <label class="col-sm-3 control-label">
+                            <div class="col-sm-6">
+                                <input type="radio" name="stoppage_update" value="no" checked="yes">
+                                Not Update stoppage
+                            </div>
+                        </label>
+
+                    </div>
+                <?php endif; ?>
                 <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $action_button; ?>"/>
             </form>
         </div>
