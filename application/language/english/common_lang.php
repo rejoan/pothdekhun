@@ -148,3 +148,4 @@ $lang['forgot_password'] = 'Recover Password';
 $lang['sent_pass'] = 'Send Password';
 $lang['mail_sent'] = 'Thank You for your Comment';
 $lang['point_rules'] = 'Point Rules';
+$lang['place_mandatory'] = 'For Dhaka Destination/Departure Place is Mandatory. We have all bus stand/Place name in our database.';

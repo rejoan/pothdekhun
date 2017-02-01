@@ -11,8 +11,11 @@
             <?php echo lang('see_transport'); ?>
         </div>
         <div class="box-body">
+            <div id="place_mandatory" class="alert alert-danger err" >
+                <h4 class="no-margin" style="line-height: 1.5;"><?php echo lang('place_mandatory'); ?></h4>
+            </div>
             <!-- route info pull form -->
-            <form action="<?php echo $action_transport; ?>" method="get" accept-charset="UTF-8">
+            <form id="main_search" action="<?php echo $action_transport; ?>" method="get" accept-charset="UTF-8">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-xs-10 col-md-3">
@@ -38,7 +41,7 @@
                             </div>
                         </div>
                         <div class="col-xs-10 col-md-6 suggestion_sec">
-                            <input type="text" class="form-control search_place" placeholder="<?php echo lang('from_push'); ?>" name="f" required title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                            <input type="text" class="form-control search_place" placeholder="<?php echo lang('departure_place'); ?>" name="f" title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                             <div class="list-group suggestion">
 
                             </div>
@@ -76,14 +79,14 @@
                             </div>
                         </div>
                         <div class="col-xs-10 col-md-6 suggestion_sec">
-                            <input type="text" class="form-control search_place" placeholder="<?php echo lang('device_to'); ?>" name="t" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                            <input type="text" class="form-control search_place" placeholder="<?php echo lang('destination_place'); ?>" name="t" title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                             <div class="list-group suggestion">
 
                             </div>
                         </div>
                     </div>
                 </div>
-                <input type="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('see_transport_button'); ?>"/>
+                <input id="see_transport" type="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('see_transport_button'); ?>"/>
             </form>
         </div>
     </div>
@@ -124,3 +127,24 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#see_transport').click(function (e) {
+            var fromd = $('#main_search select[name="fd"]').val();
+            var fromp = $.trim($('#main_search input[name="f"]').val());
+            var tod = $('#main_search select[name="td"]').val();
+            var top = $.trim($('#main_search input[name="t"]').val());
+            if (fromd == 1 && tod == 1 && (fromp.length < 1 || top.length < 1)) {
+                $('#place_mandatory').show().effect('shake');
+                if (fromp.length < 1) {
+                    $('#main_search input[name="f"]').css('border', '1px solid #ff0000');
+                }
+                if (top.length < 1) {
+                    $('#main_search input[name="t"]').css('border', '1px solid #ff0000');
+                }
+
+                return false;
+            }
+        });
+    });
+</script>

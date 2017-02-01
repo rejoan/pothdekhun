@@ -61,6 +61,16 @@ class Search extends MX_Controller {
     }
 
     public function routes() {
+        $per_page = 10;
+        $num_links = 5;
+
+        if ($this->input->get('page')) {
+            $sgm = (int) trim($this->input->get('page'));
+            $segment = $per_page * ($sgm - 1);
+        } else {
+            $segment = 0;
+        }
+
         $from_place = trim($this->input->get('f', TRUE));
         $from_district = trim($this->input->get('fd', TRUE));
         //echo $from_district;return;
@@ -68,10 +78,16 @@ class Search extends MX_Controller {
         $to_place = trim($this->input->get('t', TRUE));
         $to_district = trim($this->input->get('td', TRUE));
         $to_thana = trim($this->input->get('th', TRUE));
+
+        $url = 'search/routes?fd=' . $from_district . '&ft=' . $from_thana . '&f=' . $from_place . '&td=' . $to_district . '&th=' . $to_thana . '&t=' . $to_place;
+
+
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', ' s');
 
-        $routes = $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $stopage_table);
+        $routes = $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $stopage_table, $per_page, $segment);
+        $total_rows = $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $stopage_table, $per_page, $segment, TRUE);
         //var_dump($routes);return;
+        $links = $this->nl->generate_pagination($url, $total_rows, $per_page, $num_links);
 
         array_walk($routes[0], function(&$a) use($stopage_table) {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
@@ -82,7 +98,9 @@ class Search extends MX_Controller {
             'title' => lang('search_result'),
             'routes' => $routes[0],
             'found_in' => $routes[1],
-            'settings' => $this->nl->get_config()
+            'settings' => $this->nl->get_config(),
+            'links' => $links,
+            'segment' => $segment
         );
         $this->nl->view_loader('user', 'index', NULL, $data, 'latest', 'rightbar');
     }

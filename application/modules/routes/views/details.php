@@ -14,12 +14,12 @@
             <div class="row custom_margin">
                 <?php if (!empty($route['evidence'])): ?>
                     <div class="col-md-4">
-                        <a class="fancybox" href="<?php echo base_url('evidences') . '/' . $route['evidence']; ?>"><img class="img-responsive img-thumbnail" src="<?php echo base_url('evidences') . '/' . $route['evidence']; ?>" alt="<?php echo $route['evidence']; ?>"/></a>
+                        <a class="fancybox" href="<?php echo base_url('evidences') . '/' . $route['evidence']; ?>"><img class="img-responsive img-thumbnail" src="<?php echo base_url('evidences') . '/' . $route['evidence']; ?>" alt="<?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?>"/></a>
                     </div>
                 <?php endif; ?>
                 <?php if (!empty($route['evidence2'])): ?>
                     <div class="col-md-4">
-                        <a class="fancybox" href="<?php echo base_url('evidences') . '/' . $route['evidence2']; ?>"><img class="img-responsive img-thumbnail" src="<?php echo base_url('evidences') . '/' . $route['evidence2']; ?>" alt="<?php echo $route['evidence2']; ?>"/></a>
+                        <a class="fancybox" href="<?php echo base_url('evidences') . '/' . $route['evidence2']; ?>"><img class="img-responsive img-thumbnail" src="<?php echo base_url('evidences') . '/' . $route['evidence2']; ?>" alt="<?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?>"/></a>
                     </div>
                 <?php endif; ?>
             </div>

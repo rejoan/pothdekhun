@@ -328,7 +328,12 @@ $(document).ready(function () {
         });
     });
 
-
+    $('#main_search .search_place').blur(function () {
+        var input = $(this).val();
+        if (input.length > 0) {
+            $(this).removeAttr('style');
+        }
+    });
 
     $('.evidence').change(function () {
         var file = this.files[0];
@@ -357,6 +362,7 @@ $(document).ready(function () {
         var place = $(this).text();
         $(this).parent().prev().val(place);
         $(this).parent().empty();
+        $('#main_search input[name="f"],#main_search input[name="t"]').removeAttr('style');
     });
 
     $('#stoppage_section .list-group-item').live('click', function () {

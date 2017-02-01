@@ -155,3 +155,6 @@ a.details:hover{
     right: 16px;
     top: 12px;
 }
+.err{
+    display: none;
+}
