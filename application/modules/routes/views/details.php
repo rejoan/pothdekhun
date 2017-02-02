@@ -24,39 +24,39 @@
                 <?php endif; ?>
             </div>
             <div class="row custom_margin">
-                <div class="col-xs-3">
+                <div class="col-md-3">
                     <p class="no-margin"><?php echo lang('transport_type'); ?></p>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-md-9">
                     <h4 class="no-margin"><?php echo get_tr_type($route['transport_type']); ?></h4>
                 </div>
 
 
             </div>
             <div class="row custom_margin">
-                <div class="col-xs-3">
+                <div class="col-md-3">
                     <p><?php echo lang('vehicle_name'); ?></p>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-md-9">
                     <h4 class="no-margin"><a href="<?php echo site_url_tr('transports/show') . '/' . $route['poribohon_id']; ?>"><?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></a></h4>
                 </div>
             </div>
 
             <div class="row custom_margin">
-                <div class="col-xs-3">
+                <div class="col-md-3">
                     <p><?php echo lang('departure_place'); ?></p>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-md-9">
                     <h4 class="no-margin"><?php echo mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8'); ?></h4>
                 </div>
 
 
             </div>
             <div class="row custom_margin">
-                <div class="col-xs-3">
+                <div class="col-md-3">
                     <p><?php echo lang('destination_place'); ?></p>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-md-9">
                     <h4 class="no-margin"><?php echo mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8'); ?></h4>
                 </div>
 
@@ -64,7 +64,7 @@
             </div>
 
             <div class="row custom_margin">
-                <div class="col-xs-3">
+                <div class="col-md-3">
                     <p><?php echo lang('main_rent'); ?></p>
 
                 </div>
@@ -83,10 +83,10 @@
 
 
             <div class="row custom_margin">
-                <div class="col-xs-3">
+                <div class="col-md-3">
                     <p><?php echo lang('departure_time'); ?></p>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-md-9">
                     <h4 class="no-margin"><?php echo $route['departure_time'] == 1 ? lang('after_while') : $route['departure_time']; ?></h4>
                 </div>
             </div>
@@ -129,19 +129,19 @@
             </div>
 
             <div class="row custom_margin">
-                <div class="col-xs-4">
+                <div class="col-md-4">
                     <p><?php echo lang('guess_distance'); ?></p>
                 </div>
-                <div class="col-xs-5">
+                <div class="col-md-8">
                     <p class="no-margin"><?php echo ($route['distance'] / 1000) . $this->nl->lang_based_data(' কি.মি', ' KM'); ?> <small class="text-muted">[<?php echo lang('by_google'); ?>]</small></p>
                 </div>
             </div>
 
             <div class="row custom_margin">
-                <div class="col-xs-4">
+                <div class="col-md-4">
                     <p><?php echo lang('guess_duration'); ?></p>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-md-8">
                     <p class="no-margin"><?php echo $this->nl->seconds_to_time($route['duration']); ?><small class="text-muted">[<?php echo lang('by_google'); ?>]</small></p>
 
                 </div>
