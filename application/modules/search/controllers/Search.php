@@ -84,20 +84,24 @@ class Search extends MX_Controller {
 
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', ' s');
 
-        $routes = $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $stopage_table, $per_page, $segment);
-        $total_rows = $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $stopage_table, $per_page, $segment, TRUE);
+        $exact_routes = $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $per_page, $segment);
+        $total_rows = $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $per_page, $segment, TRUE);
         //var_dump($routes);return;
         $links = $this->nl->generate_pagination($url, $total_rows, $per_page, $num_links);
 
-        array_walk($routes[0], function(&$a) use($stopage_table) {
+        array_walk($exact_routes, function(&$a) use($stopage_table) {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
         });
 
         $data = array(
             'title' => lang('search_result'),
-            'routes' => $routes[0],
-            'found_in' => $routes[1],
+            'routes' => $exact_routes,
+            'stoppage_routes' => $this->sm->stoppage_routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $per_page, $segment),
+            'fd' => $this->pm->get_row('id',$from_district,'districts'),
+            'td' => $this->pm->get_row('id',$to_district,'districts'),
+            'ft' => $this->pm->get_row('id',$from_thana,'thanas'),
+            'th' => $this->pm->get_row('id',$to_thana,'thanas'),
             'settings' => $this->nl->get_config(),
             'links' => $links,
             'segment' => $segment

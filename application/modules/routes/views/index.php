@@ -40,6 +40,7 @@
                                 </select>
                             </div>
                         </div>
+                        <input type="checkbox" name="consider">
                         <div class="col-xs-10 col-md-6 suggestion_sec">
                             <input type="text" class="form-control search_place" placeholder="<?php echo lang('departure_place'); ?>" name="f" title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                             <div class="list-group suggestion">
@@ -129,22 +130,22 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#see_transport').click(function (e) {
-            var fromd = $('#main_search select[name="fd"]').val();
-            var fromp = $.trim($('#main_search input[name="f"]').val());
-            var tod = $('#main_search select[name="td"]').val();
-            var top = $.trim($('#main_search input[name="t"]').val());
-            if (fromd == 1 && tod == 1 && (fromp.length < 1 || top.length < 1)) {
-                $('#place_mandatory').show().effect('shake');
-                if (fromp.length < 1) {
-                    $('#main_search input[name="f"]').css('border', '1px solid #ff0000');
-                }
-                if (top.length < 1) {
-                    $('#main_search input[name="t"]').css('border', '1px solid #ff0000');
-                }
-
-                return false;
-            }
-        });
+//        $('#see_transport').click(function (e) {
+//            var fromd = $('#main_search select[name="fd"]').val();
+//            var fromp = $.trim($('#main_search input[name="f"]').val());
+//            var tod = $('#main_search select[name="td"]').val();
+//            var top = $.trim($('#main_search input[name="t"]').val());
+//            if (fromd == 1 && tod == 1 && (fromp.length < 1 || top.length < 1)) {
+//                $('#place_mandatory').show().effect('shake');
+//                if (fromp.length < 1) {
+//                    $('#main_search input[name="f"]').css('border', '1px solid #ff0000');
+//                }
+//                if (top.length < 1) {
+//                    $('#main_search input[name="t"]').css('border', '1px solid #ff0000');
+//                }
+//
+//                return false;
+//            }
+//        });
     });
 </script>

@@ -158,3 +158,9 @@ a.details:hover{
 .err{
     display: none;
 }
+#details_header .bg-aqua-gradient{
+    border-radius: 5px;
+    font-weight: bold;
+    padding-bottom: 2px;
+    font-size: 1.1em;
+}
