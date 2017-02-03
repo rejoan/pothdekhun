@@ -16,6 +16,7 @@ class Pages extends MX_Controller {
         $data = array(
             'title' => lang('about_us'),
             'settings' => $this->nl->get_config(),
+            'total' => $this->pm->total_item('routes')
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'about', 'rightbar', 'menu', TRUE);
     }
