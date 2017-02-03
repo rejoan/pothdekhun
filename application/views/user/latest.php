@@ -15,7 +15,8 @@
                 </div>
             <hr/>
             <?php endforeach ?>
+            <a href="<?php echo site_url_tr('routes/all');?>" class="btn btn-sm btn-info"><?php echo lang('see_all_routes');?></a>
         </div>
-        <!-- /.box-body -->
+        
     </div>
 </div>

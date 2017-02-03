@@ -8,12 +8,10 @@
     ?>
     <div class="box box-poth">
         <div class="box-header">
-            <?php echo lang('see_transport'); ?>
+            <h3 class="no-margin"><?php echo lang('see_transport'); ?></h3>
         </div>
         <div class="box-body">
-            <div id="place_mandatory" class="alert alert-danger err" >
-                <h4 class="no-margin" style="line-height: 1.5;"><?php echo lang('place_mandatory'); ?></h4>
-            </div>
+            
             <!-- route info pull form -->
             <form id="main_search" action="<?php echo $action_transport; ?>" method="get" accept-charset="UTF-8">
                 <div class="form-group">
@@ -40,7 +38,7 @@
                                 </select>
                             </div>
                         </div>
-                        <input type="checkbox" name="consider">
+                        
                         <div class="col-xs-10 col-md-6 suggestion_sec">
                             <input type="text" class="form-control search_place" placeholder="<?php echo lang('departure_place'); ?>" name="f" title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                             <div class="list-group suggestion">
@@ -87,6 +85,7 @@
                         </div>
                     </div>
                 </div>
+                <input type="checkbox" name="c">
                 <input id="see_transport" type="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('see_transport_button'); ?>"/>
             </form>
         </div>

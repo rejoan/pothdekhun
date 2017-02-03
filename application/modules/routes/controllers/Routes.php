@@ -26,7 +26,7 @@ class Routes extends MX_Controller {
             'action_transport' => site_url_tr('search/routes'),
             'search_action' => site_url_tr('search/index'),
             'settings' => $this->nl->get_config(),
-            'meta_title' => lang('home_page _meta')
+            'meta_title' => lang('home_page_meta')
         );
 
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);

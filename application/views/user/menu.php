@@ -24,7 +24,7 @@
                 }
                 ?>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo lang('routes'); ?><span class="caret"></span></a>
+                    <a href="<?php echo site_url_tr('routes/all');?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo lang('routes'); ?><span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <?php
                         $this->nl->generate_link('routes/all', 'routes/all', 'fa-list', lang('all_routes'));
@@ -33,7 +33,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo lang('transports'); ?><span class="caret"></span></a>
+                    <a href="<?php echo site_url_tr('transports');?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo lang('transports'); ?><span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <?php
                         $this->nl->generate_link('transports', 'transports', 'fa-list', lang('all_transport'));

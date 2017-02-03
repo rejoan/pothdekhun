@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<url><loc>http://www.pothdekhun.com/</loc><lastmod>2017-02-04</lastmod><changefreq>daily</changefreq><priority>1.00</priority></url>
+<url><loc>http://www.pothdekhun.com/routes</loc><lastmod>2017-02-04</lastmod><changefreq>daily</changefreq><priority>1.00</priority></url>
+<url><loc>http://www.pothdekhun.com/auth/register</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>1.00</priority></url>
+<url><loc>http://www.pothdekhun.com/auth/login</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>1.00</priority></url>
+<url><loc>http://www.pothdekhun.com/routes/all</loc><lastmod>2017-02-04</lastmod><changefreq>daily</changefreq><priority>1.00</priority></url>
+<url><loc>http://www.pothdekhun.com/routes/add</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>1.00</priority></url>
+<url><loc>http://www.pothdekhun.com/transports</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>1.00</priority></url>
+<url><loc>http://www.pothdekhun.com/transports/add</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+<url><loc>http://www.pothdekhun.com/transports/show/</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>1.00</priority></url>
+<url><loc>http://www.pothdekhun.com/routes/show/</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+<url><loc>http://www.pothdekhun.com/profile</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>1.00</priority></url>
+<url><loc>http://www.pothdekhun.com/php-framework</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>1.00</priority></url>
+<url><loc>http://www.pothdekhun.com/search/routes</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>1.00</priority></url>
+<url><loc>http://www.pothdekhun.com/search/index</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>1.00</priority></url>
+<url><loc>http://www.pothdekhun.com/pages/about_us</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+<url><loc>http://www.pothdekhun.com/pages/contact_us</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+<url><loc>http://www.pothdekhun.com/about-us</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+<url><loc>http://www.pothdekhun.com/notifications</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+<url><loc>http://www.pothdekhun.com/pages/point_rules</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+<url><loc>http://www.pothdekhun.com/pages/notifications/details</loc><lastmod>2017-02-04</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+</urlset>

@@ -93,15 +93,21 @@ class Search extends MX_Controller {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
         });
-
+        
+        $stoppage_routes = $this->sm->stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, FALSE, $from_district, $from_thana, $to_district, $to_thana);
+         array_walk($stoppage_routes, function(&$a) use($stopage_table) {
+            $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
+            $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
+        });
+        
         $data = array(
             'title' => lang('search_result'),
             'routes' => $exact_routes,
-            'stoppage_routes' => $this->sm->stoppage_routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $per_page, $segment),
-            'fd' => $this->pm->get_row('id',$from_district,'districts'),
-            'td' => $this->pm->get_row('id',$to_district,'districts'),
-            'ft' => $this->pm->get_row('id',$from_thana,'thanas'),
-            'th' => $this->pm->get_row('id',$to_thana,'thanas'),
+            'stoppage_routes' => $stoppage_routes,
+            'fd' => $this->pm->get_row('id', $from_district, 'districts'),
+            'td' => $this->pm->get_row('id', $to_district, 'districts'),
+            'ft' => $this->pm->get_row('id', $from_thana, 'thanas'),
+            'th' => $this->pm->get_row('id', $to_thana, 'thanas'),
             'settings' => $this->nl->get_config(),
             'links' => $links,
             'segment' => $segment
