@@ -1,4 +1,5 @@
 <?php
+//var_dump(count($stoppage_routes));
 defined('BASEPATH') OR exit('No direct script access allowed');
 $f_place = trim($this->input->get('f', TRUE));
 $t_place = trim($this->input->get('t', TRUE));
@@ -97,7 +98,7 @@ if (!empty($t_place)) {
         </div>
     <?php endif; ?>
 
-    <?php if (count($routes) < 1 && count($stoppage_routes) < 2): ?>
+    <?php if (count($routes) < 2 && count($stoppage_routes) < 2): ?>
         <div class="box box-poth">
             <div class="box-header with-border">
                 <h4><?php echo lang('suggested_route'); ?></h4>

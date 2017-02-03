@@ -194,10 +194,11 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         //echo $this->db->last_query();return;
         $to_places = $to_place_q->result_array();
         $all_routes_id = $this->nl->get_all_ids($to_places, 'route_id');
+        //var_dump($all_routes_id);return;
         if (empty($all_routes_id)) {
             return array();
         }
-        return $suggestions = $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district);
+        return $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district);
 //        $suggestion_ids = $this->nl->get_all_ids($suggestions, 'r_id');
 //        return explode(',', $suggestion_ids);
     }
