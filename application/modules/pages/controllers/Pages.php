@@ -73,4 +73,11 @@ class Pages extends MX_Controller {
         $this->nl->view_loader('user', 'latest', NULL, $data, 'point', 'rightbar', 'menu', TRUE);
     }
 
+    public function privacy_policy(){
+        $data = array(
+            'title' => lang('point_rules'),
+            'settings' => $this->nl->get_config(),
+        );
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'privacy', 'rightbar', 'menu', TRUE);
+    }
 }

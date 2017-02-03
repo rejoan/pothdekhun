@@ -100,10 +100,24 @@ class Search extends MX_Controller {
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
         });
         
+         $suggested_routes = $this->sm->get_suggestions($from_place, $stopage_table, $to_place, $per_page, $segment, FALSE, $from_district, $to_district);
+         array_walk($suggested_routes, function(&$a) use($stopage_table) {
+            $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
+            $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
+        });
+        
+        $possible_matches = $this->sm->possible_collections($from_place, $stopage_table, $to_place, 10, $segment, FALSE, $from_district, $to_district);
+         array_walk($possible_matches, function(&$a) use($stopage_table) {
+            $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
+            $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
+        });
+        
         $data = array(
             'title' => lang('search_result'),
             'routes' => $exact_routes,
             'stoppage_routes' => $stoppage_routes,
+            'suggested_routes' => $suggested_routes,
+            'possible_matches' => $possible_matches,
             'fd' => $this->pm->get_row('id', $from_district, 'districts'),
             'td' => $this->pm->get_row('id', $to_district, 'districts'),
             'ft' => $this->pm->get_row('id', $from_thana, 'thanas'),

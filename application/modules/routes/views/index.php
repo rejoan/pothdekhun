@@ -11,7 +11,7 @@
             <h3 class="no-margin"><?php echo lang('see_transport'); ?></h3>
         </div>
         <div class="box-body">
-            
+
             <!-- route info pull form -->
             <form id="main_search" action="<?php echo $action_transport; ?>" method="get" accept-charset="UTF-8">
                 <div class="form-group">
@@ -38,7 +38,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="col-xs-10 col-md-6 suggestion_sec">
                             <input type="text" class="form-control search_place" placeholder="<?php echo lang('departure_place'); ?>" name="f" title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                             <div class="list-group suggestion">
@@ -85,7 +85,12 @@
                         </div>
                     </div>
                 </div>
-                <input type="checkbox" name="c">
+                <div class="form-group">
+                     <label>
+                         <input type="checkbox" name="c"> <?php echo lang('consider_thana');?>
+                </label>
+                </div>
+               
                 <input id="see_transport" type="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('see_transport_button'); ?>"/>
             </form>
         </div>

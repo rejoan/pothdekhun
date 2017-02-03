@@ -500,7 +500,7 @@ class Routes extends MX_Controller {
      */
     public function all() {
         $total_rows = $this->db->where('is_publish', 1)->get('routes')->num_rows();
-        $per_page = 10;
+        $per_page = 15;
         $num_links = 5;
 
         if ($this->input->get('page')) {
