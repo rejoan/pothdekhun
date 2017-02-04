@@ -164,3 +164,6 @@ a.details:hover{
     padding-bottom: 2px;
     font-size: 1.1em;
 }
+.header_linehight{
+    line-height: 1.5;
+}

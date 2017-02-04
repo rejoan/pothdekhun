@@ -5,7 +5,7 @@
             <h3 class="box-title"><?php echo $title; ?></h3>
         </div>
         <div class="box-body table-responsive no-padding">
-            <form id="add_route" class="form-horizontal" action="<?php echo site_url_tr('transports/index'); ?>" method="get">
+            <form id="search_transport" class="form-horizontal" action="<?php echo site_url_tr('transports/index'); ?>" method="get">
                 <div class="input-group margin">
                     <input id="vehicle_name" type="text" class="form-control" name="t" value="<?php echo trim($this->input->get('t', TRUE)); ?>" autocomplete="off">
                     <div class="list-group suggestion">
@@ -56,3 +56,13 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('#search_transport .list-group').on('click', '.list-group-item', function () {
+            setInterval(function () {
+                $('#search_transport').submit();
+            }, 400);
+
+        });
+    });
+</script>

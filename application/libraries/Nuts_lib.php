@@ -446,6 +446,8 @@ class Nuts_lib {
         $config['first_tag_close'] = '</li>';
         $config['next_link'] = 'Next >';
         $config['prev_link'] = '< Prev';
+        $config['first_link'] = 'First';
+        $config['last_link'] = 'Last';
         $this->CI->pagination->initialize($config);
         return $this->CI->pagination->create_links();
     }

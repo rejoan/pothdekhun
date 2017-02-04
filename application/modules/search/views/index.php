@@ -73,7 +73,7 @@ if (!empty($t_place)) {
     <?php if (count($routes) < 5): ?>
         <div class="box box-poth">
             <div class="box-header with-border">
-                <h4><?php echo lang('stoppage_route'); ?></h4>
+                <h4 class="custom_margin"><?php echo lang('stoppage_route'); ?></h4>
             </div>
             <div class="box-body">
                 <?php foreach ($stoppage_routes as $sr): ?>
@@ -101,7 +101,7 @@ if (!empty($t_place)) {
     <?php if (count($routes) < 2 && count($stoppage_routes) < 2): ?>
         <div class="box box-poth">
             <div class="box-header with-border">
-                <h4><?php echo lang('suggested_route'); ?></h4>
+                <h4 class="custom_margin"><?php echo lang('suggested_route'); ?></h4>
             </div>
             <div class="box-body">
                 <?php foreach ($suggested_routes as $sgr): ?>
@@ -128,7 +128,7 @@ if (!empty($t_place)) {
     <?php if (count($routes) < 1 && count($stoppage_routes) < 1 && count($suggested_routes) < 1): ?>
         <div class="box box-poth">
             <div class="box-header with-border">
-                <h4><?php echo lang('possible_route'); ?></h4>
+                <h4 class="custom_margin"><?php echo lang('possible_route'); ?></h4>
             </div>
             <div class="box-body">
                 <?php foreach ($possible_matches as $pr): ?>
