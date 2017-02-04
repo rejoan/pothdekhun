@@ -205,6 +205,41 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
 
     /**
      * 
+     * @param type $place
+     * @param type $stopage_table
+     * @param type $per_page
+     * @param type $segment
+     * @param type $pagination
+     * @param type $district
+     * @return type
+     */
+    public function place_get_suggestions($place, $stopage_table, $district, $per_page, $segment, $pagination) {
+
+        $all_place_q = $this->db->query('SELECT * FROM (SELECT id route_id,from_place Location
+                        FROM routes
+                        WHERE LOWER(REPLACE(from_place, " ", "")) LIKE LOWER(REPLACE("' . $place . '", " ", "")) OR from_place LIKE "%' . $place . '%" UNION DISTINCT
+                        SELECT id route_id,to_place
+                        FROM routes
+                        WHERE LOWER(REPLACE(to_place, " ", "")) LIKE LOWER(REPLACE("' . $place . '", " ", "")) OR to_place LIKE "%' . $place . '%"  UNION DISTINCT
+                        SELECT s.route_id,s.place_name
+                        FROM ' . $stopage_table . '
+                        WHERE LOWER(REPLACE(s.place_name, " ", "")) LIKE LOWER(REPLACE("' . $place . '", " ", "")) OR place_name LIKE "%' . $place . '%" 
+                        ) AS rtn');
+        //echo $this->db->last_query();return;
+        $all_places = $all_place_q->result_array();
+        $route_ids = $this->nl->get_all_ids($all_places, 'route_id');
+        //var_dump($route_ids);return;
+        if (empty($route_ids)) {
+            return array();
+        }
+
+        return $this->final_result($route_ids, $per_page, $segment, $pagination, $district, $district);
+//        $suggestion_ids = $this->nl->get_all_ids($suggestions, 'r_id');
+//        return explode(',', $suggestion_ids);
+    }
+
+    /**
+     * 
      * @param type $all_routes_id
      * @param type $per_page
      * @param type $segment
@@ -243,35 +278,37 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
      * @param type $place_name
      * @return type
      */
-    public function get_routes($stopage_table, $place_name, $district, $thana, $pagination = FALSE, $per_page = 5, $segment = 3) {
-        $sql_thana = $sql_tothana = '';
-        if (!empty($thana)) {
-            $col_name = $this->nl->lang_based_data('bn_name', 'name');
-            $thana_id = $this->sm->get_thana_id($col_name, $thana);
-            //var_dump($thana_id);return;
-            $sql_thana .= ' AND r.from_thana = ' . $thana_id;
-            $sql_tothana .= ' AND r.to_thana = ' . $thana_id;
-        }
-        $this->db->select('r.id r_id, r.from_district, r.to_district, r.from_thana, r.to_thana, r.rent, r.evidence, r.evidence2, r.added, r.transport_type, r.from_place, r.to_place, r.from_latlong, r.to_latlong, r.distance, r.duration, p.name, p.bn_name, r.departure_time, u.username, d.name district_name, d.bn_name district_name_bn, td.name td_name, td.bn_name td_bn_name, rt.from_place fp_bn, rt.to_place tp_bn, rt.departure_time dt_bn, rt.translation_status');
+    public function get_routes($place_name, $district, $pagination = FALSE, $per_page = 5, $segment = 3) {
+        $place_sql = ' AND (r.from_place = "' . $place_name . '" OR r.to_place = "' . $place_name . '")';
 
-        $this->db->from($stopage_table);
-        $this->db->join('routes r', 'r.id = s.route_id', 'left');
-        $this->db->join('route_bn rt', 's.route_id = rt.route_id', 'left');
+        if (empty($place_name)) {
+            $place_sql = '';
+        }
+
+//Step 1: search direct from place and to place
+        $this->db->select('r.id r_id, r.from_district, r.to_district, r.from_thana, r.to_thana, r.rent, r.evidence, r.evidence2, r.added, r.transport_type, r.from_place, r.to_place, r.from_latlong, r.to_latlong, r.distance, r.duration, p.name, p.bn_name, r.departure_time, u.username, rt.from_place fp_bn, rt.to_place tp_bn, rt.departure_time dt_bn, rt.translation_status');
+        $this->db->from('routes r');
+        $this->db->join('route_bn rt', 'r.id = rt.route_id', 'left');
         $this->db->join('poribohons p', 'r.poribohon_id = p.id', 'left');
         $this->db->join('districts d', 'r.from_district = d.id', 'left');
-        $this->db->join(' districts td', 'r.to_district = td.id', 'left');
+        $this->db->join('districts td', 'r.to_district = td.id', 'left');
+        $this->db->join('thanas t', 'r.from_thana = t.id', 'left');
+        $this->db->join('thanas th', 'r.to_thana = th.id', 'left');
         $this->db->join('users u', 'r.added_by = u.id', 'left');
-        $this->db->where('r.is_publish = 1 AND  ((r.from_district = ' . $district . $sql_thana . ' AND LOWER(r.from_place) = "' . $place_name . '") OR (r.to_district = ' . $district . $sql_tothana . ' AND LOWER(r.to_place) = "' . $place_name . '")) OR s.place_name = "' . $place_name . '"', NULL, FALSE);
-        $this->db->group_by('r.id');
+
+        $this->db->where('r.is_publish = 1 AND (r.from_district = ' . $district . ' OR r.to_district = ' . $district . ')' . $place_sql, NULL, FALSE);
         if (!$pagination) {
             $this->db->limit($per_page, $segment);
         }
+        //$this->db->order_by('r.distance', 'asc');
         $query = $this->db->get();
         if ($pagination) {
             return $query->num_rows();
         }
+        //echo $this->db->last_query();return;
+        //var_dump($query->num_rows());return;
 
-        return array($query->result_array(), $found_in);
+        return $query->result_array();
     }
 
     public function get_thana_id($col_name, $col_val) {
@@ -387,6 +424,62 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
             return $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district);
         }
         return array();
+    }
+
+    public function place_possible_collections($place, $stopage_table, $district, $per_page, $segment, $pagination) {
+       
+        $query = $this->db->query('SELECT *
+                                    FROM (
+                                    SELECT id route_id, to_place place
+                                    FROM routes
+                                    WHERE to_place SOUNDS LIKE "' . $place . '" UNION DISTINCT
+                                    SELECT id route_id, from_place place
+                                    FROM routes
+                                    WHERE from_place SOUNDS LIKE "' . $place . '" UNION DISTINCT
+                                    SELECT route_id, place_name place
+                                    FROM ' . $stopage_table . '
+                                    WHERE place_name SOUNDS LIKE "' . $place . '"
+                                    ) AS ftq ORDER BY place ASC LIMIT 12');
+        //echo $this->db->last_query();return;
+        $routes_ids = $this->nl->get_all_ids($query->result_array(), 'route_id');
+        if (!empty($routes_ids)) {
+
+            return $this->final_result($routes_ids, $per_page, $segment, $pagination, $district, $district);
+        }
+        return array();
+    }
+
+    /**
+     * 
+     * @param type $place
+     * @param type $stopage_table
+     * @param type $district
+     * @param type $per_page
+     * @param type $segment
+     * @param type $pagination
+     * @return type
+     */
+    public function place_stoppage_routes($place, $stopage_table, $district, $per_page, $segment, $pagination) {
+        $all_place_q = $this->db->query('SELECT *
+                                            FROM (
+                                            SELECT id route_id
+                                            FROM routes
+                                            WHERE to_place = "' . $place . '" UNION DISTINCT
+                                            SELECT id route_id
+                                            FROM routes
+                                            WHERE from_place = "' . $place . '" UNION DISTINCT
+                                            SELECT route_id
+                                            FROM ' . $stopage_table . '
+                                            WHERE place_name = "' . $place . '"
+                                            ) AS rtn');
+        //echo $this->db->last_query();return;
+        $all_places = $all_place_q->result_array();
+        $route_ids = $this->nl->get_all_ids($all_places, 'route_id');
+        if (empty($route_ids)) {
+            return array();
+        }
+         return $this->final_result($route_ids, $per_page, $segment, $pagination, $district, $district);
+       
     }
 
 }

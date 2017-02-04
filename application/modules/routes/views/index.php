@@ -123,13 +123,7 @@
 
                 </div>
                 <div class="row">
-                   
                     <div class="col-md-3">
-                         <div class="form-group">
-                        <label>
-                            <input id="ig" type="checkbox" name="ig"> <?php echo lang('ignore_district'); ?>
-                        </label>
-                    </div>
                         <input type="submit" class="btn btn-primary btn-info" value="<?php echo lang('show_transport'); ?>"/>  
                     </div>
                 </div>

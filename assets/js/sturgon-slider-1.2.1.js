@@ -147,7 +147,7 @@ $(document).ready(function () {
             sxhr = null;
         }
         var district = $('#district').val();
-        var ig = $('#ig').val();
+//        var ig = $('#ig').val();
         var typing = $.trim($(this).val());
         if (!typing.length) {
             return false;
@@ -163,8 +163,7 @@ $(document).ready(function () {
             cache: true,
             data: {
                 typing: typing,
-                d: district,
-                ig:ig
+                d: district
             },
             beforeSend: function () {
                 $(this).parent().append('<img id="loader" src="' + pd_btu + 'assets/images/loading.gif" alt="Loading"/>');

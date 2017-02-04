@@ -69,18 +69,27 @@ class Weapons extends MX_Controller {
      */
     public function search_places() {
         $typing = trim($this->input->get('typing', TRUE));
-        $district_id = $this->input->get('d', TRUE);
-        $sql = 'SELECT *
-                FROM (
-                SELECT r.to_place Location
-                FROM routes r  WHERE r.to_place LIKE "%%' . $typing . '%%" UNION DISTINCT
-                SELECT r.from_place FROM routes r WHERE r.from_place LIKE "%%' . $typing . '%%" 
-                ) AS rtn WHERE rtn.from_district = '.$district_id.' OR rtn.to_district = '.$district_id.'
-                GROUP BY Location
-                ORDER BY CASE WHEN
-                 Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "%%' . $typing . '%%" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
-                LIMIT 7';
+        $district = $this->input->get('d', TRUE);
+        $sql = 'SELECT * FROM (
+                    SELECT to_place as Location FROM routes WHERE to_district = ' . $district . ' AND to_place LIKE "%%' . $typing . '%%"
+                    UNION DISTINCT
+                    SELECT from_place FROM routes WHERE from_district = ' . $district . ' AND from_place LIKE "%%' . $typing . '%%"
+                      ) as rtn
+                    ORDER BY CASE WHEN
+                     Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
+                    LIMIT 7';
 
+        if ($this->session->lang_code == 'bn') {// when searching in  bengali
+            $sql = 'SELECT * FROM (
+                    SELECT route_bn.to_place as Location FROM route_bn JOIN routes ON routes.id = route_bn.route_id WHERE to_district = ' . $district . ' AND route_bn.to_place LIKE "%%' . $typing . '%%"
+                    UNION DISTINCT
+                    SELECT route_bn.from_place FROM route_bn route_bn JOIN routes ON routes.id = route_bn.route_id WHERE from_district = ' . $district . ' AND route_bn.from_place LIKE "%%' . $typing . '%%"
+                      ) as rtn 
+                    GROUP BY Location
+                    ORDER BY CASE WHEN
+                     Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "%%' . $typing . '%%" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
+                    LIMIT 7';
+        }
         $query = $this->db->query($sql);
         //echo $this->db->last_query();return;
         $places = $query->result_array();

@@ -37,26 +37,50 @@ class Search extends MX_Controller {
         } else {
             $segment = 0;
         }
-        $routes = $this->sm->get_routes($stopage_table, $place_name, $district, $thana_name, FALSE, $per_page, $segment);
-
-        $total_rows = $this->sm->get_routes($district, $thana_name, $place_name, TRUE);
-
+        $exact_routes = $this->sm->get_routes($place_name, $district, FALSE, $per_page, $segment);
+        //var_dump($exact_routes);return;
+        $total_rows = $this->sm->get_routes($place_name, $district, TRUE);
 
         $url = 'search/index?ds=' . $district . '&f=' . $place;
         $links = $this->nl->generate_pagination($url, $total_rows, $per_page, $num_links);
         //var_dump($routes[1]);        return;
-        array_walk($routes[0], function(&$a) use($stopage_table) {
+        array_walk($exact_routes, function(&$a) use($stopage_table) {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
         });
+
+        $stoppage_routes = $this->sm->place_stoppage_routes($place_name, $stopage_table, $district, $per_page, $segment, FALSE);
+       //var_dump($stoppage_routes);return;
+        array_walk($stoppage_routes, function(&$a) use($stopage_table) {
+            $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
+            $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
+        });
+
+        $suggested_routes = $this->sm->place_get_suggestions($place_name, $stopage_table, $district, $per_page, $segment, FALSE);
+        array_walk($suggested_routes, function(&$a) use($stopage_table) {
+            $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
+            $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
+        });
+        
+     //var_dump($suggested_routes);return;
+        $possible_matches = $this->sm->place_possible_collections($place_name, $stopage_table, $district, 10, $segment, FALSE);
+        array_walk($possible_matches, function(&$a) use($stopage_table) {
+            $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
+            $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
+        });
+
         $data = array(
             'title' => lang('search_result'),
-            'routes' => $routes,
+            'routes' => $exact_routes,
+            'stoppage_routes' => $stoppage_routes,
+            'suggested_routes' => $suggested_routes,
+            'possible_matches' => $possible_matches,
+            'd' => $this->pm->get_row('id', $district, 'districts'),
             'settings' => $this->nl->get_config(),
             'links' => $links,
             'total_route' => $total_rows
         );
-        $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'place_search', 'rightbar', 'menu', TRUE);
     }
 
     public function routes() {
@@ -127,8 +151,8 @@ class Search extends MX_Controller {
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
     }
-    
-    public function get_info(){
+
+    public function get_info() {
         $adds = str_replace(' ', '+', trim($address));
         $lat_long = array();
         //$json = file_get_contents('http://maps.google.com/maps/api/geocode/json?address=' . $adds . '&sensor=false&region=' . $country);
