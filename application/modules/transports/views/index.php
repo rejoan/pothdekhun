@@ -59,7 +59,7 @@
 <script>
     $(document).ready(function () {
         $('#search_transport .list-group').on('click', '.list-group-item', function () {
-            setInterval(function () {
+            setTimeout(function () {
                 $('#search_transport').submit();
             }, 400);
 
