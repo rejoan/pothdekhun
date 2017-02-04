@@ -69,44 +69,18 @@ class Weapons extends MX_Controller {
      */
     public function search_places() {
         $typing = trim($this->input->get('typing', TRUE));
-        $district = (int) trim($this->input->get('d', TRUE));
-
+        $district_id = $this->input->get('d', TRUE);
         $sql = 'SELECT *
                 FROM (
-                SELECT t.name Thana,r.to_place Location
-                FROM routes r LEFT JOIN thanas t ON t.id = r.to_thana
-                WHERE r.to_district = ' . $district . ' UNION DISTINCT
-                SELECT ft.name Thana,sr.from_place
-                FROM routes sr LEFT JOIN thanas ft ON ft.id = sr.from_thana
-                WHERE sr.from_district = ' . $district . '
-                ) AS rtn
+                SELECT r.to_place Location
+                FROM routes r  WHERE r.to_place LIKE "%%' . $typing . '%%" UNION DISTINCT
+                SELECT r.from_place FROM routes r WHERE r.from_place LIKE "%%' . $typing . '%%" 
+                ) AS rtn WHERE rtn.from_district = '.$district_id.' OR rtn.to_district = '.$district_id.'
                 GROUP BY Location
                 ORDER BY CASE WHEN
-                 Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END LIMIT 7';
+                 Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "%%' . $typing . '%%" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
+                LIMIT 7';
 
-
-        if ($this->session->lang_code == 'bn') {// when searching in  bengali
-            $sql = 'SELECT *
-                    FROM (
-                    SELECT t.bn_name Thana,rt.to_place Location
-                    FROM route_bn rt
-                    LEFT JOIN routes r ON r.id = rt.route_id
-                    LEFT JOIN thanas t ON t.id = r.to_thana
-                    WHERE r.to_district = ' . $district . '
-                     UNION DISTINCT
-                    SELECT ft.bn_name Thana,rb.from_place
-                    FROM route_bn rb
-                    LEFT JOIN routes fr ON fr.id = rb.route_id
-                    LEFT JOIN thanas
-                     ft ON ft.id = fr.from_thana
-                    WHERE fr.from_district = ' . $district . '
-                    ) AS rtn
-
-                    GROUP BY Location
-                    ORDER BY CASE WHEN
-                     Location LIKE "' . $typing . '%" THEN 0 WHEN Location LIKE "% %' . $typing . '% %" THEN 1 WHEN Location LIKE "%' . $typing . '%" THEN 2 ELSE 3 END
-                    LIMIT 7';
-        }
         $query = $this->db->query($sql);
         //echo $this->db->last_query();return;
         $places = $query->result_array();

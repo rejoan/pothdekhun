@@ -44,7 +44,7 @@ $(document).ready(function () {
                 t: thana
             },
             beforeSend: function () {
-                $(this).parent().append('<img id="loader" src="' + pd_btu + 'assets/images/loading.gif" alt="Loaind"/>');
+                $(this).parent().append('<img id="loader" src="' + pd_btu + 'assets/images/loading.gif" alt="Loading"/>');
             },
             complete: function () {
                 $('#loader').remove();
@@ -147,6 +147,7 @@ $(document).ready(function () {
             sxhr = null;
         }
         var district = $('#district').val();
+        var ig = $('#ig').val();
         var typing = $.trim($(this).val());
         if (!typing.length) {
             return false;
@@ -156,16 +157,17 @@ $(document).ready(function () {
         var pd_btu = $('#pd_stu').val();
         xhr = $.ajax({
             context: this,
-            url: pd_stu + '/weapons/search_places',
+            url: pd_stu + 'weapons/search_places',
             type: 'get',
             dataType: 'json',
             cache: true,
             data: {
                 typing: typing,
-                d: district
+                d: district,
+                ig:ig
             },
             beforeSend: function () {
-                $(this).parent().append('<img id="loader" src="' + pd_btu + 'assets/images/loading.gif" alt="Loaind"/>');
+                $(this).parent().append('<img id="loader" src="' + pd_btu + 'assets/images/loading.gif" alt="Loading"/>');
             },
             complete: function () {
                 $('#loader').remove();
@@ -173,13 +175,8 @@ $(document).ready(function () {
         }).done(function (response) {
             $('#loader').remove();
             var cm = '';
-
             for (var i = 0; i < response.length; i++) {
-                var thana = ', ' + response[i]['Thana'];
-                if (district == 1) {
-                    thana = '';
-                }
-                cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + thana + '</a>';
+                cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + '</a>';
             }
             $(this).next().show().html(cm);
         });

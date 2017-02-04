@@ -86,11 +86,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                     <label>
-                         <input type="checkbox" name="c"> <?php echo lang('consider_thana');?>
-                </label>
+                    <label>
+                        <input type="checkbox" name="c"> <?php echo lang('consider_thana'); ?>
+                    </label>
                 </div>
-               
+
                 <input id="see_transport" type="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('see_transport_button'); ?>"/>
             </form>
         </div>
@@ -116,15 +116,20 @@
                     </div>
 
                     <div class="col-xs-10 col-md-6">
-                        <input id="search_place" type="text" class="form-control" placeholder="<?php echo lang('place_search'); ?>" name="f" required title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                        <input id="search_place" type="text" class="form-control" placeholder="<?php echo lang('place_search'); ?>" name="f" title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
                         <div class="list-group suggestion">
                         </div>
                     </div>
 
                 </div>
                 <div class="row">
-
+                   
                     <div class="col-md-3">
+                         <div class="form-group">
+                        <label>
+                            <input id="ig" type="checkbox" name="ig"> <?php echo lang('ignore_district'); ?>
+                        </label>
+                    </div>
                         <input type="submit" class="btn btn-primary btn-info" value="<?php echo lang('show_transport'); ?>"/>  
                     </div>
                 </div>
@@ -132,24 +137,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-//        $('#see_transport').click(function (e) {
-//            var fromd = $('#main_search select[name="fd"]').val();
-//            var fromp = $.trim($('#main_search input[name="f"]').val());
-//            var tod = $('#main_search select[name="td"]').val();
-//            var top = $.trim($('#main_search input[name="t"]').val());
-//            if (fromd == 1 && tod == 1 && (fromp.length < 1 || top.length < 1)) {
-//                $('#place_mandatory').show().effect('shake');
-//                if (fromp.length < 1) {
-//                    $('#main_search input[name="f"]').css('border', '1px solid #ff0000');
-//                }
-//                if (top.length < 1) {
-//                    $('#main_search input[name="t"]').css('border', '1px solid #ff0000');
-//                }
-//
-//                return false;
-//            }
-//        });
-    });
-</script>
