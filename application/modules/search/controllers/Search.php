@@ -49,14 +49,14 @@ class Search extends MX_Controller {
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
         });
 
-        $stoppage_routes = $this->sm->place_stoppage_routes($place_name, $stopage_table, $district, $per_page, $segment, FALSE);
+        $stoppage_routes = $this->sm->place_stoppage_routes($place_name, $stopage_table, $district, 20, $segment, FALSE);
        //var_dump($stoppage_routes);return;
         array_walk($stoppage_routes, function(&$a) use($stopage_table) {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
         });
 
-        $suggested_routes = $this->sm->place_get_suggestions($place_name, $stopage_table, $district, $per_page, $segment, FALSE);
+        $suggested_routes = $this->sm->place_get_suggestions($place_name, $stopage_table, $district, 20, $segment, FALSE);
         array_walk($suggested_routes, function(&$a) use($stopage_table) {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);

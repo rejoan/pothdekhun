@@ -18,7 +18,7 @@ if (!empty($place)) {
 <div id="route_detail" class="col-sm-6 col-sm-push-3">
     <div class="box box-poth">
         <div class="box-header with-border">
-            <h3 class="custom_margin"><?php echo $place . $district_name; ?></h3>
+            <h3 class="custom_margin"><?php echo lang('transport_available').' '.$place . $district_name; ?></h3>
         </div>
         <div class="box-body">
             <?php foreach ($routes as $route): ?>
@@ -34,7 +34,7 @@ if (!empty($place)) {
             <?php endforeach; ?>
             <?php
             if (empty($routes)) {
-                echo '<p>' . lang('no_direct_route') . '</p>';
+                echo '<p>' . lang('no_transport') . '</p>';
             }
             ?>
         </div>

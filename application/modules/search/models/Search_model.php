@@ -279,10 +279,11 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
      * @return type
      */
     public function get_routes($place_name, $district, $pagination = FALSE, $per_page = 5, $segment = 3) {
-        $place_sql = ' AND (r.from_place = "' . $place_name . '" OR r.to_place = "' . $place_name . '")';
+        $place_fsql = ' AND r.from_place = "' . $place_name.'"';
+        $place_tsql = ' AND r.to_place = "' . $place_name.'"';
 
         if (empty($place_name)) {
-            $place_sql = '';
+            $place_fsql = $place_tsql = '';
         }
 
 //Step 1: search direct from place and to place
@@ -296,7 +297,7 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         $this->db->join('thanas th', 'r.to_thana = th.id', 'left');
         $this->db->join('users u', 'r.added_by = u.id', 'left');
 
-        $this->db->where('r.is_publish = 1 AND (r.from_district = ' . $district . ' OR r.to_district = ' . $district . ')' . $place_sql, NULL, FALSE);
+        $this->db->where('r.is_publish = 1 AND (r.from_district = ' . $district . $place_fsql . ') OR (r.to_district = ' . $district . $place_tsql . ')', NULL, FALSE);
         if (!$pagination) {
             $this->db->limit($per_page, $segment);
         }
@@ -427,7 +428,7 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
     }
 
     public function place_possible_collections($place, $stopage_table, $district, $per_page, $segment, $pagination) {
-       
+
         $query = $this->db->query('SELECT *
                                     FROM (
                                     SELECT id route_id, to_place place
@@ -439,7 +440,7 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
                                     SELECT route_id, place_name place
                                     FROM ' . $stopage_table . '
                                     WHERE place_name SOUNDS LIKE "' . $place . '"
-                                    ) AS ftq ORDER BY place ASC LIMIT 12');
+                                    ) AS ftq ORDER BY place ASC LIMIT 20');
         //echo $this->db->last_query();return;
         $routes_ids = $this->nl->get_all_ids($query->result_array(), 'route_id');
         if (!empty($routes_ids)) {
@@ -478,8 +479,7 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         if (empty($route_ids)) {
             return array();
         }
-         return $this->final_result($route_ids, $per_page, $segment, $pagination, $district, $district);
-       
+        return $this->final_result($route_ids, $per_page, $segment, $pagination, $district, $district);
     }
 
 }

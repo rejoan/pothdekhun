@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="col-xs-10 col-md-6 suggestion_sec">
-                            <input type="text" class="form-control search_place" placeholder="<?php echo lang('departure_place'); ?>" name="f" title="যেখান থেকে  যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                            <input type="text" class="form-control search_place" placeholder="<?php echo lang('departure_place'); ?>" name="f" title="Type Place Name Ex: Mirpur-1 " autocomplete="off">
                             <div class="list-group suggestion">
 
                             </div>
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <div class="col-xs-10 col-md-6 suggestion_sec">
-                            <input type="text" class="form-control search_place" placeholder="<?php echo lang('destination_place'); ?>" name="t" title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                            <input type="text" class="form-control search_place" placeholder="<?php echo lang('destination_place'); ?>" name="t" title="Type target place Ex: Motijheel" autocomplete="off">
                             <div class="list-group suggestion">
 
                             </div>
@@ -116,7 +116,7 @@
                     </div>
 
                     <div class="col-xs-10 col-md-6">
-                        <input id="search_place" type="text" class="form-control" placeholder="<?php echo lang('place_search'); ?>" name="f" title="যেখানে যাবেন সেই জায়গার নাম দিন" autocomplete="off">
+                        <input id="search_place" type="text" class="form-control" placeholder="<?php echo lang('place_search'); ?>" name="f" title="Any Place name" autocomplete="off">
                         <div class="list-group suggestion">
                         </div>
                     </div>
