@@ -22,7 +22,7 @@ class Routes_model extends CI_Model {
         if (!empty($d)) {
             //$this->db->where('r.from_district', $d)->or_where('r.to_district', $d);
             $sql = '(r.from_district = ' . $d . ' OR ' . 'r.to_district)';
-            if (!empty($t) && $d != 1) {
+            if (!empty($t)) {
                 //$this->db->where('r.from_thana', $t)->or_where('r.to_thana', $t);
                 $sql .= 'AND (r.from_thana = ' . $t . ' OR r.to_thana = ' . $t . ')';
             }

@@ -101,7 +101,7 @@
         </div>
         <div class="box-body">
             <!-- get route info from user form -->
-            <form action="<?php echo $search_action; ?>" method="get" accept-charset="UTF-8">
+            <form id="show_transport" action="<?php echo $search_action; ?>" method="get" accept-charset="UTF-8">
                 <div class="row">
                     <div class="col-xs-10 col-md-3">
                         <div class="form-group">
@@ -131,3 +131,14 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+//        $('#search_place').keypress(function (e) {
+//            if ((e.keyCode == 13) {
+//                e.preventDefault();
+//                alert('dfdfsd');
+//                $('#show_transport').submit();
+//            }
+//        });
+    });
+</script>
