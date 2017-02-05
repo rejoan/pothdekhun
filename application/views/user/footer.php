@@ -3,7 +3,8 @@
 <input type="hidden" id="pd_btu" value="<?php echo base_url(); ?>"/>
 <input type="hidden" id="email_text" value="<?php echo lang('email_text'); ?>"/>
 <input type="hidden" id="email_exist" value="<?php echo lang('email_exist'); ?>"/>
-
+<input type="hidden" id="find_fb" value="<?php echo lang('find_fb'); ?>"/>
+<input type="hidden" id="find_tw" value="<?php echo lang('find_tw'); ?>"/>
 <!--</div> col-xs-12 end-->
 
 
@@ -23,8 +24,8 @@
 
 </div><!--/.container-->
 
-<a target="_blank" id="social_link1" href="https://www.facebook.com/PothDekhun"><img src="<?php echo base_url('assets/images/facebook.png');?>" alt="ফেইসবুক"/></a>
-        <a target="_blank" id="social_link2" href="https://www.twitter.com/PothDekhun"><img src="<?php echo base_url('assets/images/twitter.png');?>" alt="টুইটার"/></a>
+<a target="_blank" id="social_link1" href="https://www.facebook.com/PothDekhun"><img src="<?php echo base_url('assets/images/facebook.png');?>" alt="Facebook"/></a>
+        <a target="_blank" id="social_link2" href="https://www.twitter.com/PothDekhun"><img src="<?php echo base_url('assets/images/twitter.png');?>" alt="Twitter"/></a>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->

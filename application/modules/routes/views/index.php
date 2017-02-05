@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
 <div id="suggestion_page" class="col-sm-6 col-sm-push-3">
+
     <?php
     $message = $this->session->flashdata('message');
     if ($message) {
@@ -8,7 +10,7 @@
     ?>
     <div class="box box-poth">
         <div class="box-header">
-            <h3 class="no-margin header_linehight"><?php echo lang('see_transport'); ?></h3>
+            <h3 class="no-margin header_linehight"><?php echo lang('main_search'); ?></h3>
         </div>
         <div class="box-body">
 
@@ -97,7 +99,7 @@
     </div>
     <div class="box box-poth">
         <div class="box-header">
-            <?php echo lang('other_search'); ?>
+            <?php echo lang('place_search'); ?>
         </div>
         <div class="box-body">
             <!-- get route info from user form -->
@@ -131,14 +133,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-//        $('#search_place').keypress(function (e) {
-//            if ((e.keyCode == 13) {
-//                e.preventDefault();
-//                alert('dfdfsd');
-//                $('#show_transport').submit();
-//            }
-//        });
-    });
-</script>

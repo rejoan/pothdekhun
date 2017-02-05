@@ -498,19 +498,20 @@ $(document).ready(function () {
     });
 
 
-    jQuery('#social_link1').hover(function () {
-        jQuery(this).stop(true, true).animate({
+    $('#social_link1').hover(function () {
+        $(this).stop(true, true).animate({
             width: '+=105px',
         }, 100, '', function () {
-            if (jQuery(this).children('span').length < 1) {
-                jQuery(this).append('<span>ফেইসবুকে আমরা</span>');
+            if ($(this).children('span').length < 1) {
+                var find_fb = $('#find_fb').val();
+                $(this).append('<span>' + find_fb + '</span>');
             }
         });
 
 
     }, function () {
-        jQuery(this).children('span').remove();
-        jQuery(this).stop(true, true).animate({
+        $(this).children('span').remove();
+        $(this).stop(true, true).animate({
             width: '-=105px',
         });
 
@@ -521,7 +522,8 @@ $(document).ready(function () {
             width: '+=105px',
         }, 100, '', function () {
             if ($(this).children('span').length < 1) {
-                $(this).append('<span>টুইটারে আমরা</span>');
+                var find_tw = $('#find_tw').val();
+                $(this).append('<span>' + find_tw + '</span>');
             }
         });
 

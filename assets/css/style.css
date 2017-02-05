@@ -167,3 +167,19 @@ a.details:hover{
 .header_linehight{
     line-height: 1.5;
 }
+
+.ticker_block ul{
+    position: relative;
+}
+.ticker_block li {
+    position: absolute;
+    display: none;
+    list-style: none;
+}
+#poth_features ul{
+    padding-left: 0;
+}
+#poth_features ul li{
+    font-family: Verdana,SolaimanLipi;
+    font-size: 1em;
+}
