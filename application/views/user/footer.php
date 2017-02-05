@@ -13,9 +13,9 @@
         <div class="col-xs-12">
             <ul id="footer_nav">
                 <li>&copy; Copyright PothDekhun <?php echo date('Y');?></li>
-                <li><a href="<?php echo site_url_tr('pages/about_us'); ?>"><?php echo lang('about_us'); ?></a></li>
-                <li><a href="<?php echo site_url_tr('pages/contact_us'); ?>"><?php echo lang('contact_us'); ?></a></li>
-                <li><a href="<?php echo site_url_tr('pages/point_rules'); ?>"><?php echo lang('point_rules'); ?></a></li>
+                <li><a href="<?php echo site_url_tr('pages/about-us'); ?>"><?php echo lang('about_us'); ?></a></li>
+                <li><a href="<?php echo site_url_tr('pages/contact-us'); ?>"><?php echo lang('contact_us'); ?></a></li>
+                <li><a href="<?php echo site_url_tr('pages/point-rules'); ?>"><?php echo lang('point_rules'); ?></a></li>
             </ul>
         </div>
     </div>
