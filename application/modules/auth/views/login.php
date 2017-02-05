@@ -15,13 +15,13 @@
                     $helper = $fb->getRedirectLoginHelper();
 
                     $permissions = ['email']; // Optional permissions
-                    $loginUrl = $helper->getLoginUrl('http://localhost/pothdekhun/auth/back_check', $permissions);
+                    $loginUrl = $helper->getLoginUrl('http://www.pothdekhun.com/auth/back_check', $permissions);
 
                     require_once 'application/third_party/Google/src/Google/autoload.php';
 
-                    $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/pothdekhun/auth/g_back_check';
+                    $redirect_uri = 'http://www.pothdekhun.com/auth/g_back_check';
                     $client = new Google_Client();
-                    $client->setAuthConfig('{"web":{"client_id":"606528754739-mag1caviaal84rdm8uirn108fmlr8raa.apps.googleusercontent.com","project_id":"pothdekhun","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://accounts.google.com/o/oauth2/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"zUTpLr4DVuHXor60GRDkXk9r","javascript_origins":["http://localhost"]}}');
+                    $client->setAuthConfig('{"web":{"client_id":"606528754739-mag1caviaal84rdm8uirn108fmlr8raa.apps.googleusercontent.com","project_id":"pothdekhun","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://accounts.google.com/o/oauth2/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"zUTpLr4DVuHXor60GRDkXk9r","javascript_origins":["http://www.pothdekhun.com"]}}');
                     $client->setRedirectUri($redirect_uri);
                     $client->setScopes('email');
                     $auth_url = $client->createAuthUrl();
@@ -37,12 +37,12 @@
 
                 <form action="<?php echo $action; ?>" method="post">
                     <div class="form-group has-feedback">
-                        <input type="email" class="form-control" placeholder="<?php echo lang('email'); ?>" name="email" required title="আপনার ইমেইল ঠিকানা দিন">
+                        <input type="email" class="form-control" placeholder="<?php echo lang('email'); ?>" name="email" required title="Email">
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
 
                     <div class="form-group has-feedback">
-                        <input type="password" class="form-control" placeholder="<?php echo lang('password'); ?>" name="password" required title="পাসওয়ার্ড দিন">
+                        <input type="password" class="form-control" placeholder="<?php echo lang('password'); ?>" name="password" required title="Password">
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <div class="form-group">
