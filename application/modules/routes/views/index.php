@@ -10,7 +10,7 @@
     ?>
     <div class="box box-poth">
         <div class="box-header">
-            <h3 class="no-margin header_linehight"><?php echo lang('main_search'); ?></h3>
+            <h5 class="no-margin header_linehight"><?php echo lang('main_search'); ?></h5>
         </div>
         <div class="box-body">
 
