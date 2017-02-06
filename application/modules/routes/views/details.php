@@ -165,6 +165,11 @@
                         <a href="<?php echo site_url_tr('routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-info"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></a>  
                     </div>
                 <?php endif; ?>
+                <?php if ($this->nl->is_admin()): ?>
+                    <div class="col-xs-5">
+                        <a href="<?php echo site_url('route_manager/route_clone') . '/' . $route['r_id']; ?>" class="btn btn-info"><i class="fa fa-copy"></i> Clone</a>  
+                    </div>
+                <?php endif; ?>
             </div>
 
         </div>

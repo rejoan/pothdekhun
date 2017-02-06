@@ -255,7 +255,7 @@ class Route_manager extends MX_Controller {
         if ($table == 'routes') {
             $stoppages = $this->pm->total_item('stoppages', 'route_id', $id);
             if ($stoppages > 0) {
-                $point += ($stoppages*2);
+                $point += ($stoppages * 2);
             }
         }
 
@@ -281,7 +281,7 @@ class Route_manager extends MX_Controller {
     public function reject($id) {
         $this->pm->deleter('id', $id, 'routes');
         $this->session->set_flashdata('message', 'Deleted Succesfully');
-        redirect_tr('route_manager');
+        redirect('route_manager');
     }
 
     public function create_points($route_id, $user_id, $point, $note, $action = 'add') {
@@ -295,6 +295,43 @@ class Route_manager extends MX_Controller {
         $this->db->set('happened_at', 'NOW()', FALSE);
         $this->db->insert('route_points', $points);
         $this->db->query('UPDATE users SET reputation = reputation + ' . (int) $point . ' WHERE id = ' . (int) $user_id);
+    }
+
+    public function route_clone($id, $poribohon_id) {
+        $admin_id = $this->session->user_id;
+        if (empty($poribohon_id)) {
+            $this->session->set_flashdata('message', 'Transport ID missing');
+            redirect('routes/show/' . $id);
+        }
+        $sql = 'INSERT INTO routes
+                (from_district,from_thana,from_place,to_place,to_district,to_thana,from_latlong,to_latlong,transport_type,poribohon_id,departure_time,rent,added,added_by,is_publish,distance,duration,note)
+                SELECT from_district,from_thana,from_place,to_place,to_district,to_thana,from_latlong,to_latlong,transport_type,' . $poribohon_id . ',departure_time,rent,NOW(),' . $admin_id . ',is_publish,distance,duration,note
+                FROM routes
+                WHERE id = ' . $id;
+        $this->db->query($sql);
+        $insert_id = $this->db->insert_id();
+        $bn_sql = 'INSERT INTO route_bn
+                (route_id,from_place,to_place,departure_time,translation_status,note)
+                SELECT ' . $insert_id . ',from_place,to_place,departure_time,translation_status,note
+                FROM route_bn
+                WHERE route_id = ' . $id;
+        $this->db->query($bn_sql);
+
+        $stp_sql = 'INSERT INTO stoppages
+                (place_name,comments,lat_long,rent,route_id,position)
+                SELECT place_name,comments,lat_long,rent,' . $insert_id . ',position
+                FROM stoppages
+                WHERE route_id = ' . $id;
+        $this->db->query($stp_sql);
+        //echo $this->db->last_query();return;
+        $stpbn_sql = 'INSERT INTO stoppage_bn
+                (route_id,place_name,comments,rent,position)
+                SELECT ' . $insert_id . ',place_name,comments,rent,position
+                FROM stoppage_bn
+                WHERE route_id = ' . $id;
+        $this->db->query($stpbn_sql);
+        $this->session->set_flashdata('message', 'Cloned Succesfully');
+        redirect('routes/show/' . $insert_id);
     }
 
 }

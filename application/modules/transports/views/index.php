@@ -31,7 +31,7 @@
                 <tbody>
                     <?php foreach ($transports as $r):$segment++; ?>
                         <tr>
-                            <td><?php echo $segment; ?></td>
+                            <td><?php echo $r['id']; ?></td>
                             <td><?php echo $r[$this->nl->lang_based_data('bn_name', 'name')]; ?></td>
                             <td><?php echo empty($r['total_vehicles']) ? 'Not Given' : $r['total_vehicles']; ?></td>
                             <td><?php echo date('d M, Y ', strtotime($r['added'])); ?></td>
