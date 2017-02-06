@@ -93,7 +93,7 @@
                     </label>
                 </div>
 
-                <input id="see_transport" type="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('see_transport_button'); ?>"/>
+                <input id="see_transport" type="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('see_transport_button'); ?>" name="xyz"/>
             </form>
         </div>
     </div>
@@ -103,7 +103,7 @@
         </div>
         <div class="box-body">
             <!-- get route info from user form -->
-            <form id="show_transport" action="<?php echo $search_action; ?>" method="get" accept-charset="UTF-8">
+            <form action="<?php echo $search_action; ?>" method="get" accept-charset="UTF-8">
                 <div class="row">
                     <div class="col-xs-10 col-md-3">
                         <div class="form-group">
@@ -126,10 +126,23 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <input type="submit" class="btn btn-primary btn-info" value="<?php echo lang('show_transport'); ?>"/>  
+                        <input id="show_transport" type="submit" class="btn btn-primary btn-info" name="abc" value="<?php echo lang('show_transport'); ?>"/>  
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('input:text').keypress(function (e) {
+            var code = e.keyCode || e.which;
+
+            if (code === 13) {
+                e.preventDefault();
+                $('#show_transport').click();
+            }
+            ;
+        });
+    });
+</script>
