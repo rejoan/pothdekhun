@@ -321,7 +321,76 @@
                     <button data-file_name="<?php echo $edited_route['evidence2']; ?>" data-hidden_id="pd_pthmnx" class="btn btn-xs btn-danger remove_file" href="javascript:void(0)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                 </div>
 
-                
+                <?php
+                if (isset($route['amenities'])) {
+                    $amenities = explode(',', $route['amenities']);
+                }
+                ?>
+                <div class="form-group">
+                    <label><?php echo lang('ac_nonac'); ?></label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ac_non" value="ac" <?php if (isset($amenities)) {
+                    echo in_array('ac', $amenities) ? 'checked="yes"' : '';
+                } ?>> <?php echo lang('ac'); ?>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ac_non" value="nac" <?php if (isset($amenities)) {
+                    echo in_array('nac', $amenities) ? 'checked="yes"' : '';
+                } ?>> <?php echo lang('nac'); ?>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ac_non" value="acunknown" <?php if (isset($amenities)) {
+                    echo in_array('acunknown', $amenities) ? 'checked="yes"' : '';
+                } else {
+                    echo 'checked="yes"';
+                } ?>> <?php echo lang('unknown'); ?>
+                        </label>
+                </div>
+
+                <div class="form-group">
+                    <label><?php echo lang('mail_local'); ?></label>
+                        <label class="radio-inline">
+                            <input type="radio" name="mail_local" value="local" <?php if (isset($amenities)) {
+                    echo in_array('local', $amenities) ? 'checked="yes"' : '';
+                } ?>> <?php echo lang('local'); ?>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="mail_local" value="gatelock" <?php if (isset($amenities)) {
+                    echo in_array('gatelock', $amenities) ? 'checked="yes"' : '';
+                } ?>> <?php echo lang('gatelock'); ?>
+                        </label>
+                        <label class="radio-inline">
+<?php $target = array('local', 'gatelock'); ?>
+                            <input type="radio" name="mail_local" value="unknown" <?php if (isset($amenities)) {
+    echo count(array_intersect($amenities, $target)) > 0 ? '' : 'checked="yes"';
+} else {
+    echo 'checked="yes"';
+} ?>> <?php echo lang('unknown'); ?>
+                        </label>
+                </div>
+
+
+                <div class="form-group">
+                    <label><?php echo lang('chair_semi'); ?>?</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="chair_semi" value="chair" <?php if (isset($amenities)) {
+    echo in_array('chair', $amenities) ? 'checked="yes"' : '';
+} ?>> <?php echo lang('chair'); ?>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="chair_semi" value="semi" <?php if (isset($amenities)) {
+    echo in_array('semi', $amenities) ? 'checked="yes"' : '';
+} ?>> <?php echo lang('semi'); ?>
+                        </label>
+                        <label class="radio-inline">
+<?php $target2 = array('chair', 'semi'); ?>
+                            <input type="radio" name="chair_semi" value="unknown" <?php if (isset($amenities)) {
+    echo count(array_intersect($amenities, $target2)) > 0 ? '' : 'checked="yes"';
+} else {
+    echo 'checked="yes"';
+} ?>> <?php echo lang('unknown'); ?>
+                        </label>
+                </div>
 
                 <input type="hidden" id="cancel" value="<?php echo lang('cancel_text'); ?>"/>
                 <input type="hidden" id="place_name" value="<?php echo lang('place_name'); ?>"/>
@@ -331,8 +400,8 @@
                 <input id="route_id" type="hidden" name="route_id" value="<?php echo $this->uri->segment(3); ?>"/>
                 <input id="pd_pthm" type="hidden"  name="edited_file" value="<?php echo $edited_route['evidence']; ?>"/>
                 <input id="pd_pthmnx" type="hidden"  name="edited_file2" value="<?php echo $edited_route['evidence2']; ?>"/>
-                
-                <input type="hidden"  name="janba" value="<?php echo $this->encryption->encrypt($edited_route['poribohon_id']);?>"/>
+
+                <input type="hidden"  name="janba" value="<?php echo $this->encryption->encrypt($edited_route['poribohon_id']); ?>"/>
 
                 <div class="form-group">
                     <label class="control-label">Point</label>
@@ -416,7 +485,7 @@
             }).done(function (response) {
                 if (response.deleted == 'done') {
                     $(this).prev().text('');
-                    $(this).prev().attr('href','');
+                    $(this).prev().attr('href', '');
                     $('#' + hidden_id).val('');
                     var point = parseInt($('#point').val());
                     var new_pint = point - 5;

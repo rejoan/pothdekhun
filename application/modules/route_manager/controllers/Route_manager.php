@@ -13,6 +13,7 @@ class Route_manager extends MX_Controller {
         parent::__construct();
         $this->nl->is_admin('errors', FALSE);
         $this->user_id = $this->session->user_id;
+        $this->lang->load('routes', $this->session->lang_name);
         $this->load->model('Route_manager_model', 'rmn');
     }
 
