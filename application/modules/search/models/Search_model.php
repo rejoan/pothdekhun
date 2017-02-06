@@ -320,19 +320,31 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
     }
 
     public function possible_collections($place, $stopage_table, $to_place, $per_page, $segment, $pagination, $district, $to_district) {
+        $ft = trim($this->input->get('ft', TRUE));
+        $th = trim($this->input->get('th', TRUE));
+
+        $fthana = $this->pm->get_row('id', $ft, 'thanas');
+        $tthana = $this->pm->get_row('id', $th, 'thanas');
+        if (empty($place)) {
+            $place = $fthana[$this->nl->lang_based_data('bn_name', 'name')];
+        }
+        if (empty($to_place)) {
+            $to_place = $tthana[$this->nl->lang_based_data('bn_name', 'name')];
+        }
         $fquery = $this->db->query('SELECT *
                                     FROM (
                                     SELECT id route_id
                                     FROM routes
-                                    WHERE to_place = "' . $place . '" UNION DISTINCT
+                                    WHERE to_place = "' . $place . '" OR to_place LIKE "%'.$place.'%" UNION DISTINCT
                                     SELECT id route_id
                                     FROM routes
-                                    WHERE from_place = "' . $place . '" UNION DISTINCT
+                                    WHERE from_place = "' . $place . '" OR from_place LIKE "%'.$place.'%" UNION DISTINCT
                                     SELECT route_id
                                     FROM ' . $stopage_table . '
-                                    WHERE place_name = "' . $place . '"
+                                    WHERE place_name = "' . $place . '" OR place_name LIKE "%'.$place.'%"
                                     ) AS rtn');
-
+        //echo $this->db->last_query();return;
+        //var_dump($fquery->num_rows());return;
         if ($fquery->num_rows() > 0) {// when from place exact found in places including stoppages
             $query = $this->db->query('SELECT *
                                     FROM (
@@ -346,7 +358,9 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
                                     FROM ' . $stopage_table . '
                                     WHERE place_name SOUNDS LIKE "' . $to_place . '"
                                     ) AS rtn');
+            //echo $this->db->last_query();return;
             $all_routes_id = $this->nl->get_all_ids($query->result_array(), 'route_id');
+            //var_dump($all_routes_id);return;
             if (empty($all_routes_id)) {
                 return array();
             }
@@ -357,13 +371,13 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
                                     FROM (
                                     SELECT id route_id
                                     FROM routes
-                                    WHERE to_place = "' . $to_place . '" UNION DISTINCT
+                                    WHERE to_place = "' . $to_place . '" OR to_place LIKE "%'.$place.'%" UNION DISTINCT
                                     SELECT id route_id
                                     FROM routes
-                                    WHERE from_place = "' . $to_place . '" UNION DISTINCT
+                                    WHERE from_place = "' . $to_place . '"  OR from_place LIKE "%'.$to_place.'%"  UNION DISTINCT
                                     SELECT route_id
                                     FROM ' . $stopage_table . '
-                                    WHERE place_name = "' . $to_place . '"
+                                    WHERE place_name = "' . $to_place . '" OR place_name LIKE "%'.$to_place.'%"
                                     ) AS rtn');
 
         if ($tquery->num_rows() > 0) {

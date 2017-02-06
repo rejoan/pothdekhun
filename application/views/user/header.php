@@ -23,8 +23,8 @@
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-select.min.css'); ?>" >
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/font-awesome.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/ionicons.min.css'); ?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/skins/_all-skins.min.css'); ?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/plugins/iCheck/flat/blue.css'); ?>">
+<!--        <link rel="stylesheet" href="<?php //echo base_url('assets/dist/css/skins/_all-skins.min.css'); ?>">-->
+<!--        <link rel="stylesheet" href="<?php //echo base_url('assets/plugins/iCheck/flat/blue.css'); ?>">-->
         <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-sweetalert/dist/sweetalert.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/AdminLTE.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables/media/css/jquery.dataTables.min.css'); ?>">
@@ -48,7 +48,7 @@
                         'height': '70px'
                     });
                 } else {
-                    $('#poth_features ul').css('height', '20px');
+                    $('#poth_features ul').css('height', '28px');
                 }
                 var lis = $('.ticker_block li'),
                         cur = lis.first().addClass('active'),
@@ -65,17 +65,35 @@
                 }
                 timer = setInterval(show_div, 3000);
                 $('#poth_features').on('mouseleave', function (ev) {
-                   timer =  setInterval(show_div, 3000);
+                    timer = setInterval(show_div, 3000);
                 });
 
-                $('#poth_features').on('mouseenter',function (ev) {
+                $('#poth_features').on('mouseenter', function (ev) {
                     clearInterval(timer);
                 });
             });
         </script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-91403655-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
     </head>
 
     <body>
+
         <div class="container-fluid"><!-- container start here: ended in footer-->
 
             <div class="row">

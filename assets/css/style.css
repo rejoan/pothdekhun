@@ -177,7 +177,9 @@ a.details:hover{
     list-style: none;
 }
 #poth_features ul{
-    padding-left: 0;
+    padding: 3px;
+    background: #fff;
+    border-radius: 3px;
 }
 #poth_features ul li{
     font-family: Verdana,SolaimanLipi;
