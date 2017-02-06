@@ -75,12 +75,20 @@ class Routes extends MX_Controller {
                 $this->session->set_flashdata('message', lang('route_exist'));
                 redirect_tr('routes/add');
             }
+
             $from_district = $fd;
             $from_thana = $ft;
             $to_district = $td;
             $to_thana = $th;
             $departure_time = $this->input->post('departure_time', TRUE);
             $main_rent = trim($this->input->post('main_rent', TRUE));
+            $ac_non = $this->input->post('ac_non');
+            $mail_local = $this->input->post('mail_local');
+            $chair_semi = $this->input->post('chair_semi');
+
+            $chair_semi = ($chair_semi == 'unknown') ? '' : ',' . $chair_semi;
+            $mail_local = ($mail_local == 'unknown') ? '' : ',' . $mail_local;
+            $amenities = $ac_non . $chair_semi . $mail_local;
 
             if ($departure_time != 1) {//if not consecutively
                 $departure_time = $this->input->post('departure_dynamic', TRUE);
@@ -140,7 +148,8 @@ class Routes extends MX_Controller {
                 'rent' => $main_rent,
                 'evidence' => $evidence_name[1],
                 'evidence2' => $evidence_name[2],
-                'added_by' => $this->user_id
+                'added_by' => $this->user_id,
+                'amenities' => $amenities
             );
             if ($this->session->user_type == 'admin') {
                 $route['is_publish'] = 1;
@@ -315,7 +324,13 @@ class Routes extends MX_Controller {
             $ft = trim($this->input->post('ft', TRUE));
             $td = trim($this->input->post('td', TRUE));
             $th = trim($this->input->post('th', TRUE));
+            $ac_non = $this->input->post('ac_non');
+            $mail_local = $this->input->post('mail_local');
+            $chair_semi = $this->input->post('chair_semi');
 
+            $chair_semi = ($chair_semi == 'unknown') ? '' : ',' . $chair_semi;
+            $mail_local = ($mail_local == 'unknown') ? '' : ',' . $mail_local;
+            $amenities = $ac_non . $chair_semi . $mail_local;
             //get thana and district name to get lat long data
 
             if ($this->session->lang_code == 'bn' && $this->nl->is_admin()) {
@@ -337,7 +352,8 @@ class Routes extends MX_Controller {
                     'transport_type' => $this->input->post('transport_type', TRUE),
                     'rent' => $this->input->post('main_rent', TRUE),
                     'evidence' => $evidence_name[1],
-                    'evidence2' => $evidence_name[2]
+                    'evidence2' => $evidence_name[2],
+                    'amenities' => $amenities
                 );
                 if ($this->nl->is_admin()) {
                     $route['is_publish'] = 1;
@@ -481,7 +497,7 @@ class Routes extends MX_Controller {
         $result['fare_upvote'] = $this->pm->get_sum('route_id', $route_id, 'fare_upvote', 'route_complains');
         $result['fare_downvote'] = $this->pm->get_sum('route_id', $route_id, 'fare_downvote', 'route_complains');
         //});
-        //var_dump($result);        return;
+
         $data = array(
             'title' => mb_convert_case($result[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($result[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('to_view') . ' ' . mb_convert_case($result[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($result[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8') . ' ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . mb_convert_case($result['transport_type'], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('route_info'),
             'route' => $result,
