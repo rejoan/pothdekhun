@@ -185,3 +185,8 @@ a.details:hover{
     font-family: Verdana,SolaimanLipi;
     font-size: 1em;
 }
+
+#details_header .bg-orange{
+    border-radius: 4px;
+    padding-bottom: 3px;
+}

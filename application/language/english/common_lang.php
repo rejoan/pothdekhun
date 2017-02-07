@@ -175,3 +175,4 @@ $lang['no_stoppage_route_found'] = 'No transport found who uses above places as 
 $lang['no_suggested_route_found'] = 'No suggestion found matched your search';
 $lang['suggested_route'] = 'Some suggestions matches your search places';
 $lang['possible_route'] = 'Some possible matches';
+$lang['select'] = 'Select';

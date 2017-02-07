@@ -8,7 +8,7 @@
     ?>
     <div class="box box-poth">
         <div id="details_header" class="box-header with-border">
-            <p><?php echo lang('route_info') . ': <a data-toggle="tooltip" data-placement="top" title="Google Map Direction" target="_blank" class="btn btn-google" href="https://www.google.com/maps/dir/' . mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . ',Bangladesh/' . mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('th_thana_name_bn', 'th_thana_name')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8') . ',Bangladesh/"><i class="fa fa-map-marker"></i> Google Map</a></p> <div class="row no-margin"><div class="col-md-6 bg-aqua-gradient">' . mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('thana_name_bn', 'thana_name')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . '</div><div class="col-md-1"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></div> <div class="col-md-5 bg-aqua-gradient">' . mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('th_thana_name_bn', 'th_thana_name')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8') . '</div>'; ?></div>
+            <p><?php echo lang('route_info') . ': <a data-toggle="tooltip" data-placement="top" title="Google Map Direction" target="_blank" class="btn btn-sm bg-purple" href="https://www.google.com/maps/dir/' . mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . ',Bangladesh/' . mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('th_thana_name_bn', 'th_thana_name')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8') . ',Bangladesh/"><i class="fa fa-map-marker"></i> Google Map</a></p> <div class="row no-margin"><div class="col-md-6 bg-orange">' . mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('thana_name_bn', 'thana_name')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . '</div><div class="col-md-1"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></div> <div class="col-md-5 bg-orange">' . mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('th_thana_name_bn', 'th_thana_name')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8') . '</div>'; ?></div>
     </div>
     <div class="box-body">
         <div class="row custom_margin">
@@ -60,7 +60,7 @@
                 );
                 foreach ($amn as $key => $am):
                     ?>
-                    <span class="label label-warning"><?php echo $amenities[$am]; ?></span>
+                    <span class="label label-default"><?php echo $amenities[$am]; ?></span>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -127,7 +127,7 @@
                                 <th><?php echo lang('place_name'); ?></th>
                                 <th><?php echo lang('comment'); ?></th>
                                 <th><?php echo lang('main_rent'); ?></th>
-<!--                                    <th><?php //echo lang('fare_verify');          ?></th>-->
+<!--                                    <th><?php //echo lang('fare_verify');             ?></th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -140,8 +140,8 @@
                                         <?php echo $s['rent'] . ' ' . lang('tk'); ?>
                                     </td>
     <!--                                        <td>
-                                        <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');          ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
-                <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');          ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');             ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');             ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
                                     </td>-->
                                 </tr>
                             <?php endforeach; ?>
@@ -184,19 +184,22 @@
     <div class="box-footer">
         <div class="row">
             <?php if ($this->session->user_id): ?>
-                <div class="col-xs-5">
+                <div class="col-xs-4">
                     <a href="<?php echo site_url_tr('routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-info"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></a>  
                 </div>
             <?php endif; ?>
+            <div class="col-xs-4">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#compalin"><i class="fa fa-legal"></i> <?php echo lang('verify'); ?></button>
+
+            </div>
             <?php if ($this->nl->is_admin()): ?>
-                <div class="col-xs-5">
+                <div class="col-xs-4">
                     <a href="<?php echo site_url('route_manager/route_clone') . '/' . $route['r_id']; ?>" class="btn btn-info"><i class="fa fa-copy"></i> Clone</a>  
                 </div>
             <?php endif; ?>
         </div>
 
     </div>
-
 
 </div>
 <div class="box box-warning">
@@ -267,3 +270,4 @@
     <!-- /.box-body -->
 </div>
 </div>
+<?php $this->load->view('complain_modal');?>
