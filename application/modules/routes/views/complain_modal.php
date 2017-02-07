@@ -18,11 +18,11 @@
                     </div>
                     <div class="form-group">
                         <label><?php echo lang('note'); ?></label>
-                        <textarea name="note" class="form-control" rows="3" placeholder="Your Comment" required></textarea>
+                        <textarea id="note" name="note" class="form-control" rows="3" placeholder="Your Comment" required></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
                     <input type="submit" class="btn btn-info" name="submit" value="<?php echo lang('add_button'); ?>">
                 </div>
             </div><!-- /.modal-content -->

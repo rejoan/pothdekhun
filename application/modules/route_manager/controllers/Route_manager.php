@@ -305,15 +305,15 @@ class Route_manager extends MX_Controller {
             redirect('routes/show/' . $id);
         }
         $sql = 'INSERT INTO routes
-                (from_district,from_thana,from_place,to_place,to_district,to_thana,from_latlong,to_latlong,transport_type,poribohon_id,departure_time,rent,added,added_by,is_publish,distance,duration,note)
-                SELECT from_district,from_thana,from_place,to_place,to_district,to_thana,from_latlong,to_latlong,transport_type,' . $poribohon_id . ',departure_time,rent,NOW(),' . $admin_id . ',is_publish,distance,duration,note
+                (from_district,from_thana,from_place,to_place,to_district,to_thana,from_latlong,to_latlong,transport_type,poribohon_id,departure_time,rent,added,added_by,is_publish,distance,duration,amenities)
+                SELECT from_district,from_thana,from_place,to_place,to_district,to_thana,from_latlong,to_latlong,transport_type,' . $poribohon_id . ',departure_time,rent,NOW(),' . $admin_id . ',is_publish,distance,duration,amenities
                 FROM routes
                 WHERE id = ' . $id;
         $this->db->query($sql);
         $insert_id = $this->db->insert_id();
         $bn_sql = 'INSERT INTO route_bn
-                (route_id,from_place,to_place,departure_time,translation_status,note)
-                SELECT ' . $insert_id . ',from_place,to_place,departure_time,translation_status,note
+                (route_id,from_place,to_place,departure_time,translation_status)
+                SELECT ' . $insert_id . ',from_place,to_place,departure_time,translation_status
                 FROM route_bn
                 WHERE route_id = ' . $id;
         $this->db->query($bn_sql);

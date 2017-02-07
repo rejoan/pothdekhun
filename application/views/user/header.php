@@ -73,7 +73,7 @@
                 });
             });
         </script>
-        <script>
+<!--        <script>
             (function (i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
                 i[r] = i[r] || function () {
@@ -89,7 +89,7 @@
             ga('create', 'UA-91403655-1', 'auto');
             ga('send', 'pageview');
 
-        </script>
+        </script>-->
     </head>
 
     <body>

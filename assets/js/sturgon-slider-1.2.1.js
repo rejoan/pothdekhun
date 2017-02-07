@@ -214,6 +214,39 @@ $(document).ready(function () {
         }
         current.addClass('selected');
     });
+
+    $('#verify_form').submit(function (e) {
+        e.preventDefault();
+        var pd_stu = $('#pd_stu').val();
+        var pd_btu = $('#pd_btu').val();
+        var pd_identity = $('#pd_identity').val();
+        var latest_status = $('#latest_status').val();
+        var note = $('#note').val();
+        $.ajax({
+            context: this,
+            url: pd_stu + 'weapons/send_verification',
+            type: 'post',
+            dataType: 'json',
+            cache: true,
+            data: {
+                latest_status: latest_status,
+                note: note,
+                pd_identity: pd_identity
+            },
+            beforeSend: function () {
+                $(this).parent().append('<img id="loader" src="' + pd_btu + 'assets/images/loading.gif" alt="Loading"/>');
+                $('#complain .close').prop('disabled', true);
+            },
+            complete: function () {
+                $('#loader').remove();
+            }
+        }).done(function (response) {
+            $('#loader').remove();
+            $('#compalin').modal('hide');
+
+        });
+    });
+
     $('.search_place,#vehicle_name,#search_place').on('keydown', function (e) {
         var listItems = $(this).next().find('a');
         var key = e.keyCode,
@@ -547,7 +580,7 @@ function get_thanas(district, thana) {
     var pd_stu = $('#pd_stu').val();
     $.ajax({
         context: this,
-        url: pd_stu + 'weapons/get_thanas/',
+        url: pd_stu + 'weapons/get_thanas',
         type: 'get',
         dataType: 'json',
         cache: true,

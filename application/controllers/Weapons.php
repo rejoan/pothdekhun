@@ -244,4 +244,30 @@ class Weapons extends MX_Controller {
         echo json_encode(array('exist' => 'no'));
     }
 
+    public function send_verification() {
+        $user_id = $this->session->user_id;
+        $this->load->library('encryption');
+        $this->encryption->initialize(
+                array(
+                    'cipher' => 'des',
+                    'mode' => 'ECB'
+                )
+        );
+        $route_id = $this->encryption->decrypt($this->input->post('pd_identity', TRUE));
+            $cond = array(
+            'user_id' => $user_id,
+            'route_id' =>$route_id
+            );
+            $this->db->where($cond);
+        
+        $status = trim($this->input->post('latest_status', TRUE));
+        $note = trim($this->input->post('note', TRUE));
+        $complain = array(
+            'user_id' => $user_id,
+            'route_id' => $route_id,
+            'latest_status' => $status,
+            'note' => $note
+        );
+    }
+
 }

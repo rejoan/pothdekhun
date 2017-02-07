@@ -35,5 +35,5 @@ $lang['chair_semi'] = 'Chair or Semi Chair?';
 $lang['verify'] = 'Add/verify Info';
 $lang['route_closed'] = 'Route Closed';
 $lang['transport_closed'] = 'Route ok, Transport Closed';
-$lang['route_changed'] = 'Route Changed';
+$lang['route_change'] = 'Route Changed';
 $lang['tempo_closed'] = 'Temporarily Closed';
