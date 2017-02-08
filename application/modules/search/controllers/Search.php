@@ -50,7 +50,7 @@ class Search extends MX_Controller {
         });
 
         $stoppage_routes = $this->sm->place_stoppage_routes($place_name, $stopage_table, $district, 20, $segment, FALSE);
-       //var_dump($stoppage_routes);return;
+        //var_dump($stoppage_routes);return;
         array_walk($stoppage_routes, function(&$a) use($stopage_table) {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
@@ -61,8 +61,8 @@ class Search extends MX_Controller {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
         });
-        
-     //var_dump($suggested_routes);return;
+
+        //var_dump($suggested_routes);return;
         $possible_matches = $this->sm->place_possible_collections($place_name, $stopage_table, $district, 10, $segment, FALSE);
         array_walk($possible_matches, function(&$a) use($stopage_table) {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
@@ -150,54 +150,6 @@ class Search extends MX_Controller {
             'segment' => $segment
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
-    }
-
-    public function get_info() {
-        $adds = str_replace(' ', '+', trim($address));
-        $lat_long = array();
-        //$json = file_get_contents('http://maps.google.com/maps/api/geocode/json?address=' . $adds . '&sensor=false&region=' . $country);
-        $ctx = stream_context_create(array('http' =>
-            array(
-                'timeout' => 60,
-            )
-        ));
-
-        $json = @file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $adds . ',' . $country . '&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $ctx);
-
-        $json = json_decode($json);
-        //var_dump($json);return;
-        if (empty($json) || empty($json->results)) {
-            $prediction_api = @file_get_contents('https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' . $adds . '&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $ctx);
-            $predictions = json_decode($prediction_api);
-            //var_dump($thana,$district);return;
-            if (empty($predictions->predictions)) {
-                $json = @file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . str_replace(' ', '+', trim($thana)) . ',' . $district . ',' . $country . '&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $ctx);
-
-                $json = json_decode($json);
-                //var_dump($json);return;
-            } else {
-                $place_id = $predictions->predictions[0]->place_id;
-
-                //$first_prediction = $predictions->predictions[0]->description;
-
-                $json = @file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $place_id . '&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $ctx);
-
-                $json = json_decode($json);
-                $lat = $json->result->geometry->location->lat;
-                $long = $json->result->geometry->location->lng;
-                $lat_long['lat'] = $lat;
-                $lat_long['long'] = $long;
-
-                return $lat_long;
-            }
-        }
-        //var_dump($json->results[0]->geometry);return;
-        $lat = $json->results[0]->geometry->location->lat;
-        $long = $json->results[0]->geometry->location->lng;
-        $lat_long['lat'] = $lat;
-        $lat_long['long'] = $long;
-
-        return $lat_long;
     }
 
 }
