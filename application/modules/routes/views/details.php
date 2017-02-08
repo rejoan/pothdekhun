@@ -94,14 +94,19 @@
             <div class="col-xs-4">
                 <h4 class="no-margin"><?php echo $route['rent'] . ' ' . lang('tk'); ?></h4>
             </div>
-            <?php if ($this->session->user_id): ?>
+            <?php if ($this->session->user_id) { ?>
                 <div id="fare_verfication" class="col-xs-4">
                     <small id="pd_crc" class="text-muted text-success"><?php echo $route['fare_upvote']; ?></small>
                     <a data-pd_fp="pd_fpk" data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_ok'); ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
                     <a data-pd_fp="pd_fpnk" data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_not_ok'); ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
                     <small id="pd_wrn" class="text-muted text-danger"><?php echo $route['fare_downvote']; ?></small>
                 </div>
-            <?php endif; ?>
+            <?php } else { ?>
+                <div class="col-xs-4">
+                    <a data-toggle="modal" data-target="#compalin" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                    <a data-toggle="modal" data-target="#compalin" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                </div>
+            <?php } ?>
         </div>
 
 
@@ -127,7 +132,7 @@
                                 <th><?php echo lang('place_name'); ?></th>
                                 <th><?php echo lang('comment'); ?></th>
                                 <th><?php echo lang('main_rent'); ?></th>
-<!--                                    <th><?php //echo lang('fare_verify');             ?></th>-->
+<!--                                    <th><?php //echo lang('fare_verify');              ?></th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -140,8 +145,8 @@
                                         <?php echo $s['rent'] . ' ' . lang('tk'); ?>
                                     </td>
     <!--                                        <td>
-                                        <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');             ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
-                <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');             ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');              ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');              ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
                                     </td>-->
                                 </tr>
                             <?php endforeach; ?>
@@ -190,7 +195,6 @@
             <?php endif; ?>
             <div class="col-xs-4">
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#compalin"><i class="fa fa-legal"></i> <?php echo lang('verify'); ?></button>
-
             </div>
             <?php if ($this->nl->is_admin()): ?>
                 <div class="col-xs-4">
@@ -270,4 +274,4 @@
     <!-- /.box-body -->
 </div>
 </div>
-<?php $this->load->view('complain_modal');?>
+<?php $this->load->view('complain_modal'); ?>

@@ -204,8 +204,8 @@ class Weapons extends MX_Controller {
             'user_id' => $user_id,
             'route_id' => $route_id
         );
-        $query = $this->db->where($cond)->get('route_complains');
-        if ($query->num_rows() > 0) {
+        $query = $this->db->where($cond)->where('(fare_upvote = 1 OR fare_downvote = 1)', NULL, FALSE)->get('route_complains');
+        if ($query->num_rows() > 0) {//if any feedback given earlier
             echo json_encode(array('msg' => 'exist'));
             return;
         }
@@ -223,8 +223,16 @@ class Weapons extends MX_Controller {
                 'route_id' => $route_id
             );
         }
+        $query2 = $this->db->where($cond)->get('route_complains');
         $this->db->set('added', 'NOW()', FALSE);
-        $insert = $this->pm->insert_data('route_complains', $data, TRUE);
+        if ($query2->num_rows() > 0) {
+            $row = $query2->row_array();
+            $this->pm->updater('id', $row['id'], 'route_complains', $data);
+            $insert = $row['id'];
+        } else {
+            $insert = $this->pm->insert_data('route_complains', $data, TRUE);
+        }
+
         $vot = $this->pm->get_sum('route_id', $route_id, 'fare_downvote', 'route_complains');
         if ($pd_sts == 'pd_fpk') {//if upvote
             $vot = $this->pm->get_sum('route_id', $route_id, 'fare_upvote', 'route_complains');
@@ -245,6 +253,10 @@ class Weapons extends MX_Controller {
     }
 
     public function send_verification() {
+        if (!$this->session->user_id) {
+            echo json_encode(array('sent' => 'no'));
+            return;
+        }
         $user_id = $this->session->user_id;
         $this->load->library('encryption');
         $this->encryption->initialize(
@@ -254,13 +266,15 @@ class Weapons extends MX_Controller {
                 )
         );
         $route_id = $this->encryption->decrypt($this->input->post('pd_identity', TRUE));
-            $cond = array(
+        $cond = array(
             'user_id' => $user_id,
-            'route_id' =>$route_id
-            );
-            $this->db->where($cond);
-        
+            'route_id' => $route_id
+        );
+        $query = $this->db->where($cond)->get('route_complains');
         $status = trim($this->input->post('latest_status', TRUE));
+        if ($status == 0 || empty($status)) {
+            $status = NULL;
+        }
         $note = trim($this->input->post('note', TRUE));
         $complain = array(
             'user_id' => $user_id,
@@ -268,6 +282,18 @@ class Weapons extends MX_Controller {
             'latest_status' => $status,
             'note' => $note
         );
+        $sent = 'no';
+        if ($query->num_rows() > 0) {
+            $row = $query->row_array();
+            $this->pm->updater('id', $row['id'], 'route_complains', $complain);
+            $sent = 'yes';
+        } else {
+            $insert_id = $this->pm->insert_data('route_complains', $complain, TRUE);
+            if ($insert_id) {
+                $sent = 'yes';
+            }
+        }
+        echo json_encode(array('sent' => $sent));
     }
 
 }

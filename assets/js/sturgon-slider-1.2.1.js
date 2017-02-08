@@ -235,15 +235,20 @@ $(document).ready(function () {
             },
             beforeSend: function () {
                 $(this).parent().append('<img id="loader" src="' + pd_btu + 'assets/images/loading.gif" alt="Loading"/>');
-                $('#complain .close').prop('disabled', true);
+                $('#complain .close_btn').prop('disabled', true);
             },
             complete: function () {
                 $('#loader').remove();
+                $('#complain .close_btn').prop('disabled', false);
             }
         }).done(function (response) {
             $('#loader').remove();
             $('#compalin').modal('hide');
-
+            if (response.sent == 'yes') {
+                swal('Verification Sent', 'Thanks for your info', 'success');
+            }else{
+                swal('Problem', 'Something gone wrong', 'error');
+            }
         });
     });
 
