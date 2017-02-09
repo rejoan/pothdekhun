@@ -160,6 +160,7 @@ class Prime_model extends CI_Model {
             $this->db->where($col, $val);
         }
         $total = $this->db->get($table)->num_rows();
+        //echo $this->db->last_query();return;
         return $total;
     }
 

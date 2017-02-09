@@ -17,10 +17,18 @@ class Admin extends MX_Controller {
     }
 
     public function index() {
+        $this->load->helper('admin');
         $data = array(
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            'routes' => $this->db->where('is_publish','0')->get('routes')->num_rows(),
+            'edited_routes' => $this->pm->total_item('edited_routes'),
+            'transports' => $this->db->where('is_publish','0')->get('poribohons')->num_rows(),
+            'edited_transports' => $this->pm->total_item('edited_poribohons'),
+            'comments' => $this->pm->total_item('comments'),
+            'contact_us' => $this->pm->total_item('contact_us'),
+            'verify' => $this->pm->total_item('route_complains'),
         );
-
+        
         $this->nl->view_loader('admin', 'index', NULL, $data, NULL, NULl, NULL);
     }
 
