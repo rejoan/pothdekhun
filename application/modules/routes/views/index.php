@@ -87,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div id="consider_thana" class="form-group err">
                     <label>
                         <input type="checkbox" name="c"> <?php echo lang('consider_thana'); ?>
                     </label>

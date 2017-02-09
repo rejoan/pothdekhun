@@ -246,7 +246,7 @@ $(document).ready(function () {
             $('#compalin').modal('hide');
             if (response.sent == 'yes') {
                 swal('Verification Sent', 'Thanks for your info', 'success');
-            }else{
+            } else {
                 swal('Problem', 'Something gone wrong', 'error');
             }
         });
@@ -381,14 +381,27 @@ $(document).ready(function () {
         }
     });
 
-
     $('select[name="fd"]').change(function () {
         var district = $.trim($(this).val());
+        var to_district = $('select[name="td"]').val();
+        if ((district == 1 && to_district !== 1) || (to_district == 1 && district !== 1)) {
+            $('#consider_thana').slideDown();
+        }else{
+            $('#consider_thana').slideUp();
+        }
+       
         var thana = $(this).data('thana');
         get_thanas(district, thana);
     });
     $('select[name="td"]').change(function () {
         var district = $.trim($(this).val());
+        var from_district = $('select[name="fd"]').val();
+        if ((district == 1 && from_district !== 1) || (from_district == 1 && district !== 1)) {
+            $('#consider_thana').slideDown();
+        }else{
+            $('#consider_thana').slideUp();
+        }
+        
         var thana = $(this).data('thana');
         get_thanas(district, thana);
     });
