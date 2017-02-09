@@ -552,7 +552,7 @@ class Routes extends MX_Controller {
     }
 
     public function delete($id) {
-        $this->nl->is_logged();
+        $this->nl->is_admin('errors',FALSE);
         $this->pm->deleter('id', $id, 'routes');
         $this->session->set_flashdata('message', lang('success_delete'));
         redirect_tr('routes/all');
