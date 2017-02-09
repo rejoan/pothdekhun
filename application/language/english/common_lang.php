@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['index'] = 'Quickly Find Transport and Route of Bangladesh';
-$lang['home_page_meta'] = 'Quickly Find All Transport and Route Information of Bangladesh including Bus Leguna Train Biman even Launch';
+$lang['home_page_meta'] = 'Quickly Find All Transport and Route of Bangladesh including Bus Leguna Train Biman even Launch. All route includes fare, distance, google map direction and all required information for travel';
 $lang['add_route'] = 'Add a Route';
 $lang['edit_route'] = 'Edit Route';
 $lang['dhaka_message'] = 'No need to select thana when district is DHAKA';

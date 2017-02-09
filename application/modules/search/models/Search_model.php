@@ -199,8 +199,10 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         $thana_routes_id = $this->nl->get_all_ids($thana_suggestion, 'route_id');
         $thana_arr = explode(',', $thana_routes_id);
         $final_ids = array_merge($all_arr,$thana_arr);
-        $all_id_arr = array_unique($final_ids);
+        $all_id_arr = array_filter(array_unique($final_ids));
+        
         $all_ids = implode(',',$all_id_arr);
+        //var_dump($all_ids);return;
         if (empty($all_ids)) {
             return array();
         }
