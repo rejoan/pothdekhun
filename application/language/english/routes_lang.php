@@ -37,5 +37,7 @@ $lang['route_closed'] = 'Route Closed';
 $lang['transport_closed'] = 'Route ok, Transport Closed';
 $lang['route_change'] = 'Route Changed';
 $lang['tempo_closed'] = 'Temporarily Closed';
+$lang['complete_wrong'] = 'Completely Wrong Information';
+$lang['partial_correct'] = 'Partially Correct Information';
 $lang['complain_login'] = 'Please Login';
 $lang['plez_login'] = 'Login or Register. If you not interested to register here you may login with your Facebook or Google Account';

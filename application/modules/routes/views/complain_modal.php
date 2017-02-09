@@ -15,6 +15,8 @@
                                 <option value="2"><?php echo lang('transport_closed'); ?></option>
                                 <option value="3"><?php echo lang('tempo_closed'); ?></option>
                                 <option value="4"><?php echo lang('route_change'); ?></option>
+                                <option value="5"><?php echo lang('complete_wrong'); ?></option>
+                                <option value="6"><?php echo lang('partial_correct'); ?></option>
                             </select>
                         </div>
                         <div class="form-group">
