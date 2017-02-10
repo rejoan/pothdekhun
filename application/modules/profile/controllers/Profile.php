@@ -50,7 +50,13 @@ class Profile extends MX_Controller {
     }
 
     public function my_routes() {
-        $total_rows = $this->db->where('is_publish', 1)->get('routes')->num_rows();
+        $this->load->helper('admin');
+        //echo $this->user_id;return;
+        $cond = array(
+            'is_publish' => 1,
+            'added_by' => $this->user_id
+        );
+        $total_rows = $this->db->where($cond)->get('routes')->num_rows();
         $per_page = 10;
         $num_links = 5;
 
@@ -158,7 +164,7 @@ class Profile extends MX_Controller {
             redirect_tr('profile');
         }
         $this->view_loader($data, NULL, 'edit');
-        
+
         //$this->nl->view_loader('user', 'edit', NULL, $data, NULL, 'rightbar');
     }
 

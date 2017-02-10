@@ -236,6 +236,7 @@ class Routes extends MX_Controller {
                 redirect_tr('routes/all');
             }
             if ($this->rm->details($route_id, TRUE) < 1) {//if wrong ID given direct from URL
+                //echo 'here';return;
                 $this->session->set_flashdata('message', 'Wrong Access');
                 redirect_tr('routes');
             }
@@ -434,7 +435,9 @@ class Routes extends MX_Controller {
 
             if ($this->input->post('point')) {
                 $rut = $this->pm->get_row('id', $route_id, 'routes');
-                modules::run('route_manager/create_points', $route_id, $rut['added_by'], $this->input->post('point'), $this->input->post('note'));
+                modules::run('route_manager/route_points', $route_id, $rut['added_by'], trim($this->input->post('point')), trim($this->input->post('note')));
+                $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for add <a href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
+                modules::run('route_manager/sent_notification', $rut['added_by'], $msg);
             }
 
             redirect_tr('routes/all');
@@ -552,7 +555,7 @@ class Routes extends MX_Controller {
     }
 
     public function delete($id) {
-        $this->nl->is_admin('errors',FALSE);
+        $this->nl->is_admin('errors', FALSE);
         $this->pm->deleter('id', $id, 'routes');
         $this->session->set_flashdata('message', lang('success_delete'));
         redirect_tr('routes/all');

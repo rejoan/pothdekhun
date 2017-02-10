@@ -34,8 +34,8 @@
                             <td><?php echo $r['username']; ?></td>
 
                             <td>
-                                <a class="btn btn-info" target="_blank" data-toggle="tooltip" data-placement="top" title="Update" href="<?php echo site_url('routes/edit') . '/' . $r['r_id'].'?pd_rev=yes'; ?>"><i class="fa fa-link"></i></a>
-                                <a data-toggle="tooltip" data-placement="top" title="Accept" href="<?php echo site_url('route_manager/accept') . '/' . $r['r_id']; ?>"></a>
+                                <a class="btn btn-info" target="_blank" data-toggle="tooltip" data-placement="top" title="Update" href="<?php echo site_url('routes/edit') . '/' . $r['r_id'] . '?pd_rev=yes'; ?>"><i class="fa fa-link"></i></a>
+                                <a class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Revise Again" href="<?php echo site_url('route_manager/revise') . '/' . $r['r_id'] . '?tb=routes'; ?>"><i class="fa fa-hand-lizard-o"></i></a>
                                 <a class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Decline" href="<?php echo site_url('route_manager/reject') . '/' . $r['r_id']; ?>"><i class="fa fa-close"></i></a>
                             </td>
                         </tr>

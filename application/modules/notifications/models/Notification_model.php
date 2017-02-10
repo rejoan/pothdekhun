@@ -10,20 +10,44 @@ if (!defined('BASEPATH'))
  */
 class Notification_model extends CI_Model {
 
-    public function get_notification($id, $user_id) {
+    public function get_notification($id, $table) {
         $cond = array(
-            'n.id' => $id,
-            'n.user_id' => $user_id
+            'n.id' => $id
         );
-        $query = $this->db->select('n.*,r.from_place,r.to_place,d.name district_name,d.bn_name district_name_bn,td.name td_name,td.bn_name td_bn_name,rt.from_place fp_bn,rt.to_place tp_bn')->from('route_points n')->join('routes r', 'r.id = n.route_id', 'left')->join('districts d', 'r.from_district = d.id', 'left')->join('districts td', 'r.to_district = td.id', 'left')->join('route_bn rt', 'rt.route_id = n.route_id', 'left')->where($cond)->get();
+        if ($table == 'route_points') {
+            $this->db->select('n.*,r.from_place,r.to_place,d.name district_name,d.bn_name district_name_bn,td.name td_name,td.bn_name td_bn_name,rt.from_place fp_bn,rt.to_place tp_bn');
+            $this->db->from('route_points n');
+            $this->db->join('routes r', 'r.id = n.route_id', 'left');
+            $this->db->join('districts d', 'r.from_district = d.id', 'left');
+            $this->db->join('districts td', 'r.to_district = td.id', 'left');
+            $this->db->join('route_bn rt', 'rt.route_id = n.route_id', 'left');
+        } else {
+            $this->db->select('n.*,p.id transport_id,p.name,p.bn_name');
+            $this->db->from('transport_points n');
+            $this->db->join('poribohons p', 'p.id = n.transport_id', 'left');
+        }
+
+        $this->db->where($cond);
+        $query = $this->db->get();
         return $query->row_array();
     }
 
-    public function all_notification($user_id) {
+    public function route_notification($user_id) {
         $cond = array(
             'n.user_id' => $user_id
         );
         $query = $this->db->select('n.*,r.from_place,r.to_place,d.name district_name,d.bn_name district_name_bn,td.name td_name,td.bn_name td_bn_name,rt.from_place fp_bn,rt.to_place tp_bn')->from('route_points n')->join('routes r', 'r.id = n.route_id', 'left')->join('districts d', 'r.from_district = d.id', 'left')->join('districts td', 'r.to_district = td.id', 'left')->join('route_bn rt', 'rt.route_id = n.route_id', 'left')->where($cond)->get();
+
+        //echo $this->db->last_query();
+        return $query->result_array();
+    }
+
+    public function transport_notification($user_id) {
+        $cond = array(
+            'n.user_id' => $user_id
+        );
+        $query = $this->db->select('n.*,p.id transport_id,p.name,p.bn_name')->from('transport_points n')->join('poribohons p', 'p.id = n.transport_id', 'left')->where($cond)->get();
+
         //echo $this->db->last_query();
         return $query->result_array();
     }
@@ -33,9 +57,8 @@ class Notification_model extends CI_Model {
             'user_id' => $user_id,
             'read' => 0
         );
-        $query1 = $this->db->where($cond)->get('route_points');
-        $query2 = $this->db->where($cond)->get('transport_points');
-        $total_unread = $query1->num_rows() + $query2->num_rows();
+        $query = $this->db->where($cond)->get('notifications');
+        $total_unread = $query->num_rows();
         return $total_unread;
     }
 

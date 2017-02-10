@@ -61,6 +61,26 @@ class Route_manager extends MX_Controller {
         $this->nl->view_loader('admin', 'latest', 'route_manager', $data, 'leftbar', NULL, NULL);
     }
 
+    public function revise_required() {
+//        $total_rows = $this->db->get('edited_routes')->num_rows();
+//        $per_page = 10;
+//        $num_links = 5;
+//
+//        if ($this->input->get('page')) {
+//            $sgm = (int) trim($this->input->get('page'));
+//            $segment = $per_page * ($sgm - 1);
+//        } else {
+//            $segment = 0;
+//        }
+//        $links = $this->nl->generate_pagination('route_manager/latest', $total_rows, $per_page, $num_links);
+        $data = array(
+            'title' => 'All Routes Required Revise',
+            'routes' => $this->rmn->revise_required(),
+            'segment' => 0
+        );
+        $this->nl->view_loader('admin', 'latest', 'route_manager', $data, 'leftbar', NULL, NULL);
+    }
+
     /**
      * merge option with user edited things
      * @param int $id
@@ -203,8 +223,12 @@ class Route_manager extends MX_Controller {
                 $this->db->insert_batch($stoppage_table, $stoppages);
             }
             if ($this->input->post('point')) {
+                $point = trim($this->input->post('point'));
+                $note = trim($this->input->post('note'));
                 $rut = $this->pm->get_row('route_id', $route_id, 'edited_routes');
-                modules::run('route_manager/create_points', $route_id, $rut['added_by'], $this->input->post('point'), $this->input->post('note'), 'edit');
+                $this->route_points($route_id, $rut['added_by'], $point, $note);
+                $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for edit <a href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
+                $this->sent_notification($rut['added_by'], $msg);
             }
             $this->pm->deleter('route_id', $route_id, 'edited_routes');
 
@@ -285,17 +309,36 @@ class Route_manager extends MX_Controller {
         redirect('route_manager');
     }
 
-    public function create_points($route_id, $user_id, $point, $note, $action = 'add') {
+    public function sent_notification($user_id, $msg = 'Notify') {
+        $notification = array(
+            'user_id' => $user_id,
+            'notification_msg' => $msg
+        );
+        $this->db->set('added', 'NOW()', FALSE);
+        $this->db->insert('notifictions', $notification);
+        //$this->db->query('UPDATE users SET reputation = reputation + ' . (int) $point . ' WHERE id = ' . (int) $user_id);
+    }
+
+    public function route_points($route_id, $user_id, $point, $note) {
         $points = array(
             'route_id' => $route_id,
             'user_id' => $user_id,
             'point' => $point,
-            'note' => $note,
-            'notification_msg' => 'Eearned <strong>' . $point . '</strong> point for ' . $action . ' route'
+            'note' => $note
         );
         $this->db->set('happened_at', 'NOW()', FALSE);
         $this->db->insert('route_points', $points);
-        $this->db->query('UPDATE users SET reputation = reputation + ' . (int) $point . ' WHERE id = ' . (int) $user_id);
+    }
+
+    public function transport_points($transport_id, $user_id, $point, $note) {
+        $points = array(
+            'transport_id' => $transport_id,
+            'user_id' => $user_id,
+            'point' => $point,
+            'note' => $note
+        );
+        $this->db->set('happened_at', 'NOW()', FALSE);
+        $this->db->insert('transport_points', $points);
     }
 
     public function route_clone($id, $poribohon_id) {
@@ -333,6 +376,24 @@ class Route_manager extends MX_Controller {
         $this->db->query($stpbn_sql);
         $this->session->set_flashdata('message', 'Cloned Succesfully');
         redirect('routes/show/' . $insert_id);
+    }
+
+    public function revise($id) {
+        $tb = trim($this->input->get('tb', TRUE));
+        $table = $tb;
+        if ($tb == 'transports') {
+            $table = 'poribohons';
+        }
+        $route = $this->pm->get_row('id', $id, $table);
+        $msg = 'Revision required for the route you added';
+        $this->sent_notification($route['added_by'], $msg);
+        if ($route['is_publish'] == 2) {
+            $this->session->set_flashdata('message', 'Already Sent Once');
+            redirect('route_manager/revise_required');
+        }
+        $this->pm->updater('id', $id, $table, array('is_publish' => 2));
+        $this->session->set_flashdata('message', 'Sent Notification');
+        redirect('route_manager/revise_required');
     }
 
 }

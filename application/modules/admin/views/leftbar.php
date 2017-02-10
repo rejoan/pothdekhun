@@ -29,6 +29,7 @@
                     <?php
                     $this->nl->generate_link('route_manager/index', 'route_manager', 'fa-circle-o', 'Edited Routes');
                     $this->nl->generate_link('route_manager/latest', 'route_manager/latest', 'fa-circle-o', 'Latest Added');
+                     $this->nl->generate_link('route_manager/revise_required', 'route_manager/revise_required', 'fa-circle-o', 'Revise Required');
                     ?>
                 </ul>
             </li>

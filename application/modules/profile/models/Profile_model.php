@@ -20,7 +20,7 @@ class Profile_model extends CI_Model {
         $this->db->from('routes r')->join('users u', 'r.added_by = u.id', 'left');
         $this->db->join('route_bn rbn', 'rbn.route_id = r.id', 'left');
         $this->db->join('poribohons p', 'r.poribohon_id = p.id', 'left');
-        $this->db->where('r.is_publish', 1);
+        //$this->db->where('r.is_publish', 1);
         if (!empty($ttype)) {
             $this->db->where('r.transport_type', $ttype);
         }

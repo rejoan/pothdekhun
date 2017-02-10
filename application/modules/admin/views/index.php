@@ -1,4 +1,4 @@
-<div class="col-xs-12">
+<div class="col-xs-12 bg-">
 
     <?php
     echo create_box('bg-aqua', $routes, 'Routes Added', 'route_manager/latest');
@@ -8,6 +8,7 @@
     echo create_box('bg-yellow', $comments, 'Comment Added', 'comments');
     echo create_box('bg-maroon', $contact_us, 'Contact us Added', 'comments/contact');
     echo create_box('bg-fuchsia', $verify, 'Verification Added', 'comments/contact');
+    echo create_box('bg-blue', $users, 'Users', 'users');
     ?>
 
 </div>

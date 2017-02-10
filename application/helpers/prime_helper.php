@@ -136,10 +136,8 @@ function notify($count = FALSE) {
     if ($count) {
         return $CI->nm->total_notifications($user_id);
     }
-    $route_points = $CI->pm->get_data('route_points', FALSE, 'read', 0, FALSE, FALSE, FALSE, FALSE, 'id', 'desc', 0, 2);
-    $transport_points = $CI->pm->get_data('transport_points', FALSE, 'read', 0, FALSE, FALSE, FALSE, FALSE, 'id', 'desc', 0, 2);
-    $all_notifictions = $transport_points + $route_points;
-    return $all_notifictions;
+    $notifications = $CI->pm->get_data('notifications', 'id,notification_msg', 'read', 0, 'user_id', $user_id, FALSE, FALSE, 'id', 'desc', 0, 5);
+    return $notifications;
 }
 
 function latest_routes() {

@@ -27,6 +27,7 @@ class Admin extends MX_Controller {
             'comments' => $this->pm->total_item('comments'),
             'contact_us' => $this->pm->total_item('contact_us'),
             'verify' => $this->pm->total_item('route_complains'),
+            'users' => $this->pm->total_item('users')
         );
         
         $this->nl->view_loader('admin', 'index', NULL, $data, NULL, NULl, NULL);

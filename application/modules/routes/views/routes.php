@@ -67,42 +67,48 @@
                 </div>
             </form>
             <div class="table-responsive">
-                <table class="table table-hover table-bordered table-striped dataTable">
-                <thead>
-                    <tr>
-                        <th><?php echo lang('ID'); ?></th>
-                        <th><?php echo lang('from_view'); ?></th>
-                        <th><?php echo lang('to_view'); ?></th>
-                        <th><?php echo lang('type'); ?></th>
-                        <th><?php echo lang('vehicle_name'); ?></th>
-                        <th><?php echo lang('action'); ?></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($routes as $r):$segment++; ?>
+                <table class="table table-hover table-bordered table-striped dataTable small_font">
+                    <thead>
                         <tr>
-                            <th><?php echo $r['id']; ?></th>
-                            <td><?php echo mb_convert_case($r[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8'); ?></td>
-                            <td><?php echo mb_convert_case($r[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8'); ?></td>
-                            <td><?php echo get_tr_type($r['transport_type']); ?></td>
-                            <td><?php echo $r[$this->nl->lang_based_data('bn_name', 'name')]; ?></td>
-                            <td>
-                                <?php if ($this->session->user_id): ?>
-                                    <a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('routes/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>
-                                <?php endif; ?>
-                                &nbsp;
-                                <a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url_tr('routes/show') . '/' . $r['id']; ?>"><i class="fa fa-eye"></i></a>
-                                &nbsp;
-                                <?php if ($this->nl->is_admin()): ?>
-                                    <a onclick="return confirm('are you sure?')" data-toggle="tooltip" data-placement="top" title="Delete" href="<?php echo site_url('routes/delete') . '/' . $r['id']; ?>"><i class="fa fa-trash"></i></a>
-                                <?php endif; ?>
-                            </td>
+                            <th><?php echo lang('ID'); ?></th>
+                            <th><?php echo lang('from_view'); ?></th>
+                            <th><?php echo lang('to_view'); ?></th>
+                            <th><?php echo lang('type'); ?></th>
+                            <th><?php echo lang('vehicle_name'); ?></th>
+                            <?php if ($this->router->fetch_method() == 'my_routes'): ?>
+                                <th><?php echo lang('status'); ?></th>
+                            <?php endif; ?>
+                            <th><?php echo lang('action'); ?></th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($routes as $r):$segment++; ?>
+                            <tr>
+                                <th><?php echo $r['id']; ?></th>
+                                <td><?php echo mb_convert_case($r[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8'); ?></td>
+                                <td><?php echo mb_convert_case($r[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8'); ?></td>
+                                <td><?php echo get_tr_type($r['transport_type']); ?></td>
+                                <td><?php echo $r[$this->nl->lang_based_data('bn_name', 'name')]; ?></td>
+                                <?php if ($this->router->fetch_method() == 'my_routes'): ?>
+                                    <td><?php echo get_status($r['is_publish']);?></td>
+                                <?php endif; ?>
+                                <td>
+                                    <?php if ($this->session->user_id): ?>
+                                        <a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('routes/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>
+                                    <?php endif; ?>
+                                    &nbsp;
+                                    <a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url_tr('routes/show') . '/' . $r['id']; ?>"><i class="fa fa-eye"></i></a>
+                                    &nbsp;
+                                    <?php if ($this->nl->is_admin()): ?>
+                                        <a onclick="return confirm('are you sure?')" data-toggle="tooltip" data-placement="top" title="Delete" href="<?php echo site_url('routes/delete') . '/' . $r['id']; ?>"><i class="fa fa-trash"></i></a>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
-            
+
         </div>
         <div class="box-footer">
             <?php echo $links; ?>

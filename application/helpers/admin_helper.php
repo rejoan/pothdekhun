@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @param text to display $main_text
  * @return html
  */
-function create_box($bg, $data, $main_text,$url) {
+function create_box($bg, $data, $main_text, $url) {
     return '<div class="col-lg-3 col-xs-6">
         <div class="small-box ' . $bg . '">
             <div class="inner">
@@ -31,4 +31,18 @@ function create_box($bg, $data, $main_text,$url) {
             <a href="' . site_url($url) . '" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>';
+}
+
+function get_status($publish_status) {
+    if ($publish_status == 0) {
+        $status = 'Pending';
+        $class = 'label-danger';
+    } elseif ($publish_status == 1) {
+        $status = 'Published';
+        $class = 'label-success';
+    } else {
+        $status = 'Revise Required';
+        $class = 'label-warning';
+    }
+    return '<span data-toggle="tooltip" data-placement="top" title="'.$status.'" class="label ' . $class . '">' . strtok($status,' ') . '</span';
 }

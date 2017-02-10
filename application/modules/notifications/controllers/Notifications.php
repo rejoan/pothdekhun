@@ -17,24 +17,24 @@ class Notifications extends MX_Controller {
     }
 
     public function index() {
-        $this->pm->updater('user_id', $this->user_id, 'route_points', array('read' => 1));
-        $this->pm->updater('user_id', $this->user_id, 'transport_points', array('read' => 1));
+        $this->pm->updater('user_id', $this->user_id, 'notifications', array('read' => 1));
         $data = array(
-            'title' => 'Notifications',
+            'title' => 'All Notifications',
             'settings' => $this->nl->get_config(),
-            'notifications' => $this->nm->all_notification($this->user_id)
+            'notifications' => $this->pm->get_data('notifications', FALSE, 'user_id', $this->user_id)
         );
-        $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar','menu',TRUE);
+        //var_dump($data['notifications'][0]['notification_msg']);
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
     }
 
     public function details($id) {
-        $this->pm->updater('id', $id, 'route_points', array('read' => 1));
+        $this->pm->updater('id', $id, 'notifications', array('read' => 1));
         $data = array(
             'title' => 'Notification Details',
             'settings' => $this->nl->get_config(),
-            'notification' => $this->nm->get_notification($id, $this->user_id)
+            'notification' => $this->pm->get_row('id', $id, 'notifications')
         );
-        $this->nl->view_loader('user', 'latest', NULL, $data, 'details', 'rightbar','menu',TRUE);
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'details', 'rightbar', 'menu', TRUE);
     }
 
 }
