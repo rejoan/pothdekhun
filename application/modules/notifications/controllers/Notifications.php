@@ -36,4 +36,13 @@ class Notifications extends MX_Controller {
         $this->nl->view_loader('user', 'latest', NULL, $data, 'details', 'rightbar', 'menu', TRUE);
     }
 
+    public function sent_notification($user_id, $msg = 'Notify') {
+        $notification = array(
+            'user_id' => $user_id,
+            'notification_msg' => $msg
+        );
+        $this->db->set('added', 'NOW()', FALSE);
+        $this->db->insert('notifications', $notification);
+    }
+
 }

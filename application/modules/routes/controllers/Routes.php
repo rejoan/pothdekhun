@@ -435,9 +435,9 @@ class Routes extends MX_Controller {
 
             if ($this->input->post('point')) {
                 $rut = $this->pm->get_row('id', $route_id, 'routes');
-                modules::run('route_manager/route_points', $route_id, $rut['added_by'], trim($this->input->post('point')), trim($this->input->post('note')));
+                modules::run('reputation/route_points', $route_id, $rut['added_by'], trim($this->input->post('point')), trim($this->input->post('note')));
                 $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for add <a href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
-                modules::run('route_manager/sent_notification', $rut['added_by'], $msg);
+                modules::run('notifications/sent_notification', $rut['added_by'], $msg);
             }
 
             redirect_tr('routes/all');

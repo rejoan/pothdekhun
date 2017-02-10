@@ -226,9 +226,9 @@ class Route_manager extends MX_Controller {
                 $point = trim($this->input->post('point'));
                 $note = trim($this->input->post('note'));
                 $rut = $this->pm->get_row('route_id', $route_id, 'edited_routes');
-                $this->route_points($route_id, $rut['added_by'], $point, $note);
-                $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for edit <a href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
-                $this->sent_notification($rut['added_by'], $msg);
+                modules::run('reputation/route_points', $route_id, $rut['added_by'], $point, $note);
+                $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
+                modules::run('notifications/sent_notification', $rut['added_by'], $msg);
             }
             $this->pm->deleter('route_id', $route_id, 'edited_routes');
 
@@ -245,6 +245,8 @@ class Route_manager extends MX_Controller {
      */
     public function decline($id) {
         $route = $this->pm->get_row('id', $id, 'edited_routes');
+        $msg = 'Your route edit not approve because of insufficient content';
+        modules::run('notifications/sent_notification', $route['route_id'], $msg);
         $main_route = $this->pm->get_row('id', $route['route_id'], 'routes');
         $file = 'evidences/' . $route['evidence'];
         $file2 = 'evidences/' . $route['evidence2'];
@@ -304,41 +306,13 @@ class Route_manager extends MX_Controller {
     }
 
     public function reject($id) {
+        $route = $this->pm->get_row('id', $id, 'routes');
+        $msg = 'Route <strong>' . $route['from_place'] . '</strong> to <strong>' . $route['to_place'] . '</strong> not approved because of insufficient content[ID was ' . $route['id'] . ']';
+        modules::run('notifications/sent_notification', $route['added_by'], $msg);
         $this->pm->deleter('id', $id, 'routes');
+
         $this->session->set_flashdata('message', 'Deleted Succesfully');
         redirect('route_manager');
-    }
-
-    public function sent_notification($user_id, $msg = 'Notify') {
-        $notification = array(
-            'user_id' => $user_id,
-            'notification_msg' => $msg
-        );
-        $this->db->set('added', 'NOW()', FALSE);
-        $this->db->insert('notifictions', $notification);
-        //$this->db->query('UPDATE users SET reputation = reputation + ' . (int) $point . ' WHERE id = ' . (int) $user_id);
-    }
-
-    public function route_points($route_id, $user_id, $point, $note) {
-        $points = array(
-            'route_id' => $route_id,
-            'user_id' => $user_id,
-            'point' => $point,
-            'note' => $note
-        );
-        $this->db->set('happened_at', 'NOW()', FALSE);
-        $this->db->insert('route_points', $points);
-    }
-
-    public function transport_points($transport_id, $user_id, $point, $note) {
-        $points = array(
-            'transport_id' => $transport_id,
-            'user_id' => $user_id,
-            'point' => $point,
-            'note' => $note
-        );
-        $this->db->set('happened_at', 'NOW()', FALSE);
-        $this->db->insert('transport_points', $points);
     }
 
     public function route_clone($id, $poribohon_id) {
@@ -384,10 +358,10 @@ class Route_manager extends MX_Controller {
         if ($tb == 'transports') {
             $table = 'poribohons';
         }
-        $route = $this->pm->get_row('id', $id, $table);
-        $msg = 'Revision required for the route you added';
-        $this->sent_notification($route['added_by'], $msg);
-        if ($route['is_publish'] == 2) {
+        $target = $this->pm->get_row('id', $id, $table);
+        $msg = 'Revision required for the route you added <a target="_blank" href="' . site_url_tr($tb . '/edit/' . $target['id']) . '">Route</a>';
+        modules::run('notifications/sent_notification', $target['added_by'], $msg);
+        if ($target['is_publish'] == 2) {
             $this->session->set_flashdata('message', 'Already Sent Once');
             redirect('route_manager/revise_required');
         }
