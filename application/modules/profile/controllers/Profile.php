@@ -18,9 +18,11 @@ class Profile extends MX_Controller {
 
     public function index() {
         $total_route = $this->pm->total_item('routes', 'added_by', $this->user_id);
+        $profile = $this->prm->get_profile($this->user_id);
+        $profile['reputation'] = $this->prm->total_reputation($this->user_id);
         $data = array(
             'title' => lang('profile'),
-            'profile' => $this->prm->get_profile($this->user_id),
+            'profile' => $profile,
             'tot_added' => $total_route,
             'settings' => $this->nl->get_config()
         );

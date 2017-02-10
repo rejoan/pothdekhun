@@ -18,7 +18,10 @@
             <?php if ($profile['user_id'] == $this->session->user_id): ?>
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
-                        <a href="<?php echo site_url_tr('profile/my_routes'); ?>"><b><?php echo lang('route_added') ?></b> <?php echo $tot_added; ?></a>
+                        <a href="<?php echo site_url_tr('profile/my_routes'); ?>"><b><?php echo lang('route_added') ?></b> (<?php echo $tot_added; ?>)</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="<?php echo site_url_tr('reputation'); ?>"><b><?php echo lang('reputation') ?></b>(<?php echo $profile['reputation'];?>)</a>
                     </li>
                 </ul>
             <?php endif; ?>

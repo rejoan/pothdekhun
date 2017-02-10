@@ -23,7 +23,6 @@ class Notifications extends MX_Controller {
             'settings' => $this->nl->get_config(),
             'notifications' => $this->pm->get_data('notifications', FALSE, 'user_id', $this->user_id)
         );
-        //var_dump($data['notifications'][0]['notification_msg']);
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
     }
 
