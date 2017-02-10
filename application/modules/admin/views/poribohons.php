@@ -34,7 +34,7 @@
                             <td>
                                 <a class="btn btn-info" target="_blank" data-toggle="tooltip" data-placement="top" title="Review" href="<?php echo site_url('transports/show') . '/' . $r['id']; ?>"><i class="fa fa-link"></i></a>
 
-                                <a class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Decline" href="<?php echo site_url('transports/reject') . '/' . $r['id']; ?>"><i class="fa fa-close"></i></a>
+                                <a class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Decline" href="<?php echo site_url('transports/delete') . '/' . $r['id']; ?>"><i class="fa fa-close"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
