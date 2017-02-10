@@ -149,7 +149,7 @@
                         } elseif (isset($route['rent'])) {
                             echo $route['rent'];
                         }
-                        ?>" placeholder="<?php echo lang('rent_placeholder'); ?>" required title="কমপক্ষে আনুমানিক ভাড়া দিন">
+                        ?>" placeholder="<?php echo lang('rent_placeholder'); ?>" required title="At least provide approximate fare">
                     </div>
                 </div>
 
