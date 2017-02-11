@@ -52,7 +52,7 @@ footer {
 }
 .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover{
     color: #fff;
-    background: #006699;
+    background: #003366;
 }
 .nav>li>a:hover, .nav>li>a:active, .nav>li>a:focus,.navbar-inverse .navbar-nav>.active>a{
     background: #006699;
@@ -125,18 +125,18 @@ a.details:hover{
 
 #social_link1,#social_link2{
     position:fixed;
-    top:50px;
+    top:112px;
     right:0;
     min-width:40px;
     padding:3px 5px;
-    background:#eee;
+    background:khaki;
     text-decoration: none;
     /*  border-top:1px solid #eee;
      border-bottom:1px solid #eee;
      border-left:1px solid #eee; */
 }
 #social_link2{
-    top:96px;
+    top:158px;
 }
 
 #social_link1:hover{
@@ -192,4 +192,31 @@ a.details:hover{
 }
 table.small_font{
     font-size: 14px;
+}
+.header_slogan{
+    font-size: 1.8em;
+    color: #ffffff;
+    margin: 10px 0 0 0;
+}
+.custom_top{
+    margin-top: 10px;
+}
+#leftbar hr{
+    margin: 8px 0;
+}
+
+.custom_left{
+    margin-left: 15px;
+}
+@media screen and (max-width: 768px) {
+    .header_slogan{
+        font-size:15px;
+    }
+
+    #social_link1,#social_link2{
+        top: 270px;
+    }
+    #social_link2{
+        top: 316px;
+    }
 }

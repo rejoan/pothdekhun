@@ -1,8 +1,29 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<div class="col-sm-6 col-sm-push-3">
+    <div class="box box-poth">
+        <div class="box-header">
+            <h3 class="box-title"><?php echo $title; ?></h3>
+        </div>
+        <div class="box-body">
+            <h2>Terms of Service</h2>
+            <p>All route and transport posted at this website express the views of the user, and do not necessarily reflect any liability of the owners and administrators of this site.
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+                By registering on this site you agree not to post any route or transport that exist in real. We will permanently remove or ban all route or resources who do not do so.
 
+                We reserve the right to remove, edit, or move any post for any reason.</p>
+
+            <h2>Privacy Policy</h2>
+            <p>We are committed to respecting your online privacy.
+
+                We only collect your personal information when you voluntarily sign-up for a membership account in order to use in verification if required. Access to our website is generally open, and you may browse it anonymously.
+
+                Any information collected from you will not be disclosed.</p>
+
+            <h2>Website data</h2>
+            <p>Pothdekhun's web servers automatically collect information that is essential to operating and maintaining the website's security.
+
+                This website contains information about route,transport etc resources and Pothdekhun is not responsible for the privacy provisions of those transport owner.
+            </p>
+        </div>
+    </div>
+</div>

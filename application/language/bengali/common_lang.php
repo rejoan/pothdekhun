@@ -176,3 +176,4 @@ $lang['no_stoppage_route_found'] = 'স্টপেজ/ভায়া হিসে
 $lang['no_suggested_route_found'] = 'আপনার অনুসন্ধানের কাছাকাছি কোন সাজেশন পাওয়া যায়রি';
 $lang['suggested_route'] = 'নিচে কিছু সাজেশন যা আপনার অনুসন্ধান এর কাছাকাছি';
 $lang['possible_route'] = 'কিছু সম্ভ্যাব্য মিলে যাওয়া যানবাহন';
+$lang['privacy_policy'] = 'প্রাইভেসি পলিসি';

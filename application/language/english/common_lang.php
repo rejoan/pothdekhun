@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['index'] = 'Quickly Find Transport and Route of Bangladesh';
+$lang['index'] = 'Quickly Find Transports and Routes of Bangladesh';
 $lang['home_page_meta'] = 'Quickly Find All Transport and Route of Bangladesh including Bus Leguna Train Biman even Launch. All route includes fare, distance, google map direction and all required information for travel';
 $lang['add_route'] = 'Add a Route';
 $lang['edit_route'] = 'Edit Route';
