@@ -42,9 +42,14 @@ class Profile_model extends CI_Model {
     }
 
     public function total_reputation($user_id) {
-        $route_point = $this->db->where('user_id', $user_id)->get('route_points')->num_rows();
-        $transport_point = $this->db->where('user_id', $user_id)->get('transport_points')->num_rows();
-        $total = $route_point + $transport_point;
+        $this->db->select_sum('point')->where('user_id', $user_id);
+        $route_query = $this->db->get('route_points');
+        $route_point = $route_query->row_array();
+        $this->db->select_sum('point')->where('user_id', $user_id);
+        $transport_query = $this->db->get('transport_points');
+        $transport_point = $transport_query->row_array();
+        //var_dump($route_point['point'],$transport_point);return;
+        $total = $transport_point['point'] + $route_point['point'];
         return $total;
     }
 
