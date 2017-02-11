@@ -7,9 +7,12 @@
         <div class="box-body">
             <?php foreach ($notifications as $n): ?>
                 <div class="row custom_margin">
-                    <p>Details : <?php echo $n['notification_msg']; ?></p>
+                    <p> <small class="text-muted"><?php echo $this->nl->date_formatter('Y-m-d H:i:s', $n['added'], 'd M, Y');?></small>: <?php echo $n['notification_msg']; ?></p>
                 </div>
             <?php endforeach; ?>
+        </div>
+        <div class="box-footer">
+            <?php echo $links; ?>
         </div>
     </div>
 </div>

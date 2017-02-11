@@ -17,11 +17,26 @@ class Notifications extends MX_Controller {
     }
 
     public function index() {
+        $total_rows = $this->db->where('user_id', $this->user_id)->get('notifications')->num_rows();
+        $per_page = 15;
+        $num_links = 5;
+
+        if ($this->input->get('page')) {
+            $sgm = (int) trim($this->input->get('page'));
+            $segment = $per_page * ($sgm - 1);
+        } else {
+            $segment = 0;
+        }
+        $url = 'notifications/index';
+        $links = $this->nl->generate_pagination($url, $total_rows, $per_page, $num_links);
+
         $this->pm->updater('user_id', $this->user_id, 'notifications', array('read' => 1));
         $data = array(
             'title' => 'All Notifications',
+            'links' => $links,
+            'segment' => $segment,
             'settings' => $this->nl->get_config(),
-            'notifications' => $this->pm->get_data('notifications', FALSE, 'user_id', $this->user_id)
+            'notifications' => $this->pm->get_data('notifications', FALSE, 'user_id', $this->user_id, FALSE, FALSE, FALSE, 'id', 'desc', $per_page, $segment)
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
     }
