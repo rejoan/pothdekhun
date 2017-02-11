@@ -7,7 +7,7 @@ $lang['pic_rule2'] = 'If text of transports (stoppages) can be read clearly then
 $lang['point'] = 'point'; 
 $lang['stoppage_rule'] = 'You may add any number of stoppage by clicking button "Add Stoppage". Per stoppage you will get'; 
 $lang['stoppage_rule2'] = 'You will get point for stoppage when fare and place namw will be correct. Comment filed optional'; 
-$lang['fare_rule'] = 'If fare k=not known then you may add "Fare not sure" text to comment field and still you will get'; 
+$lang['fare_rule'] = 'If fare not known then you may add "Fare not sure" text to comment field and still you will get'; 
 $lang['translation_rule'] = 'For translation any route you will get'; 
 $lang['transport_rule'] = 'Add add any transport with all required information then you will get';
 $lang['counter_rule'] = 'Per counter you will get maximum';

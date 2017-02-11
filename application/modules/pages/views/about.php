@@ -10,7 +10,7 @@
             <h3> <?php echo lang('descr2') ?></h3>
             <p><?php echo lang('descr4'); ?></p>
             <div class="callout callout-info">
-                <h4><?php echo lang('descr3'); ?>  (<a target="_blank" href="<?php echo site_url_tr('routes/add'); ?>"><?php echo lang('add_here'); ?></a>) <?php echo lang('add_descr'); ?></h4>
+<!--                <h4><?php //echo lang('descr3'); ?>  (<a target="_blank" href="<?php //echo site_url_tr('routes/add'); ?>"><?php //echo lang('add_here'); ?></a>) <?php //echo lang('add_descr'); ?></h4>-->
 
                 <p><?php echo lang('add_inspire').' <strong>'.$total.'</strong> '.lang('routes_more'); ?></p>
             </div>

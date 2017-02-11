@@ -23,8 +23,8 @@
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-select.min.css'); ?>" >
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/font-awesome.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/ionicons.min.css'); ?>">
-<!--        <link rel="stylesheet" href="<?php //echo base_url('assets/dist/css/skins/_all-skins.min.css'); ?>">-->
-<!--        <link rel="stylesheet" href="<?php //echo base_url('assets/plugins/iCheck/flat/blue.css'); ?>">-->
+<!--        <link rel="stylesheet" href="<?php //echo base_url('assets/dist/css/skins/_all-skins.min.css');   ?>">-->
+<!--        <link rel="stylesheet" href="<?php //echo base_url('assets/plugins/iCheck/flat/blue.css');   ?>">-->
         <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-sweetalert/dist/sweetalert.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/AdminLTE.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables/media/css/jquery.dataTables.min.css'); ?>">
@@ -38,41 +38,7 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.1.1.min.js'); ?>"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                var screenWidth = window.screen.width;
-                //screenHeight = window.screen.height;
-                if (screenWidth < 800) {
-                    $('#poth_features ul').css({
-                        'margin': '30px 0 0 0',
-                        'height': '70px'
-                    });
-                } else {
-                    $('#poth_features ul').css('height', '28px');
-                }
-                var lis = $('.ticker_block li'),
-                        cur = lis.first().addClass('active'),
-                        next = cur.next().addClass('next');
-                cur.fadeIn(1000);
-                function show_div() {
-                    cur.fadeOut({duration: 1000, queue: false}).animate({marginLeft: -20}).removeClass('active');
-                    cur = next.removeClass('next').css({marginLeft: 20}).fadeIn({duration: 2000, queue: false}).animate({marginLeft: 0}).addClass('active');
-                    next = cur.next();
-                    if (!next.length) {
-                        next = lis.first();
-                    }
-                    next.addClass('next');
-                }
-                timer = setInterval(show_div, 3000);
-                $('#poth_features').on('mouseleave', function (ev) {
-                    timer = setInterval(show_div, 3000);
-                });
-
-                $('#poth_features').on('mouseenter', function (ev) {
-                    clearInterval(timer);
-                });
-            });
-        </script>
+       
 <!--        <script>
             (function (i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
@@ -91,20 +57,16 @@
 
         </script>-->
     </head>
-
+<!--    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-8715007142406485",
+                enable_page_level_ads: true
+            });
+    </script>-->
     <body>
 
         <div class="container-fluid"><!-- container start here: ended in footer-->
 
             <div class="row">
-                <!--                <div class="col-xs-12"> col-xs-12 started-->
                 <?php $this->nl->breadcrumb(); ?>
-                <div class="col-md-12">
-                    <div id="poth_features" class="ticker_block">
-                        <ul>
-                            <li><strong><?php echo lang('thana_not_required'); ?></strong></li>
-                            <li><strong><?php echo lang('thana_not_dhaka'); ?></strong></li>
-                            <li><strong><?php echo lang('inspire_info'); ?></strong></li>
-                        </ul>
-                    </div>
-                </div>

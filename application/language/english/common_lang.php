@@ -160,7 +160,8 @@ $lang['why_pothdekhun'] = 'Why Pothdekhun?';
 $lang['descr1'] = 'There are 250+ routes in dhaka and 7000+ routes all over the country. Everyday thousand of buses from different companies move in Dhaka City. No body knows all these buses and routes well with associate informations. For Lack of this information people\'s harrassment escalating now a days';
 $lang['descr2'] = 'Is it possible for a single man to remember all these routes and bus information?';
 $lang['descr3'] = 'So if I add my known route';
-$lang['descr4'] = 'But We all know at least some routes information where we move/commute regular';
+$lang['descr4'] = 'Answer is clear and easy, No. This is why we have built this system to serve and collect authentic information about routes.';
+//However we all know some routes information where we move/commute regular
 $lang['add_here'] = 'Add Here';
 $lang['add_descr'] = 'imagine millions of people will benefit from it every day';
 $lang['about_project'] = 'About Project';

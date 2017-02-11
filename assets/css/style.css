@@ -208,6 +208,9 @@ table.small_font{
 .custom_left{
     margin-left: 15px;
 }
+ol.breadcrumb{
+    margin: 45px 0 0 0;
+}
 @media screen and (max-width: 768px) {
     .header_slogan{
         font-size:15px;

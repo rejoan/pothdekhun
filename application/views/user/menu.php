@@ -107,4 +107,7 @@
             <?php echo language_menu(); ?>
         </ul>
     </div><!-- /.nav-collapse -->
+
 </nav><!-- /.navbar -->
+
+
