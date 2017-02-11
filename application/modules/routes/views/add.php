@@ -5,17 +5,17 @@
     if ($message) {
         echo '<div class="alert alert-warning">' . $message . '</div>';
     }
+    $text_lang = $this->session->lang_name == 'bengali' ? lang('english') : lang('bangla');
+    $lang_code = $this->session->lang_name == 'bengali' ? 'en' : 'bn';
     ?>
     <div class="box box-poth">
         <div class="box-header">
             <h4>
-                <?php echo lang('direct_add') ?>
+                <?php echo lang('direct_add') . ' <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#route_add_rule">' . lang('3_rules') . '</button>'; ?> 
             </h4>
 
             <?php if (strpos(current_url(), 'edit')): ?>
                 <?php
-                $text_lang = $this->session->lang_name == 'bengali' ? lang('english') : lang('bangla');
-                $lang_code = $this->session->lang_name == 'bengali' ? 'en' : 'bn';
                 echo lang('edit_lang') . ' ';
                 echo '<a class="btn btn-sm btn-info" href="' . current_url_tr($lang_code) . '">' . $text_lang . '</a>';
                 echo ' ' . lang('info_of');
@@ -75,13 +75,20 @@
                         } elseif ($this->input->post('f')) {
                             echo $this->input->post('f');
                         }
-                        ?>" placeholder="<?php echo lang('device_from'); ?>" autocomplete="off">
+                        ?>" placeholder="<?php echo lang('departure_place'); ?>" autocomplete="off">
                         <div class="list-group suggestion">
 
                         </div>
                     </div>
                 </div>
                 <?php echo form_error('from_place', '<div class="alert alert-danger">', '</div>'); ?>
+                <div class="row">
+                    <div class="col-xs-10">
+                        <label>
+                            <?php echo lang('to_view'); ?>
+                        </label>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-xs-10 col-md-3">
@@ -132,7 +139,7 @@
                         } elseif ($this->input->post('t')) {
                             echo $this->input->post('t');
                         }
-                        ?>" placeholder="<?php echo lang('device_to'); ?>" autocomplete="off">
+                        ?>" placeholder="<?php echo lang('destination_place'); ?>" autocomplete="off">
                         <div class="list-group suggestion">
 
                         </div>
@@ -340,20 +347,36 @@
                         <span class="help-block"><?php echo lang('more_help'); ?> [Max:2MB]</span>
                     </div>
                 </div>
-<?php
-if(isset($route['amenities'])){$amenities = explode(',', $route['amenities']);}
-?>
+                <?php
+                if (isset($route['amenities'])) {
+                    $amenities = explode(',', $route['amenities']);
+                }
+                ?>
                 <div class="form-group">
                     <label class="col-md-3 control-label"><?php echo lang('ac_nonac'); ?></label>
                     <div class="col-md-9">
                         <label class="radio-inline">
-                            <input type="radio" name="ac_non" value="ac" <?php if(isset($amenities)){ echo in_array('ac',$amenities) ? 'checked="yes"':'';}?>> <?php echo lang('ac'); ?>
+                            <input type="radio" name="ac_non" value="ac" <?php
+                            if (isset($amenities)) {
+                                echo in_array('ac', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('ac'); ?>
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="ac_non" value="nac" <?php if(isset($amenities)){ echo in_array('nac',$amenities) ? 'checked="yes"':'';}?>> <?php echo lang('nac'); ?>
+                            <input type="radio" name="ac_non" value="nac" <?php
+                            if (isset($amenities)) {
+                                echo in_array('nac', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('nac'); ?>
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="ac_non" value="acunknown" <?php if(isset($amenities)){ echo in_array('acunknown',$amenities) ? 'checked="yes"':'';}else{echo 'checked="yes"';}?>> <?php echo lang('unknown'); ?>
+                            <input type="radio" name="ac_non" value="acunknown" <?php
+                            if (isset($amenities)) {
+                                echo in_array('acunknown', $amenities) ? 'checked="yes"' : '';
+                            } else {
+                                echo 'checked="yes"';
+                            }
+                            ?>> <?php echo lang('unknown'); ?>
                         </label>
                     </div>
                 </div>
@@ -362,14 +385,28 @@ if(isset($route['amenities'])){$amenities = explode(',', $route['amenities']);}
                     <label class="col-md-3 control-label"><?php echo lang('mail_local'); ?></label>
                     <div class="col-md-9">
                         <label class="radio-inline">
-                            <input type="radio" name="mail_local" value="local" <?php if(isset($amenities)){ echo in_array('local',$amenities) ? 'checked="yes"':'';}?>> <?php echo lang('local'); ?>
+                            <input type="radio" name="mail_local" value="local" <?php
+                            if (isset($amenities)) {
+                                echo in_array('local', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('local'); ?>
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="mail_local" value="gatelock" <?php if(isset($amenities)){ echo in_array('gatelock',$amenities) ? 'checked="yes"':'';}?>> <?php echo lang('gatelock'); ?>
+                            <input type="radio" name="mail_local" value="gatelock" <?php
+                            if (isset($amenities)) {
+                                echo in_array('gatelock', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('gatelock'); ?>
                         </label>
                         <label class="radio-inline">
-                            <?php $target = array('local','gatelock');?>
-                            <input type="radio" name="mail_local" value="unknown" <?php if(isset($amenities)){ echo count(array_intersect($amenities, $target)) > 0 ? '':'checked="yes"';}else{echo 'checked="yes"';}?>> <?php echo lang('unknown'); ?>
+                            <?php $target = array('local', 'gatelock'); ?>
+                            <input type="radio" name="mail_local" value="unknown" <?php
+                            if (isset($amenities)) {
+                                echo count(array_intersect($amenities, $target)) > 0 ? '' : 'checked="yes"';
+                            } else {
+                                echo 'checked="yes"';
+                            }
+                            ?>> <?php echo lang('unknown'); ?>
                         </label>
                     </div>
                 </div>
@@ -379,14 +416,28 @@ if(isset($route['amenities'])){$amenities = explode(',', $route['amenities']);}
                     <label class="col-md-3 control-label"><?php echo lang('chair_semi'); ?>?</label>
                     <div class="col-md-9">
                         <label class="radio-inline">
-                            <input type="radio" name="chair_semi" value="chair" <?php if(isset($amenities)){ echo in_array('chair',$amenities) ? 'checked="yes"':'';}?>> <?php echo lang('chair'); ?>
+                            <input type="radio" name="chair_semi" value="chair" <?php
+                            if (isset($amenities)) {
+                                echo in_array('chair', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('chair'); ?>
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="chair_semi" value="semi" <?php if(isset($amenities)){ echo in_array('semi',$amenities) ? 'checked="yes"':'';}?>> <?php echo lang('semi'); ?>
+                            <input type="radio" name="chair_semi" value="semi" <?php
+                            if (isset($amenities)) {
+                                echo in_array('semi', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('semi'); ?>
                         </label>
                         <label class="radio-inline">
-                            <?php $target2 = array('chair','semi');?>
-                            <input type="radio" name="chair_semi" value="unknown" <?php if(isset($amenities)){echo count(array_intersect($amenities, $target2)) > 0 ? '':'checked="yes"';}else{echo 'checked="yes"';}?>> <?php echo lang('unknown'); ?>
+                            <?php $target2 = array('chair', 'semi'); ?>
+                            <input type="radio" name="chair_semi" value="unknown" <?php
+                            if (isset($amenities)) {
+                                echo count(array_intersect($amenities, $target2)) > 0 ? '' : 'checked="yes"';
+                            } else {
+                                echo 'checked="yes"';
+                            }
+                            ?>> <?php echo lang('unknown'); ?>
                         </label>
                     </div>
                 </div>
@@ -449,6 +500,7 @@ if(isset($route['amenities'])){$amenities = explode(',', $route['amenities']);}
         </div>
     </div>
 </div>
+<?php $this->load->view('rules_modal'); ?>
 <?php if ($this->nl->is_admin()): ?>
     <script>
         $(document).ready(function () {
