@@ -17,6 +17,7 @@
                 <li><a href="<?php echo site_url_tr('pages/about-us'); ?>"><?php echo lang('about_us'); ?></a></li>
                 <li><a href="<?php echo site_url_tr('pages/contact-us'); ?>"><?php echo lang('contact_us'); ?></a></li>
                 <li><a href="<?php echo site_url_tr('pages/point-rules'); ?>"><?php echo lang('point_rules'); ?></a></li>
+                 <li><a href="<?php echo site_url_tr('pages/privacy-policy'); ?>"><?php echo lang('privacy_policy'); ?></a></li>
             </ul>
         </div>
     </div>

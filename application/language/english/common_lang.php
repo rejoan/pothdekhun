@@ -176,3 +176,4 @@ $lang['no_suggested_route_found'] = 'No suggestion found matched your search';
 $lang['suggested_route'] = 'Some suggestions matches your search places';
 $lang['possible_route'] = 'Some possible matches';
 $lang['select'] = 'Select';
+$lang['privacy_policy'] = 'Privacy Policy';
