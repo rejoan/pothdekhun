@@ -6,16 +6,16 @@
         </div>
         <div class="box-body" style="font-size:17px;">
             <ul id="point_rules" class="list-group">
-			<li class="list-group-item list-group-item-info"><h4> রেজিস্ট্রেশন করে আগে <a class="text-danger" href="<?php echo site_url_tr('routes/add');?>">রুট যোগ</a> এবং <a class="text-danger" href="<?php echo site_url_tr('transports/add');?>">পরিবহন যোগ</a> এই দুটি ফর্ম দেখে নিন তানাহলে নিচের নিয়মগুলি পরিষ্কার হবেনা</h4></li>
-			  <li class="list-group-item">প্রতিটি রুট যোগের সময় সর্বোচ্চ ২টি ছবি দেয়া যাবে। একটি পরিবহনটির সামনের এবং আরেকটি যেকোন পাশের</li>
-			  <li class="list-group-item">যদি পরিবহনের সামনে বা পাশে সব স্টপেজ/ভায়া লেখা থাকে এবং এমন ছবি দেন যেটা দেখে স্টপেজগুলির লেখা স্পষ্ট বোঝা যায় তাহলে প্রতি ছবির জন্য <span class="label label-info">৬</span> পয়েন্ট পাবেন</li>
-			  <li class="list-group-item">স্টপেজ/ভায়া ইচ্ছেমত "স্টপেজ যোগ/Add Stoppage" বাটনে ক্লিক করে যোগ করতে পারবেন। প্রতিটি সঠিক স্টপেজের জন্য <span class="label label-info">২</span> পয়েন্ট</li>
-			  <li class="list-group-item">প্রতিটি স্টপেজ যোগের সময় জায়গার নাম + ভাড়া এদুটি সঠিক হলেই পয়েন্ট, মন্তব্য আরেকটি ফিল্ড আছে ওটা ঐচ্ছিক।</li>
-			  <li class="list-group-item">যদি ভাড়া সঠিক জানা না থাকে তাহলে মন্তব্য ফিল্ডে "ভাড়া নিশ্চিত না" এইটুকু লিখে দিলেও <span class="label label-info">১</span> পয়েন্ট পাবেন।</li>
-			  <li class="list-group-item">যেকোন রুট অনুবাদ বা Translation করলে  <span class="label label-info">৬</span> পয়েন্ট পাবেন।</li>
-			  <li class="list-group-item">যেকোন পরিবহন যোগ করলে (বাংলা নাম সহ) <span class="label label-info">৫</span> পয়েন্ট পাবেন। সাথে প্রতিটি কাউন্টার ঠিকানার জন্য সর্বোচ্চ <span class="label label-info">২</span> </li>
-			  <li class="list-group-item">দুর পাল্লার পরিবহনে কাউন্টার ঠিকানা মোবাইল নাম্বার এবং যোগাযোগের ব্যাক্তি ইত্যাদি সহ যোগ করলে যতগুলি কাউন্টার তত  <span class="label label-info">২</span> পয়েন্ট পাবেন।</li>
-			  <li class="list-group-item">দুর পাল্লার রুটে ছবি দিলে প্রতিটি ছবির জন্য <span  class="label label-info">৩</span> পয়েন্ট পাবেন। কারন দুর পাল্লার বাসে ভায়া/স্টপেজ সাধারনত লেখা থাকেনা</li>
+			<li class="list-group-item list-group-item-info"><h4><?php echo lang('registration_first');?> <a class="text-danger" href="<?php echo site_url_tr('routes/add');?>"> <?php echo lang('add_route');?></a> <?php echo lang('and');?> <a class="text-danger" href="<?php echo site_url_tr('transports/add');?>"><?php echo lang('add_transport');?></a> <?php echo lang('check_first');?></h4></li>
+			  <li class="list-group-item"><?php echo lang('pic_rule');?></li>
+			  <li class="list-group-item"><?php echo lang('pic_rule2');?><span class="label label-info"><?php echo lang('six');?></span> <?php echo lang('point');?></li>
+			  <li class="list-group-item"><?php echo lang('stoppage_rule');?> <span class="label label-info"> <?php echo lang('two');?></span> <?php echo lang('point');?></li>
+			  <li class="list-group-item"><?php echo lang('stoppage_rule2');?></li>
+			  <li class="list-group-item"><?php echo lang('fare_rule');?> <span class="label label-info"><?php echo lang('one');?></span> <?php echo lang('point');?></li>
+			  <li class="list-group-item"><?php echo lang('translation_rule');?> <span class="label label-info"><?php echo lang('six');?></span> <?php echo lang('point');?></li>
+			  <li class="list-group-item"><?php echo lang('transport_rule');?><span class="label label-info"><?php echo lang('five');?></span> <?php echo lang('point');?> <?php echo lang('counter_rule');?> <span class="label label-info"><?php echo lang('two');?></span> <?php echo lang('point');?></li>
+			  <li class="list-group-item"><?php echo lang('counter_rule2');?>  <span class="label label-info"><?php echo lang('two');?></span> <?php echo lang('point');?></li>
+			  <li class="list-group-item"><?php echo lang('long_range_rule');?> <span  class="label label-info"><?php echo lang('three');?></span> <?php echo lang('point').lang('long_range_cause');?></li>
 			</ul>
         </div>
     </div>

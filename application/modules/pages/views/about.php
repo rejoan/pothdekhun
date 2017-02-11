@@ -27,7 +27,7 @@
                     <a target="_blank" href="https://en.wikipedia.org/wiki/Node.js">NodeJS</a>
                 </p>
             </div>
-            <p>Developer Information</p>
+<!--            <p>Developer Information</p>
             <div class="info-box" style="box-shadow:0px 0px 4px 1px #ddd">
                 <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
@@ -36,8 +36,8 @@
                     <span class="info-box-number"><a target="_blank" href="http://www.zend.com/en/yellow-pages/ZEND029384">Zend Certified Engineer</a></span>
                     <span class="info-box-number">Administrator <a target="_blank" href="http://www.webcoachbd.com">Webcoachbd</a></span>
                 </div>
-                <!-- /.info-box-content -->
-            </div>
+                 /.info-box-content 
+            </div>-->
         </div>
     </div>
 </div>
