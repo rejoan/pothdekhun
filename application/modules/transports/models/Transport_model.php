@@ -68,8 +68,16 @@ class Transport_model extends CI_Model {
         return $query->result_array();
     }
 
-    public function get_counters($poribohon_id) {
-        $query = $this->db->select('c.address,d.name, d.bn_name,t.name thana,t.bn_name thana_bn')->from('counter_address c')->join('districts d', 'd.id = c.district', 'left')->join('thanas t', 't.id = c.thana', 'left')->where('c.poribohon_id', $poribohon_id)->get();
+    public function get_counters($poribohon_id, $district_id) {
+        $this->db->select('c.address,d.name, d.bn_name,t.name thana,t.bn_name thana_bn');
+        $this->db->from('counter_address c');
+        $this->db->join('districts d', 'd.id = c.district', 'left');
+        $this->db->join('thanas t', 't.id = c.thana', 'left');
+        $this->db->where('c.poribohon_id', $poribohon_id);
+        if (!empty($district_id)) {
+            $this->db->where('c.district', $district_id);
+        }
+        $query = $this->db->get();
         return $query->result_array();
     }
 

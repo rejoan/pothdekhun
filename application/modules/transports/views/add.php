@@ -73,7 +73,7 @@
                             <div class="row form-group address">
                                 <div class="col-xs-12">
                                     <div class="col-xs-10 col-md-3">
-                                        <select name="ad[]" class="add_district" data-width="100%" data-thana="ft<?php echo $i + 1;?>" data-live-search="true">
+                                        <select name="ad[]" class="add_district" data-width="100%" data-thana="ft<?php echo $i + 1; ?>" data-live-search="true">
                                             <?php foreach ($districts as $d): ?>
                                                 <option value="<?php echo $d['id']; ?>" <?php
                                                 echo $counter_address[$i]['district'] == $d['id'] ? 'selected="yes"' : '';
@@ -85,9 +85,9 @@
                                         </select>
                                     </div>
                                     <div class="col-xs-10 col-md-4">
-                                        <?php?>
-                                        <select id="ft<?php echo $i + 1;?>" class="thana" name="thana[]" data-width="100%">
-                                            <?php foreach ($this->pm->get_data('thanas',FALSE,'district_id',$counter_address[$i]['district']) as $t): ?>
+
+                                        <select id="ft<?php echo $i + 1; ?>" class="thana" name="thana[]" data-width="100%">
+                                            <?php foreach ($this->pm->get_data('thanas', FALSE, 'district_id', $counter_address[$i]['district']) as $t): ?>
                                                 <option  value="<?php echo $t['id']; ?>" <?php echo $counter_address[$i]['thana'] == $t['id'] ? 'selected="yes"' : ''; ?>>
 
                                                     <?php echo $t[$this->nl->lang_based_data('bn_name', 'name')]; ?>
@@ -145,10 +145,3 @@
         </form>
     </div>
 </div>
-<?php if ($this->nl->is_admin()): ?>
-    <script>
-        $(document).ready(function () {
-            
-        });
-    </script>
-<?php endif; ?>

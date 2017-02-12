@@ -41,7 +41,7 @@ class Transports extends MX_Controller {
         } else {
             $segment = 0;
         }
-        $links = $this->nl->generate_pagination('transports/index?t='.$input, $total_rows, $per_page, $num_links);
+        $links = $this->nl->generate_pagination('transports/index?t=' . $input, $total_rows, $per_page, $num_links);
 
         $data = array(
             'title' => lang('all_transport'),
@@ -50,7 +50,7 @@ class Transports extends MX_Controller {
             'segment' => $segment,
             'settings' => $this->nl->get_config()
         );
-        $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar','menu',TRUE);
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
     }
 
     public function add() {
@@ -71,7 +71,7 @@ class Transports extends MX_Controller {
             $this->form_validation->set_rules('transport_name', lang('transport_name'), 'required|is_unique[poribohons.name]');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
+                $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
                 return;
             }
 
@@ -133,7 +133,7 @@ class Transports extends MX_Controller {
             redirect_tr('transports');
         }
 
-        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
     }
 
     /**
@@ -188,7 +188,7 @@ class Transports extends MX_Controller {
             $this->form_validation->set_rules('transport_name', lang('transport_name'), 'required');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
+                $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
                 return;
             }
 
@@ -245,7 +245,7 @@ class Transports extends MX_Controller {
             redirect_tr('transports');
         }
 
-        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar','menu',TRUE);
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
     }
 
     public function delete($id) {
@@ -275,16 +275,20 @@ class Transports extends MX_Controller {
             redirect_tr('transports');
         }
         $result = $this->tm->details($poribohon_id, FALSE);
+        $district = trim($this->input->get('d', TRUE));
+        $col_name = $this->nl->lang_based_data('bn_name', 'name');
         $data = array(
             'title' => mb_convert_case($result[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('poribohon_info'),
             'poribohon' => $result,
             'routes' => $this->tm->get_routes($poribohon_id),
-            'counters' => $this->tm->get_counters($poribohon_id),
-            'settings' => $this->nl->get_config()
+            'counters' => $this->tm->get_counters($poribohon_id, $district),
+            'settings' => $this->nl->get_config(),
+            'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
+            'action' => site_url_tr('transports/show/'.$id)
         );
         $data['meta_title'] = $data['title'] . lang('meta_title_transport');
         //echo $this->db->last_query();return;
-        $this->nl->view_loader('user', 'latest', NULL, $data, 'details', 'rightbar','menu',TRUE);
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'details', 'rightbar', 'menu', TRUE);
     }
 
     public function calculate_point($id) {
