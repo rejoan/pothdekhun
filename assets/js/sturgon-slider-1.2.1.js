@@ -1,5 +1,8 @@
 $(document).ready(function () {
-    $('.selectpicker').selectpicker();
+//    setTimeout(function () {
+//        $('.selectpicker').selectpicker();
+//    },5000);
+
     $('.fancybox').fancybox();
     $('#stoppage_section').sortable({
         placeholder: 'ui-state-highlight'
@@ -386,10 +389,10 @@ $(document).ready(function () {
         var to_district = $('select[name="td"]').val();
         if ((district == 1 && to_district !== 1) || (to_district == 1 && district !== 1)) {
             $('#consider_thana').slideDown();
-        }else{
+        } else {
             $('#consider_thana').slideUp();
         }
-       
+
         var thana = $(this).data('thana');
         get_thanas(district, thana);
     });
@@ -398,10 +401,10 @@ $(document).ready(function () {
         var from_district = $('select[name="fd"]').val();
         if ((district == 1 && from_district !== 1) || (from_district == 1 && district !== 1)) {
             $('#consider_thana').slideDown();
-        }else{
+        } else {
             $('#consider_thana').slideUp();
         }
-        
+
         var thana = $(this).data('thana');
         get_thanas(district, thana);
     });
@@ -604,6 +607,12 @@ function get_thanas(district, thana) {
         cache: true,
         data: {
             district: district
+        },
+        beforeSend: function () {
+            $('#' + thana).parent().append('<small id="text_loader">Loading thanas...</small>');
+        },
+        complete: function () {
+            $('#text_loader').remove();
         }
     }).done(function (response) {
         var th = '';

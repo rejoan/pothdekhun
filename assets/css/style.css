@@ -155,6 +155,11 @@ a.details:hover{
     right: 16px;
     top: 12px;
 }
+#text_loader{
+    position: absolute;
+    right: 16px;
+    top: 35px;
+}
 .err{
     display: none;
 }
