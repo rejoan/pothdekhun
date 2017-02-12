@@ -4,10 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/controllers/Routes.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/header.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/views/add.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/views/index.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/route_manager/controllers/Route_manager.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/menu.php</file>
         </group>
     </open-files>
 </project-private>

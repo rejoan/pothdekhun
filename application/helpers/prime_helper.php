@@ -89,7 +89,7 @@ function language_menu() {
     $CI = & get_instance();
     $current_lang = ucfirst($CI->session->lang_name);
     $selector = '';
-    $flag = 'England';
+    $flag = 'United Kingdom(Great Britain)';
     if ($current_lang == 'Bengali') {
         $flag = 'Bangladesh';
     }
