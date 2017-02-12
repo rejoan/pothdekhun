@@ -11,6 +11,7 @@
             <h3 class="box-title"><?php echo lang('contact_us'); ?></h3>
         </div>
         <div class="box-body">
+            <h3 class="custom_margin">We appreciate any suggestion. </h3>
             <form class="form-horizontal" action="<?php echo site_url('pages/contact_us'); ?>" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="inputName" class="col-sm-3 control-label"><?php echo lang('name'); ?></label>
@@ -42,6 +43,7 @@
                     </div>
                 </div>
             </form>
+            <p>You may also contact through our email owner@pothdekhun.com</p>
         </div>
     </div>
 </div>
