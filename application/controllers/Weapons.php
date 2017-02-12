@@ -242,9 +242,30 @@ class Weapons extends MX_Controller {
         }
     }
 
+    /**
+     * 
+     * @return array
+     */
     public function transport_duplicacy() {
         $name = trim($this->input->post('name', TRUE));
-        $query = $this->db->where('name', $name)->or_where('bn_name', $name)->get('poribohons');
+        $edit_id = trim($this->input->post('pd', TRUE));
+        //var_dump($edit_id);return;
+        $this->db->where('(name = "' . $name . '" OR bn_name = "' . $name . '")', NULL, FALSE);
+        if (!empty($edit_id)) {
+            $this->load->library('encryption');
+            $this->encryption->initialize(
+                    array(
+                        'cipher' => 'des',
+                        'mode' => 'ECB'
+                    )
+            );
+            $transport_id = $this->encryption->decrypt($edit_id);
+            //var_dump($transport_id);
+            $exclude = array($transport_id);
+            $this->db->where_not_in('id', $exclude);
+        }
+        $query = $this->db->get('poribohons');
+        //echo $this->db->last_query();return;
         if ($query->num_rows() > 0) {
             echo json_encode(array('exist' => 'yes'));
             return;

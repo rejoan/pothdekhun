@@ -349,6 +349,7 @@ $(document).ready(function () {
     $('.transport_name').on('blur change', function () {
         var pd_stu = $('#pd_stu').val();
         var name = $(this).val();
+        var pd_identity = $('#pd_identity').val();
         $.ajax({
             context: this,
             url: pd_stu + 'weapons/transport_duplicacy',
@@ -356,7 +357,8 @@ $(document).ready(function () {
             dataType: 'json',
             cache: true,
             data: {
-                name: name
+                name: name,
+                pd:pd_identity
             }
         }).done(function (response) {
             if (response.exist == 'yes') {
@@ -473,15 +475,17 @@ $(document).ready(function () {
         }
     });
 
-    ftpos = 1;
+    //ftpos = 1;
     $('#add_address').click(function () {
-        ftpos++;
-        var mycontent = $('div#address:first');
-
+        //ftpos++;
+        var mycontent = $('div.address:first');
+        var total_address = $('div.address').length;
+        var ftpos = total_address + 1;
+        //ftpos++;
         var content = mycontent.clone(true);
         content.find('.add_district').attr('data-thana', 'ft' + ftpos);
         content.find('.thana').prop('id', 'ft' + ftpos);
-        $(content).insertAfter('div#address:last').hide().slideDown();
+        $(content).insertAfter('div.address:last').hide().slideDown();
         $('<button class="btn btn-xs btn-danger remove_address"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>').insertAfter('div#address:last .add_details');
         //content.find('select').selectpicker();
     });
