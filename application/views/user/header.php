@@ -21,7 +21,7 @@
         ?>
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" >
-        <?php if (($f_class == 'routes' || $f_class == 'transports') && ($f_method == 'add' || $f_method == 'edit') || $f_method == 'all' || $f_method == 'show'): ?>
+        <?php if (($f_class == 'routes' || $f_class == 'transports'  || $f_class == 'profile') && ($f_method == 'add' || $f_method == 'edit') || $f_method == 'all' || $f_method == 'show'): ?>
             <link rel="stylesheet" href="<?php echo base_url('assets/plugins/jQueryUI/jquery-ui.min.css'); ?>" >
             <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-sweetalert/dist/sweetalert.css'); ?>">
             
@@ -64,8 +64,8 @@
 
         </script>-->
     </head>
-<!--    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!--    <script>
             (adsbygoogle = window.adsbygoogle || []).push({
                 google_ad_client: "ca-pub-8715007142406485",
                 enable_page_level_ads: true
