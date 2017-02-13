@@ -15,22 +15,29 @@
         <link rel="icon" href="<?php echo base_url('assets/images') . '/favicon.ico'; ?>">
 
         <title><?php echo $title; ?> | PothDekhun</title>
-
+        <?php
+        $f_class = $this->router->fetch_class();
+        $f_method = $this->router->fetch_method();
+        ?>
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" >
-        <link rel="stylesheet" href="<?php echo base_url('assets/plugins/jQueryUI/jquery-ui.min.css'); ?>" >
+        <?php if (($f_class == 'routes' || $f_class == 'transports') && ($f_method == 'add' || $f_method == 'edit') || $f_method == 'all' || $f_method == 'show'): ?>
+            <link rel="stylesheet" href="<?php echo base_url('assets/plugins/jQueryUI/jquery-ui.min.css'); ?>" >
+            <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-sweetalert/dist/sweetalert.css'); ?>">
+            
+            <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.css'); ?>">
+        <?php endif; ?>
+            <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables/media/css/jquery.dataTables.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css'); ?>" >
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-select.min.css'); ?>" >
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/font-awesome.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/ionicons.min.css'); ?>">
-<!--        <link rel="stylesheet" href="<?php //echo base_url('assets/dist/css/skins/_all-skins.min.css');   ?>">-->
-<!--        <link rel="stylesheet" href="<?php //echo base_url('assets/plugins/iCheck/flat/blue.css');   ?>">-->
-        <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-sweetalert/dist/sweetalert.css'); ?>">
+
+
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/AdminLTE.min.css'); ?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables/media/css/jquery.dataTables.min.css'); ?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.css'); ?>">
-        <!--[if lt IE 9]><script src="<?php echo base_url('assets/js/ie8-responsive-file-warning.js'); ?>"></script><![endif]-->
-    <!--    <script src="<?php echo base_url('assets/js/ie-emulation-modes-warning.js'); ?>"></script>-->
+
+<!--[if lt IE 9]><script src="<?php echo base_url('assets/js/ie8-responsive-file-warning.js'); ?>"></script><![endif]-->
+<!--    <script src="<?php echo base_url('assets/js/ie-emulation-modes-warning.js'); ?>"></script>-->
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -38,7 +45,7 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.1.1.min.js'); ?>"></script>
-       
+
 <!--        <script>
             (function (i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;

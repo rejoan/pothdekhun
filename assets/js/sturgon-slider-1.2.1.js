@@ -1,20 +1,20 @@
 $(document).ready(function () {
-//    setTimeout(function () {
-//        $('.selectpicker').selectpicker();
-//    },5000);
+    var mn_nm = $('#mn_nm').val();
+    var cl_nm = $('#cl_nm').val();
+    if ((cl_nm === 'routes' || cl_nm === 'transports') && (mn_nm === 'add' || mn_nm === 'edit' || mn_nm === 'all' || mn_nm === 'show')) {
+        $('.fancybox').fancybox();
+        $('#stoppage_section').sortable({
+            placeholder: 'ui-state-highlight'
+        });
 
-    $('.fancybox').fancybox();
-    $('#stoppage_section').sortable({
-        placeholder: 'ui-state-highlight'
-    });
-    //$('#stoppage_section').disableSelection();
+        $('input[type=file]').bootstrapFileInput();
+    }
     $('.dataTable').DataTable({
         'paging': false,
         'info': false,
         'searching': false,
         'order': [[0, 'desc']]
     });
-    $('input[type=file]').bootstrapFileInput();
     $('[data-toggle="tooltip"]').tooltip();
     var xhr = null;
     $('.search_place').keyup(function (e) {
@@ -358,7 +358,7 @@ $(document).ready(function () {
             cache: true,
             data: {
                 name: name,
-                pd:pd_identity
+                pd: pd_identity
             }
         }).done(function (response) {
             if (response.exist == 'yes') {

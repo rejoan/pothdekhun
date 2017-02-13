@@ -115,6 +115,7 @@ class Profile extends MX_Controller {
             'districts' => $this->pm->get_data('districts'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1)
         );
+        $data['profile']['reputation'] = $this->prm->total_reputation($this->user_id);
         if ($this->input->post('submit')) {
             $prev_pic = $this->encryption->decrypt($this->input->post('pd_ps', TRUE));
             $config['upload_path'] = './avatars';
