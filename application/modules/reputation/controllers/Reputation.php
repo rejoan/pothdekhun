@@ -13,13 +13,36 @@ class Reputation extends MX_Controller {
         parent::__construct();
         $this->nl->is_logged();
         $this->user_id = (int) $this->session->user_id;
-        $this->load->model('Reputation_model', 'rpm');
+        $this->load->model('Reputation_model', 'rem');
     }
 
     public function index() {
+        $p = trim($this->input->get('p', TRUE));
+        if ($p == 't') {
+            $table = 'transport_points';
+        } else {
+            $table = 'route_points';
+        }
+
+        $total_rows = $this->db->get($table)->num_rows();
+        $per_page = 15;
+        $num_links = 5;
+
+        if ($this->input->get('page')) {
+            $sgm = (int) trim($this->input->get('page'));
+            $segment = $per_page * ($sgm - 1);
+        } else {
+            $segment = 0;
+        }
+
+        $url = 'reputation/index?p=' . $p;
+        $links = $this->nl->generate_pagination($url, $total_rows, $per_page, $num_links);
         $data = array(
             'title' => lang('reputation'),
-            'settings' => $this->nl->get_config()
+            'settings' => $this->nl->get_config(),
+            'links' => $links,
+            'segment' => $segment,
+            'points' => $this->pm->get_data($table, FALSE, 'user_id', $this->user_id, FALSE, FALSE, FALSE, FALSE, $per_page, $segment)
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
     }

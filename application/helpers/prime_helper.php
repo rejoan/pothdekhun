@@ -67,7 +67,7 @@ function language_array() {
 
     $ci->db->select('lang_code, lang_name,lang_flag');
     $ci->db->where('lang_status', 1);
-    $ci->db->order_by('id','desc');
+    $ci->db->order_by('id', 'desc');
     $query = $ci->db->get('languages');
 
     $languages = array();
@@ -149,9 +149,10 @@ function latest_routes() {
 
 function make_keywords($str) {
     $mod_str = $str . lang('meta_str');
-    $mod_str = str_replace(',', '', trim($mod_str));
+    $mod_str = str_replace(array(',', '.'), '', trim($mod_str));
+    $mod_str = strtolower($mod_str);
     $word_arr = explode(' ', trim($mod_str));
-    $remove = array('is', 'a', 'the', 'to', 'from', 'in', 'an', 'and');
+    $remove = array('is','with', 'a', 'the', 'to', 'from', 'in', 'an', 'and', 'of', 'for', 'including', 'required', 'even');
     array_filter($word_arr);
     $final_arr = array_diff($word_arr, $remove);
     return implode(',', array_unique($final_arr));
