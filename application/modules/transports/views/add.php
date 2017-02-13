@@ -84,10 +84,11 @@
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
+                                    <?php $col_name = $this->nl->lang_based_data('bn_name', 'name');?>
                                     <div class="col-xs-10 col-md-4">
 
                                         <select id="ft<?php echo $i + 1; ?>" class="thana" name="thana[]" data-width="100%">
-                                            <?php foreach ($this->pm->get_data('thanas', FALSE, 'district_id', $counter_address[$i]['district']) as $t): ?>
+                                            <?php foreach ($this->pm->get_data('thanas', FALSE, 'district_id', $counter_address[$i]['district'],FALSE,FALSE,FALSE,$col_name,'asc') as $t): ?>
                                                 <option  value="<?php echo $t['id']; ?>" <?php echo $counter_address[$i]['thana'] == $t['id'] ? 'selected="yes"' : ''; ?>>
 
                                                     <?php echo $t[$this->nl->lang_based_data('bn_name', 'name')]; ?>
