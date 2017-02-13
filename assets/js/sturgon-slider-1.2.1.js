@@ -486,7 +486,7 @@ $(document).ready(function () {
         content.find('.add_district').attr('data-thana', 'ft' + ftpos);
         content.find('.thana').prop('id', 'ft' + ftpos);
         $(content).insertAfter('div.address:last').hide().slideDown();
-        $('<button class="btn btn-xs btn-danger remove_address"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>').insertAfter('div#address:last .add_details');
+        $('<button class="btn btn-xs btn-danger remove_address"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>').insertAfter('div.address:last .add_details');
         //content.find('select').selectpicker();
     });
 
