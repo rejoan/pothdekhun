@@ -6,11 +6,11 @@
         </div>
         <div class="box-body">
             <h2>Terms of Service</h2>
-            <p>All route and transport posted at this website express the views of the user, and do not necessarily reflect any liability of the owners and administrators of this site.
+            <p>All routes and transports posted at this website will be edited and reviewed by owners and administrators of this site.
 
-                By registering on this site you agree not to post any route or transport that exist in real. We will permanently remove or ban all route or resources who do not do so.
+                By registering on this site you agree not to post any route or transport that not exist in real. After verification if any wrong information found then we will permanently remove your routes or resources. Even we reserve the right of banning such activity about routes.
 
-                We reserve the right to remove, edit, or move any post for any reason.</p>
+                We also reserve the right to remove, edit, or move any route or transport for any reason.</p>
 
             <h2>Privacy Policy</h2>
             <p>We are committed to respecting your online privacy.
@@ -22,7 +22,7 @@
             <h2>Website data</h2>
             <p>Pothdekhun's web servers automatically collect information that is essential to operating and maintaining the website's security.
 
-                This website contains information about route,transport etc resources and Pothdekhun is not responsible for the privacy provisions of those transport owner.
+                This website contains information about route,transport etc resources and Pothdekhun is not responsible for the privacy provisions of those transport's owner.
             </p>
         </div>
     </div>

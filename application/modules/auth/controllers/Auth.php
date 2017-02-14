@@ -56,7 +56,7 @@ class Auth extends MX_Controller {
                     'mobile' => $mobile,
                     'password' => md5($password)
                 );
-
+                $this->db->set('reg_date', 'NOW()', FALSE);
                 $user_id = $this->pm->insert_data('users', $user, TRUE);
                 $user_data = array(
                     'user_id' => $user_id,
@@ -169,6 +169,7 @@ class Auth extends MX_Controller {
             'email' => $email,
             'user_type' => 'user'
         );
+
         $this->session->set_userdata($user_data);
         redirect_tr('profile');
     }
@@ -208,6 +209,7 @@ class Auth extends MX_Controller {
                     if ($user_type != 'admin') {
                         $next = 'profile';
                     }
+                    $this->pm->updater('id', $this->session->user_id, 'users', array('last_logged' => date('Y-m-d H:i:s')));
                     $this->session->set_flashdata('message', lang('successfully_logged_in'));
                     redirect_tr($next);
                 } else {
@@ -293,7 +295,7 @@ class Auth extends MX_Controller {
                 return;
             }
             $email = trim($this->input->post('email', TRUE));
-            $check = $this->pm->get_row('email', $email,'users');
+            $check = $this->pm->get_row('email', $email, 'users');
             if (count($check) > 0) {
                 $str = str_shuffle('!poth@:');
                 $str .= rand(99999, 11111);

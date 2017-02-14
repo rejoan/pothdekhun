@@ -2,16 +2,6 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">All Users</h3>
-
-            <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-                    <div class="input-group-btn">
-                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                    </div>
-                </div>
-            </div>
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive no-padding">
@@ -28,9 +18,9 @@
                             <td><?php echo $segment;?></td>
                             <td><?php echo $u['username'];?></td>
                             <td><?php echo $u['email'];?></td>
-                            <td><?php echo date('d M, Y',strtotime($u['reg_date']));?></td>
+                            <td><?php echo $this->nl->date_formatter('Y-m-d H:i:s',$u['reg_date'],'d M Y');?></td>
                             <td>
-                                <a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('users/delete') . '/' . $u['id']; ?>"><i class="fa fa-edit"></i></a>
+                                <a data-toggle="tooltip" data-placement="top" title="Points" href="<?php echo site_url_tr('users/points') . '?p=r&u=' . $u['id']; ?>"><i class="fa fa-viacoin"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

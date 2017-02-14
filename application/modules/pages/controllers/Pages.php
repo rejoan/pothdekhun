@@ -12,6 +12,14 @@ class Pages extends MX_Controller {
         //$this->load->model('Page_model', 'nm');
     }
 
+    public function index() {
+        $data = array(
+            'title' => lang('point_rules'),
+            'settings' => $this->nl->get_config(),
+        );
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'point', 'rightbar', 'menu', TRUE);
+    }
+
     public function about_us() {
         $data = array(
             'title' => lang('about_us'),
@@ -74,11 +82,12 @@ class Pages extends MX_Controller {
         $this->nl->view_loader('user', 'latest', NULL, $data, 'point', 'rightbar', 'menu', TRUE);
     }
 
-    public function privacy_policy(){
+    public function privacy_policy() {
         $data = array(
             'title' => lang('privacy_policy'),
             'settings' => $this->nl->get_config(),
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'privacy', 'rightbar', 'menu', TRUE);
     }
+
 }

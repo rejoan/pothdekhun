@@ -35,9 +35,37 @@ class Users extends CI_Controller {
         $this->nl->view_loader('admin', 'index', NULL, $data, NULL, NULL, NULL);
     }
 
-    public function logout() {
-        $this->session->sess_destroy();
-        redirect('route?ln=' . $this->input->get('ln'));
+    public function points() {
+        $p = trim($this->input->get('p', TRUE));
+        $u = trim($this->input->get('u', TRUE));
+        if ($p == 't') {
+            $table = 'transport_points';
+        } else {
+            $table = 'route_points';
+        }
+
+
+        $total_rows = $this->db->get($table)->num_rows();
+        $per_page = 15;
+        $num_links = 5;
+
+        if ($this->input->get('page')) {
+            $sgm = (int) trim($this->input->get('page'));
+            $segment = $per_page * ($sgm - 1);
+        } else {
+            $segment = 0;
+        }
+
+        $url = 'users/points?p=' . $p . '&u=' . $u;
+        $links = $this->nl->generate_pagination($url, $total_rows, $per_page, $num_links);
+        $data = array(
+            'title' => lang('reputation'),
+            'settings' => $this->nl->get_config(),
+            'links' => $links,
+            'segment' => $segment,
+            'points' => $this->um->get_points($table, $u, $per_page, $segment)
+        );
+        $this->nl->view_loader('admin', 'points', NULL, $data,  NULL, NULL, NULL);
     }
 
 }
