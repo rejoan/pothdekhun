@@ -157,7 +157,6 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         $tthana = $this->pm->get_row('id', $th, 'thanas');
         if (empty($place)) {
             $place = $fthana[$this->nl->lang_based_data('bn_name', 'name')];
-            
         }
         if (empty($to_place)) {
             $to_place = $tthana[$this->nl->lang_based_data('bn_name', 'name')];
@@ -173,14 +172,13 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
                         WHERE LOWER(REPLACE(s.place_name, " ", "")) LIKE LOWER(REPLACE("' . $place . '", " ", "")) OR place_name LIKE "%' . $place . '%" 
                         ) AS rtn GROUP BY rtn.route_id');
         //echo $this->db->last_query();return;
-       
+
         $all_places = $all_place_q->result_array();
         $from_route_id = $this->nl->get_all_ids($all_places, 'route_id');
         //var_dump($from_route_id);return;
-        if (empty($from_route_id)) {
-            return array();
-        }
-        $to_place_q = $this->db->query('SELECT * FROM (SELECT id route_id,from_place Location
+        $all_arr = array();
+        if (!empty($from_route_id)) {
+            $to_place_q = $this->db->query('SELECT * FROM (SELECT id route_id,from_place Location
                         FROM routes
                         WHERE LOWER(REPLACE(from_place, " ", "")) LIKE LOWER(REPLACE("' . $to_place . '", " ", "")) OR from_place LIKE "%' . $to_place . '%"  UNION DISTINCT
                         SELECT id route_id,to_place
@@ -190,18 +188,20 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
                         FROM ' . $stopage_table . '
                         WHERE LOWER(REPLACE(s.place_name, " ", "")) LIKE LOWER(REPLACE("' . $to_place . '", " ", "")) OR place_name LIKE "%' . $to_place . '%" 
                         ) AS fm WHERE route_id IN (' . $from_route_id . ')');
-        //echo $this->db->last_query();return;
-        $to_places = $to_place_q->result_array();
-        $all_routes_id = $this->nl->get_all_ids($to_places, 'route_id');
-        $all_arr = explode(',', $all_routes_id);
-        
+            //echo $this->db->last_query();return;
+            $to_places = $to_place_q->result_array();
+            $all_routes_id = $this->nl->get_all_ids($to_places, 'route_id');
+            $all_arr = explode(',', $all_routes_id);
+        }
+
+
         $thana_suggestion = $this->get_by_thana($place, $stopage_table, $to_place);
         $thana_routes_id = $this->nl->get_all_ids($thana_suggestion, 'route_id');
         $thana_arr = explode(',', $thana_routes_id);
-        $final_ids = array_merge($all_arr,$thana_arr);
+        $final_ids = array_merge($all_arr, $thana_arr);
         $all_id_arr = array_filter(array_unique($final_ids));
-        
-        $all_ids = implode(',',$all_id_arr);
+
+        $all_ids = implode(',', $all_id_arr);
         //var_dump($all_ids);return;
         if (empty($all_ids)) {
             return array();
@@ -210,7 +210,7 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
 //        $suggestion_ids = $this->nl->get_all_ids($suggestions, 'r_id');
 //        return explode(',', $suggestion_ids);
     }
-    
+
     public function get_by_thana($place, $stopage_table, $to_place) {
         $ft = trim($this->input->get('ft', TRUE));
         $th = trim($this->input->get('th', TRUE));
@@ -219,15 +219,15 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
                         FROM (
                         SELECT id route_id,from_place Location
                         FROM routes
-                        WHERE from_thana = '.$ft.' UNION DISTINCT
+                        WHERE from_thana = ' . $ft . ' UNION DISTINCT
                         SELECT id route_id,to_place
                         FROM routes
-                        WHERE to_thana = '.$ft.' UNION DISTINCT
+                        WHERE to_thana = ' . $ft . ' UNION DISTINCT
                         SELECT s.route_id,s.place_name
-                        FROM '.$stopage_table.'
+                        FROM ' . $stopage_table . '
                         WHERE LOWER(
                         REPLACE(s.place_name, " ", "")) LIKE LOWER(
-                        REPLACE("'.$place.'", " ", "")) OR place_name LIKE "%'.$place.'%") AS rtn GROUP BY route_id');
+                        REPLACE("' . $place . '", " ", "")) OR place_name LIKE "%' . $place . '%") AS rtn GROUP BY route_id');
         //echo $this->db->last_query();return;
         $all_places = $all_place_q->result_array();
         $from_route_id = $this->nl->get_all_ids($all_places, 'route_id');
@@ -239,16 +239,16 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
                     FROM (
                     SELECT id route_id,from_place Location
                     FROM routes
-                    WHERE from_thana = '.$th.' OR to_thana = '.$th.' UNION DISTINCT
+                    WHERE from_thana = ' . $th . ' OR to_thana = ' . $th . ' UNION DISTINCT
                     SELECT id route_id,to_place
                     FROM routes
-                    WHERE from_thana = '.$th.' OR to_thana = '.$th.' UNION DISTINCT
+                    WHERE from_thana = ' . $th . ' OR to_thana = ' . $th . ' UNION DISTINCT
                     SELECT s.route_id,s.place_name
-                    FROM '.$stopage_table.'
+                    FROM ' . $stopage_table . '
                     WHERE LOWER(
                     REPLACE(s.place_name, " ", "")) LIKE LOWER(
-                    REPLACE("'.$to_place.'", " ", "")) OR place_name LIKE "%'.$to_place.'%") AS fm
-                    WHERE route_id IN ('.$from_route_id.')');
+                    REPLACE("' . $to_place . '", " ", "")) OR place_name LIKE "%' . $to_place . '%") AS fm
+                    WHERE route_id IN (' . $from_route_id . ')');
         //echo $this->db->last_query();return;
         $to_places = $to_place_q->result_array();
         return $to_places;
@@ -330,8 +330,8 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
      * @return type
      */
     public function get_routes($place_name, $district, $pagination = FALSE, $per_page = 5, $segment = 3) {
-        $place_fsql = ' AND r.from_place = "' . $place_name.'"';
-        $place_tsql = ' AND r.to_place = "' . $place_name.'"';
+        $place_fsql = ' AND r.from_place = "' . $place_name . '"';
+        $place_tsql = ' AND r.to_place = "' . $place_name . '"';
 
         if (empty($place_name)) {
             $place_fsql = $place_tsql = '';
@@ -386,13 +386,13 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
                                     FROM (
                                     SELECT id route_id
                                     FROM routes
-                                    WHERE to_place = "' . $place . '" OR to_place LIKE "%'.$place.'%" UNION DISTINCT
+                                    WHERE to_place = "' . $place . '" OR to_place LIKE "%' . $place . '%" UNION DISTINCT
                                     SELECT id route_id
                                     FROM routes
-                                    WHERE from_place = "' . $place . '" OR from_place LIKE "%'.$place.'%" UNION DISTINCT
+                                    WHERE from_place = "' . $place . '" OR from_place LIKE "%' . $place . '%" UNION DISTINCT
                                     SELECT route_id
                                     FROM ' . $stopage_table . '
-                                    WHERE place_name = "' . $place . '" OR place_name LIKE "%'.$place.'%"
+                                    WHERE place_name = "' . $place . '" OR place_name LIKE "%' . $place . '%"
                                     ) AS rtn');
         //echo $this->db->last_query();return;
         //var_dump($fquery->num_rows());return;
@@ -422,13 +422,13 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
                                     FROM (
                                     SELECT id route_id
                                     FROM routes
-                                    WHERE to_place = "' . $to_place . '" OR to_place LIKE "%'.$place.'%" UNION DISTINCT
+                                    WHERE to_place = "' . $to_place . '" OR to_place LIKE "%' . $place . '%" UNION DISTINCT
                                     SELECT id route_id
                                     FROM routes
-                                    WHERE from_place = "' . $to_place . '"  OR from_place LIKE "%'.$to_place.'%"  UNION DISTINCT
+                                    WHERE from_place = "' . $to_place . '"  OR from_place LIKE "%' . $to_place . '%"  UNION DISTINCT
                                     SELECT route_id
                                     FROM ' . $stopage_table . '
-                                    WHERE place_name = "' . $to_place . '" OR place_name LIKE "%'.$to_place.'%"
+                                    WHERE place_name = "' . $to_place . '" OR place_name LIKE "%' . $to_place . '%"
                                     ) AS rtn');
 
         if ($tquery->num_rows() > 0) {
