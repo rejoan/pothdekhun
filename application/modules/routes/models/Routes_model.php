@@ -10,7 +10,7 @@ if (!defined('BASEPATH'))
  */
 class Routes_model extends CI_Model {
 
-    public function get_all($per_page = 10, $segment = 3, $d = NULL, $t = NULL, $ttype = NULL,$i = NULL) {
+    public function get_all($per_page = 10, $segment = 3, $d = NULL, $t = NULL, $ttype = NULL, $i = NULL) {
         $this->db->select('r.id,r.from_place,r.to_place,r.transport_type,r.added,r.is_publish,u.username,rbn.from_place fp_bn,rbn.to_place tp_bn,rbn.departure_time,p.name,p.bn_name');
         $this->db->from('routes r')->join('users u', 'r.added_by = u.id', 'left');
         $this->db->join('route_bn rbn', 'rbn.route_id = r.id', 'left');
@@ -21,7 +21,7 @@ class Routes_model extends CI_Model {
         }
         if (!empty($d)) {
             //$this->db->where('r.from_district', $d)->or_where('r.to_district', $d);
-            $sql = '(r.from_district = ' . $d . ' OR ' . 'r.to_district = '.$d.')';
+            $sql = '(r.from_district = ' . $d . ' OR ' . 'r.to_district = ' . $d . ')';
             if (!$i) {
                 //$this->db->where('r.from_thana', $t)->or_where('r.to_thana', $t);
                 $sql .= 'AND (r.from_thana = ' . $t . ' OR r.to_thana = ' . $t . ')';
@@ -112,6 +112,18 @@ class Routes_model extends CI_Model {
         $query = $this->db->get();
         //echo $this->db->last_query();return;
         return $query->num_rows();
+    }
+
+    public function get_dthana($table, $col_name, $district_id = NULL) {
+        $this->db->cache_on();
+        $this->db->select('id,name,bn_name');
+        $this->db->from($table);
+        if (!empty($district_id)) {
+            $this->db->where('district_id', $district_id);
+        }
+        $this->db->order_by($col_name, 'asc');
+        $query = $this->db->get();
+        return $query->result_array();
     }
 
 }

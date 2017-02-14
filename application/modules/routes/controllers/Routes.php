@@ -21,8 +21,8 @@ class Routes extends MX_Controller {
         $col_name = $this->nl->lang_based_data('bn_name', 'name');
         $data = array(
             'title' => lang('index'),
-            'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
-            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1, FALSE, FALSE, FALSE, $col_name, 'asc'),
+            'districts' => $this->rm->get_dthana('districts', $col_name),
+            'thanas' => $this->rm->get_dthana('thanas', $col_name, 1),
             'action_transport' => site_url_tr('search/routes'),
             'search_action' => site_url_tr('search/index'),
             'settings' => $this->nl->get_config(),
@@ -534,7 +534,7 @@ class Routes extends MX_Controller {
         $i = trim($this->input->get('it', TRUE));
         $ttype = trim($this->input->get('t', TRUE));
 
-        $url = 'routes/all?fd=' . $d . '&ft=' . $t . '&t=' . $ttype.'&it='.$i;
+        $url = 'routes/all?fd=' . $d . '&ft=' . $t . '&t=' . $ttype . '&it=' . $i;
         $links = $this->nl->generate_pagination($url, $total_rows, $per_page, $num_links);
 
         $district_id = $d;
@@ -544,7 +544,7 @@ class Routes extends MX_Controller {
 
         $data = array(
             'title' => lang('all_routes'),
-            'routes' => $this->rm->get_all($per_page, $segment, $d, $t, $ttype,$i),
+            'routes' => $this->rm->get_all($per_page, $segment, $d, $t, $ttype, $i),
             'links' => $links,
             'segment' => $segment,
             'action' => site_url_tr('routes/all'),
