@@ -123,6 +123,7 @@ class Routes_model extends CI_Model {
         }
         $this->db->order_by($col_name, 'asc');
         $query = $this->db->get();
+        $this->db->cache_off();
         return $query->result_array();
     }
 
