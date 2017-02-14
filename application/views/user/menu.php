@@ -24,7 +24,7 @@
         </div>
 
     </div><!-- /.container -->
-    <div id="navbar" class="collapse navbar-collapse" style="background: #336699;">
+    <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
             <?php
             if ($this->session->user_type == 'admin') {

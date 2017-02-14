@@ -531,9 +531,10 @@ class Routes extends MX_Controller {
 
         $d = trim($this->input->get('fd', TRUE));
         $t = trim($this->input->get('ft', TRUE));
+        $i = trim($this->input->get('it', TRUE));
         $ttype = trim($this->input->get('t', TRUE));
 
-        $url = 'routes/all?fd=' . $d . '&ft=' . $t . '&t=' . $ttype;
+        $url = 'routes/all?fd=' . $d . '&ft=' . $t . '&t=' . $ttype.'&it='.$i;
         $links = $this->nl->generate_pagination($url, $total_rows, $per_page, $num_links);
 
         $district_id = $d;
@@ -543,7 +544,7 @@ class Routes extends MX_Controller {
 
         $data = array(
             'title' => lang('all_routes'),
-            'routes' => $this->rm->get_all($per_page, $segment, $d, $t, $ttype),
+            'routes' => $this->rm->get_all($per_page, $segment, $d, $t, $ttype,$i),
             'links' => $links,
             'segment' => $segment,
             'action' => site_url_tr('routes/all'),

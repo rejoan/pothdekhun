@@ -7,7 +7,7 @@
 
         <div class="box-body">
             <p>Hosting Sponsor</p>
-            <a target="_blank" href="http://www.w3space.net"><img class="img-responsive" src="<?php echo base_url('assets/images/') . 'sponsor.jpg'; ?>" alt="Hosting Sponsor"/></a>
+            <a target="_blank" href="http://www.w3space.net" rel="nofollow"><img class="img-responsive" src="<?php echo base_url('assets/images/') . 'sponsor.jpg'; ?>" alt="Hosting Sponsor"/></a>
 
         </div>
 
@@ -16,7 +16,7 @@
             <div class="box-footer box-comments">
                 <div class="box-comment">
                     <div class="comment-text">
-                        <a href="http://www.webcoachbd.com">Webcoachbd</a>
+                        <a  target="_blank" href="http://www.webcoachbd.com" rel="nofollow">Webcoachbd</a>
                         Largest Bengali tutorial site in this planet
                     </div>
                     <!-- /.comment-text -->

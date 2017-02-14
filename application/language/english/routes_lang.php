@@ -53,3 +53,4 @@ $lang['search_rule2'] = 'If direct transport not found then it will check your w
 $lang['search_rule3'] = 'When typing you\'ll get suggestions for place name. Search will work even if you do not select place name from suggestion';
 $lang['search_rule4'] = 'If exact matches of word(place name you typed) not found it will check for similar words and produce result as suggestion';
 $lang['search_rule5'] = 'For example you\'ll get result if provide';
+$lang['filter'] = 'Filter';

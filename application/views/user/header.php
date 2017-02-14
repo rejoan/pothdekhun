@@ -28,7 +28,7 @@
             <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.css'); ?>">
         <?php endif; ?>
             <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables/media/css/jquery.dataTables.min.css'); ?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css'); ?>" >
+        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css?v=1.6'); ?>" >
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-select.min.css'); ?>" >
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/font-awesome.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/ionicons.min.css'); ?>">
@@ -44,7 +44,7 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.1.1.min.js'); ?>"></script>
+        <script async type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.1.1.min.js'); ?>"></script>
 
 <!--        <script>
             (function (i, s, o, g, r, a, m) {
@@ -64,8 +64,8 @@
 
         </script>-->
     </head>
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!--    <script>
+<!--    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
             (adsbygoogle = window.adsbygoogle || []).push({
                 google_ad_client: "ca-pub-8715007142406485",
                 enable_page_level_ads: true

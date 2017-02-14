@@ -216,6 +216,14 @@ table.small_font{
 ol.breadcrumb{
     margin: 45px 0 0 0;
 }
+.no-pad-left{
+    padding-left: 0;
+}
+#navbar{
+    background: #336699;
+}
+
+
 @media screen and (max-width: 768px) {
     .header_slogan{
         font-size:15px;

@@ -22,7 +22,7 @@ $f_method = $this->router->fetch_method();
                 <li>&copy; Copyright PothDekhun <?php echo date('Y'); ?></li>
                 <li><a href="<?php echo site_url_tr('pages/about-us'); ?>"><?php echo lang('about_us'); ?></a></li>
                 <li><a href="<?php echo site_url_tr('pages/contact-us'); ?>"><?php echo lang('contact_us'); ?></a></li>
-                <li><a href="<?php echo site_url_tr('pages/point-rules'); ?>"><?php echo lang('point_rules'); ?></a></li>
+<!--                <li><a href="<?php //echo site_url_tr('pages/point-rules'); ?>"><?php //echo lang('point_rules'); ?></a></li>-->
                 <li><a href="<?php echo site_url_tr('pages/privacy-policy'); ?>"><?php echo lang('privacy_policy'); ?></a></li>
             </ul>
         </div>
@@ -37,20 +37,20 @@ $f_method = $this->router->fetch_method();
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 
-<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js'); ?>"></script>
+<script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js'); ?>"></script>
 <?php if (($f_class == 'routes' || $f_class == 'transports' || $f_class == 'profile') && ($f_method == 'add' || $f_method == 'edit') || $f_method == 'all' || $f_method == 'show'): ?>
-    <script type="text/javascript" src="<?php echo base_url('assets/plugins/jQueryUI/jquery-ui.min.js'); ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap.file-input.js'); ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/bootstrap-sweetalert/dist/sweetalert.min.js'); ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.pack.js'); ?>"></script>
+    <script async type="text/javascript" src="<?php echo base_url('assets/plugins/jQueryUI/jquery-ui.min.js'); ?>"></script>
+    <script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap.file-input.js'); ?>"></script>
+    <script async type="text/javascript" src="<?php echo base_url('assets/bootstrap-sweetalert/dist/sweetalert.min.js'); ?>"></script>
+    <script async type="text/javascript" src="<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.pack.js'); ?>"></script>
 <?php endif; ?>
-<script type="text/javascript" src="<?php echo base_url('assets/plugins/datatables/media/js/jquery.dataTables.min.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap-select.min.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/js/val_lib.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/js/sturgon-slider-1.2.1.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/tooltip.js'); ?>"></script>
+<script async type="text/javascript" src="<?php echo base_url('assets/plugins/datatables/media/js/jquery.dataTables.min.js'); ?>"></script>
+<script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap-select.min.js'); ?>"></script>
+<script async type="text/javascript" src="<?php echo base_url('assets/js/val_lib.js'); ?>"></script>
+<script async type="text/javascript" src="<?php echo base_url('assets/js/sturgon-slider-1.2.1.js?v=1.9'); ?>"></script>
+<script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/tooltip.js'); ?>"></script>
 
-<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-migrate-1.4.1.min.js'); ?>"></script>
+<script async type="text/javascript" src="<?php echo base_url('assets/js/jquery-migrate-1.4.1.min.js'); ?>"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script type="text/javascript" src="<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js'); ?>"></script>
 </body>

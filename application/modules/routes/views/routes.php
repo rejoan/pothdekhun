@@ -38,7 +38,12 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-1 no-padding">
+                        <label data-toggle="tooltip" data-placement="top" title="Ignore Thana">
+                            <input type="checkbox" value="ignore" name="it" <?php echo $this->input->get('it') ? 'checked="yes"':'';?>/>
+                        </label>
+                    </div>
+                    <div class="col-md-3 no-pad-left">
 
                         <select name="t" class="selectpicker" data-width="100%" data-live-search="true" >
                             <option value="bus" <?php echo trim($this->input->get('t', TRUE)) == 'bus' ? 'selected="yes"' : ''; ?>>
@@ -61,8 +66,8 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <input type="submit" class="btn btn--sm btn-info" value="<?php echo lang('see_transport_button'); ?>"/>
+                    <div class="col-md-1 no-padding">
+                        <input type="submit" class="btn btn--sm btn-info" value="<?php echo lang('filter'); ?>"/>
                     </div>
                 </div>
             </form>
