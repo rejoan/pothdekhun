@@ -41,7 +41,7 @@ class Transports extends MX_Controller {
         } else {
             $segment = 0;
         }
-        $links = $this->nl->generate_pagination('transports/index?t=' . $input, $total_rows, $per_page, $num_links);
+        $links = $this->nl->generate_pagination('transports/index?s=1&t=' . $input, $total_rows, $per_page, $num_links);
 
         $data = array(
             'title' => lang('all_transport'),

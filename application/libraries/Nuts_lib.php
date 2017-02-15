@@ -105,7 +105,7 @@ class Nuts_lib {
     public function is_selected($strngs) {
         $chk_str = explode(',', $strngs);
         for ($s = 0; $s < count($chk_str); $s++) {
-            if (strpos(current_url(), $chk_str[$s]) !== FALSE) {
+            if (strpos($_SERVER['REQUEST_URI'], $chk_str[$s]) !== FALSE) {
                 return 'active';
             }
         }
