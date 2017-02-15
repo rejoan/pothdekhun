@@ -516,9 +516,12 @@ $(document).ready(function () {
 
     $('#add_address').on('click', function () {
         var mycontent = $('div.address:first');
+        var selected = mycontent.find('select.add_district option:selected').val();
         var content = mycontent.clone(true, true);
         content.find('textarea').val('');
         content.find('textarea').css('width', '190px');
+        content.find('select.add_district').val(selected);
+        content.find('select.add_district').trigger('change');
         $(content).insertAfter('div.address:last').hide().slideDown();
         $('<button class="btn btn-xs btn-danger remove_address"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>').insertAfter('div.address:last .add_details');
     });

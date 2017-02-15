@@ -99,7 +99,8 @@ class Weapons extends MX_Controller {
     public function get_thanas() {
         $district = (int) $this->input->get('district', TRUE);
         $name = $this->nl->lang_based_data('bn_name', 'name', ' thana');
-        $query = $this->db->select('id,' . $name)->from('thanas')->where('district_id', $district)->get();
+        $col_name = $this->nl->lang_based_data('bn_name', 'name');
+        $query = $this->db->select('id,' . $name)->from('thanas')->where('district_id', $district)->order_by($col_name, 'asc')->get();
         //echo $this->db->last_query();return;
         $thanas = $query->result_array();
         echo json_encode($thanas, JSON_UNESCAPED_UNICODE);
