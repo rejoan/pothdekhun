@@ -476,19 +476,7 @@ $(document).ready(function () {
     });
 
     //ftpos = 1;
-    $('#add_address').click(function () {
-        //ftpos++;
-        var mycontent = $('div.address:first');
-        var total_address = $('div.address').length;
-        var ftpos = total_address + 1;
-        //ftpos++;
-        var content = mycontent.clone(true);
-        content.find('.add_district').attr('data-thana', 'ft' + ftpos);
-        content.find('.thana').prop('id', 'ft' + ftpos);
-        $(content).insertAfter('div.address:last').hide().slideDown();
-        $('<button class="btn btn-xs btn-danger remove_address"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>').insertAfter('div.address:last .add_details');
-        //content.find('select').selectpicker();
-    });
+
 
     $('#transport').on('click', '.remove_address', function (e) {
         e.preventDefault();
@@ -501,8 +489,38 @@ $(document).ready(function () {
 
     $('.add_district').on('change', function () {
         var district = $.trim($(this).val());
-        var thana = $(this).data('thana');
-        get_thana_normal(district, thana);
+        var pd_stu = $('#pd_stu').val();
+        $.ajax({
+            context: this,
+            url: pd_stu + 'weapons/get_thanas',
+            type: 'get',
+            dataType: 'json',
+            cache: true,
+            data: {
+                district: district
+            },
+            beforeSend: function () {
+                $(this).parent().next().find('.thana').parent().append('<small id="text_loader">Loading thanas...</small>');
+            },
+            complete: function () {
+                $('#text_loader').remove();
+            }
+        }).done(function (response) {
+            var th = '';
+            for (var i = 0; i < response.length; i++) {
+                th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
+            }
+            $(this).parent().next().find('.thana').html(th);
+        });
+    });
+
+    $('#add_address').on('click', function () {
+        var mycontent = $('div.address:first');
+        var content = mycontent.clone(true, true);
+        content.find('textarea').val('');
+        content.find('textarea').css('width', '190px');
+        $(content).insertAfter('div.address:last').hide().slideDown();
+        $('<button class="btn btn-xs btn-danger remove_address"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>').insertAfter('div.address:last .add_details');
     });
 
 
@@ -634,25 +652,6 @@ function get_thanas(district, thana) {
     });
 }
 
-function get_thana_normal(district, thana) {
-    var pd_stu = $('#pd_stu').val();
-    $.ajax({
-        context: this,
-        url: pd_stu + 'weapons/get_thanas/',
-        type: 'get',
-        dataType: 'json',
-        cache: true,
-        data: {
-            district: district
-        }
-    }).done(function (response) {
-        var th = '';
-        for (var i = 0; i < response.length; i++) {
-            th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
-        }
-        $('#' + thana).html(th);
-    });
-}
 function check_duplicacy(vh, fp, tp) {
     var pd_stu = $('#pd_stu').val();
     var pd_identity = $('input[name="pd_identity"]').val();

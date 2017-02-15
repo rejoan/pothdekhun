@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<div class="col-sm-6 col-sm-push-3">
+<div class="col-sm-6 col-sm-offset-3">
     <div class="box box-poth">
         <div class="box-header">
             <h3 class="box-title"><?php echo $title; ?></h3>

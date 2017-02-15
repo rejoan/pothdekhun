@@ -87,7 +87,10 @@ class Pages extends MX_Controller {
             'title' => lang('privacy_policy'),
             'settings' => $this->nl->get_config(),
         );
-        $this->nl->view_loader('user', 'latest', NULL, $data, 'privacy', 'rightbar', 'menu', TRUE);
+        $this->load->view('user/header', $data);
+        $this->load->view('user/menu');
+        $this->load->view('privacy');
+        $this->load->view('user/footer');
     }
 
 }
