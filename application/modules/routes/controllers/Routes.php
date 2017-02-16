@@ -215,6 +215,7 @@ class Routes extends MX_Controller {
         $this->nl->is_logged();
         //check admin, if so then editable even is not published
         $this->pm->is_authorize($id);
+        //load agent browser for edit view
         $this->load->library('user_agent');
         $this->load->library('encryption');
         $this->encryption->initialize(
@@ -512,6 +513,52 @@ class Routes extends MX_Controller {
         $data['meta_title'] = $data['title'] . lang('meta_title_route');
         //echo $this->db->last_query();return;
         $this->nl->view_loader('user', 'latest', NULL, $data, 'details', 'rightbar', 'menu', TRUE);
+    }
+
+    public function map($fp, $ftn, $fds, $tp, $thn, $tdn) {
+        $this->config->set_item('permitted_uri_chars','');
+        $this->load->library('encryption');
+        $this->encryption->initialize(
+                array(
+                    'cipher' => 'des',
+                    'mode' => 'ECB'
+                )
+        );
+        $fp = $this->encryption->decrypt($fp);
+        //echo $fp;return;
+        if (empty($fp)) {
+            $this->session->set_flashdata('message', 'Wrong');
+            redirect_tr('routes');
+        }
+        $pure_thana = str_ireplace('sadar', '', $ftn);
+        $pure_thana = trim($pure_thana);
+        $map_disctrict = $ftn . ',' . $fds;
+        if ((mb_strtolower($ftn) == mb_strtolower($fds)) || (mb_strtolower($fds) == mb_strtolower($pure_thana))) {
+            $map_disctrict = $fds;
+        }
+        $pure_tthana = str_ireplace('sadar', '', $thn);
+        $pure_tthana = trim($pure_tthana);
+        $map_tdisctrict = $thn . ',' . $tdn;
+        if ((mb_strtolower($thn) == mb_strtolower($tdn)) || (mb_strtolower($tdn) == mb_strtolower($pure_tthana))) {
+            $map_tdisctrict = $tdn;
+        }
+        $final_from_str = $fp . ',' . $map_disctrict;
+        $final_from = implode(',', array_unique(array_map('trim', explode(',', $final_from_str))));
+        $final_to_str = $tp . ',' . $map_tdisctrict;
+        $final_to = implode(',', array_unique(array_map('trim', explode(',', $final_to_str))));
+        $dtx = stream_context_create(array('http' =>
+            array(
+                'timeout' => 10,
+            )
+        ));
+        $direction_api = @file_get_contents('https://maps.googleapis.com/maps/api/directions/json?origin=' . $fp . ',' . $map_disctrict . ',Bangladesh&destination=' . $tp . ',' . $map_tdisctrict . ',Bangladesh&key=&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $dtx);
+        $api_result = json_decode($direction_api);
+        if (empty($api_result)) {
+            $final_from = $map_disctrict;
+            $final_to = $map_tdisctrict;
+        }
+
+        redirect('https://www.google.com/maps/dir/' . $final_from . ',Bangladesh/' . $final_to . ',Bangladesh/', 'refresh');
     }
 
     /**

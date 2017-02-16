@@ -291,7 +291,7 @@ class Nuts_lib {
      * @param magic $key
      * @return string
      */
-    public function process_xor($string, $key = 'spbkxt') {
+    public function process_xor($string, $key = 'xrecpi') {
         $result = '';
         $str = (string) $string;
         for ($i = 0; $i < strlen($str); $i++) {
