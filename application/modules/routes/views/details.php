@@ -5,21 +5,51 @@
     if ($message) {
         echo '<div class="alert alert-warning">' . $message . '</div>';
     }
+    $fp = mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8');
+    $ftn = mb_convert_case($route[$this->nl->lang_based_data('thana_name_bn', 'thana_name')], MB_CASE_TITLE, 'UTF-8');
+    $pure_thana = str_ireplace('sadar', '', $ftn);
+    $pure_thana = trim($pure_thana);
+    $fds = mb_convert_case($route[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8');
+    $map_disctrict = $ftn.','.$fds;
+    if((mb_strtolower($ftn) == mb_strtolower($fds)) || (mb_strtolower($fds) == mb_strtolower($pure_thana))){
+        $map_disctrict = $fds;
+    }
+    $tp = mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8');
+    $thn = mb_convert_case($route[$this->nl->lang_based_data('th_thana_name_bn', 'th_thana_name')], MB_CASE_TITLE, 'UTF-8');
+    $pure_tthana = str_ireplace('sadar', '', $thn);
+    $pure_tthana = trim($pure_tthana);
+    $tdn = mb_convert_case($route[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8');
+    $map_tdisctrict = $thn.','.$tdn;
+    if((mb_strtolower($thn) == mb_strtolower($tdn)) || (mb_strtolower($tdn) == mb_strtolower($pure_tthana))){
+        $map_tdisctrict = $tdn;
+    }
     ?>
     <div class="box box-poth">
         <div id="details_header" class="box-header with-border">
-            <p><?php echo lang('route_info') . ': <a data-toggle="tooltip" data-placement="top" title="Google Map Direction" target="_blank" class="btn btn-sm bg-purple" href="https://www.google.com/maps/dir/' . mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . ',Bangladesh/' . mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('th_thana_name_bn', 'th_thana_name')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8') . ',Bangladesh/"><i class="fa fa-map-marker"></i> Google Map</a></p> <div class="row no-margin"><div class="col-md-6 bg-orange">' . mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('thana_name_bn', 'thana_name')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . '</div><div class="col-md-1"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></div> <div class="col-md-5 bg-orange">' . mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('th_thana_name_bn', 'th_thana_name')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8') . '</div>'; ?></div>
+            <p><?php echo lang('route_info') . ': <a data-toggle="tooltip" data-placement="top" title="Google Map Direction" target="_blank" class="btn btn-sm bg-purple" href="https://www.google.com/maps/dir/' . $fp . ', ' . $map_disctrict . ',Bangladesh/' . $tp . ', ' . $map_tdisctrict . ',Bangladesh/"><i class="fa fa-map-marker"></i> Google Map</a></p> <div class="row no-margin"><div class="col-md-6 bg-orange">' . $fp . ', ' . $ftn . ', ' . $fds . '</div><div class="col-md-1"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></div> <div class="col-md-5 bg-orange">' . $tp . ', ' . $thn . ', ' . $tdn . '</div>'; ?></div>
     </div>
     <div class="box-body">
         <div class="row custom_margin">
-            <?php if (!empty($route['evidence'])): ?>
+            <?php
+            if (!empty($route['evidence'])):
+                $path = base_url('evidences') . '/' . $route['evidence'];
+                $type = pathinfo($path, PATHINFO_EXTENSION);
+                $evidence = file_get_contents($path);
+                $base64 = 'data:image/' . $type . ';base64,' . base64_encode($evidence);
+                ?>
                 <div class="col-md-4">
-                    <a class="fancybox" href="<?php echo base_url('evidences') . '/' . $route['evidence']; ?>"><img class="img-responsive img-thumbnail" src="<?php echo base_url('evidences') . '/' . $route['evidence']; ?>" alt="<?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?>"/></a>
+                    <a class="fancybox" rel="gallery<?php echo $route['r_id']; ?>" href="<?php echo $base64; ?>"><img class="img-responsive img-thumbnail" src="<?php echo $base64; ?>" alt="<?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?>"/></a>
                 </div>
             <?php endif; ?>
-            <?php if (!empty($route['evidence2'])): ?>
+            <?php
+            if (!empty($route['evidence2'])):
+                $path2 = base_url('evidences') . '/' . $route['evidence2'];
+                $type2 = pathinfo($path2, PATHINFO_EXTENSION);
+                $evidence2 = file_get_contents($path2);
+                $base642 = 'data:image/' . $type2 . ';base64,' . base64_encode($evidence2);
+                ?>
                 <div class="col-md-4">
-                    <a class="fancybox" href="<?php echo base_url('evidences') . '/' . $route['evidence2']; ?>"><img class="img-responsive img-thumbnail" src="<?php echo base_url('evidences') . '/' . $route['evidence2']; ?>" alt="<?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?>"/></a>
+                    <a class="fancybox" rel="gallery<?php echo $route['r_id']; ?>" href="<?php echo $base642; ?>"><img class="img-responsive img-thumbnail" src="<?php echo $base642; ?>" alt="<?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?>"/></a>
                 </div>
             <?php endif; ?>
         </div>
@@ -132,7 +162,7 @@
                                 <th><?php echo lang('place_name'); ?></th>
                                 <th><?php echo lang('comment'); ?></th>
                                 <th><?php echo lang('main_rent'); ?></th>
-<!--                                    <th><?php //echo lang('fare_verify');              ?></th>-->
+<!--                                    <th><?php //echo lang('fare_verify');                  ?></th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -145,8 +175,8 @@
                                         <?php echo $s['rent'] . ' ' . lang('tk'); ?>
                                     </td>
     <!--                                        <td>
-                                        <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');              ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
-                <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');              ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');                  ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');                  ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
                                     </td>-->
                                 </tr>
                             <?php endforeach; ?>

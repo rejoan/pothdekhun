@@ -2,7 +2,13 @@ $(document).ready(function () {
     var mn_nm = $('#mn_nm').val();
     var cl_nm = $('#cl_nm').val();
     if ((cl_nm === 'routes' || cl_nm === 'transports' || cl_nm === 'profile') && (mn_nm === 'add' || mn_nm === 'edit' || mn_nm === 'all' || mn_nm === 'show')) {
-        $('.fancybox').fancybox();
+        $('.fancybox').fancybox({
+            helpers: {
+                overlay: {
+                    locked: false
+                }
+            }
+        });
         $('#stoppage_section').sortable({
             placeholder: 'ui-state-highlight'
         });

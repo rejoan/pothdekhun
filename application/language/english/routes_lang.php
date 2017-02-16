@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 $lang['other_search'] = 'Other Searches';
-$lang['place_search'] = 'Search Place for Transport';
+$lang['place_search'] = 'Search Transports by Place';
 $lang['transport_search_placeholder'] = 'Ex: Jabale Nur poribohon';
 $lang['transport_search'] = 'Search Transport';
 $lang['route_save_success'] = 'Route Added Successfully';
