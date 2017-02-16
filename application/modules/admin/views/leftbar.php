@@ -29,7 +29,7 @@
                     <?php
                     $this->nl->generate_link('route_manager/index', 'route_manager', 'fa-circle-o', 'Edited Routes');
                     $this->nl->generate_link('route_manager/latest', 'route_manager/latest', 'fa-circle-o', 'Latest Added');
-                     $this->nl->generate_link('route_manager/revise_required', 'route_manager/revise_required', 'fa-circle-o', 'Revise Required');
+                    $this->nl->generate_link('route_manager/revise_required', 'route_manager/revise_required', 'fa-circle-o', 'Revise Required');
                     ?>
                 </ul>
             </li>
@@ -47,11 +47,22 @@
                     $this->nl->generate_link('admin/latest_poribohon', 'b_janina/latest_poribohon', 'fa-circle-o', 'Latest Poribohons');
                     ?>
                 </ul>
-
             </li>
-
+            <li class="treeview <?php echo $this->nl->is_selected('users,users/points'); ?>">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>User Manager</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <?php
+                    $this->nl->generate_link('users', 'users', 'fa-circle-o', 'User Manager');
+                    $this->nl->generate_link('users/points', 'users/points', 'fa-circle-o', 'User Points');
+                    ?>
+                </ul>
+            </li>
             <?php
-            $this->nl->generate_link('users', 'users', 'fa-circle-o', 'User Manager');
             $this->nl->generate_link('comments', 'comments', 'fa-circle-o', 'Comment Manager');
             $this->nl->generate_link('contact', 'comments/contact', 'fa-circle-o', 'Contact Manager');
             ?>

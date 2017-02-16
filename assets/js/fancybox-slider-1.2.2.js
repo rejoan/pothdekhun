@@ -35,8 +35,7 @@ $(document).ready(function () {
             $('#loader').remove();
             var cm = '';
             for (var i = 0; i < response.length; i++) {
-
-                cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['username'] + '</a>';
+                cm += '<a href="javascript:void(0);" class="list-group-item" data-user_id="'+response[i]['id']+'">' + response[i]['username'] + '</a>';
             }
 
             $(this).next().show().html(cm);
@@ -77,8 +76,10 @@ $(document).ready(function () {
         current.addClass('selected');
     });
 
-    $('#suggestion_page .list-group-item').on('click', function () {
+    $('#suggestion_page .list-group-item').live('click', function () {
         var username = $(this).text();
+        var user_id = $(this).data('user_id');
+        $('#user_id').val(user_id);
         $(this).parent().prev().val(username);
         $(this).parent().empty();
     });

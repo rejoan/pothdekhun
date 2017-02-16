@@ -50,6 +50,7 @@
 <!-- FastClick -->
 <!--<script src="<?php //echo base_url('assets/plugins/fastclick/fastclick.js');  ?>"></script>-->
 <!-- AdminLTE App -->
+<script async type="text/javascript" src="<?php echo base_url('assets/js/jquery-migrate-1.4.1.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/dist/js/app.min.js'); ?>"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!--<script src="<?php //echo base_url('assets/dist/js/pages/dashboard.js');  ?>"></script>-->

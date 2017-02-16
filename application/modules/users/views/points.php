@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input id="search_user" type="text" class="form-control search_box" name="un"/>
+                            <input id="search_user" type="text" class="form-control search_box" name="un" value="<?php echo $this->input->get('un');?>"/>
                             <div class="list-group suggestion">
 
                             </div>
@@ -42,6 +42,7 @@
                             <th>Link</th>
                             <th>Note</th>
                             <th>Point</th>
+                            <th>User</th>
                             <th>Earned</th>
                         </tr>
                     </thead>
@@ -63,6 +64,9 @@
 
                                 <td>
                                     <?php echo $r['point']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $r['username']; ?>
                                 </td>
                                 <td>
                                     <?php echo $this->nl->date_formatter('Y-m-d H:i:s', $r['happened_at'], 'd M, Y'); ?>

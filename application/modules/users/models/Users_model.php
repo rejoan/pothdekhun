@@ -16,11 +16,12 @@ class Users_model extends CI_Model {
     }
 
     public function get_points($table, $u, $per_page, $segment) {
-        $this->db->select('*');
+        $this->db->select($table.'.*,users.username');
         $this->db->from($table);
         if ($u) {
-            $this->db->where('user_id', $u);
+            $this->db->where($table.'.user_id', $u);
         }
+        $this->db->join('users','users.id = '.$table.'.user_id','left');
         $this->db->limit($per_page, $segment);
         $query = $this->db->get();
         return $query->result_array();
