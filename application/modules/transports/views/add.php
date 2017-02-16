@@ -62,7 +62,7 @@
                     if ($this->input->post('submit')) {
                         echo set_value('pd_identity');
                     } elseif (isset($transport['id'])) {
-                        echo $this->encryption->encrypt($transport[$poribohon_id]);
+                        echo $this->nl->enc($transport[$poribohon_id]);
                     }
                     ?>"/>
                     <div class="form-group">

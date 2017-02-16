@@ -217,13 +217,6 @@ class Routes extends MX_Controller {
         $this->pm->is_authorize($id);
         //load agent browser for edit view
         $this->load->library('user_agent');
-        $this->load->library('encryption');
-        $this->encryption->initialize(
-                array(
-                    'cipher' => 'des',
-                    'mode' => 'ECB'
-                )
-        );
 
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
         $route_table = $this->nl->lang_based_data('route_bn', 'routes');
@@ -476,13 +469,6 @@ class Routes extends MX_Controller {
      */
     public function show($id) {
         $this->load->library('form_validation');
-        $this->load->library('encryption');
-        $this->encryption->initialize(
-                array(
-                    'cipher' => 'des',
-                    'mode' => 'ECB'
-                )
-        );
         if (!empty($id)) {
             $route_id = (int) $id;
         } else {
@@ -515,16 +501,16 @@ class Routes extends MX_Controller {
         $this->nl->view_loader('user', 'latest', NULL, $data, 'details', 'rightbar', 'menu', TRUE);
     }
 
-    public function map($fp, $ftn, $fds, $tp, $thn, $tdn) {
-        $this->load->library('encryption');
-        $this->encryption->initialize(
-                array(
-                    'cipher' => 'des',
-                    'mode' => 'ECB'
-                )
-        );
-        $fp = $this->encryption->decrypt($fp);
+    public function map() {
+        $fp = $this->input->get('fp');
         //echo $fp;return;
+        $ftn = $this->input->get('ftn');
+        $fds = $this->input->get('fds');
+        $tp = $this->input->get('tp');
+        $thn = $this->input->get('thn');
+        $tdn = $this->input->get('tdn');
+        $fp = $this->nl->dec($fp);
+
         if (empty($fp)) {
             $this->session->set_flashdata('message', 'Wrong');
             redirect_tr('routes');

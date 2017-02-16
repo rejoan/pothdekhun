@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 if (ENVIRONMENT == 'development') {
     $bu = 'http://localhost/pothdekhun/';
 } else {
-    $bu = 'http://pothdekhun.com/';
+    $bu = 'http://www.pothdekhun.com/';
 }
 $config['base_url'] = $bu;
 

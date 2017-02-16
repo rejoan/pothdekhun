@@ -6,14 +6,8 @@
         echo '<div class="alert alert-warning">' . $message . '</div>';
     }
     $fp = mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8');
-    $this->load->library('encryption');
-    $this->encryption->initialize(
-            array(
-                'cipher' => 'des',
-                'mode' => 'ECB'
-            )
-    );
-    $from_p = $this->encryption->encrypt($fp);
+    $from_p = $this->nl->enc($fp);
+    //echo 
     $ftn = mb_convert_case($route[$this->nl->lang_based_data('thana_name_bn', 'thana_name')], MB_CASE_TITLE, 'UTF-8');
 
     $fds = mb_convert_case($route[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8');
@@ -25,7 +19,7 @@
     ?>
     <div class="box box-poth">
         <div id="details_header" class="box-header with-border">
-            <p><?php echo lang('route_info') . ': <a data-toggle="tooltip" data-placement="top" title="Google Map Direction" target="_blank" class="btn btn-sm bg-purple" href="' . site_url_tr('routes/map/' . $from_p . '/' . str_replace(' ', '+', trim($ftn)) . '/' . str_replace(' ', '+', trim($fds)) . '/' . str_replace(' ', '+', trim($tp)). '/' . str_replace(' ', '+', trim($thn)) . '/' . str_replace(' ', '+', trim($tdn))) . '"><i class="fa fa-map-marker"></i> Google Map</a></p> <div class="row no-margin"><div class="col-md-6 bg-orange">' . $fp . ', ' . $ftn . ', ' . $fds . '</div><div class="col-md-1"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></div> <div class="col-md-5 bg-orange">' . $tp . ', ' . $thn . ', ' . $tdn . '</div>'; ?></div>
+            <p><?php echo lang('route_info') . ': <a data-toggle="tooltip" data-placement="top" title="Google Map Direction" target="_blank" class="btn btn-sm bg-purple" href="' . site_url_tr('routes/map/?fp=' . $from_p . '&ftn=' . str_replace(' ', '+', trim($ftn)) . '&fds=' . str_replace(' ', '+', trim($fds)) . '&tp=' . str_replace(' ', '+', trim($tp)). '&thn=' . str_replace(' ', '+', trim($thn)) . '&tdn=' . str_replace(' ', '+', trim($tdn))) . '"><i class="fa fa-map-marker"></i> Google Map</a></p> <div class="row no-margin"><div class="col-md-6 bg-orange">' . $fp . ', ' . $ftn . ', ' . $fds . '</div><div class="col-md-1"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></div> <div class="col-md-5 bg-orange">' . $tp . ', ' . $thn . ', ' . $tdn . '</div>'; ?></div>
     </div>
     <div class="box-body">
         <div class="row custom_margin">
@@ -290,7 +284,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input id="pd_identity" type="hidden"  name="pd_identity" value="<?php echo $this->encryption->encrypt($this->uri->segment(3)); ?>"/>
+                    <input id="pd_identity" type="hidden"  name="pd_identity" value="<?php echo $this->nl->enc($this->uri->segment(3)); ?>"/>
                     <input type="submit" class="btn btn-info" name="submit" value="<?php echo lang('add_button'); ?>">
                 </div>
             </form>

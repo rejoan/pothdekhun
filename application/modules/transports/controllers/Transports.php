@@ -143,13 +143,6 @@ class Transports extends MX_Controller {
      */
     public function edit($id = NULL) {
         $this->nl->is_logged();
-        $this->load->library('encryption');
-        $this->encryption->initialize(
-                array(
-                    'cipher' => 'des',
-                    'mode' => 'ECB'
-                )
-        );
         $poribohon_id = 'id';
         $transport = '';
         $table = 'poribohons';
@@ -192,7 +185,7 @@ class Transports extends MX_Controller {
                 return;
             }
 
-            $update_id = $this->encryption->decrypt($this->input->post('pd_identity'));
+            $update_id = $this->nl->dec($this->input->post('pd_identity'));
             $tarnsport = array(
                 'name' => $this->input->post('transport_name', TRUE),
                 'bn_name' => $this->input->post('bn_name', TRUE),

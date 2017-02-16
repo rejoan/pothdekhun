@@ -304,6 +304,29 @@ class Nuts_lib {
         return $result;
     }
 
+    public function enc($plain_clid) {
+        $this->CI->load->library('encryption');
+        $this->CI->encryption->initialize(
+                array(
+                    'cipher' => 'des',
+                    'mode' => 'ECB'
+                )
+        );
+        return $this->CI->encryption->encrypt($plain_clid);
+    }
+
+    public function dec($enc_clid) {
+        $this->CI->load->library('encryption');
+        $this->CI->encryption->initialize(
+                array(
+                    'cipher' => 'des',
+                    'mode' => 'ECB'
+                )
+        );
+        $cid = str_replace(' ', '+', trim($enc_clid));
+        return $this->CI->encryption->decrypt($cid);
+    }
+
     /**
      * get start and endtime from url when search
      * @param string $redirect

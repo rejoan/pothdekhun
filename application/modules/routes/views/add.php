@@ -218,14 +218,14 @@
                         if ($this->input->post('submit')) {
                             echo set_value('poribohon_id');
                         } elseif (isset($route['poribohon_id'])) {
-                            echo $this->encryption->encrypt($route['poribohon_id']);
+                            echo $this->nl->enc($route['poribohon_id']);
                         }
                         ?>"/>
                         <input id="pd_identity" type="hidden"  name="pd_identity" value="<?php
                         if ($this->input->post('submit')) {
                             echo set_value('pd_identity');
                         } elseif (isset($route['r_id'])) {
-                            echo $this->encryption->encrypt($route['r_id']);
+                            echo $this->nl->enc($route['r_id']);
                         }
                         ?>"/>
                         <input id="vehicle_name" maxlength="200" type="text" class="form-control" name="vehicle_name" value="<?php
