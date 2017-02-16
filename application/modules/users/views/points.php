@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<div class="col-xs-12">
+<div id="suggestion_page" class="col-xs-12">
     <div class="box box-poth">
         <div class="box-header">
             <h4><?php echo $title; ?></h4>
@@ -23,7 +23,11 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="u"/>
+                            <input id="search_user" type="text" class="form-control search_box" name="un"/>
+                            <div class="list-group suggestion">
+
+                            </div>
+                            <input id="user_id" type="hidden" name="u" value=""/>
                         </div>
                     </div>
                     <div class="col-md-1 no-padding">

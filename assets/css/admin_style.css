@@ -1,0 +1,135 @@
+/*
+ * Style tweaks
+ * --------------------------------------------------
+ */
+.btn,a,button,.btn:focus,a:focus,button:focus,.btn:active,a:active,button:active{
+    outline: 0!important;
+}
+.custom_margin{
+    margin: 0px 0 17px 0;
+}
+#merge_sec .control-label{
+    padding: 0;
+}
+
+#suggestion_page .suggestion{
+    position: absolute;
+    top: 33px;
+    min-width: 85.5%;
+    z-index: 999999;
+}
+#suggestion_page .suggestion .list-group-item{
+    padding: 4px;
+}
+#suggestion_page .suggestion .list-group-item:first-child{
+    border-top-left-radius:0px;
+    border-top-right-radius:0px;
+}
+
+.custom_c{
+    color: #f00;
+}
+.box.box-poth{
+    border-top-color:#0099ff;
+}
+
+#profile .box-comments .comment-text{
+    margin-left: 0;
+}
+.label-white{
+    background-color: #fff;
+    color: #000;
+}
+#route_detail .remove_bottom_margin{
+    margin-bottom: 0;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+.open{
+    z-index: 9999;
+}
+
+.margin_top{
+    margin-top: 5px;
+}
+#lang_menu .padding_left{
+    padding-left: 5px;
+}
+#suggestion_page .suggestion .selected{
+    background: #eee;
+}
+
+a.details:hover{
+    text-decoration: underline;
+}
+#comments .direct-chat-messages{
+    height: auto;
+}
+#stoppage_section .stoppage{
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+.suggestion_sec{
+    position: relative;
+}
+#loader{
+    position: absolute;
+    right: 16px;
+    top: 12px;
+}
+#text_loader{
+    position: absolute;
+    right: 16px;
+    top: 35px;
+}
+.err{
+    display: none;
+}
+#details_header .bg-aqua-gradient{
+    border-radius: 5px;
+    font-weight: bold;
+    padding-bottom: 2px;
+    font-size: 1.1em;
+}
+.header_linehight{
+    line-height: 1.5;
+}
+
+#poth_features ul{
+    padding: 3px;
+    background: #fff;
+    border-radius: 3px;
+}
+#poth_features ul li{
+    font-family: Verdana,SolaimanLipi;
+    font-size: 1em;
+}
+
+#details_header .bg-orange{
+    border-radius: 4px;
+    padding-bottom: 3px;
+}
+table.small_font{
+    font-size: 14px;
+}
+.header_slogan{
+    font-size: 1.8em;
+    color: #ffffff;
+    margin: 10px 0 0 0;
+}
+.custom_top{
+    margin-top: 10px;
+}
+#leftbar hr{
+    margin: 8px 0;
+}
+
+.custom_left{
+    margin-left: 15px;
+}
