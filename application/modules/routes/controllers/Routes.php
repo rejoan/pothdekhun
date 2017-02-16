@@ -516,7 +516,6 @@ class Routes extends MX_Controller {
     }
 
     public function map($fp, $ftn, $fds, $tp, $thn, $tdn) {
-        $this->config->set_item('permitted_uri_chars','');
         $this->load->library('encryption');
         $this->encryption->initialize(
                 array(
@@ -531,13 +530,14 @@ class Routes extends MX_Controller {
             redirect_tr('routes');
         }
         $pure_thana = str_ireplace('sadar', '', $ftn);
-        $pure_thana = trim($pure_thana);
+        $pure_thana = trim($pure_thana, '+');
+        //var_dump($pure_thana);return;
         $map_disctrict = $ftn . ',' . $fds;
         if ((mb_strtolower($ftn) == mb_strtolower($fds)) || (mb_strtolower($fds) == mb_strtolower($pure_thana))) {
             $map_disctrict = $fds;
         }
         $pure_tthana = str_ireplace('sadar', '', $thn);
-        $pure_tthana = trim($pure_tthana);
+        $pure_tthana = trim($pure_tthana, '+');
         $map_tdisctrict = $thn . ',' . $tdn;
         if ((mb_strtolower($thn) == mb_strtolower($tdn)) || (mb_strtolower($tdn) == mb_strtolower($pure_tthana))) {
             $map_tdisctrict = $tdn;
@@ -553,11 +553,15 @@ class Routes extends MX_Controller {
         ));
         $direction_api = @file_get_contents('https://maps.googleapis.com/maps/api/directions/json?origin=' . $fp . ',' . $map_disctrict . ',Bangladesh&destination=' . $tp . ',' . $map_tdisctrict . ',Bangladesh&key=&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $dtx);
         $api_result = json_decode($direction_api);
-        if (empty($api_result)) {
+        if (empty($api_result) || empty($api_result->routes->status)) {
             $final_from = $map_disctrict;
             $final_to = $map_tdisctrict;
         }
-
+//        if (empty($api_result->routes->status)) {
+//            $final_from = $map_disctrict;
+//            $final_to = $map_tdisctrict;
+//        }
+        //var_dump($final_from, $final_to);return;
         redirect('https://www.google.com/maps/dir/' . $final_from . ',Bangladesh/' . $final_to . ',Bangladesh/', 'refresh');
     }
 
