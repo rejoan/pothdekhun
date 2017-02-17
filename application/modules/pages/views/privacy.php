@@ -15,12 +15,10 @@
             <h2>Privacy Policy</h2>
             <p>We are committed to respecting your online privacy.
 
-                We only collect your personal information when you voluntarily sign-up for a membership account in order to use in verification if required. Access to our website is generally open, and you may browse it anonymously.
-
-                Any information collected from you will not be disclosed.</p>
+                No personal information is collected on this website from visitors who browse for information about routes or who use the opt-out page, or from individuals who access the members-only section of our website. Access to our website is generally open, and you may browse it anonymously. Third party vendors, including Google may use cookies to serve ads based on prior visits to this website or other websites.</p>
 
             <h2>Website data</h2>
-            <p>Pothdekhun's web servers automatically collect information that is essential to operating and maintaining the website's security.
+            <p>Pothdekhun's web servers automatically collect some minor information that is essential to operating and maintaining the website's security.
 
                 This website contains information about route,transport etc resources and Pothdekhun is not responsible for the privacy provisions of those transport's owner.
             </p>

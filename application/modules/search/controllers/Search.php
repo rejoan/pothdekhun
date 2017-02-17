@@ -83,6 +83,9 @@ class Search extends MX_Controller {
         $this->nl->view_loader('user', 'latest', NULL, $data, 'place_search', 'rightbar', 'menu', TRUE);
     }
 
+    /**
+     * main search
+     */
     public function routes() {
         $per_page = 10;
         $num_links = 5;
@@ -135,16 +138,49 @@ class Search extends MX_Controller {
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
         });
 
+        $fd = $this->pm->get_row('id', $from_district, 'districts');
+        $td = $this->pm->get_row('id', $to_district, 'districts');
+        $ft = $this->pm->get_row('id', $from_thana, 'thanas');
+        $th = $this->pm->get_row('id', $to_thana, 'thanas');
+        
+        $c = $this->input->get('c', TRUE);
+        $fthana = $tthana = lang('any_thana');
+        if ($c || $from_district != 1 || $from_district == $to_district) {
+            $fthana = mb_convert_case($ft[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ', ';
+        }
+        if ($c || $to_district != 1 || $from_district == $to_district) {
+            $tthana = mb_convert_case($th[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ', ';
+        }
+
+        $f_place = mb_convert_case($from_place, MB_CASE_TITLE, 'UTF-8') . ', ';
+        if (empty($from_place)) {
+            $f_place = '';
+        }
+        if (!empty($from_place)) {
+            $fthana = lang('any_thana');
+        }
+        $t_place = mb_convert_case($to_place, MB_CASE_TITLE, 'UTF-8') . ', ';
+        if (empty($to_place)) {
+            $t_place = '';
+        }
+        if (!empty($to_place)) {
+            $tthana = lang('any_thana');
+        }
+
         $data = array(
-            'title' => lang('search_result'),
+            'title' => lang('transports_available') . ' '. $f_place . $fthana . mb_convert_case($fd[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ' '.lang('to_view').' ' . $t_place . $tthana . mb_convert_case($td[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'),
             'routes' => $exact_routes,
             'stoppage_routes' => $stoppage_routes,
             'suggested_routes' => $suggested_routes,
             'possible_matches' => $possible_matches,
-            'fd' => $this->pm->get_row('id', $from_district, 'districts'),
-            'td' => $this->pm->get_row('id', $to_district, 'districts'),
-            'ft' => $this->pm->get_row('id', $from_thana, 'thanas'),
-            'th' => $this->pm->get_row('id', $to_thana, 'thanas'),
+            'from_place' => $f_place,
+            'to_place' => $t_place,
+            'fthana' => $fthana,
+            'tthana' => $tthana,
+            'fd' => $fd,
+            'td' => $td,
+            'ft' => $ft,
+            'th' => $th,
             'settings' => $this->nl->get_config(),
             'links' => $links,
             'segment' => $segment

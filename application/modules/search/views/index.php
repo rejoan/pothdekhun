@@ -1,46 +1,15 @@
 <?php
-//var_dump(count($stoppage_routes));
 defined('BASEPATH') OR exit('No direct script access allowed');
-$f_place = trim($this->input->get('f', TRUE));
-$t_place = trim($this->input->get('t', TRUE));
-$fdg = trim($this->input->get('fd', TRUE));
-$tdg = trim($this->input->get('td', TRUE));
-$ftg = trim($this->input->get('ft', TRUE));
-$thg = trim($this->input->get('th', TRUE));
-$c = $this->input->get('c', TRUE);
-$fthana = $tthana = lang('any_thana');
-if ($c || $fdg != 1 || $fdg == $tdg) {
-    $fthana = mb_convert_case($ft[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ', ';
-}
-if ($c || $tdg != 1 || $fdg == $tdg) {
-    $tthana = mb_convert_case($th[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ', ';
-}
-
-
-$from_place = mb_convert_case($f_place, MB_CASE_TITLE, 'UTF-8') . ', ';
-if (empty($f_place)) {
-    $from_place = '';
-}
-if (!empty($f_place)) {
-    $fthana = lang('any_thana');
-}
-$to_place = mb_convert_case($t_place, MB_CASE_TITLE, 'UTF-8') . ', ';
-if (empty($t_place)) {
-    $to_place = '';
-}
-if (!empty($t_place)) {
-    $tthana = lang('any_thana');
-}
 $patterns = array();
 $replacements = array();
-if (!empty($f_place)) {
-    $patterns[0] = '/(' . mb_convert_case($f_place, MB_CASE_TITLE, 'UTF-8') . ')/i';
-    $replacements[0] = '<span class="bg-orange">&nbsp;' . mb_convert_case($f_place, MB_CASE_TITLE, 'UTF-8') . ' </span>';
+if (!empty($from_place)) {
+    $patterns[0] = '/(' . mb_convert_case($from_place, MB_CASE_TITLE, 'UTF-8') . ')/i';
+    $replacements[0] = '<span class="bg-orange">&nbsp;' . mb_convert_case($from_place, MB_CASE_TITLE, 'UTF-8') . ' </span>';
 }
 
-if (!empty($t_place)) {
-    $patterns[1] = '/(' . mb_convert_case($t_place, MB_CASE_TITLE, 'UTF-8') . ')/i';
-    $replacements[1] = '<span class="bg-orange">&nbsp;' . mb_convert_case($t_place, MB_CASE_TITLE, 'UTF-8') . ' </span>';
+if (!empty($to_place)) {
+    $patterns[1] = '/(' . mb_convert_case($to_place, MB_CASE_TITLE, 'UTF-8') . ')/i';
+    $replacements[1] = '<span class="bg-orange">&nbsp;' . mb_convert_case($to_place, MB_CASE_TITLE, 'UTF-8') . ' </span>';
 }
 ?>
 <div id="route_detail" class="col-sm-6 col-sm-push-3">
