@@ -284,7 +284,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input id="pd_identity" type="hidden"  name="pd_identity" value="<?php echo $this->nl->enc($this->uri->segment(3)); ?>"/>
+                    <input id="pd_identity" type="hidden"  name="pd_identity" value="<?php echo $this->nl->enc($route['r_id']); ?>"/>
                     <input type="submit" class="btn btn-info" name="submit" value="<?php echo lang('add_button'); ?>">
                 </div>
             </form>

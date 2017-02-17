@@ -188,14 +188,7 @@ class Weapons extends MX_Controller {
     }
 
     public function update_meta() {
-        $this->load->library('encryption');
-        $this->encryption->initialize(
-                array(
-                    'cipher' => 'des',
-                    'mode' => 'ECB'
-                )
-        );
-        $route_id = $this->encryption->decrypt($this->input->post('pd_identity'));
+        $route_id = $this->nl->dec($this->input->post('pd_identity'));
         if (empty($route_id)) {
             echo json_encode(array('msg' => 'wrong'));
             return;
@@ -280,14 +273,8 @@ class Weapons extends MX_Controller {
             return;
         }
         $user_id = $this->session->user_id;
-        $this->load->library('encryption');
-        $this->encryption->initialize(
-                array(
-                    'cipher' => 'des',
-                    'mode' => 'ECB'
-                )
-        );
-        $route_id = $this->encryption->decrypt($this->input->post('pd_identity', TRUE));
+        $route_id = $this->nl->dec($this->input->post('pd_identity', TRUE));
+        //echo $route_id;return;
         $cond = array(
             'user_id' => $user_id,
             'route_id' => $route_id
