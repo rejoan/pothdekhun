@@ -44,5 +44,31 @@ function get_status($publish_status) {
         $status = 'Revise Required';
         $class = 'label-warning';
     }
-    return '<span data-toggle="tooltip" data-placement="top" title="'.$status.'" class="label ' . $class . '">' . strtok($status,' ') . '</span';
+    return '<span data-toggle="tooltip" data-placement="top" title="' . $status . '" class="label ' . $class . '">' . strtok($status, ' ') . '</span';
+}
+
+function get_latest_status($status) {
+    if ($status == 1) {
+        $status = 'Closed';
+        $class = 'label-danger';
+    } elseif ($status == 2) {
+        $status = 'Route ok, Transport Closed';
+        $class = 'label-danger';
+    } elseif ($status == 3) {
+        $status = 'Temporary Close';
+        $class = 'label-warning';
+    } elseif ($status == 4) {
+        $status = 'Route Change';
+        $class = 'label-warning';
+    } elseif ($status == 5) {
+        $status = 'data wrong';
+        $class = 'label-danger';
+    } elseif ($status == 6) {
+        $status = 'some correct';
+        $class = 'label-info';
+    } else {
+        $status = 'Ok';
+        $class = 'label-success';
+    }
+    return '<span data-toggle="tooltip" data-placement="top" title="' . $status . '" class="label ' . $class . '">' . strtok($status, ' ') . '</span';
 }

@@ -14,28 +14,25 @@
             <table class="table table-hover table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>User</th>
                         <th>Route</th>
+                        <th>ID</th>
                         <th>Note</th>
-                        <th>Added</th>
-                        <th>Action</th>
+                        <th>Status</th>
+                        <th>Added By</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($comments as $r): ?>
+                    <?php foreach ($complains as $r): ?>
                         <tr>
-                            <th><?php echo $r['id']; ?></th>
-                            <td><?php echo empty($r['username']) ? $r['email'] : $r['username']; ?></td>
-                            <td><?php echo $r['comment']; ?></td>
-                            <td><a href="<?php echo site_url('routes/show/').$r['route_id'];?>"></a></td>
-                            <td><?php echo $this->nl->date_formatter('Y-m-d H:i:s',$r['added'],'d M, y'); ?></td>
-                            <td><?php echo $r['username']; ?></td>
-
+                            <th><a target="_blank" class="btn btn-github" href="<?php echo site_url('routes/show/') . $r['route_id']; ?>">Route</a></th>
                             <td>
-                                <a onclick="return confirm('Delete this Comment?');" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete" href="<?php echo site_url('comments/delete') . '/' . $r['id']; ?>"><i class="fa fa-trash"></i></a>
-                                
+                                <?php echo $r['id']; ?>
                             </td>
+
+                            <td><?php echo $r['note']; ?></td>
+                            <td><?php echo get_latest_status($r['latest_status']); ?></td>
+                            <td><a target="_blank" class="btn link-black" href="<?php echo site_url('profile/show/') . $r['id']; ?>"><?php echo $r['username']; ?></a></td>
+
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

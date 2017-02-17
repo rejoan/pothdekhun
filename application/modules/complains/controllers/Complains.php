@@ -14,10 +14,26 @@ class Complains extends MX_Controller {
     }
 
     public function index() {
+        $this->load->helper('admin');
+        $total_rows = $this->db->get('route_complains')->num_rows();
+        $per_page = 15;
+        $num_links = 5;
+
+        if ($this->input->get('page')) {
+            $sgm = (int) trim($this->input->get('page'));
+            $segment = $per_page * ($sgm - 1);
+        } else {
+            $segment = 0;
+        }
+
+        $url = 'complains/index';
+        $links = $this->nl->generate_pagination($url, $total_rows, $per_page, $num_links);
 
         $data = array(
-            'title' => 'Complains GRID',
-            'complains' => $this->cm->get_complains()
+            'links' => $links,
+            'segment' => $segment,
+            'title' => 'GRID Complains',
+            'complains' => $this->cm->get_complains($per_page, $segment)
         );
         $this->nl->view_loader('admin', 'index', NULL, $data, NULL, NULL, NULL);
     }

@@ -10,8 +10,14 @@ if (!defined('BASEPATH'))
  */
 class Complain_model extends CI_Model {
 
-    public function get_complains() {
-        $query = $this->db->select('c.id,c.fare_upvote,c.fare_downvote,c.latest_status,c.added,c.note')->from('route_complains c')->join('users u', 'c.user_id = u.id', 'left')->join('routes r', 'c.route_id = r.id', 'left')->order_by('c.id', 'desc')->get();
+    public function get_complains($per_page, $segment) {
+        $this->db->select('c.id,c.fare_upvote,c.fare_downvote,c.latest_status,c.added,c.note,c.route_id,c.user_id,u.username');
+        $this->db->from('route_complains c');
+        $this->db->join('users u', 'c.user_id = u.id', 'left');
+        $this->db->join('routes r', 'c.route_id = r.id', 'left');
+        $this->db->order_by('c.id', 'desc');
+        $query = $this->db->get();
+        $this->db->limit($per_page, $segment);
         return $query->result_array();
     }
 
