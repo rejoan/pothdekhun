@@ -308,8 +308,7 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         $this->db->join('thanas t', 'r.from_thana = t.id', 'left');
         $this->db->join('thanas th', 'r.to_thana = th.id', 'left');
         $this->db->join('users u', 'r.added_by = u.id', 'left');
-        $this->db->where('r.is_publish = 1 AND  r.id IN(' . $all_routes_id . ') AND
-(r.from_district = ' . $district . ' AND r.to_district = ' . $to_district . ')', NULL, FALSE);
+        $this->db->where('r.is_publish = 1 AND  r.id IN(' . $all_routes_id . ') AND (r.distance/1000) < 100', NULL, FALSE);
         if (!$pagination) {
             $this->db->limit($per_page, $segment);
         }
