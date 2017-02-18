@@ -370,4 +370,26 @@ class Route_manager extends MX_Controller {
         redirect('route_manager/revise_required');
     }
 
+    public function get_f() {
+        $original = array_map('basename', glob('evidences/*.{jpg,gif,png,jpeg}', GLOB_BRACE));
+        $thumbs = array_map('basename', glob('thumbs/*.{jpg,gif,png,jpeg}', GLOB_BRACE));
+        $missing_thumbs = array_diff($original, $thumbs);
+        //$missing_original = array_diff($thumbs, $original);
+        $this->load->library('image_lib');
+        foreach ($missing_thumbs as $file_name) {
+            //echo $file_name.'<br/>';
+            $config['image_library'] = 'gd2';
+            $config['source_image'] = FCPATH . '/evidences/' . $file_name;
+            $config['new_image'] = FCPATH . '/thumbs/' . $file_name;
+            $config['create_thumb'] = TRUE;
+            $config['maintain_ratio'] = TRUE;
+            $config['thumb_marker'] = '';
+            $config['width'] = 300;
+            $config['height'] = 250;
+            $this->image_lib->initialize($config);
+
+            $this->image_lib->resize();
+        }
+    }
+
 }
