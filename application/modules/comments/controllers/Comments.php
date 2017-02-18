@@ -38,14 +38,7 @@ class Comments extends MX_Controller {
         if ($this->input->post('submit')) {
             $this->form_validation->set_rules('comment', 'Comment', 'required');
 
-            $this->load->library('encryption');
-            $this->encryption->initialize(
-                    array(
-                        'cipher' => 'des',
-                        'mode' => 'ECB'
-                    )
-            );
-            $route_id = $this->encryption->decrypt($this->input->post('pd_identity'));
+            $route_id = $this->nl->dec($this->input->post('pd_identity'));
             if ($this->form_validation->run() == FALSE) {
                 $this->session->set_flashdata('message', lang('comment_required'));
                 redirect_tr('routes/show/' . $route_id);
