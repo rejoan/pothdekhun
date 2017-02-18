@@ -18,7 +18,7 @@
             <li class="header">MAIN NAVIGATION</li>
             <?php $this->nl->generate_link('b_janina', 'b_janina', 'fa-dashboard', 'Dashboard'); ?>
 
-            <li class="treeview <?php echo $this->nl->is_selected('route_manager,route_manager/latest'); ?>">
+            <li class="treeview <?php echo $this->nl->is_selected('route_manager,route_manager/latest,complains'); ?>">
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>Route Manager</span>
                     <span class="pull-right-container">
@@ -30,7 +30,7 @@
                     $this->nl->generate_link('route_manager/index', 'route_manager', 'fa-circle-o', 'Edited Routes');
                     $this->nl->generate_link('route_manager/latest', 'route_manager/latest', 'fa-circle-o', 'Latest Added');
                     $this->nl->generate_link('route_manager/revise_required', 'route_manager/revise_required', 'fa-circle-o', 'Revise Required');
-                     $this->nl->generate_link('complains', 'complains', 'fa-circle-o', 'Complains');
+                    $this->nl->generate_link('complains', 'complains', 'fa-circle-o', 'Complains');
                     ?>
                 </ul>
             </li>

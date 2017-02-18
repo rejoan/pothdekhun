@@ -19,6 +19,7 @@
                         <th>Note</th>
                         <th>Status</th>
                         <th>Added By</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,10 +30,10 @@
                                 <?php echo $r['id']; ?>
                             </td>
 
-                            <td><?php echo $r['note']; ?></td>
+                            <td><?php echo $r['proof']; ?></td>
                             <td><?php echo get_latest_status($r['latest_status']); ?></td>
                             <td><a target="_blank" class="btn link-black" href="<?php echo site_url('profile/show/') . $r['id']; ?>"><?php echo $r['username']; ?></a></td>
-
+                            <td><a onclick="return confirm('are you sure?')" class="btn btn-danger" href="<?php echo site_url('complains/delete/') . $r['id']; ?>"><i class="fa fa-trash"></i></a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

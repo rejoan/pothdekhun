@@ -54,3 +54,5 @@ $lang['search_rule3'] = 'When typing you\'ll get suggestions for place name. Sea
 $lang['search_rule4'] = 'If exact matches of word(place name you typed) not found it will check for similar words and produce result as suggestion';
 $lang['search_rule5'] = 'For example you\'ll get result if provide';
 $lang['filter'] = 'Filter';
+$lang['proof'] = 'Proof';
+$lang['proof_des'] = 'If you have any proof';

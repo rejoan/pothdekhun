@@ -39,10 +39,9 @@ class Complains extends MX_Controller {
     }
 
     public function delete($id) {
-        $this->nl->is_admin('errors', FALSE);
-        $this->pm->deleter('id', $id, 'comments');
-        $this->session->set_flashdata('message', 'Comments Deleted');
-        redirect('comments');
+        $this->pm->deleter('id', $id, 'route_complains');
+        $this->session->set_flashdata('message', 'Complain Deleted');
+        redirect('complains');
     }
 
 }

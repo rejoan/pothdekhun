@@ -20,8 +20,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label><?php echo lang('note'); ?></label>
-                            <textarea id="note" name="note" class="form-control" rows="3" placeholder="Your Comment" required></textarea>
+                            <label><?php echo lang('proof'); ?></label>
+                            <textarea id="note" name="note" class="form-control" rows="3" placeholder="<?php echo lang('proof_des');?>"></textarea>
                         </div>
                     </div>
 
