@@ -85,7 +85,7 @@ class Routes_model extends CI_Model {
     }
 
     public function get_comments($route_id) {
-        $query = $this->db->select('c.*,u.username,u.avatar')->from('comments c')->join('users u', 'u.id = c.user_id', 'left')->where('c.route_id', $route_id)->get();
+        $query = $this->db->select('c.*,u.username,u.avatar')->from('comments c')->join('users u', 'u.id = c.user_id', 'left')->where('c.route_id', $route_id)->where('c.status',1)->get();
         return $query->result_array();
     }
 

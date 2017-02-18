@@ -11,7 +11,7 @@ if (!defined('BASEPATH'))
 class Comment_model extends CI_Model {
 
     public function get_comments() {
-        $query = $this->db->select('c.id,c.comment,c.route_id,c.added,u.username')->from('comments c')->join('users u', 'c.user_id = u.id', 'left')->order_by('c.id', 'desc')->get();
+        $query = $this->db->select('c.id,c.comment,c.route_id,c.added,u.username,c.status')->from('comments c')->join('users u', 'c.user_id = u.id', 'left')->order_by('c.id', 'desc')->get();
         return $query->result_array();
     }
 

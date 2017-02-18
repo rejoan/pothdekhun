@@ -73,4 +73,21 @@ class Comments extends MX_Controller {
         redirect_tr('routes');
     }
 
+    /**
+     * 
+     * @param int $id
+     */
+    public function approval($id) {
+        $this->nl->is_admin('errors', FALSE);
+        $comment = $this->pm->get_row('id', $id, 'comments');
+        if ($comment['status'] == 0) {
+            $status = 1;
+        } else {
+            $status = 0;
+        }
+        $this->pm->updater('id', $id, 'comments', array('status' => $status));
+        $this->session->set_flashdata('message', 'Comments Status Updated');
+        redirect('comments');
+    }
+
 }
