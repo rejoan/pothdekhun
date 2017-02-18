@@ -14,6 +14,35 @@ class Muntakhab extends MX_Controller {
         $this->load->model('Muntakhab_model', 'mm');
     }
 
+    public function create_thumb() {
+        $extensions = array('jpg', 'jpeg', 'png', 'gif');
+        $directory = new DirectoryIterator(FCPATH . '/evidences/');
+        $this->load->library('image_lib');
+
+        foreach ($directory as $fileinfo) {
+            // must be a file
+            if ($fileinfo->isFile()) {
+                // file extension
+                $extension = strtolower(pathinfo($fileinfo->getFilename(), PATHINFO_EXTENSION));
+                // check if extension match
+                if (in_array($extension, $extensions)) {
+
+                    $config['image_library'] = 'gd2';
+                    $config['source_image'] = FCPATH . '/evidences/' . $fileinfo->getFilename();
+                    $config['new_image'] = FCPATH . '/thumbs/' . $fileinfo->getFilename();
+                    $config['create_thumb'] = TRUE;
+                    $config['maintain_ratio'] = TRUE;
+                    $config['thumb_marker'] = '';
+                    $config['width'] =300;
+                    $config['height'] = 250;
+                    $this->image_lib->initialize($config);
+
+                    $this->image_lib->resize();
+                }
+            }
+        }
+    }
+
     public function index() {
         $query = $this->db->query('SELECT s.id,r.from_district,r.to_district, s.place_name
 FROM stoppages s
@@ -111,6 +140,5 @@ WHERE s.district_id = 0');
             }
         }
     }
-    
 
 }

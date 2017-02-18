@@ -19,30 +19,32 @@
     ?>
     <div class="box box-poth">
         <div id="details_header" class="box-header with-border">
-            <p><?php echo lang('route_info') . ': <a data-toggle="tooltip" data-placement="top" title="Google Map Direction" target="_blank" class="btn btn-sm bg-purple" href="' . site_url_tr('routes/map/?fp=' . $from_p . '&ftn=' . str_replace(' ', '+', trim($route['thana_name'])) . '&fds=' . str_replace(' ', '+', trim($route['district_name'])) . '&tp=' . str_replace(' ', '+', trim($route['to_place'])). '&thn=' . str_replace(' ', '+', trim($route['th_thana_name'])) . '&tdn=' . str_replace(' ', '+', trim($route['td_name']))) . '"><i class="fa fa-map-marker"></i> Google Map</a></p> <div class="row no-margin"><div class="col-md-6 bg-orange">' . $fp . ', ' . $ftn . ', ' . $fds . '</div><div class="col-md-1"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></div> <div class="col-md-5 bg-orange">' . $tp . ', ' . $thn . ', ' . $tdn . '</div>'; ?></div>
+            <p><?php echo lang('route_info') . ': <a data-toggle="tooltip" data-placement="top" title="Google Map Direction" target="_blank" class="btn btn-sm bg-purple" href="' . site_url_tr('routes/map/?fp=' . $from_p . '&ftn=' . str_replace(' ', '+', trim($route['thana_name'])) . '&fds=' . str_replace(' ', '+', trim($route['district_name'])) . '&tp=' . str_replace(' ', '+', trim($route['to_place'])) . '&thn=' . str_replace(' ', '+', trim($route['th_thana_name'])) . '&tdn=' . str_replace(' ', '+', trim($route['td_name']))) . '"><i class="fa fa-map-marker"></i> Google Map</a></p> <div class="row no-margin"><div class="col-md-6 bg-orange">' . $fp . ', ' . $ftn . ', ' . $fds . '</div><div class="col-md-1"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></div> <div class="col-md-5 bg-orange">' . $tp . ', ' . $thn . ', ' . $tdn . '</div>'; ?></div>
     </div>
     <div class="box-body">
         <div class="row custom_margin">
             <?php
             if (!empty($route['evidence'])):
                 $path = base_url('evidences') . '/' . $route['evidence'];
+                $path_thumb = base_url('thumbs') . '/' . $route['evidence'];
 //                $type = pathinfo($path, PATHINFO_EXTENSION);
 //                $evidence = file_get_contents($path);
 //                $base64 = 'data:image/' . $type . ';base64,' . base64_encode($evidence);
                 ?>
                 <div class="col-md-4">
-                    <a class="fancybox" rel="gallery<?php echo $route['r_id']; ?>" href="<?php echo $path; ?>"><img class="img-responsive img-thumbnail" src="<?php echo $path; ?>" alt="<?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?>"/></a>
+                    <a class="fancybox" rel="gallery<?php echo $route['r_id']; ?>" href="<?php echo $path; ?>"><img class="img-responsive img-thumbnail" src="<?php echo $path_thumb; ?>" alt="<?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?>"/></a>
                 </div>
             <?php endif; ?>
             <?php
             if (!empty($route['evidence2'])):
                 $path2 = base_url('evidences') . '/' . $route['evidence2'];
+                $path_thumb2 = base_url('thumbs') . '/' . $route['evidence2'];
 //                $type2 = pathinfo($path2, PATHINFO_EXTENSION);
 //                $evidence2 = file_get_contents($path2);
 //                $base642 = 'data:image/' . $type2 . ';base64,' . base64_encode($evidence2);
                 ?>
                 <div class="col-md-4">
-                    <a class="fancybox" rel="gallery<?php echo $route['r_id']; ?>" href="<?php echo $path2; ?>"><img class="img-responsive img-thumbnail" src="<?php echo $path2; ?>" alt="<?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?>"/></a>
+                    <a class="fancybox" rel="gallery<?php echo $route['r_id']; ?>" href="<?php echo $path2; ?>"><img class="img-responsive img-thumbnail" src="<?php echo $path_thumb2; ?>" alt="<?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?>"/></a>
                 </div>
             <?php endif; ?>
         </div>
@@ -156,7 +158,7 @@
                                 <th><?php echo lang('place_name'); ?></th>
                                 <th><?php echo lang('comment'); ?></th>
                                 <th><?php echo lang('main_rent'); ?></th>
-<!--                                    <th><?php //echo lang('fare_verify');                        ?></th>-->
+<!--                                    <th><?php //echo lang('fare_verify');                          ?></th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -169,8 +171,8 @@
                                         <?php echo $s['rent'] . ' ' . lang('tk'); ?>
                                     </td>
     <!--                                        <td>
-                                        <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');                        ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
-                <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');                        ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');                          ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');                          ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
                                     </td>-->
                                 </tr>
                             <?php endforeach; ?>
