@@ -1,9 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <div id="profile" class="col-sm-3">
     <div class="box box-primary box-poth">
-        <div class="box-header with-border">
-            <h3 class="box-title"><?php echo lang('rightbar') ?></h3>
-        </div>
+<!--        <div class="box-header with-border">
+            <h3 class="box-title"><?php //echo lang('rightbar') ?></h3>
+        </div>-->
 
         <div class="box-body">
             <p>Hosting Sponsor</p>
