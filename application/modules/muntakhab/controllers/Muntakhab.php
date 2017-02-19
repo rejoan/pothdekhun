@@ -14,6 +14,50 @@ class Muntakhab extends MX_Controller {
         $this->load->model('Muntakhab_model', 'mm');
     }
 
+    public function sitemap() {
+        $urlContent = file_get_contents('http://localhost/pothdekhun/transports/index');
+
+        $dom = new DOMDocument();
+        @$dom->loadHTML($urlContent);
+        $xpath = new DOMXPath($dom);
+        $hrefs = $xpath->evaluate("/html/body//a[contains(@href,'show')]");
+
+        for ($i = 0; $i < $hrefs->length; $i++) {
+            $href = $hrefs->item($i);
+            $url = $href->getAttribute('href');
+            $url = filter_var($url, FILTER_SANITIZE_URL);
+            // validate url
+            if (!filter_var($url, FILTER_VALIDATE_URL) === false) {
+
+                $signed_values[] = array('loc' => $url, 'lastmod' => '2017-02-19', 'changefreq' => 'weekly', 'priority' => '0.6');
+            }
+        }
+        /* $pos = array_search('facebook', $signed_values);
+          unset($signed_values[$pos]);
+          echo '<pre>';
+          var_export($signed_values);return; */
+
+        function arrayToXml($array, $rootElement = null, $xml = null) {
+            $_xml = $xml;
+
+            if ($_xml === null) {
+                $_xml = new SimpleXMLElement($rootElement !== null ? $rootElement : '<root/>');
+            }
+
+            foreach ($array as $k => $v) {
+                if (is_array($v)) { //nested array
+                    arrayToXml($v, $k, $_xml->addChild('url'));
+                } else {
+                    $_xml->addChild($k, $v);
+                }
+            }
+            return $_xml->asXML();
+        }
+
+        $xmls = arrayToXml($signed_values);
+        echo $xmls;
+    }
+
     public function create_thumb() {
         $extensions = array('jpg', 'jpeg', 'png', 'gif');
         $directory = new DirectoryIterator(FCPATH . '/evidences/');
@@ -33,7 +77,7 @@ class Muntakhab extends MX_Controller {
                     $config['create_thumb'] = TRUE;
                     $config['maintain_ratio'] = TRUE;
                     $config['thumb_marker'] = '';
-                    $config['width'] =300;
+                    $config['width'] = 300;
                     $config['height'] = 250;
                     $this->image_lib->initialize($config);
 
