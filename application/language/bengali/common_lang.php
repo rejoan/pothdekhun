@@ -177,3 +177,4 @@ $lang['no_suggested_route_found'] = 'আপনার অনুসন্ধান
 $lang['suggested_route'] = 'নিচে কিছু সাজেশন যা আপনার অনুসন্ধান এর কাছাকাছি';
 $lang['possible_route'] = 'কিছু সম্ভ্যাব্য মিলে যাওয়া যানবাহন';
 $lang['privacy_policy'] = 'প্রাইভেসি পলিসি';
+$lang['mobile_app'] = 'মোবাইল অ্যাপ ডাইনলোড করুন';

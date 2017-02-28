@@ -17,13 +17,20 @@ $f_method = $this->router->fetch_method();
 </div><!-- row-->
 <footer class="footer">
     <div id="footer_section" class="row">
-        <div class="col-xs-12">
-            <ul id="footer_nav">
+        <div class="col-md-6">
+            <ul class="footer_nav" id="custom_margin">
                 <li>&copy; Copyright PothDekhun <?php echo date('Y'); ?></li>
                 <li><a href="<?php echo site_url_tr('pages/about-us'); ?>"><?php echo lang('about_us'); ?></a></li>
                 <li><a href="<?php echo site_url_tr('pages/contact-us'); ?>"><?php echo lang('contact_us'); ?></a></li>
-<!--                <li><a href="<?php //echo site_url_tr('pages/point-rules'); ?>"><?php //echo lang('point_rules'); ?></a></li>-->
+<!--                <li><a href="<?php //echo site_url_tr('pages/point-rules');   ?>"><?php //echo lang('point_rules');   ?></a></li>-->
                 <li><a href="<?php echo site_url_tr('pages/privacy-policy'); ?>"><?php echo lang('privacy_policy'); ?></a></li>
+
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <ul class="footer_nav">
+                <li class="no-margin"><h4><?php echo lang('mobile_app');?></h4></li>
+                <li><a target="_blank" href="https://play.google.com/store/apps/details?id=com.pothdekhun.android"><img class="img-responsive" alt="" src="<?php echo base_url('assets/images/google_play_badge_122_38.png'); ?>"/></a></li>
             </ul>
         </div>
     </div>
