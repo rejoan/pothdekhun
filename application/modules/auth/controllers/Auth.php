@@ -123,6 +123,11 @@ class Auth extends MX_Controller {
         }
         $guser = $response->getGraphUser();
         $email = $guser['email'];
+        if (empty($email)) {
+            $this->session->set_flashdata('message', 'Probably you not set any email so far');
+            redirect_tr('auth/login');
+        }
+        //var_dump($email);return;
         $this->login_auth($email);
     }
 
@@ -153,12 +158,14 @@ class Auth extends MX_Controller {
 
     public function login_auth($email) {
         $user = array(
-            'email' => $email
+            'email' => $email,
+            'username' => $email
         );
         $u = $this->pm->total_item('users', 'email', $email);
         if ($u < 1) {
             $this->db->set('reg_date', 'NOW()', FALSE);
             $user_id = $this->pm->insert_data('users', $user, TRUE);
+            //var_dump($user_id);return;
         } else {
             $user = $this->pm->get_row('email', $email, 'users');
             $user_id = $user['id'];
@@ -169,7 +176,7 @@ class Auth extends MX_Controller {
             'email' => $email,
             'user_type' => 'user'
         );
-
+        //ar_dump($user_data,$u);return;
         $this->session->set_userdata($user_data);
         redirect_tr('profile');
     }
