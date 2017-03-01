@@ -150,34 +150,36 @@
                 <h4><?php echo lang('stoppages') . ' ' . lang('or') . ' ' . lang('via'); ?></h4>
             </div>
             <div class="col-xs-12">
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th><?php echo lang('place_name'); ?></th>
-                                <th><?php echo lang('comment'); ?></th>
-                                <th><?php echo lang('main_rent'); ?></th>
-<!--                                    <th><?php //echo lang('fare_verify');                          ?></th>-->
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($stoppages as $s):$segment++; ?>
+                <div class="box-body no-padding">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered table-striped">
+                            <thead>
                                 <tr>
-                                    <th><?php echo $segment; ?></th>
-                                    <td><?php echo $s['place_name']; ?></td>
-                                    <td><?php echo $s['comments']; ?></td>
-                                    <td>
-                                        <?php echo $s['rent'] . ' ' . lang('tk'); ?>
-                                    </td>
-    <!--                                        <td>
-                                        <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');                          ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
-                <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');                          ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
-                                    </td>-->
+                                    <th>#</th>
+                                    <th><?php echo lang('place_name'); ?></th>
+                                    <th><?php echo lang('comment'); ?></th>
+                                    <th><?php echo lang('main_rent'); ?></th>
+    <!--                                    <th><?php //echo lang('fare_verify');                           ?></th>-->
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($stoppages as $s):$segment++; ?>
+                                    <tr>
+                                        <th><?php echo $segment; ?></th>
+                                        <td><?php echo $s['place_name']; ?></td>
+                                        <td><?php echo $s['comments']; ?></td>
+                                        <td>
+                                            <?php echo $s['rent'] . ' ' . lang('tk'); ?>
+                                        </td>
+        <!--                                        <td>
+                                            <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');                           ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');                           ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                                        </td>-->
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

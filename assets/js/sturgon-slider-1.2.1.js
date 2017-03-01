@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    $('a').click(function () {
+        Pace.restart();
+    });
     var mn_nm = $('#mn_nm').val();
     var cl_nm = $('#cl_nm').val();
     if ((cl_nm === 'routes' || cl_nm === 'transports' || cl_nm === 'profile') && (mn_nm === 'add' || mn_nm === 'edit' || mn_nm === 'all' || mn_nm === 'show')) {

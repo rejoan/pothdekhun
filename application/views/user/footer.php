@@ -22,14 +22,14 @@ $f_method = $this->router->fetch_method();
                 <li>&copy; Copyright PothDekhun <?php echo date('Y'); ?></li>
                 <li><a href="<?php echo site_url_tr('pages/about-us'); ?>"><?php echo lang('about_us'); ?></a></li>
                 <li><a href="<?php echo site_url_tr('pages/contact-us'); ?>"><?php echo lang('contact_us'); ?></a></li>
-<!--                <li><a href="<?php //echo site_url_tr('pages/point-rules');   ?>"><?php //echo lang('point_rules');   ?></a></li>-->
+<!--                <li><a href="<?php //echo site_url_tr('pages/point-rules');    ?>"><?php //echo lang('point_rules');    ?></a></li>-->
                 <li><a href="<?php echo site_url_tr('pages/privacy-policy'); ?>"><?php echo lang('privacy_policy'); ?></a></li>
 
             </ul>
         </div>
         <div class="col-md-6">
             <ul class="footer_nav">
-                <li class="no-margin"><h4><?php echo lang('mobile_app');?></h4></li>
+                <li class="no-margin"><h4><?php echo lang('mobile_app'); ?></h4></li>
                 <li><a target="_blank" href="https://play.google.com/store/apps/details?id=com.pothdekhun.android"><img class="img-responsive" alt="" src="<?php echo base_url('assets/images/google_play_badge_122_38.png'); ?>"/></a></li>
             </ul>
         </div>
@@ -56,7 +56,7 @@ $f_method = $this->router->fetch_method();
 <script async type="text/javascript" src="<?php echo base_url('assets/js/val_lib.js'); ?>"></script>
 <script async type="text/javascript" src="<?php echo base_url('assets/js/sturgon-slider-1.2.1.js?v=2.4'); ?>"></script>
 <script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/tooltip.js'); ?>"></script>
-
+<script async type="text/javascript" src="<?php echo base_url('assets/plugins/pace/pace.min.js'); ?>"></script>
 <script async type="text/javascript" src="<?php echo base_url('assets/js/jquery-migrate-1.4.1.min.js'); ?>"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script async type="text/javascript" src="<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js'); ?>"></script>
