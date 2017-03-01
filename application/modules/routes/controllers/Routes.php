@@ -38,7 +38,6 @@ class Routes extends MX_Controller {
      */
     public function add() {
         $this->nl->is_logged();
-        $this->load->library('user_agent');
         //$this->load->library('recaptcha');
         $this->load->library('form_validation');
         $fd = trim($this->input->post('fd', TRUE));
@@ -216,8 +215,6 @@ class Routes extends MX_Controller {
         //check admin, if so then editable even is not published
         $this->pm->is_authorize($id);
         //load agent browser for edit view
-        $this->load->library('user_agent');
-
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
         $route_table = $this->nl->lang_based_data('route_bn', 'routes');
         $rid = $this->nl->lang_based_data('route_id', 'id');

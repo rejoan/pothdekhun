@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database','session','nuts_lib' => 'nl');
+$autoload['libraries'] = array('database','session','nuts_lib' => 'nl','user_agent' => 'ua');
 
 /*
 | -------------------------------------------------------------------

@@ -284,7 +284,7 @@
                 <?php endif; ?>
 
                 <?php
-                $overflow = $this->agent->is_browser('Firefox') ? 'overflow:auto;' : '';
+                $overflow = $this->ua->is_browser('Firefox') ? 'overflow:auto;' : '';
                 ?>
                 <div style="display: <?php echo isset($stoppages) ? 'block;' . $overflow : 'none;' . $overflow; ?>" id="stoppage_section">
                     <?php if (isset($route['r_id'])): ?>

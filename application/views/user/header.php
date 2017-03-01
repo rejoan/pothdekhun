@@ -41,8 +41,9 @@
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-select.min.css'); ?>" >
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/font-awesome.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/ionicons.min.css'); ?>">
-
-        <link rel="stylesheet" href="<?php echo base_url('assets/plugins/pace/pace.min.css'); ?>">
+        <?php if ($this->ua->is_mobile()): ?>
+            <link rel="stylesheet" href="<?php echo base_url('assets/plugins/pace/pace.min.css'); ?>">
+        <?php endif; ?>
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/AdminLTE.min.css'); ?>">
 
 <!--[if lt IE 9]><script async src="<?php echo base_url('assets/js/ie8-responsive-file-warning.js'); ?>"></script><![endif]-->
