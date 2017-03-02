@@ -473,12 +473,13 @@ class Routes extends MX_Controller {
         }
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
 
-        $exist = $this->rm->details($route_id, FALSE);
+        $exist = $this->rm->details($route_id);
         if ($exist < 1) {
             $this->session->set_flashdata('message', lang('no_route'));
             redirect_tr('routes');
         }
         $result = $this->rm->details($route_id);
+
 
         //array_walk($result, function(&$a) use($route_id) {
         $result['fare_upvote'] = $this->pm->get_sum('route_id', $route_id, 'fare_upvote', 'route_complains');
@@ -493,12 +494,14 @@ class Routes extends MX_Controller {
         }
         $to_place = mb_convert_case($result[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8');
         $to_district = mb_convert_case($result[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8');
-        
+
         if (mb_strtolower($to_place) == mb_strtolower($to_district)) {
             $final_to = $to_district;
         } else {
             $final_to = $to_place . ', ' . $to_district;
         }
+        $next_q = $this->db->query('SELECT id FROM routes WHERE id = (SELECT MIN(id) FROM routes WHERE id > ' . $route_id . ')');
+        $prev_q = $this->db->query('SELECT id FROM routes WHERE id = (SELECT MAX(id) FROM routes WHERE id < ' . $route_id . ')');
 
         $data = array(
             'title' => $final_from . ' ' . lang('to_view') . ' ' . $final_to . ' :: ' . mb_convert_case(get_tr_type($result['transport_type']), MB_CASE_TITLE, 'UTF-8') . ' - ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),
@@ -506,7 +509,9 @@ class Routes extends MX_Controller {
             'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['r_id'], FALSE, FALSE, FALSE, 'position', 'asc'),
             'segment' => 0,
             'settings' => $this->nl->get_config(),
-            'comments' => $this->rm->get_comments($route_id)
+            'comments' => $this->rm->get_comments($route_id),
+            'next' => $next_q->row_array(),
+            'prev' => $prev_q->row_array()
         );
         $data['meta_title'] = $data['title'] . lang('meta_title_route');
         //echo $this->db->last_query();return;

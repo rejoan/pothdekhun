@@ -50,3 +50,5 @@ $lang['final_rule'] = 'টাইপের সময় জায়গার নাম
 $lang['filter'] = 'ফিল্টার';
 $lang['proof'] = 'প্রমান';
 $lang['proof_des'] = 'যদি কোন প্রমান থাকে';
+$lang['prev_route'] = 'আগের রুট';
+$lang['next_route'] = 'পরের রুট';

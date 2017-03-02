@@ -56,3 +56,5 @@ $lang['search_rule5'] = 'For example you\'ll get result if provide';
 $lang['filter'] = 'Filter';
 $lang['proof'] = 'Proof';
 $lang['proof_des'] = 'If you have any proof';
+$lang['prev_route'] = 'Previous Route';
+$lang['next_route'] = 'Next Route';

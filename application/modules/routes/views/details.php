@@ -159,7 +159,7 @@
                                     <th><?php echo lang('place_name'); ?></th>
                                     <th><?php echo lang('comment'); ?></th>
                                     <th><?php echo lang('main_rent'); ?></th>
-    <!--                                    <th><?php //echo lang('fare_verify');                           ?></th>-->
+    <!--                                    <th><?php //echo lang('fare_verify');                              ?></th>-->
                                 </tr>
                             </thead>
                             <tbody>
@@ -172,8 +172,8 @@
                                             <?php echo $s['rent'] . ' ' . lang('tk'); ?>
                                         </td>
         <!--                                        <td>
-                                            <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');                           ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
-                    <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');                           ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');                              ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');                              ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
                                         </td>-->
                                     </tr>
                                 <?php endforeach; ?>
@@ -211,6 +211,18 @@
             </div>
             <div class="col-xs-5">
                 <h4 class="no-margin"><a href="<?php echo site_url_tr('profile/show/') . $route['user_id']; ?>"><?php echo $route['username']; ?></a></h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <?php if (!empty($prev['id'])): ?>
+                    <a class="btn btn-sm btn-warning" href="<?php echo site_url_tr('routes/show/') . $prev['id'] ?>"><i class="fa fa-angle-double-left"></i> <?php echo lang('prev_route'); ?></a>
+                <?php endif; ?>
+            </div>
+            <div class="col-md-6">
+                <?php if (!empty($next['id'])): ?>
+                    <a class="btn btn-sm btn-warning <?php echo $this->ua->is_mobile() ? 'margin_top' : 'pull-right'; ?>" href="<?php echo site_url_tr('routes/show/') . $next['id']; ?>"><?php echo lang('next_route'); ?> <i class="fa fa-angle-double-right"></i></a>
+                <?php endif; ?>
             </div>
         </div>
     </div>
