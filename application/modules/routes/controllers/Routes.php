@@ -484,9 +484,24 @@ class Routes extends MX_Controller {
         $result['fare_upvote'] = $this->pm->get_sum('route_id', $route_id, 'fare_upvote', 'route_complains');
         $result['fare_downvote'] = $this->pm->get_sum('route_id', $route_id, 'fare_downvote', 'route_complains');
         //});
+        $from_place = mb_convert_case($result[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8');
+        $from_district = mb_convert_case($result[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8');
+        if (mb_strtolower($from_place) == mb_strtolower($from_district)) {
+            $final_from = $from_district;
+        } else {
+            $final_from = $from_place . ', ' . $from_district;
+        }
+        $to_place = mb_convert_case($result[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8');
+        $to_district = mb_convert_case($result[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8');
+        
+        if (mb_strtolower($to_place) == mb_strtolower($to_district)) {
+            $final_to = $to_district;
+        } else {
+            $final_to = $to_place . ', ' . $to_district;
+        }
 
         $data = array(
-            'title' => mb_convert_case($result[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($result[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('to_view') . ' ' . mb_convert_case($result[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($result[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8') . ' :: ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . mb_convert_case($result['transport_type'], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('route_info'),
+            'title' => $final_from . ' ' . lang('to_view') . ' ' . $final_to . ' :: ' . mb_convert_case(get_tr_type($result['transport_type']), MB_CASE_TITLE, 'UTF-8') . ' - ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),
             'route' => $result,
             'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['r_id'], FALSE, FALSE, FALSE, 'position', 'asc'),
             'segment' => 0,
