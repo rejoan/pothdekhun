@@ -96,7 +96,7 @@
                 <p><?php echo lang('departure_place'); ?></p>
             </div>
             <div class="col-md-9">
-                <h4 class="no-margin"><?php echo mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8'); ?></h4>
+                <h4 class="no-margin"><?php echo mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8'); ?></h4>
             </div>
 
 
@@ -106,7 +106,7 @@
                 <p><?php echo lang('destination_place'); ?></p>
             </div>
             <div class="col-md-9">
-                <h4 class="no-margin"><?php echo mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8'); ?></h4>
+                <h4 class="no-margin"><?php echo mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8'); ?></h4>
             </div>
 
 

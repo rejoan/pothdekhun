@@ -19,13 +19,18 @@
                 <hr/>
                 <div class="row custom_margin">
                     <div class="col-md-6">
-                        <?php echo lang('available_counter'); ?>
+                        <?php
+                        echo lang('available_counter');
+                        if (!empty($total_counter)) {
+                            echo ' (' . $total_counter . ')';
+                        }
+                        ?>
                     </div>
                     <div class="col-md-6">
                         <select id="district_filt" class="selectpicker" name="d" data-width="100%" data-live-search="true">
                             <option value="0">Search Counter by District</option>
                             <?php foreach ($districts as $d): ?>
-                                <option value="<?php echo $d['id']; ?>">
+                                <option value="<?php echo $d['id']; ?>" <?php echo $this->input->get('d') == $d['id'] ? 'selected="yes"' : ''; ?>>
                                     <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
                                 </option>
                             <?php endforeach; ?>

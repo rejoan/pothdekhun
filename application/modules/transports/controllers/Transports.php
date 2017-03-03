@@ -275,9 +275,10 @@ class Transports extends MX_Controller {
             'poribohon' => $result,
             'routes' => $this->tm->get_routes($poribohon_id),
             'counters' => $this->tm->get_counters($poribohon_id, $district),
+            'total_counter' => $this->tm->get_counters($poribohon_id, $district, TRUE),
             'settings' => $this->nl->get_config(),
             'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
-            'action' => site_url_tr('transports/show/'.$id)
+            'action' => site_url_tr('transports/show/' . $id)
         );
         $data['meta_title'] = $data['title'] . lang('meta_title_transport');
         //echo $this->db->last_query();return;
