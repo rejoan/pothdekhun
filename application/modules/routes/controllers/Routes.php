@@ -540,7 +540,8 @@ class Routes extends MX_Controller {
             $map_disctrict = $fds;
         }
         $pure_tthana = str_ireplace('sadar', '', $thn);
-        $pure_tthana = trim($pure_tthana, '+');
+        $pure_tthana = trim($pure_tthana, '+ ');
+        //var_dump($tdn,$pure_tthana);return;
         $map_tdisctrict = $thn . ',' . $tdn;
         if ((mb_strtolower($thn) == mb_strtolower($tdn)) || (mb_strtolower($tdn) == mb_strtolower($pure_tthana))) {
             $map_tdisctrict = $tdn;
@@ -554,7 +555,8 @@ class Routes extends MX_Controller {
                 'timeout' => 10,
             )
         ));
-        $direction_api = @file_get_contents('https://maps.googleapis.com/maps/api/directions/json?origin=' . $fp . ',' . $map_disctrict . ',Bangladesh&destination=' . $tp . ',' . $map_tdisctrict . ',Bangladesh&key=&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $dtx);
+        //var_dump($final_from_str,$final_to_str);return;
+        $direction_api = @file_get_contents('https://maps.googleapis.com/maps/api/directions/json?origin=' .$final_from_str . ',Bangladesh&destination=' . $final_to_str. ',Bangladesh&key=&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $dtx);
         $api_result = json_decode($direction_api);
         if (empty($api_result) || empty($api_result->routes->status)) {
             $final_from = $map_disctrict;
