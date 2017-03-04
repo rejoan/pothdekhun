@@ -42,7 +42,17 @@
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/font-awesome.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/ionicons.min.css'); ?>">
         <?php if ($this->ua->is_mobile()): ?>
-            <link rel="stylesheet" href="<?php echo base_url('assets/plugins/pace/pace.min.css'); ?>">
+            <style>
+                #ploader {
+                    position: fixed;
+                    left: 0px;
+                    top: 0px;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 9999;
+                    background: url('<?php echo base_url('assets/images/loading.gif'); ?>') 50% 50% no-repeat rgb(249,249,249);
+                }
+            </style>
         <?php endif; ?>
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/AdminLTE.min.css'); ?>">
 
@@ -77,6 +87,7 @@
     </head>
 
     <body>
+        <div id="ploader"></div>
 
         <div class="container-fluid"><!-- container start here: ended in footer-->
 
