@@ -12,10 +12,9 @@
         </div>
         <div class="box-body">
             <h3 class="custom_margin">We appreciate any suggestion. </h3>
-            <form class="form-horizontal" action="<?php echo site_url('pages/contact_us'); ?>" method="POST" enctype="multipart/form-data">
+            <form class="form-horizontal" method="post" action="<?php echo site_url_tr('pages/contact-us'); ?>">
                 <div class="form-group">
                     <label for="inputName" class="col-sm-3 control-label"><?php echo lang('name'); ?></label>
-
                     <div class="col-sm-9">
                         <input type="text" class="form-control" name="name" placeholder="<?php echo lang('name'); ?>">
                     </div>
@@ -39,7 +38,7 @@
                 <?php echo form_error('comment', '<div class="alert alert-danger">', '</div>'); ?>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <input name="submit" type="submit" class="btn btn-info" value="<?php echo lang('send'); ?>">
+                        <input type="submit" name="submit" class="btn btn-info" value="<?php echo lang('send'); ?>">
                     </div>
                 </div>
             </form>

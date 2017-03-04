@@ -35,7 +35,6 @@ class Pages extends MX_Controller {
             'settings' => $this->nl->get_config(),
         );
         $this->load->library('form_validation');
-
         if ($this->input->post('submit')) {
             $this->form_validation->set_rules('name', 'Name', 'required');
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
@@ -44,7 +43,7 @@ class Pages extends MX_Controller {
                 $this->nl->view_loader('user', 'latest', NULL, $data, 'contact', 'rightbar', 'menu', TRUE);
                 return;
             }
-            //var_dump($this->input->post());
+            
             $posts = $this->input->post();
             unset($posts['submit']);
 //            $from_mail = trim($this->input->post('email', TRUE));
