@@ -64,6 +64,9 @@ footer {
     background-color: #fff;
     color: #000;
 }
+.bottom_top_margin{
+    margin: 5px 0;
+}
 #route_detail .remove_bottom_margin{
     margin-bottom: 0;
 }

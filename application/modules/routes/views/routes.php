@@ -38,12 +38,12 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-1 no-padding">
+                    <div class="col-md-1">
                         <label data-toggle="tooltip" data-placement="top" title="Ignore Thana">
-                            <input type="checkbox" value="ignore" name="it" <?php echo $this->input->get('it') ? 'checked="yes"':'';?>/>
+                            <input type="checkbox" value="ignore" name="it" <?php echo $this->input->get('it') ? 'checked="yes"' : ''; ?>/>
                         </label>
                     </div>
-                    <div class="col-md-3 no-pad-left">
+                    <div class="col-md-3">
 
                         <select name="t" class="selectpicker" data-width="100%" data-live-search="true" >
                             <option value="bus" <?php echo trim($this->input->get('t', TRUE)) == 'bus' ? 'selected="yes"' : ''; ?>>
@@ -66,7 +66,7 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-md-1 no-padding">
+                    <div class="col-md-1 bottom_top_margin">
                         <input type="submit" class="btn btn--sm btn-info" value="<?php echo lang('filter'); ?>"/>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                                 <td><?php echo get_tr_type($r['transport_type']); ?></td>
                                 <td><?php echo $r[$this->nl->lang_based_data('bn_name', 'name')]; ?></td>
                                 <?php if ($this->router->fetch_method() == 'my_routes'): ?>
-                                    <td><?php echo get_status($r['is_publish']);?></td>
+                                    <td><?php echo get_status($r['is_publish']); ?></td>
                                 <?php endif; ?>
                                 <td>
                                     <?php if ($this->session->user_id): ?>

@@ -135,7 +135,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <input id="show_transport" type="submit" class="btn btn-primary btn-info" name="abc" value="<?php echo lang('show_transport'); ?>"/>  
+                        <input id="show_transport" type="submit" class="btn btn-primary btn-info bottom_top_margin" name="abc" value="<?php echo lang('show_transport'); ?>"/>  
                     </div>
                 </div>
             </form>

@@ -157,11 +157,11 @@ function latest_transports() {
 
 function make_keywords($str) {
     $mod_str = $str . lang('meta_str');
-    $mod_str = str_replace(array(',', '.'), '', trim($mod_str));
+    $mod_str = str_replace(array(',', '.','::','-','(',')'), '', trim($mod_str));
     $mod_str = strtolower($mod_str);
     $word_arr = explode(' ', trim($mod_str));
-    $remove = array('is','with', 'a', 'the', 'to', 'from', 'in', 'an', 'and', 'of', 'for', 'including', 'required', 'even');
+    $remove = array('is','with', 'a', 'the', 'to', 'from', 'in', 'an', 'and', 'of', 'for', 'including', 'required', 'even','many','more');
     array_filter($word_arr);
-    $final_arr = array_diff($word_arr, $remove);
+    $final_arr = array_filter(array_diff($word_arr, $remove));
     return implode(',', array_unique($final_arr));
 }
