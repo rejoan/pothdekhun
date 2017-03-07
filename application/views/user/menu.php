@@ -7,7 +7,7 @@
 
             </div>
             <div class="col-xs-12 col-sm-3 col-md-2">
-                <a class="navbar-brand" href="<?php echo site_url_tr('routes'); ?>"><?php echo lang('home'); ?></a>
+                <a class="navbar-brand" href="<?php echo site_url_tr(); ?>"><?php echo lang('home'); ?></a>
             </div>
             <div class="col-xs-12 col-sm-9 col-md-10">
                 <h1 class="header_slogan">Transport Finder Giant of Bangladesh</h1>
@@ -30,12 +30,7 @@
             if ($this->session->user_type == 'admin') {
                 $this->nl->generate_link('admin', 'b_janina', NULL, 'Admin');
             }
-            if ($this->session->user_id) {
-                $this->nl->generate_link('profile', 'profile', NULL, lang('profile'));
-            } else {
-                $this->nl->generate_link('auth/login', 'auth/login', NULL, lang('m_login'));
-                $this->nl->generate_link('auth/register', 'auth/register', NULL, lang('m_register'));
-            }
+            $this->nl->generate_link('routes', '', 'fa-home', lang('home_link'));
             ?>
             <li class="dropdown">
                 <a href="<?php echo site_url_tr('routes/all'); ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo lang('routes'); ?><span class="caret"></span></a>
@@ -55,9 +50,17 @@
                     ?>
                 </ul>
             </li>
+            <?php
+            if ($this->session->user_id) {
+                $this->nl->generate_link('profile', 'profile', NULL, lang('profile'));
+            } else {
+                $this->nl->generate_link('auth/login', 'auth/login', NULL, lang('m_login'));
+                $this->nl->generate_link('auth/register', 'auth/register', NULL, lang('m_register'));
+            }
+            ?>
 
             <!--            <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo lang('drivers'); ?><span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php //echo lang('drivers'); ?><span class="caret"></span></a>
                             <ul class="dropdown-menu">
             <?php
 //                    $this->nl->generate_link('drivers', 'drivers', 'fa-list', lang('drivers'));

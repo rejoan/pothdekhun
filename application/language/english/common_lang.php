@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+$lang['home_link'] = 'Home';
 $lang['index'] = 'Dhaka city bus route and all transport information of Bangladesh';
 $lang['home_page_meta'] = 'Dhaka city bus route and all transport finder of bangladesh. Bus Leguna Train Biman Launch information with fare, distance, google map, stoppages and many more';
 $lang['add_route'] = 'Add a Route';

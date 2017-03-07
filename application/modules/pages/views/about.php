@@ -19,12 +19,12 @@
                 <h4><?php echo lang('about_project'); ?></h4>
 
                 <p><?php echo lang('tech_used'); ?>
-                    <a target="_blank" href="https://en.wikipedia.org/wiki/PHP">PHP</a>
-                    <a target="_blank" href="https://en.wikipedia.org/wiki/MySQL">MySQL</a>
-                    <a target="_blank" href="https://en.wikipedia.org/wiki/CodeIgniter">CodeIgniter 3</a>
-                    <a target="_blank" href="https://en.wikipedia.org/wiki/Hierarchical_model%E2%80%93view%E2%80%93controller">HMVC</a>
-                    <a target="_blank" href="https://en.wikipedia.org/wiki/JQuery">jQuery</a>
-                    <a target="_blank" href="https://en.wikipedia.org/wiki/Node.js">NodeJS</a>
+                    <a target="_blank" rel="nofollow" href="https://en.wikipedia.org/wiki/PHP">PHP</a>
+                    <a target="_blank" rel="nofollow" href="https://en.wikipedia.org/wiki/MySQL">MySQL</a>
+                    <a target="_blank" rel="nofollow" href="https://en.wikipedia.org/wiki/CodeIgniter">CodeIgniter 3</a>
+                    <a target="_blank" rel="nofollow" href="https://en.wikipedia.org/wiki/Hierarchical_model%E2%80%93view%E2%80%93controller">HMVC</a>
+                    <a target="_blank" rel="nofollow" href="https://en.wikipedia.org/wiki/JQuery">jQuery</a>
+                    <a target="_blank" rel="nofollow" href="https://en.wikipedia.org/wiki/Node.js">NodeJS</a>
                 </p>
             </div>
 <!--            <p>Developer Information</p>
