@@ -52,3 +52,4 @@ $lang['proof'] = 'প্রমান';
 $lang['proof_des'] = 'যদি কোন প্রমান থাকে';
 $lang['prev_route'] = 'আগের রুট';
 $lang['next_route'] = 'পরের রুট';
+$lang['more_transport'] = 'এই রুটে আরও পরিবহন';
