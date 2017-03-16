@@ -180,3 +180,5 @@ $lang['select'] = 'Select';
 $lang['privacy_policy'] = 'Privacy Policy';
 $lang['mobile_app'] = 'Download Mobile App';
 $lang['main_route'] = 'Main Route';
+$lang['more_deep'] = 'Deep Search';
+$lang['no_transport'] = 'No Transport found in this route';

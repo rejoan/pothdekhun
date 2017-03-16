@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/search/controllers/Search.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/search/models/Search_model.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/controllers/Routes.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/views/details.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/more_transport.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/libraries/Nuts_lib.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/latest.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/search/views/index.php</file>
         </group>
     </open-files>
 </project-private>

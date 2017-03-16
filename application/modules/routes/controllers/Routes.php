@@ -523,18 +523,33 @@ class Routes extends MX_Controller {
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', ' s');
         $exact = modules::run('search/exact_routes', $result['from_district'], $result['from_thana'], $result['from_place'], $result['to_district'], $result['to_thana'], $result['to_place'], 10, 0);
         $exact_ids = $this->nl->get_all_ids($exact, 'r_id');
-        $exact_ids_arr = explode(',',$exact_ids);
+        $exact_ids_arr = explode(',', $exact_ids);
         $stoppages = modules::run('search/stoppage_routes', $result['from_place'], $stopage_table, $result['to_place'], 10, 0, FALSE, $result['from_district'], $result['to_district']);
         $stoppages_ids = $this->nl->get_all_ids($stoppages, 'r_id');
-        $stoppages_ids_arr = explode(',',$stoppages_ids);
+        $stoppages_ids_arr = explode(',', $stoppages_ids);
         $suggestions = modules::run('search/get_suggestions', $result['from_place'], $stopage_table, $result['to_place'], 10, 0, FALSE, $result['from_district'], $result['to_district'], $result['from_thana'], $result['to_thana']);
         $suggestions_ids = $this->nl->get_all_ids($suggestions, 'r_id');
-        $suggestions_ids_arr = explode(',',$suggestions_ids);
-        $final_ids = array_unique(array_merge($exact_ids_arr,$stoppages_ids_arr,$suggestions_ids_arr));
-        $more = array_merge($exact, $stoppages, $suggestions);
-        $final = array_map('unserialize', array_unique(array_map('serialize', $more)));
-        //var_dump($final);
-        return $final;
+        $suggestions_ids_arr = explode(',', $suggestions_ids);
+        $final_ids = array_unique(array_merge($exact_ids_arr, $stoppages_ids_arr, $suggestions_ids_arr));
+        $pos = array_search($result['r_id'], $final_ids);
+
+        unset($final_ids[$pos]);
+        $final = implode(',', $final_ids);
+        if (empty($final_ids)) {
+            return array();
+        }
+        $this->db->select('r.id r_id, r.from_district, r.to_district, r.from_thana, r.to_thana, r.rent, r.evidence, r.evidence2, r.added, r.transport_type, r.from_place, r.to_place, r.from_latlong, r.to_latlong, r.distance, r.duration, p.name, p.bn_name, r.departure_time, u.username,t.name thana_name,t.bn_name thana_name_bn,th.name th_thana_name,th.bn_name th_thana_name_bn, d.name district_name, d.bn_name district_name_bn, td.name td_name, td.bn_name td_bn_name, rt.from_place fp_bn, rt.to_place tp_bn, rt.departure_time dt_bn, rt.translation_status');
+        $this->db->from('routes r');
+        $this->db->join('route_bn rt', 'r.id = rt.route_id', 'left');
+        $this->db->join('poribohons p', 'r.poribohon_id = p.id', 'left');
+        $this->db->join('districts d', 'r.from_district = d.id', 'left');
+        $this->db->join('districts td', 'r.to_district = td.id', 'left');
+        $this->db->join('thanas t', 'r.from_thana = t.id', 'left');
+        $this->db->join('thanas th', 'r.to_thana = th.id', 'left');
+        $this->db->join('users u', 'r.added_by = u.id', 'left');
+        $this->db->where('r.is_publish = 1 AND  r.id IN(' . $final . ') AND (r.distance/1000) < 100', NULL, FALSE);
+        $query = $this->db->get();
+        return $query->result_array();
     }
 
     public function map() {

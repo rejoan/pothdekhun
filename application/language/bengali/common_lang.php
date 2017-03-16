@@ -179,3 +179,5 @@ $lang['possible_route'] = 'কিছু সম্ভ্যাব্য মিল
 $lang['privacy_policy'] = 'প্রাইভেসি পলিসি';
 $lang['mobile_app'] = 'মোবাইল অ্যাপ ডাইনলোড করুন';
 $lang['main_route'] = 'মুল রুট';
+$lang['more_deep'] = 'গভীর অনুসন্ধান';
+$lang['no_transport'] = 'এই রুটে আর পরিবহন পাওয়া যায়নি';
