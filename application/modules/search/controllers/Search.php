@@ -110,7 +110,7 @@ class Search extends MX_Controller {
 
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', ' s');
 
-        $exact_routes = $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $per_page, $segment);
+        $exact_routes = $this->exact_routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $per_page, $segment);
         $total_rows = $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $per_page, $segment, TRUE);
         //var_dump($routes);return;
         $links = $this->nl->generate_pagination($url, $total_rows, $per_page, $num_links);
@@ -120,13 +120,22 @@ class Search extends MX_Controller {
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
         });
 
-        $stoppage_routes = $this->sm->stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, FALSE, $from_district, $to_district);
+        $stoppage_routes = $this->stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, FALSE, $from_district, $to_district);
         array_walk($stoppage_routes, function(&$a) use($stopage_table) {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
         });
+        if ($total_rows < 5) {
+            $total_rows = $this->sm->stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, TRUE, $from_district, $to_district);
+            if (empty($total_rows)) {
+                $total_rows = 0;
+            }
+            $links = $this->nl->generate_pagination($url, $total_rows, $per_page, $num_links);
+        }
+        //var_dump($routes);return;
 
-        $suggested_routes = $this->sm->get_suggestions($from_place, $stopage_table, $to_place, $per_page, $segment, FALSE, $from_district, $to_district);
+
+        $suggested_routes = $this->get_suggestions($from_place, $stopage_table, $to_place, $per_page, $segment, FALSE, $from_district, $to_district);
         array_walk($suggested_routes, function(&$a) use($stopage_table) {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
@@ -142,7 +151,7 @@ class Search extends MX_Controller {
         $td = $this->pm->get_row('id', $to_district, 'districts');
         $ft = $this->pm->get_row('id', $from_thana, 'thanas');
         $th = $this->pm->get_row('id', $to_thana, 'thanas');
-        
+
         $c = $this->input->get('c', TRUE);
         $fthana = $tthana = lang('any_thana');
         if ($c || $from_district != 1 || $from_district == $to_district) {
@@ -168,7 +177,7 @@ class Search extends MX_Controller {
         }
 
         $data = array(
-            'title' => lang('transports_available') . ' '. $f_place . $fthana . mb_convert_case($fd[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ' '.lang('to_view').' ' . $t_place . $tthana . mb_convert_case($td[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'),
+            'title' => lang('transports_available') . ' ' . $f_place . $fthana . mb_convert_case($fd[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('to_view') . ' ' . $t_place . $tthana . mb_convert_case($td[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'),
             'routes' => $exact_routes,
             'stoppage_routes' => $stoppage_routes,
             'suggested_routes' => $suggested_routes,
@@ -183,9 +192,22 @@ class Search extends MX_Controller {
             'th' => $th,
             'settings' => $this->nl->get_config(),
             'links' => $links,
-            'segment' => $segment
+            'segment' => $segment,
+            'total_rows' => $total_rows
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
+    }
+
+    public function exact_routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $per_page, $segment) {
+        return $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $per_page, $segment);
+    }
+
+    public function stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district) {
+        return $this->sm->stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district);
+    }
+
+    public function get_suggestions($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district) {
+        return $this->sm->get_suggestions($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district);
     }
 
 }

@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+//var_dump($total_rows);return;
 $patterns = array();
 $replacements = array();
 if (!empty($from_place)) {
@@ -35,9 +36,11 @@ if (!empty($to_place)) {
             }
             ?>
         </div>
-        <div class="box-footer">
-            <?php echo $links; ?>
-        </div>
+        <?php if (count($routes) > 9): ?>
+            <div class="box-footer">
+                <?php echo $links; ?>
+            </div>
+        <?php endif; ?>
     </div>
     <?php if (count($routes) < 5): ?>
         <div class="box box-poth">
@@ -64,10 +67,13 @@ if (!empty($to_place)) {
                 }
                 ?>
             </div>
+            <div class="box-footer">
+                <?php echo $links; ?>
+            </div>
         </div>
     <?php endif; ?>
 
-    <?php if (count($routes) < 2 && count($stoppage_routes) < 2): ?>
+    <?php if (count($routes) < 10 && $total_rows < 10): ?>
         <div class="box box-poth">
             <div class="box-header with-border">
                 <h4 class="custom_margin"><?php echo lang('suggested_route'); ?></h4>

@@ -511,11 +511,30 @@ class Routes extends MX_Controller {
             'settings' => $this->nl->get_config(),
             'comments' => $this->rm->get_comments($route_id),
             'next' => $next_q->row_array(),
-            'prev' => $prev_q->row_array()
+            'prev' => $prev_q->row_array(),
+            'more_transports' => $this->more_transports($result)
         );
         $data['meta_title'] = $data['title'] . lang('meta_title_route');
         //echo $this->db->last_query();return;
         $this->nl->view_loader('user', 'latest', NULL, $data, 'details', 'rightbar', 'menu', TRUE);
+    }
+
+    public function more_transports($result) {
+        $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', ' s');
+        $exact = modules::run('search/exact_routes', $result['from_district'], $result['from_thana'], $result['from_place'], $result['to_district'], $result['to_thana'], $result['to_place'], 10, 0);
+        $exact_ids = $this->nl->get_all_ids($exact, 'r_id');
+        $exact_ids_arr = explode(',',$exact_ids);
+        $stoppages = modules::run('search/stoppage_routes', $result['from_place'], $stopage_table, $result['to_place'], 10, 0, FALSE, $result['from_district'], $result['to_district']);
+        $stoppages_ids = $this->nl->get_all_ids($stoppages, 'r_id');
+        $stoppages_ids_arr = explode(',',$stoppages_ids);
+        $suggestions = modules::run('search/get_suggestions', $result['from_place'], $stopage_table, $result['to_place'], 10, 0, FALSE, $result['from_district'], $result['to_district'], $result['from_thana'], $result['to_thana']);
+        $suggestions_ids = $this->nl->get_all_ids($suggestions, 'r_id');
+        $suggestions_ids_arr = explode(',',$suggestions_ids);
+        $final_ids = array_unique(array_merge($exact_ids_arr,$stoppages_ids_arr,$suggestions_ids_arr));
+        $more = array_merge($exact, $stoppages, $suggestions);
+        $final = array_map('unserialize', array_unique(array_map('serialize', $more)));
+        //var_dump($final);
+        return $final;
     }
 
     public function map() {
@@ -556,7 +575,7 @@ class Routes extends MX_Controller {
             )
         ));
         //var_dump($final_from_str,$final_to_str);return;
-        $direction_api = @file_get_contents('https://maps.googleapis.com/maps/api/directions/json?origin=' .$final_from_str . ',Bangladesh&destination=' . $final_to_str. ',Bangladesh&key=&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $dtx);
+        $direction_api = @file_get_contents('https://maps.googleapis.com/maps/api/directions/json?origin=' . $final_from_str . ',Bangladesh&destination=' . $final_to_str . ',Bangladesh&key=&key=AIzaSyBgyMl_G_cjNrVViifqYU2DSi0SOc2H8bg', false, $dtx);
         $api_result = json_decode($direction_api);
         if (empty($api_result) || empty($api_result->routes->status)) {
             $final_from = $map_disctrict;

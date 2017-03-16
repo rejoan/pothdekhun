@@ -179,3 +179,4 @@ $lang['possible_route'] = 'Some possible matches';
 $lang['select'] = 'Select';
 $lang['privacy_policy'] = 'Privacy Policy';
 $lang['mobile_app'] = 'Download Mobile App';
+$lang['main_route'] = 'Main Route';

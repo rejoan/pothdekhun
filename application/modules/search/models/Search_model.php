@@ -97,7 +97,7 @@ OR (r.to_district = ' . $district . $sqlt_thana . $ft_place . ' AND r.from_distr
                                             FROM ' . $stopage_table . '
                                             WHERE place_name = "' . $place . '"
                                             ) AS rtn');
-        //echo $this->db->last_query();return;
+        //echo $this->db->last_query();
         $all_places = $all_place_q->result_array();
         $from_route_id = $this->nl->get_all_ids($all_places, 'route_id');
         //var_dump($from_route_id);return;
@@ -139,7 +139,10 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         }
         //$this->db->order_by('r.distance', 'asc');
         $query = $this->db->get();
-
+        if ($pagination) {
+            return $query->num_rows();
+        }
+        //echo $this->db->last_query();return;
         return $query->result_array();
     }
 
@@ -211,9 +214,15 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
 //        return explode(',', $suggestion_ids);
     }
 
-    public function get_by_thana($place, $stopage_table, $to_place) {
+    public function get_by_thana($place, $stopage_table, $to_place, $from_thana = 1, $to_thana = 1) {
         $ft = trim($this->input->get('ft', TRUE));
+        if (empty($ft)) {//when GET params not exist (in detail page)
+            $ft = $from_thana;
+        }
         $th = trim($this->input->get('th', TRUE));
+        if (empty($th)) {//when GET params not exist (in detail page
+            $th = $to_thana;
+        }
 
         $all_place_q = $this->db->query('SELECT *
                         FROM (
