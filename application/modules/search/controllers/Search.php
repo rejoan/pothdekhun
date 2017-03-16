@@ -17,6 +17,9 @@ class Search extends MX_Controller {
 
     public function index() {
         $place = trim($this->input->get('f', TRUE));
+        if(empty($place)){
+            redirect_tr('routes');
+        }
         $district = trim($this->input->get('ds', TRUE));
 
         if (strpos($place, ',') !== false) {
