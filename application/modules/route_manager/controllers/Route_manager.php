@@ -371,8 +371,8 @@ class Route_manager extends MX_Controller {
     }
 
     public function get_f() {
-        $original = array_map('basename', glob('evidences/*.{jpg,gif,png,jpeg}', GLOB_BRACE));
-        $thumbs = array_map('basename', glob('thumbs/*.{jpg,gif,png,jpeg}', GLOB_BRACE));
+        $original = array_map('basename', glob('evidences/*.{JPG,jpg,gif,GIF,png,PNG,jpeg,JPEG}', GLOB_BRACE));
+        $thumbs = array_map('basename', glob('thumbs/*.{JPG,jpg,gif,GIF,png,PNG,jpeg,JPEG}', GLOB_BRACE));
         $missing_thumbs = array_diff($original, $thumbs);
         //$missing_original = array_diff($thumbs, $original);
         $this->load->library('image_lib');
