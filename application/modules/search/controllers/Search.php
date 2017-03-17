@@ -17,10 +17,10 @@ class Search extends MX_Controller {
 
     public function index() {
         $place = trim($this->input->get('f', TRUE));
-        if(empty($place)){
+        $district = trim($this->input->get('ds', TRUE));
+        if (empty($district)) {
             redirect_tr('routes');
         }
-        $district = trim($this->input->get('ds', TRUE));
 
         if (strpos($place, ',') !== false) {
             $place_name = trim(substr($place, 0, strrpos($place, ',')));
