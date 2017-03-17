@@ -23,7 +23,7 @@
 <!--        <script src="https://apis.google.com/js/platform.js" async defer></script>-->
         <link rel="icon" href="<?php echo base_url('assets/images') . '/favicon.ico'; ?>">
 
-        <title><?php echo $title; ?> | PothDekhun</title>
+        <title><?php echo $title; ?> by PothDekhun</title>
         <?php
         $f_class = $this->router->fetch_class();
         $f_method = $this->router->fetch_method();

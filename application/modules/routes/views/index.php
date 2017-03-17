@@ -19,7 +19,7 @@
     <div class="box box-poth">
         <div class="box-header">
             <h5 class="no-margin header_linehight"><?php echo lang('main_search'); ?></h5>
-<!--            <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#how_search_work"><?php //echo lang('how_works'); ?></button>-->
+            <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#search_tips"><?php echo lang('search_tips'); ?></button>
         </div>
         <div class="box-body">
 
@@ -142,8 +142,12 @@
         </div>
     </div>
 </div>
+<?php $this->load->view('video_modal'); ?>
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#search_tips').on('hidden.bs.modal', function (e) {
+            $('#search_tips iframe').attr('src', $('#search_tips iframe').attr('src'));
+        });
         var screenWidth = window.screen.width;
         //screenHeight = window.screen.height;
         if (screenWidth < 800) {
