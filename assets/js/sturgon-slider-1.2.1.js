@@ -394,25 +394,11 @@ $(document).ready(function () {
 
     $('select[name="fd"]').change(function () {
         var district = $.trim($(this).val());
-        var to_district = $('select[name="td"]').val();
-        if ((district == 1 && to_district !== 1) || (to_district == 1 && district !== 1)) {
-            $('#consider_thana').slideDown();
-        } else {
-            $('#consider_thana').slideUp();
-        }
-
         var thana = $(this).data('thana');
         get_thanas(district, thana);
     });
     $('select[name="td"]').change(function () {
         var district = $.trim($(this).val());
-        var from_district = $('select[name="fd"]').val();
-        if ((district == 1 && from_district !== 1) || (from_district == 1 && district !== 1)) {
-            $('#consider_thana').slideDown();
-        } else {
-            $('#consider_thana').slideUp();
-        }
-
         var thana = $(this).data('thana');
         get_thanas(district, thana);
     });
@@ -653,11 +639,6 @@ function get_thanas(district, thana) {
         $('#' + thana).html(th);
 
         $('#' + thana).selectpicker('refresh');
-        if (district == 1) {//if dhaka show tooltip
-            $('#t' + thana).tooltip('enable');
-        } else {
-            $('#t' + thana).tooltip('disable');
-        }
     });
 }
 

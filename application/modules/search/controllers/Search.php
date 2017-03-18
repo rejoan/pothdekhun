@@ -90,7 +90,7 @@ class Search extends MX_Controller {
      * main search
      */
     public function routes() {
-        $per_page = 10;
+        $per_page = 12;
         $num_links = 5;
 
         if ($this->input->get('page')) {
@@ -122,12 +122,15 @@ class Search extends MX_Controller {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
         });
-
-        $stoppage_routes = $this->stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, FALSE, $from_district, $to_district);
+        $exclude_exact_ids = $this->nl->get_all_ids($exact_routes, 'r_id');
+        //var_dump($excludes);return;
+        $stoppage_routes = $this->stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, FALSE, $from_district, $to_district, $exclude_exact_ids);
         array_walk($stoppage_routes, function(&$a) use($stopage_table) {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
         });
+        $exclude_stp_ids = $this->nl->get_all_ids($stoppage_routes, 'r_id');
+        $exact_stopage = array_merge(array_filter(explode(',', $exclude_exact_ids)), array_filter(explode(',', $exclude_stp_ids)));
         if ($total_rows < 5) {
             $total_rows = $this->sm->stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, TRUE, $from_district, $to_district);
             if (empty($total_rows)) {
@@ -136,15 +139,19 @@ class Search extends MX_Controller {
             $links = $this->nl->generate_pagination($url, $total_rows, $per_page, $num_links);
         }
         //var_dump($routes);return;
-
-
-        $suggested_routes = $this->get_suggestions($from_place, $stopage_table, $to_place, $per_page, $segment, FALSE, $from_district, $to_district);
+        $exact_stopage_ids = implode(',', $exact_stopage);
+        //var_dump($exact_stopage_ids);return;
+        $suggested_routes = $this->get_suggestions($from_place, $stopage_table, $to_place, $per_page, $segment, FALSE, $from_district, $to_district, $exact_stopage_ids);
         array_walk($suggested_routes, function(&$a) use($stopage_table) {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
         });
 
-        $possible_matches = $this->sm->possible_collections($from_place, $stopage_table, $to_place, 10, $segment, FALSE, $from_district, $to_district);
+        $exclude_suggested_ids = $this->nl->get_all_ids($suggested_routes, 'r_id');
+        $exact_stopage_suggested = array_merge(array_filter(explode(',', $exclude_exact_ids)), array_filter(explode(',', $exclude_stp_ids)), array_filter(explode(',', $exclude_suggested_ids)));
+        //var_dump($exact_stopage_suggested);return;
+        $exact_stopage_suggested_ids = implode(',', $exact_stopage_suggested);
+        $possible_matches = $this->sm->possible_collections($from_place, $stopage_table, $to_place, 10, $segment, FALSE, $from_district, $to_district, $exact_stopage_suggested_ids);
         array_walk($possible_matches, function(&$a) use($stopage_table) {
             $stoppage = $this->pm->get_data($stopage_table, FALSE, 's.route_id', $a['r_id'], FALSE, FALSE, FALSE, 'position', 'asc');
             $a['stoppages'] = $this->nl->get_all_ids($stoppage, 'place_name', TRUE);
@@ -156,27 +163,21 @@ class Search extends MX_Controller {
         $th = $this->pm->get_row('id', $to_thana, 'thanas');
 
         $c = $this->input->get('c', TRUE);
-        $fthana = $tthana = lang('any_thana');
-        if ($c || $from_district != 1 || $from_district == $to_district) {
-            $fthana = mb_convert_case($ft[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ', ';
-        }
-        if ($c || $to_district != 1 || $from_district == $to_district) {
-            $tthana = mb_convert_case($th[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ', ';
+        $fthana = mb_convert_case($ft[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ', ';
+        $tthana = mb_convert_case($th[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ', ';
+
+        if ($c) {
+            $fthana = $tthana = lang('any_thana');
         }
 
         $f_place = mb_convert_case($from_place, MB_CASE_TITLE, 'UTF-8') . ', ';
         if (empty($from_place)) {
             $f_place = '';
         }
-        if (!empty($from_place)) {
-            $fthana = lang('any_thana');
-        }
+
         $t_place = mb_convert_case($to_place, MB_CASE_TITLE, 'UTF-8') . ', ';
         if (empty($to_place)) {
             $t_place = '';
-        }
-        if (!empty($to_place)) {
-            $tthana = lang('any_thana');
         }
 
         $data = array(
@@ -205,12 +206,12 @@ class Search extends MX_Controller {
         return $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $per_page, $segment);
     }
 
-    public function stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district) {
-        return $this->sm->stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district);
+    public function stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district, $excludes) {
+        return $this->sm->stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district, $excludes);
     }
 
-    public function get_suggestions($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district) {
-        return $this->sm->get_suggestions($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district);
+    public function get_suggestions($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district,$excludes) {
+        return $this->sm->get_suggestions($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district,$excludes);
     }
 
 }

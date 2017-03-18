@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="col-xs-10 col-md-3">
-                            <div id="tft" data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
+                            <div id="tft" class="form-group">
                                 <select id="ft" name="ft" class="selectpicker thanas" data-width="100%" data-live-search="true" >
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '493' ? 'selected="yes"' : ''; ?>>
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <div class="col-xs-10 col-md-3">
-                            <div id="tth" data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
+                            <div id="tth" class="form-group">
                                 <select id="th" name="th" class="selectpicker thanas" data-width="100%" data-live-search="true">
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '509' ? 'selected="yes"' : ''; ?>>
@@ -96,9 +96,9 @@
                         </div>
                     </div>
                 </div>
-                <div id="consider_thana" class="form-group err">
+                <div id="consider_thana" class="form-group">
                     <label>
-                        <input type="checkbox" name="c"> <?php echo lang('consider_thana'); ?>
+                        <input type="checkbox" name="c"> <?php echo lang('ignore_thana'); ?>
                     </label>
                 </div>
 

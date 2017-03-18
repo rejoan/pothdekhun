@@ -22,15 +22,15 @@ class Search_model extends CI_Model {
      */
     public function routes($district, $thana, $place, $to_district, $to_thana, $to_place, $per_page = 10, $segment = 3, $pagination = FALSE) {
 
-        $sql_thana = $sql_tothana = $sqlt_thana = $sqlt_tothana = $sql_fthana = $sql_tthana = $f_place = $t_place = '';
-        $consider_thana = $this->input->get('c', TRUE);
-        if ($district != 1 || $district == $to_district || $consider_thana) {//if not dhaka then filter thana
-            $sql_thana .= ' AND r.from_thana = ' . $thana;
-            $sqlt_thana .= ' AND r.to_thana = ' . $thana;
-        }
-        if ($to_district != 1 || $district == $to_district || $consider_thana) {
-            $sql_tothana .= ' AND r.to_thana = ' . $to_thana;
-            $sqlt_tothana .= ' AND r.from_thana = ' . $to_thana;
+        $sql_thana = $sql_tothana = $sqlt_thana = $sqlt_tothana = $f_place = $t_place = '';
+        $sql_thana .= ' AND r.from_thana = ' . $thana;
+        $sqlt_thana .= ' AND r.to_thana = ' . $thana;
+        $sql_tothana .= ' AND r.to_thana = ' . $to_thana;
+        $sqlt_tothana .= ' AND r.from_thana = ' . $to_thana;
+        $ignore_thana = $this->input->get('c', TRUE);
+
+        if ($ignore_thana) {//if consider thana checkbox selected
+            $sql_thana = $sql_tothana = $sqlt_thana = $sqlt_tothana = '';
         }
 
         $ft_place = $tt_place = '';
@@ -43,7 +43,7 @@ class Search_model extends CI_Model {
             $tt_place .= ' AND LOWER(r.from_place) = "' . strtolower($to_place) . '"';
         }
 //Step 1: search direct from place and to place
-        $this->db->select('r.id r_id, r.from_district, r.to_district, r.from_thana, r.to_thana, r.rent, r.evidence, r.evidence2, r.added, r.transport_type, r.from_place, r.to_place, r.from_latlong, r.to_latlong, r.distance, r.duration, p.name, p.bn_name, r.departure_time, u.username, rt.from_place fp_bn, rt.to_place tp_bn, rt.departure_time dt_bn, rt.translation_status');
+        $this->db->select('r.id r_id, r.from_district, r.to_district, r.from_thana, r.to_thana, r.rent, r.evidence, r.evidence2, r.added, r.transport_type, r.from_place, r.to_place, r.from_latlong, r.to_latlong, r.distance, r.duration, p.name, p.bn_name, r.departure_time, u.username, rt.from_place fp_bn, rt.to_place tp_bn, rt.departure_time dt_bn, rt.translation_status,t.name thana_name,t.bn_name thana_name_bn,th.name th_thana_name,th.bn_name th_thana_name_bn, d.name district_name, d.bn_name district_name_bn, td.name td_name, td.bn_name td_bn_name');
         $this->db->from('routes r');
         $this->db->join('route_bn rt', 'r.id = rt.route_id', 'left');
         $this->db->join('poribohons p', 'r.poribohon_id = p.id', 'left');
@@ -61,29 +61,25 @@ OR (r.to_district = ' . $district . $sqlt_thana . $ft_place . ' AND r.from_distr
         }
         //$this->db->order_by('r.distance', 'asc');
         $query = $this->db->get();
+
         if ($pagination) {
             return $query->num_rows();
         }
         //echo $this->db->last_query();
-        //var_dump($query->num_rows());return;
-
         return $query->result_array();
     }
 
-    public function stoppage_routes($place, $stopage_table, $to_place, $per_page, $segment, $pagination, $district, $to_district) {
+    public function stoppage_routes($place, $stopage_table, $to_place, $per_page, $segment, $pagination, $district, $to_district, $excludes = NULL) {
         //Step 2: search in all including stoppages when not route direct
         $ft = trim($this->input->get('ft', TRUE));
         $th = trim($this->input->get('th', TRUE));
-        $from_empty = $to_empty = FALSE;
         $fthana = $this->pm->get_row('id', $ft, 'thanas');
         $tthana = $this->pm->get_row('id', $th, 'thanas');
         if (empty($place)) {
             $place = $fthana[$this->nl->lang_based_data('bn_name', 'name')];
-            $from_empty = TRUE;
         }
         if (empty($to_place)) {
             $to_place = $tthana[$this->nl->lang_based_data('bn_name', 'name')];
-            $to_empty = TRUE;
         }
         $all_place_q = $this->db->query('SELECT *
                                             FROM (
@@ -134,6 +130,9 @@ OR (r.to_district = ' . $district . $sqlt_thana . $ft_place . ' AND r.from_distr
         $this->db->join('users u', 'r.added_by = u.id', 'left');
         $this->db->where('r.is_publish = 1 AND  r.id IN(' . $all_routes_id . ') AND
 r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, FALSE);
+        if (!empty($excludes)) {
+            $this->db->where('r.id NOT IN(' . $excludes . ')', NULL, FALSE);
+        }
         if (!$pagination) {
             $this->db->limit($per_page, $segment);
         }
@@ -153,7 +152,7 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
      * @param type $to_place
      * @return type
      */
-    public function get_suggestions($place, $stopage_table, $to_place, $per_page, $segment, $pagination, $district, $to_district) {
+    public function get_suggestions($place, $stopage_table, $to_place, $per_page, $segment, $pagination, $district, $to_district,$excludes = NULL) {
         $ft = trim($this->input->get('ft', TRUE));
         $th = trim($this->input->get('th', TRUE));
         $fthana = $this->pm->get_row('id', $ft, 'thanas');
@@ -179,7 +178,7 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         $all_places = $all_place_q->result_array();
         $from_route_id = $this->nl->get_all_ids($all_places, 'route_id');
         //var_dump($from_route_id);return;
-        $all_arr = array();
+        $all_routes_id = '';
         if (!empty($from_route_id)) {
             $to_place_q = $this->db->query('SELECT * FROM (SELECT id route_id,from_place Location
                         FROM routes
@@ -194,24 +193,24 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
             //echo $this->db->last_query();return;
             $to_places = $to_place_q->result_array();
             $all_routes_id = $this->nl->get_all_ids($to_places, 'route_id');
-            $all_arr = explode(',', $all_routes_id);
+            //$all_arr = explode(',', $all_routes_id);
         }
 
-
-        $thana_suggestion = $this->get_by_thana($place, $stopage_table, $to_place);
-        $thana_routes_id = $this->nl->get_all_ids($thana_suggestion, 'route_id');
-        $thana_arr = explode(',', $thana_routes_id);
-        $final_ids = array_merge($all_arr, $thana_arr);
-        $all_id_arr = array_filter(array_unique($final_ids));
-
-        $all_ids = implode(',', $all_id_arr);
-        //var_dump($all_ids);return;
-        if (empty($all_ids)) {
+//        $ignore_thana = $this->input->get('c', TRUE);
+//        $thana_suggestion = $this->get_by_thana($place, $stopage_table, $to_place,$ft,$th);
+//        $thana_routes_id = $this->nl->get_all_ids($thana_suggestion, 'route_id');
+//        $thana_arr = explode(',', $thana_routes_id);
+//        if ($ignore_thana) {//if ignore thana
+//            $thana_arr = array();
+//        }
+//        $final_ids = array_merge($all_arr, $thana_arr);
+        //$all_id_arr = array_filter(array_unique($final_ids));
+        //$all_ids = implode(',', $all_id_arr);
+        //var_dump($excludes);return;
+        if (empty($all_routes_id)) {
             return array();
         }
-        return $this->final_result($all_ids, $per_page, $segment, $pagination, $district, $to_district);
-//        $suggestion_ids = $this->nl->get_all_ids($suggestions, 'r_id');
-//        return explode(',', $suggestion_ids);
+        return $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district,$excludes);
     }
 
     public function get_by_thana($place, $stopage_table, $to_place, $from_thana = 1, $to_thana = 1) {
@@ -306,7 +305,7 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
      * @param type $pagination
      * @return type
      */
-    public function final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district) {
+    public function final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district, $excludes = NULL) {
 
         $this->db->select('r.id r_id, r.from_district, r.to_district, r.from_thana, r.to_thana, r.rent, r.evidence, r.evidence2, r.added, r.transport_type, r.from_place, r.to_place, r.from_latlong, r.to_latlong, r.distance, r.duration, p.name, p.bn_name, r.departure_time, u.username,t.name thana_name,t.bn_name thana_name_bn,th.name th_thana_name,th.bn_name th_thana_name_bn, d.name district_name, d.bn_name district_name_bn, td.name td_name, td.bn_name td_bn_name, rt.from_place fp_bn, rt.to_place tp_bn, rt.departure_time dt_bn, rt.translation_status');
         $this->db->from('routes r');
@@ -317,7 +316,10 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         $this->db->join('thanas t', 'r.from_thana = t.id', 'left');
         $this->db->join('thanas th', 'r.to_thana = th.id', 'left');
         $this->db->join('users u', 'r.added_by = u.id', 'left');
-        $this->db->where('r.is_publish = 1 AND  r.id IN(' . $all_routes_id . ') AND (r.distance/1000) < 100', NULL, FALSE);
+        $this->db->where('r.is_publish = 1 AND r.id IN(' . $all_routes_id . ') AND (r.distance/1000) < 100', NULL, FALSE);
+        if (!empty($excludes)) {
+            $this->db->where('r.id NOT IN(' . $excludes . ')', NULL, FALSE);
+        }
         if (!$pagination) {
             $this->db->limit($per_page, $segment);
         }
@@ -378,7 +380,7 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         return $result['id'];
     }
 
-    public function possible_collections($place, $stopage_table, $to_place, $per_page, $segment, $pagination, $district, $to_district) {
+    public function possible_collections($place, $stopage_table, $to_place, $per_page, $segment, $pagination, $district, $to_district, $excludes = NULL) {
         $ft = trim($this->input->get('ft', TRUE));
         $th = trim($this->input->get('th', TRUE));
 
@@ -405,6 +407,7 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         //echo $this->db->last_query();return;
         //var_dump($fquery->num_rows());return;
         if ($fquery->num_rows() > 0) {// when from place exact found in places including stoppages
+            $f_ids = $this->nl->get_all_ids($fquery->result_array(), 'route_id');
             $query = $this->db->query('SELECT *
                                     FROM (
                                     SELECT id route_id
@@ -416,14 +419,14 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
                                     SELECT route_id
                                     FROM ' . $stopage_table . '
                                     WHERE place_name SOUNDS LIKE "' . $to_place . '"
-                                    ) AS rtn');
+                                    ) AS rtn WHERE rtn.route_id IN (' . $f_ids . ')');
             //echo $this->db->last_query();return;
             $all_routes_id = $this->nl->get_all_ids($query->result_array(), 'route_id');
             //var_dump($all_routes_id);return;
             if (empty($all_routes_id)) {
                 return array();
             }
-            return $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district);
+            return $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district, $excludes);
         }
 
         $tquery = $this->db->query('SELECT *
@@ -438,9 +441,10 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
                                     FROM ' . $stopage_table . '
                                     WHERE place_name = "' . $to_place . '" OR place_name LIKE "%' . $to_place . '%"
                                     ) AS rtn');
-
+        //echo $this->db->last_query();
         if ($tquery->num_rows() > 0) {
             // when to place exact found in places including stoppages
+            $t_ids = $this->nl->get_all_ids($tquery->result_array(), 'route_id');
             $query = $this->db->query('SELECT *
                                     FROM (
                                     SELECT id route_id
@@ -452,13 +456,14 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
                                     SELECT route_id
                                     FROM ' . $stopage_table . '
                                     WHERE place_name SOUNDS LIKE "' . $place . '"
-                                    ) AS rtn');
+                                    ) AS rtn WHERE rtn.route_id IN (' . $t_ids . ')');
+            //echo $this->db->last_query();
             $all_routes_id = $this->nl->get_all_ids($query->result_array(), 'route_id');
             //var_dump($all_routes_id);return;
             if (empty($all_routes_id)) {
                 return array();
             }
-            return $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district);
+            return $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district, $excludes);
         }
 
         $ftquery = $this->db->query('SELECT *
@@ -495,7 +500,7 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
             if (empty($all_routes_id)) {
                 return array();
             }
-            return $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district);
+            return $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district, $excludes);
         }
         return array();
     }
