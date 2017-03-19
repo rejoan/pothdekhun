@@ -530,11 +530,12 @@ class Routes extends MX_Controller {
         $suggestions = modules::run('search/get_suggestions', $result['from_place'], $stopage_table, $result['to_place'], 10, 0, FALSE, $result['from_district'], $result['to_district'], $result['from_thana'], $result['to_thana']);
         $suggestions_ids = $this->nl->get_all_ids($suggestions, 'r_id');
         $suggestions_ids_arr = explode(',', $suggestions_ids);
-        $final_ids = array_unique(array_merge($exact_ids_arr, $stoppages_ids_arr, $suggestions_ids_arr));
+        $final_ids = array_filter(array_unique(array_merge($exact_ids_arr, $stoppages_ids_arr, $suggestions_ids_arr)));
         $pos = array_search($result['r_id'], $final_ids);
 
         unset($final_ids[$pos]);
         $final = implode(',', $final_ids);
+        
         if (empty($final_ids)) {
             return array();
         }
