@@ -33,9 +33,27 @@ class Recaptcha {
      * @return array
      */
     public function recaptcha_check_answer($captcha) {
-        $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=6LdBRhEUAAAAAKkvzi_1RLQSV6-ook_AfcLxfS7c&response=' . $captcha);
-        $result = json_decode($response, TRUE);
-        return $result;
+        $privatekey = '6LdBRhEUAAAAAKkvzi_1RLQSV6-ook_AfcLxfS7c';
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+        $data = array(
+            'secret' => $privatekey,
+            'response' => $captcha,
+            'remoteip' => $_SERVER['REMOTE_ADDR']
+        );
+
+        $curlConfig = array(
+            CURLOPT_URL => $url,
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POSTFIELDS => $data
+        );
+
+        $ch = curl_init();
+        curl_setopt_array($ch, $curlConfig);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        return json_decode($response, TRUE);
     }
 
 }

@@ -183,3 +183,5 @@ $lang['main_route'] = 'Main Route';
 $lang['more_deep'] = 'Deep Search';
 $lang['no_transport'] = 'No Transport found in this route';
 $lang['search_tips'] = 'Search Tips';
+$lang['email_info'] = 'Your Email will not be published in site.';
+$lang['mobile_info'] = 'Your Number will not be published in site. We may use it later to send you flexi/load/bkash if you earn points from this site';

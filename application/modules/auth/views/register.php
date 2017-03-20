@@ -18,24 +18,27 @@
                 </p>
                 <form  action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
                     <div id="userInfo" class="form-group has-feedback">
-                        <input id="chkUsername" type="text" class="form-control" placeholder="<?php echo lang('username'); ?>" name="username" required title="আপনার ইউজার নাম দিন" value="<?php echo set_value('username'); ?>">
+                        <input id="chkUsername" type="text" class="form-control" placeholder="<?php echo lang('username'); ?>" name="username" required value="<?php echo set_value('username'); ?>">
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     </div>
                     <?php echo form_error('username', '<div class="alert alert-danger">', '</div>'); ?>
 
                     <div id="emailInfo" class="form-group has-feedback">
-                        <input id="chkEmail" type="email" class="form-control" placeholder="<?php echo lang('email'); ?>" name="email" required title="আপনার ইমেইল দিন" value="<?php echo set_value('email'); ?>">
+                        <input id="chkEmail" type="email" class="form-control" placeholder="<?php echo lang('email'); ?>" name="email" required value="<?php echo set_value('email'); ?>">
+                        <span class="help-block"><?php echo lang('email_info');?></span>
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
                     <?php echo form_error('email', '<div class="alert alert-danger">', '</div>'); ?>
 
                     <div class="form-group has-feedback">
-                        <input type="text" class="form-control" name="mobile" placeholder="<?php echo lang('mobile'); ?>">
+                        <input type="text" class="form-control" name="mobile" placeholder="<?php echo lang('mobile'); ?>" autocomplete="off">
+                        <span class="help-block"><?php echo lang('mobile_info');?></span>
                         <span class="glyphicon glyphicon-phone form-control-feedback"></span>
                     </div>
+                    
 
                     <div class="form-group has-feedback">
-                        <input type="password" class="form-control" placeholder="<?php echo lang('password'); ?>" name="password" required title="পাসওয়ার্ড দিন">
+                        <input type="password" class="form-control" placeholder="<?php echo lang('password'); ?>" name="password" required autocomplete="off">
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <?php echo form_error('password', '<div class="alert alert-danger">', '</div>'); ?>
