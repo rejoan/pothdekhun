@@ -2,15 +2,7 @@
 <!DOCTYPE html>
 <html lang="<?php echo $this->session->lang_code; ?>">
     <head>
-        <?php if (ENVIRONMENT == 'production'): ?>
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({
-                    google_ad_client: "ca-pub-8715007142406485",
-                    enable_page_level_ads: true
-                });
-            </script>
-        <?php endif; ?>
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,7 +29,7 @@
             <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.css'); ?>">
         <?php endif; ?>
         <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables/media/css/jquery.dataTables.min.css'); ?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css?v=1.7'); ?>" >
+        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css?v=1.9'); ?>" >
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-select.min.css'); ?>" >
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/font-awesome.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/ionicons.min.css'); ?>">
@@ -93,3 +85,15 @@
 
             <div class="row">
                 <?php $this->nl->breadcrumb(); ?>
+                <?php if ($f_class != 'pages' && $f_class != 'auth' && ENVIRONMENT == 'production'): ?>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- All Page top banner -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-6904999156943572"
+                         data-ad-slot="8410206445"
+                         data-ad-format="auto"></ins>
+                    <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                <?php endif; ?>
