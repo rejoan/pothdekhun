@@ -138,10 +138,15 @@ class Prime_model extends CI_Model {
      * @param type $col_id
      * @param type $table
      * @param type $is_obect
-     * @return type
+     * @param array $cond extra condition
+     * @return mixed
      */
-    public function get_row($col_name, $col_id, $table, $is_obect = FALSE) {
-        $query = $this->db->where($col_name, $col_id)->get($table);
+    public function get_row($col_name, $col_id, $table, $is_obect = FALSE, $cond = array()) {
+        $this->db->where($col_name, $col_id);
+        if (!empty($cond)) {
+            $this->db->where($cond);
+        }
+        $query = $this->db->get($table);
         if ($is_obect) {
             return $query->row();
         }

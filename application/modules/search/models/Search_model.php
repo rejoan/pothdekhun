@@ -157,6 +157,8 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         $th = trim($this->input->get('th', TRUE));
         $fthana = $this->pm->get_row('id', $ft, 'thanas');
         $tthana = $this->pm->get_row('id', $th, 'thanas');
+        $p = $place;
+        $tp = $to_place;
         if (empty($place)) {
             $place = $fthana[$this->nl->lang_based_data('bn_name', 'name')];
         }
@@ -178,7 +180,7 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         $all_places = $all_place_q->result_array();
         $from_route_id = $this->nl->get_all_ids($all_places, 'route_id');
         //var_dump($from_route_id);return;
-        $all_arr = array();
+        $all_arr = $thana_suggestions = array();
         if (!empty($from_route_id)) {
             $to_place_q = $this->db->query('SELECT * FROM (SELECT id route_id,from_place Location
                         FROM routes
@@ -195,17 +197,18 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
             $all_routes_id = $this->nl->get_all_ids($to_places, 'route_id');
             $all_arr = explode(',', $all_routes_id);
         }
-
-        $fthana_suggestion = $this->get_by_thana($from_thana, $to_thana, $stopage_table, TRUE);
-        $fthana_routes_id = $this->nl->get_all_ids($fthana_suggestion, 'route_id');
-        $fthana_arr = explode(',', $fthana_routes_id);
-
-        $tthana_suggestion = $this->get_by_thana($from_thana, $to_thana, $stopage_table);
-        $tthana_routes_id = $this->nl->get_all_ids($tthana_suggestion, 'route_id');
-        $tthana_arr = explode(',', $tthana_routes_id);
-        //$tthana_arr = array();
-        $thana_suggestions = array_filter(array_merge($fthana_arr, $tthana_arr));
-
+        //var_dump($place,$to_place);return;
+        if (empty($p) && empty($tp)) {
+            $fthana_suggestion = $this->get_by_thana($stopage_table, TRUE);
+            $fthana_routes_id = $this->nl->get_all_ids($fthana_suggestion, 'route_id');
+            $fthana_arr = explode(',', $fthana_routes_id);
+            //$tthana_suggestion = array();
+            $tthana_suggestion = $this->get_by_thana($stopage_table);
+            $tthana_routes_id = $this->nl->get_all_ids($tthana_suggestion, 'route_id');
+            $tthana_arr = explode(',', $tthana_routes_id);
+            //$tthana_arr = array();
+            $thana_suggestions = array_filter(array_merge($fthana_arr, $tthana_arr));
+        }
         $final_ids = array_merge($all_arr, $thana_suggestions);
         $all_id_arr = array_filter(array_unique($final_ids));
         $all_ids = implode(',', $all_id_arr);
@@ -216,15 +219,10 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         return $this->final_result($all_ids, $per_page, $segment, $pagination, $district, $to_district, $excludes);
     }
 
-    public function get_by_thana($from_thana, $to_thana, $stopage_table, $from = FALSE) {
+    public function get_by_thana($stopage_table, $from = FALSE) {
         $ft = trim($this->input->get('ft', TRUE));
-        if (empty($ft)) {//when GET params not exist (in detail page)
-            $ft = $from_thana;
-        }
         $th = trim($this->input->get('th', TRUE));
-        if (empty($th)) {//when GET params not exist (in detail page
-            $th = $to_thana;
-        }
+
         $fthana = $this->pm->get_row('id', $ft, 'thanas');
         $tthana = $this->pm->get_row('id', $th, 'thanas');
 
@@ -249,6 +247,36 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         //echo $this->db->last_query();return;
         $places = $place_q->result_array();
         return $places;
+    }
+
+    public function possible_thana($place, $to_place, $district, $to_district, $stopage_table, $from = FALSE) {
+        $col_name = $this->nl->lang_based_data('bn_name', 'name');
+        $from_thana_name = $this->pm->get_row($col_name, $place, 'thanas', FALSE, array('district_id' => $district));
+
+        $to_thana_name = $this->pm->get_row($col_name, $to_place, 'thanas', FALSE, array('district_id' => $to_district));
+
+
+        $thana_id = $to_thana_name['id'];
+        $thana_name = $place;
+        if ($from) {
+            $thana_id = $from_thana_name['id'];
+            $thana_name = $to_place;
+        }
+
+        $routes = $this->pm->get_data('routes', 'id', 'from_thana', $thana_id, 'to_thana', $thana_id, 'or');
+        //var_dump($routes);return;
+
+        $route_ids = $this->nl->get_all_ids($routes);
+        //var_dump($thana_name);return;
+        if (!empty($route_ids)) {
+            $place_q = $this->db->query('SELECT s.route_id
+                    FROM ' . $stopage_table . '
+                    WHERE s.place_name LIKE "%' . $thana_name . '%" AND route_id IN (' . $route_ids . ')');
+            //echo $this->db->last_query();return;
+            return $place_q->result_array();
+        }else{
+            return array();
+        }
     }
 
     /**
@@ -415,10 +443,9 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
             //echo $this->db->last_query();return;
             $all_routes_id = $this->nl->get_all_ids($query->result_array(), 'route_id');
             //var_dump($all_routes_id);return;
-            if (empty($all_routes_id)) {
-                return array();
+            if (!empty($all_routes_id)) {
+                return $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district, $excludes);
             }
-            return $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district, $excludes);
         }
 
         $tquery = $this->db->query('SELECT *
@@ -452,10 +479,9 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
             //echo $this->db->last_query();
             $all_routes_id = $this->nl->get_all_ids($query->result_array(), 'route_id');
             //var_dump($all_routes_id);return;
-            if (empty($all_routes_id)) {
-                return array();
+            if (!empty($all_routes_id)) {
+                return $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district, $excludes);
             }
-            return $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district, $excludes);
         }
 
         $ftquery = $this->db->query('SELECT *
@@ -489,11 +515,32 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
             //echo $this->db->last_query();return;
             $all_routes_id = $this->nl->get_all_ids($query->result_array(), 'route_id');
             //var_dump($all_routes_id);return;
-            if (empty($all_routes_id)) {
-                return array();
+            if (!empty($all_routes_id)) {
+                return $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district, $excludes);
             }
-            return $this->final_result($all_routes_id, $per_page, $segment, $pagination, $district, $to_district, $excludes);
         }
+
+        $possible_ids_from = $this->possible_thana($place, $to_place, $district, $to_district, $stopage_table, TRUE);
+        //var_dump($possible_ids_from);return;
+        $possible_ids_from_all = $this->nl->get_all_ids($possible_ids_from, 'route_id');
+        
+        $possible_from_arr = explode(',', $possible_ids_from_all);
+        //var_dump($possible_from_arr);return;
+        //$possible_from_arr = array();
+        $possible_ids_to = $this->possible_thana($place, $to_place, $district, $to_district, $stopage_table);
+        $possible_ids_to_all = $this->nl->get_all_ids($possible_ids_to, 'route_id');
+        $possible_to_arr = explode(',', $possible_ids_to_all);
+        
+        //$possible_to_arr = array();
+        $possible_suggestions = array_filter(array_merge($possible_from_arr, $possible_to_arr));
+        
+
+
+        if (!empty($possible_suggestions)) {
+            $possible_final =implode(',',$possible_suggestions);
+            return $this->final_result($possible_final, $per_page, $segment, $pagination, $district, $to_district, $excludes);
+        }
+
         return array();
     }
 
