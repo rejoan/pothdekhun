@@ -199,11 +199,11 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         $fthana_suggestion = $this->get_by_thana($from_thana, $to_thana, $stopage_table, TRUE);
         $fthana_routes_id = $this->nl->get_all_ids($fthana_suggestion, 'route_id');
         $fthana_arr = explode(',', $fthana_routes_id);
-        
-//        $tthana_suggestion = $this->get_by_thana($from_thana, $to_thana, $stopage_table);
-//        $tthana_routes_id = $this->nl->get_all_ids($tthana_suggestion, 'route_id');
-//        $tthana_arr = explode(',', $tthana_routes_id);
-        $tthana_arr = array();
+
+        $tthana_suggestion = $this->get_by_thana($from_thana, $to_thana, $stopage_table);
+        $tthana_routes_id = $this->nl->get_all_ids($tthana_suggestion, 'route_id');
+        $tthana_arr = explode(',', $tthana_routes_id);
+        //$tthana_arr = array();
         $thana_suggestions = array_filter(array_merge($fthana_arr, $tthana_arr));
 
         $final_ids = array_merge($all_arr, $thana_suggestions);
@@ -228,16 +228,14 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         $fthana = $this->pm->get_row('id', $ft, 'thanas');
         $tthana = $this->pm->get_row('id', $th, 'thanas');
 
-        $column_name = 'to_thana';
         $thana_id = $th;
-        $thana_name = $tthana[$this->nl->lang_based_data('bn_name', 'name')];
+        $thana_name = $fthana[$this->nl->lang_based_data('bn_name', 'name')];
         if ($from) {
-            $column_name = 'from_thana';
             $thana_id = $ft;
-            $thana_name = $fthana[$this->nl->lang_based_data('bn_name', 'name')];
+            $thana_name = $tthana[$this->nl->lang_based_data('bn_name', 'name')];
         }
 
-        $routes = $this->pm->get_data('routes', 'id', $column_name, $thana_id);
+        $routes = $this->pm->get_data('routes', 'id', 'from_thana', $thana_id, 'to_thana', $thana_id, 'or');
         //var_dump($routes);return;
 
         $route_ids = $this->nl->get_all_ids($routes);
@@ -247,9 +245,7 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         }
         $place_q = $this->db->query('SELECT s.route_id,s.place_name
                     FROM ' . $stopage_table . '
-                    WHERE LOWER(
-                    REPLACE(s.place_name, " ", "")) LIKE LOWER(
-                    REPLACE("' . $thana_name . '", " ", "")) OR s.place_name LIKE "%' . $thana_name . '%" AND route_id IN (' . $route_ids . ')');
+                    WHERE s.place_name LIKE "%' . $thana_name . '%" AND route_id IN (' . $route_ids . ')');
         //echo $this->db->last_query();return;
         $places = $place_q->result_array();
         return $places;
