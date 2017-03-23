@@ -19,7 +19,7 @@
     <div class="box box-poth">
         <div class="box-header">
             <h5 class="no-margin header_linehight"><?php echo lang('main_search'); ?></h5>
-            <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#search_tips"><?php echo lang('search_tips'); ?></button>
+<!--            <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#search_tips"><?php //echo lang('search_tips'); ?></button>-->
         </div>
         <div class="box-body">
 

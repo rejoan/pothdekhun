@@ -262,7 +262,10 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
      * @return type
      */
     public function place_get_suggestions($place, $stopage_table, $district, $per_page, $segment, $pagination) {
-
+        if (empty($place)) {
+            $district_name = $this->pm->get_row('id', $district, 'districts');
+            $place = $district_name[$this->nl->lang_based_data('bn_name', 'name')];
+        }
         $all_place_q = $this->db->query('SELECT * FROM (SELECT id route_id,from_place Location
                         FROM routes
                         WHERE LOWER(REPLACE(from_place, " ", "")) LIKE LOWER(REPLACE("' . $place . '", " ", "")) OR from_place LIKE "%' . $place . '%" UNION DISTINCT
@@ -496,6 +499,10 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
 
     public function place_possible_collections($place, $stopage_table, $district, $per_page, $segment, $pagination) {
 
+        if (empty($place)) {
+            $district_name = $this->pm->get_row('id', $district, 'districts');
+            $place = $district_name[$this->nl->lang_based_data('bn_name', 'name')];
+        }
         $query = $this->db->query('SELECT *
                                     FROM (
                                     SELECT id route_id, to_place place
