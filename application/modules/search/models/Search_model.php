@@ -69,6 +69,21 @@ OR (r.to_district = ' . $district . $sqlt_thana . $ft_place . ' AND r.from_distr
         return $query->result_array();
     }
 
+    public function word_density($from_place,$to_place) {
+        $sql = 'SELECT *
+                FROM (
+                SELECT to_place
+                FROM routes
+                WHERE to_place LIKE "%'.$from_place.'%" UNION DISTINCT
+                SELECT from_place
+                FROM routes
+                WHERE from_place LIKE "%'.$from_place.'%" UNION DISTINCT
+                SELECT place_name
+                FROM stoppages
+                WHERE place_name LIKE "%'.$from_place.'%"
+                ) AS rtn';
+    }
+
     public function stoppage_routes($place, $stopage_table, $to_place, $per_page, $segment, $pagination, $district, $to_district, $excludes = NULL) {
         //Step 2: search in all including stoppages when not route direct
         $ft = trim($this->input->get('ft', TRUE));
@@ -274,7 +289,7 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
                     WHERE s.place_name LIKE "%' . $thana_name . '%" AND route_id IN (' . $route_ids . ')');
             //echo $this->db->last_query();return;
             return $place_q->result_array();
-        }else{
+        } else {
             return array();
         }
     }
@@ -523,21 +538,21 @@ r.from_district = ' . $district . ' AND r.to_district = ' . $to_district, NULL, 
         $possible_ids_from = $this->possible_thana($place, $to_place, $district, $to_district, $stopage_table, TRUE);
         //var_dump($possible_ids_from);return;
         $possible_ids_from_all = $this->nl->get_all_ids($possible_ids_from, 'route_id');
-        
+
         $possible_from_arr = explode(',', $possible_ids_from_all);
         //var_dump($possible_from_arr);return;
         //$possible_from_arr = array();
         $possible_ids_to = $this->possible_thana($place, $to_place, $district, $to_district, $stopage_table);
         $possible_ids_to_all = $this->nl->get_all_ids($possible_ids_to, 'route_id');
         $possible_to_arr = explode(',', $possible_ids_to_all);
-        
+
         //$possible_to_arr = array();
         $possible_suggestions = array_filter(array_merge($possible_from_arr, $possible_to_arr));
-        
+
 
 
         if (!empty($possible_suggestions)) {
-            $possible_final =implode(',',$possible_suggestions);
+            $possible_final = implode(',', $possible_suggestions);
             return $this->final_result($possible_final, $per_page, $segment, $pagination, $district, $to_district, $excludes);
         }
 
