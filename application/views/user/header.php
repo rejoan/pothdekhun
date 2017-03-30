@@ -12,6 +12,7 @@
         <meta name="author" content="Rejoanul Alam">
         <meta name="google-signin-scope" content="profile email">
         <meta name="google-signin-client_id" content="606528754739-mag1caviaal84rdm8uirn108fmlr8raa.apps.googleusercontent.com">
+        <meta property="og:image" content="http://www.pothdekhun.com/assets/images/pothd.jpg" />
 <!--        <script src="https://apis.google.com/js/platform.js" async defer></script>-->
         <link rel="icon" href="<?php echo base_url('assets/images') . '/favicon.ico'; ?>">
 
