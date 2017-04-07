@@ -167,7 +167,8 @@ function make_keywords($str) {
 }
 
 function unicode_title($str) {
-    $search = array(',', '(', ')', ' ');
+    $str = str_replace(array('(', ')'), '', $str);
+    $search = array(',', ' ');
     $string = str_replace($search, '-', $str);
     return mb_convert_case($string, MB_CASE_LOWER, 'UTF-8');
 }
