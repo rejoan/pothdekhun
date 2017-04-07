@@ -63,7 +63,7 @@
                 <p><?php echo lang('vehicle_name'); ?></p>
             </div>
             <div class="col-md-9">
-                <h4 class="no-margin"><a href="<?php echo site_url_tr('transports/show') . '/' . $route['poribohon_id'].'/'.url_title($route[$this->nl->lang_based_data('bn_name', 'name')]); ?>"><?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></a></h4>
+                <h4 class="no-margin"><a href="<?php echo site_url_tr('transports/show') . '/' . $route['poribohon_id'] . '/' . url_title($route[$this->nl->lang_based_data('bn_name', 'name')]); ?>"><?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></a></h4>
             </div>
         </div>
 
@@ -159,7 +159,7 @@
                                     <th><?php echo lang('place_name'); ?></th>
                                     <th><?php echo lang('comment'); ?></th>
                                     <th><?php echo lang('main_rent'); ?></th>
-    <!--                                    <th><?php //echo lang('fare_verify');                              ?></th>-->
+    <!--                                    <th><?php //echo lang('fare_verify');                                ?></th>-->
                                 </tr>
                             </thead>
                             <tbody>
@@ -172,8 +172,8 @@
                                             <?php echo $s['rent'] . ' ' . lang('tk'); ?>
                                         </td>
         <!--                                        <td>
-                                            <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');                              ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
-                    <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');                              ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');                                ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');                                ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
                                         </td>-->
                                     </tr>
                                 <?php endforeach; ?>
@@ -215,13 +215,19 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <?php if (!empty($prev['id'])): ?>
-                    <a class="btn btn-sm btn-warning" href="<?php echo site_url_tr('routes/show/') . $prev['id'] ?>"><i class="fa fa-angle-double-left"></i> <?php echo lang('prev_route'); ?></a>
+                <?php
+                if (!empty($prev['id'])):
+                    $url_title = $prev['from_place'] . ' ' . lang('to_view') . ' ' . $prev['to_place'] . ' ' . $prev[$this->nl->lang_based_data('bn_name', 'name')];
+                    ?>
+                    <a class="btn btn-sm btn-warning" href="<?php echo site_url_tr('routes/show/') . $prev['id'] . '/' . url_title($url_title); ?>"><i class="fa fa-angle-double-left"></i> <?php echo lang('prev_route'); ?></a>
                 <?php endif; ?>
             </div>
             <div class="col-md-6">
-                <?php if (!empty($next['id'])): ?>
-                    <a class="btn btn-sm btn-warning <?php echo $this->ua->is_mobile() ? 'margin_top' : 'pull-right'; ?>" href="<?php echo site_url_tr('routes/show/') . $next['id']; ?>"><?php echo lang('next_route'); ?> <i class="fa fa-angle-double-right"></i></a>
+                <?php
+                if (!empty($next['id'])):
+                    $url_title_next = $next['from_place'] . ' ' . lang('to_view') . ' ' . $next['to_place'] . ' ' . $next[$this->nl->lang_based_data('bn_name', 'name')];
+                    ?>
+                    <a class="btn btn-sm btn-warning <?php echo $this->ua->is_mobile() ? 'margin_top' : 'pull-right'; ?>" href="<?php echo site_url_tr('routes/show/') . $next['id'] . '/' . url_title($url_title_next); ?>"><?php echo lang('next_route'); ?> <i class="fa fa-angle-double-right"></i></a>
                 <?php endif; ?>
             </div>
         </div>
