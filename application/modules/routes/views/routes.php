@@ -102,7 +102,10 @@
                                         <a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('routes/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>
                                     <?php endif; ?>
                                     &nbsp;
-                                    <a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url_tr('routes/show') . '/' . $r['id']; ?>"><i class="fa fa-eye"></i></a>
+                                    <?php
+                                    $url_title = $r['from_place'] . ' ' . lang('to_view') . ' ' . $r['to_place'] . ' ' . $r[$this->nl->lang_based_data('bn_name', 'name')];
+                                    ?>
+                                    <a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url_tr('routes/show') . '/' . $r['id'] . '/' . url_title($url_title); ?>"><i class="fa fa-eye"></i></a>
                                     &nbsp;
                                     <?php if ($this->nl->is_admin()): ?>
                                         <a onclick="return confirm('are you sure?')" data-toggle="tooltip" data-placement="top" title="Delete" href="<?php echo site_url('routes/delete') . '/' . $r['id']; ?>"><i class="fa fa-trash"></i></a>

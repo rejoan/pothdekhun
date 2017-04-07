@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+$lang['pothdekhun'] = 'PothDekhun';
 $lang['home_link'] = 'Home';
 $lang['index'] = 'Dhaka City Bus Guide and Transports Finder of Bangladesh';
 $lang['home_page_meta'] = 'Dhaka city bus guide with routes and all transport finder of bangladesh. Bus Leguna Train Biman Launch information with fare, distance, google map, stoppages and many more';
@@ -25,7 +26,7 @@ $lang['password'] = 'Password';
 $lang['password_help'] = 'Login with email & password';
 $lang['register_user'] = 'Registered Successfully';
 $lang['edit_success'] = 'Edited Successfully';
-$lang['route_info'] = 'Details Route Info';
+$lang['route_info'] = 'Route Details';
 $lang['already_edit_submitted'] = 'This Route Already edited & waiting for Admin review';
 $lang['successfully_logged_in'] = 'You have logged in Successfully';
 $lang['enter_valid_user_password'] = 'Please enter valid Credentials';

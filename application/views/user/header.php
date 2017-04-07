@@ -16,7 +16,7 @@
 <!--        <script src="https://apis.google.com/js/platform.js" async defer></script>-->
         <link rel="icon" href="<?php echo base_url('assets/images') . '/favicon.ico'; ?>">
 
-        <title><?php echo $title; ?></title>
+        <title><?php echo lang('pothdekhun').' : '. $title; ?></title>
         <?php
         $f_class = $this->router->fetch_class();
         $f_method = $this->router->fetch_method();
@@ -88,11 +88,11 @@
                 <?php $this->nl->breadcrumb(); ?>
                 <?php if ($f_class != 'pages' && $f_class != 'auth' && ENVIRONMENT == 'production'): ?>
                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!-- All Page top banner -->
+                    <!-- Top responsive -->
                     <ins class="adsbygoogle"
                          style="display:block"
                          data-ad-client="ca-pub-6904999156943572"
-                         data-ad-slot="8410206445"
+                         data-ad-slot="6489697647"
                          data-ad-format="auto"></ins>
                     <script>
                 (adsbygoogle = window.adsbygoogle || []).push({});

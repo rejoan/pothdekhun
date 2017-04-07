@@ -63,7 +63,7 @@
                 <p><?php echo lang('vehicle_name'); ?></p>
             </div>
             <div class="col-md-9">
-                <h4 class="no-margin"><a href="<?php echo site_url_tr('transports/show') . '/' . $route['poribohon_id']; ?>"><?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></a></h4>
+                <h4 class="no-margin"><a href="<?php echo site_url_tr('transports/show') . '/' . $route['poribohon_id'].'/'.url_title($route[$this->nl->lang_based_data('bn_name', 'name')]); ?>"><?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></a></h4>
             </div>
         </div>
 
