@@ -103,7 +103,7 @@
                                     <?php endif; ?>
                                     &nbsp;
                                     <?php
-                                    $url_title = $r['from_place'] . ' ' . lang('to_view') . ' ' . $r['to_place'] . ' ' . $r[$this->nl->lang_based_data('bn_name', 'name')];
+                                    $url_title = $r[$this->nl->lang_based_data('fp_bn', 'from_place')] . ' ' . lang('to_view') . ' ' . $r[$this->nl->lang_based_data('tp_bn', 'to_place')] . ' ' . $r[$this->nl->lang_based_data('bn_name', 'name')];
                                     ?>
                                     <a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url_tr('routes/show') . '/' . $r['id'] . '/' . url_title($url_title); ?>"><i class="fa fa-eye"></i></a>
                                     &nbsp;

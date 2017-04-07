@@ -63,7 +63,7 @@
                 <p><?php echo lang('vehicle_name'); ?></p>
             </div>
             <div class="col-md-9">
-                <h4 class="no-margin"><a href="<?php echo site_url_tr('transports/show') . '/' . $route['poribohon_id'] . '/' . url_title($route[$this->nl->lang_based_data('bn_name', 'name')]); ?>"><?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></a></h4>
+                <h4 class="no-margin"><a href="<?php echo site_url_tr('transports/show') . '/' . $route['poribohon_id'] . '/' . unicode_title($route[$this->nl->lang_based_data('bn_name', 'name')]); ?>"><?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?></a></h4>
             </div>
         </div>
 
@@ -219,15 +219,15 @@
                 if (!empty($prev['id'])):
                     $url_title = $prev['from_place'] . ' ' . lang('to_view') . ' ' . $prev['to_place'] . ' ' . $prev[$this->nl->lang_based_data('bn_name', 'name')];
                     ?>
-                    <a class="btn btn-sm btn-warning" href="<?php echo site_url_tr('routes/show/') . $prev['id'] . '/' . url_title($url_title); ?>"><i class="fa fa-angle-double-left"></i> <?php echo lang('prev_route'); ?></a>
+                    <a class="btn btn-sm btn-warning" href="<?php echo site_url_tr('routes/show/') . $prev['id'] . '/' . unicode_title($url_title); ?>"><i class="fa fa-angle-double-left"></i> <?php echo lang('prev_route'); ?></a>
                 <?php endif; ?>
             </div>
             <div class="col-md-6">
                 <?php
                 if (!empty($next['id'])):
-                    $url_title_next = $next['from_place'] . ' ' . lang('to_view') . ' ' . $next['to_place'] . ' ' . $next[$this->nl->lang_based_data('bn_name', 'name')];
+                    $url_title_next = $next[$this->nl->lang_based_data('fp_bn', 'from_place')] . ' ' . lang('to_view') . ' ' . $next[$this->nl->lang_based_data('tp_bn', 'to_place')] . ' ' . $next[$this->nl->lang_based_data('bn_name', 'name')];
                     ?>
-                    <a class="btn btn-sm btn-warning <?php echo $this->ua->is_mobile() ? 'margin_top' : 'pull-right'; ?>" href="<?php echo site_url_tr('routes/show/') . $next['id'] . '/' . url_title($url_title_next); ?>"><?php echo lang('next_route'); ?> <i class="fa fa-angle-double-right"></i></a>
+                    <a class="btn btn-sm btn-warning <?php echo $this->ua->is_mobile() ? 'margin_top' : 'pull-right'; ?>" href="<?php echo site_url_tr('routes/show/') . $next['id'] . '/' . unicode_title($url_title_next); ?>"><?php echo lang('next_route'); ?> <i class="fa fa-angle-double-right"></i></a>
                 <?php endif; ?>
             </div>
         </div>

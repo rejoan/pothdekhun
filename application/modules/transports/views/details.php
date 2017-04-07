@@ -13,9 +13,9 @@
                 <ul class="list-group">
                     <?php foreach ($routes as $route): ?>
                         <?php
-                        $url_title = $route['from_place'] . ' ' . lang('to_view') . ' ' . $route['to_place'] . ' ' . $route[$this->nl->lang_based_data('bn_name', 'name')];
+                        $url_title = $route[$this->nl->lang_based_data('fp_bn', 'from_place')] . ' ' . lang('to_view') . ' ' . $route[$this->nl->lang_based_data('tp_bn', 'to_place')] . ' ' . $route[$this->nl->lang_based_data('bn_name', 'name')];
                         ?>
-                        <li class="list-group-item"><?php echo mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . ' <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> ' . mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8'); ?> <a class="btn btn-xs btn-info" href="<?php echo site_url_tr('routes/show/') . $route['r_id'] . '/' . url_title($url_title); ?>"><?php echo lang('about_detail'); ?></a></li>
+                        <li class="list-group-item"><?php echo mb_convert_case($route[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8') . ' <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> ' . mb_convert_case($route[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8') . ', ' . mb_convert_case($route[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8'); ?> <a class="btn btn-xs btn-info" href="<?php echo site_url_tr('routes/show/') . $route['r_id'] . '/' . unicode_title($url_title); ?>"><?php echo lang('about_detail'); ?></a></li>
 
                     <?php endforeach; ?>
                 </ul>

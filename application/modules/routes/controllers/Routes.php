@@ -500,8 +500,8 @@ class Routes extends MX_Controller {
         } else {
             $final_to = $to_place . ', ' . $to_district;
         }
-        $next_q = $this->db->query('SELECT r.id,r.from_place,r.to_place,p.name,p.bn_name FROM routes r LEFT JOIN poribohons p ON p.id = r.poribohon_id WHERE r.id = (SELECT MIN(nr.id) FROM routes nr WHERE nr.id > ' . $route_id . ')');
-        $prev_q = $this->db->query('SELECT r.id,r.from_place,r.to_place,p.name,p.bn_name FROM routes r LEFT JOIN poribohons p ON p.id = r.poribohon_id WHERE r.id = (SELECT MAX(nr.id) FROM routes nr WHERE nr.id < ' . $route_id . ')');
+        $next_q = $this->db->query('SELECT r.id,r.from_place,rt.from_place fp_bn,r.to_place,rt.to_place tp_bn,p.name,p.bn_name FROM routes r LEFT JOIN poribohons p ON p.id = r.poribohon_id LEFT JOIN route_bn rt ON rt.route_id = r.id WHERE r.id = (SELECT MIN(nr.id) FROM routes nr WHERE nr.id > ' . $route_id . ')');
+        $prev_q = $this->db->query('SELECT r.id,r.from_place,rt.from_place fp_bn,r.to_place,rt.to_place tp_bn,p.name,p.bn_name FROM routes r LEFT JOIN poribohons p ON p.id = r.poribohon_id LEFT JOIN route_bn rt ON rt.route_id = r.id WHERE r.id = (SELECT MAX(nr.id) FROM routes nr WHERE nr.id < ' . $route_id . ')');
 
         $data = array(
             'title' => $final_from . ' ' . lang('to_view') . ' ' . $final_to . ' :: ' . mb_convert_case(get_tr_type($result['transport_type']), MB_CASE_TITLE, 'UTF-8') . ' - ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' ' . lang('route_info'),
