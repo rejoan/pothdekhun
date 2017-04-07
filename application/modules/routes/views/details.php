@@ -217,7 +217,7 @@
             <div class="col-md-6">
                 <?php
                 if (!empty($prev['id'])):
-                    $url_title = $prev['from_place'] . ' ' . lang('to_view') . ' ' . $prev['to_place'] . ' ' . $prev[$this->nl->lang_based_data('bn_name', 'name')];
+                    $url_title = $prev[$this->nl->lang_based_data('fp_bn', 'from_place')] . ' ' . lang('to_view') . ' ' . $prev[$this->nl->lang_based_data('tp_bn', 'to_place')] . ' ' . $prev[$this->nl->lang_based_data('bn_name', 'name')];
                     ?>
                     <a class="btn btn-sm btn-warning" href="<?php echo site_url_tr('routes/show/') . $prev['id'] . '/' . unicode_title($url_title); ?>"><i class="fa fa-angle-double-left"></i> <?php echo lang('prev_route'); ?></a>
                 <?php endif; ?>
