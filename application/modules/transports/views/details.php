@@ -69,12 +69,35 @@
         </div>
     </form>
 </div>
+<input type="hidden" id="en_segment" value="<?php echo unicode_title($poribohon['name']); ?>"/>
+<input type="hidden" id="bn_segment" value="<?php echo unicode_title($poribohon['bn_name']); ?>"/>
+
+<script>
+    $(document).ready(function () {
+
 <?php if ($counters > 4): ?>
-    <script>
-        $(document).ready(function () {
             $('#district_filt').change(function () {
                 $('form').submit();
             });
-        });
-    </script>
 <?php endif; ?>
+        $('#lang_menu ul li a').hover(function () {
+            var href = $(this).prop('href');
+            var en_segment = $('#en_segment').val();
+            var bn_segment = $('#bn_segment').val();
+            var segment = href.substr(href.lastIndexOf('/') + 1);
+            var cur_code = $('html').prop('lang');
+            var lan_code = $(this).data('ln_code');
+            if (cur_code == 'bn') {
+                if (lan_code == 'en') {
+                    var new_href = href.replace(segment, en_segment);
+                    $(this).prop('href', new_href);
+                }
+            } else {
+                if (lan_code == 'bn') {
+                    var new_href = href.replace(segment, bn_segment);
+                    $(this).prop('href', new_href);
+                }
+            }
+        });
+    });
+</script>

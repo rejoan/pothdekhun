@@ -98,7 +98,7 @@ function language_menu() {
     $selector .= '<ul class="dropdown-menu dropdown-menu-default">';
     $languages = language_array();
     foreach ($languages as $lang) {
-        $selector .= '<li><a class="padding_left" href="' . current_url_tr($lang['lang_code']) . '"><img src="' . base_url('assets/flags/16') . '/' . trim($lang['lang_flag']) . '.png" alt="' . $lang['lang_flag'] . '"/> ' . ucfirst($lang['lang_name']) . '</a></li>';
+        $selector .= '<li><a class="padding_left" data-ln_code="'.$lang['lang_code'].'" href="' . current_url_tr($lang['lang_code']) . '"><img src="' . base_url('assets/flags/16') . '/' . trim($lang['lang_flag']) . '.png" alt="' . $lang['lang_flag'] . '"/> ' . ucfirst($lang['lang_name']) . '</a></li>';
     }
 
     $selector .= '</li></ul>';
