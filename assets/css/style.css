@@ -94,6 +94,13 @@ footer {
 a.details:hover{
     text-decoration: underline;
 }
+
+a.advanced_suggestion:hover{
+    text-decoration: underline;
+}
+a.advanced_suggestion:active,a.advanced_suggestion:focus{
+    color: #000;
+}
 #comments .direct-chat-messages{
     height: auto;
 }
@@ -227,7 +234,9 @@ ol.breadcrumb{
 #navbar{
     background: #336699;
 }
-
+h2.suggestion_title{
+    padding: 0 5px 10px 5px;
+}
 
 @media screen and (max-width: 768px) {
     .header_slogan{

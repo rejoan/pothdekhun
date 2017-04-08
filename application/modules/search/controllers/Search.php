@@ -113,7 +113,7 @@ class Search extends MX_Controller {
 
 
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', ' s');
-        
+
 
         $exact_routes = $this->exact_routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $per_page, $segment);
         $total_rows = $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $per_page, $segment, TRUE);
@@ -181,7 +181,7 @@ class Search extends MX_Controller {
         if (empty($to_place)) {
             $t_place = '';
         }
-        
+
         $density_from = $density_to = '';
         $route_table = $this->nl->lang_based_data('route_bn', 'routes');
         if (!empty($from_place)) {
@@ -190,7 +190,7 @@ class Search extends MX_Controller {
         if (!empty($to_place)) {
             $density_to = $this->sm->get_density_word($to_place, $route_table, $stopage_table);
         }
-        //var_dump($density_to);return;
+        //var_dump($density_from,$density_to);return;
         $data = array(
             'title' => lang('transports_available') . ' ' . $f_place . $fthana . mb_convert_case($fd[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ' ' . lang('to_view') . ' ' . $t_place . $tthana . mb_convert_case($td[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'),
             'routes' => $exact_routes,

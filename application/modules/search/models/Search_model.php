@@ -76,8 +76,9 @@ OR (r.to_district = ' . $district . $sqlt_thana . $ft_place . ' AND r.from_distr
         $search = array(',', ' ');
         $string = str_replace($search, '-', $str);
         $word_arr = explode('-', $string);
+        $word_arr = array_filter($word_arr);
         //var_dump($word_arr);return;
-        $words = array();
+        $words = $words_key = array();
         if (count($word_arr) > 1) {
             foreach ($word_arr as $key => $p) {
                 $sql = 'SELECT count(*) total,place
@@ -93,16 +94,23 @@ OR (r.to_district = ' . $district . $sqlt_thana . $ft_place . ' AND r.from_distr
                             WHERE s.place_name = "' . trim($p) . '" OR s.place_name LIKE "%' . trim($p) . '%"
                             ) AS rtn GROUP BY place ORDER BY total DESC LIMIT 1';
                 $query = $this->db->query($sql);
-//                if($key > 0){
-//                    echo $this->db->last_query();return;
-//                }
-                
                 $result = $query->row_array();
-                $words[$result['total']] = $result['place'];
+                $words[$result['total']][] = $result['place'];
             }
             krsort($words);
-            var_dump($words);return;
+            //var_dump($words);return;
             $word = array_shift($words);
+
+            if (is_array($word)) {
+                $percentages = array();
+                foreach ($word as $w) {
+                    similar_text($w, $place, $percent);
+                    $percentages[ceil($percent)] = $w;
+                }
+                krsort($percentages);
+                //var_dump($percentages);return;
+                $word = array_shift($percentages);
+            }
             return $word;
         } else {
             return $str;
