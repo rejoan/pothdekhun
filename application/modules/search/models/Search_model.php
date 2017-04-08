@@ -70,12 +70,16 @@ OR (r.to_district = ' . $district . $sqlt_thana . $ft_place . ' AND r.from_distr
     }
 
     public function get_density_word($place, $route_table, $stoppage_table) {
-        $str = str_ireplace(array('(', ')','bus','stand','counter','link','road'), '', $place);
+        $str = str_ireplace(array('(', ')', 'bus', 'stand', 'counter', 'link', 'road'), '', trim($place));
+        $str = trim($str);
+        //var_dump($str);return;
         $search = array(',', ' ');
         $string = str_replace($search, '-', $str);
         $word_arr = explode('-', $string);
+        //var_dump($word_arr);return;
+        $words = array();
         if (count($word_arr) > 1) {
-            foreach ($word_arr as $p) {
+            foreach ($word_arr as $key => $p) {
                 $sql = 'SELECT count(*) total,place
                             FROM (
                             SELECT id route_id,to_place place
@@ -89,11 +93,35 @@ OR (r.to_district = ' . $district . $sqlt_thana . $ft_place . ' AND r.from_distr
                             WHERE s.place_name = "' . trim($p) . '" OR s.place_name LIKE "%' . trim($p) . '%"
                             ) AS rtn GROUP BY place ORDER BY total DESC LIMIT 1';
                 $query = $this->db->query($sql);
+//                if($key > 0){
+//                    echo $this->db->last_query();return;
+//                }
+                
                 $result = $query->row_array();
+                $words[$result['total']] = $result['place'];
             }
+            krsort($words);
+            var_dump($words);return;
+            $word = array_shift($words);
+            return $word;
+        } else {
+            return $str;
         }
     }
 
+    /**
+     * 
+     * @param type $place
+     * @param type $stopage_table
+     * @param type $to_place
+     * @param type $per_page
+     * @param type $segment
+     * @param type $pagination
+     * @param type $district
+     * @param type $to_district
+     * @param type $excludes
+     * @return type
+     */
     public function stoppage_routes($place, $stopage_table, $to_place, $per_page, $segment, $pagination, $district, $to_district, $excludes = NULL) {
         //Step 2: search in all including stoppages when not route direct
         $ft = trim($this->input->get('ft', TRUE));
