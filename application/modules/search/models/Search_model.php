@@ -69,19 +69,29 @@ OR (r.to_district = ' . $district . $sqlt_thana . $ft_place . ' AND r.from_distr
         return $query->result_array();
     }
 
-    public function word_density($from_place,$to_place) {
-        $sql = 'SELECT *
-                FROM (
-                SELECT to_place
-                FROM routes
-                WHERE to_place LIKE "%'.$from_place.'%" UNION DISTINCT
-                SELECT from_place
-                FROM routes
-                WHERE from_place LIKE "%'.$from_place.'%" UNION DISTINCT
-                SELECT place_name
-                FROM stoppages
-                WHERE place_name LIKE "%'.$from_place.'%"
-                ) AS rtn';
+    public function get_density_word($place, $route_table, $stoppage_table) {
+        $str = str_ireplace(array('(', ')','bus','stand','counter','link','road'), '', $place);
+        $search = array(',', ' ');
+        $string = str_replace($search, '-', $str);
+        $word_arr = explode('-', $string);
+        if (count($word_arr) > 1) {
+            foreach ($word_arr as $p) {
+                $sql = 'SELECT count(*) total,place
+                            FROM (
+                            SELECT id route_id,to_place place
+                            FROM ' . $route_table . '
+                            WHERE to_place = "' . trim($p) . '" OR to_place LIKE "%' . trim($p) . '%" UNION DISTINCT
+                            SELECT id route_id,from_place place
+                            FROM ' . $route_table . '
+                            WHERE from_place = "' . trim($p) . '" OR from_place LIKE "%' . trim($p) . '%" UNION DISTINCT
+                            SELECT route_id,place_name place
+                            FROM ' . $stoppage_table . '
+                            WHERE s.place_name = "' . trim($p) . '" OR s.place_name LIKE "%' . trim($p) . '%"
+                            ) AS rtn GROUP BY place ORDER BY total DESC LIMIT 1';
+                $query = $this->db->query($sql);
+                $result = $query->row_array();
+            }
+        }
     }
 
     public function stoppage_routes($place, $stopage_table, $to_place, $per_page, $segment, $pagination, $district, $to_district, $excludes = NULL) {

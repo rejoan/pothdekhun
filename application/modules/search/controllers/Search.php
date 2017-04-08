@@ -101,6 +101,7 @@ class Search extends MX_Controller {
         }
 
         $from_place = trim($this->input->get('f', TRUE));
+
         $from_district = trim($this->input->get('fd', TRUE));
         //echo $from_district;return;
         $from_thana = trim($this->input->get('ft', TRUE));
@@ -112,6 +113,13 @@ class Search extends MX_Controller {
 
 
         $stopage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', ' s');
+        $route_table = $this->nl->lang_based_data('route_bn', 'route');
+        if (!empty($from_place)) {
+            $density_from = $this->sm->get_density_word($from_place, $route_table, $stopage_table);
+        }
+        if (!empty($to_place)) {
+            $density_to = $this->sm->get_density_word($to_place, $route_table, $stopage_table);
+        }
 
         $exact_routes = $this->exact_routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $per_page, $segment);
         $total_rows = $this->sm->routes($from_district, $from_thana, $from_place, $to_district, $to_thana, $to_place, $per_page, $segment, TRUE);
@@ -210,8 +218,8 @@ class Search extends MX_Controller {
         return $this->sm->stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district, $excludes);
     }
 
-    public function get_suggestions($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district,$excludes) {
-        return $this->sm->get_suggestions($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district,$excludes);
+    public function get_suggestions($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district, $excludes) {
+        return $this->sm->get_suggestions($from_place, $stopage_table, $to_place, $per_page, $segment, $pagination, $from_district, $to_district, $excludes);
     }
 
 }

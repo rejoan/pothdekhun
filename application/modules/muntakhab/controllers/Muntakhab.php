@@ -15,7 +15,7 @@ class Muntakhab extends MX_Controller {
     }
 
     public function sitemap() {
-        $urlContent = file_get_contents('http://localhost/pothdekhun/transports/index');
+        $urlContent = file_get_contents('http://localhost/pothdekhun/routes/all');
 
         $dom = new DOMDocument();
         @$dom->loadHTML($urlContent);
@@ -29,7 +29,7 @@ class Muntakhab extends MX_Controller {
             // validate url
             if (!filter_var($url, FILTER_VALIDATE_URL) === false) {
 
-                $signed_values[] = array('loc' => $url, 'lastmod' => '2017-02-19', 'changefreq' => 'weekly', 'priority' => '0.6');
+                $signed_values[] = array('loc' => $url, 'lastmod' => '2017-04-08', 'changefreq' => 'weekly', 'priority' => '0.6');
             }
         }
         /* $pos = array_search('facebook', $signed_values);
