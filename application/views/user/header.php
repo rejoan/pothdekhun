@@ -30,7 +30,7 @@
             <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.css'); ?>">
         <?php endif; ?>
         <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables/media/css/jquery.dataTables.min.css'); ?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css?v=1.9'); ?>" >
+        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css?v=1.10'); ?>" >
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-select.min.css'); ?>" >
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/font-awesome.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/ionicons.min.css'); ?>">
