@@ -70,15 +70,15 @@ OR (r.to_district = ' . $district . $sqlt_thana . $ft_place . ' AND r.from_distr
     }
 
     public function get_density_word($place, $route_table, $stoppage_table) {
-        $str = str_ireplace(array('(', ')', 'bus', 'stand', 'counter', 'link', 'road'), '', trim($place));
+        $str = str_ireplace(array('(', ')', 'bus', 'stand', 'counter', 'link', 'road','college'), '', trim($place));
         $str = trim($str);
         //var_dump($str);return;
         $search = array(',', ' ');
-        $string = str_replace($search, '-', $str);
-        $word_arr = explode('-', $string);
+        $string = str_replace($search, '#', $str);
+        $word_arr = explode('#', $string);
         $word_arr = array_filter($word_arr);
         //var_dump($word_arr);return;
-        $words = $words_key = array();
+        $words = array();
         if (count($word_arr) > 1) {
             foreach ($word_arr as $key => $p) {
                 $sql = 'SELECT count(*) total,place
@@ -94,6 +94,7 @@ OR (r.to_district = ' . $district . $sqlt_thana . $ft_place . ' AND r.from_distr
                             WHERE s.place_name = "' . trim($p) . '" OR s.place_name LIKE "%' . trim($p) . '%"
                             ) AS rtn GROUP BY place ORDER BY total DESC LIMIT 1';
                 $query = $this->db->query($sql);
+                //echo $this->db->last_query();return;
                 $result = $query->row_array();
                 $words[$result['total']][] = $result['place'];
             }

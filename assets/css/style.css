@@ -13,7 +13,7 @@ body {
     outline: 0!important;
 }
 .custom_margin{
-    margin: 0px 0 17px 0;
+    margin: 0px 0 10px 0;
 }
 #merge_sec .control-label{
     padding: 0;
@@ -95,12 +95,7 @@ a.details:hover{
     text-decoration: underline;
 }
 
-a.advanced_suggestion:hover{
-    text-decoration: underline;
-}
-a.advanced_suggestion:active,a.advanced_suggestion:focus{
-    color: #000;
-}
+
 #comments .direct-chat-messages{
     height: auto;
 }
@@ -234,10 +229,17 @@ ol.breadcrumb{
 #navbar{
     background: #336699;
 }
-h2.suggestion_title{
-    padding: 0 5px 10px 5px;
+h4.suggestion_title{
+    margin: 0 8px 0 8px;
+    padding-bottom: 10px; 
 }
-
+a.advanced_suggestion:hover{
+    text-decoration: underline;
+    color: #f00;
+}
+a.advanced_suggestion:active,a.advanced_suggestion:focus{
+    color: #000;
+}
 @media screen and (max-width: 768px) {
     .header_slogan{
         font-size:15px;

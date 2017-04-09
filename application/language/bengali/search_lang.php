@@ -6,3 +6,5 @@ $lang['total_route'] = 'মোট রুট';
 $lang['transport_available'] = 'এই স্থানের জন্য যেসব যানবাহন পাওয়া গেছে : ';
 $lang['no_transport'] = 'এই স্থান শেষ স্টপেজ বা প্রথম ছাড়ার স্থান হিসেবে ব্যবহার করে এমন কোন যানবাহন নেই: ';
 $lang['transports_available'] = 'যেসব পরিবহন এই স্থানে চলাচল করে : ';
+$lang['advanced_suggestion'] = 'উন্নত অনুসন্ধান পরামর্শ';
+$lang['search_instead'] = 'গভীর অনুসন্ধান করুন';
