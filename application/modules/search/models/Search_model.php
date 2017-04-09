@@ -70,7 +70,7 @@ OR (r.to_district = ' . $district . $sqlt_thana . $ft_place . ' AND r.from_distr
     }
 
     public function get_density_word($place, $route_table, $stoppage_table) {
-        $str = str_ireplace(array('(', ')', 'bus', 'stand', 'counter', 'link', 'road','college'), '', trim($place));
+        $str = str_ireplace(array('(', ')', 'bus', 'stand', 'counter', 'link', 'road', 'college'), '', trim($place));
         $str = trim($str);
         //var_dump($str);return;
         $search = array(',', ' ');
@@ -99,7 +99,7 @@ OR (r.to_district = ' . $district . $sqlt_thana . $ft_place . ' AND r.from_distr
                 $words[$result['total']][] = $result['place'];
             }
             krsort($words);
-            //var_dump($words);return;
+
             $word = array_shift($words);
 
             if (is_array($word)) {
