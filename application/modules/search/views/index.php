@@ -44,7 +44,7 @@ if (!empty($to_place)) {
                 <?php echo $links; ?>
             </div>
         <?php endif; ?>
-        <?php if (!$this->input->get('asg') && (str_word_count($this->input->get('f')) > 1) && (str_word_count($this->input->get('t')) > 1)): ?>
+        <?php if (!$this->input->get('asg') && ((str_word_count($this->input->get('f')) > 1) || (str_word_count($this->input->get('t')) > 1))): ?>
         <h4 class="suggestion_title"><?php echo lang('search_instead'); ?> <a class="advanced_suggestion" href="<?php echo site_url_tr('search/routes?fd=' . $this->input->get('fd') . '&ft=' . $this->input->get('ft') . '&f=' . $density_from . '&td=' . $this->input->get('td') . '&th=' . $this->input->get('th') . '&t=' . $density_to . '&asg=1'); ?>"><?php echo '<strong>' . $density_from . '</strong> to <strong>' . $density_to . '</strong>'; ?>
                 </a>
         </h4>
