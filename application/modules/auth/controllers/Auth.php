@@ -287,6 +287,7 @@ class Auth extends MX_Controller {
      * Password reset form
      */
     public function forgot_password() {
+        //echo $this->uri->segment(1);return;
         $this->load->library('form_validation');
         $data = array(
             'title' => lang('forgot_password'),
@@ -304,21 +305,23 @@ class Auth extends MX_Controller {
             $email = trim($this->input->post('email', TRUE));
             $check = $this->pm->get_row('email', $email, 'users');
             if (count($check) > 0) {
-                $str = str_shuffle('!poth@:');
-                $str .= rand(99999, 11111);
+                $this->load->helper('string');
+                $token = random_string('alnum');
+                $subject = 'PothDekhun Account Password Recovery';
+                $body = '<p>Please click the link  to reset your password. Please remember this token only valid for 2 hour: <a href="' . site_url('auth/reset_password/' . md5($check['id']) . '/' . md5($token)) . '">Reset Password</a></p>&nbsp;<p>Best Regards<br/> PothDekhun</p>';
                 $this->load->library('email');
-                $subject = 'Pothdekhun Password Recovery';
-                $body = '<p>Your Password: ' . $str . '</p><p>Please Change this password after Login</p>';
                 $config['mailtype'] = 'html';
                 $config['protocol'] = 'sendmail';
                 $this->email->initialize($config);
-                $this->email->from('rejoan.er@gmail.com', 'PothDekhun');
+                $this->email->from('owner@pothdekhun.com', 'PothDekhun');
                 $this->email->to($email);
                 $this->email->subject($subject);
                 $this->email->message($body);
 
                 if ($this->email->send()) {
-                    $this->pm->updater('id', $check['id'], 'users', array('password' => md5($str)));
+                    $this->pm->deleter('user_id', $check['id'], 'reset_token');
+                    $this->db->set('created_at', 'NOW()', FALSE);
+                    $this->pm->insert_data('reset_token', array('token' => md5($token), 'user_id' => $check['id']));
                     $this->session->set_flashdata('message', lang('mail_sent_recover'));
                     redirect_tr('auth/login');
                 } else {
@@ -333,78 +336,56 @@ class Auth extends MX_Controller {
         $this->nl->view_loader('user', 'forgot_password', NULL, $data);
     }
 
-    /**
-     * Submit email and captcha from forgot password form
-     */
-    public function forgot_password_submit() {
-        $this->load->library('form_validation');
-        $this->load->library('recaptcha'); //loading captcha library
+    public function reset_password($user_id, $token) {
+        if (empty($token) || !empty($user_id)) {
+            $this->session->set_flashdata('message', 'Something wrong');
+            redirect('auth/reset_password');
+        }
+        $verify = $this->pm->get_row('user_id', md5($user_id), 'reset_token');
+        if (empty($verify)) {
+            $this->session->set_flashdata('message', 'Wrong thing');
+            redirect('auth/reset_password');
+        }
+        $date1 = new DateTime($verify['created_at']);
+        $date2 = new DateTime();
+        $interval = $date1->diff($date2);
+        //var_dump($interval,$date1);return;
+        if (md5($verify['token']) == md5($token) && $interval->y < 1 && $interval->m < 1 && $interval->d < 1 && $interval->h < 1 && $interval->i < 7200) {
+            $data = array(
+                'title' => 'Reset Password'
+            );
 
-        $this->form_validation->set_rules('user_email', 'Email', 'trim|required|email|callback_email_check');
-        $this->form_validation->set_rules('recaptcha_response_field', 'Security Code', 'trim|required|callback_captcha_check');
+            $this->nl->view_loader('user', 'reset_password', NULL, $data);
+        } else {
+            $this->session->set_flashdata('message', 'Token Expired or mismatch');
+            redirect('auth/reset_password');
+        }
+    }
 
+    public function reset_pass_submit() {
+        $this->form_validation->set_rules('new_password', 'New Password', 'required');
+        $this->form_validation->set_rules('cpassword', 'Confrim Password', 'required|matches[new_password]');
         if ($this->form_validation->run() == FALSE) {
-            //Handle form validation failure
-            $this->session->keep_flashdata('logincaptcha');
-            $this->forgot_password();
-        } else {
-            //captcha was valid. now check login credentials
-            $user_email = $this->input->post('user_email');
-            $token = $this->auth->forgot_pw_token($user_email);
-            if ($token != FALSE) {
-                $this->adataemail->forgot_password_request_email($user_email, $token);
-                redirectAlert('auth/login', "Password reset link has been sent. Please check your email.", 'success');
-            } else {
-                redirectAlert("auth/forgot_password", "An error occured. Please try again.", 'error');
-            }
+            $data = array(
+                'title' => 'Reset Password'
+            );
+            $this->nl->view_loader('front', 'reset_password', NULL, $data);
+            return;
         }
-    }
 
-    public function password_reset() {
-        $email = $this->input->get('email');
-        $token = $this->input->get('token');
-        $check = $this->auth->chk_forgot_pw_token($email, $token);
-        if ($check) {
-            $this->password_reset_form($email, $token);
-        } else {
-            $data['body']['msg'] = "Password reset request invalid or expired";
-            $data['body']['page'] = "msg_view";
-            makeTemplate($data);
-        }
-    }
+        $token = $this->input->post('sym_token');
+        $user_id = $this->input->post('sym_uid');
+        $verify = $this->pm->get_row('user_id', $user_id, 'password_reset');
+        $date1 = new DateTime($verify['created_at']);
+        $date2 = new DateTime();
+        $interval = $date1->diff($date2);
 
-    public function password_reset_form($email, $token) {
-        if ($this->session->userdata('userdata')) {
-            $this->logout();
-        }
-        $this->load->library('recaptcha');
-        $data['body']['captcha'] = $this->recaptcha->recaptcha_get_html();
-        $data['body']['email'] = $email;
-        $data['body']['token'] = $token;
-        $data['body']['page'] = "login_password_reset_form_view";
-        makeTemplate($data);
-    }
-
-    public function password_reset_submit() {
-        $this->load->library('form_validation');
-        $this->load->library('recaptcha'); //loading captcha library
-        $email = $this->input->post('email');
-        $token = $this->input->post('token');
-        if (!($email && $token)) {
-            redirect_tr();
-        }
-        $this->form_validation->set_rules('user_pw', 'Password', 'trim|required');
-        $this->form_validation->set_rules('user_pw_retype', 'Retype Password', 'trim|required|matches[user_pw]');
-        $this->form_validation->set_rules('recaptcha_response_field', 'Security Code', 'trim|required|callback_captcha_check');
-        if ($this->form_validation->run() == FALSE) {
-            $this->password_reset_form($email, $token);
-        } else {
-            if ($this->auth->reset_pw($email, $token)) {
-                redirectAlert('auth/login', "Password has been reset successfully. You can now login.", 'success');
-            } else {
-                //$this->session->set_flashdata("alertmsg","Error occured. Please try again.");
-                redirectAlert('auth/login', "Error occured. Please try again.");
-            }
+        if (md5($verify['token']) == md5($token) && $interval->y < 1 && $interval->m < 1 && $interval->d < 1 && $interval->h < 1 && $interval->i < 1800) {
+            $new_password = $this->input->post('new_password', TRUE);
+            $this->pm->deleter('user_id', $user_id, 'password_reset');
+            $this->pm->updater('id', $user_id, 'clientssip', array('password' => $new_password));
+            $this->session->set_flashdata('message', 'Password succesfully Resetted');
+            redirect('auth/login');
         }
     }
 
