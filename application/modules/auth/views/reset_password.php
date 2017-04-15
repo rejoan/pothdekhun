@@ -5,7 +5,7 @@
             <div class="login-box-body">
                 <form action="<?php echo site_url_tr('auth/reset_pass_submit'); ?>" method="post">
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="<?php echo lang('password'); ?>" name="new_password" required>
+                        <input type="password" class="form-control" placeholder="<?php echo lang('new_password'); ?>" name="new_password" required>
                     </div>
 
                     <div class="form-group">

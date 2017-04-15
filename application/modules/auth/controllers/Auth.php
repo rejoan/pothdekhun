@@ -12,6 +12,7 @@ class Auth extends MX_Controller {
     public function __construct() {
         parent :: __construct();
         $this->load->model('auth_model', 'auth');
+        $this->load->library('form_validation');
     }
 
 //    public function index() {
@@ -29,7 +30,7 @@ class Auth extends MX_Controller {
             'action' => site_url_tr('auth/register'),
             'captcha' => $this->recaptcha->recaptcha_get_html()
         );
-        $this->load->library('form_validation');
+        
 
         if ($this->input->post('submit')) {
 
@@ -190,7 +191,6 @@ class Auth extends MX_Controller {
         if ($this->session->user_id) {
             redirect_tr('profile');
         }
-        $this->load->library('form_validation');
         $data = array(
             'title' => lang('login'),
             'action' => site_url_tr('auth/login')
@@ -287,8 +287,7 @@ class Auth extends MX_Controller {
      * Password reset form
      */
     public function forgot_password() {
-        //echo $this->uri->segment(1);return;
-        $this->load->library('form_validation');
+        echo $this->nl->enc('6');return;
         $data = array(
             'title' => lang('forgot_password'),
             'action' => site_url_tr('auth/forgot_password')
@@ -308,7 +307,7 @@ class Auth extends MX_Controller {
                 $this->load->helper('string');
                 $token = random_string('alnum');
                 $subject = 'PothDekhun Account Password Recovery';
-                $body = '<p>Please click the link  to reset your password. Please remember this token only valid for 2 hour: <a href="' . site_url('auth/reset_password/' . md5($check['id']) . '/' . md5($token)) . '">Reset Password</a></p>&nbsp;<p>Best Regards<br/> PothDekhun</p>';
+                $body = '<p>Please click the link  to reset your password. Please remember this token only valid for 2 hour: <a href="' . site_url('auth/reset_password/' . $this->nl->enc(($check['id'])) . '/' . md5($token)) . '">Reset Password</a></p>&nbsp;<p>Best Regards<br/> PothDekhun</p>';
                 $this->load->library('email');
                 $config['mailtype'] = 'html';
                 $config['protocol'] = 'sendmail';
@@ -336,15 +335,18 @@ class Auth extends MX_Controller {
         $this->nl->view_loader('user', 'forgot_password', NULL, $data);
     }
 
-    public function reset_password($user_id, $token) {
-        if (empty($token) || !empty($user_id)) {
+    public function reset_password($user_id,$token) {
+        date_default_timezone_set('Asia/Dhaka');
+        //var_dump(empty($user_id),empty($token));return;
+        if (empty($token) || empty($user_id)) {
             $this->session->set_flashdata('message', 'Something wrong');
-            redirect('auth/reset_password');
+            redirect_tr('auth/reset_password');
         }
-        $verify = $this->pm->get_row('user_id', md5($user_id), 'reset_token');
+        $verify = $this->pm->get_row('user_id', $this->nl->dec($user_id), 'reset_token');
+        //var_dump($verify);return;
         if (empty($verify)) {
             $this->session->set_flashdata('message', 'Wrong thing');
-            redirect('auth/reset_password');
+            redirect_tr('auth/reset_password');
         }
         $date1 = new DateTime($verify['created_at']);
         $date2 = new DateTime();
@@ -358,7 +360,7 @@ class Auth extends MX_Controller {
             $this->nl->view_loader('user', 'reset_password', NULL, $data);
         } else {
             $this->session->set_flashdata('message', 'Token Expired or mismatch');
-            redirect('auth/reset_password');
+            redirect_tr('auth/reset_password');
         }
     }
 
@@ -373,17 +375,16 @@ class Auth extends MX_Controller {
             return;
         }
 
-        $token = $this->input->post('sym_token');
-        $user_id = $this->input->post('sym_uid');
-        $verify = $this->pm->get_row('user_id', $user_id, 'password_reset');
+        $user_id = $this->nl->dec($this->input->post('poth_identity'));
+        $verify = $this->pm->get_row('user_id', $user_id, 'reset_token');
         $date1 = new DateTime($verify['created_at']);
         $date2 = new DateTime();
         $interval = $date1->diff($date2);
 
-        if (md5($verify['token']) == md5($token) && $interval->y < 1 && $interval->m < 1 && $interval->d < 1 && $interval->h < 1 && $interval->i < 1800) {
+        if ($interval->y < 1 && $interval->m < 1 && $interval->d < 1 && $interval->h < 1 && $interval->i < 7200) {
             $new_password = $this->input->post('new_password', TRUE);
-            $this->pm->deleter('user_id', $user_id, 'password_reset');
-            $this->pm->updater('id', $user_id, 'clientssip', array('password' => $new_password));
+            $this->pm->deleter('user_id', $user_id, 'reset_token');
+            $this->pm->updater('id', $user_id, 'users', array('password' => md5($new_password)));
             $this->session->set_flashdata('message', 'Password succesfully Resetted');
             redirect('auth/login');
         }

@@ -5,3 +5,5 @@ $lang['mail_sent_recover'] = 'আপনার ইমেইলে পাসওয়
 $lang['forgot_password'] = 'পাসওয়ার্ড উদ্ধার';
 $lang['sent_pass'] = 'পাসওয়ার্ড পাঠান';
 $lang['reset_pass'] = 'রিসেট করুন';
+$lang['new_password'] = 'নতুন পাসওয়ার্ড';
+$lang['cpassword'] = 'পাসওয়ার্ড নিশ্চিতকরন';

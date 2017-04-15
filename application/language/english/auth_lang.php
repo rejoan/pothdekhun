@@ -5,3 +5,5 @@ $lang['mail_sent_recover'] = 'Password reset link sent to your email. After 2 ho
 $lang['forgot_password'] = 'Recover Password';
 $lang['sent_pass'] = 'Send Password';
 $lang['reset_pass'] = 'Reset Password';
+$lang['new_password'] = 'New Password';
+$lang['cpassword'] = 'Confirm Password';
