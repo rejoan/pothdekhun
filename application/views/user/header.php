@@ -86,7 +86,7 @@
 
             <div class="row">
                 <?php $this->nl->breadcrumb(); ?>
-                <?php if ($f_class != 'pages' && $f_class != 'auth' && ENVIRONMENT == 'production'): ?>
+                <?php if ($f_class != 'pages' && $f_class != 'auth' && ENVIRONMENT == 'production' && !$this->ua->is_mobile()){ ?>
                     <!-- G&R_728x90 -->
                     <script id="GNR43005">
                         (function (i, g, b, d, c) {
@@ -117,4 +117,6 @@
                             gandrad({siteid: 14374, slot: 43007});
                     </script>
                     <!-- End of G&R_970x90 -->
-                <?php endif; ?>
+                <?php }else{ ?>
+                    
+                <?php } ?>
