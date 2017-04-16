@@ -22,7 +22,7 @@ $f_method = $this->router->fetch_method();
                 <li>&copy; Copyright PothDekhun <?php echo date('Y'); ?></li>
                 <li><a href="<?php echo site_url_tr('pages/about-us'); ?>"><?php echo lang('about_us'); ?></a></li>
                 <li><a href="<?php echo site_url_tr('pages/contact-us'); ?>"><?php echo lang('contact_us'); ?></a></li>
-<!--                <li><a href="<?php //echo site_url_tr('pages/point-rules');        ?>"><?php //echo lang('point_rules');        ?></a></li>-->
+<!--                <li><a href="<?php //echo site_url_tr('pages/point-rules');          ?>"><?php //echo lang('point_rules');          ?></a></li>-->
                 <li><a href="<?php echo site_url_tr('pages/privacy-policy'); ?>"><?php echo lang('privacy_policy'); ?></a></li>
 
             </ul>
@@ -43,7 +43,6 @@ $f_method = $this->router->fetch_method();
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-
 <script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js'); ?>"></script>
 <?php if (($f_class == 'routes' || $f_class == 'transports' || $f_class == 'profile') && ($f_method == 'add' || $f_method == 'edit') || $f_method == 'all' || $f_method == 'show'): ?>
     <script async type="text/javascript" src="<?php echo base_url('assets/plugins/jQueryUI/jquery-ui.min.js'); ?>"></script>
@@ -58,9 +57,9 @@ $f_method = $this->router->fetch_method();
 <script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/tooltip.js'); ?>"></script>
 <?php if ($this->ua->is_mobile()): ?>
     <script type="text/javascript">
-        $(window).on('load', function () {
-            $('#ploader').fadeOut('slow');
-        });
+            $(window).on('load', function () {
+                $('#ploader').fadeOut('slow');
+            });
     </script>
 <?php endif; ?>
 <script async type="text/javascript" src="<?php echo base_url('assets/js/jquery-migrate-1.4.1.min.js'); ?>"></script>

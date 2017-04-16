@@ -240,6 +240,9 @@ a.advanced_suggestion:hover{
 a.advanced_suggestion:active,a.advanced_suggestion:focus{
     color: #000;
 }
+#gnr{
+    height: 90px;
+}
 @media screen and (max-width: 768px) {
     .header_slogan{
         font-size:15px;

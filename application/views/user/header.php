@@ -30,7 +30,7 @@
             <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.css'); ?>">
         <?php endif; ?>
         <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables/media/css/jquery.dataTables.min.css'); ?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css?v=1.10'); ?>" >
+        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css?v=1.11'); ?>" >
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-select.min.css'); ?>" >
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/font-awesome.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/ionicons.min.css'); ?>">
@@ -86,9 +86,9 @@
 
             <div class="row">
                 <?php $this->nl->breadcrumb(); ?>
-                <?php if ($f_class != 'pages' && $f_class != 'auth' && ENVIRONMENT == 'production' && !$this->ua->is_mobile()){ ?>
-                    <!-- G&R_728x90 -->
-                    <script id="GNR43005">
+                <?php if ($f_class != 'pages' && $f_class != 'auth' && ENVIRONMENT == 'production' && !$this->ua->is_mobile()) { ?>
+                    <!-- G&R_970x90 -->
+                    <script id="GNR43027">
                         (function (i, g, b, d, c) {
                             i[g] = i[g] || function () {
                                 (i[g].q = i[g].q || []).push(arguments)
@@ -99,24 +99,25 @@
                             var x = d.getElementsByTagName(b)[0];
                             x.parentNode.insertBefore(s, x);
                         })(window, 'gandrad', 'script', document, '//content.green-red.com/lib/display.js');
-                        gandrad({siteid: 14374, slot: 43005});
-                    </script>
-                    <!-- End of G&R_728x90 -->
-                    <!-- G&R_970x90 -->
-                    <script id="GNR43007">
-                            (function (i, g, b, d, c) {
-                                i[g] = i[g] || function () {
-                                    (i[g].q = i[g].q || []).push(arguments)
-                                };
-                                var s = d.createElement(b);
-                                s.async = true;
-                                s.src = c;
-                                var x = d.getElementsByTagName(b)[0];
-                                x.parentNode.insertBefore(s, x);
-                            })(window, 'gandrad', 'script', document, '//content.green-red.com/lib/display.js');
-                            gandrad({siteid: 14374, slot: 43007});
+                        gandrad({siteid: 14374, slot: 43027});
                     </script>
                     <!-- End of G&R_970x90 -->
-                <?php }else{ ?>
-                    
+                    <!-- G&R_160x600 -->
+                    <script id="GNR43028">
+                        (function (i, g, b, d, c) {
+                            i[g] = i[g] || function () {
+                                (i[g].q = i[g].q || []).push(arguments)
+                            };
+                            var s = d.createElement(b);
+                            s.async = true;
+                            s.src = c;
+                            var x = d.getElementsByTagName(b)[0];
+                            x.parentNode.insertBefore(s, x);
+                        })(window, 'gandrad', 'script', document, '//content.green-red.com/lib/display.js');
+                        gandrad({siteid: 14374, slot: 43028});
+                    </script>
+                    <!-- End of G&R_160x600 -->
+
+                <?php } else { ?>
+
                 <?php } ?>
