@@ -102,22 +102,7 @@
                         gandrad({siteid: 14374, slot: 43027});
                     </script>
                     <!-- End of G&R_970x90 -->
-                    <!-- G&R_160x600 -->
-                    <script id="GNR43028">
-                        (function (i, g, b, d, c) {
-                            i[g] = i[g] || function () {
-                                (i[g].q = i[g].q || []).push(arguments)
-                            };
-                            var s = d.createElement(b);
-                            s.async = true;
-                            s.src = c;
-                            var x = d.getElementsByTagName(b)[0];
-                            x.parentNode.insertBefore(s, x);
-                        })(window, 'gandrad', 'script', document, '//content.green-red.com/lib/display.js');
-                        gandrad({siteid: 14374, slot: 43028});
-                    </script>
-                    <!-- End of G&R_160x600 -->
-
+                    
                 <?php } else { ?>
 
                 <?php } ?>
