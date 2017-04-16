@@ -16,7 +16,7 @@
 <!--        <script src="https://apis.google.com/js/platform.js" async defer></script>-->
         <link rel="icon" href="<?php echo base_url('assets/images') . '/favicon.ico'; ?>">
 
-        <title><?php echo lang('pothdekhun').' : '. $title; ?></title>
+        <title><?php echo lang('pothdekhun') . ' : ' . $title; ?></title>
         <?php
         $f_class = $this->router->fetch_class();
         $f_method = $this->router->fetch_method();
@@ -87,14 +87,34 @@
             <div class="row">
                 <?php $this->nl->breadcrumb(); ?>
                 <?php if ($f_class != 'pages' && $f_class != 'auth' && ENVIRONMENT == 'production'): ?>
-                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!-- Top responsive -->
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-client="ca-pub-6904999156943572"
-                         data-ad-slot="6489697647"
-                         data-ad-format="auto"></ins>
-                    <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
+                    <!-- G&R_728x90 -->
+                    <script id="GNR43005">
+                        (function (i, g, b, d, c) {
+                            i[g] = i[g] || function () {
+                                (i[g].q = i[g].q || []).push(arguments)
+                            };
+                            var s = d.createElement(b);
+                            s.async = true;
+                            s.src = c;
+                            var x = d.getElementsByTagName(b)[0];
+                            x.parentNode.insertBefore(s, x);
+                        })(window, 'gandrad', 'script', document, '//content.green-red.com/lib/display.js');
+                        gandrad({siteid: 14374, slot: 43005});
                     </script>
+                    <!-- End of G&R_728x90 -->
+                    <!-- G&R_970x90 -->
+                    <script id="GNR43007">
+                            (function (i, g, b, d, c) {
+                                i[g] = i[g] || function () {
+                                    (i[g].q = i[g].q || []).push(arguments)
+                                };
+                                var s = d.createElement(b);
+                                s.async = true;
+                                s.src = c;
+                                var x = d.getElementsByTagName(b)[0];
+                                x.parentNode.insertBefore(s, x);
+                            })(window, 'gandrad', 'script', document, '//content.green-red.com/lib/display.js');
+                            gandrad({siteid: 14374, slot: 43007});
+                    </script>
+                    <!-- End of G&R_970x90 -->
                 <?php endif; ?>
