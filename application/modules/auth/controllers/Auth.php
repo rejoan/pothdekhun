@@ -30,7 +30,7 @@ class Auth extends MX_Controller {
             'action' => site_url_tr('auth/register'),
             'captcha' => $this->recaptcha->recaptcha_get_html()
         );
-        
+
 
         if ($this->input->post('submit')) {
 
@@ -230,20 +230,6 @@ class Auth extends MX_Controller {
     }
 
     /**
-     * Callback function for checking if email exists
-     * @author Rejoanul Alam
-     */
-    public function email_check($email) {
-        if ($this->auth->check_email($email)) {
-
-            return TRUE;
-        } else {
-            $this->form_validation->set_message('email_check', lang('auth_invalid_email'));
-            return FALSE;
-        }
-    }
-
-    /**
      * Callback function for checking captcha
      * @author Rejoanul Alam
      */
@@ -263,31 +249,12 @@ class Auth extends MX_Controller {
         redirect_tr('routes');
     }
 
-    public function account_activation() {
-        $this->session->unset_userdata('userdata');
-        $token = $this->input->get('token');
-        $id = $this->input->get('id');
-        if ($token & $id) {
-            $user = getUser($id);
-            $token_compare = md5($user->user_id . $user->user_email . $user->user_type);
-            if ($token_compare == $token) {
-                $this->auth->activate_account($user->user_id);
-                redirectAlert("auth/login", lang('auth_account_activation_success'));
-            } else {
-                echo "Invalid Token";
-                die;
-            }
-        } else {
-            echo "Invalid Request";
-            die;
-        }
-    }
-
     /**
      * Password reset form
      */
     public function forgot_password() {
-        echo $this->nl->enc('6');return;
+        //date_default_timezone_set('Asia/Dhaka');
+        //timezone inactive for production
         $data = array(
             'title' => lang('forgot_password'),
             'action' => site_url_tr('auth/forgot_password')
@@ -297,7 +264,6 @@ class Auth extends MX_Controller {
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 
             if ($this->form_validation->run() == FALSE) {
-                $data['error'] = 'No user found';
                 $this->nl->view_loader('user', 'forgot_password', NULL, $data);
                 return;
             }
@@ -307,7 +273,7 @@ class Auth extends MX_Controller {
                 $this->load->helper('string');
                 $token = random_string('alnum');
                 $subject = 'PothDekhun Account Password Recovery';
-                $body = '<p>Please click the link  to reset your password. Please remember this token only valid for 2 hour: <a href="' . site_url('auth/reset_password/' . $this->nl->enc(($check['id'])) . '/' . md5($token)) . '">Reset Password</a></p>&nbsp;<p>Best Regards<br/> PothDekhun</p>';
+                $body = '<p>Please click the link  to reset your password. Please remember this link only valid for 2 hour: <a href="' . site_url('auth/reset_password/' . $this->nl->enc(($check['id'])) . '/' . md5($token)) . '">Reset Password</a></p>&nbsp;<p>Best Regards<br/> PothDekhun</p>';
                 $this->load->library('email');
                 $config['mailtype'] = 'html';
                 $config['protocol'] = 'sendmail';
@@ -327,17 +293,17 @@ class Auth extends MX_Controller {
                     //echo $this->email->print_debugger();
                 }
             } else {
-                $this->session->set_flashdata('message', lang('enter_valid_user_password'));
-                redirect('auth/login');
+                $this->session->set_flashdata('message', lang('not_found'));
+                redirect('auth/forgot_password');
             }
         }
 
         $this->nl->view_loader('user', 'forgot_password', NULL, $data);
     }
 
-    public function reset_password($user_id,$token) {
-        date_default_timezone_set('Asia/Dhaka');
-        //var_dump(empty($user_id),empty($token));return;
+    public function reset_password($user_id, $token) {
+        //date_default_timezone_set('Asia/Dhaka');
+        //timezone inactive for production
         if (empty($token) || empty($user_id)) {
             $this->session->set_flashdata('message', 'Something wrong');
             redirect_tr('auth/reset_password');
@@ -346,13 +312,13 @@ class Auth extends MX_Controller {
         //var_dump($verify);return;
         if (empty($verify)) {
             $this->session->set_flashdata('message', 'Wrong thing');
-            redirect_tr('auth/reset_password');
+            redirect_tr('auth/forgot_password');
         }
         $date1 = new DateTime($verify['created_at']);
         $date2 = new DateTime();
         $interval = $date1->diff($date2);
-        //var_dump($interval,$date1);return;
-        if (md5($verify['token']) == md5($token) && $interval->y < 1 && $interval->m < 1 && $interval->d < 1 && $interval->h < 1 && $interval->i < 7200) {
+        //var_dump($verify['token'],$interval);return;
+        if ($verify['token'] == $token && $interval->y < 1 && $interval->m < 1 && $interval->d < 1 && $interval->h < 1 && $interval->i < 7200) {
             $data = array(
                 'title' => 'Reset Password'
             );
@@ -360,33 +326,45 @@ class Auth extends MX_Controller {
             $this->nl->view_loader('user', 'reset_password', NULL, $data);
         } else {
             $this->session->set_flashdata('message', 'Token Expired or mismatch');
-            redirect_tr('auth/reset_password');
+            redirect_tr('auth/forgot_password');
         }
     }
 
     public function reset_pass_submit() {
+        //date_default_timezone_set('Asia/Dhaka');
+        //timezone inactive for production
         $this->form_validation->set_rules('new_password', 'New Password', 'required');
         $this->form_validation->set_rules('cpassword', 'Confrim Password', 'required|matches[new_password]');
         if ($this->form_validation->run() == FALSE) {
             $data = array(
                 'title' => 'Reset Password'
             );
-            $this->nl->view_loader('front', 'reset_password', NULL, $data);
+            $this->nl->view_loader('user', 'reset_password', NULL, $data);
             return;
         }
 
         $user_id = $this->nl->dec($this->input->post('poth_identity'));
         $verify = $this->pm->get_row('user_id', $user_id, 'reset_token');
+        //var_dump($user_id,$verify);        return;
+        if (empty($verify)) {
+            $this->session->set_flashdata('message', 'Wrong');
+            redirect_tr('auth/reset_password/' . $this->input->post('poth_identity') . '/' . $this->input->post('token'));
+        }
         $date1 = new DateTime($verify['created_at']);
         $date2 = new DateTime();
         $interval = $date1->diff($date2);
-
+//        echo '<pre>';
+//        var_dump($interval);
+//        return;
         if ($interval->y < 1 && $interval->m < 1 && $interval->d < 1 && $interval->h < 1 && $interval->i < 7200) {
             $new_password = $this->input->post('new_password', TRUE);
             $this->pm->deleter('user_id', $user_id, 'reset_token');
             $this->pm->updater('id', $user_id, 'users', array('password' => md5($new_password)));
             $this->session->set_flashdata('message', 'Password succesfully Resetted');
             redirect('auth/login');
+        } else {
+            $this->session->set_flashdata('message', 'Token Expired or mismatch');
+            redirect_tr('auth/forgot_password');
         }
     }
 

@@ -7,3 +7,4 @@ $lang['sent_pass'] = 'Send Password';
 $lang['reset_pass'] = 'Reset Password';
 $lang['new_password'] = 'New Password';
 $lang['cpassword'] = 'Confirm Password';
+$lang['not_found'] = 'User Not Found';

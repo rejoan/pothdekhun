@@ -168,10 +168,14 @@ class Search extends MX_Controller {
         $fthana = mb_convert_case($ft[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ', ';
         $tthana = mb_convert_case($th[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ', ';
 
-        if ($c) {
-            $fthana = $tthana = lang('any_thana');
+        if ($c && !empty($from_place)) {
+            $fthana = lang('any_thana');
         }
 
+        if ($c && !empty($to_place)) {
+            $tthana = lang('any_thana');
+        }
+        
         $f_place = mb_convert_case($from_place, MB_CASE_TITLE, 'UTF-8') . ', ';
         if (empty($from_place)) {
             $f_place = '';

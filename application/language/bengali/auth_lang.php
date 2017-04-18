@@ -7,3 +7,4 @@ $lang['sent_pass'] = 'পাসওয়ার্ড পাঠান';
 $lang['reset_pass'] = 'রিসেট করুন';
 $lang['new_password'] = 'নতুন পাসওয়ার্ড';
 $lang['cpassword'] = 'পাসওয়ার্ড নিশ্চিতকরন';
+$lang['not_found'] = 'ইউজার পাওয়া যায়নি';
