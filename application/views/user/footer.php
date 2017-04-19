@@ -53,8 +53,8 @@ $f_method = $this->router->fetch_method();
 <script async type="text/javascript" src="<?php echo base_url('assets/plugins/datatables/media/js/jquery.dataTables.min.js'); ?>"></script>
 <script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap-select.min.js'); ?>"></script>
 <script async type="text/javascript" src="<?php echo base_url('assets/js/val_lib.js'); ?>"></script>
-<script async type="text/javascript" src="<?php echo base_url('assets/js/sturgon-slider-1.2.1.js?v=2.4'); ?>"></script>
-<script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/tooltip.js'); ?>"></script>
+<script async type="text/javascript" src="<?php echo base_url('assets/js/sturgon-slider-1.2.1.min.js?v=2.5'); ?>"></script>
+<script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/tooltip.min.js'); ?>"></script>
 <?php if ($this->ua->is_mobile()): ?>
     <script type="text/javascript">
             $(window).on('load', function () {

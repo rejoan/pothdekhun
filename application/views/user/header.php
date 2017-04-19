@@ -22,18 +22,18 @@
         $f_method = $this->router->fetch_method();
         ?>
         <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" >
+        <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" media="none" onload="if(media!='all')media='all'">
         <?php if (($f_class == 'routes' || $f_class == 'transports' || $f_class == 'profile') && ($f_method == 'add' || $f_method == 'edit') || $f_method == 'all' || $f_method == 'show'): ?>
-            <link rel="stylesheet" href="<?php echo base_url('assets/plugins/jQueryUI/jquery-ui.min.css'); ?>" >
-            <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-sweetalert/dist/sweetalert.css'); ?>">
+            <link rel="stylesheet" href="<?php echo base_url('assets/plugins/jQueryUI/jquery-ui.min.css'); ?>" media="none" onload="if(media!='all')media='all'">
+            <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-sweetalert/dist/sweetalert.css'); ?>" media="none" onload="if(media!='all')media='all'">
 
-            <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.css'); ?>">
+            <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.css'); ?>" media="none" onload="if(media!='all')media='all'">
         <?php endif; ?>
-        <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables/media/css/jquery.dataTables.min.css'); ?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css?v=1.11'); ?>" >
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-select.min.css'); ?>" >
-        <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/font-awesome.min.css'); ?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/ionicons.min.css'); ?>">
+        <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables/media/css/jquery.dataTables.min.css'); ?>" media="none" onload="if(media!='all')media='all'">
+        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css?v=1.12'); ?>" media="none" onload="if(media!='all')media='all'">
+        <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-select.min.css'); ?>" media="none" onload="if(media!='all')media='all'">
+        <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/font-awesome.min.css'); ?>" media="none" onload="if(media!='all')media='all'">
+        <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/ionicons.min.css'); ?>" media="none" onload="if(media!='all')media='all'">
         <?php if ($this->ua->is_mobile()): ?>
             <style>
                 #ploader {
@@ -47,7 +47,7 @@
                 }
             </style>
         <?php endif; ?>
-        <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/AdminLTE.min.css'); ?>">
+        <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/AdminLTE.min.css'); ?>" media="none" onload="if(media!='all')media='all'">
 
 <!--[if lt IE 9]><script async src="<?php echo base_url('assets/js/ie8-responsive-file-warning.js'); ?>"></script><![endif]-->
 <!--    <script async src="<?php echo base_url('assets/js/ie-emulation-modes-warning.js'); ?>"></script>-->
@@ -57,7 +57,7 @@
           <script async src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
           <script async src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.1.1.min.js'); ?>"></script>
+        <script async type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.1.1.min.js'); ?>"></script>
         <?php if (ENVIRONMENT == 'production'): ?>
             <script>
                 (function (i, s, o, g, r, a, m) {
@@ -119,4 +119,4 @@
                         gandrad({siteid: 14374, slot: 43025});
                     </script>
                     <!-- End of G&R_320x50 -->
-<?php } ?>
+                <?php } ?>
