@@ -33,7 +33,6 @@
         <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css?v=1.12'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-select.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/font-awesome.min.css'); ?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/ionicons.min.css'); ?>">
         <?php if ($this->ua->is_mobile()): ?>
             <style>
                 #ploader {
