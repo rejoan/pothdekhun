@@ -64,8 +64,8 @@ class Routes extends MX_Controller {
             'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $tdistrict),
             'settings' => $this->nl->get_config(),
             'load_css' => load_css(array('css' => 'bootstrap-select.min.css', 'plugins/jQueryUI' => 'jquery-ui.min.css')),
-            'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js', 'plugins/jQueryUI' => 'jquery-ui.min.js', 'js/bootstrap#' => 'bootstrap.file-input.js', 'plugins/fancybox' => 'jquery.fancybox.pack.js', 'js' => 'val_lib.js')),
-            'script_init' => script_init(array('$(\'input[type=file]\').bootstrapFileInput();', '$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});', '$(\'.fancybox\').fancybox({helpers: {overlay: {locked: false}}});'))
+            'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js', 'plugins/jQueryUI' => 'jquery-ui.min.js', 'js/bootstrap#' => 'bootstrap.file-input.js', 'js' => 'val_lib.js')),
+            'script_init' => script_init(array('$(\'input[type=file]\').bootstrapFileInput();', '$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});'))
         );
 
         if ($this->input->post('submit')) {
@@ -253,7 +253,7 @@ class Routes extends MX_Controller {
             'stoppages' => $this->pm->get_data($stopage_table, FALSE, 'route_id', $route_id, FALSE, FALSE, FALSE, 'position', 'asc'),
             'settings' => $this->nl->get_config(),
             'action_button' => lang('edit_button'),
-            'load_css' => load_css(array('css' => 'bootstrap-select.min.css', 'plugins/jQueryUI' => 'jquery-ui.min.css')),
+            'load_css' => load_css(array('css' => 'bootstrap-select.min.css', 'plugins/jQueryUI' => 'jquery-ui.min.css','plugins/fancybox' => 'jquery.fancybox.css')),
             'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js', 'plugins/jQueryUI' => 'jquery-ui.min.js', 'js/bootstrap#' => 'bootstrap.file-input.js', 'plugins/fancybox' => 'jquery.fancybox.pack.js', 'js' => 'val_lib.js')),
             'script_init' => script_init(array('$(\'input[type=file]\').bootstrapFileInput();', '$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});', '$(\'.fancybox\').fancybox({helpers: {overlay: {locked: false}}});'))
         );
@@ -520,7 +520,7 @@ class Routes extends MX_Controller {
             'next' => $next_q->row_array(),
             'prev' => $prev_q->row_array(),
             'more_transports' => $this->more_transports($result),
-            'load_css' => load_css(array('bootstrap-sweetalert/dist' => 'sweetalert.css', 'css' => 'bootstrap-select.min.css')),
+            'load_css' => load_css(array('bootstrap-sweetalert/dist' => 'sweetalert.css', 'css' => 'bootstrap-select.min.css','plugins/fancybox' => 'jquery.fancybox.css')),
             'load_script' => load_script(array('plugins/fancybox' => 'jquery.fancybox.pack.js', 'bootstrap-sweetalert/dist' => 'sweetalert.min.js', 'js/bootstrap' => 'bootstrap-select.min.js', 'js/bootstrap#' => 'tooltip.min.js')),
             'script_init' => script_init(array('$(\'.fancybox\').fancybox({helpers: {overlay: {locked: false}}});', '$(\'[data-toggle="tooltip"]\').tooltip();'))
         );
