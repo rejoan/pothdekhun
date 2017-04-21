@@ -8,10 +8,10 @@
                 </div>
                 <div class="modal-body">
                     <ul class="list-group">
-			<li class="list-group-item list-group-item-warning custom_margin"><i class="fa fa-pencil"></i> <?php echo lang('search_rule1');?></li>
-                        <li class="list-group-item list-group-item-warning custom_margin"><i class="fa fa-pencil"></i> <?php echo lang('second_rule');?></li>
-                        <li class="list-group-item list-group-item-warning custom_margin"><i class="fa fa-pencil"></i> <?php echo lang('third_rule');?></li>
-                         <li class="list-group-item list-group-item-warning"><i class="fa fa-sticky-note-o"></i> <?php echo lang('final_rule');?></li>
+			<li class="list-group-item list-group-item-warning custom_margin"><span class="glyphicon glyphicon-pencil"></span> <?php echo lang('search_rule1');?></li>
+                        <li class="list-group-item list-group-item-warning custom_margin"><span class="glyphicon glyphicon-pencil"></span> <?php echo lang('second_rule');?></li>
+                        <li class="list-group-item list-group-item-warning custom_margin"><span class="glyphicon glyphicon-pencil"></span> <?php echo lang('third_rule');?></li>
+                         <li class="list-group-item list-group-item-warning"><span class="glyphicon glyphicon-asterisk"></span> <?php echo lang('final_rule');?></li>
                     </ul>
                 </div>
 

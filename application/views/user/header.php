@@ -24,7 +24,7 @@
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
         <?php echo isset($load_css) ? $load_css : ''; ?>
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css?v=1.12'); ?>">
+        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.min.css?v=1.13'); ?>">
 
         <?php if ($this->ua->is_mobile()): ?>
             <style>
@@ -49,7 +49,7 @@
           <script async src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
           <script async src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <script <?php //echo $this->ua->is_mobile() ? '' : 'async'; ?> type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.1.1.min.js'); ?>"></script>
+        <script <?php echo $this->ua->is_mobile() ? '' : 'async';  ?> type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.1.1.min.js'); ?>"></script>
         <?php if (ENVIRONMENT == 'production'): ?>
             <script>
                 (function (i, s, o, g, r, a, m) {
@@ -78,37 +78,20 @@
 
             <div class="row">
                 <?php $this->nl->breadcrumb(); ?>
-                <?php if ($f_class != 'pages' && $f_class != 'auth' && ENVIRONMENT == 'production' && !$this->ua->is_mobile()) { ?>
-                    <!-- G&R_970x90 -->
-                    <script id="GNR43027">
-                        (function (i, g, b, d, c) {
-                            i[g] = i[g] || function () {
-                                (i[g].q = i[g].q || []).push(arguments)
-                            };
-                            var s = d.createElement(b);
-                            s.async = true;
-                            s.src = c;
-                            var x = d.getElementsByTagName(b)[0];
-                            x.parentNode.insertBefore(s, x);
-                        })(window, 'gandrad', 'script', document, '//content.green-red.com/lib/display.js');
-                        gandrad({siteid: 14374, slot: 43027});
-                    </script>
-                    <!-- End of G&R_970x90 -->
-
-                <?php } else { ?>
+                <?php if ($f_class != 'pages' && $f_class != 'auth' && ENVIRONMENT == 'production' && $this->ua->is_mobile()) { ?>
                     <!-- G&R_320x50 -->
                     <script id="GNR43025">
-                        (function (i, g, b, d, c) {
-                            i[g] = i[g] || function () {
-                                (i[g].q = i[g].q || []).push(arguments)
-                            };
-                            var s = d.createElement(b);
-                            s.async = true;
-                            s.src = c;
-                            var x = d.getElementsByTagName(b)[0];
-                            x.parentNode.insertBefore(s, x);
-                        })(window, 'gandrad', 'script', document, '//content.green-red.com/lib/display.js');
-                        gandrad({siteid: 14374, slot: 43025});
+                            (function (i, g, b, d, c) {
+                                i[g] = i[g] || function () {
+                                    (i[g].q = i[g].q || []).push(arguments)
+                                };
+                                var s = d.createElement(b);
+                                s.async = true;
+                                s.src = c;
+                                var x = d.getElementsByTagName(b)[0];
+                                x.parentNode.insertBefore(s, x);
+                            })(window, 'gandrad', 'script', document, '//content.green-red.com/lib/display.js');
+                            gandrad({siteid: 14374, slot: 43025});
                     </script>
                     <!-- End of G&R_320x50 -->
                 <?php } ?>

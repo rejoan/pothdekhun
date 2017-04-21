@@ -44,7 +44,7 @@ $f_method = $this->router->fetch_method();
 <!-- Placed at the end of the document so the pages load faster -->
 <script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js'); ?>"></script>
 <?php echo isset($load_script) ? $load_script : ''; ?>
-<script async type="text/javascript" src="<?php echo base_url('assets/js/sturgon-slider-1.2.1.js?v=2.5'); ?>"></script>
+<script async type="text/javascript" src="<?php echo base_url('assets/js/sturgon-slider-1.2.1.min.js?v=2.6'); ?>"></script>
 
 <?php if ($this->ua->is_mobile()): ?>
     <script type="text/javascript">
