@@ -26,7 +26,8 @@ class Routes extends MX_Controller {
             'action_transport' => site_url_tr('search/routes'),
             'search_action' => site_url_tr('search/index'),
             'settings' => $this->nl->get_config(),
-            'meta_title' => lang('home_page_meta')
+            'meta_title' => lang('home_page_meta'),
+            'load_css' => load_css(array('css' => 'bootstrap-select.min.css'))
         );
 
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
@@ -61,6 +62,7 @@ class Routes extends MX_Controller {
             'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $fdistrict),
             'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $tdistrict),
             'settings' => $this->nl->get_config(),
+            'load_css' => load_css(array('css' => 'bootstrap-select.min.css','plugins/jQueryUI' => 'jquery-ui.min.css'))
 //            'captcha' => $this->recaptcha->recaptcha_get_html()
         );
 
@@ -512,7 +514,8 @@ class Routes extends MX_Controller {
             'comments' => $this->rm->get_comments($route_id),
             'next' => $next_q->row_array(),
             'prev' => $prev_q->row_array(),
-            'more_transports' => $this->more_transports($result)
+            'more_transports' => $this->more_transports($result),
+            'load_css' => load_css(array('css' => 'bootstrap-select.min.css'))
         );
         $data['meta_title'] = $data['title'] . lang('meta_title_route');
         //echo $this->db->last_query();return;

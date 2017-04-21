@@ -98,7 +98,7 @@ function language_menu() {
     $selector .= '<ul class="dropdown-menu dropdown-menu-default">';
     $languages = language_array();
     foreach ($languages as $lang) {
-        $selector .= '<li><a class="padding_left" data-ln_code="'.$lang['lang_code'].'" href="' . current_url_tr($lang['lang_code']) . '"><img src="' . base_url('assets/flags/16') . '/' . trim($lang['lang_flag']) . '.png" alt="' . $lang['lang_flag'] . '"/> ' . ucfirst($lang['lang_name']) . '</a></li>';
+        $selector .= '<li><a class="padding_left" data-ln_code="' . $lang['lang_code'] . '" href="' . current_url_tr($lang['lang_code']) . '"><img src="' . base_url('assets/flags/16') . '/' . trim($lang['lang_flag']) . '.png" alt="' . $lang['lang_flag'] . '"/> ' . ucfirst($lang['lang_name']) . '</a></li>';
     }
 
     $selector .= '</li></ul>';
@@ -171,4 +171,20 @@ function unicode_title($str) {
     $search = array(',', ' ');
     $string = str_replace($search, '-', $str);
     return mb_convert_case($string, MB_CASE_LOWER, 'UTF-8');
+}
+
+function load_css($resources) {
+    $css = '';
+    foreach ($resources as $dir => $file_name) {
+        $css .= '<link rel="stylesheet" href="' . base_url('assets/' . $dir . '/' . $file_name) . '">';
+    }
+    return $css;
+}
+
+function load_script($dir = NULL, $file_name = NULL) {
+    if (empty($dir)) {
+        $dir = 'assets/js/';
+    }
+    $script = '<script async type="text/javascript" src="' . base_url($dir . $file_name) . '"></script>';
+    return $script;
 }

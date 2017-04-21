@@ -20,9 +20,10 @@ $f_method = $this->router->fetch_method();
         <div class="col-md-6">
             <ul class="footer_nav" id="custom_margin">
                 <li>&copy; Copyright PothDekhun <?php echo date('Y'); ?></li>
+                <li><a href="<?php echo site_url_tr('pages/how-to-search'); ?>"><?php echo lang('search_tips'); ?></a></li>
                 <li><a href="<?php echo site_url_tr('pages/about-us'); ?>"><?php echo lang('about_us'); ?></a></li>
                 <li><a href="<?php echo site_url_tr('pages/contact-us'); ?>"><?php echo lang('contact_us'); ?></a></li>
-<!--                <li><a href="<?php //echo site_url_tr('pages/point-rules');          ?>"><?php //echo lang('point_rules');          ?></a></li>-->
+<!--                <li><a href="<?php //echo site_url_tr('pages/point-rules');            ?>"><?php //echo lang('point_rules');            ?></a></li>-->
                 <li><a href="<?php echo site_url_tr('pages/privacy-policy'); ?>"><?php echo lang('privacy_policy'); ?></a></li>
 
             </ul>
@@ -44,12 +45,10 @@ $f_method = $this->router->fetch_method();
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js'); ?>"></script>
-<?php if (($f_class == 'routes' || $f_class == 'transports' || $f_class == 'profile') && ($f_method == 'add' || $f_method == 'edit') || $f_method == 'all' || $f_method == 'show'): ?>
-    <script async type="text/javascript" src="<?php echo base_url('assets/plugins/jQueryUI/jquery-ui.min.js'); ?>"></script>
-    <script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap.file-input.js'); ?>"></script>
-    <script async type="text/javascript" src="<?php echo base_url('assets/bootstrap-sweetalert/dist/sweetalert.min.js'); ?>"></script>
-    <script async type="text/javascript" src="<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.pack.js'); ?>"></script>
-<?php endif; ?>
+<script async type="text/javascript" src="<?php echo base_url('assets/plugins/jQueryUI/jquery-ui.min.js'); ?>"></script>
+<script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap.file-input.js'); ?>"></script>
+<script async type="text/javascript" src="<?php echo base_url('assets/bootstrap-sweetalert/dist/sweetalert.min.js'); ?>"></script>
+<script async type="text/javascript" src="<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.pack.js'); ?>"></script>
 <script async type="text/javascript" src="<?php echo base_url('assets/plugins/datatables/media/js/jquery.dataTables.min.js'); ?>"></script>
 <script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap-select.min.js'); ?>"></script>
 <script async type="text/javascript" src="<?php echo base_url('assets/js/val_lib.js'); ?>"></script>
@@ -57,9 +56,9 @@ $f_method = $this->router->fetch_method();
 <script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/tooltip.min.js'); ?>"></script>
 <?php if ($this->ua->is_mobile()): ?>
     <script type="text/javascript">
-            $(window).on('load', function () {
-                $('#ploader').fadeOut('slow');
-            });
+        $(window).on('load', function () {
+            $('#ploader').fadeOut('slow');
+        });
     </script>
 <?php endif; ?>
 <script async type="text/javascript" src="<?php echo base_url('assets/js/jquery-migrate-1.4.1.min.js'); ?>"></script>

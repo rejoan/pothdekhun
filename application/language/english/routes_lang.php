@@ -59,3 +59,5 @@ $lang['proof_des'] = 'If you have any proof';
 $lang['prev_route'] = 'Previous Route';
 $lang['next_route'] = 'Next Route';
 $lang['more_transport'] = 'More Transports in this Route';
+$lang['poth_intro'] = 'PothDekhun is the Bus Guide for Dhaka City and Bangladesh';
+$lang['poth_description'] = 'PothDekhun is a powerful search engine to find transports like Bus, Leguna, Train etc between two places. All routes available here contains fare, stoppages, google map direction, distance and other required information. Transports information also available with photos, counter addresses, contact information etc.';

@@ -19,6 +19,14 @@ class Pages extends MX_Controller {
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'point', 'rightbar', 'menu', TRUE);
     }
+    
+     public function how_to_search() {
+        $data = array(
+            'title' => lang('how_to_search'),
+            'settings' => $this->nl->get_config(),
+        );
+        $this->nl->view_loader('user', 'latest', NULL, $data, 'how_to_search', 'rightbar', 'menu', TRUE);
+    }
 
     public function about_us() {
         $data = array(
