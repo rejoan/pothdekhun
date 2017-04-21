@@ -3,7 +3,7 @@
 <div class="callout callout-info">
     <h1 class="intro_des no-margin"><?php echo lang('poth_intro'); ?></h1>
     <p class="description-text"><?php echo lang('poth_description'); ?></p>
-    <a href="<?php echo site_url_tr('pages/how-to-search')?>" class="btn btn-xs btn-warning"> <?php echo lang('search_tips'); ?></a>
+    <a style="text-decoration: none;" href="<?php echo site_url_tr('pages/how-to-search')?>" class="btn btn-xs btn-github"><span class="glyphicon glyphicon-search"></span> <?php echo lang('search_tips'); ?></a>
 </div>
 
 <div id="suggestion_page" class="col-sm-6 col-sm-push-3">

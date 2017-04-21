@@ -159,7 +159,7 @@
                                     <th><?php echo lang('place_name'); ?></th>
                                     <th><?php echo lang('comment'); ?></th>
                                     <th><?php echo lang('main_rent'); ?></th>
-    <!--                                    <th><?php //echo lang('fare_verify');                                  ?></th>-->
+    <!--                                    <th><?php //echo lang('fare_verify');                                      ?></th>-->
                                 </tr>
                             </thead>
                             <tbody>
@@ -172,8 +172,8 @@
                                             <?php echo $s['rent'] . ' ' . lang('tk'); ?>
                                         </td>
         <!--                                        <td>
-                                            <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');                                  ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
-                    <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');                                  ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');                                      ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');                                      ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
                                         </td>-->
                                     </tr>
                                 <?php endforeach; ?>
@@ -330,16 +330,23 @@
             var en_segment = $('#en_segment').val();
             var bn_segment = $('#bn_segment').val();
             var segment = href.substr(href.lastIndexOf('/') + 1);
+
             var cur_code = $('html').prop('lang');
             var lan_code = $(this).data('ln_code');
             if (cur_code == 'bn') {
                 if (lan_code == 'en') {
                     var new_href = href.replace(segment, en_segment);
+                    if ($.isNumeric(segment)) {
+                        new_href = href;
+                    }
                     $(this).prop('href', new_href);
                 }
             } else {
                 if (lan_code == 'bn') {
                     var new_href = href.replace(segment, bn_segment);
+                    if ($.isNumeric(segment)) {
+                        new_href = href;
+                    }
                     $(this).prop('href', new_href);
                 }
             }
