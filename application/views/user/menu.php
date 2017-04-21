@@ -30,14 +30,14 @@
             if ($this->session->user_type == 'admin') {
                 $this->nl->generate_link('admin', 'b_janina', NULL, 'Admin');
             }
-            $this->nl->generate_link('routes', '', 'fa-home', lang('home_link'));
+            $this->nl->generate_link('routes', '', 'home', lang('home_link'));
             ?>
             <li class="dropdown">
                 <a href="<?php echo site_url_tr('routes/all'); ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo lang('routes'); ?><span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <?php
-                    $this->nl->generate_link('routes/all', 'routes/all', 'fa-list', lang('all_routes'));
-                    $this->nl->generate_link('routes/add', 'routes/add', 'fa-plus', lang('add_route'));
+                    $this->nl->generate_link('routes/all', 'routes/all', 'list', lang('all_routes'));
+                    $this->nl->generate_link('routes/add', 'routes/add', 'plus', lang('add_route'));
                     ?>
                 </ul>
             </li>
@@ -45,8 +45,8 @@
                 <a href="<?php echo site_url_tr('transports'); ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo lang('transports'); ?><span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <?php
-                    $this->nl->generate_link('transports?s=1', 'transports?s=1', 'fa-list', lang('all_transport'));
-                    $this->nl->generate_link('transports/add', 'transports/add', 'fa-plus', lang('add_transport'));
+                    $this->nl->generate_link('transports?s=1', 'transports?s=1', 'list', lang('all_transport'));
+                    $this->nl->generate_link('transports/add', 'transports/add', 'plus', lang('add_transport'));
                     ?>
                 </ul>
             </li>
@@ -75,7 +75,7 @@
             <?php if ($this->session->user_id): ?>
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i>
+                        <span class="glyphicon glyphicon-cd"></span>
                         <?php if (notify(TRUE) > 0): ?>
                             <span class="label bg-yellow-gradient"><?php echo notify(TRUE); ?></span>
                         <?php endif; ?>
@@ -100,8 +100,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $this->session->username; ?><span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="<?php echo site_url_tr('profile'); ?>"><i class="fa fa-eye"></i> <?php echo lang('profile'); ?></a></li>
-                        <li><a href="<?php echo site_url_tr('auth/logout'); ?>"><i class="fa fa-power-off"></i> <?php echo lang('logout'); ?></a></li>
+                        <li><a href="<?php echo site_url_tr('profile'); ?>"><span class="glyphicon glyphicon-eye-open"></span> <?php echo lang('profile'); ?></a></li>
+                        <li><a href="<?php echo site_url_tr('auth/logout'); ?>"><span class="glyphicon glyphicon-log-out"></span> <?php echo lang('logout'); ?></a></li>
                     </ul>
                 </li>
 

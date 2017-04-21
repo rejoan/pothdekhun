@@ -27,7 +27,8 @@ class Routes extends MX_Controller {
             'search_action' => site_url_tr('search/index'),
             'settings' => $this->nl->get_config(),
             'meta_title' => lang('home_page_meta'),
-            'load_css' => load_css(array('css' => 'bootstrap-select.min.css'))
+            'load_css' => load_css(array('css' => 'bootstrap-select.min.css')),
+            'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js'))
         );
 
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
@@ -62,8 +63,9 @@ class Routes extends MX_Controller {
             'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $fdistrict),
             'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $tdistrict),
             'settings' => $this->nl->get_config(),
-            'load_css' => load_css(array('css' => 'bootstrap-select.min.css','plugins/jQueryUI' => 'jquery-ui.min.css'))
-//            'captcha' => $this->recaptcha->recaptcha_get_html()
+            'load_css' => load_css(array('css' => 'bootstrap-select.min.css', 'plugins/jQueryUI' => 'jquery-ui.min.css')),
+            'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js', 'plugins/jQueryUI' => 'jquery-ui.min.js', 'js/bootstrap#' => 'bootstrap.file-input.js', 'plugins/fancybox' => 'jquery.fancybox.pack.js', 'js' => 'val_lib.js')),
+            'script_init' => script_init(array('$(\'input[type=file]\').bootstrapFileInput();', '$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});', '$(\'.fancybox\').fancybox({helpers: {overlay: {locked: false}}});'))
         );
 
         if ($this->input->post('submit')) {
@@ -250,7 +252,10 @@ class Routes extends MX_Controller {
             'route' => $route_detail,
             'stoppages' => $this->pm->get_data($stopage_table, FALSE, 'route_id', $route_id, FALSE, FALSE, FALSE, 'position', 'asc'),
             'settings' => $this->nl->get_config(),
-            'action_button' => lang('edit_button')
+            'action_button' => lang('edit_button'),
+            'load_css' => load_css(array('css' => 'bootstrap-select.min.css', 'plugins/jQueryUI' => 'jquery-ui.min.css')),
+            'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js', 'plugins/jQueryUI' => 'jquery-ui.min.js', 'js/bootstrap#' => 'bootstrap.file-input.js', 'plugins/fancybox' => 'jquery.fancybox.pack.js', 'js' => 'val_lib.js')),
+            'script_init' => script_init(array('$(\'input[type=file]\').bootstrapFileInput();', '$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});', '$(\'.fancybox\').fancybox({helpers: {overlay: {locked: false}}});'))
         );
         if ($this->nl->is_admin() && $this->input->get('pd_rev')) {
             $data['point'] = modules::run('route_manager/calculate_point', $route_id);
@@ -515,7 +520,9 @@ class Routes extends MX_Controller {
             'next' => $next_q->row_array(),
             'prev' => $prev_q->row_array(),
             'more_transports' => $this->more_transports($result),
-            'load_css' => load_css(array('css' => 'bootstrap-select.min.css'))
+            'load_css' => load_css(array('bootstrap-sweetalert/dist' => 'sweetalert.css', 'css' => 'bootstrap-select.min.css')),
+            'load_script' => load_script(array('plugins/fancybox' => 'jquery.fancybox.pack.js', 'bootstrap-sweetalert/dist' => 'sweetalert.min.js', 'js/bootstrap' => 'bootstrap-select.min.js', 'js/bootstrap#' => 'tooltip.min.js')),
+            'script_init' => script_init(array('$(\'.fancybox\').fancybox({helpers: {overlay: {locked: false}}});', '$(\'[data-toggle="tooltip"]\').tooltip();'))
         );
         $data['meta_title'] = $data['title'] . lang('meta_title_route');
         //echo $this->db->last_query();return;
@@ -530,7 +537,7 @@ class Routes extends MX_Controller {
         $stoppages = modules::run('search/stoppage_routes', $result['from_place'], $stopage_table, $result['to_place'], 10, 0, FALSE, $result['from_district'], $result['to_district']);
         $stoppages_ids = $this->nl->get_all_ids($stoppages, 'r_id');
         $stoppages_ids_arr = explode(',', $stoppages_ids);
-        $suggestions = modules::run('search/get_suggestions', $result['from_place'], $stopage_table, $result['to_place'], 10, 0, FALSE, $result['from_district'], $result['to_district'],NULL, $result['from_thana'], $result['to_thana']);
+        $suggestions = modules::run('search/get_suggestions', $result['from_place'], $stopage_table, $result['to_place'], 10, 0, FALSE, $result['from_district'], $result['to_district'], NULL, $result['from_thana'], $result['to_thana']);
         $suggestions_ids = $this->nl->get_all_ids($suggestions, 'r_id');
         $suggestions_ids_arr = explode(',', $suggestions_ids);
         $final_ids = array_filter(array_unique(array_merge($exact_ids_arr, $stoppages_ids_arr, $suggestions_ids_arr)));
@@ -538,7 +545,7 @@ class Routes extends MX_Controller {
 
         unset($final_ids[$pos]);
         $final = implode(',', $final_ids);
-        
+
         if (empty($final_ids)) {
             return array();
         }
@@ -644,7 +651,11 @@ class Routes extends MX_Controller {
             'action' => site_url_tr('routes/all'),
             'settings' => $this->nl->get_config(),
             'districts' => $this->pm->get_data('districts'),
-            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $district_id)
+            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $district_id),
+            'load_css' => load_css(array('css' => 'bootstrap-select.min.css', 'plugins/datatables/media/css' => 'jquery.dataTables.min.css')),
+            'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js', 'plugins/datatables/media/js' => 'jquery.dataTables.min.js','js/bootstrap#' => 'tooltip.min.js')),
+            'script_init' => script_init(array('$(\'.dataTable\').DataTable({\'paging\': false,
+        \'info\': false,\'searching\': false,\'order\': [[0, \'desc\']]});','$(\'[data-toggle="tooltip"]\').tooltip();'))
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'routes', 'rightbar', 'menu', TRUE);
     }

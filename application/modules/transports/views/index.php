@@ -38,11 +38,11 @@
                             <td><?php echo $r['username']; ?></td>
                             <td>
                                 <?php if ($this->session->user_id): ?>
-                                    <a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('transports/edit') . '/' . $r['id']; ?>"><i class="fa fa-edit"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Edit" href="<?php echo site_url_tr('transports/edit') . '/' . $r['id']; ?>"><span class="glyphicon glyphicon-edit"></span></a>
                                 <?php endif; ?>
-                                <a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url_tr('transports/show') . '/' . $r['id'] . '/' . unicode_title($r[$this->nl->lang_based_data('bn_name', 'name')]); ?>"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="View" href="<?php echo site_url_tr('transports/show') . '/' . $r['id'] . '/' . unicode_title($r[$this->nl->lang_based_data('bn_name', 'name')]); ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
                                 <?php if ($this->nl->is_admin()): ?>
-                                    <a onclick="return confirm('are you sure?')" data-toggle="tooltip" data-placement="top" title="Delete" href="<?php echo site_url_tr('transports/delete') . '/' . $r['id']; ?>"><i class="fa fa-trash"></i></a>
+                                    <a onclick="return confirm('are you sure?')" data-toggle="tooltip" data-placement="top" title="Delete" href="<?php echo site_url_tr('transports/delete') . '/' . $r['id']; ?>"><span class="glyphicon glyphicon-trash"></span></a>
                                 <?php endif; ?>
                             </td>
                         </tr>

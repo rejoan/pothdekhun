@@ -300,7 +300,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"></label>
                     <div class="col-xs-10 col-md-6">
-                        <a href="javascript:void(0)" id="add_stoppage" class="btn btn-info"><i class="fa fa-plus"></i> <?php echo lang('add_stoppage'); ?></a>
+                        <a href="javascript:void(0)" id="add_stoppage" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span> <?php echo lang('add_stoppage'); ?></a>
                         <span class="help-block"><?php echo lang('add_stoppage_help'); ?></span>
                     </div>
                 </div>

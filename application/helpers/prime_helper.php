@@ -176,15 +176,24 @@ function unicode_title($str) {
 function load_css($resources) {
     $css = '';
     foreach ($resources as $dir => $file_name) {
-        $css .= '<link rel="stylesheet" href="' . base_url('assets/' . $dir . '/' . $file_name) . '">';
+        $css .= '<link rel="stylesheet" href="' . base_url('assets/' . $dir . '/' . $file_name) . '">' . PHP_EOL;
     }
     return $css;
 }
 
-function load_script($dir = NULL, $file_name = NULL) {
-    if (empty($dir)) {
-        $dir = 'assets/js/';
+function load_script($resources) {
+    $script = '';
+    foreach ($resources as $dir => $file_name) {
+        $dir = str_replace('#', '', $dir);
+        $script .= '<script async type="text/javascript" src="' . base_url('assets/' . $dir . '/' . $file_name) . '"></script>' . PHP_EOL;
     }
-    $script = '<script async type="text/javascript" src="' . base_url($dir . $file_name) . '"></script>';
+    return $script;
+}
+
+function script_init($resources) {
+    $script = '';
+    foreach ($resources as $code) {
+        $script .= $code . PHP_EOL;
+    }
     return $script;
 }

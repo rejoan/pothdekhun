@@ -19,7 +19,7 @@
     ?>
     <div class="box box-poth">
         <div id="details_header" class="box-header with-border">
-            <p><?php echo lang('route_info') . ': <a data-toggle="tooltip" data-placement="top" title="Google Map Direction" class="btn btn-sm bg-purple" href="' . site_url_tr('routes/map/?fp=' . $from_p . '&ftn=' . str_replace(' ', '+', trim($route['thana_name'])) . '&fds=' . str_replace(' ', '+', trim($route['district_name'])) . '&tp=' . str_replace(' ', '+', trim($route['to_place'])) . '&thn=' . str_replace(' ', '+', trim($route['th_thana_name'])) . '&tdn=' . str_replace(' ', '+', trim($route['td_name']))) . '"><i class="fa fa-map-marker"></i> Google Map</a></p> <div class="row no-margin"><div class="col-md-6 bg-orange">' . $fp . ', ' . $ftn . ', ' . $fds . '</div><div class="col-md-1"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></div> <div class="col-md-5 bg-orange">' . $tp . ', ' . $thn . ', ' . $tdn . '</div>'; ?></div>
+            <p><?php echo lang('route_info') . ': <a data-toggle="tooltip" data-placement="top" title="Google Map Direction" class="btn btn-sm bg-purple" href="' . site_url_tr('routes/map/?fp=' . $from_p . '&ftn=' . str_replace(' ', '+', trim($route['thana_name'])) . '&fds=' . str_replace(' ', '+', trim($route['district_name'])) . '&tp=' . str_replace(' ', '+', trim($route['to_place'])) . '&thn=' . str_replace(' ', '+', trim($route['th_thana_name'])) . '&tdn=' . str_replace(' ', '+', trim($route['td_name']))) . '"><span class="glyphicon glyphicon-map-marker"></span> Google Map</a></p> <div class="row no-margin"><div class="col-md-6 bg-orange">' . $fp . ', ' . $ftn . ', ' . $fds . '</div><div class="col-md-1"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></div> <div class="col-md-5 bg-orange">' . $tp . ', ' . $thn . ', ' . $tdn . '</div>'; ?></div>
     </div>
     <div class="box-body">
         <div class="row custom_margin">
@@ -123,14 +123,14 @@
             <?php if ($this->session->user_id) { ?>
                 <div id="fare_verfication" class="col-xs-4">
                     <small id="pd_crc" class="text-muted text-success"><?php echo $route['fare_upvote']; ?></small>
-                    <a data-pd_fp="pd_fpk" data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_ok'); ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
-                    <a data-pd_fp="pd_fpnk" data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_not_ok'); ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                    <a data-pd_fp="pd_fpk" data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_ok'); ?>" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                    <a data-pd_fp="pd_fpnk" data-toggle="tooltip" data-placement="top" title="<?php echo lang('fare_not_ok'); ?>" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-thumbs-down"></span></a>
                     <small id="pd_wrn" class="text-muted text-danger"><?php echo $route['fare_downvote']; ?></small>
                 </div>
             <?php } else { ?>
                 <div class="col-xs-4">
-                    <a data-toggle="modal" data-target="#compalin" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
-                    <a data-toggle="modal" data-target="#compalin" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                    <a data-toggle="modal" data-target="#compalin" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                    <a data-toggle="modal" data-target="#compalin" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-thumbs-down"></span></a>
                 </div>
             <?php } ?>
         </div>
@@ -219,7 +219,7 @@
                 if (!empty($prev['id'])):
                     $url_title = $prev[$this->nl->lang_based_data('fp_bn', 'from_place')] . ' ' . lang('to_view') . ' ' . $prev[$this->nl->lang_based_data('tp_bn', 'to_place')] . ' ' . $prev[$this->nl->lang_based_data('bn_name', 'name')];
                     ?>
-                    <a class="btn btn-sm btn-warning" href="<?php echo site_url_tr('routes/show/') . $prev['id'] . '/' . unicode_title($url_title); ?>"><i class="fa fa-angle-double-left"></i> <?php echo lang('prev_route'); ?></a>
+                    <a class="btn btn-sm btn-warning" href="<?php echo site_url_tr('routes/show/') . $prev['id'] . '/' . unicode_title($url_title); ?>"><span class="glyphicon glyphicon-arrow-left"></span> <?php echo lang('prev_route'); ?></a>
                 <?php endif; ?>
             </div>
             <div class="col-md-6">
@@ -227,7 +227,7 @@
                 if (!empty($next['id'])):
                     $url_title_next = $next[$this->nl->lang_based_data('fp_bn', 'from_place')] . ' ' . lang('to_view') . ' ' . $next[$this->nl->lang_based_data('tp_bn', 'to_place')] . ' ' . $next[$this->nl->lang_based_data('bn_name', 'name')];
                     ?>
-                    <a class="btn btn-sm btn-warning <?php echo $this->ua->is_mobile() ? 'margin_top' : 'pull-right'; ?>" href="<?php echo site_url_tr('routes/show/') . $next['id'] . '/' . unicode_title($url_title_next); ?>"><?php echo lang('next_route'); ?> <i class="fa fa-angle-double-right"></i></a>
+                    <a class="btn btn-sm btn-warning <?php echo $this->ua->is_mobile() ? 'margin_top' : 'pull-right'; ?>" href="<?php echo site_url_tr('routes/show/') . $next['id'] . '/' . unicode_title($url_title_next); ?>"><?php echo lang('next_route'); ?> <span class="glyphicon glyphicon-arrow-right"></span></a>
                 <?php endif; ?>
             </div>
         </div>
@@ -236,15 +236,15 @@
         <div class="row">
             <?php if ($this->session->user_id): ?>
                 <div class="col-xs-4">
-                    <a href="<?php echo site_url_tr('routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-info"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></a>  
+                    <a href="<?php echo site_url_tr('routes/edit') . '/' . $route['r_id']; ?>" class="btn btn-info"><span class="glyphicon glyphicon-edit"></span> <?php echo lang('edit'); ?></a>  
                 </div>
             <?php endif; ?>
             <div class="col-xs-4">
-                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#compalin"><i class="fa fa-legal"></i> <?php echo lang('verify'); ?></button>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#compalin"><span class="glyphicon glyphicon-pencil"></span> <?php echo lang('verify'); ?></button>
             </div>
             <?php if ($this->nl->is_admin()): ?>
                 <div class="col-xs-4">
-                    <a href="<?php echo site_url('route_manager/route_clone') . '/' . $route['r_id']; ?>" class="btn btn-info"><i class="fa fa-copy"></i> Clone</a>  
+                    <a href="<?php echo site_url('route_manager/route_clone') . '/' . $route['r_id']; ?>" class="btn btn-info"><span class="glyphicon glyphicon-copy"></span> Clone</a>  
                 </div>
             <?php endif; ?>
         </div>

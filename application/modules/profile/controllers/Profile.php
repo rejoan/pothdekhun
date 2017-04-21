@@ -113,7 +113,10 @@ class Profile extends MX_Controller {
             'profile' => $this->prm->get_profile($this->user_id),
             'tot_added' => $total_route,
             'districts' => $this->pm->get_data('districts'),
-            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1)
+            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1),
+            'load_css' => load_css(array('css' => 'bootstrap-select.min.css')),
+            'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js', 'js/bootstrap#' => 'bootstrap.file-input.js')),
+            'script_init' => script_init(array('$(\'input[type=file]\').bootstrapFileInput();'))
         );
         $data['profile']['reputation'] = $this->prm->total_reputation($this->user_id);
         if ($this->input->post('submit')) {

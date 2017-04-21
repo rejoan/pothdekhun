@@ -48,7 +48,11 @@ class Transports extends MX_Controller {
             'transports' => $this->tm->get_all($input, $poribohon_name, FALSE, $per_page, $segment),
             'links' => $links,
             'segment' => $segment,
-            'settings' => $this->nl->get_config()
+            'settings' => $this->nl->get_config(),
+            'load_css' => load_css(array('plugins/datatables/media/css' => 'jquery.dataTables.min.css')),
+            'load_script' => load_script(array('plugins/datatables/media/js' => 'jquery.dataTables.min.js','js/bootstrap' => 'tooltip.min.js')),
+            'script_init' => script_init(array('$(\'.dataTable\').DataTable({\'paging\': false,
+        \'info\': false,\'searching\': false,\'order\': [[0, \'desc\']]});','$(\'[data-toggle="tooltip"]\').tooltip();'))
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
     }
@@ -63,7 +67,9 @@ class Transports extends MX_Controller {
             'action_button' => lang('add_button'),
             'settings' => $this->nl->get_config(),
             'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
-            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1, FALSE, FALSE, FALSE, $col_name, 'asc')
+            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1, FALSE, FALSE, FALSE, $col_name, 'asc'),
+            'load_css' => load_css(array('bootstrap-sweetalert/dist' => 'sweetalert.css')),
+            'load_script' => load_script(array('bootstrap-sweetalert/dist' => 'sweetalert.min.js'))
         );
         $this->load->library('form_validation');
 
@@ -278,7 +284,9 @@ class Transports extends MX_Controller {
             'total_counter' => $this->tm->get_counters($poribohon_id, $district, TRUE),
             'settings' => $this->nl->get_config(),
             'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
-            'action' => site_url_tr('transports/show/' . $id)
+            'action' => site_url_tr('transports/show/' . $id),
+            'load_css' => load_css(array('css' => 'bootstrap-select.min.css')),
+            'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js'))
         );
         $data['meta_title'] = $data['title'] . lang('meta_title_transport');
         //echo $this->db->last_query();return;

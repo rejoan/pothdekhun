@@ -42,7 +42,11 @@ class Reputation extends MX_Controller {
             'settings' => $this->nl->get_config(),
             'links' => $links,
             'segment' => $segment,
-            'points' => $this->pm->get_data($table, FALSE, 'user_id', $this->user_id, FALSE, FALSE, FALSE, FALSE, $per_page, $segment)
+            'points' => $this->pm->get_data($table, FALSE, 'user_id', $this->user_id, FALSE, FALSE, FALSE, FALSE, $per_page, $segment),
+            'load_css' => load_css(array('css' => 'bootstrap-select.min.css','plugins/datatables/media/css' => 'jquery.dataTables.min.css')),
+            'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js', 'js/bootstrap#' => 'bootstrap.file-input.js','plugins/datatables/media/js' => 'jquery.dataTables.min.js')),
+            'script_init' => script_init(array('$(\'.dataTable\').DataTable({\'paging\': false,
+        \'info\': false,\'searching\': false,\'order\': [[0, \'desc\']]});'))
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
     }

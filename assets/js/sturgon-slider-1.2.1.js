@@ -1,27 +1,4 @@
 $(document).ready(function () {
-    var mn_nm = $('#mn_nm').val();
-    var cl_nm = $('#cl_nm').val();
-    if ((cl_nm === 'routes' || cl_nm === 'transports' || cl_nm === 'profile') && (mn_nm === 'add' || mn_nm === 'edit' || mn_nm === 'all' || mn_nm === 'show')) {
-        $('.fancybox').fancybox({
-            helpers: {
-                overlay: {
-                    locked: false
-                }
-            }
-        });
-        $('#stoppage_section').sortable({
-            placeholder: 'ui-state-highlight'
-        });
-
-        $('input[type=file]').bootstrapFileInput();
-    }
-    $('.dataTable').DataTable({
-        'paging': false,
-        'info': false,
-        'searching': false,
-        'order': [[0, 'desc']]
-    });
-    $('[data-toggle="tooltip"]').tooltip();
     var xhr = null;
     $('.search_place').keyup(function (e) {
         var key = e.keyCode;

@@ -13,24 +13,24 @@ if ($message) {
         <!-- /.box-header -->
         <div class="box-body">
             <?php if ($profile['user_id'] == $this->session->user_id): ?>
-                <strong><i class="fa fa-at margin-r-5"></i> <?php echo lang('email') ?></strong>
+                <strong><span class="glyphicon glyphicon-envelope"></span> <?php echo lang('email') ?></strong>
                 <p class="text-muted"><?php echo $profile['email']; ?></p>
                 <hr>
-                <strong><i class="fa fa-mobile margin-r-5"></i> <?php echo lang('mobile') ?></strong>
+                <strong><span class="glyphicon glyphicon-phone"></span> <?php echo lang('mobile') ?></strong>
                 <p class="text-muted"><?php echo $profile['mobile']; ?></p>
                 <hr>
             <?php endif; ?>
-            <strong><i class="fa fa-database margin-r-5"></i> <?php echo lang('reputation') ?></strong>
+            <strong><span class="glyphicon glyphicon-signal"></span> <?php echo lang('reputation') ?></strong>
             <p><label class="label label-success"><?php echo $profile['reputation']; ?></label></p>
             <hr>
 
-            <strong><i class="fa fa-map-marker margin-r-5"></i> <?php echo lang('location') ?></strong>
+            <strong><span class="glyphicon glyphicon-map-marker"></span> <?php echo lang('location') ?></strong>
             <p class="text-muted"><?php echo $profile[$this->nl->lang_based_data('bn_name', 'name')] . ', ' . $profile[$this->nl->lang_based_data('thbn_name', 'th_name')]; ?></p>
 
             <hr>
 
 
-            <strong><i class="fa fa-file-text-o margin-r-5"></i> <?php echo lang('about_detail') ?></strong>
+            <strong><span class="glyphicon glyphicon-info-sign"></span> <?php echo lang('about_detail') ?></strong>
 
             <p><?php echo $profile['about']; ?></p>
 
