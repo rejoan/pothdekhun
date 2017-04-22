@@ -31,7 +31,7 @@
                     <?php echo form_error('email', '<div class="alert alert-danger">', '</div>'); ?>
 
                     <div class="form-group has-feedback">
-                        <input type="text" class="form-control" name="mobile" placeholder="<?php echo lang('mobile'); ?>" autocomplete="off">
+                        <input type="text" class="form-control" name="mobile" placeholder="<?php echo lang('mobile'); ?>" autocomplete="off" value="<?php echo set_value('mobile'); ?>">
                         <span class="help-block"><?php echo lang('mobile_info');?></span>
                         <span class="glyphicon glyphicon-phone form-control-feedback"></span>
                     </div>

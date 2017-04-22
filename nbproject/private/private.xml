@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/helpers/prime_helper.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/controllers/Routes.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/assets/css/style.css</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/rightbar.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/transports/views/add.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/header.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/views/index.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/pages/views/how_to_search.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/views/user/footer.php</file>
-            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/pages/controllers/Pages.php</file>
         </group>
     </open-files>
 </project-private>

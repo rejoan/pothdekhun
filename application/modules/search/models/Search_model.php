@@ -96,22 +96,21 @@ OR (r.to_district = ' . $district . $sqlt_thana . $ft_place . ' AND r.from_distr
                 $query = $this->db->query($sql);
                 //echo $this->db->last_query();return;
                 $result = $query->row_array();
-                $words[$result['total']][] = $result['place'];
+                $words[$result['total'] . str_repeat('#', $key)] = $result['place'];
             }
-            krsort($words);
-
-            $word = array_shift($words);
-
-            if (is_array($word)) {
-                $percentages = array();
-                foreach ($word as $w) {
-                    similar_text($w, $place, $percent);
-                    $percentages[ceil($percent)] = $w;
+            unset($words[array_search($place, $words)]);
+            //var_dump($words,array_search($place, $words),$place);return;
+            $percentages = array();
+            foreach ($words as $w) {
+                if(str_word_count($w) > 2){
+                    continue;
                 }
-                krsort($percentages);
-                //var_dump($percentages);return;
-                $word = array_shift($percentages);
+                similar_text($w, $place, $percent);
+                $percentages[ceil($percent)] = $w;
             }
+            krsort($percentages);
+            //var_dump($percentages);return;
+            $word = array_shift($percentages);
             return $word;
         } else {
             return $str;

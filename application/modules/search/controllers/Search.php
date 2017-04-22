@@ -175,7 +175,7 @@ class Search extends MX_Controller {
         if ($c && !empty($to_place)) {
             $tthana = lang('any_thana');
         }
-        
+
         $f_place = mb_convert_case($from_place, MB_CASE_TITLE, 'UTF-8') . ', ';
         if (empty($from_place)) {
             $f_place = '';
@@ -186,7 +186,8 @@ class Search extends MX_Controller {
             $t_place = '';
         }
 
-        $density_from = $density_to = '';
+        $density_from = mb_convert_case($ft[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8');
+        $density_to = mb_convert_case($th[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8');
         $route_table = $this->nl->lang_based_data('route_bn', 'routes');
         if (!empty($from_place)) {
             $density_from = $this->sm->get_density_word($from_place, $route_table, $stopage_table);

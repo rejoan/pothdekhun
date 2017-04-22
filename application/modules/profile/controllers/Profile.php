@@ -88,7 +88,10 @@ class Profile extends MX_Controller {
             'settings' => $this->nl->get_config(),
             'action' => site_url_tr('profile/my_routes'),
             'districts' => $this->pm->get_data('districts'),
-            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $district_id)
+            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $district_id),
+            'load_css' => load_css(array('css' => 'bootstrap-select.min.css', 'plugins/jQueryUI' => 'jquery-ui.min.css')),
+            'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js','js/bootstrap#' => 'tooltip.min.js')),
+            'script_init' => script_init(array('$(\'[data-toggle="tooltip"]\').tooltip();'))
         );
         $this->load->view('user/header', $data);
         $this->load->view('user/menu');

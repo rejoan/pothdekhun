@@ -11,3 +11,4 @@ $lang['profile_image'] = 'প্রোফাইল ছবি';
 $lang['profile_update_success'] = 'প্রোফাইল সফলভাবে আপডেট হয়েছে';
 $lang['prev_image'] = 'আগের ছবি';
 $lang['all_routes_your'] = 'আপনার যোগকৃত রুট';
+$lang['filter'] = 'ছাকুন';
