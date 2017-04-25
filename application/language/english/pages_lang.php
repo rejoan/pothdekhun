@@ -26,3 +26,7 @@ $lang['srules2'] = 'If your desired place not available in drop down then write 
 $lang['srules3'] = 'In above case if you put <strong>Agargaon</strong> in "Departure Place" and select <strong>Mohammadpur</strong> from drop down (where showing <strong>Gulshan</strong> now) still it will work. Although here thana selection is wrong yet it will not affect the search';
 $lang['srules4'] = 'If you want to search transports from specific place then you may write it in box with accurate thana selection';
 $lang['srules5'] = 'When than not sure you may check mark "Ignore Thana" checkbox';
+$lang['thana_place'] = 'Select only thana';
+$lang['one_place'] = 'Only thana and one place select';
+$lang['thana_ignored'] = 'Ignore thana';
+$lang['specific_place'] = 'Specific place select';
