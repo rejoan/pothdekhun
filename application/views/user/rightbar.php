@@ -5,11 +5,7 @@
                     <h3 class="box-title"><?php //echo lang('rightbar')       ?></h3>
                 </div>-->
 
-        <div class="box-body">
-            <p>Hosting Sponsor</p>
-            <a target="_blank" href="http://www.w3space.net" rel="nofollow"><img class="img-responsive" src="<?php echo base_url('assets/images/') . 'sponsor.jpg'; ?>" alt="Hosting Sponsor"/></a>
-
-        </div>
+       
 
         <?php
         $f_class = $this->router->fetch_class();

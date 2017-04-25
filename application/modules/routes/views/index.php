@@ -1,7 +1,4 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<div class="row">
-    <img class="img-responsive img-bordered" src="<?php echo base_url('assets/images/announce.jpg');?>" alt="announcement"/>
-</div>
 <div class="callout callout-info">
     <h1 class="intro_des no-margin"><?php echo lang('poth_intro'); ?></h1>
     <p class="description-text"><?php echo lang('poth_description'); ?></p>
