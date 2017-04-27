@@ -42,7 +42,7 @@
                     </div>
                 </div>
             </form>
-            <p>You may also contact through our email owner@pothdekhun.com</p>
+            <p>You may also contact through our email rejoan@pothdekhun.com</p>
         </div>
     </div>
 </div>
