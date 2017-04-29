@@ -271,13 +271,15 @@
                         <div id="departure_dynamic" class="form-group">
                             <label class="col-sm-3 control-label"></label>
                             <div class="col-xs-10 col-md-6">
-                                <input maxlength="200" type="text" class="form-control"  name="departure_dynamic" value="<?php
-                                if ($this->input->post('submit')) {
-                                    echo set_value('departure_time');
-                                } elseif (isset($route['departure_time'])) {
-                                    echo $route['departure_time'];
-                                }
-                                ?>">
+                                <textarea id="custom_area" name="departure_dynamic">
+                                    <?php
+                                    if ($this->input->post('submit')) {
+                                        echo set_value('departure_time');
+                                    } elseif (isset($route['departure_time'])) {
+                                        echo $route['departure_time'];
+                                    }
+                                    ?>
+                                </textarea>
                             </div>
                         </div>
                     <?php endif; ?>
