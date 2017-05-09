@@ -62,3 +62,6 @@ $lang['more_transport'] = 'More Transports in this Route';
 $lang['poth_intro'] = 'PothDekhun is the Bus Guide for Dhaka City and Bangladesh';
 $lang['poth_description'] = 'PothDekhun is a powerful search engine to find transports like Bus, Leguna, Train etc between two places. All routes available here contains fare, stoppages, google map direction, distance and other required information. Transports information with photos, counter addresses, contact information etc available too. PothDekhun currently serving all data for Dhaka city\'s local bus, leguna and some district\'s transports and more routes/transports being added daily.';
 $lang['scania'] = 'Scania';
+$lang['hyundai'] = 'Hyundai';
+$lang['volvo'] = 'Volvo';
+$lang['hyundai'] = 'Hyundai';

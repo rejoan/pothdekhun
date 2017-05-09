@@ -381,6 +381,30 @@
                             ?>> <?php echo lang('unknown'); ?>
                         </label>
                     </div>
+                    <div id="ac_type" class="col-md-12">
+                        <label class="radio-inline">
+                            <input type="radio" name="scania" value="scania" <?php
+                            if (isset($amenities)) {
+                                echo in_array('scania', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('scania'); ?>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="hyundai" value="ac" <?php
+                            if (isset($amenities)) {
+                                echo in_array('hyundai', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('hyundai'); ?>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="volvo" value="ac" <?php
+                            if (isset($amenities)) {
+                                echo in_array('volvo', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('volvo'); ?>
+                        </label>
+                        
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -506,6 +530,14 @@
 <?php if ($this->nl->is_admin()): ?>
     <script>
         $(document).ready(function () {
+            $('input[name="ac_non"]').click(function(){
+                if($(this).val() == 'ac'){
+                    $('#ac_type').slideUp();
+                }else{
+                    $('#ac_type').slideDown();
+                }
+                
+            });
             $('.remove_file').click(function (e) {
                 e.preventDefault();
                 var name = $(this).data('file_name');
