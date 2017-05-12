@@ -30,7 +30,7 @@
                         ?>
                     </div>
                     <div class="col-md-6">
-                        <select id="district_filt" class="selectpicker" name="d" data-width="100%" data-live-search="true">
+                        <select id="district_filt" class="form-control" name="d" data-width="100%" data-live-search="true">
                             <option value="0">Search Counter by District</option>
                             <?php foreach ($districts as $d): ?>
                                 <option value="<?php echo $d['id']; ?>" <?php echo $this->input->get('d') == $d['id'] ? 'selected="yes"' : ''; ?>>

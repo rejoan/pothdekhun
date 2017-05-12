@@ -1,7 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-$f_class = $this->router->fetch_class();
-$f_method = $this->router->fetch_method();
 ?>
 <input type="hidden" id="pd_stu" value="<?php echo site_url_tr(); ?>" />
 <input type="hidden" id="pd_btu" value="<?php echo base_url(); ?>"/>
@@ -21,7 +19,7 @@ $f_method = $this->router->fetch_method();
                 <li><a href="<?php echo site_url_tr('pages/how-to-search'); ?>"><?php echo lang('search_tips'); ?></a></li>
                 <li><a href="<?php echo site_url_tr('pages/about-us'); ?>"><?php echo lang('about_us'); ?></a></li>
                 <li><a href="<?php echo site_url_tr('pages/contact-us'); ?>"><?php echo lang('contact_us'); ?></a></li>
-<!--                <li><a href="<?php //echo site_url_tr('pages/point-rules');                ?>"><?php //echo lang('point_rules');                ?></a></li>-->
+<!--                <li><a href="<?php //echo site_url_tr('pages/point-rules');                   ?>"><?php //echo lang('point_rules');                   ?></a></li>-->
                 <li><a href="<?php echo site_url_tr('pages/privacy-policy'); ?>"><?php echo lang('privacy_policy'); ?></a></li>
 
             </ul>
@@ -42,9 +40,10 @@ $f_method = $this->router->fetch_method();
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script async type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js'); ?>" async></script>
+
 <?php echo isset($load_script) ? $load_script : ''; ?>
-<script async type="text/javascript" src="<?php echo base_url('assets/js/sturgon-slider-1.2.1.js?v=2.6'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/sturgon-slider-1.2.1.min.js?v=2.8'); ?>" async></script>
 
 <?php if ($this->ua->is_mobile()): ?>
     <script type="text/javascript">
@@ -53,15 +52,15 @@ $f_method = $this->router->fetch_method();
         });
     </script>
 <?php endif; ?>
-<script async type="text/javascript" src="<?php echo base_url('assets/js/jquery-migrate-1.4.1.min.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-migrate-1.4.1.min.js'); ?>" async></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script async type="text/javascript" src="<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js'); ?>" async></script>
 <script type="text/javascript">
-        $(document).ready(function () {
-            //setTimeout(function(){
-                <?php echo isset($script_init) ? $script_init : ''; ?>
-           // }, 500);
-        });
+    $(document).ready(function () {
+        //setTimeout(function(){
+        <?php echo isset($script_init) ? $script_init : ''; ?>
+        // }, 500);
+    });
 </script>
 </body>
 </html>

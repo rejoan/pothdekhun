@@ -185,7 +185,7 @@ function load_script($resources) {
     $script = '';
     foreach ($resources as $dir => $file_name) {
         $dir = str_replace('#', '', $dir);
-        $script .= '<script async type="text/javascript" src="' . base_url('assets/' . $dir . '/' . $file_name) . '"></script>' . PHP_EOL;
+        $script .= '<script type="text/javascript" src="' . base_url('assets/' . $dir . '/' . $file_name) . '" async></script>' . PHP_EOL;
     }
     return $script;
 }

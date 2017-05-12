@@ -59,3 +59,4 @@ $lang['normal'] = 'সাধারন এসি';
 $lang['scania'] = 'স্ক্যানিয়া';
 $lang['hyundai'] = 'হুন্দাই';
 $lang['volvo'] = 'ভলভো';
+$lang['ac_type'] = 'এসির ধরন';

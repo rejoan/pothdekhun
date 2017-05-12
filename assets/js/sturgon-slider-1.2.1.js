@@ -502,12 +502,7 @@ $(document).ready(function () {
     //departure_time
     $('#departure_time').change(function () {
         if ($(this).val() == 2) {
-            var pd_stu = $('#pd_btu').val();
-            $('<div id="departure_dynamic" class="form-group"><div class="col-md-12"><textarea id="custom_area" class="form-control"  name="departure_dynamic"></textarea></div></div>').insertAfter('#departure_perticular').hide().slideDown();
-            loadCSS(pd_stu + 'assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');
-
-            $('head').append('<script type="text/javascript" src="' + pd_stu + 'assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script><script>$(\'#custom_area\').wysihtml5();</script>');
-            
+            $('<div id="departure_dynamic" class="form-group"><div class="col-md-12"><textarea id="custom_area" rows="10" class="form-control" name="departure_dynamic">Example:\nMorning\n==========\nAC - 9 AM\nNon AC - 9.30 AM\nNight\n==============\nNon AC - 10 PM\nAC : 11 PM</textarea></div></div>').insertAfter('#departure_perticular').hide().slideDown();
         } else {
             $("#departure_dynamic").slideUp(500, function () {
                 $('#departure_dynamic').remove();

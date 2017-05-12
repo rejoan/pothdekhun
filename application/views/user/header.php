@@ -18,45 +18,10 @@
         <title><?php echo lang('pothdekhun') . ' : ' . $title; ?></title>
         <?php echo isset($load_css) ? $load_css : ''; ?>
         <script>
-            !function (a) {
-                "use strict";
-                var b = function (b, c, d) {
-                    function j(a) {
-                        if (e.body)
-                            return a();
-                        setTimeout(function () {
-                            j(a)
-                        })
-                    }
-                    function l() {
-                        f.addEventListener && f.removeEventListener("load", l), f.media = d || "all"
-                    }
-                    var g, e = a.document, f = e.createElement("link");
-                    if (c)
-                        g = c;
-                    else {
-                        var h = (e.body || e.getElementsByTagName("head")[0]).childNodes;
-                        g = h[h.length - 1]
-                    }
-                    var i = e.styleSheets;
-                    f.rel = "stylesheet", f.href = b, f.media = "only x", j(function () {
-                        g.parentNode.insertBefore(f, c ? g : g.nextSibling)
-                    });
-                    var k = function (a) {
-                        for (var b = f.href, c = i.length; c--; )
-                            if (i[c].href === b)
-                                return a();
-                        setTimeout(function () {
-                            k(a)
-                        })
-                    };
-                    return f.addEventListener && f.addEventListener("load", l), f.onloadcssdefined = k, k(l), f
-                };
-                "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
-            }("undefined" != typeof global ? global : this);
+            !function(a){"use strict";var b=function(b,c,d){function e(a){if(h.body)return a();setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
         </script>
         <script>
-            loadCSS('<?php echo base_url('assets/css/style.min.css?v=1.14'); ?>');
+            loadCSS('<?php echo base_url('assets/css/style.min.css?v=1.15'); ?>');
             loadCSS('<?php echo base_url('assets/css/bootstrap.min.css'); ?>');
         </script>
 
@@ -82,7 +47,7 @@
           <script async src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
           <script async src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <script  src="<?php echo base_url('assets/js/jquery-3.2.0.min.js'); ?>"></script>
+        <script  src="<?php echo base_url('assets/js/jquery-3.2.0.min.js'); ?>" <?php echo $this->ua->is_mobile() ? '':'async';?>></script>
     </head>
 
     <body>

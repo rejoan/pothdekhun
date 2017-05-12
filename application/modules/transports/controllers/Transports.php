@@ -284,9 +284,7 @@ class Transports extends MX_Controller {
             'total_counter' => $this->tm->get_counters($poribohon_id, $district, TRUE),
             'settings' => $this->nl->get_config(),
             'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
-            'action' => site_url_tr('transports/show/' . $id),
-            'load_css' => load_css(array('css' => 'bootstrap-select.min.css')),
-            'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js'))
+            'action' => site_url_tr('transports/show/' . $id)
         );
         $data['meta_title'] = $data['title'] . lang('meta_title_transport');
         //echo $this->db->last_query();return;

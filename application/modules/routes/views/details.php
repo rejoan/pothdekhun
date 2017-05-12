@@ -19,7 +19,7 @@
     ?>
     <div class="box box-poth">
         <div id="details_header" class="box-header with-border">
-            <p><?php echo lang('route_info') . ': <a data-toggle="tooltip" data-placement="top" title="Google Map Direction" class="btn btn-sm bg-purple" href="' . site_url_tr('routes/map/?fp=' . $from_p . '&ftn=' . str_replace(' ', '+', trim($route['thana_name'])) . '&fds=' . str_replace(' ', '+', trim($route['district_name'])) . '&tp=' . str_replace(' ', '+', trim($route['to_place'])) . '&thn=' . str_replace(' ', '+', trim($route['th_thana_name'])) . '&tdn=' . str_replace(' ', '+', trim($route['td_name']))) . '"><span class="glyphicon glyphicon-map-marker"></span> Google Map</a></p> <div class="row no-margin"><div class="col-md-6 bg-orange">' . $fp . ', ' . $ftn . ', ' . $fds . '</div><div class="col-md-1"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></div> <div class="col-md-5 bg-orange">' . $tp . ', ' . $thn . ', ' . $tdn . '</div>'; ?></div>
+            <p><?php echo lang('route_info') . ': <a data-toggle="tooltip" data-placement="top" title="Google Map Direction" class="btn btn-sm bg-purple" href="' . site_url_tr('routes/map/?fp=' . $from_p . '&ftn=' . str_replace(' ', '+', trim($route['thana_name'])) . '&fds=' . str_replace(' ', '+', trim($route['district_name'])) . '&tp=' . str_replace(' ', '+', trim($route['to_place'])) . '&thn=' . str_replace(' ', '+', trim($route['th_thana_name'])) . '&tdn=' . str_replace(' ', '+', trim($route['td_name']))) . '"><span class="glyphicon glyphicon-map-marker"></span> Google Map</a></p> <div class="row no-margin"><div class="col-md-6 bg-orange">' . $fp . ', ' . $ftn . ', ' . $fds . '</div><div class="col-md-1">'.lang('to_view').'</div> <div class="col-md-5 bg-orange">' . $tp . ', ' . $thn . ', ' . $tdn . '</div>'; ?></div>
     </div>
     <div class="box-body">
         <div class="row custom_margin">
@@ -73,10 +73,24 @@
             </div>
             <div class="col-md-9">
                 <?php
-                $amn = explode(',', $route['amenities']);                
+                $amn = explode(',', $route['amenities']);
+                $amenities = array(
+                    'ac' => lang('ac'),
+                    'normal_ac' => lang('normal'),
+                    'scania' => lang('scania'),
+                    'volvo' => lang('volvo'),
+                    'hyundai' => lang('hyundai'),
+                    'non_ac' => lang('nac'),
+                    'gate_lock' => lang('gatelock'),
+                    'chair' => lang('chair'),
+                    'semi' => lang('semi'),
+                    'local' => lang('local'),
+                    'acunknown' => lang('acunknown'),
+                    'mail' => lang('mail')
+                );
                 foreach ($amn as $key => $am):
                     ?>
-                    <span class="label label-default"><?php echo mb_convert_case(str_replace('_',' ',$am), MB_CASE_TITLE, 'UTF-8'); ?></span>
+                    <span class="label label-default"><?php echo $amenities[$am]; ?></span>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -149,7 +163,7 @@
                                     <th><?php echo lang('place_name'); ?></th>
                                     <th><?php echo lang('comment'); ?></th>
                                     <th><?php echo lang('main_rent'); ?></th>
-    <!--                                    <th><?php //echo lang('fare_verify');                                      ?></th>-->
+    <!--                                    <th><?php //echo lang('fare_verify');                                       ?></th>-->
                                 </tr>
                             </thead>
                             <tbody>
@@ -162,8 +176,8 @@
                                             <?php echo $s['rent'] . ' ' . lang('tk'); ?>
                                         </td>
         <!--                                        <td>
-                                            <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');                                      ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
-                    <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');                                      ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_ok');                                       ?>" class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="<?php //echo lang('fare_not_ok');                                       ?>" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></a>
                                         </td>-->
                                     </tr>
                                 <?php endforeach; ?>

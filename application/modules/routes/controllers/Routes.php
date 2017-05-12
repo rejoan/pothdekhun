@@ -84,15 +84,18 @@ class Routes extends MX_Controller {
             $departure_time = $this->input->post('departure_time', TRUE);
             $main_rent = trim($this->input->post('main_rent', TRUE));
             $ac_non = $this->input->post('ac_non');
+            $ac_type = $this->input->post('ac_type');
             $mail_local = $this->input->post('mail_local');
             $chair_semi = $this->input->post('chair_semi');
-
+            
+            $ac_type = ($ac_non == 'ac') ? ','.$ac_type:'';
             $chair_semi = ($chair_semi == 'unknown') ? '' : ',' . $chair_semi;
             $mail_local = ($mail_local == 'unknown') ? '' : ',' . $mail_local;
-            $amenities = $ac_non . $chair_semi . $mail_local;
+            $amenities = $ac_non . $ac_type . $chair_semi . $mail_local;
 
             if ($departure_time != 1) {//if not consecutively
-                $departure_time = $this->input->post('departure_dynamic', TRUE);
+                $departure_time = trim($this->input->post('departure_dynamic', TRUE));
+                $departure_time = nl2br($departure_time);
             }
 
             $this->load->library('upload');
@@ -252,8 +255,8 @@ class Routes extends MX_Controller {
             'settings' => $this->nl->get_config(),
             'action_button' => lang('edit_button'),
             'load_css' => load_css(array('plugins/jQueryUI' => 'jquery-ui.min.css', 'plugins/fancybox' => 'jquery.fancybox.css')),
-            'load_script' => load_script(array('plugins/jQueryUI' => 'jquery-ui.min.js', 'js/bootstrap' => 'bootstrap.file-input.js', 'plugins/fancybox' => 'jquery.fancybox.pack.js', 'js' => 'val_lib.js')),
-            'script_init' => script_init(array('$(\'input[type=file]\').bootstrapFileInput();', '$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});', '$(\'.fancybox\').fancybox({helpers: {overlay: {locked: false}}});'))
+            'load_script' => load_script(array('plugins/jQueryUI' => 'jquery-ui.min.js', 'plugins/fancybox' => 'jquery.fancybox.pack.js', 'js' => 'val_lib.js')),
+            'script_init' => script_init(array('$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});', '$(\'.fancybox\').fancybox({helpers: {overlay: {locked: false}}});'))
         );
         if ($this->nl->is_admin() && $this->input->get('pd_rev')) {
             $data['point'] = modules::run('route_manager/calculate_point', $route_id);
@@ -271,7 +274,8 @@ class Routes extends MX_Controller {
 
             $departure_time = $this->input->post('departure_time', TRUE);
             if ($departure_time != 1) {// if perticular time
-                $departure_time = $this->input->post('departure_dynamic', TRUE);
+                $departure_time = trim($this->input->post('departure_dynamic', TRUE));
+                $departure_time = preg_replace('/(<br\s*\/?>\s*)+/','<br/>',nl2br($departure_time));
             }
             $from = trim($this->input->post('f', TRUE));
             $to = trim($this->input->post('t', TRUE));
@@ -322,12 +326,15 @@ class Routes extends MX_Controller {
             $td = trim($this->input->post('td', TRUE));
             $th = trim($this->input->post('th', TRUE));
             $ac_non = $this->input->post('ac_non');
+            
+            $ac_type = $this->input->post('ac_type');
             $mail_local = $this->input->post('mail_local');
             $chair_semi = $this->input->post('chair_semi');
-
+            
+            $ac_type = ($ac_non == 'ac') ? ','.$ac_type:'';
             $chair_semi = ($chair_semi == 'unknown') ? '' : ',' . $chair_semi;
             $mail_local = ($mail_local == 'unknown') ? '' : ',' . $mail_local;
-            $amenities = $ac_non . $chair_semi . $mail_local;
+            $amenities = $ac_non . $ac_type . $chair_semi . $mail_local;
             //get thana and district name to get lat long data
 
             if ($this->session->lang_code == 'bn' && $this->nl->is_admin()) {
@@ -384,7 +391,7 @@ class Routes extends MX_Controller {
                     }
                 }
                 //var_dump($route);return;
-                $this->pm->updater($rid, $route_id, $route_table, $route);
+                $this->pm->updater($rid, $route_id, $route_table, $route,FALSE);
                 //echo $this->db->last_query();
             } else {// send to temp table for review
                 $edit_info = array(
