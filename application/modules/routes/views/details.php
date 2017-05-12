@@ -73,20 +73,10 @@
             </div>
             <div class="col-md-9">
                 <?php
-                $amn = explode(',', $route['amenities']);
-                $amenities = array(
-                    'ac' => lang('ac'),
-                    'nac' => lang('nac'),
-                    'gatelock' => lang('gatelock'),
-                    'chair' => lang('chair'),
-                    'semi' => lang('semi'),
-                    'local' => lang('local'),
-                    'acunknown' => lang('acunknown'),
-                    'mail' => lang('mail')
-                );
+                $amn = explode(',', $route['amenities']);                
                 foreach ($amn as $key => $am):
                     ?>
-                    <span class="label label-default"><?php echo $amenities[$am]; ?></span>
+                    <span class="label label-default"><?php echo mb_convert_case(str_replace('_',' ',$am), MB_CASE_TITLE, 'UTF-8'); ?></span>
                 <?php endforeach; ?>
             </div>
         </div>

@@ -12,26 +12,53 @@
         <meta name="author" content="Rejoanul Alam">
         <meta name="google-signin-scope" content="profile email">
         <meta name="google-signin-client_id" content="606528754739-mag1caviaal84rdm8uirn108fmlr8raa.apps.googleusercontent.com">
-        <meta property="og:image" content="http://www.pothdekhun.com/assets/images/pothd.jpg" />
-<!--        <script src="https://apis.google.com/js/platform.js" async defer></script>-->
-        <link rel="icon" href="<?php echo base_url('assets/images') . '/favicon.ico'; ?>">
+        <meta property="og:image" content="<?php echo base_url('assets/images/pothd.jpg'); ?>" />
+        <link rel="icon" href="<?php echo base_url('assets/images/favicon.ico'); ?>">
 
         <title><?php echo lang('pothdekhun') . ' : ' . $title; ?></title>
-        <?php
-        $f_class = $this->router->fetch_class();
-        $f_method = $this->router->fetch_method();
-        ?>
-        <!-- Bootstrap core CSS -->
-<!--        <link rel="preload" href="<?php //echo base_url('assets/css/bootstrap.min.css'); ?>" as="style" onload="this.rel = 'stylesheet'">-->
         <?php echo isset($load_css) ? $load_css : ''; ?>
         <script>
-             !function(a){"use strict";var b=function(b,c,d){function j(a){if(e.body)return a();setTimeout(function(){j(a)})}function l(){f.addEventListener&&f.removeEventListener("load",l),f.media=d||"all"}var g,e=a.document,f=e.createElement("link");if(c)g=c;else{var h=(e.body||e.getElementsByTagName("head")[0]).childNodes;g=h[h.length-1]}var i=e.styleSheets;f.rel="stylesheet",f.href=b,f.media="only x",j(function(){g.parentNode.insertBefore(f,c?g:g.nextSibling)});var k=function(a){for(var b=f.href,c=i.length;c--;)if(i[c].href===b)return a();setTimeout(function(){k(a)})};return f.addEventListener&&f.addEventListener("load",l),f.onloadcssdefined=k,k(l),f};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+            !function (a) {
+                "use strict";
+                var b = function (b, c, d) {
+                    function j(a) {
+                        if (e.body)
+                            return a();
+                        setTimeout(function () {
+                            j(a)
+                        })
+                    }
+                    function l() {
+                        f.addEventListener && f.removeEventListener("load", l), f.media = d || "all"
+                    }
+                    var g, e = a.document, f = e.createElement("link");
+                    if (c)
+                        g = c;
+                    else {
+                        var h = (e.body || e.getElementsByTagName("head")[0]).childNodes;
+                        g = h[h.length - 1]
+                    }
+                    var i = e.styleSheets;
+                    f.rel = "stylesheet", f.href = b, f.media = "only x", j(function () {
+                        g.parentNode.insertBefore(f, c ? g : g.nextSibling)
+                    });
+                    var k = function (a) {
+                        for (var b = f.href, c = i.length; c--; )
+                            if (i[c].href === b)
+                                return a();
+                        setTimeout(function () {
+                            k(a)
+                        })
+                    };
+                    return f.addEventListener && f.addEventListener("load", l), f.onloadcssdefined = k, k(l), f
+                };
+                "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+            }("undefined" != typeof global ? global : this);
         </script>
         <script>
             loadCSS('<?php echo base_url('assets/css/style.min.css?v=1.14'); ?>');
             loadCSS('<?php echo base_url('assets/css/bootstrap.min.css'); ?>');
         </script>
-<!--        <link rel="preload" href="<?php //echo base_url('assets/css/style.min.css?v=1.14');  ?>" as="style" onload="this.rel='stylesheet'">-->
 
         <?php if ($this->ua->is_mobile()): ?>
             <style>
@@ -56,8 +83,6 @@
           <script async src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         <script  src="<?php echo base_url('assets/js/jquery-3.2.0.min.js'); ?>"></script>
-        
-
     </head>
 
     <body>

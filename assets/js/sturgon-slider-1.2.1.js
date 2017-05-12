@@ -332,7 +332,7 @@ $(document).ready(function () {
     $('.transport_name').on('blur change', function () {
         var pd_stu = $('#pd_stu').val();
         var name = $(this).val();
-        if(name.length < 1){
+        if (name.length < 1) {
             return false;
         }
         var pd_identity = $('#pd_identity').val();
@@ -367,7 +367,7 @@ $(document).ready(function () {
         var arr = ['jpg', 'png', 'gif', 'jpeg'];
         if (file === '' || $.inArray(file_type, arr) === -1) {
             swal('Allowed Types', 'jpg, png, gif, jpeg', 'warning');
-            $('.file-input-name').remove();
+            //$('.file-input-name').remove();
             return false;
         }
     });
@@ -502,7 +502,12 @@ $(document).ready(function () {
     //departure_time
     $('#departure_time').change(function () {
         if ($(this).val() == 2) {
-            $('<div id="departure_dynamic" class="form-group"><label class="col-sm-3 control-label"></label><div class="col-xs-10 col-md-6"><textarea id="custom_area" class="form-control"  name="departure_dynamic"></textarea></div></div>').insertAfter('#departure_perticular').hide().slideDown();
+            var pd_stu = $('#pd_btu').val();
+            $('<div id="departure_dynamic" class="form-group"><div class="col-md-12"><textarea id="custom_area" class="form-control"  name="departure_dynamic"></textarea></div></div>').insertAfter('#departure_perticular').hide().slideDown();
+            loadCSS(pd_stu + 'assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');
+
+            $('head').append('<script type="text/javascript" src="' + pd_stu + 'assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script><script>$(\'#custom_area\').wysihtml5();</script>');
+            
         } else {
             $("#departure_dynamic").slideUp(500, function () {
                 $('#departure_dynamic').remove();

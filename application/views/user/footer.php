@@ -58,9 +58,9 @@ $f_method = $this->router->fetch_method();
 <script async type="text/javascript" src="<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js'); ?>"></script>
 <script type="text/javascript">
         $(document).ready(function () {
-
-<?php echo isset($script_init) ? $script_init : ''; ?>
-
+            //setTimeout(function(){
+                <?php echo isset($script_init) ? $script_init : ''; ?>
+           // }, 500);
         });
 </script>
 </body>

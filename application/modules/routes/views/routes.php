@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <select name="fd" class="selectpicker districts" data-width="100%" data-thana="ft" data-live-search="true">
+                            <select name="fd" class="form-control districts" data-width="100%" data-thana="ft" data-live-search="true">
                                 <?php foreach ($districts as $d): ?>
                                     <option value="<?php echo $d['id']; ?>" <?php echo trim($this->input->get('fd')) == $d['id'] ? 'selected="selected"' : ''; ?>>
                                         <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
@@ -29,7 +29,7 @@
 
                     <div class="col-md-3">
                         <div id="tft" data-toggle="tooltip" data-placement="bottom" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                            <select id="ft" name="ft" class="selectpicker thanas" data-width="100%" data-live-search="true" >
+                            <select id="ft" name="ft" class="form-control thanas" data-width="100%" data-live-search="true" >
                                 <?php foreach ($thanas as $t): ?>
                                     <option  value="<?php echo $t['id']; ?>" <?php echo trim($this->input->get('ft')) == $t['id'] ? 'selected="selected"' : ''; ?>>
                                         <?php echo $t[$this->nl->lang_based_data('bn_name', 'name')]; ?>
@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-md-3">
 
-                        <select name="t" class="selectpicker" data-width="100%" data-live-search="true" >
+                        <select name="t" class="form-control">
                             <option value="bus" <?php echo trim($this->input->get('t', TRUE)) == 'bus' ? 'selected="yes"' : ''; ?>>
                                 <?php echo lang('bus'); ?>
                             </option>

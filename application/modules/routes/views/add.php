@@ -267,10 +267,8 @@
 
                 <?php if (isset($route['departure_time'])): ?>
                     <?php if ($route['departure_time'] != 1): ?>
-
                         <div id="departure_dynamic" class="form-group">
-                            <label class="col-sm-3 control-label"></label>
-                            <div class="col-xs-10 col-md-6">
+                            <div class="col-md-12">
                                 <textarea id="custom_area" name="departure_dynamic">
                                     <?php
                                     if ($this->input->post('submit')) {
@@ -324,7 +322,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo lang('add_file'); ?></label>
                     <div class="col-xs-10 col-md-6">
-                        <input type="file" class="form-control btn-info evidence" name="evidence1" multiple="">
+                        <input type="file" class="evidence" name="evidence1" multiple="">
                         <span class="help-block"><?php echo lang('add_file_help'); ?> [Max:2MB]</span>
                     </div>
                 </div>
@@ -345,7 +343,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo lang('another_file'); ?></label>
                     <div class="col-xs-10 col-md-6">
-                        <input type="file" class="form-control btn-info evidence" name="evidence2" multiple="">
+                        <input type="file" class="evidence" name="evidence2" multiple="">
                         <span class="help-block"><?php echo lang('more_help'); ?> [Max:2MB]</span>
                     </div>
                 </div>
@@ -356,7 +354,7 @@
                 ?>
                 <div class="form-group">
                     <label class="col-md-3 control-label"><?php echo lang('ac_nonac'); ?></label>
-                    <div class="col-md-9">
+                    <div id="ac_nonac" class="col-md-9">
                         <label class="radio-inline">
                             <input type="radio" name="ac_non" value="ac" <?php
                             if (isset($amenities)) {
@@ -365,7 +363,7 @@
                             ?>> <?php echo lang('ac'); ?>
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="ac_non" value="nac" <?php
+                            <input type="radio" name="ac_non" value="non_ac" <?php
                             if (isset($amenities)) {
                                 echo in_array('nac', $amenities) ? 'checked="yes"' : '';
                             }
@@ -383,21 +381,28 @@
                     </div>
                     <div id="ac_type" class="col-md-12">
                         <label class="radio-inline">
-                            <input type="radio" name="scania" value="scania" <?php
+                            <input type="radio" name="ac_non" value="<?php echo lang('normal'); ?>" <?php
+                            if (isset($amenities)) {
+                                echo in_array('normal_ac', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('normal'); ?>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ac_non" value="<?php echo lang('scania'); ?>" <?php
                             if (isset($amenities)) {
                                 echo in_array('scania', $amenities) ? 'checked="yes"' : '';
                             }
                             ?>> <?php echo lang('scania'); ?>
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="hyundai" value="ac" <?php
+                            <input type="radio" name="ac_non" value="<?php echo lang('hyundai'); ?>" <?php
                             if (isset($amenities)) {
                                 echo in_array('hyundai', $amenities) ? 'checked="yes"' : '';
                             }
                             ?>> <?php echo lang('hyundai'); ?>
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="volvo" value="ac" <?php
+                            <input type="radio" name="ac_non" value="<?php echo lang('volvo'); ?>" <?php
                             if (isset($amenities)) {
                                 echo in_array('volvo', $amenities) ? 'checked="yes"' : '';
                             }
@@ -420,12 +425,12 @@
                         <label class="radio-inline">
                             <input type="radio" name="mail_local" value="gatelock" <?php
                             if (isset($amenities)) {
-                                echo in_array('gatelock', $amenities) ? 'checked="yes"' : '';
+                                echo in_array('gate_lock', $amenities) ? 'checked="yes"' : '';
                             }
                             ?>> <?php echo lang('gatelock'); ?>
                         </label>
                         <label class="radio-inline">
-                            <?php $target = array('local', 'gatelock'); ?>
+                            <?php $target = array('local', 'gate_lock'); ?>
                             <input type="radio" name="mail_local" value="unknown" <?php
                             if (isset($amenities)) {
                                 echo count(array_intersect($amenities, $target)) > 0 ? '' : 'checked="yes"';
@@ -530,11 +535,11 @@
 <script>
     $(document).ready(function () {
         $('#ac_type').hide();
-        $('input[name="ac_non"]').click(function () {
+        $('#ac_nonac input[type="radio"]').click(function () {
             if ($(this).val() == 'ac') {
-                $('#ac_type').slideUp();
-            } else {
                 $('#ac_type').slideDown();
+            } else {
+                $('#ac_type').slideUp();
             }
 
         });

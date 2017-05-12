@@ -61,9 +61,9 @@ class Routes extends MX_Controller {
             'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $fdistrict),
             'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $tdistrict),
             'settings' => $this->nl->get_config(),
-            'load_css' => load_css(array('plugins/jQueryUI' => 'jquery-ui.min.css')),
-            'load_script' => load_script(array('plugins/jQueryUI' => 'jquery-ui.min.js', 'js/bootstrap' => 'bootstrap.file-input.js', 'js' => 'val_lib.js')),
-            'script_init' => script_init(array('$(\'input[type=file]\').bootstrapFileInput();', '$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});'))
+            'load_css' => load_css(array('plugins/jQueryUI' => 'jquery-ui.min.css', 'bootstrap-sweetalert/dist' => 'sweetalert.css')),
+            'load_script' => load_script(array('plugins/jQueryUI' => 'jquery-ui.min.js', 'js' => 'val_lib.js', 'bootstrap-sweetalert/dist' => 'sweetalert.min.js')),
+            'script_init' => script_init(array('$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});'))
         );
 
         if ($this->input->post('submit')) {
@@ -109,7 +109,7 @@ class Routes extends MX_Controller {
                     $this->upload->initialize($config);
                     if (!$this->upload->do_upload('evidence' . $f)) {
                         $this->session->set_flashdata('message', $this->upload->display_errors());
-                        $this->nl->view_loader('user', 'add', NULL, $data, 'latest', 'rightbar');
+                        $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
                         return;
                     } else {
                         $evidence = $this->upload->data();
@@ -251,7 +251,7 @@ class Routes extends MX_Controller {
             'stoppages' => $this->pm->get_data($stopage_table, FALSE, 'route_id', $route_id, FALSE, FALSE, FALSE, 'position', 'asc'),
             'settings' => $this->nl->get_config(),
             'action_button' => lang('edit_button'),
-            'load_css' => load_css(array('plugins/jQueryUI' => 'jquery-ui.min.css','plugins/fancybox' => 'jquery.fancybox.css')),
+            'load_css' => load_css(array('plugins/jQueryUI' => 'jquery-ui.min.css', 'plugins/fancybox' => 'jquery.fancybox.css')),
             'load_script' => load_script(array('plugins/jQueryUI' => 'jquery-ui.min.js', 'js/bootstrap' => 'bootstrap.file-input.js', 'plugins/fancybox' => 'jquery.fancybox.pack.js', 'js' => 'val_lib.js')),
             'script_init' => script_init(array('$(\'input[type=file]\').bootstrapFileInput();', '$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});', '$(\'.fancybox\').fancybox({helpers: {overlay: {locked: false}}});'))
         );
@@ -518,7 +518,7 @@ class Routes extends MX_Controller {
             'next' => $next_q->row_array(),
             'prev' => $prev_q->row_array(),
             'more_transports' => $this->more_transports($result),
-            'load_css' => load_css(array('bootstrap-sweetalert/dist' => 'sweetalert.css','plugins/fancybox' => 'jquery.fancybox.css')),
+            'load_css' => load_css(array('bootstrap-sweetalert/dist' => 'sweetalert.css', 'plugins/fancybox' => 'jquery.fancybox.css')),
             'load_script' => load_script(array('plugins/fancybox' => 'jquery.fancybox.pack.js', 'bootstrap-sweetalert/dist' => 'sweetalert.min.js', 'js/bootstrap' => 'tooltip.min.js')),
             'script_init' => script_init(array('$(\'.fancybox\').fancybox({helpers: {overlay: {locked: false}}});', '$(\'[data-toggle="tooltip"]\').tooltip();'))
         );
@@ -651,9 +651,8 @@ class Routes extends MX_Controller {
             'districts' => $this->pm->get_data('districts'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $district_id),
             'load_css' => load_css(array('plugins/datatables/media/css' => 'jquery.dataTables.min.css')),
-            'load_script' => load_script(array('plugins/datatables/media/js' => 'jquery.dataTables.min.js','js/bootstrap#' => 'tooltip.min.js')),
-            'script_init' => script_init(array('$(\'.dataTable\').DataTable({\'paging\': false,
-        \'info\': false,\'searching\': false,\'order\': [[0, \'desc\']]});','$(\'[data-toggle="tooltip"]\').tooltip();'))
+            'load_script' => load_script(array('js/bootstrap' => 'tooltip.min.js')),
+            'script_init' => script_init(array('$(\'[data-toggle="tooltip"]\').tooltip();'))
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'routes', 'rightbar', 'menu', TRUE);
     }
