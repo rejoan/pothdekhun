@@ -176,7 +176,7 @@ function unicode_title($str) {
 function load_css($resources) {
     $css = '';
     foreach ($resources as $dir => $file_name) {
-        $css .= '<link rel="stylesheet" href="' . base_url('assets/' . $dir . '/' . $file_name) . '">' . PHP_EOL;
+        $css .= '<link rel="preload" href="' . base_url('assets/' . $dir . '/' . $file_name) . '" as="style" onload="this.rel=\'stylesheet\'">' . PHP_EOL;
     }
     return $css;
 }

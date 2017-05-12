@@ -332,6 +332,9 @@ $(document).ready(function () {
     $('.transport_name').on('blur change', function () {
         var pd_stu = $('#pd_stu').val();
         var name = $(this).val();
+        if(name.length < 1){
+            return false;
+        }
         var pd_identity = $('#pd_identity').val();
         $.ajax({
             context: this,
@@ -614,7 +617,7 @@ function get_thanas(district, thana) {
         }
         $('#' + thana).html(th);
 
-        $('#' + thana).selectpicker('refresh');
+        //$('#' + thana).selectpicker('refresh');
     });
 }
 

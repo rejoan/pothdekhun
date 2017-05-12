@@ -22,9 +22,12 @@
             <form id="main_search" action="<?php echo $action_transport; ?>" method="get" accept-charset="UTF-8">
                 <div class="form-group">
                     <div class="row">
+                        <div class="col-md-1">
+                            <label><?php echo lang('from_view');?></label>
+                        </div>
                         <div class="col-xs-10 col-md-3">
                             <div class="form-group">
-                                <select name="fd" class="selectpicker districts" data-width="100%" data-thana="ft" data-live-search="true">
+                                <select name="fd" class="districts form-control" data-thana="ft" data-live-search="true">
                                     <?php foreach ($districts as $d): ?>
                                         <option value="<?php echo $d['id']; ?>" <?php echo $d['id'] == '1' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
@@ -35,7 +38,7 @@
                         </div>
                         <div class="col-xs-10 col-md-3">
                             <div id="tft" class="form-group">
-                                <select id="ft" name="ft" class="selectpicker thanas" data-width="100%" data-live-search="true" >
+                                <select id="ft" name="ft" class="thanas form-control" data-live-search="true" >
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '493' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $t[$this->nl->lang_based_data('bn_name', 'name')]; ?>
@@ -45,7 +48,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-10 col-md-6 suggestion_sec">
+                        <div class="col-xs-10 col-md-4 suggestion_sec">
                             <input type="text" class="form-control search_place" placeholder="<?php echo lang('departure_place'); ?>" name="f" title="Type Place Name Ex: Mirpur-1 " autocomplete="off">
                             <div class="list-group suggestion">
 
@@ -54,16 +57,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>
-                        <?php echo lang('to_view'); ?>
-                    </label>
-                </div>
-                <div class="form-group">
 
                     <div class="row">
+                         <div class="col-md-1">
+                            <label><?php echo lang('to_view');?></label>
+                        </div>
                         <div class="col-xs-10 col-md-3">
                             <div class="form-group">
-                                <select name="td" class="selectpicker districts" data-width="100%" data-thana="th" data-live-search="true">
+                                <select name="td" class="districts form-control" data-thana="th" data-live-search="true">
                                     <?php foreach ($districts as $d): ?>
                                         <option value="<?php echo $d['id']; ?>" <?php echo $d['id'] == '1' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
@@ -74,7 +75,7 @@
                         </div>
                         <div class="col-xs-10 col-md-3">
                             <div id="tth" class="form-group">
-                                <select id="th" name="th" class="selectpicker thanas" data-width="100%" data-live-search="true">
+                                <select id="th" name="th" class="thanas form-control">
                                     <?php foreach ($thanas as $t): ?>
                                         <option  value="<?php echo $t['id']; ?>" <?php echo $t['id'] == '509' ? 'selected="yes"' : ''; ?>>
                                             <?php echo $t[$this->nl->lang_based_data('bn_name', 'name')]; ?>
@@ -83,7 +84,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xs-10 col-md-6 suggestion_sec">
+                        <div class="col-xs-10 col-md-4 suggestion_sec">
                             <input type="text" class="form-control search_place" placeholder="<?php echo lang('destination_place'); ?>" name="t" title="Type target place Ex: Motijheel" autocomplete="off">
                             <div class="list-group suggestion">
 
@@ -111,7 +112,7 @@
                 <div class="row">
                     <div class="col-xs-10 col-md-3">
                         <div class="form-group">
-                            <select id="district" name="ds" class="selectpicker" data-width="100%" data-thana="th" data-live-search="true">
+                            <select id="district" name="ds" class="form-control" data-thana="th">
                                 <?php foreach ($districts as $d): ?>
                                     <option value="<?php echo $d['id']; ?>" <?php echo $d['id'] == '1' ? 'selected="yes"' : ''; ?>>
                                         <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>

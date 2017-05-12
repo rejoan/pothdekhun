@@ -28,7 +28,7 @@
             <form id="add_route" class="form-horizontal" action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-xs-10 col-md-3">
-                        <select name="fd" class="selectpicker districts" data-width="100%" data-thana="ft" data-live-search="true">
+                        <select name="fd" class="districts form-control" data-thana="ft">
                             <?php foreach ($districts as $d): ?>
                                 <option value="<?php echo $d['id']; ?>" <?php
                                 if ($this->input->post('fd')) {
@@ -46,8 +46,8 @@
                         </select>
                     </div>
                     <div class="col-xs-10 col-md-3">
-                        <div id="tft" data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                            <select id="ft" name="ft" class="selectpicker" data-width="100%" data-live-search="true" >
+                        <div id="tft" class="form-group">
+                            <select id="ft" name="ft" class="form-control">
                                 <?php foreach ($fthanas as $t): ?>
                                     <option  value="<?php echo $t['id']; ?>" <?php
                                     if ($this->input->post('ft')) {
@@ -92,7 +92,7 @@
 
                 <div class="row">
                     <div class="col-xs-10 col-md-3">
-                        <select name="td" class="selectpicker districts" data-thana="th" data-width="100%" data-live-search="true">
+                        <select name="td" class="form-control districts" data-thana="th">
                             <?php foreach ($districts as $d): ?>
                                 <option  value="<?php echo $d['id']; ?>" <?php
                                 if (isset($route['to_district'])) {
@@ -112,7 +112,7 @@
 
                     <div class="col-xs-10 col-md-3">
                         <div id="tth" data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                            <select id="th" name="th" class="selectpicker" data-width="100%" data-live-search="true">
+                            <select id="th" name="th" class="form-control">
                                 <?php foreach ($tthanas as $tt): ?>
                                     <option  value="<?php echo $tt['id']; ?>" <?php
                                     if ($this->input->post('th')) {
@@ -165,7 +165,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo lang('transport_type'); ?></label>
                     <div class="col-xs-10 col-md-6">
-                        <select id="vehicle_type" name="transport_type" class="selectpicker" data-width="100%">
+                        <select id="vehicle_type" name="transport_type" class="form-control">
                             <option value="bus" <?php
                             if ($this->input->post('submit')) {
                                 echo $this->input->post('type') == 'bus' ? 'selected="yes"' : '';
@@ -244,7 +244,7 @@
                 <div id="departure_perticular" class="form-group">
                     <label class="col-sm-3 control-label"><?php echo lang('departure_time'); ?></label>
                     <div  class="col-xs-10 col-md-6">
-                        <select id="departure_time" name="departure_time" class="selectpicker" data-width="100%">
+                        <select id="departure_time" name="departure_time" class="form-control">
                             <option value="1" <?php
                             if ($this->input->post('submit')) {
 
@@ -403,7 +403,7 @@
                             }
                             ?>> <?php echo lang('volvo'); ?>
                         </label>
-                        
+
                     </div>
                 </div>
 
@@ -527,17 +527,19 @@
     </div>
 </div>
 <?php $this->load->view('rules_modal'); ?>
+<script>
+    $(document).ready(function () {
+        $('#ac_type').hide();
+        $('input[name="ac_non"]').click(function () {
+            if ($(this).val() == 'ac') {
+                $('#ac_type').slideUp();
+            } else {
+                $('#ac_type').slideDown();
+            }
+
+        });
 <?php if ($this->nl->is_admin()): ?>
-    <script>
-        $(document).ready(function () {
-            $('input[name="ac_non"]').click(function(){
-                if($(this).val() == 'ac'){
-                    $('#ac_type').slideUp();
-                }else{
-                    $('#ac_type').slideDown();
-                }
-                
-            });
+
             $('.remove_file').click(function (e) {
                 e.preventDefault();
                 var name = $(this).data('file_name');
@@ -562,7 +564,6 @@
                     }
                 });
             });
-
-        });
-    </script>
 <?php endif; ?>
+    });
+</script>

@@ -22,9 +22,16 @@
         $f_method = $this->router->fetch_method();
         ?>
         <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
+<!--        <link rel="preload" href="<?php //echo base_url('assets/css/bootstrap.min.css'); ?>" as="style" onload="this.rel = 'stylesheet'">-->
         <?php echo isset($load_css) ? $load_css : ''; ?>
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.min.css?v=1.13'); ?>">
+        <script>
+             !function(a){"use strict";var b=function(b,c,d){function j(a){if(e.body)return a();setTimeout(function(){j(a)})}function l(){f.addEventListener&&f.removeEventListener("load",l),f.media=d||"all"}var g,e=a.document,f=e.createElement("link");if(c)g=c;else{var h=(e.body||e.getElementsByTagName("head")[0]).childNodes;g=h[h.length-1]}var i=e.styleSheets;f.rel="stylesheet",f.href=b,f.media="only x",j(function(){g.parentNode.insertBefore(f,c?g:g.nextSibling)});var k=function(a){for(var b=f.href,c=i.length;c--;)if(i[c].href===b)return a();setTimeout(function(){k(a)})};return f.addEventListener&&f.addEventListener("load",l),f.onloadcssdefined=k,k(l),f};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+        </script>
+        <script>
+            loadCSS('<?php echo base_url('assets/css/style.min.css?v=1.14'); ?>');
+            loadCSS('<?php echo base_url('assets/css/bootstrap.min.css'); ?>');
+        </script>
+<!--        <link rel="preload" href="<?php //echo base_url('assets/css/style.min.css?v=1.14');  ?>" as="style" onload="this.rel='stylesheet'">-->
 
         <?php if ($this->ua->is_mobile()): ?>
             <style>
@@ -39,7 +46,6 @@
                 }
             </style>
         <?php endif; ?>
-        <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/AdminLTE.min.css'); ?>">
 
 <!--[if lt IE 9]><script async src="<?php echo base_url('assets/js/ie8-responsive-file-warning.js'); ?>"></script><![endif]-->
 <!--    <script async src="<?php echo base_url('assets/js/ie-emulation-modes-warning.js'); ?>"></script>-->
@@ -49,26 +55,9 @@
           <script async src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
           <script async src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <script <?php echo $this->ua->is_mobile() ? '' : 'async';  ?> type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.2.0.min.js'); ?>"></script>
-        <?php if (ENVIRONMENT == 'production'): ?>
-            <script>
-                (function (i, s, o, g, r, a, m) {
-                    i['GoogleAnalyticsObject'] = r;
-                    i[r] = i[r] || function () {
-                        (i[r].q = i[r].q || []).push(arguments)
-                    }, i[r].l = 1 * new Date();
-                    a = s.createElement(o),
-                            m = s.getElementsByTagName(o)[0];
-                    a.async = 1;
-                    a.src = g;
-                    m.parentNode.insertBefore(a, m)
-                })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        <script  src="<?php echo base_url('assets/js/jquery-3.2.0.min.js'); ?>"></script>
+        
 
-                ga('create', 'UA-91403655-1', 'auto');
-                ga('send', 'pageview');
-
-            </script>
-        <?php endif; ?>
     </head>
 
     <body>
@@ -78,20 +67,4 @@
 
             <div class="row">
                 <?php $this->nl->breadcrumb(); ?>
-                <?php if ($f_class != 'pages' && $f_class != 'auth' && ENVIRONMENT == 'production' && $this->ua->is_mobile()) { ?>
-                    <!-- G&R_320x50 -->
-                    <script id="GNR43025">
-                            (function (i, g, b, d, c) {
-                                i[g] = i[g] || function () {
-                                    (i[g].q = i[g].q || []).push(arguments)
-                                };
-                                var s = d.createElement(b);
-                                s.async = true;
-                                s.src = c;
-                                var x = d.getElementsByTagName(b)[0];
-                                x.parentNode.insertBefore(s, x);
-                            })(window, 'gandrad', 'script', document, '//content.green-red.com/lib/display.js');
-                            gandrad({siteid: 14374, slot: 43025});
-                    </script>
-                    <!-- End of G&R_320x50 -->
-                <?php } ?>
+                

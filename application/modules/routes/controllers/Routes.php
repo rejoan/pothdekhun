@@ -26,9 +26,7 @@ class Routes extends MX_Controller {
             'action_transport' => site_url_tr('search/routes'),
             'search_action' => site_url_tr('search/index'),
             'settings' => $this->nl->get_config(),
-            'meta_title' => lang('home_page_meta'),
-            'load_css' => load_css(array('css' => 'bootstrap-select.min.css')),
-            'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js'))
+            'meta_title' => lang('home_page_meta')
         );
 
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
@@ -63,8 +61,8 @@ class Routes extends MX_Controller {
             'fthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $fdistrict),
             'tthanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $tdistrict),
             'settings' => $this->nl->get_config(),
-            'load_css' => load_css(array('css' => 'bootstrap-select.min.css', 'plugins/jQueryUI' => 'jquery-ui.min.css')),
-            'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js', 'plugins/jQueryUI' => 'jquery-ui.min.js', 'js/bootstrap#' => 'bootstrap.file-input.js', 'js' => 'val_lib.js')),
+            'load_css' => load_css(array('plugins/jQueryUI' => 'jquery-ui.min.css')),
+            'load_script' => load_script(array('plugins/jQueryUI' => 'jquery-ui.min.js', 'js/bootstrap' => 'bootstrap.file-input.js', 'js' => 'val_lib.js')),
             'script_init' => script_init(array('$(\'input[type=file]\').bootstrapFileInput();', '$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});'))
         );
 
@@ -253,8 +251,8 @@ class Routes extends MX_Controller {
             'stoppages' => $this->pm->get_data($stopage_table, FALSE, 'route_id', $route_id, FALSE, FALSE, FALSE, 'position', 'asc'),
             'settings' => $this->nl->get_config(),
             'action_button' => lang('edit_button'),
-            'load_css' => load_css(array('css' => 'bootstrap-select.min.css', 'plugins/jQueryUI' => 'jquery-ui.min.css','plugins/fancybox' => 'jquery.fancybox.css')),
-            'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js', 'plugins/jQueryUI' => 'jquery-ui.min.js', 'js/bootstrap#' => 'bootstrap.file-input.js', 'plugins/fancybox' => 'jquery.fancybox.pack.js', 'js' => 'val_lib.js')),
+            'load_css' => load_css(array('plugins/jQueryUI' => 'jquery-ui.min.css','plugins/fancybox' => 'jquery.fancybox.css')),
+            'load_script' => load_script(array('plugins/jQueryUI' => 'jquery-ui.min.js', 'js/bootstrap' => 'bootstrap.file-input.js', 'plugins/fancybox' => 'jquery.fancybox.pack.js', 'js' => 'val_lib.js')),
             'script_init' => script_init(array('$(\'input[type=file]\').bootstrapFileInput();', '$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});', '$(\'.fancybox\').fancybox({helpers: {overlay: {locked: false}}});'))
         );
         if ($this->nl->is_admin() && $this->input->get('pd_rev')) {
@@ -520,8 +518,8 @@ class Routes extends MX_Controller {
             'next' => $next_q->row_array(),
             'prev' => $prev_q->row_array(),
             'more_transports' => $this->more_transports($result),
-            'load_css' => load_css(array('bootstrap-sweetalert/dist' => 'sweetalert.css', 'css' => 'bootstrap-select.min.css','plugins/fancybox' => 'jquery.fancybox.css')),
-            'load_script' => load_script(array('plugins/fancybox' => 'jquery.fancybox.pack.js', 'bootstrap-sweetalert/dist' => 'sweetalert.min.js', 'js/bootstrap' => 'bootstrap-select.min.js', 'js/bootstrap#' => 'tooltip.min.js')),
+            'load_css' => load_css(array('bootstrap-sweetalert/dist' => 'sweetalert.css','plugins/fancybox' => 'jquery.fancybox.css')),
+            'load_script' => load_script(array('plugins/fancybox' => 'jquery.fancybox.pack.js', 'bootstrap-sweetalert/dist' => 'sweetalert.min.js', 'js/bootstrap' => 'tooltip.min.js')),
             'script_init' => script_init(array('$(\'.fancybox\').fancybox({helpers: {overlay: {locked: false}}});', '$(\'[data-toggle="tooltip"]\').tooltip();'))
         );
         $data['meta_title'] = $data['title'] . lang('meta_title_route');
@@ -652,8 +650,8 @@ class Routes extends MX_Controller {
             'settings' => $this->nl->get_config(),
             'districts' => $this->pm->get_data('districts'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $district_id),
-            'load_css' => load_css(array('css' => 'bootstrap-select.min.css', 'plugins/datatables/media/css' => 'jquery.dataTables.min.css')),
-            'load_script' => load_script(array('js/bootstrap' => 'bootstrap-select.min.js', 'plugins/datatables/media/js' => 'jquery.dataTables.min.js','js/bootstrap#' => 'tooltip.min.js')),
+            'load_css' => load_css(array('plugins/datatables/media/css' => 'jquery.dataTables.min.css')),
+            'load_script' => load_script(array('plugins/datatables/media/js' => 'jquery.dataTables.min.js','js/bootstrap#' => 'tooltip.min.js')),
             'script_init' => script_init(array('$(\'.dataTable\').DataTable({\'paging\': false,
         \'info\': false,\'searching\': false,\'order\': [[0, \'desc\']]});','$(\'[data-toggle="tooltip"]\').tooltip();'))
         );

@@ -73,7 +73,7 @@
                             <div class="row form-group address">
                                 <div class="col-xs-12">
                                     <div class="col-xs-10 col-md-3">
-                                        <select name="ad[]" class="add_district">
+                                        <select name="ad[]" class="add_district form-control">
                                             <?php foreach ($districts as $d): ?>
                                                 <option value="<?php echo $d['id']; ?>" <?php
                                                 echo $counter_address[$i]['district'] == $d['id'] ? 'selected="yes"' : '';
@@ -87,7 +87,7 @@
                                     <?php $col_name = $this->nl->lang_based_data('bn_name', 'name');?>
                                     <div class="col-xs-10 col-md-4">
 
-                                        <select class="thana" name="thana[]">
+                                        <select class="thana form-control" name="thana[]">
                                             <?php foreach ($this->pm->get_data('thanas', FALSE, 'district_id', $counter_address[$i]['district'],FALSE,FALSE,FALSE,$col_name,'asc') as $t): ?>
                                                 <option  value="<?php echo $t['id']; ?>" <?php echo $counter_address[$i]['thana'] == $t['id'] ? 'selected="yes"' : ''; ?>>
 
