@@ -55,13 +55,13 @@
                 <div class="social-auth-links">
                     <div class="form-group">
                         <a id="fb_login" href="<?php echo $loginUrl; ?>" class="btn btn-block btn-social btn-facebook">
-                            <i class="fa fa-facebook"></i> Sign in with Facebook
+                            <img src="http://localhost/pothdekhun/assets/images/fb.png" alt="Facebook"> Sign in with Facebook
                         </a>
                     </div>
 
                     <div class="form-group">
                         <a class="btn btn-block btn-social btn-google" href="<?php echo $auth_url; ?>">
-                            <i class="fa fa-google-plus" style="left:2px;"></i> Sign in with Google
+                            <img src="http://localhost/pothdekhun/assets/images/gp.png" alt="Google"> Sign in with Google
                         </a>
                     </div>
 

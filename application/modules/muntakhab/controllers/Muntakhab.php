@@ -167,21 +167,34 @@ WHERE s.district_id = 0');
         }
     }
 
-    public function comma_process() {
-        $query = $this->db->query('SELECT s.id,s.place_name,s.route_id,r.from_place,r.to_place
-FROM stoppages s
-LEFT JOIN routes r ON r.id = s.route_id
-WHERE s.district_id = 0');
-        $result = $query->result_array();
-        foreach ($result as $r) {
-            if (strpos($r['place_name'], ',') !== false) {
-                $place = explode(',', $r['place_name']);
-                $place_name = end($place);
-                $district = $this->pm->get_row('name', trim($place_name), 'districts');
-                if (count($district) > 0) {
-                    $this->pm->updater('id', $r['id'], 'stoppages', array('district_id' => $district['id']));
-                }
-            }
+    public function amenities() {
+
+        $db['prepoth'] = array(
+            'dsn' => '',
+            'hostname' => 'localhost',
+            'username' => 'pothdekh_prep',
+            'password' => 'K$[]mp}ivqnt',
+            'database' => 'pothdekh_prep',
+            'dbdriver' => 'mysqli',
+            'dbprefix' => '',
+            'pconnect' => FALSE,
+            'db_debug' => (ENVIRONMENT !== 'production'),
+            'cache_on' => FALSE,
+            'cachedir' => '',
+            'char_set' => 'utf8',
+            'dbcollat' => 'utf8_general_ci',
+            'swap_pre' => '',
+            'encrypt' => FALSE,
+            'compress' => FALSE,
+            'stricton' => FALSE,
+            'failover' => array(),
+            'save_queries' => TRUE
+        );
+        $DB2 = $this->load->database($db['prepoth'], TRUE);
+        $pre_routes = $DB2->get('routes')->result_array();
+        foreach ($pre_routes as $p) {
+            $this->pm->updater('added', $p['added'], 'routes', array('amenities' => $p['amenities']));
+            //echo $this->db->last_query();return;
         }
     }
 

@@ -2058,7 +2058,12 @@ a.advanced_suggestion:focus {
   display: inline;
 }
 
-
+nav.navbar-inverse .navbar-brand:hover{
+    color: #000000;
+}
+nav.navbar-inverse .navbar-brand:focus{
+    color: #f00;
+}
 @media screen and (max-width: 768px) {
     .header_slogan {
         font-size: 15px

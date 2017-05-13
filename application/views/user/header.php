@@ -21,7 +21,7 @@
             !function(a){"use strict";var b=function(b,c,d){function e(a){if(h.body)return a();setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
         </script>
         <script>
-            loadCSS('<?php echo base_url('assets/css/style.min.css?v=1.15'); ?>');
+            loadCSS('<?php echo base_url('assets/css/style.min.css?v=1.16'); ?>');
             loadCSS('<?php echo base_url('assets/css/bootstrap.min.css'); ?>');
         </script>
 
@@ -47,7 +47,24 @@
           <script async src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
           <script async src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <script  src="<?php echo base_url('assets/js/jquery-3.2.0.min.js'); ?>" <?php echo $this->ua->is_mobile() ? '':'async';?>></script>
+        <script src="<?php echo base_url('assets/js/jquery-3.2.0.min.js'); ?>"></script>
+        <?php if (ENVIRONMENT == 'production'): ?>
+            <script>
+                (function (i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r;
+                    i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+                    a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0];
+                    a.async = 1;
+                    a.src = g;
+                    m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+                ga('create', 'UA-91403655-1', 'auto');
+                ga('send', 'pageview');
+            </script>
+        <?php endif; ?>
     </head>
 
     <body>
