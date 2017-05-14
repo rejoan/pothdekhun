@@ -32,7 +32,7 @@
 //                $base64 = 'data:image/' . $type . ';base64,' . base64_encode($evidence);
                 ?>
                 <div class="col-md-4">
-                    <a class="fancybox" rel="gallery<?php echo $route['r_id']; ?>" href="<?php echo $path; ?>"><img class="img-responsive img-thumbnail" src="<?php echo $path_thumb; ?>" alt="<?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?>"/></a>
+                    <a class="fancybox" data-fancybox="group" data-caption="<?php echo $route['r_id']; ?>" href="<?php echo $path; ?>"><img class="img-responsive img-thumbnail" src="<?php echo $path_thumb; ?>" alt="<?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?>"/></a>
                 </div>
             <?php endif; ?>
             <?php
@@ -44,7 +44,7 @@
 //                $base642 = 'data:image/' . $type2 . ';base64,' . base64_encode($evidence2);
                 ?>
                 <div class="col-md-4">
-                    <a class="fancybox" rel="gallery<?php echo $route['r_id']; ?>" href="<?php echo $path2; ?>"><img class="img-responsive img-thumbnail" src="<?php echo $path_thumb2; ?>" alt="<?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?>"/></a>
+                    <a class="fancybox" data-fancybox="group" data-caption="<?php echo $route['r_id']; ?>" href="<?php echo $path2; ?>"><img class="img-responsive img-thumbnail" src="<?php echo $path_thumb2; ?>" alt="<?php echo mb_convert_case($route[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8'); ?>"/></a>
                 </div>
             <?php endif; ?>
         </div>

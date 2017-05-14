@@ -254,9 +254,9 @@ class Routes extends MX_Controller {
             'stoppages' => $this->pm->get_data($stopage_table, FALSE, 'route_id', $route_id, FALSE, FALSE, FALSE, 'position', 'asc'),
             'settings' => $this->nl->get_config(),
             'action_button' => lang('edit_button'),
-            'load_css' => load_css(array('plugins/jQueryUI' => 'jquery-ui.min.css', 'plugins/fancybox' => 'jquery.fancybox.css')),
-            'load_script' => load_script(array('plugins/jQueryUI' => 'jquery-ui.min.js', 'plugins/fancybox' => 'jquery.fancybox.pack.js', 'js' => 'val_lib.js')),
-            'script_init' => script_init(array('$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});', '$(\'.fancybox\').fancybox({helpers: {overlay: {locked: false}}});'))
+            'load_css' => load_css(array('plugins/jQueryUI' => 'jquery-ui.min.css', 'plugins/fancybox' => 'jquery.fancybox.min.css')),
+            'load_script' => load_script(array('plugins/jQueryUI' => 'jquery-ui.min.js', 'plugins/fancybox' => 'jquery.fancybox.min.js', 'js' => 'val_lib.js')),
+            'script_init' => script_init(array('$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});', '$(\'.fancybox\').fancybox({slideShow  : false,thumbs : false,image : {preload : true,protect : true}});'))
         );
         if ($this->nl->is_admin() && $this->input->get('pd_rev')) {
             $data['point'] = modules::run('route_manager/calculate_point', $route_id);
@@ -525,9 +525,9 @@ class Routes extends MX_Controller {
             'next' => $next_q->row_array(),
             'prev' => $prev_q->row_array(),
             'more_transports' => $this->more_transports($result),
-            'load_css' => load_css(array('bootstrap-sweetalert/dist' => 'sweetalert.css', 'plugins/fancybox' => 'jquery.fancybox.css')),
-            'load_script' => load_script(array('plugins/fancybox' => 'jquery.fancybox.pack.js', 'bootstrap-sweetalert/dist' => 'sweetalert.min.js', 'js/bootstrap' => 'tooltip.min.js')),
-            'script_init' => script_init(array('$(\'.fancybox\').fancybox({helpers: {overlay: {locked: false}}});', '$(\'[data-toggle="tooltip"]\').tooltip();'))
+            'load_css' => load_css(array('bootstrap-sweetalert/dist' => 'sweetalert.css', 'plugins/fancybox' => 'jquery.fancybox.min.css')),
+            'load_script' => load_script(array('plugins/fancybox' => 'jquery.fancybox.min.js', 'bootstrap-sweetalert/dist' => 'sweetalert.min.js', 'js/bootstrap' => 'tooltip.min.js')),
+            'script_init' => script_init(array('$(\'.fancybox\').fancybox({slideShow  : false,thumbs : false,image : {preload : true,protect : true}});', '$(\'[data-toggle="tooltip"]\').tooltip();'))
         );
         $data['meta_title'] = $data['title'] . lang('meta_title_route');
         //echo $this->db->last_query();return;
