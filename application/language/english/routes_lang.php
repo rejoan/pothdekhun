@@ -65,4 +65,7 @@ $lang['normal'] = 'Normal AC';
 $lang['scania'] = 'Scania';
 $lang['hyundai'] = 'Hyundai';
 $lang['volvo'] = 'Volvo';
+$lang['rm2'] = 'RM2';
+$lang['hino_1j'] = 'Hino 1J';
+$lang['mercedes_benz'] = 'Mercedes Benz';
 $lang['ac_type'] = 'AC Type';

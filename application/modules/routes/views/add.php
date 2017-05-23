@@ -274,14 +274,14 @@
                                     if ($this->input->post('submit')) {
                                         echo set_value('departure_time');
                                     } elseif (isset($route['departure_time'])) {
-                                        $breaks = array('<br />','<br>','<br/>');
-                                        echo str_ireplace($breaks,"\r\n",$route['departure_time']);
+                                        $breaks = array('<br />', '<br>', '<br/>');
+                                        echo str_ireplace($breaks, "\r\n", $route['departure_time']);
                                     }
                                     ?>
                                 </textarea>
                             </div>
                         </div>
-                        
+
                     <?php endif; ?>
                 <?php endif; ?>
 
@@ -381,41 +381,60 @@
                             ?>> <?php echo lang('unknown'); ?>
                         </label>
                     </div>
-                    <div id="ac_type" class="col-md-12" style="display:<?php if (isset($amenities)) {
-                                echo in_array('ac', $amenities) ? '' : 'none;';
-                            }else{echo 'none;';}?>">
+                    <div id="ac_type" class="col-md-12" style="display:<?php
+                    if (isset($amenities)) {
+                        echo in_array('ac', $amenities) ? '' : 'none;';
+                    } else {
+                        echo 'none;';
+                    }
+                    ?>">
                         <label class="col-md-3 control-label"><?php echo lang('ac_type'); ?></label>
-                        <label class="radio-inline">
-                            <input type="radio" name="ac_type" value="normal_ac" <?php
-                            if (isset($amenities)) {
-                                echo in_array('normal_ac', $amenities) ? 'checked="yes"' : '';
-                            }else {
-                                echo 'checked="yes"';
-                            }
-                            ?>> <?php echo lang('normal'); ?>
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="ac_type" value="scania" <?php
-                            if (isset($amenities)) {
-                                echo in_array('scania', $amenities) ? 'checked="yes"' : '';
-                            }
-                            ?>> <?php echo lang('scania'); ?>
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="ac_type" value="hyundai" <?php
-                            if (isset($amenities)) {
-                                echo in_array('hyundai', $amenities) ? 'checked="yes"' : '';
-                            }
-                            ?>> <?php echo lang('hyundai'); ?>
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="ac_type" value="volvo" <?php
-                            if (isset($amenities)) {
-                                echo in_array('volvo', $amenities) ? 'checked="yes"' : '';
-                            }
-                            ?>> <?php echo lang('volvo'); ?>
-                        </label>
-
+                        <div class="col-md-9">
+                            <label class="radio-inline">
+                                <input type="radio" name="ac_type" value="normal_ac" <?php
+                                if (isset($amenities)) {
+                                    echo in_array('normal_ac', $amenities) ? 'checked="yes"' : '';
+                                } else {
+                                    echo 'checked="yes"';
+                                }
+                                ?>> <?php echo lang('normal'); ?>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="ac_type" value="scania" <?php
+                                if (isset($amenities)) {
+                                    echo in_array('scania', $amenities) ? 'checked="yes"' : '';
+                                }
+                                ?>> <?php echo lang('scania'); ?>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="ac_type" value="hyundai" <?php
+                                if (isset($amenities)) {
+                                    echo in_array('hyundai', $amenities) ? 'checked="yes"' : '';
+                                }
+                                ?>> <?php echo lang('hyundai'); ?>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="ac_type" value="rm2" <?php
+                                if (isset($amenities)) {
+                                    echo in_array('rm2', $amenities) ? 'checked="yes"' : '';
+                                }
+                                ?>> <?php echo lang('rm2'); ?>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="ac_type" value="hino_1j" <?php
+                                if (isset($amenities)) {
+                                    echo in_array('hino_1j', $amenities) ? 'checked="yes"' : '';
+                                }
+                                ?>> <?php echo lang('hino_1j'); ?>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="ac_type" value="mercedes_benz" <?php
+                                if (isset($amenities)) {
+                                    echo in_array('mercedes_benz', $amenities) ? 'checked="yes"' : '';
+                                }
+                                ?>> <?php echo lang('mercedes_benz'); ?>
+                            </label>
+                        </div>
                     </div>
                 </div>
 
@@ -427,14 +446,14 @@
                             if (isset($amenities)) {
                                 echo in_array('local', $amenities) ? 'checked="yes"' : '';
                             }
-                            ?>> <?php echo lang('local'); ?>
+                                ?>> <?php echo lang('local'); ?>
                         </label>
                         <label class="radio-inline">
                             <input type="radio" name="mail_local" value="gate_lock" <?php
                             if (isset($amenities)) {
                                 echo in_array('gate_lock', $amenities) ? 'checked="yes"' : '';
                             }
-                            ?>> <?php echo lang('gatelock'); ?>
+                                ?>> <?php echo lang('gatelock'); ?>
                         </label>
                         <label class="radio-inline">
                             <?php $target = array('local', 'gate_lock'); ?>
@@ -500,7 +519,7 @@
                 }
                 ?>"/>
 
-                <?php if ($this->nl->is_admin() && $this->input->get('pd_rev')): ?>
+<?php if ($this->nl->is_admin() && $this->input->get('pd_rev')): ?>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Point</label>
                         <div class="col-xs-10 col-md-6">
@@ -514,8 +533,8 @@
                             <textarea class="form-control" name="note"></textarea>
                         </div>
                     </div>
-                <?php endif; ?>
-                <?php if ($this->nl->is_admin() && isset($route)): ?>
+<?php endif; ?>
+<?php if ($this->nl->is_admin() && isset($route)): ?>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
                             <div class="col-sm-6">
@@ -532,7 +551,7 @@
                         </label>
 
                     </div>
-                <?php endif; ?>
+<?php endif; ?>
                 <input id="submit_route" type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo $action_button; ?>"/>
             </form>
         </div>
