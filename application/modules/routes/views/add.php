@@ -389,7 +389,7 @@
                     }
                     ?>">
                         <label class="col-md-3 control-label"><?php echo lang('ac_type'); ?></label>
-                        <div class="col-md-9">
+                        <div class="col-md-9 custom_pad_left">
                             <label class="radio-inline">
                                 <input type="radio" name="ac_type" value="normal_ac" <?php
                                 if (isset($amenities)) {
@@ -427,7 +427,7 @@
                                 }
                                 ?>> <?php echo lang('hino_1j'); ?>
                             </label>
-                            <label class="radio-inline">
+                            <label class="radio-inline custom_pad_left">
                                 <input type="radio" name="ac_type" value="mercedes_benz" <?php
                                 if (isset($amenities)) {
                                     echo in_array('mercedes_benz', $amenities) ? 'checked="yes"' : '';
