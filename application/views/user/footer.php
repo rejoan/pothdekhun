@@ -45,13 +45,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php echo isset($load_script) ? $load_script : ''; ?>
 <script type="text/javascript" src="<?php echo base_url('assets/js/sturgon-slider-1.2.1.min.js?v=2.8'); ?>" async></script>
 
-<?php if ($this->ua->is_mobile()): ?>
-    <script type="text/javascript">
-        $(window).on('load', function () {
-            $('#ploader').fadeOut('slow');
-        });
-    </script>
-<?php endif; ?>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-migrate-1.4.1.min.js'); ?>" async></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script type="text/javascript" src="<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js'); ?>" async></script>

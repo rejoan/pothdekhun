@@ -25,20 +25,6 @@
             loadCSS('<?php echo base_url('assets/css/bootstrap.min.css'); ?>');
         </script>
 
-        <?php if ($this->ua->is_mobile()): ?>
-            <style>
-                #ploader {
-                    position: fixed;
-                    left: 0px;
-                    top: 0px;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 9999;
-                    background: url('<?php echo base_url('assets/images/loading.gif'); ?>') 50% 50% no-repeat rgb(249,249,249);
-                }
-            </style>
-        <?php endif; ?>
-
 <!--[if lt IE 9]><script async src="<?php echo base_url('assets/js/ie8-responsive-file-warning.js'); ?>"></script><![endif]-->
 <!--    <script async src="<?php echo base_url('assets/js/ie-emulation-modes-warning.js'); ?>"></script>-->
 
