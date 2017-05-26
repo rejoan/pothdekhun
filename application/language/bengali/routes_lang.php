@@ -63,3 +63,4 @@ $lang['rm2'] = 'আরএম২';
 $lang['hino_1j'] = 'হিনো ১জে';
 $lang['mercedes_benz'] = 'মার্সিডিজ বেনচ';
 $lang['ac_type'] = 'এসির ধরন';
+$lang['service'] = 'সার্ভিস';

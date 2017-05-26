@@ -19,7 +19,14 @@
     ?>
     <div class="box box-poth">
         <div id="details_header" class="box-header with-border">
-            <p><?php echo lang('route_info') . ': <a data-toggle="tooltip" data-placement="top" title="Google Map Direction" class="btn btn-sm bg-purple" href="' . site_url_tr('routes/map/?fp=' . $from_p . '&ftn=' . str_replace(' ', '+', trim($route['thana_name'])) . '&fds=' . str_replace(' ', '+', trim($route['district_name'])) . '&tp=' . str_replace(' ', '+', trim($route['to_place'])) . '&thn=' . str_replace(' ', '+', trim($route['th_thana_name'])) . '&tdn=' . str_replace(' ', '+', trim($route['td_name']))) . '"><span class="glyphicon glyphicon-map-marker"></span> Google Map</a></p> <div class="row no-margin"><div class="col-md-6 bg-orange">' . $fp . ', ' . $ftn . ', ' . $fds . '</div><div class="col-md-1">'.lang('to_view').'</div> <div class="col-md-5 bg-orange">' . $tp . ', ' . $thn . ', ' . $tdn . '</div>'; ?></div>
+            <?php echo '<div class="row no-margin"><div class="col-md-6 bg-orange">' . $fp . ', ' . $ftn . ', ' . $fds . '</div><div class="col-md-1">'.lang('to_view').'</div> <div class="col-md-5 bg-orange">' . $tp . ', ' . $thn . ', ' . $tdn . '</div>'; ?>
+            <div class="row">
+                <div class="col-md-12 margin_top">
+                    <?php echo '<a data-toggle="tooltip" data-placement="top" title="Google Map Direction" class="btn btn-sm bg-purple" href="' . site_url_tr('routes/map/?fp=' . $from_p . '&ftn=' . str_replace(' ', '+', trim($route['thana_name'])) . '&fds=' . str_replace(' ', '+', trim($route['district_name'])) . '&tp=' . str_replace(' ', '+', trim($route['to_place'])) . '&thn=' . str_replace(' ', '+', trim($route['th_thana_name'])) . '&tdn=' . str_replace(' ', '+', trim($route['td_name']))) . '"><span class="glyphicon glyphicon-map-marker"></span> Google Map</a>';?>
+                </div>
+                
+            </div>
+        </div>
     </div>
     <div class="box-body">
         <div class="row custom_margin">

@@ -2067,7 +2067,10 @@ nav.navbar-inverse .navbar-brand:focus{
 .custom_pad_left{
     padding-left: 7px;
 }
-
+h4.custom_h4{
+    font-size: 15px;
+    font-weight: bolder;
+}
 @media screen and (max-width: 768px) {
     .header_slogan {
         font-size: 15px
