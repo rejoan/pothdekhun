@@ -152,6 +152,7 @@ class Weapons extends MX_Controller {
         $this->db->from('routes r');
         $this->db->join('route_bn rt', 'rt.route_id = r.id', 'left');
         $this->db->join('poribohons p', 'p.id = r.poribohon_id', 'left');
+        $this->db->where($cond);
         if (!empty($edit_id)) {
             $this->load->library('encryption');
             $this->encryption->initialize(
@@ -164,10 +165,8 @@ class Weapons extends MX_Controller {
             //var_dump($route_id);
             $exclude = array($route_id);
             $this->db->where_not_in('r.id', $exclude);
+            $this->db->or_where('(r.id NOT IN(' . $route_id . ') AND rt.from_place = "' . $from_place . '" AND rt.to_place = "' . $to_place . '" AND p.bn_name = "' . $vehicle_name . '")', NULL, FALSE);
         }
-        $this->db->where($cond);
-        $this->db->or_where('(r.id NOT IN(' . $route_id . ') AND rt.from_place = "' . $from_place . '" AND rt.to_place = "' . $to_place . '" AND p.bn_name = "' . $vehicle_name . '")', NULL, FALSE);
-
         $query = $this->db->get();
         //echo $this->db->last_query();
         echo json_encode(array('exist' => $query->num_rows()));

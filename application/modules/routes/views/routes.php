@@ -72,7 +72,7 @@
                 </div>
             </form>
             <div class="table-responsive">
-                <table class="table table-hover table-bordered table-striped dataTable small_font">
+                <table class="table table-hover table-bordered table-striped small_font">
                     <thead>
                         <tr>
                             <th><?php echo lang('ID'); ?></th>

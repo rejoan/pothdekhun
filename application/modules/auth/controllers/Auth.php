@@ -259,7 +259,8 @@ class Auth extends MX_Controller {
         //timezone inactive for production
         $data = array(
             'title' => lang('forgot_password'),
-            'action' => site_url_tr('auth/forgot_password')
+            'action' => site_url_tr('auth/forgot_password'),
+            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
         );
 
         if ($this->input->post('submit')) {
