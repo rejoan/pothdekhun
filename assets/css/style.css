@@ -2075,7 +2075,9 @@ h4.custom_h4{
     .header_slogan {
         font-size: 15px
     }
-
+    ol.breadcrumb{
+        margin: 55px 0 0;
+    }
     .intro_des {
         font-size: 17px;
         font-weight: bolder;
