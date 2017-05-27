@@ -28,7 +28,8 @@ class Auth extends MX_Controller {
         $data = array(
             'title' => lang('register'),
             'action' => site_url_tr('auth/register'),
-            'captcha' => $this->recaptcha->recaptcha_get_html()
+            'captcha' => $this->recaptcha->recaptcha_get_html(),
+            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
         );
 
 
@@ -193,7 +194,8 @@ class Auth extends MX_Controller {
         }
         $data = array(
             'title' => lang('login'),
-            'action' => site_url_tr('auth/login')
+            'action' => site_url_tr('auth/login'),
+            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
         );
 
         if ($this->input->post('submit')) {

@@ -56,6 +56,7 @@
         </div>
     </div>
 </div>
+<script src="<?php echo base_url('assets/js/jquery-3.2.0.min.js'); ?>"></script>
 <script>
     $(document).ready(function () {
         $('#search_transport .list-group').on('click', '.list-group-item', function () {

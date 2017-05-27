@@ -558,6 +558,7 @@
     </div>
 </div>
 <?php $this->load->view('rules_modal'); ?>
+<script src="<?php echo base_url('assets/js/jquery-3.2.0.min.js'); ?>"></script>
 <script>
     $(document).ready(function () {
         $('#ac_nonac input[type="radio"]').click(function () {

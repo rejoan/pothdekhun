@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var xhr = null;
-    $('.search_place').keyup(function (e) {
+    $(".search_place").keyup(function (e) {
         var key = e.keyCode;
         if (key == 40 || key == 38 || key == 13) {
             return false;
@@ -9,20 +9,20 @@ $(document).ready(function () {
             xhr.abort();
             xhr = null;
         }
-        var district = $(this).parent().prev().prev().find('select').val();
-        var thana = $(this).parent().prev().find('select').val();
+        var district = $(this).parent().prev().prev().find("select").val();
+        var thana = $(this).parent().prev().find("select").val();
         var typing = $.trim($(this).val());
         if (!typing.length) {
             return false;
         }
 
-        var pd_stu = $('#pd_stu').val();
-        var pd_btu = $('#pd_btu').val();
+        var pd_stu = $("#pd_stu").val();
+        var pd_btu = $("#pd_btu").val();
         xhr = $.ajax({
             context: this,
-            url: pd_stu + 'weapons/get_places',
-            type: 'get',
-            dataType: 'json',
+            url: pd_stu + "weapons/get_places",
+            type: "get",
+            dataType: "json",
             cache: true,
             data: {
                 typing: typing,
@@ -30,20 +30,20 @@ $(document).ready(function () {
                 t: thana
             },
             beforeSend: function () {
-                $(this).parent().append('<img id="loader" src="' + pd_btu + 'assets/images/loading.gif" alt="Loading"/>');
+                $(this).parent().append("<img id=\"loader\" src=\"" + pd_btu + "assets/images/loading.gif\" alt=\"Loading\"/>");
             },
             complete: function () {
-                $('#loader').remove();
+                $("#loader").remove();
             }
         }).done(function (response) {
-            $('#loader').remove();
-            var cm = '';
-            var from = $('input[name="f"]').val();
+            $("#loader").remove();
+            var cm = "";
+            var from = $("input[name=\"f\"]").val();
             for (var i = 0; i < response.length; i++) {
-                if (response[i]['Location'] == from) {
+                if (response[i]["Location"] == from) {
                     response.splice(i, 1);
                 }
-                cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + '</a>';
+                cm += "<a href=\"javascript:void(0);\" class=\"list-group-item\">" + response[i]["Location"] + "</a>";
             }
 
             $(this).next().show().html(cm);
@@ -51,42 +51,42 @@ $(document).ready(function () {
     });
 
 
-    $('#fare_verfication a').click(function (e) {
+    $("#fare_verfication a").click(function (e) {
         e.preventDefault();
-        var pd_identity = $('#pd_identity').val();
-        var pd_stu = $('#pd_stu').val();
-        var pd_sts = $(this).data('pd_fp');
+        var pd_identity = $("#pd_identity").val();
+        var pd_stu = $("#pd_stu").val();
+        var pd_sts = $(this).data("pd_fp");
         $.ajax({
             context: this,
-            url: pd_stu + 'weapons/update_meta',
-            type: 'post',
-            dataType: 'json',
+            url: pd_stu + "weapons/update_meta",
+            type: "post",
+            dataType: "json",
             cache: true,
             data: {
                 pd_identity: pd_identity,
                 pd_sts: pd_sts
             },
             beforeSend: function () {
-                $(this).addClass('disabled');
+                $(this).addClass("disabled");
             }
         }).done(function (response) {
-            if (response.msg === 'exist') {
-                swal('Already given', 'You vote once earlier in this route', 'warning');
+            if (response.msg === "exist") {
+                swal("Already given", "You vote once earlier in this route", "warning");
             }
-            if (response.msg === 'updated') {
-                swal('Thank you', 'You vote taken', 'success');
-                if (pd_sts === 'pd_fpk') {
-                    $('#pd_crc').text(response.v);
+            if (response.msg === "updated") {
+                swal("Thank you", "You vote taken", "success");
+                if (pd_sts === "pd_fpk") {
+                    $("#pd_crc").text(response.v);
                 } else {
-                    $('#pd_wrn').text(response.v);
+                    $("#pd_wrn").text(response.v);
                 }
             }
-            $(this).removeClass('disabled');
+            $(this).removeClass("disabled");
         });
     });
 
     var stp = null;
-    $('#stoppage_section').on('keyup', '.place_name', function (e) {
+    $("#stoppage_section").on("keyup", ".place_name", function (e) {
         var key = e.keyCode;
         if (key == 40 || key == 38 || key == 13) {
             return false;
@@ -100,30 +100,30 @@ $(document).ready(function () {
             return false;
         }
 
-        var pd_stu = $('#pd_stu').val();
+        var pd_stu = $("#pd_stu").val();
         xhr = $.ajax({
             context: this,
-            url: pd_stu + 'weapons/stoppage_search',
-            type: 'get',
-            dataType: 'json',
+            url: pd_stu + "weapons/stoppage_search",
+            type: "get",
+            dataType: "json",
             cache: true,
             data: {
                 typing: typing
             }
         }).done(function (response) {
-            //var cm = '<div class="list-group suggestion">';
-            var cm = '';
+            //var cm = "<div class="list-group suggestion">";
+            var cm = "";
             for (var i = 0; i < response.length; i++) {
-                cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['place_name'] + '</a>';
+                cm += "<a href=\"javascript:void(0);\" class=\"list-group-item\">" + response[i]["place_name"] + "</a>";
             }
             $(this).next().show().html(cm);
-            //cm += '</div>';
+            //cm += "</div>";
             //$(this).parent().append(cm);
         });
     });
 
     var sxhr = null;
-    $('#search_place').keyup(function (e) {
+    $("#search_place").keyup(function (e) {
         var key = e.keyCode;
         if (key == 40 || key == 38 || key == 13) {
             return false;
@@ -132,87 +132,87 @@ $(document).ready(function () {
             sxhr.abort();
             sxhr = null;
         }
-        var district = $('#district').val();
-//        var ig = $('#ig').val();
+        var district = $("#district").val();
+//        var ig = $("#ig").val();
         var typing = $.trim($(this).val());
         if (!typing.length) {
             return false;
         }
 
-        var pd_stu = $('#pd_stu').val();
-        var pd_btu = $('#pd_stu').val();
+        var pd_stu = $("#pd_stu").val();
+        var pd_btu = $("#pd_stu").val();
         xhr = $.ajax({
             context: this,
-            url: pd_stu + 'weapons/search_places',
-            type: 'get',
-            dataType: 'json',
+            url: pd_stu + "weapons/search_places",
+            type: "get",
+            dataType: "json",
             cache: true,
             data: {
                 typing: typing,
                 d: district
             },
             beforeSend: function () {
-                $(this).parent().append('<img id="loader" src="' + pd_btu + 'assets/images/loading.gif" alt="Loading"/>');
+                $(this).parent().append("<img id=\"loader\" src=\"" + pd_btu + "assets/images/loading.gif\" alt=\"Loading\"/>");
             },
             complete: function () {
-                $('#loader').remove();
+                $("#loader").remove();
             }
         }).done(function (response) {
-            $('#loader').remove();
-            var cm = '';
+            $("#loader").remove();
+            var cm = "";
             for (var i = 0; i < response.length; i++) {
-                cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['Location'] + '</a>';
+                cm += "<a href=\"javascript:void(0);\" class=\"list-group-item\">" + response[i]["Location"] + "</a>";
             }
             $(this).next().show().html(cm);
         });
     });
 
-    $('#stoppage_section').on('keydown', '.place_name', function (e) {
-        var listItems = $(this).next().find('a');
+    $("#stoppage_section").on("keydown", ".place_name", function (e) {
+        var listItems = $(this).next().find("a");
         var key = e.keyCode,
-                selected = listItems.filter('.selected'),
+                selected = listItems.filter(".selected"),
                 current;
         if (key != 40 && key != 38 && key != 13)
             return;
-        //listItems.removeClass('selected');
+        //listItems.removeClass("selected");
 
         if (key == 40) // Down key
         {
-            listItems.removeClass('selected');
-            if (!selected.length || selected.is(':last-child')) {
+            listItems.removeClass("selected");
+            if (!selected.length || selected.is(":last-child")) {
                 current = listItems.eq(0);
             } else {
                 current = selected.next();
             }
         } else if (key == 38) // Up key
         {
-            listItems.removeClass('selected');
-            if (!selected.length || selected.is(':first-child')) {
+            listItems.removeClass("selected");
+            if (!selected.length || selected.is(":first-child")) {
                 current = listItems.last();
             } else {
                 current = selected.prev();
             }
         } else if (key == 13) // Enter key
         {
-            current = listItems.filter('.selected');
-            current.trigger('click');
+            current = listItems.filter(".selected");
+            current.trigger("click");
             return false;
         }
-        current.addClass('selected');
+        current.addClass("selected");
     });
 
-    $('#verify_form').submit(function (e) {
+    $("#verify_form").submit(function (e) {
         e.preventDefault();
-        var pd_stu = $('#pd_stu').val();
-        var pd_btu = $('#pd_btu').val();
-        var pd_identity = $('#pd_identity').val();
-        var latest_status = $('#latest_status').val();
-        var note = $('#note').val();
+        var pd_stu = $("#pd_stu").val();
+        var pd_btu = $("#pd_btu").val();
+        var pd_identity = $("#pd_identity").val();
+        var latest_status = $("#latest_status").val();
+        var note = $("#note").val();
         $.ajax({
             context: this,
-            url: pd_stu + 'weapons/send_verification',
-            type: 'post',
-            dataType: 'json',
+            url: pd_stu + "weapons/send_verification",
+            type: "post",
+            dataType: "json",
             cache: true,
             data: {
                 latest_status: latest_status,
@@ -220,60 +220,60 @@ $(document).ready(function () {
                 pd_identity: pd_identity
             },
             beforeSend: function () {
-                $(this).parent().append('<img id="loader" src="' + pd_btu + 'assets/images/loading.gif" alt="Loading"/>');
-                $('#complain .close_btn').prop('disabled', true);
+                $(this).parent().append("<img id=\"loader\" src=\"" + pd_btu + "assets/images/loading.gif\" alt=\"Loading\"/>");
+                $("#complain .close_btn").prop("disabled", true);
             },
             complete: function () {
-                $('#loader').remove();
-                $('#complain .close_btn').prop('disabled', false);
+                $("#loader").remove();
+                $("#complain .close_btn").prop("disabled", false);
             }
         }).done(function (response) {
-            $('#loader').remove();
-            $('#compalin').modal('hide');
-            if (response.sent == 'yes') {
-                swal('Verification Sent', 'Thanks for your info', 'success');
+            $("#loader").remove();
+            $("#compalin").modal("hide");
+            if (response.sent == "yes") {
+                swal("Verification Sent", "Thanks for your info", "success");
             } else {
-                swal('Problem', 'Something gone wrong', 'error');
+                swal("Problem", "Something gone wrong", "error");
             }
         });
     });
 
-    $('.search_place,#vehicle_name,#search_place').on('keydown', function (e) {
-        var listItems = $(this).next().find('a');
+    $(".search_place,#vehicle_name,#search_place").on("keydown", function (e) {
+        var listItems = $(this).next().find("a");
         var key = e.keyCode,
-                selected = listItems.filter('.selected'),
+                selected = listItems.filter(".selected"),
                 current;
         if (key != 40 && key != 38 && key != 13)
             return;
-        //listItems.removeClass('selected');
+        //listItems.removeClass("selected");
 
         if (key == 40) // Down key
         {
-            listItems.removeClass('selected');
-            if (!selected.length || selected.is(':last-child')) {
+            listItems.removeClass("selected");
+            if (!selected.length || selected.is(":last-child")) {
                 current = listItems.eq(0);
             } else {
                 current = selected.next();
             }
         } else if (key == 38) // Up key
         {
-            listItems.removeClass('selected');
-            if (!selected.length || selected.is(':first-child')) {
+            listItems.removeClass("selected");
+            if (!selected.length || selected.is(":first-child")) {
                 current = listItems.last();
             } else {
                 current = selected.prev();
             }
         } else if (key == 13) // Enter key
         {
-            current = listItems.filter('.selected');
-            current.trigger('click');
+            current = listItems.filter(".selected");
+            current.trigger("click");
             return false;
         }
-        current.addClass('selected');
+        current.addClass("selected");
     });
 
     var txhr = null;
-    $('#vehicle_name').keyup(function (e) {
+    $("#vehicle_name").keyup(function (e) {
         var key = e.keyCode;
         if (key == 40 || key == 38 || key == 13) {
             return false;
@@ -288,108 +288,108 @@ $(document).ready(function () {
             return false;
         }
 
-        var pd_stu = $('#pd_stu').val();
-        var pd_btu = $('#pd_btu').val();
+        var pd_stu = $("#pd_stu").val();
+        var pd_btu = $("#pd_btu").val();
         txhr = $.ajax({
             context: this,
-            url: pd_stu + '/weapons/get_transports',
-            type: 'get',
-            dataType: 'json',
+            url: pd_stu + "/weapons/get_transports",
+            type: "get",
+            dataType: "json",
             cache: true,
             data: {
                 typing: typing
             },
             beforeSend: function () {
-                $(this).parent().append('<img id="loader" src="' + pd_btu + 'assets/images/loading.gif" alt="Loaind"/>');
+                $(this).parent().append("<img id=\"loader\" src=\"" + pd_btu + "assets/images/loading.gif\" alt=\"Loaind\" />");
             },
             complete: function () {
-                $('#loader').remove();
+                $("#loader").remove();
             }
         }).done(function (response) {
-            $('#loader').remove();
-            var cm = '';
+            $("#loader").remove();
+            var cm = "";
             for (var i = 0; i < response.length; i++) {
-                cm += '<a href="javascript:void(0);" class="list-group-item">' + response[i]['poribohon'] + '</a>';
+                cm += "<a href=\"javascript:void(0);\" class=\"list-group-item\">" + response[i]["poribohon"] + "</a>";
             }
             $(this).next().show().html(cm);
         });
     });
 
-    $('#vehicle_name').on('blur change', function () {
+    $("#vehicle_name").on("blur change", function () {
         var vh = $(this).val();
-        var fp = $('input[name="f"]').val();
-        var tp = $('input[name="t"]').val();
+        var fp = $("input[name=\"f\"]").val();
+        var tp = $("input[name=\"t\"]").val();
         check_duplicacy(vh, fp, tp);
     });
 
-    $('#vehicle .list-group').on('click', '.list-group-item', function () {
+    $("#vehicle .list-group").on("click", ".list-group-item", function () {
         var vh = $(this).text();
-        var fp = $('input[name="f"]').val();
-        var tp = $('input[name="t"]').val();
+        var fp = $("input[name=\"f\"]").val();
+        var tp = $("input[name=\"t\"]").val();
         check_duplicacy(vh, fp, tp);
     });
 
-    $('.transport_name').on('blur change', function () {
-        var pd_stu = $('#pd_stu').val();
+    $(".transport_name").on("blur change", function () {
+        var pd_stu = $("#pd_stu").val();
         var name = $(this).val();
         if (name.length < 1) {
             return false;
         }
-        var pd_identity = $('#pd_identity').val();
+        var pd_identity = $("#pd_identity").val();
         $.ajax({
             context: this,
-            url: pd_stu + 'weapons/transport_duplicacy',
-            type: 'post',
-            dataType: 'json',
+            url: pd_stu + "weapons/transport_duplicacy",
+            type: "post",
+            dataType: "json",
             cache: true,
             data: {
                 name: name,
                 pd: pd_identity
             }
         }).done(function (response) {
-            if (response.exist == 'yes') {
-                swal('Transpport Exist', 'This transport already exist', 'error');
+            if (response.exist == "yes") {
+                swal("Transpport Exist", "This transport already exist", "error");
             }
         });
     });
 
-    $('#main_search .search_place').blur(function () {
+    $("#main_search .search_place").blur(function () {
         var input = $(this).val();
         if (input.length > 0) {
-            $(this).removeAttr('style');
+            $(this).removeAttr("style");
         }
     });
 
-    $('.evidence').change(function () {
+    $(".evidence").change(function () {
         var file = this.files[0];
         var real_file = file.name;
-        var file_type = real_file.split('.').pop().toLowerCase();
-        var arr = ['jpg', 'png', 'gif', 'jpeg'];
-        if (file === '' || $.inArray(file_type, arr) === -1) {
-            swal('Allowed Types', 'jpg, png, gif, jpeg', 'warning');
-            //$('.file-input-name').remove();
+        var file_type = real_file.split(".").pop().toLowerCase();
+        var arr = ["jpg", "png", "gif", "jpeg"];
+        if (file === "" || $.inArray(file_type, arr) === -1) {
+            swal("Allowed Types", "jpg, png, gif, jpeg", "warning");
+            //$(".file-input-name").remove();
             return false;
         }
     });
 
-    $('select[name="fd"]').change(function () {
+    $("select[name=\"fd\"]").change(function () {
         var district = $.trim($(this).val());
-        var thana = $(this).data('thana');
+        var thana = $(this).data("thana");
         get_thanas(district, thana);
     });
-    $('select[name="td"]').change(function () {
+    $("select[name=\"td\"]").change(function () {
         var district = $.trim($(this).val());
-        var thana = $(this).data('thana');
+        var thana = $(this).data("thana");
         get_thanas(district, thana);
     });
-    $('#suggestion_page .list-group').on('click', '.list-group-item', function () {
+    $("#suggestion_page .list-group").on("click", ".list-group-item", function () {
         var place = $(this).text();
         $(this).parent().prev().val(place);
         $(this).parent().empty();
-        $('#main_search input[name="f"],#main_search input[name="t"]').removeAttr('style');
+        $("#main_search input[name=\"f\"],#main_search input[name=\"t\"]").removeAttr("style");
     });
 
-    $('#stoppage_section .list-group-item').live('click', function () {
+    $("#stoppage_section .list-group-item").live("click", function () {
         var place = $(this).text();
         $(this).parent().prev().val(place);
         $(this).parent().empty();
@@ -397,49 +397,49 @@ $(document).ready(function () {
 
 
     $(document).click(function () {
-        $('#suggestion_page .list-group').empty();
+        $("#suggestion_page .list-group").empty();
     });
 //add dynamic stoppgae as many user can
 
-    $('#add_stoppage').click(function () {
-        var place_name = $('#place_name').val();
-        var comment = $('#comment').val();
-        var rents = $('#rents').val();
-        $('#stoppage_section').show();
+    $("#add_stoppage").click(function () {
+        var place_name = $("#place_name").val();
+        var comment = $("#comment").val();
+        var rents = $("#rents").val();
+        $("#stoppage_section").show();
 
-        $('<div class="form-group stoppage"><div class="col-xs-10 col-md-4"><input maxlength="150" type="text" class="form-control place_name" name="place_name[]" placeholder="' + place_name + '" autocomplete="off"><div class="list-group suggestion"></div></div><div class="col-xs-10 col-md-5"><textarea maxlength="1000" class="form-control" name="comments[]" placeholder="' + comment + '"></textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" placeholder="' + rents + '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>').appendTo($('#stoppage_section')).hide().slideDown();
+        $("<div class=\"form-group stoppage\"><div class=\"col-xs-10 col-md-4\"><input maxlength=\"150\" type=\"text\" class=\"form-control place_name\" name=\"place_name[]\" placeholder=\"" + place_name + "\" autocomplete=\"off\"><div class=\"list-group suggestion\"></div></div><div class=\"col-xs-10 col-md-5\"><textarea maxlength=\"1000\" class=\"form-control\" name=\"comments[]\" placeholder=\"" + comment + "\"></textarea></div><div class=\"col-xs-10 col-md-2\"><input maxlength=\"10\" type=\"text\" class=\"form-control rent\" name=\"rent[]\" placeholder=\"" + rents + "\"></div><button class=\"btn btn-xs btn-danger\" href=\"javascript:void(0)\" class=\"cancel\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></button></div>").appendTo($("#stoppage_section")).hide().slideDown();
     });
 
 
-    $('#stoppage_section').on('click', 'button', function (e) {
+    $("#stoppage_section").on("click", "button", function (e) {
         e.preventDefault();
 
-        var pd_stu = $('#pd_stu').val();
-        var pri = $('#pd_identity').val();
-        var jaig = $(this).parent().find('.place_name').val();
-        if (confirm('Are you Sure?')) {
+        var pd_stu = $("#pd_stu").val();
+        var pri = $("#pd_identity").val();
+        var jaig = $(this).parent().find(".place_name").val();
+        if (confirm("Are you Sure?")) {
             $.ajax({
                 context: this,
-                url: pd_stu + 'weapons/delete_stopage',
-                type: 'get',
-                dataType: 'json',
+                url: pd_stu + "weapons/delete_stopage",
+                type: "get",
+                dataType: "json",
                 cache: true,
                 data: {
                     pri: pri,
                     jaig: jaig
                 }
             }).done(function (response) {
-                if (response.deleted == 'done') {
-                    if ($('#point').length > 0) {//admin works
-                        var point = parseInt($('#point').val());
+                if (response.deleted == "done") {
+                    if ($("#point").length > 0) {//admin works
+                        var point = parseInt($("#point").val());
                         var new_pint = point - 1;
-                        $('#point').val(new_pint);
+                        $("#point").val(new_pint);
                     }
                 }
             });
-            $(this).parent().fadeOut('normal', function () {
+            $(this).parent().fadeOut("normal", function () {
                 $(this).remove();
-                $('.order_pos').each(function (i) {
+                $(".order_pos").each(function (i) {
                     var ord = i + 1;
                     $(this).val(ord);
                 });
@@ -450,185 +450,185 @@ $(document).ready(function () {
     //ftpos = 1;
 
 
-    $('#transport').on('click', '.remove_address', function (e) {
+    $("#transport").on("click", ".remove_address", function (e) {
         e.preventDefault();
-        if (confirm('Are you Sure?')) {
+        if (confirm("Are you Sure?")) {
             $(this).parent().parent().remove();
             return false;
         }
 
     });
 
-    $('.add_district').on('change', function () {
+    $(".add_district").on("change", function () {
         var district = $.trim($(this).val());
-        var pd_stu = $('#pd_stu').val();
+        var pd_stu = $("#pd_stu").val();
         $.ajax({
             context: this,
-            url: pd_stu + 'weapons/get_thanas',
-            type: 'get',
-            dataType: 'json',
+            url: pd_stu + "weapons/get_thanas",
+            type: "get",
+            dataType: "json",
             cache: true,
             data: {
                 district: district
             },
             beforeSend: function () {
-                $(this).parent().next().find('.thana').parent().append('<small id="text_loader">Loading thanas...</small>');
+                $(this).parent().next().find(".thana").parent().append("<small id=\"text_loader\">Loading thanas...</small>");
             },
             complete: function () {
-                $('#text_loader').remove();
+                $("#text_loader").remove();
             }
         }).done(function (response) {
-            var th = '';
+            var th = "";
             for (var i = 0; i < response.length; i++) {
-                th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
+                th += "<option value=\"" + response[i]["id"] + "\">" + response[i]["thana"] + "</option>";
             }
-            $(this).parent().next().find('.thana').html(th);
+            $(this).parent().next().find(".thana").html(th);
         });
     });
 
-    $('#add_address').on('click', function () {
-        var mycontent = $('div.address:first');
-        var selected = mycontent.find('select.add_district option:selected').val();
+    $("#add_address").on("click", function () {
+        var mycontent = $("div.address:first");
+        var selected = mycontent.find("select.add_district option:selected").val();
         var content = mycontent.clone(true, true);
-        content.find('textarea').val('');
-        content.find('textarea').css('width', '190px');
-        content.find('select.add_district').val(selected);
-        content.find('select.add_district').trigger('change');
-        $(content).insertAfter('div.address:last').hide().slideDown();
-        $('<button class="btn btn-xs btn-danger remove_address"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>').insertAfter('div.address:last .add_details');
+        content.find("textarea").val("");
+        content.find("textarea").css("width", "190px");
+        content.find("select.add_district").val(selected);
+        content.find("select.add_district").trigger("change");
+        $(content).insertAfter("div.address:last").hide().slideDown();
+        $("<button class=\"btn btn-xs btn-danger remove_address\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></button>").insertAfter("div.address:last .add_details");
     });
 
 
     //departure_time
-    $('#departure_time').change(function () {
+    $("#departure_time").change(function () {
         if ($(this).val() == 2) {
-            $('<div id="departure_dynamic" class="form-group"><div class="col-md-12"><textarea id="custom_area" rows="10" class="form-control" name="departure_dynamic">Example:\nMorning\n==========\nAC - 9 AM\nNon AC - 9.30 AM\nNight\n==============\nNon AC - 10 PM\nAC : 11 PM</textarea></div></div>').insertAfter('#departure_perticular').hide().slideDown();
+            $("<div id=\"departure_dynamic\" class=\"form-group\"><div class=\"col-md-12\"><textarea id=\"custom_area\" rows=\"10\" class=\"form-control\" name=\"departure_dynamic\">Example:\nMorning\n==========\nAC - 9 AM\nNon AC - 9.30 AM\nNight\n==============\nNon AC - 10 PM\nAC : 11 PM</textarea></div></div>").insertAfter("#departure_perticular").hide().slideDown();
         } else {
             $("#departure_dynamic").slideUp(500, function () {
-                $('#departure_dynamic').remove();
+                $("#departure_dynamic").remove();
             });
         }
-        if ($(this).data('merge') == 'yes') {
-            $('#departure_dynamic label').removeClass('col-sm-3');
-            $('#departure_dynamic label + div').removeClass('col-xs-10 col-md-6');
+        if ($(this).data("merge") == "yes") {
+            $("#departure_dynamic label").removeClass("col-sm-3");
+            $("#departure_dynamic label + div").removeClass("col-xs-10 col-md-6");
         }
     });
-    $('#chkUsername').on('blur', function () {
-        is_exist('chkUsername', 'username', 'users', 'userInfo');
+    $("#chkUsername").on("blur", function () {
+        is_exist("chkUsername", "username", "users", "userInfo");
     });
-    $('#chkEmail').on('blur', function () {
-        var em = $('#chkEmail').val();
-        var email_text = $('#email_text').val();
-        var is_visible = $('.wrong_email').is(':visible');
+    $("#chkEmail").on("blur", function () {
+        var em = $("#chkEmail").val();
+        var email_text = $("#email_text").val();
+        var is_visible = $(".wrong_email").is(":visible");
         var filter = /^[a-zA-Z0-9]+[a-zA-Z0-9_.-]+[a-zA-Z0-9_-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{2,4}$/;
-//if it's valid email
+//if it"s valid email
         if (!filter.test(em)) {
             if (!is_visible) {
-                $('<div class="alert alert-warning wrong_email">' + email_text + '</div>').insertAfter('#emailInfo').hide().slideDown();
+                $("<div class=\"alert alert-warning wrong_email\">" + email_text + "</div>").insertAfter("#emailInfo").hide().slideDown();
                 return false;
             }
         } else {
-            $('.wrong_email').fadeOut('normal', function () {
+            $(".wrong_email").fadeOut("normal", function () {
                 $(this).remove();
             });
-            is_exist('chkEmail', 'email', 'users', 'emailInfo');
+            is_exist("chkEmail", "email", "users", "emailInfo");
         }
     });
-    $('form').on('blur', '.rent', function () {
+    $("form").on("blur", ".rent", function () {
         var replaced = replaceNumbers($(this).val());
         $(this).val(replaced);
         var num = parseInt(replaced);
         if (isNaN(num) || num < 1) {
-            $(this).parent().find('.alert').remove();
-            $(this).parent().append('<div class="alert alert-danger">Numbers only</div>');
-            $(this).val('');
+            $(this).parent().find(".alert").remove();
+            $(this).parent().append("<div class=\"alert alert-danger\">Numbers only</div>");
+            $(this).val("");
         } else {
-            $(this).parent().find('.alert').remove();
+            $(this).parent().find(".alert").remove();
         }
     });
 
 
-    $('#social_link1').hover(function () {
+    $("#social_link1").hover(function () {
         $(this).stop(true, true).animate({
-            width: '+=105px',
-        }, 100, '', function () {
-            if ($(this).children('span').length < 1) {
-                var find_fb = $('#find_fb').val();
-                $(this).append('<span>' + find_fb + '</span>');
+            width: "+=105px",
+        }, 100, "", function () {
+            if ($(this).children("span").length < 1) {
+                var find_fb = $("#find_fb").val();
+                $(this).append("<span>" + find_fb + "</span>");
             }
         });
 
 
     }, function () {
-        $(this).children('span').remove();
+        $(this).children("span").remove();
         $(this).stop(true, true).animate({
-            width: '-=105px',
+            width: "-=105px",
         });
 
     });
 
-    $('#social_link2').hover(function () {
+    $("#social_link2").hover(function () {
         $(this).stop(true, true).animate({
-            width: '+=105px',
-        }, 100, '', function () {
-            if ($(this).children('span').length < 1) {
-                var find_tw = $('#find_tw').val();
-                $(this).append('<span>' + find_tw + '</span>');
+            width: "+=105px",
+        }, 100, "", function () {
+            if ($(this).children("span").length < 1) {
+                var find_tw = $("#find_tw").val();
+                $(this).append("<span>" + find_tw + "</span>");
             }
         });
 
 
     }, function () {
-        $(this).children('span').remove();
+        $(this).children("span").remove();
         $(this).stop(true, true).animate({
-            width: '-=105px',
+            width: "-=105px",
         });
 
     });
 
-    $('#social_link1,#social_link2').mouseleave(function () {
-        $(this).children('span').remove();
+    $("#social_link1,#social_link2").mouseleave(function () {
+        $(this).children("span").remove();
     });
 
 
 });
 
 function get_thanas(district, thana) {
-    var pd_stu = $('#pd_stu').val();
+    var pd_stu = $("#pd_stu").val();
     $.ajax({
         context: this,
-        url: pd_stu + 'weapons/get_thanas',
-        type: 'get',
-        dataType: 'json',
+        url: pd_stu + "weapons/get_thanas",
+        type: "get",
+        dataType: "json",
         cache: true,
         data: {
             district: district
         },
         beforeSend: function () {
-            $('#' + thana).parent().append('<small id="text_loader">Loading thanas...</small>');
+            $("#" + thana).parent().append("<small id=\"text_loader\">Loading thanas...</small>");
         },
         complete: function () {
-            $('#text_loader').remove();
+            $("#text_loader").remove();
         }
     }).done(function (response) {
-        var th = '';
+        var th = "";
         for (var i = 0; i < response.length; i++) {
-            th += '<option value="' + response[i]['id'] + '">' + response[i]['thana'] + '</option>';
+            th += "<option value=\"" + response[i]["id"] + "\">" + response[i]["thana"] + "</option>";
         }
-        $('#' + thana).html(th);
+        $("#" + thana).html(th);
 
-        //$('#' + thana).selectpicker('refresh');
+        //$("#" + thana).selectpicker("refresh");
     });
 }
 
 function check_duplicacy(vh, fp, tp) {
-    var pd_stu = $('#pd_stu').val();
-    var pd_identity = $('input[name="pd_identity"]').val();
+    var pd_stu = $("#pd_stu").val();
+    var pd_identity = $("input[name=\"pd_identity\"]").val();
     $.ajax({
         context: this,
-        url: pd_stu + '/weapons/check_duplicate',
-        type: 'get',
-        dataType: 'json',
+        url: pd_stu + "/weapons/check_duplicate",
+        type: "get",
+        dataType: "json",
         cache: true,
         data: {
             vh: vh,
@@ -638,7 +638,7 @@ function check_duplicacy(vh, fp, tp) {
         }
     }).done(function (response) {
         if (response.exist > 0) {
-            swal('Route Exist Already', 'Please try another', 'warning');
+            swal("Route Exist Already", "Please try another", "warning");
         }
 
     });

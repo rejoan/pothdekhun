@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <li><a href="<?php echo site_url_tr('pages/how-to-search'); ?>"><?php echo lang('search_tips'); ?></a></li>
                 <li><a href="<?php echo site_url_tr('pages/about-us'); ?>"><?php echo lang('about_us'); ?></a></li>
                 <li><a href="<?php echo site_url_tr('pages/contact-us'); ?>"><?php echo lang('contact_us'); ?></a></li>
-<!--                <li><a href="<?php //echo site_url_tr('pages/point-rules');                   ?>"><?php //echo lang('point_rules');                   ?></a></li>-->
+<!--                <li><a href="<?php //echo site_url_tr('pages/point-rules');                         ?>"><?php //echo lang('point_rules');                         ?></a></li>-->
                 <li><a href="<?php echo site_url_tr('pages/privacy-policy'); ?>"><?php echo lang('privacy_policy'); ?></a></li>
 
             </ul>
@@ -37,23 +37,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <a target="_blank" id="social_link1" href="https://www.facebook.com/PothDekhun"><img src="<?php echo base_url('assets/images/facebook.png'); ?>" alt="Facebook"/></a>
 <a target="_blank" id="social_link2" href="https://www.twitter.com/PothDekhun"><img src="<?php echo base_url('assets/images/twitter.png'); ?>" alt="Twitter"/></a>
+
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js'); ?>" async></script>
-
 <?php echo isset($load_script) ? $load_script : ''; ?>
-<script type="text/javascript" src="<?php echo base_url('assets/js/sturgon-slider-1.2.1.min.js?v=2.8'); ?>" async></script>
 
-<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-migrate-1.4.1.min.js'); ?>" async></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script type="text/javascript" src="<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js'); ?>" async></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        //setTimeout(function(){
-        <?php echo isset($script_init) ? $script_init : ''; ?>
-        // }, 500);
+    [
+        '<?php echo base_url('assets/js/bootstrap/bootstrap.min.js'); ?>',
+        '<?php echo base_url('assets/js/sturgon-slider-1.2.1.min.js?v=2.9'); ?>',
+        '<?php echo base_url('assets/js/jquery-migrate-1.4.1.min.js'); ?>',
+        '<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js'); ?>'
+    ].forEach(function (src) {
+        var script = document.createElement('script');
+        script.src = src;
+        script.async = true;
+        document.body.appendChild(script);
     });
+<?php if (isset($script_init)): ?>
+        setTimeout(function () {
+            $(document).ready(function () {
+    <?php echo $script_init; ?>
+            });
+        }, 500);
+<?php endif; ?>
 </script>
 </body>
 </html>

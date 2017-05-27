@@ -49,10 +49,9 @@ class Transports extends MX_Controller {
             'links' => $links,
             'segment' => $segment,
             'settings' => $this->nl->get_config(),
-            'load_css' => load_css(array('plugins/datatables/media/css' => 'jquery.dataTables.min.css')),
-            'load_script' => load_script(array('plugins/datatables/media/js' => 'jquery.dataTables.min.js','js/bootstrap' => 'tooltip.min.js')),
-            'script_init' => script_init(array('$(\'.dataTable\').DataTable({\'paging\': false,
-        \'info\': false,\'searching\': false,\'order\': [[0, \'desc\']]});','$(\'[data-toggle="tooltip"]\').tooltip();'))
+            
+            'load_script' => load_script(array('js/bootstrap' => 'tooltip.min.js')),
+            'script_init' => script_init(array('$(\'[data-toggle="tooltip"]\').tooltip();'))
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
     }
@@ -69,7 +68,7 @@ class Transports extends MX_Controller {
             'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1, FALSE, FALSE, FALSE, $col_name, 'asc'),
             'load_css' => load_css(array('bootstrap-sweetalert/dist' => 'sweetalert.css')),
-            'load_script' => load_script(array('bootstrap-sweetalert/dist' => 'sweetalert.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js','bootstrap-sweetalert/dist' => 'sweetalert.min.js'))
         );
         $this->load->library('form_validation');
 
@@ -175,7 +174,9 @@ class Transports extends MX_Controller {
             'action_button' => lang('edit_button'),
             'settings' => $this->nl->get_config(),
             'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
-            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1, FALSE, FALSE, FALSE, $col_name, 'asc')
+            'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1, FALSE, FALSE, FALSE, $col_name, 'asc'),
+            'load_css' => load_css(array('bootstrap-sweetalert/dist' => 'sweetalert.css')),
+            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js','bootstrap-sweetalert/dist' => 'sweetalert.min.js'))
         );
         if ($this->nl->is_admin() && $this->input->get('pd_rev')) {
             $data['point'] = $this->calculate_point($id);

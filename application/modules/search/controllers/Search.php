@@ -81,7 +81,8 @@ class Search extends MX_Controller {
             'd' => $this->pm->get_row('id', $district, 'districts'),
             'settings' => $this->nl->get_config(),
             'links' => $links,
-            'total_route' => $total_rows
+            'total_route' => $total_rows,
+            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'place_search', 'rightbar', 'menu', TRUE);
     }
@@ -168,14 +169,11 @@ class Search extends MX_Controller {
         $fthana = mb_convert_case($ft[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ', ';
         $tthana = mb_convert_case($th[$this->nl->lang_based_data('bn_name', 'name')], MB_CASE_TITLE, 'UTF-8') . ', ';
 
-        if ($c && !empty($from_place)) {
+        if ($c) {
             $fthana = lang('any_thana');
-        }
-
-        if ($c && !empty($to_place)) {
             $tthana = lang('any_thana');
         }
-
+        
         $f_place = mb_convert_case($from_place, MB_CASE_TITLE, 'UTF-8') . ', ';
         if (empty($from_place)) {
             $f_place = '';
@@ -215,7 +213,8 @@ class Search extends MX_Controller {
             'segment' => $segment,
             'total_rows' => $total_rows,
             'density_from' => $density_from,
-            'density_to' => $density_to
+            'density_to' => $density_to,
+            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
     }
