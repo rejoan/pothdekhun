@@ -1,8 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<div class="callout callout-info">
-    <h1 class="intro_des no-margin"><?php echo lang('poth_intro'); ?></h1>
-    <p class="description-text"><?php echo lang('poth_description'); ?></p>
-    <a style="text-decoration: none;" href="<?php echo site_url_tr('pages/how-to-search')?>" class="btn btn-xs btn-github"><span class="glyphicon glyphicon-search"></span> <?php echo lang('search_tips'); ?></a>
+<div class="box box-solid box-info">
+    <div id="introduction" class="box-header">
+        <h1 class="box-title"><?php echo lang('poth_intro'); ?></h1>
+    </div>
+    <div id="poth_des" class="box-body" style="display: none;">
+        <p class="description-text"><?php echo lang('poth_description'); ?></p>
+        <a style="text-decoration: none;" href="<?php echo site_url_tr('pages/how-to-search') ?>" class="btn btn-xs btn-github"><span class="glyphicon glyphicon-search"></span> <?php echo lang('search_tips'); ?></a>
+    </div>
+
 </div>
 
 <div id="suggestion_page" class="col-sm-6 col-sm-push-3">
@@ -23,7 +28,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-1">
-                            <label><?php echo lang('from_view');?></label>
+                            <label><?php echo lang('from_view'); ?></label>
                         </div>
                         <div class="col-xs-10 col-md-3">
                             <div class="form-group">
@@ -59,8 +64,8 @@
                 <div class="form-group">
 
                     <div class="row">
-                         <div class="col-md-1">
-                            <label><?php echo lang('to_view');?></label>
+                        <div class="col-md-1">
+                            <label><?php echo lang('to_view'); ?></label>
                         </div>
                         <div class="col-xs-10 col-md-3">
                             <div class="form-group">
