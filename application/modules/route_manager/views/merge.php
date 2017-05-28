@@ -9,7 +9,7 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-xs-10 col-md-3">
-                    <select name="fd" class="selectpicker" data-width="100%" data-live-search="true">
+                    <select name="fd" class="form-control">
                         <?php foreach ($districts as $d): ?>
                             <option value="<?php echo $d['id']; ?>" <?php
                             echo $prev_route['from_district'] == $d['id'] ? 'selected="yes"' : '';
@@ -20,8 +20,8 @@
                     </select>
                 </div>
                 <div class="col-xs-10 col-md-3">
-                    <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                        <select name="ft" class="selectpicker" data-width="100%" data-live-search="true" >
+                    <div class="form-group">
+                        <select name="ft" class="form-control">
                             <?php foreach ($fthanas as $t): ?>
                                 <option  value="<?php echo $t['id']; ?>" <?php
                                 echo $prev_route['from_thana'] == $t['id'] ? 'selected="yes"' : '';
@@ -45,7 +45,7 @@
 
             <div class="row">
                 <div class="col-xs-10 col-md-3">
-                    <select name="td" class="selectpicker" data-width="100%" data-live-search="true">
+                    <select name="td" class="form-control">
                         <?php foreach ($districts as $d): ?>
                             <option  value="<?php echo $d['id']; ?>" <?php
                             echo $prev_route['to_district'] == $d['id'] ? 'selected="yes"' : '';
@@ -58,8 +58,8 @@
                 </div>
 
                 <div class="col-xs-10 col-md-3">
-                    <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                        <select name="th" class="selectpicker" data-width="100%" data-live-search="true">
+                    <div class="form-group">
+                        <select name="th" class="form-control">
                             <?php foreach ($tthanas as $tt): ?>
                                 <option  value="<?php echo $tt['id']; ?>" <?php echo $prev_route['to_thana'] == $tt['id'] ? 'selected="yes"' : ''; ?>>
                                     <?php echo $tt[$this->nl->lang_based_data('bn_name', 'name')]; ?>
@@ -92,7 +92,7 @@
 
             <div class="form-group">
                 <label class="control-label"><?php echo lang('transport_type'); ?></label>
-                <select id="vehicle_type" name="transport_type" class="selectpicker" data-width="100%">
+                <select id="vehicle_type" name="transport_type" class="form-control">
                     <option value="<?php echo lang('bus'); ?>" <?php echo $prev_route['transport_type'] == lang('bus') ? 'selected="yes"' : ''; ?>><?php echo lang('bus'); ?></option>
                     <option value="<?php echo lang('train'); ?>" <?php echo $prev_route['transport_type'] == lang('train') ? 'selected="yes"' : ''; ?>><?php echo lang('train'); ?></option>
                     <option value="<?php echo lang('leguna'); ?>" <?php echo $prev_route['transport_type'] == lang('leguna') ? 'selected="yes"' : ''; ?>><?php echo lang('leguna'); ?></option>
@@ -113,7 +113,7 @@
 
             <div class="form-group">
                 <label class="control-label"><?php echo lang('departure_time'); ?></label>
-                <select name="departure_time" class="selectpicker" data-width="100%">
+                <select name="departure_time" class="form-control">
                     <option value="1" <?php echo $prev_route['departure_time'] == 1 ? 'selected="yes"' : ''; ?>><?php echo lang('after_while'); ?></option>
                     <option value="2" <?php echo $prev_route['departure_time'] != 1 ? 'selected="yes"' : ''; ?>><?php echo lang('perticular_time'); ?></option>
                 </select>
@@ -123,7 +123,7 @@
                 <div class="form-group">
                     <label class="control-label"></label>
                     <div class="input-group">
-                        <input maxlength="200" type="text" class="form-control"  name="departure_dynamic" data-sentto="departure" value="<?php echo $prev_route['departure_time']; ?>">
+                        <textarea class="form-control" name="departure_dynamic" data-sentto="departure"><?php echo $prev_route['departure_time']; ?></textarea>
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-info btn-flat keep_it">Keep it</button>
                         </span>
@@ -169,7 +169,7 @@
 
                 <div class="row">
                     <div class="col-xs-10 col-md-3">
-                        <select name="fd" class="selectpicker districts" data-width="100%" data-thana="ft" data-live-search="true">
+                        <select name="fd" class="form-control districts">
                             <?php foreach ($districts as $d): ?>
                                 <option value="<?php echo $d['id']; ?>" <?php
                                 echo $edited_route['from_district'] == $d['id'] ? 'selected="yes"' : '';
@@ -182,7 +182,7 @@
                     </div>
                     <div class="col-xs-10 col-md-3">
                         <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                            <select id="ft" name="ft" class="selectpicker" data-width="100%" data-live-search="true" >
+                            <select id="ft" name="ft" class="form-control">
                                 <?php foreach ($fthanas as $t): ?>
                                     <option  value="<?php echo $t['id']; ?>" <?php
                                     echo $edited_route['to_thana'] == $t['id'] ? 'selected="yes"' : '';
@@ -206,7 +206,7 @@
 
                 <div class="row">
                     <div class="col-xs-10 col-md-3">
-                        <select name="td" class="selectpicker districts" data-thana="th" data-width="100%" data-live-search="true">
+                        <select name="td" class="form-control districts">
                             <?php foreach ($districts as $d): ?>
                                 <option  value="<?php echo $d['id']; ?>" <?php
                                 echo $edited_route['to_district'] == $d['id'] ? 'selected="yes"' : '';
@@ -220,7 +220,7 @@
 
                     <div class="col-xs-10 col-md-3">
                         <div data-toggle="tooltip" data-placement="top" title="<?php echo lang('dhaka_message'); ?>" class="form-group">
-                            <select id="th" name="th" class="selectpicker" data-width="100%" data-live-search="true">
+                            <select id="th" name="th" class="form-control">
                                 <?php foreach ($tthanas as $tt): ?>
                                     <option  value="<?php echo $tt['id']; ?>" <?php echo $edited_route['to_thana'] == $tt['id'] ? 'selected="yes"' : ''; ?>>
                                         <?php echo $tt[$this->nl->lang_based_data('bn_name', 'name')]; ?>
@@ -247,7 +247,7 @@
 
                 <div class="form-group">
                     <label class="control-label"><?php echo lang('transport_type'); ?></label>
-                    <select id="vehicle_type" name="transport_type" class="selectpicker" data-width="100%">
+                    <select id="vehicle_type" name="transport_type" class="form-control">
                         <option value="bus" <?php echo $edited_route['transport_type'] == 'bus' ? 'selected="yes"' : ''; ?>><?php echo lang('bus'); ?></option>
                         <option value="train" <?php echo $edited_route['transport_type'] == 'train' ? 'selected="yes"' : ''; ?>><?php echo lang('train'); ?></option>
                         <option value="leguna" <?php echo $edited_route['transport_type'] == 'leguna' ? 'selected="yes"' : ''; ?>><?php echo lang('leguna'); ?></option>
@@ -262,7 +262,7 @@
 
                 <div id="departure_perticular" class="form-group">
                     <label class="control-label"><?php echo lang('departure_time'); ?></label>
-                    <select id="departure_time" name="departure_time" class="selectpicker" data-width="100%" data-merge="yes">
+                    <select id="departure_time" name="departure_time" class="form-control">
                         <option value="1" <?php echo $edited_route['departure_time'] == 1 ? 'selected="yes"' : ''; ?>><?php echo lang('after_while'); ?></option>
                         <option value="2" <?php echo $edited_route['departure_time'] != 1 ? 'selected="yes"' : ''; ?>><?php echo lang('perticular_time'); ?></option>
                     </select>
@@ -271,7 +271,7 @@
                 <?php if ($edited_route['departure_time'] != 1): ?>
                     <div id="departure_dynamic" class="form-group">
                         <label class="control-label"></label>
-                        <input id="departure" maxlength="200" type="text" class="form-control"  name="departure_dynamic" value="<?php echo $edited_route['departure_time']; ?>">
+                        <textarea id="departure" class="form-control"  name="departure_dynamic"><?php echo $edited_route['departure_time']; ?></textarea>
 
                     </div>
                 <?php endif; ?>
@@ -327,69 +327,144 @@
                 }
                 ?>
                 <div class="form-group">
-                    <label><?php echo lang('ac_nonac'); ?></label>
+                    <div id="ac_nonac" class="col-md-12">
                         <label class="radio-inline">
-                            <input type="radio" name="ac_non" value="ac" <?php if (isset($amenities)) {
-                    echo in_array('ac', $amenities) ? 'checked="yes"' : '';
-                } ?>> <?php echo lang('ac'); ?>
+                            <input type="radio" name="ac_non" value="ac" <?php
+                            if (isset($amenities)) {
+                                echo in_array('ac', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('ac'); ?>
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="ac_non" value="nac" <?php if (isset($amenities)) {
-                    echo in_array('nac', $amenities) ? 'checked="yes"' : '';
-                } ?>> <?php echo lang('nac'); ?>
+                            <input type="radio" name="ac_non" value="non_ac" <?php
+                            if (isset($amenities)) {
+                                echo in_array('nac', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('nac'); ?>
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="ac_non" value="acunknown" <?php if (isset($amenities)) {
-                    echo in_array('acunknown', $amenities) ? 'checked="yes"' : '';
-                } else {
-                    echo 'checked="yes"';
-                } ?>> <?php echo lang('unknown'); ?>
+                            <input type="radio" name="ac_non" value="acunknown" <?php
+                            if (isset($amenities)) {
+                                echo in_array('acunknown', $amenities) ? 'checked="yes"' : '';
+                            } else {
+                                echo 'checked="yes"';
+                            }
+                            ?>> <?php echo lang('unknown'); ?>
                         </label>
+                    </div>
+                    <div id="ac_type" class="col-md-12" style="display:<?php
+                    if (isset($amenities)) {
+                        echo in_array('ac', $amenities) ? '' : 'none;';
+                    } else {
+                        echo 'none;';
+                    }
+                    ?>">
+                        <div class="col-md-12">
+                            <label class="radio-inline">
+                                <input type="radio" name="ac_type" value="normal_ac" <?php
+                                if (isset($amenities)) {
+                                    echo in_array('normal_ac', $amenities) ? 'checked="yes"' : '';
+                                } else {
+                                    echo 'checked="yes"';
+                                }
+                                ?>> <?php echo lang('normal'); ?>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="ac_type" value="scania" <?php
+                                if (isset($amenities)) {
+                                    echo in_array('scania', $amenities) ? 'checked="yes"' : '';
+                                }
+                                ?>> <?php echo lang('scania'); ?>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="ac_type" value="hyundai" <?php
+                                if (isset($amenities)) {
+                                    echo in_array('hyundai', $amenities) ? 'checked="yes"' : '';
+                                }
+                                ?>> <?php echo lang('hyundai'); ?>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="ac_type" value="rm2" <?php
+                                if (isset($amenities)) {
+                                    echo in_array('rm2', $amenities) ? 'checked="yes"' : '';
+                                }
+                                ?>> <?php echo lang('rm2'); ?>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="ac_type" value="hino_1j" <?php
+                                if (isset($amenities)) {
+                                    echo in_array('hino_1j', $amenities) ? 'checked="yes"' : '';
+                                }
+                                ?>> <?php echo lang('hino_1j'); ?>
+                            </label>
+                            <label class="radio-inline custom_pad_left">
+                                <input type="radio" name="ac_type" value="mercedes_benz" <?php
+                                if (isset($amenities)) {
+                                    echo in_array('mercedes_benz', $amenities) ? 'checked="yes"' : '';
+                                }
+                                ?>> <?php echo lang('mercedes_benz'); ?>
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label><?php echo lang('mail_local'); ?></label>
+                    <div class="col-md-12">
                         <label class="radio-inline">
-                            <input type="radio" name="mail_local" value="local" <?php if (isset($amenities)) {
-                    echo in_array('local', $amenities) ? 'checked="yes"' : '';
-                } ?>> <?php echo lang('local'); ?>
+                            <input type="radio" name="mail_local" value="local" <?php
+                            if (isset($amenities)) {
+                                echo in_array('local', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('local'); ?>
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="mail_local" value="gatelock" <?php if (isset($amenities)) {
-                    echo in_array('gatelock', $amenities) ? 'checked="yes"' : '';
-                } ?>> <?php echo lang('gatelock'); ?>
+                            <input type="radio" name="mail_local" value="gate_lock" <?php
+                            if (isset($amenities)) {
+                                echo in_array('gate_lock', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('gatelock'); ?>
                         </label>
                         <label class="radio-inline">
-<?php $target = array('local', 'gatelock'); ?>
-                            <input type="radio" name="mail_local" value="unknown" <?php if (isset($amenities)) {
-    echo count(array_intersect($amenities, $target)) > 0 ? '' : 'checked="yes"';
-} else {
-    echo 'checked="yes"';
-} ?>> <?php echo lang('unknown'); ?>
+                            <?php $target = array('local', 'gate_lock'); ?>
+                            <input type="radio" name="mail_local" value="unknown" <?php
+                            if (isset($amenities)) {
+                                echo count(array_intersect($amenities, $target)) > 0 ? '' : 'checked="yes"';
+                            } else {
+                                echo 'checked="yes"';
+                            }
+                            ?>> <?php echo lang('unknown'); ?>
                         </label>
+                    </div>
                 </div>
 
 
                 <div class="form-group">
-                    <label><?php echo lang('chair_semi'); ?>?</label>
+                    <div class="col-md-12">
                         <label class="radio-inline">
-                            <input type="radio" name="chair_semi" value="chair" <?php if (isset($amenities)) {
-    echo in_array('chair', $amenities) ? 'checked="yes"' : '';
-} ?>> <?php echo lang('chair'); ?>
+                            <input type="radio" name="chair_semi" value="chair" <?php
+                            if (isset($amenities)) {
+                                echo in_array('chair', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('chair'); ?>
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="chair_semi" value="semi" <?php if (isset($amenities)) {
-    echo in_array('semi', $amenities) ? 'checked="yes"' : '';
-} ?>> <?php echo lang('semi'); ?>
+                            <input type="radio" name="chair_semi" value="semi" <?php
+                            if (isset($amenities)) {
+                                echo in_array('semi', $amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('semi'); ?>
                         </label>
                         <label class="radio-inline">
-<?php $target2 = array('chair', 'semi'); ?>
-                            <input type="radio" name="chair_semi" value="unknown" <?php if (isset($amenities)) {
-    echo count(array_intersect($amenities, $target2)) > 0 ? '' : 'checked="yes"';
-} else {
-    echo 'checked="yes"';
-} ?>> <?php echo lang('unknown'); ?>
+                            <?php $target2 = array('chair', 'semi'); ?>
+                            <input type="radio" name="chair_semi" value="unknown" <?php
+                            if (isset($amenities)) {
+                                echo count(array_intersect($amenities, $target2)) > 0 ? '' : 'checked="yes"';
+                            } else {
+                                echo 'checked="yes"';
+                            }
+                            ?>> <?php echo lang('unknown'); ?>
                         </label>
+                    </div>
                 </div>
 
                 <input type="hidden" id="cancel" value="<?php echo lang('cancel_text'); ?>"/>
@@ -426,7 +501,7 @@
         overflow:hidden;
     }
 </style>
-
+<script src="<?php echo base_url('assets/js/jquery-3.2.0.min.js'); ?>"></script>
 <script>
     $(document).ready(function () {
         var base_url = $('#base_url').val();
@@ -434,6 +509,14 @@
             var item = $.trim($(this).parent().prev().val());
             var sent_id = $.trim($(this).parent().prev().data('sentto'));
             $('#' + sent_id).val(item);
+        });
+        $('#ac_nonac input[type="radio"]').click(function () {
+            if ($(this).val() == 'ac') {
+                $('#ac_type').slideDown();
+            } else {
+                $('#ac_type').slideUp();
+            }
+
         });
 
         $('#keep_file').click(function (e) {
@@ -446,7 +529,6 @@
             $('#edited_file').text(file_name);
             $('#edited_file').prop('href', base_url + 'evidences/' + file_name);
         });
-
         $('#keep_file2').click(function (e) {
             e.preventDefault();
             var file_name = $.trim($(this).data('file_name'));
@@ -457,7 +539,6 @@
             $('#edited_file2').text(file_name);
             $('#edited_file2').prop('href', base_url + 'evidences/' + file_name);
         });
-
         $('.keep_stoppage').on('click', function () {
             var stp_id = $(this).data('stp_id');
             var place = $('#stoppage_' + stp_id + ' .place').val();
@@ -467,7 +548,6 @@
             $('#comment_' + stp_id).val(comment);
             $('#rent_' + stp_id).val(rent);
         });
-
         $('.remove_file').click(function (e) {
             e.preventDefault();
             var name = $(this).data('file_name');
@@ -493,7 +573,5 @@
                 }
             });
         });
-
-
     });
 </script>

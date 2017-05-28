@@ -117,7 +117,10 @@ class Route_manager extends MX_Controller {
             'prev_stoppages' => $this->pm->get_data($stoppage_table, FALSE, 'route_id', $route_id),
             'edited_route' => $edited_route,
             'edited_stoppages' => $this->pm->get_data('edited_stoppages', FALSE, 'route_id', $edited_route_id),
-            'point' => modules::run('route_manager/calculate_point', $route_id, 'edited_routes', 5)
+            'point' => modules::run('route_manager/calculate_point', $route_id, 'edited_routes', 5),
+            'load_css' => load_css(array('plugins/jQueryUI' => 'jquery-ui.min.css', 'plugins/fancybox' => 'jquery.fancybox.min.css', 'bootstrap-sweetalert/dist' => 'sweetalert.css')),
+            'load_script' => load_script(array('plugins/jQueryUI' => 'jquery-ui.min.js', 'plugins/fancybox' => 'jquery.fancybox.min.js', 'js' => 'val_lib.js', 'bootstrap-sweetalert/dist' => 'sweetalert.min.js')),
+            'script_init' => script_init(array('$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});', '$(\'.fancybox\').fancybox({slideShow  : false,thumbs : false,image : {preload : true,protect : true}});'))
         );
 
         $this->load->library('form_validation');
@@ -155,7 +158,16 @@ class Route_manager extends MX_Controller {
                     'departure_time' => $departure_time
                 );
             } else {
+                $ac_non = $this->input->post('ac_non');
 
+                $ac_type = $this->input->post('ac_type');
+                $mail_local = $this->input->post('mail_local');
+                $chair_semi = $this->input->post('chair_semi');
+
+                $ac_type = ($ac_non == 'ac') ? ',' . $ac_type : '';
+                $chair_semi = ($chair_semi == 'unknown') ? '' : ',' . $chair_semi;
+                $mail_local = ($mail_local == 'unknown') ? '' : ',' . $mail_local;
+                $amenities = $ac_non . $ac_type . $chair_semi . $mail_local;
                 $route = array(
                     'from_place' => $from,
                     'to_place' => $to,
@@ -168,7 +180,8 @@ class Route_manager extends MX_Controller {
                     'transport_type' => $this->input->post('transport_type', TRUE),
                     'rent' => $this->input->post('main_rent', TRUE),
                     'evidence' => $this->input->post('edited_file'),
-                    'evidence2' => $this->input->post('edited_file2')
+                    'evidence2' => $this->input->post('edited_file2'),
+                    'amenities' => $amenities
                 );
 
                 $from_place = $edited_route['from_place'];
