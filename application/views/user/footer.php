@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }, 500);
     [
         "<?php echo base_url('assets/js/bootstrap/bootstrap.min.js'); ?>",
-        "<?php echo base_url('assets/js/sturgon-slider-1.2.1.min.js?v=2.9'); ?>",
+        "<?php echo base_url('assets/js/sturgon-slider-1.2.1.min.js?v=2.10'); ?>",
         "<?php echo base_url('assets/js/jquery-migrate-1.4.1.min.js'); ?>",
         "<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js'); ?>"
     ].forEach(function (src) {
