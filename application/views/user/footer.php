@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <li><a href="<?php echo site_url_tr('pages/how-to-search'); ?>"><?php echo lang('search_tips'); ?></a></li>
                 <li><a href="<?php echo site_url_tr('pages/about-us'); ?>"><?php echo lang('about_us'); ?></a></li>
                 <li><a href="<?php echo site_url_tr('pages/contact-us'); ?>"><?php echo lang('contact_us'); ?></a></li>
-<!--                <li><a href="<?php //echo site_url_tr('pages/point-rules');                          ?>"><?php //echo lang('point_rules');                          ?></a></li>-->
+<!--                <li><a href="<?php //echo site_url_tr('pages/point-rules');                            ?>"><?php //echo lang('point_rules');                            ?></a></li>-->
                 <li><a href="<?php echo site_url_tr('pages/privacy-policy'); ?>"><?php echo lang('privacy_policy'); ?></a></li>
 
             </ul>
@@ -41,6 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+
 <?php echo isset($load_script) ? $load_script : ''; ?>
 
 <script type="text/javascript">
@@ -50,12 +51,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#arrowd').toggleClass('glyphicon-arrow-down');
         });
     }, 500);
-    [
+
+    var a = [
         "<?php echo base_url('assets/js/bootstrap/bootstrap.min.js'); ?>",
         "<?php echo base_url('assets/js/sturgon-slider-1.2.1.min.js?v=2.10'); ?>",
         "<?php echo base_url('assets/js/jquery-migrate-1.4.1.min.js'); ?>",
-        "<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js'); ?>"
-    ].forEach(function (src) {
+        "<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js'); ?>",
+    ];
+    if (navigator.userAgent.indexOf('Firefox') != -1) {
+        a.push("<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.min.js'); ?>");
+        a.push("<?php echo base_url('assets/plugins/jQueryUI/jquery-ui.min.js'); ?>");
+    }
+
+    a.forEach(function (src) {
         var script = document.createElement('script');
         script.src = src;
         script.async = true;
@@ -67,6 +75,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php echo $script_init; ?>
             });
         }, 500);
+
 <?php endif; ?>
 </script>
 </body>

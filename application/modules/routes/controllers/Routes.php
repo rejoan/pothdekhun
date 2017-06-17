@@ -27,7 +27,7 @@ class Routes extends MX_Controller {
             'search_action' => site_url_tr('search/index'),
             'settings' => $this->nl->get_config(),
             'meta_title' => lang('home_page_meta'),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js'))
         );
 
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
@@ -88,8 +88,8 @@ class Routes extends MX_Controller {
             $ac_type = $this->input->post('ac_type');
             $mail_local = $this->input->post('mail_local');
             $chair_semi = $this->input->post('chair_semi');
-            
-            $ac_type = ($ac_non == 'ac') ? ','.$ac_type:'';
+
+            $ac_type = ($ac_non == 'ac') ? ',' . $ac_type : '';
             $chair_semi = ($chair_semi == 'unknown') ? '' : ',' . $chair_semi;
             $mail_local = ($mail_local == 'unknown') ? '' : ',' . $mail_local;
             $amenities = $ac_non . $ac_type . $chair_semi . $mail_local;
@@ -243,7 +243,16 @@ class Routes extends MX_Controller {
 
         $this->load->library('form_validation');
         $route_detail = $this->rm->details($route_id);
-        //var_dump($route_detail);return;
+        $css = array('bootstrap-sweetalert/dist' => 'sweetalert.css');
+        $js = array('js' => 'jquery-3.2.1.min.js', 'js#' => 'val_lib.js', 'bootstrap-sweetalert/dist' => 'sweetalert.min.js');
+        $init = array('$(\'.fancybox\').fancybox({slideShow  : false,thumbs : false,image : {preload : true,protect : true}});', '$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});');
+
+        if ($this->ua->browser() != 'Firefox') {
+            $css['plugins/fancybox'] = 'jquery.fancybox.min.css';
+            $css['plugins/jQueryUI'] = 'jquery-ui.min.css';
+            $js['plugins/fancybox'] = 'jquery.fancybox.min.js';
+            $js['plugins/jQueryUI'] = 'jquery-ui.min.js';
+        }
         $data = array(
             'title' => lang('edit_route'),
             'districts' => $this->pm->get_data('districts'),
@@ -255,9 +264,9 @@ class Routes extends MX_Controller {
             'stoppages' => $this->pm->get_data($stopage_table, FALSE, 'route_id', $route_id, FALSE, FALSE, FALSE, 'position', 'asc'),
             'settings' => $this->nl->get_config(),
             'action_button' => lang('edit_button'),
-            'load_css' => load_css(array('plugins/jQueryUI' => 'jquery-ui.min.css', 'plugins/fancybox' => 'jquery.fancybox.min.css', 'bootstrap-sweetalert/dist' => 'sweetalert.css')),
-            'load_script' => load_script(array('plugins/jQueryUI' => 'jquery-ui.min.js', 'plugins/fancybox' => 'jquery.fancybox.min.js', 'js' => 'val_lib.js', 'bootstrap-sweetalert/dist' => 'sweetalert.min.js')),
-            'script_init' => script_init(array('$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});', '$(\'.fancybox\').fancybox({slideShow  : false,thumbs : false,image : {preload : true,protect : true}});'))
+            'load_css' => load_css($css),
+            'load_script' => load_script($js),
+            'script_init' => script_init($init)
         );
         if ($this->nl->is_admin() && $this->input->get('pd_rev')) {
             $data['point'] = modules::run('route_manager/calculate_point', $route_id);
@@ -276,7 +285,7 @@ class Routes extends MX_Controller {
             $departure_time = $this->input->post('departure_time', TRUE);
             if ($departure_time != 1) {// if perticular time
                 $departure_time = trim($this->input->post('departure_dynamic', TRUE));
-                $departure_time = preg_replace('/(<br\s*\/?>\s*)+/','<br/>',nl2br($departure_time));
+                $departure_time = preg_replace('/(<br\s*\/?>\s*)+/', '<br/>', nl2br($departure_time));
             }
             $from = trim($this->input->post('f', TRUE));
             $to = trim($this->input->post('t', TRUE));
@@ -327,12 +336,12 @@ class Routes extends MX_Controller {
             $td = trim($this->input->post('td', TRUE));
             $th = trim($this->input->post('th', TRUE));
             $ac_non = $this->input->post('ac_non');
-            
+
             $ac_type = $this->input->post('ac_type');
             $mail_local = $this->input->post('mail_local');
             $chair_semi = $this->input->post('chair_semi');
-            
-            $ac_type = ($ac_non == 'ac') ? ','.$ac_type:'';
+
+            $ac_type = ($ac_non == 'ac') ? ',' . $ac_type : '';
             $chair_semi = ($chair_semi == 'unknown') ? '' : ',' . $chair_semi;
             $mail_local = ($mail_local == 'unknown') ? '' : ',' . $mail_local;
             $amenities = $ac_non . $ac_type . $chair_semi . $mail_local;
@@ -392,7 +401,7 @@ class Routes extends MX_Controller {
                     }
                 }
                 //var_dump($route);return;
-                $this->pm->updater($rid, $route_id, $route_table, $route,FALSE);
+                $this->pm->updater($rid, $route_id, $route_table, $route, FALSE);
                 //echo $this->db->last_query();
             } else {// send to temp table for review
                 $edit_info = array(
@@ -500,7 +509,7 @@ class Routes extends MX_Controller {
         //});
         $from_place = mb_convert_case($result[$this->nl->lang_based_data('fp_bn', 'from_place')], MB_CASE_TITLE, 'UTF-8');
         $from_district = mb_convert_case($result[$this->nl->lang_based_data('district_name_bn', 'district_name')], MB_CASE_TITLE, 'UTF-8');
-        if (mb_strtolower($from_place) == mb_strtolower($from_district) || ($result['distance']/1000) > 150) {
+        if (mb_strtolower($from_place) == mb_strtolower($from_district) || ($result['distance'] / 1000) > 150) {
             $final_from = $from_district;
         } else {
             $final_from = $from_place . ', ' . $from_district;
@@ -508,7 +517,7 @@ class Routes extends MX_Controller {
         $to_place = mb_convert_case($result[$this->nl->lang_based_data('tp_bn', 'to_place')], MB_CASE_TITLE, 'UTF-8');
         $to_district = mb_convert_case($result[$this->nl->lang_based_data('td_bn_name', 'td_name')], MB_CASE_TITLE, 'UTF-8');
 
-        if (mb_strtolower($to_place) == mb_strtolower($to_district) || ($result['distance']/1000) > 150) {
+        if (mb_strtolower($to_place) == mb_strtolower($to_district) || ($result['distance'] / 1000) > 150) {
             $final_to = $to_district;
         } else {
             $final_to = $to_place . ', ' . $to_district;
@@ -516,8 +525,16 @@ class Routes extends MX_Controller {
         $next_q = $this->db->query('SELECT r.id,r.from_place,rt.from_place fp_bn,r.to_place,rt.to_place tp_bn,p.name,p.bn_name FROM routes r LEFT JOIN poribohons p ON p.id = r.poribohon_id LEFT JOIN route_bn rt ON rt.route_id = r.id WHERE r.id = (SELECT MIN(nr.id) FROM routes nr WHERE nr.id > ' . $route_id . ')');
         $prev_q = $this->db->query('SELECT r.id,r.from_place,rt.from_place fp_bn,r.to_place,rt.to_place tp_bn,p.name,p.bn_name FROM routes r LEFT JOIN poribohons p ON p.id = r.poribohon_id LEFT JOIN route_bn rt ON rt.route_id = r.id WHERE r.id = (SELECT MAX(nr.id) FROM routes nr WHERE nr.id < ' . $route_id . ')');
 
+        $css = array('bootstrap-sweetalert/dist' => 'sweetalert.css');
+        $js = array('js' => 'jquery-3.2.1.min.js', 'bootstrap-sweetalert/dist' => 'sweetalert.min.js', 'js/bootstrap' => 'tooltip.min.js');
+        $init = array('$(\'[data-toggle="tooltip"]\').tooltip();','$(\'.fancybox\').fancybox({slideShow  : false,thumbs : false,image : {preload : true,protect : true}});');
+        if ($this->ua->browser() != 'Firefox') {
+            $css['plugins/fancybox'] = 'jquery.fancybox.min.css';
+            $js['plugins/fancybox'] = 'jquery.fancybox.min.js';
+        }
+
         $data = array(
-            'title' => $final_from . ' ' . lang('to_view') . ' ' . $final_to . ' ' . mb_convert_case(get_tr_type($result['transport_type']), MB_CASE_TITLE, 'UTF-8') . ' '.lang('service'). ' - ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' - ' . lang('route_info'),
+            'title' => $final_from . ' ' . lang('to_view') . ' ' . $final_to . ' ' . mb_convert_case(get_tr_type($result['transport_type']), MB_CASE_TITLE, 'UTF-8') . ' ' . lang('service') . ' - ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' - ' . lang('route_info'),
             'route' => $result,
             'stoppages' => $this->pm->get_data($stopage_table, NULL, 'route_id', (int) $result['r_id'], FALSE, FALSE, FALSE, 'position', 'asc'),
             'segment' => 0,
@@ -526,10 +543,11 @@ class Routes extends MX_Controller {
             'next' => $next_q->row_array(),
             'prev' => $prev_q->row_array(),
             'more_transports' => $this->more_transports($result),
-            'load_css' => load_css(array('bootstrap-sweetalert/dist' => 'sweetalert.css', 'plugins/fancybox' => 'jquery.fancybox.min.css')),
-            'load_script' => load_script(array('plugins/fancybox' => 'jquery.fancybox.min.js', 'bootstrap-sweetalert/dist' => 'sweetalert.min.js', 'js/bootstrap' => 'tooltip.min.js')),
-            'script_init' => script_init(array('$(\'.fancybox\').fancybox({slideShow  : false,thumbs : false,image : {preload : true,protect : true}});', '$(\'[data-toggle="tooltip"]\').tooltip();'))
+            'load_css' => load_css($css),
+            'load_script' => load_script($js),
+            'script_init' => script_init($init)
         );
+
         $data['meta_title'] = $data['title'] . lang('meta_title_route');
         //echo $this->db->last_query();return;
         $this->nl->view_loader('user', 'latest', NULL, $data, 'details', 'rightbar', 'menu', TRUE);
@@ -658,7 +676,7 @@ class Routes extends MX_Controller {
             'settings' => $this->nl->get_config(),
             'districts' => $this->pm->get_data('districts'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $district_id),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js', 'js/bootstrap' => 'tooltip.min.js')),
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js', 'js/bootstrap' => 'tooltip.min.js')),
             'script_init' => script_init(array('$(\'[data-toggle="tooltip"]\').tooltip();'))
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'routes', 'rightbar', 'menu', TRUE);

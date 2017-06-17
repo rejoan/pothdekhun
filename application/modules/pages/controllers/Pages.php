@@ -16,7 +16,7 @@ class Pages extends MX_Controller {
         $data = array(
             'title' => lang('point_rules'),
             'settings' => $this->nl->get_config(),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js'))
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'point', 'rightbar', 'menu', TRUE);
     }
@@ -25,7 +25,7 @@ class Pages extends MX_Controller {
         $data = array(
             'title' => lang('how_to_search'),
             'settings' => $this->nl->get_config(),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js'))
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'how_to_search', 'rightbar', 'menu', TRUE);
     }
@@ -35,7 +35,7 @@ class Pages extends MX_Controller {
             'title' => lang('about_us'),
             'settings' => $this->nl->get_config(),
             'total' => $this->pm->total_item('routes'),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js'))
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'about', 'rightbar', 'menu', TRUE);
     }
@@ -44,7 +44,7 @@ class Pages extends MX_Controller {
         $data = array(
             'title' => lang('contact_us'),
             'settings' => $this->nl->get_config(),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js'))
         );
         $this->load->library('form_validation');
         if ($this->input->post('submit')) {
@@ -89,7 +89,7 @@ class Pages extends MX_Controller {
         $data = array(
             'title' => lang('point_rules'),
             'settings' => $this->nl->get_config(),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js'))
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'point', 'rightbar', 'menu', TRUE);
     }
@@ -98,7 +98,7 @@ class Pages extends MX_Controller {
         $data = array(
             'title' => lang('privacy_policy'),
             'settings' => $this->nl->get_config(),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js'))
         );
         $this->load->view('user/header', $data);
         $this->load->view('user/menu');

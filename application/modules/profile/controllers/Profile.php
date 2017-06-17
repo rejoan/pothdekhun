@@ -25,7 +25,7 @@ class Profile extends MX_Controller {
             'profile' => $profile,
             'tot_added' => $total_route,
             'settings' => $this->nl->get_config(),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js'))
         );
         $this->view_loader($data, NULL, 'index');
         //$this->nl->view_loader('user', 'leftbar', NULL, $data, 'index', 'latest', 'menu', TRUE);
@@ -38,7 +38,7 @@ class Profile extends MX_Controller {
             'profile' => $this->prm->get_profile($id),
             'tot_added' => $total_route,
             'settings' => $this->nl->get_config(),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js'))
         );
         $this->view_loader($data, NULL, 'index');
         //$this->nl->view_loader('user', 'index', NULL, $data, NULL, 'latest');
@@ -92,7 +92,7 @@ class Profile extends MX_Controller {
             'districts' => $this->pm->get_data('districts'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', $district_id),
             'load_css' => load_css(array('css' => 'bootstrap-select.min.css', 'plugins/jQueryUI' => 'jquery-ui.min.css')),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js','js/bootstrap' => 'bootstrap-select.min.js','js/bootstrap#' => 'tooltip.min.js')),
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js','js/bootstrap' => 'bootstrap-select.min.js','js/bootstrap#' => 'tooltip.min.js')),
             'script_init' => script_init(array('$(\'[data-toggle="tooltip"]\').tooltip();'))
         );
         $this->load->view('user/header', $data);
@@ -120,7 +120,7 @@ class Profile extends MX_Controller {
             'districts' => $this->pm->get_data('districts'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1),
             'load_css' => load_css(array('css' => 'bootstrap-select.min.css')),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js','js/bootstrap' => 'bootstrap-select.min.js', 'js/bootstrap#' => 'bootstrap.file-input.js')),
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js','js/bootstrap' => 'bootstrap-select.min.js', 'js/bootstrap#' => 'bootstrap.file-input.js')),
             'script_init' => script_init(array('$(\'input[type=file]\').bootstrapFileInput();'))
         );
         $data['profile']['reputation'] = $this->prm->total_reputation($this->user_id);

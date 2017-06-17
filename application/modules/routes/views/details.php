@@ -337,7 +337,7 @@
 <?php $this->load->view('complain_modal'); ?>
 <input type="hidden" id="en_segment" value="<?php echo unicode_title($route['from_place'] . ' to ' . $route['to_place'] . ' ' . $route['name']); ?>"/>
 <input type="hidden" id="bn_segment" value="<?php echo unicode_title($route['fp_bn'] . ' থেকে ' . $route['tp_bn'] . ' ' . $route['bn_name']); ?>"/>
-<script src="<?php echo base_url('assets/js/jquery-3.2.0.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/jquery-3.2.1.min.js'); ?>"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#lang_menu ul li a').hover(function () {

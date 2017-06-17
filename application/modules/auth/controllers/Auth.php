@@ -29,7 +29,7 @@ class Auth extends MX_Controller {
             'title' => lang('register'),
             'action' => site_url_tr('auth/register'),
             'captcha' => $this->recaptcha->recaptcha_get_html(),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js'))
         );
 
 
@@ -195,7 +195,7 @@ class Auth extends MX_Controller {
         $data = array(
             'title' => lang('login'),
             'action' => site_url_tr('auth/login'),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js'))
         );
 
         if ($this->input->post('submit')) {
@@ -260,7 +260,7 @@ class Auth extends MX_Controller {
         $data = array(
             'title' => lang('forgot_password'),
             'action' => site_url_tr('auth/forgot_password'),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js'))
         );
 
         if ($this->input->post('submit')) {

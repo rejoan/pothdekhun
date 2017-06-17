@@ -68,7 +68,7 @@ class Transports extends MX_Controller {
             'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1, FALSE, FALSE, FALSE, $col_name, 'asc'),
             'load_css' => load_css(array('bootstrap-sweetalert/dist' => 'sweetalert.css')),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js','bootstrap-sweetalert/dist' => 'sweetalert.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js','bootstrap-sweetalert/dist' => 'sweetalert.min.js'))
         );
         $this->load->library('form_validation');
 
@@ -176,7 +176,7 @@ class Transports extends MX_Controller {
             'districts' => $this->pm->get_data('districts', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, $col_name, 'asc'),
             'thanas' => $this->pm->get_data('thanas', FALSE, 'district_id', 1, FALSE, FALSE, FALSE, $col_name, 'asc'),
             'load_css' => load_css(array('bootstrap-sweetalert/dist' => 'sweetalert.css')),
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js','bootstrap-sweetalert/dist' => 'sweetalert.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js','bootstrap-sweetalert/dist' => 'sweetalert.min.js'))
         );
         if ($this->nl->is_admin() && $this->input->get('pd_rev')) {
             $data['point'] = $this->calculate_point($id);

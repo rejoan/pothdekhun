@@ -82,7 +82,7 @@ class Search extends MX_Controller {
             'settings' => $this->nl->get_config(),
             'links' => $links,
             'total_route' => $total_rows,
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js'))
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'place_search', 'rightbar', 'menu', TRUE);
     }
@@ -214,7 +214,7 @@ class Search extends MX_Controller {
             'total_rows' => $total_rows,
             'density_from' => $density_from,
             'density_to' => $density_to,
-            'load_script' => load_script(array('js' => 'jquery-3.2.0.min.js'))
+            'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js'))
         );
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
     }

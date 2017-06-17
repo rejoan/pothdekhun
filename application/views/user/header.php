@@ -23,6 +23,10 @@
         <script>
             loadCSS("<?php echo base_url('assets/css/style.min.css?v=1.19'); ?>");
             loadCSS("<?php echo base_url('assets/css/bootstrap.min.css'); ?>");
+            if(navigator.userAgent.indexOf('Firefox') != -1){
+                loadCSS("<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.min.css'); ?>");
+                loadCSS("<?php echo base_url('assets/plugins/jQueryUI/jquery-ui.min.css'); ?>");
+            }
         </script>
 
 <!--[if lt IE 9]><script async src="<?php echo base_url('assets/js/ie8-responsive-file-warning.js'); ?>"></script><![endif]-->

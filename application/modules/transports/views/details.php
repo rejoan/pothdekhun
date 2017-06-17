@@ -71,7 +71,7 @@
 </div>
 <input type="hidden" id="en_segment" value="<?php echo unicode_title($poribohon['name']); ?>"/>
 <input type="hidden" id="bn_segment" value="<?php echo unicode_title($poribohon['bn_name']); ?>"/>
-<script src="<?php echo base_url('assets/js/jquery-3.2.0.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/jquery-3.2.1.min.js'); ?>"></script>
 <script>
     $(document).ready(function () {
 
