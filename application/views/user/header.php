@@ -23,7 +23,7 @@
         <script>
             loadCSS("<?php echo base_url('assets/css/style.min.css?v=1.19'); ?>");
             loadCSS("<?php echo base_url('assets/css/bootstrap.min.css'); ?>");
-            if(navigator.userAgent.indexOf('Firefox') != -1){
+            if(navigator.userAgent.indexOf('Firefox') != -1){//if firefox
                 loadCSS("<?php echo base_url('assets/plugins/fancybox/jquery.fancybox.min.css'); ?>");
                 loadCSS("<?php echo base_url('assets/plugins/jQueryUI/jquery-ui.min.css'); ?>");
             }

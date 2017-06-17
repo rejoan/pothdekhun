@@ -526,13 +526,12 @@ class Routes extends MX_Controller {
         $prev_q = $this->db->query('SELECT r.id,r.from_place,rt.from_place fp_bn,r.to_place,rt.to_place tp_bn,p.name,p.bn_name FROM routes r LEFT JOIN poribohons p ON p.id = r.poribohon_id LEFT JOIN route_bn rt ON rt.route_id = r.id WHERE r.id = (SELECT MAX(nr.id) FROM routes nr WHERE nr.id < ' . $route_id . ')');
 
         $css = array('bootstrap-sweetalert/dist' => 'sweetalert.css');
-        $js = array('js' => 'jquery-3.2.1.min.js', 'bootstrap-sweetalert/dist' => 'sweetalert.min.js', 'js/bootstrap' => 'tooltip.min.js');
+        $js = array('bootstrap-sweetalert/dist' => 'sweetalert.min.js', 'js/bootstrap' => 'tooltip.min.js');
         $init = array('$(\'[data-toggle="tooltip"]\').tooltip();','$(\'.fancybox\').fancybox({slideShow  : false,thumbs : false,image : {preload : true,protect : true}});');
-        if ($this->ua->browser() != 'Firefox') {
+        if ($this->ua->browser() != 'Firefox') {//if not firefox
             $css['plugins/fancybox'] = 'jquery.fancybox.min.css';
             $js['plugins/fancybox'] = 'jquery.fancybox.min.js';
         }
-
         $data = array(
             'title' => $final_from . ' ' . lang('to_view') . ' ' . $final_to . ' ' . mb_convert_case(get_tr_type($result['transport_type']), MB_CASE_TITLE, 'UTF-8') . ' ' . lang('service') . ' - ' . $result[$this->nl->lang_based_data('bn_name', 'name')] . ' - ' . lang('route_info'),
             'route' => $result,
