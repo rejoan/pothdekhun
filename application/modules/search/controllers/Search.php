@@ -135,7 +135,7 @@ class Search extends MX_Controller {
         $exclude_stp_ids = $this->nl->get_all_ids($stoppage_routes, 'r_id');
         $exact_stopage = array_merge(array_filter(explode(',', $exclude_exact_ids)), array_filter(explode(',', $exclude_stp_ids)));
         if ($total_rows < 5) {
-            $total_rows = $this->sm->stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, TRUE, $from_district, $to_district);
+            $total_rows = $this->sm->stoppage_routes($from_place, $stopage_table, $to_place, $per_page, $segment, TRUE, $from_district, $to_district,NULL);
             if (empty($total_rows)) {
                 $total_rows = 0;
             }

@@ -527,7 +527,7 @@ class Routes extends MX_Controller {
 
         $css = array('bootstrap-sweetalert/dist' => 'sweetalert.css');
         $js = array('bootstrap-sweetalert/dist' => 'sweetalert.min.js', 'js/bootstrap' => 'tooltip.min.js');
-        $init = array('$(\'[data-toggle="tooltip"]\').tooltip();','$(\'.fancybox\').fancybox({slideShow  : false,thumbs : false,image : {preload : true,protect : true}});');
+        $init = array('$(\'[data-toggle="tooltip"]\').tooltip();', '$(\'.fancybox\').fancybox({slideShow  : false,thumbs : false,image : {preload : true,protect : true}});');
         if ($this->ua->browser() != 'Firefox') {//if not firefox
             $css['plugins/fancybox'] = 'jquery.fancybox.min.css';
             $js['plugins/fancybox'] = 'jquery.fancybox.min.js';
@@ -557,7 +557,7 @@ class Routes extends MX_Controller {
         $exact = modules::run('search/exact_routes', $result['from_district'], $result['from_thana'], $result['from_place'], $result['to_district'], $result['to_thana'], $result['to_place'], 10, 0);
         $exact_ids = $this->nl->get_all_ids($exact, 'r_id');
         $exact_ids_arr = explode(',', $exact_ids);
-        $stoppages = modules::run('search/stoppage_routes', $result['from_place'], $stopage_table, $result['to_place'], 10, 0, FALSE, $result['from_district'], $result['to_district']);
+        $stoppages = modules::run('search/stoppage_routes', $result['from_place'], $stopage_table, $result['to_place'], 10, 0, FALSE, $result['from_district'], $result['to_district'], NULL);
         $stoppages_ids = $this->nl->get_all_ids($stoppages, 'r_id');
         $stoppages_ids_arr = explode(',', $stoppages_ids);
         $suggestions = modules::run('search/get_suggestions', $result['from_place'], $stopage_table, $result['to_place'], 10, 0, FALSE, $result['from_district'], $result['to_district'], NULL, $result['from_thana'], $result['to_thana']);
