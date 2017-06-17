@@ -33,9 +33,11 @@ class Profile extends MX_Controller {
 
     public function show($id) {
         $total_route = $this->pm->total_item('routes', 'added_by', $id);
+        $profile = $this->prm->get_profile($id);
+        $profile['reputation'] = $this->prm->total_reputation($id);
         $data = array(
             'title' => lang('profile'),
-            'profile' => $this->prm->get_profile($id),
+            'profile' => $profile,
             'tot_added' => $total_route,
             'settings' => $this->nl->get_config(),
             'load_script' => load_script(array('js' => 'jquery-3.2.1.min.js'))
