@@ -2076,10 +2076,14 @@ h4.custom_h4{
         font-size: 15px
     }
     ol.breadcrumb{
-        margin: 55px 0 0;
+        margin: 25px 0 0;
     }
     .intro_des {
         font-size: 17px;
         font-weight: bolder;
+    }
+    .navbar-brand{
+        height: 25px;
+        padding: 7px;
     }
 }
