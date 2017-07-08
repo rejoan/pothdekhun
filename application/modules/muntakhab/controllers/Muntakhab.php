@@ -9,9 +9,15 @@ class Muntakhab extends MX_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->nl->is_admin('errors', FALSE);
+        //$this->nl->is_admin('errors', FALSE);
         //$this->user_id = $this->session->user_id;
         $this->load->model('Muntakhab_model', 'mm');
+    }
+
+    public function ip() {
+        $this->load->helper('cookie');
+        set_cookie('dfs', 'asd', time() + (10 * 365 * 24 * 60 * 60), '/', '.pothdekhun.com');
+        echo get_cookie('dfs');
     }
 
     public function sitemap() {
