@@ -8,3 +8,5 @@ $lang['reset_pass'] = 'রিসেট করুন';
 $lang['new_password'] = 'নতুন পাসওয়ার্ড';
 $lang['cpassword'] = 'পাসওয়ার্ড নিশ্চিতকরন';
 $lang['not_found'] = 'ইউজার পাওয়া যায়নি';
+$lang['please_active_now'] = 'অনুগ্রহপূর্বক ইমেইলে গিয়ে একাউন্ট সক্রিয় করুন';
+$lang['account_activated'] = 'আপনার একাউন্ট সফলভাবে সক্রিয় হয়েছে';

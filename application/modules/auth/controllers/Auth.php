@@ -56,22 +56,47 @@ class Auth extends MX_Controller {
                     'username' => $username,
                     'email' => $email,
                     'mobile' => $mobile,
-                    'password' => md5($password)
+                    'password' => md5($password),
+                    'status' => 0
                 );
                 $this->db->set('reg_date', 'NOW()', FALSE);
                 $user_id = $this->pm->insert_data('users', $user, TRUE);
-                $user_data = array(
-                    'user_id' => $user_id,
-                    'username' => $username,
-                    'email' => $email,
-                    'user_type' => 'user'
-                );
-                $this->session->set_userdata($user_data);
-                $this->session->set_flashdata('message', lang('register_user'));
-                redirect_tr('profile');
+                if ($user_id) {
+                    $subject = 'PothDekhun Account Creation';
+                    $body = '<p>Please click the link  to activate your account.: <a href="' . site_url('auth/activate/') . $this->nl->enc($user_id) . '">Activate Account</a></p>&nbsp;<p>Best Regards<br/> PothDekhun</p>';
+                    $this->load->library('email');
+                    $config['mailtype'] = 'html';
+                    $config['protocol'] = 'sendmail';
+                    $this->email->initialize($config);
+                    $this->email->from('owner@pothdekhun.com', 'PothDekhun');
+                    $this->email->to($email);
+                    $this->email->subject($subject);
+                    $this->email->message($body);
+                    $this->email->send();
+                    $$this->session->set_flashdata('message', lang('please_active_now'));
+                    redirect_tr('auth/login');
+                }
             }
         }
         $this->nl->view_loader('user', 'register', NULL, $data);
+    }
+
+    public function activate($user_id) {
+        if (empty($user_id)) {
+            $this->session->set_flashdata('message', 'Something wrong');
+            redirect_tr('auth/reset_password');
+        }
+        $verify = $this->pm->get_row('id', $this->nl->dec($user_id), 'users');
+        //var_dump($verify);return;
+        if (empty($verify)) {
+            $this->session->set_flashdata('message', 'Wrong thing');
+            redirect_tr('auth/register');
+        }
+
+        $this->pm->updater('id', $verify['id'], 'users', array('status' => 1));
+
+        $this->session->set_flashdata('message', lang('account_activated'));
+        redirect_tr('auth/login');
     }
 
     public function back_check() {
@@ -185,7 +210,6 @@ class Auth extends MX_Controller {
 
     /**
      * Showing login form
-     * @todo captcha integration for failed try
      * @author Rejoanul Alam
      */
     public function login() {
@@ -220,6 +244,7 @@ class Auth extends MX_Controller {
                     }
                     $this->pm->updater('id', $this->session->user_id, 'users', array('last_logged' => date('Y-m-d H:i:s')));
                     $this->session->set_flashdata('message', lang('successfully_logged_in'));
+                    setcookie('fb_user', $this->input->ip_address(), false, '/', false);
                     redirect_tr($next);
                 } else {
                     $this->session->set_flashdata('message', lang('enter_valid_user_password'));

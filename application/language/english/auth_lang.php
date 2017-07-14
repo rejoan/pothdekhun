@@ -8,3 +8,5 @@ $lang['reset_pass'] = 'Reset Password';
 $lang['new_password'] = 'New Password';
 $lang['cpassword'] = 'Confirm Password';
 $lang['not_found'] = 'User Not Found';
+$lang['please_active_now'] = 'Please check your email. Account activation link sent';
+$lang['account_activated'] = 'Your account activated successfully';
