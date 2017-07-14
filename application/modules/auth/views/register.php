@@ -44,7 +44,7 @@
                     <?php echo form_error('password', '<div class="alert alert-danger">', '</div>'); ?>
 
                     <div class="form-group">
-                        <?php echo $captcha; ?>
+                        <?php //echo $captcha; ?>
                     </div>
 
                     <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="<?php echo lang('register_button'); ?>"/>

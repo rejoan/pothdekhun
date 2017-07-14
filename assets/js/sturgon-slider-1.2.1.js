@@ -74,7 +74,7 @@ $(document).ready(function () {
                 swal("Already given", "You vote once earlier in this route", "warning");
             }
             if (response.msg === "updated") {
-                swal("Thank you", "You vote taken", "success");
+                swal("Thank you", "Your vote taken", "success");
                 if (pd_sts === "pd_fpk") {
                     $("#pd_crc").text(response.v);
                 } else {

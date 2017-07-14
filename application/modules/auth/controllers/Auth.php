@@ -38,11 +38,11 @@ class Auth extends MX_Controller {
             $this->form_validation->set_rules('email', lang('email'), 'required|is_unique[users.email]|valid_email');
             $this->form_validation->set_rules('username', lang('username'), 'required|is_unique[users.username]');
             $this->form_validation->set_message('is_unique', lang('is_unique_msg'));
-            $captcha_response = $this->recaptcha->recaptcha_check_answer($this->input->post('g-recaptcha-response'));
-            if (!$captcha_response['success']) {
-                $this->session->set_flashdata('message', lang('auth_invalid_captcha'));
-                redirect_tr('auth/register');
-            }
+//            $captcha_response = $this->recaptcha->recaptcha_check_answer($this->input->post('g-recaptcha-response'));
+//            if (!$captcha_response['success']) {
+//                $this->session->set_flashdata('message', lang('auth_invalid_captcha'));
+//                redirect_tr('auth/register');
+//            }
 
             if ($this->form_validation->run() == FALSE) {
                 $this->nl->view_loader('user', 'register', NULL, $data);
