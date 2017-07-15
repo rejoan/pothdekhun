@@ -259,7 +259,7 @@ class Route_manager extends MX_Controller {
     public function decline($id) {
         $route = $this->pm->get_row('id', $id, 'edited_routes');
         $msg = 'Your route edit not approve because of insufficient content';
-        modules::run('notifications/sent_notification', $route['route_id'], $msg);
+        modules::run('notifications/sent_notification', $route['added_by'], $msg);
         $main_route = $this->pm->get_row('id', $route['route_id'], 'routes');
         $file = 'evidences/' . $route['evidence'];
         $file2 = 'evidences/' . $route['evidence2'];

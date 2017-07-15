@@ -18,7 +18,6 @@ class Routes extends MX_Controller {
     }
 
     public function index() {
-        echo $_COOKIE['fb_user'];return;
         $col_name = $this->nl->lang_based_data('bn_name', 'name');
         $data = array(
             'title' => lang('index'),

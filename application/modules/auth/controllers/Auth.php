@@ -244,11 +244,10 @@ class Auth extends MX_Controller {
                     }
                     $this->pm->updater('id', $this->session->user_id, 'users', array('last_logged' => date('Y-m-d H:i:s')));
                     $this->session->set_flashdata('message', lang('successfully_logged_in'));
-                    setcookie('fb_user', $this->input->ip_address(), false, '/', false);
                     redirect_tr($next);
                 } else {
                     $this->session->set_flashdata('message', lang('enter_valid_user_password'));
-                    redirect('auth/login');
+                    redirect_tr('auth/login');
                 }
             }
         }

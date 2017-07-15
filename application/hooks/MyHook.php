@@ -50,28 +50,10 @@ class MyHook {
 
     public function process_acl() {
         $class = $this->CI->router->fetch_class();
-        $method = $this->CI->router->fetch_method();
-        $chk = $class . '/' . $method;
-
-        if ($class !== 'auth') {
-            $user_type = $this->CI->session->user_type;
-            if (!$user_type) {
-                $user_type = 'guest';
-            }
-            if ($user_type == 'admin') {
-                $acs = TRUE;
-            } else {
-                $accesses = $this->CI->config->item($user_type);
-                $acs = in_array($class, $accesses);
-                if ($acs == FALSE) {
-                    $acs = in_array($chk, $accesses);
-                    //var_dump($acs,$chk,$accesses);return;
-                }
-            }
-
-            if ($acs == FALSE) {
-                $this->CI->session->set_userdata('next', $chk);
-                redirect_tr('auth/login?next=' . $this->CI->session->next);
+        if ($class == 'auth') {
+            if (count($_COOKIE) < 1) {
+                $this->CI->session->set_flashdata('message', 'Cookies are disabled.Please enable first');
+                redirect_tr('routes');
             }
         }
     }
