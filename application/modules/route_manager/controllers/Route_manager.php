@@ -244,7 +244,17 @@ class Route_manager extends MX_Controller {
                 modules::run('notifications/sent_notification', $rut['added_by'], $msg);
             }
             $this->pm->deleter('route_id', $route_id, 'edited_routes');
-
+            $subject = 'PothDekhun Account Creation';
+            $body = '<p>Please click the link  to activate your account.: <a href="' . site_url('auth/activate/') . $this->nl->enc($user_id) . '">Activate Account</a></p>&nbsp;<p>Best Regards<br/> PothDekhun</p>';
+            $this->load->library('email');
+            $config['mailtype'] = 'html';
+            $config['protocol'] = 'sendmail';
+            $this->email->initialize($config);
+            $this->email->from('owner@pothdekhun.com', 'PothDekhun');
+            $this->email->to($email);
+            $this->email->subject($subject);
+            $this->email->message($body);
+            $this->email->send();
             $this->session->set_flashdata('message', lang('edit_success'));
             redirect_tr('route_manager');
         }
@@ -282,14 +292,14 @@ class Route_manager extends MX_Controller {
         redirect_tr('route_manager');
     }
 
-    public function calculate_point($id, $table = 'routes', $default = 3) {
+    public function calculate_point($id, $table = 'routes', $default = 20) {
         $route = $this->pm->get_row('id', $id, $table);
         $point = $default;
         if ($route['evidence'] != '') {
-            $point += 6;
+            $point += 10;
         }
         if ($route['evidence2'] != '') {
-            $point += 6;
+            $point += 10;
         }
 
         if ($table == 'routes') {

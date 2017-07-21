@@ -302,7 +302,7 @@
                         $href = base_url('evidences/') . $edited_route['evidence'];
                     }
                     ?>
-                    <a id="edited_file" href="<?php echo $href; ?>"><?php echo $file; ?></a>
+                    <a class="fancybox" id="edited_file" href="<?php echo $href; ?>"><?php echo $file; ?></a>
                     <button data-file_name="<?php echo $edited_route['evidence']; ?>" data-hidden_id="pd_pthmnx" class="btn btn-xs btn-danger remove_file" href="javascript:void(0)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                 </div>
 
@@ -317,7 +317,7 @@
                         $href = base_url('evidences/') . $edited_route['evidence2'];
                     }
                     ?>
-                    <a id="edited_file2" href="<?php echo $href; ?>"><?php echo $file; ?></a>
+                    <a class="fancybox" id="edited_file2" href="<?php echo $href; ?>"><?php echo $file; ?></a>
                     <button data-file_name="<?php echo $edited_route['evidence2']; ?>" data-hidden_id="pd_pthmnx" class="btn btn-xs btn-danger remove_file" href="javascript:void(0)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                 </div>
 
