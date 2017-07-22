@@ -432,7 +432,7 @@ $(document).ready(function () {
                 if (response.deleted == "done") {
                     if ($("#point").length > 0) {//admin works
                         var point = parseInt($("#point").val());
-                        var new_pint = point - 1;
+                        var new_pint = point - 2;
                         $("#point").val(new_pint);
                     }
                 }
