@@ -39,7 +39,7 @@ class Route_manager_model extends CI_Model {
     }
 
     public function edited_route($route_id) {
-        $query = $this->db->select('r.*,p.*')->from('edited_routes r')->join('poribohons p', 'r.poribohon_id = p.id', 'left')->where('r.id', $route_id)->get();
+        $query = $this->db->select('r.*,p.*,u.*')->from('edited_routes r')->join('poribohons p', 'r.poribohon_id = p.id', 'left')->join('users u', 'u.id = r.added_by', 'left')->where('r.id', $route_id)->get();
         return $query->row_array();
     }
 

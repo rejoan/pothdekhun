@@ -146,7 +146,7 @@ class Route_manager extends MX_Controller {
             $th = trim($this->input->post('th', TRUE));
             $from = trim($this->input->post('f', TRUE));
             $to = trim($this->input->post('t', TRUE));
-
+            $edit_type = $this->input->post('edit_type');
             //var_dump($floc,$faddress);return;
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
             $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name_rev, FALSE);
@@ -207,6 +207,7 @@ class Route_manager extends MX_Controller {
                         }
                     }
                 }
+                $route['edit_type'] = $edit_type;
 
                 $this->db->set('added', 'NOW()', FALSE);
             }
@@ -238,23 +239,25 @@ class Route_manager extends MX_Controller {
             if ($this->input->post('point')) {
                 $point = trim($this->input->post('point'));
                 $note = trim($this->input->post('note'));
-                $rut = $this->pm->get_row('route_id', $route_id, 'edited_routes');
-                modules::run('reputation/route_points', $route_id, $rut['added_by'], $point, $note);
+                modules::run('reputation/route_points', $route_id, $edited_route['added_by'], $point, $note);
                 $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
-                modules::run('notifications/sent_notification', $rut['added_by'], $msg);
+                modules::run('notifications/sent_notification', $edited_route['added_by'], $msg);
             }
+            if (ENVIRONMENT == 'production') {
+                $subject = 'Your Edit Approved at Pothdekhun';
+                $body = '<p>Congratulation! your edit approved at Pothdekhun: <a href="' . site_url('route/show/') . $route_id . '">Check Route</a></p>&nbsp;<p>Best Regards<br/> PothDekhun</p>';
+                $this->load->library('email');
+                $config['mailtype'] = 'html';
+                $config['protocol'] = 'sendmail';
+                $this->email->initialize($config);
+                $this->email->from('owner@pothdekhun.com', 'PothDekhun');
+                $this->email->to($edited_route['email']);
+                $this->email->subject($subject);
+                $this->email->message($body);
+                $this->email->send();
+            }
+
             $this->pm->deleter('route_id', $route_id, 'edited_routes');
-            $subject = 'PothDekhun Account Creation';
-            $body = '<p>Please click the link  to activate your account.: <a href="' . site_url('auth/activate/') . $this->nl->enc($user_id) . '">Activate Account</a></p>&nbsp;<p>Best Regards<br/> PothDekhun</p>';
-            $this->load->library('email');
-            $config['mailtype'] = 'html';
-            $config['protocol'] = 'sendmail';
-            $this->email->initialize($config);
-            $this->email->from('owner@pothdekhun.com', 'PothDekhun');
-            $this->email->to($email);
-            $this->email->subject($subject);
-            $this->email->message($body);
-            $this->email->send();
             $this->session->set_flashdata('message', lang('edit_success'));
             redirect_tr('route_manager');
         }
