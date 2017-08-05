@@ -119,21 +119,23 @@ class Weapons extends MX_Controller {
     }
 
     public function delete_stopage() {
-        $this->load->library('encryption');
-        $this->encryption->initialize(
-                array(
-                    'cipher' => 'des',
-                    'mode' => 'ECB'
-                )
-        );
-        $route_id = $this->encryption->decrypt($this->input->get('pri', TRUE));
-        $place_name = trim($this->input->get('jaig', TRUE));
-        $stoppage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
+        if ($this->nl->is_admin()) {
+            $this->load->library('encryption');
+            $this->encryption->initialize(
+                    array(
+                        'cipher' => 'des',
+                        'mode' => 'ECB'
+                    )
+            );
+            $route_id = $this->encryption->decrypt($this->input->get('pri', TRUE));
+            $place_name = trim($this->input->get('jaig', TRUE));
+            $stoppage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages');
 
-        $this->db->where('route_id', $route_id)->where('place_name', $place_name)->delete($stoppage_table);
+            $this->db->where('route_id', $route_id)->where('place_name', $place_name)->delete($stoppage_table);
 
-        $this->db->query('SET @a = 0');
-        $this->db->query('UPDATE ' . $stoppage_table . ' SET position = @a:=@a+1 WHERE route_id = ' . $route_id);
+            $this->db->query('SET @a = 0');
+            $this->db->query('UPDATE ' . $stoppage_table . ' SET position = @a:=@a+1 WHERE route_id = ' . $route_id);
+        }
         echo json_encode(array('deleted' => 'done'));
     }
 

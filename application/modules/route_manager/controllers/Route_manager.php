@@ -270,7 +270,8 @@ class Route_manager extends MX_Controller {
      * @param int $id
      */
     public function decline($id) {
-        $route = $this->pm->get_row('id', $id, 'edited_routes');
+        $route = $this->rmn->join_data($id);
+        //echo $this->db->last_query();return;
         $msg = 'Your route edit not approve because of insufficient content';
         modules::run('notifications/sent_notification', $route['added_by'], $msg);
         $main_route = $this->pm->get_row('id', $route['route_id'], 'routes');
@@ -284,13 +285,39 @@ class Route_manager extends MX_Controller {
             unlink($file2);
         }
         $this->pm->deleter('id', $id, 'edited_routes');
+        if (ENVIRONMENT == 'production') {
+            $subject = 'Your Edit Declined at Pothdekhun';
+            $body = '<p>Sorry! your edit is not approved at Pothdekhun for insufficient contetnt</p>&nbsp;<p>Best Regards<br/> PothDekhun</p>';
+            $this->load->library('email');
+            $config['mailtype'] = 'html';
+            $config['protocol'] = 'sendmail';
+            $this->email->initialize($config);
+            $this->email->from('owner@pothdekhun.com', 'PothDekhun');
+            $this->email->to($route['email']);
+            $this->email->subject($subject);
+            $this->email->message($body);
+            $this->email->send();
+        }
         $this->session->set_flashdata('message', lang('delete_success'));
         redirect_tr('route_manager');
     }
 
     public function accept($id) {
-
+        $route = $this->rmn->join_data($id);
         $this->pm->updater('id', $id, 'routes', array('is_publish' => 1));
+        if (ENVIRONMENT == 'production') {
+            $subject = 'Your Edit Accepted at Pothdekhun';
+            $body = '<p>Congrat! your edit is accepted at Pothdekhun</p>&nbsp;<p>Best Regards<br/> PothDekhun</p>';
+            $this->load->library('email');
+            $config['mailtype'] = 'html';
+            $config['protocol'] = 'sendmail';
+            $this->email->initialize($config);
+            $this->email->from('owner@pothdekhun.com', 'PothDekhun');
+            $this->email->to($route['email']);
+            $this->email->subject($subject);
+            $this->email->message($body);
+            $this->email->send();
+        }
         $this->session->set_flashdata('message', 'Published Succesfully');
         redirect_tr('route_manager');
     }
@@ -416,6 +443,47 @@ class Route_manager extends MX_Controller {
 
             $this->image_lib->resize();
         }
+    }
+    
+     public function point_for_edit($id, $table = 'routes', $default = 20) {
+        $route = $this->pm->get_row('id', $id, $table);
+        $point = $default;
+        if ($route['evidence'] != '') {
+            $point += 10;
+        }
+        if ($route['evidence2'] != '') {
+            $point += 10;
+        }
+
+        if ($table == 'routes') {
+            $stoppages = $this->pm->total_item('stoppages', 'route_id', $id);
+            if ($stoppages > 0) {
+                $point += ($stoppages * 2);
+            }
+        }
+
+        return $point;
+    }
+    
+    
+    public function point_for_add($id, $table = 'routes', $default = 20) {
+        $route = $this->pm->get_row('id', $id, $table);
+        $point = $default;
+        if ($route['evidence'] != '') {
+            $point += 10;
+        }
+        if ($route['evidence2'] != '') {
+            $point += 10;
+        }
+
+        if ($table == 'routes') {
+            $stoppages = $this->pm->total_item('stoppages', 'route_id', $id);
+            if ($stoppages > 0) {
+                $point += ($stoppages * 2);
+            }
+        }
+
+        return $point;
     }
 
 }

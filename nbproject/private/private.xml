@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/route_manager/views/merge.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/route_manager/controllers/Route_manager.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/route_manager/models/Route_manager_model.php</file>
         </group>
     </open-files>
 </project-private>

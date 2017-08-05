@@ -42,5 +42,14 @@ class Route_manager_model extends CI_Model {
         $query = $this->db->select('r.*,p.*,u.*')->from('edited_routes r')->join('poribohons p', 'r.poribohon_id = p.id', 'left')->join('users u', 'u.id = r.added_by', 'left')->where('r.id', $route_id)->get();
         return $query->row_array();
     }
+    
+    
+    public function join_data($id){
+        $query = $this->db->select('*')->from('edited_routes r')->join('users u','u.id = r.added_by')->where('r.id',$id)->get();
+        //echo $this->db->last_query();return;
+        return $query->row_array();
+    }
+    
+    
 
 }
