@@ -446,10 +446,101 @@ class Routes extends MX_Controller {
                 $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for add <a href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
                 modules::run('notifications/sent_notification', $rut['added_by'], $msg);
             }
-            $this->rm->add_column_log($route_id, $rut['added_by'], $this->input->post(), $evidence_name[1], $evidence_name[2], $this->user_id);
+            $this->column_log($route_id, $rut['added_by'], $this->input->post(), $evidence_name[1], $evidence_name[2], $this->user_id);
             redirect_tr('routes/all');
         }
         $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
+    }
+
+    public function column_log($route_id, $user_id, $post, $evidence, $evidence2, $edited_by, $insert = TRUE) {
+        $route = $this->pm->get_row('id', $route_id, 'routes');
+        $poribohons = $this->rm->get_transport($post['vehicle_name']);
+        if ($route['from_dictrict'] == $post['fd']) {
+            $fd = $user_id;
+        } else {
+            $fd = $edited_by;
+        }
+        if ($route['from_thana'] == $post['ft']) {
+            $ft = $user_id;
+        } else {
+            $ft = $edited_by;
+        }
+        if ($route['to_dictrict'] == $post['td']) {
+            $td = $user_id;
+        } else {
+            $td = $edited_by;
+        }
+        if ($route['to_thana'] == $post['th']) {
+            $th = $user_id;
+        } else {
+            $th = $edited_by;
+        }
+        if ($route['from_place'] == $post['f']) {
+            $f = $user_id;
+        } else {
+            $f = $edited_by;
+        }
+        if ($route['to_place'] == $post['t']) {
+            $t = $user_id;
+        } else {
+            $t = $edited_by;
+        }
+        if ($route['rent'] == $post['main_rent']) {
+            $rent = $user_id;
+        } else {
+            $rent = $edited_by;
+        }
+        if ($route['transport_type'] == $post['transport_type']) {
+            $transport_type = $user_id;
+        } else {
+            $transport_type = $edited_by;
+        }
+        if ($route['departure_time'] == $post['departure_time']) {
+            $departure_time = $user_id;
+        } else {
+            $departure_time = $edited_by;
+        }
+        if ($route['poribohon_id'] == $poribohons['id']) {
+            $poribohon = $user_id;
+        } else {
+            $poribohon = $edited_by;
+        }
+        if ($route['evidence'] == $evidence) {
+            $evidence = $user_id;
+        } else {
+            $evidence = $edited_by;
+        }
+        if (empty($route['evidence'])) {
+            $evidence = '';
+        }
+        if ($route['evidence2'] == $evidence2) {
+            $evidence2 = $user_id;
+        } else {
+            $evidence2 = $edited_by;
+        }
+        if (empty($route['evidence2'])) {
+            $evidence2 = '';
+        }
+        $column_log = array(
+            'route_id' => $route_id,
+            'from_dictrict' => $fd,
+            'from_thana' => $ft,
+            'to_dictrict' => $td,
+            'to_thana' => $th,
+            'from_place' => $f,
+            'to_place' => $t,
+            'transport_type' => $transport_type,
+            'poribohon' => $poribohon,
+            'departure_time' => $departure_time,
+            'rent' => $rent,
+            'evidence' => $evidence,
+            'evidence2' => $evidence2
+        );
+        if ($insert) {
+            $this->pm->insert_data('column_logs', $column_log);
+        } else {
+            $this->pm->updater('route_id', $route_id, 'column_logs', $column_log);
+        }
     }
 
     /**

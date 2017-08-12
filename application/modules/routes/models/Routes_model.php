@@ -127,92 +127,9 @@ class Routes_model extends CI_Model {
         return $query->result_array();
     }
 
-    public function add_column_log($route_id, $user_id, $post, $evidence, $evidence2, $edited_by) {
-        $route = $this->pm->get_row('id', $route_id, 'routes');
-        $query = $this->db->where('name', $post['vehicle_name'])->where('bn_name', $post['vehicle_name'])->get('poribohons');
-        $poribohons = $query->row_array();
-        if ($route['from_dictrict'] == $post['fd']) {
-            $fd = $user_id;
-        } else {
-            $fd = $edited_by;
-        }
-        if ($route['from_thana'] == $post['ft']) {
-            $ft = $user_id;
-        } else {
-            $ft = $edited_by;
-        }
-        if ($route['to_dictrict'] == $post['td']) {
-            $td = $user_id;
-        } else {
-            $td = $edited_by;
-        }
-        if ($route['to_thana'] == $post['th']) {
-            $th = $user_id;
-        } else {
-            $th = $edited_by;
-        }
-        if ($route['from_place'] == $post['f']) {
-            $f = $user_id;
-        } else {
-            $f = $edited_by;
-        }
-        if ($route['to_place'] == $post['t']) {
-            $t = $user_id;
-        } else {
-            $t = $edited_by;
-        }
-        if ($route['rent'] == $post['rent']) {
-            $rent = $user_id;
-        } else {
-            $rent = $edited_by;
-        }
-        if ($route['transport_type'] == $post['transport_type']) {
-            $transport_type = $user_id;
-        } else {
-            $transport_type = $edited_by;
-        }
-        if ($route['departure_time'] == $post['departure_time']) {
-            $departure_time = $user_id;
-        } else {
-            $departure_time = $edited_by;
-        }
-        if ($route['poribohon_id'] == $poribohons['id']) {
-            $poribohon = $user_id;
-        } else {
-            $poribohon = $edited_by;
-        }
-        if ($route['evidence'] == $evidence) {
-            $evidence = $user_id;
-        } else {
-            $evidence = $edited_by;
-        }
-        if (empty($route['evidence'])) {
-            $evidence = '';
-        }
-        if ($route['evidence2'] == $evidence2) {
-            $evidence2 = $user_id;
-        } else {
-            $evidence2 = $edited_by;
-        }
-        if (empty($route['evidence2'])) {
-            $evidence2 = '';
-        }
-        $column_log = array(
-            'route_id' => $route_id,
-            'from_dictrict' => $fd,
-            'from_thana' => $ft,
-            'to_dictrict' => $td,
-            'to_thana' => $th,
-            'from_place' => $f,
-            'to_place' => $t,
-            'transport_type' => $transport_type,
-            'poribohon' => $poribohon,
-            'departure_time' => $departure_time,
-            'rent' => $rent,
-            'evidence' => $evidence,
-            'evidence2' => $evidence2
-        );
-        $this->pm->insert_data('column_logs', $column_log);
+    public function get_transport($vehicle_name) {
+        $query = $this->db->where('name', $vehicle_name)->where('bn_name', $vehicle_name)->get('poribohons');
+        return $query->row_array();
     }
 
 }

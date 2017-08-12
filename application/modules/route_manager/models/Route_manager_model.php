@@ -49,11 +49,5 @@ class Route_manager_model extends CI_Model {
         //echo $this->db->last_query();return;
         return $query->row_array();
     }
-    
-    
-    public function update_column_log($route_id,$edited_by){
-        
-    }
-    
 
 }

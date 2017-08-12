@@ -259,7 +259,7 @@ class Route_manager extends MX_Controller {
                 $this->email->message($body);
                 $this->email->send();
             }
-            $this->rmn->update_column_log($edited_route['route_id'], $edited_route['added_by']);
+            modules::run('routes/column_log', $edited_route['route_id'], $prev_route['added_by'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by'], FALSE);
             $this->pm->deleter('route_id', $route_id, 'edited_routes');
             $this->session->set_flashdata('message', lang('edit_success'));
             redirect_tr('route_manager');
