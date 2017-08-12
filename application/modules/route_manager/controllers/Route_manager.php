@@ -184,29 +184,32 @@ class Route_manager extends MX_Controller {
                     'amenities' => $amenities
                 );
 
-                $from_place = $edited_route['from_place'];
-                $to_place = $edited_route['to_place'];
-                if (($edited_route['lang_code'] == 'en') && (strtolower($from_place) != strtolower($from) || strtolower($to_place) != strtolower($to) || empty($prev_route['from_latlong']) || empty($prev_route['to_latlong']))) {
+                if (ENVIRONMENT == 'production') {
+                    $from_place = $edited_route['from_place'];
+                    $to_place = $edited_route['to_place'];
+                    if (($edited_route['lang_code'] == 'en') && (strtolower($from_place) != strtolower($from) || strtolower($to_place) != strtolower($to) || empty($prev_route['from_latlong']) || empty($prev_route['to_latlong']))) {
 
-                    $faddress = modules::run('routes/get_address', $ft, $fd, $from);
-                    $taddress = modules::run('routes/get_address', $th, $td, $to);
-                    $fthana = $this->pm->get_row('id', $ft, 'thanas');
-                    $fdis = $this->pm->get_row('id', $fd, 'districts');
-                    $tthana = $this->pm->get_row('id', $th, 'thanas');
-                    $tdis = $this->pm->get_row('id', $td, 'districts');
-                    $floc = $this->nl->get_lat_long($faddress, 'Bangladesh', $fthana['name'], $fdis['name']);
-                    $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh', $tthana['name'], $tdis['name']);
+                        $faddress = modules::run('routes/get_address', $ft, $fd, $from);
+                        $taddress = modules::run('routes/get_address', $th, $td, $to);
+                        $fthana = $this->pm->get_row('id', $ft, 'thanas');
+                        $fdis = $this->pm->get_row('id', $fd, 'districts');
+                        $tthana = $this->pm->get_row('id', $th, 'thanas');
+                        $tdis = $this->pm->get_row('id', $td, 'districts');
+                        $floc = $this->nl->get_lat_long($faddress, 'Bangladesh', $fthana['name'], $fdis['name']);
+                        $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh', $tthana['name'], $tdis['name']);
 
-                    if (!empty($floc) && !empty($tloc)) {//if lat long data found
-                        $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
-                        $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
-                        $dis_dur = $this->nl->get_distance($route['from_latlong'], $route['to_latlong']);
-                        if (!empty($dis_dur)) {
-                            $route['distance'] = $dis_dur['distance'];
-                            $route['duration'] = $dis_dur['duration'];
+                        if (!empty($floc) && !empty($tloc)) {//if lat long data found
+                            $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
+                            $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
+                            $dis_dur = $this->nl->get_distance($route['from_latlong'], $route['to_latlong']);
+                            if (!empty($dis_dur)) {
+                                $route['distance'] = $dis_dur['distance'];
+                                $route['duration'] = $dis_dur['duration'];
+                            }
                         }
                     }
                 }
+
                 $route['edit_type'] = $edit_type;
 
                 $this->db->set('added', 'NOW()', FALSE);
@@ -256,7 +259,7 @@ class Route_manager extends MX_Controller {
                 $this->email->message($body);
                 $this->email->send();
             }
-
+            $this->rmn->update_colum_log($route_id,$edited_route['added_by']);
             $this->pm->deleter('route_id', $route_id, 'edited_routes');
             $this->session->set_flashdata('message', lang('edit_success'));
             redirect_tr('route_manager');
@@ -299,26 +302,6 @@ class Route_manager extends MX_Controller {
             $this->email->send();
         }
         $this->session->set_flashdata('message', lang('delete_success'));
-        redirect_tr('route_manager');
-    }
-
-    public function accept($id) {
-        $route = $this->rmn->join_data($id);
-        $this->pm->updater('id', $id, 'routes', array('is_publish' => 1));
-        if (ENVIRONMENT == 'production') {
-            $subject = 'Your Edit Accepted at Pothdekhun';
-            $body = '<p>Congrat! your edit is accepted at Pothdekhun</p>&nbsp;<p>Best Regards<br/> PothDekhun</p>';
-            $this->load->library('email');
-            $config['mailtype'] = 'html';
-            $config['protocol'] = 'sendmail';
-            $this->email->initialize($config);
-            $this->email->from('owner@pothdekhun.com', 'PothDekhun');
-            $this->email->to($route['email']);
-            $this->email->subject($subject);
-            $this->email->message($body);
-            $this->email->send();
-        }
-        $this->session->set_flashdata('message', 'Published Succesfully');
         redirect_tr('route_manager');
     }
 
@@ -444,8 +427,8 @@ class Route_manager extends MX_Controller {
             $this->image_lib->resize();
         }
     }
-    
-     public function point_for_edit($id, $table = 'routes', $default = 20) {
+
+    public function point_for_edit($id, $table = 'routes', $default = 20) {
         $route = $this->pm->get_row('id', $id, $table);
         $point = $default;
         if ($route['evidence'] != '') {
@@ -464,8 +447,7 @@ class Route_manager extends MX_Controller {
 
         return $point;
     }
-    
-    
+
     public function point_for_add($id, $table = 'routes', $default = 20) {
         $route = $this->pm->get_row('id', $id, $table);
         $point = $default;

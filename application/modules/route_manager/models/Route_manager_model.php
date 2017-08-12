@@ -51,5 +51,9 @@ class Route_manager_model extends CI_Model {
     }
     
     
+    public function update_column_log($route_id,$edited_by){
+        
+    }
+    
 
 }

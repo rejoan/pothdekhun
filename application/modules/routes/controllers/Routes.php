@@ -126,12 +126,6 @@ class Routes extends MX_Controller {
             $this->form_validation->set_rules('f', lang('from_view'), 'required');
             $this->form_validation->set_rules('t', lang('to_view'), 'required');
             $this->form_validation->set_rules('main_rent', lang('main_rent'), 'required|integer');
-//            $captcha_response = $this->recaptcha->recaptcha_check_answer($this->input->post('g-recaptcha-response'));
-//            if (!$captcha_response['success']) {
-//                $this->session->set_flashdata('message', lang('auth_invalid_captcha'));
-//                redirect_tr('routes/add');
-//            }
-            //$this->form_validation->set_rules('g-recaptcha-response', lang('security_code'), 'callback_captcha_check');
 
             if ($this->form_validation->run() == FALSE) {
                 $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
@@ -212,7 +206,7 @@ class Routes extends MX_Controller {
     }
 
     /**
-     * edit route
+     * edit route & accept added route by user
      * @param int $id
      * @return type
      */
@@ -233,7 +227,6 @@ class Routes extends MX_Controller {
                 redirect_tr('routes/all');
             }
             if ($this->rm->details($route_id, TRUE) < 1) {//if wrong ID given direct from URL
-                //echo 'here';return;
                 $this->session->set_flashdata('message', 'Wrong Access');
                 redirect_tr('routes');
             }
@@ -378,25 +371,26 @@ class Routes extends MX_Controller {
             if ($this->nl->is_admin()) {//if admin then direct approve/update
                 $from_place = $route_detail['from_place'];
                 $to_place = $route_detail['to_place'];
-
-                if (($this->session->lang_code == 'en') && (strtolower($from_place) != strtolower($from) || strtolower($to_place) != strtolower($to) || empty($route_detail['from_latlong']) || empty($route_detail['to_latlong']))) {
+                if (ENVIRONMENT == 'production') {
+                    if (($this->session->lang_code == 'en') && (strtolower($from_place) != strtolower($from) || strtolower($to_place) != strtolower($to) || empty($route_detail['from_latlong']) || empty($route_detail['to_latlong']))) {
 // if lat long not available OR from/to changed and lang is english
-                    $faddress = $this->get_address($ft, $fd, $from);
-                    $taddress = $this->get_address($th, $td, $to);
-                    $fthana = $this->pm->get_row('id', $ft, 'thanas');
-                    $fdis = $this->pm->get_row('id', $fd, 'districts');
-                    $tthana = $this->pm->get_row('id', $th, 'thanas');
-                    $tdis = $this->pm->get_row('id', $td, 'districts');
-                    $floc = $this->nl->get_lat_long($faddress, 'Bangladesh', $fthana['name'], $fdis['name']);
-                    $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh', $tthana['name'], $tdis['name']);
-                    //var_dump($faddress,$taddress,$floc,$tloc);return;
-                    if (!empty($floc) && !empty($tloc)) {//if lat long data found
-                        $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
-                        $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
-                        $dis_dur = $this->nl->get_distance($route['from_latlong'], $route['to_latlong']);
-                        if (!empty($dis_dur)) {
-                            $route['distance'] = $dis_dur['distance'];
-                            $route['duration'] = $dis_dur['duration'];
+                        $faddress = $this->get_address($ft, $fd, $from);
+                        $taddress = $this->get_address($th, $td, $to);
+                        $fthana = $this->pm->get_row('id', $ft, 'thanas');
+                        $fdis = $this->pm->get_row('id', $fd, 'districts');
+                        $tthana = $this->pm->get_row('id', $th, 'thanas');
+                        $tdis = $this->pm->get_row('id', $td, 'districts');
+                        $floc = $this->nl->get_lat_long($faddress, 'Bangladesh', $fthana['name'], $fdis['name']);
+                        $tloc = $this->nl->get_lat_long($taddress, 'Bangladesh', $tthana['name'], $tdis['name']);
+                        //var_dump($faddress,$taddress,$floc,$tloc);return;
+                        if (!empty($floc) && !empty($tloc)) {//if lat long data found
+                            $route['from_latlong'] = $floc['lat'] . ',' . $floc['long'];
+                            $route['to_latlong'] = $tloc['lat'] . ',' . $tloc['long'];
+                            $dis_dur = $this->nl->get_distance($route['from_latlong'], $route['to_latlong']);
+                            if (!empty($dis_dur)) {
+                                $route['distance'] = $dis_dur['distance'];
+                                $route['duration'] = $dis_dur['duration'];
+                            }
                         }
                     }
                 }
@@ -452,7 +446,7 @@ class Routes extends MX_Controller {
                 $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for add <a href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
                 modules::run('notifications/sent_notification', $rut['added_by'], $msg);
             }
-
+            $this->rm->add_column_log($route_id, $rut['added_by'], $this->input->post(), $evidence_name[1], $evidence_name[2], $this->user_id);
             redirect_tr('routes/all');
         }
         $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
