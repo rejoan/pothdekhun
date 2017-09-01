@@ -487,16 +487,6 @@
                     <label class="control-label">Note</label>
                     <textarea class="form-control" name="note"></textarea>
                 </div>
-
-                <div class="form-group">
-                    <label class="radio-inline">
-                        <input type="radio" name="edit_type" value="major"> Major Edit
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="edit_type" value="minor"> Minor Edit
-                    </label>
-                </div>
-
                 <input type="submit" name="submit" class="btn btn-primary btn-lg btn-info" value="Approve"/>
                 <a href="<?php echo site_url_tr('route_manager/decline/') . $this->uri->segment(3); ?>" class="btn btn-primary btn-lg btn-danger">Decline</a>
             </div>
