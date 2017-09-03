@@ -36,11 +36,15 @@ class Prime_model extends CI_Model {
      * @param array $data 
      * @param bool $filter
      */
-    public function updater($col_name, $col_val, $table, $data, $filter = TRUE) {
+    public function updater($col_name, $col_val, $table, $data, $filter = TRUE, $cond = array()) {
         if ($filter) {
             $data = preg_replace('%[<>\/"\%$\^\'!]%', '', $data);
         }
-        $this->db->where($col_name, $col_val)->update($table, $data);
+        $conditions = array(
+            $col_name => $col_val
+        );
+        $final = array_merge($conditions, $cond);
+        $this->db->where($final)->update($table, $data);
     }
 
     /**

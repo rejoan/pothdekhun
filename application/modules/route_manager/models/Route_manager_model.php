@@ -49,5 +49,12 @@ class Route_manager_model extends CI_Model {
         //echo $this->db->last_query();return;
         return $query->row_array();
     }
-
+    
+    public function total_points($user_id, $table = 'route_points'){
+        $this->db->select_sum('point')->where('user_id', $user_id);
+        $query = $this->db->get($table);
+        $point = $query->row_array();
+        return $point['point'];
+    }
+    
 }

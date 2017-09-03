@@ -254,14 +254,25 @@ class Route_manager extends MX_Controller {
                 $this->email->send();
             }
             modules::run('routes/column_log', $edited_route['route_id'], $prev_route['added_by'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by'], FALSE);
-            $edited_col_arr = $this->pm->get_row('route_id', $edited_route['route_id'], 'column_logs');
-            $edit_points = column_point($edited_col_arr, $edited_route['added_by']);
-            if ($this->input->post('point')) {
-                $point = trim($this->input->post('point'));
+            $columns = $this->pm->get_row('route_id', $edited_route['route_id'], 'column_logs');
+            $editors_gains = column_point($columns, $edited_route['added_by']);
+            $precedors_loss = column_point($columns, $prev_route['added_by']);
+            if ($this->input->post('note')) {
                 $note = trim($this->input->post('note'));
-                modules::run('reputation/route_points', $route_id, $edited_route['added_by'], $point, $note);
-                $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
+                modules::run('reputation/route_points', $route_id, $edited_route['added_by'], $editors_gains, $note);
+                $msg = 'Earned <strong>' . $editors_gains . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
                 modules::run('notifications/sent_notification', $edited_route['added_by'], $msg);
+                 //update/insert points to editor
+
+                //precedidors loss
+                $route_points = $this->rmn->total_points('route_points', $prev_route['added_by']);
+                $remaining_points = $route_points - $precedors_loss;
+                $msg2 = 'You lost <strong>' . $precedors_loss . '</strong> point for rivision of <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
+                modules::run('notifications/sent_notification', $prev_route['added_by'], $msg2);
+                $cond = array(
+                    'user_id' => $prev_route['added_by']
+                );
+                $this->pm->updater('route_id', $route_id, 'route_points', array('point' => $remaining_points), TRUE, $cond);
             }
             $this->pm->deleter('route_id', $route_id, 'edited_routes');
             $this->session->set_flashdata('message', lang('edit_success'));
