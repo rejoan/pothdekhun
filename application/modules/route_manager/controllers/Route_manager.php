@@ -239,13 +239,7 @@ class Route_manager extends MX_Controller {
                 $this->pm->deleter('route_id', $route_id, $stoppage_table);
                 $this->db->insert_batch($stoppage_table, $stoppages);
             }
-            if ($this->input->post('point')) {
-                $point = trim($this->input->post('point'));
-                $note = trim($this->input->post('note'));
-                modules::run('reputation/route_points', $route_id, $edited_route['added_by'], $point, $note);
-                $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
-                modules::run('notifications/sent_notification', $edited_route['added_by'], $msg);
-            }
+
             if (ENVIRONMENT == 'production') {
                 $subject = 'Your Edit Approved at Pothdekhun';
                 $body = '<p>Congratulation! your edit approved at Pothdekhun: <a href="' . site_url('route/show/') . $route_id . '">Check Route</a></p>&nbsp;<p>Best Regards<br/> PothDekhun</p>';
@@ -260,6 +254,15 @@ class Route_manager extends MX_Controller {
                 $this->email->send();
             }
             modules::run('routes/column_log', $edited_route['route_id'], $prev_route['added_by'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by'], FALSE);
+            $edited_col_arr = $this->pm->get_row('route_id', $edited_route['route_id'], 'column_logs');
+            $edit_points = column_point($edited_col_arr, $edited_route['added_by']);
+            if ($this->input->post('point')) {
+                $point = trim($this->input->post('point'));
+                $note = trim($this->input->post('note'));
+                modules::run('reputation/route_points', $route_id, $edited_route['added_by'], $point, $note);
+                $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
+                modules::run('notifications/sent_notification', $edited_route['added_by'], $msg);
+            }
             $this->pm->deleter('route_id', $route_id, 'edited_routes');
             $this->session->set_flashdata('message', lang('edit_success'));
             redirect_tr('route_manager');

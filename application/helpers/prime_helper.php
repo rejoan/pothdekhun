@@ -197,3 +197,26 @@ function script_init($resources) {
     }
     return $script;
 }
+
+function column_point($arr, $user_id) {
+    $filteredArray = array_filter($arr, function($elem) use($user_id) {
+        return ($elem == $user_id);
+    });
+    $from_district = 3;
+    $from_thana = 3;
+    $from_place = 3;
+    $to_district = 3;
+    $to_thana = 3;
+    $to_place = 3;
+    $transport_type = 3;
+    $poribohon = 3;
+    $departure_time = 3;
+    $rent = 3;
+    $evidence = 3;
+    $evidence2 = 3;
+    $total_point = 0;
+    foreach ($filteredArray as $key => $a) {
+        $total_point += $$key;
+    }
+    return $total_point;
+}
