@@ -128,7 +128,7 @@ class Routes_model extends CI_Model {
     }
 
     public function get_transport($vehicle_name) {
-        $query = $this->db->where('name', $vehicle_name)->where('bn_name', $vehicle_name)->get('poribohons');
+        $query = $this->db->where('name', $vehicle_name)->or_where('bn_name', $vehicle_name)->get('poribohons');
         return $query->row_array();
     }
 

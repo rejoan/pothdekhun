@@ -221,6 +221,7 @@ class Routes extends MX_Controller {
 
         if (!empty($id)) {
             $route_id = (int) $id;
+            $main_route_id = (int) $id;
             $q_edit = $this->pm->total_item('edited_routes', 'route_id', $route_id);
             if ($q_edit > 0) {//if already an edit submitted
                 $this->session->set_flashdata('message', lang('already_edit_submitted'));
@@ -266,6 +267,10 @@ class Routes extends MX_Controller {
         }
 
         if ($this->input->post('submit')) {
+//            $rut = $this->pm->get_row('id', $route_id, 'routes');
+//            $post = $this->input->post();
+//            var_dump($rut['from_place'] == $post['f']);
+//            return;
             //route data process
             $this->form_validation->set_rules('f', lang('from_view'), 'required');
             $this->form_validation->set_rules('t', lang('to_view'), 'required');
@@ -440,73 +445,97 @@ class Routes extends MX_Controller {
                 }
             }
 
-            if ($this->input->post('point')) {
-                $rut = $this->pm->get_row('id', $route_id, 'routes');
-                modules::run('reputation/route_points', $route_id, $rut['added_by'], trim($this->input->post('point')), trim($this->input->post('note')));
-                $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for add <a href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
+            $rut = $this->pm->get_row('id', $main_route_id, 'routes');
+            if ($this->input->post('point')) {//only admin will get this
+                modules::run('reputation/route_points', $main_route_id, $rut['added_by'], trim($this->input->post('point')), trim($this->input->post('note')));
+                $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for add <a href="' . site_url_tr('routes/show/' . $main_route_id) . '">Route</a>';
                 modules::run('notifications/sent_notification', $rut['added_by'], $msg);
             }
-            $this->column_log($route_id, $rut['added_by'], $this->input->post(), $evidence_name[1], $evidence_name[2], $this->user_id);
+            //var_dump($route_id);return;
+            $this->column_log($main_route_id, $rut['added_by'], $this->input->post(), $evidence_name[1], $evidence_name[2], $this->user_id);
             redirect_tr('routes/all');
         }
         $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
     }
 
-    public function column_log($route_id, $user_id, $post, $evidence, $evidence2, $edited_by, $insert = TRUE) {
+    public function column_log($route_id, $user_id, $post, $evidence, $evidence2, $edited_by, $insert = TRUE, $admin_id = 1) {
         $route = $this->pm->get_row('id', $route_id, 'routes');
+        $edited_route = $this->pm->get_row('route_id', $route_id, 'edited_routes');
         $poribohons = $this->rm->get_transport($post['vehicle_name']);
-        if ($route['from_dictrict'] == $post['fd']) {
+        if ($route['from_district'] == $post['fd']) {
             $fd = $user_id;
+        } elseif (!$insert && $edited_route['from_district'] !== $post['fd']) {
+            $fd = $admin_id;
         } else {
             $fd = $edited_by;
         }
         if ($route['from_thana'] == $post['ft']) {
             $ft = $user_id;
+        } elseif (!$insert && $edited_route['from_thana'] !== $post['ft']) {
+            $ft = $admin_id;
         } else {
             $ft = $edited_by;
         }
-        if ($route['to_dictrict'] == $post['td']) {
+        if ($route['to_district'] == $post['td']) {
             $td = $user_id;
+        } elseif (!$insert && $edited_route['to_district'] !== $post['td']) {
+            $td = $admin_id;
         } else {
             $td = $edited_by;
         }
         if ($route['to_thana'] == $post['th']) {
             $th = $user_id;
+        } elseif (!$insert && $edited_route['to_thana'] !== $post['th']) {
+            $th = $admin_id;
         } else {
             $th = $edited_by;
         }
         if ($route['from_place'] == $post['f']) {
             $f = $user_id;
+        } elseif (!$insert && $edited_route['from_place'] !== $post['f']) {
+            $f = $admin_id;
         } else {
             $f = $edited_by;
         }
         if ($route['to_place'] == $post['t']) {
             $t = $user_id;
+        } elseif (!$insert && $edited_route['to_place'] !== $post['t']) {
+            $t = $admin_id;
         } else {
             $t = $edited_by;
         }
         if ($route['rent'] == $post['main_rent']) {
             $rent = $user_id;
+        } elseif (!$insert && $edited_route['rent'] !== $post['main_rent']) {
+            $rent = $admin_id;
         } else {
             $rent = $edited_by;
         }
         if ($route['transport_type'] == $post['transport_type']) {
             $transport_type = $user_id;
+        } elseif (!$insert && $edited_route['transport_type'] !== $post['transport_type']) {
+            $transport_type = $admin_id;
         } else {
             $transport_type = $edited_by;
         }
         if ($route['departure_time'] == $post['departure_time']) {
             $departure_time = $user_id;
+        } elseif (!$insert && $edited_route['departure_time'] !== $post['departure_time']) {
+            $departure_time = $admin_id;
         } else {
             $departure_time = $edited_by;
         }
         if ($route['poribohon_id'] == $poribohons['id']) {
             $poribohon = $user_id;
+        } elseif (!$insert && $edited_route['poribohon_id'] !== $poribohons['id']) {
+            $poribohon = $admin_id;
         } else {
             $poribohon = $edited_by;
         }
         if ($route['evidence'] == $evidence) {
             $evidence = $user_id;
+        } elseif (!$insert && $edited_route['evidence'] !== $evidence) {
+            $evidence = $admin_id;
         } else {
             $evidence = $edited_by;
         }
@@ -515,6 +544,8 @@ class Routes extends MX_Controller {
         }
         if ($route['evidence2'] == $evidence2) {
             $evidence2 = $user_id;
+        } elseif (!$insert && $edited_route['evidence2'] !== $evidence2) {
+            $evidence2 = $admin_id;
         } else {
             $evidence2 = $edited_by;
         }
@@ -523,9 +554,9 @@ class Routes extends MX_Controller {
         }
         $column_log = array(
             'route_id' => $route_id,
-            'from_dictrict' => $fd,
+            'from_district' => $fd,
             'from_thana' => $ft,
-            'to_dictrict' => $td,
+            'to_district' => $td,
             'to_thana' => $th,
             'from_place' => $f,
             'to_place' => $t,
