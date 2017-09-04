@@ -262,7 +262,8 @@ class Route_manager extends MX_Controller {
                 modules::run('reputation/route_points', $route_id, $edited_route['added_by'], $editors_gains, $note);
                 $msg = 'Earned <strong>' . $editors_gains . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
                 modules::run('notifications/sent_notification', $edited_route['added_by'], $msg);
-                 //update/insert points to editor
+                //update/insert points to editor
+                $this->rmn->update_gainer($route_id, $edited_route['added_by'],'route_points',$editors_gains);
 
                 //precedidors loss
                 $route_points = $this->rmn->total_points('route_points', $prev_route['added_by']);

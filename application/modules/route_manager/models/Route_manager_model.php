@@ -42,19 +42,28 @@ class Route_manager_model extends CI_Model {
         $query = $this->db->select('r.*,p.*,u.*')->from('edited_routes r')->join('poribohons p', 'r.poribohon_id = p.id', 'left')->join('users u', 'u.id = r.added_by', 'left')->where('r.id', $route_id)->get();
         return $query->row_array();
     }
-    
-    
-    public function join_data($id){
-        $query = $this->db->select('*')->from('edited_routes r')->join('users u','u.id = r.added_by')->where('r.id',$id)->get();
+
+    public function join_data($id) {
+        $query = $this->db->select('*')->from('edited_routes r')->join('users u', 'u.id = r.added_by')->where('r.id', $id)->get();
         //echo $this->db->last_query();return;
         return $query->row_array();
     }
-    
-    public function total_points($user_id, $table = 'route_points'){
+
+    public function total_points($user_id, $table = 'route_points') {
         $this->db->select_sum('point')->where('user_id', $user_id);
         $query = $this->db->get($table);
         $point = $query->row_array();
         return $point['point'];
     }
-    
+
+    public function update_gainer($route_id, $gainer_id, $table, $points) {
+        $total = $this->pm->total_item($table);
+        if ($total > 0) {
+            $this->pm->insert_data($table, array('point' => $points));
+        } else {
+            $this->db->set('point', 'point + ' . (int) $points, FALSE);
+            $this->db->where(array('route_id' => $route_id, 'user_id' => $gainer_id))->update($table);
+        }
+    }
+
 }
