@@ -14,6 +14,8 @@
         <group>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/helpers/prime_helper.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/controllers/Routes.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/models/Prime_model.php</file>
+            <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/routes/models/Routes_model.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/route_manager/controllers/Route_manager.php</file>
             <file>file:/C:/xampp/htdocs/pothdekhun/application/modules/route_manager/models/Route_manager_model.php</file>
         </group>

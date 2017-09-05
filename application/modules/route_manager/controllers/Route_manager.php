@@ -210,8 +210,6 @@ class Route_manager extends MX_Controller {
                     }
                 }
 
-                $route['edit_type'] = $edit_type;
-
                 $this->db->set('added', 'NOW()', FALSE);
             }
 

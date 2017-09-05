@@ -567,7 +567,8 @@ class Routes extends MX_Controller {
             'evidence' => $evidence,
             'evidence2' => $evidence2
         );
-        if ($insert) {
+        $log_exist = $this->pm->total_item('column_logs', 'route_id', $route_id);
+        if ($log_exist < 1) {
             $this->pm->insert_data('column_logs', $column_log);
         } else {
             $this->pm->updater('route_id', $route_id, 'column_logs', $column_log);
