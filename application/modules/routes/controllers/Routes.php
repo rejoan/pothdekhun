@@ -418,6 +418,7 @@ class Routes extends MX_Controller {
             $rent = $this->input->post('rent', TRUE);
             $place_name = $this->input->post('place_name', TRUE);
             $comment = $this->input->post('comments', TRUE);
+            $a = $this->input->post('a');
             $stoppages = array();
 
             for ($p = 0; $p < count($place_name); $p++) {
@@ -429,6 +430,17 @@ class Routes extends MX_Controller {
                         'route_id' => $route_id,
                         'position' => $p + 1
                     );
+                    if (!$this->nl->is_admin()) {
+                        $stopage = $this->pm->get_row('place_name', $place_name[$p], $stopage_table);
+                        if (empty($stopage) && $a[$p] == 'a') {
+                            $real_id = 'added';
+                        } elseif (empty($stopage) && $a[$p] == 'p') {
+                            $real_id = 'edited';
+                        } else {
+                            $real_id = $stopage['id'];
+                        }
+                        $stoppages[$p]['real_id'] = $real_id;
+                    }
                 }
             }
 
