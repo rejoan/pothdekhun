@@ -281,7 +281,14 @@
                     <?php
                     for ($e = 0; $e < count($edited_stoppages); $e++) {
                         $m = $e + 1;
-                        echo '<div class="form-group"><div class="col-xs-10 col-md-4"><input id="place_' . $m . '" maxlength="150" type="text" class="form-control place_name" name="place_name[]" value="' . $edited_stoppages[$e]['place_name'] . '" placeholder="' . lang('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea id="comment_' . $m . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $edited_stoppages[$e]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $m . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $edited_stoppages[$e]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
+                        if ($edited_stoppages[$e]['real_id'] == 'edited') {
+                            $bg = 'bg-danger';
+                        } elseif ($edited_stoppages[$e]['real_id'] == 'added') {
+                            $bg = 'bg-success';
+                        } else {
+                            $bg = '';
+                        }
+                        echo '<div class="form-group '.$bg.' "><div class="col-xs-10 col-md-4"><input id="place_' . $m . '" maxlength="150" type="text" class="form-control place_name" name="place_name[]" value="' . $edited_stoppages[$e]['place_name'] . '" placeholder="' . lang('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea id="comment_' . $m . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $edited_stoppages[$e]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $m . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $edited_stoppages[$e]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
                     }
                     ?>
                 </div>
