@@ -431,7 +431,7 @@ class Routes extends MX_Controller {
                         'position' => $p + 1
                     );
                     if (!$this->nl->is_admin()) {
-                        $stopage = $this->pm->get_row('place_name', $place_name[$p], $stopage_table);
+                        $stopage = $this->pm->get_row('place_name', $place_name[$p], $stopage_table, FALSE, array('route_id' => $main_route_id));
                         if (empty($stopage) && $a[$p] == 'a') {
                             $real_id = 'added';
                         } elseif (empty($stopage) && $a[$p] == 'p') {

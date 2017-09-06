@@ -220,3 +220,17 @@ function column_point($arr, $user_id) {
     }
     return $total_point;
 }
+
+function real_ids($route_id) {
+    $CI = & get_instance();
+    $results = $CI->pm->get_data('edited_stoppages', FALSE, 'route_id', $route_id);
+    $all_id = '';
+    foreach ($results as $key => $val) {
+        if ($key == 0) {
+            $all_id .= $val['real_id'];
+        } else {
+            $all_id .= ',' . $val['real_id'];
+        }
+    }
+    return explode(',', $all_id);
+}

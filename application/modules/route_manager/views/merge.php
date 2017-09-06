@@ -132,12 +132,17 @@
                 </div>
             <?php endif; ?>
 
-
+            <?php //var_dump(real_ids($this->uri->segment(3))); ?>
             <div class="stoppages">
                 <?php
                 for ($i = 0; $i < count($prev_stoppages); $i++) {
                     $k = $i + 1;
-                    echo '<div id="stoppage_' . $k . '" class="form-group"><div class="col-xs-10 col-md-4"><input maxlength="150" type="text" class="form-control place" name="place_name[]" value="' . $prev_stoppages[$i]['place_name'] . '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control comment" name="comments[]">' . $prev_stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $prev_stoppages[$i]['rent'] . '" ></div><button data-stp_id="' . $k . '" class="btn btn-xs btn-info keep_stoppage" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></div>';
+                    if(in_array($prev_stoppages[$i]['id'], real_ids($this->uri->segment(3)))){
+                        $bg_removed = '';
+                    }else{
+                        $bg_removed = ' bg-yellow';
+                    }
+                    echo '<div id="stoppage_' . $k . '" class="form-group' . $bg_removed . '"><div class="col-xs-10 col-md-4"><input maxlength="150" type="text" class="form-control place" name="place_name[]" value="' . $prev_stoppages[$i]['place_name'].'"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control comment" name="comments[]">' . $prev_stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $prev_stoppages[$i]['rent'] . '" ></div><button data-stp_id="' . $k . '" class="btn btn-xs btn-info keep_stoppage" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></div>';
                 }
                 ?>
             </div>
@@ -288,7 +293,7 @@
                         } else {
                             $bg = '';
                         }
-                        echo '<div class="form-group '.$bg.' "><div class="col-xs-10 col-md-4"><input id="place_' . $m . '" maxlength="150" type="text" class="form-control place_name" name="place_name[]" value="' . $edited_stoppages[$e]['place_name'] . '" placeholder="' . lang('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea id="comment_' . $m . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $edited_stoppages[$e]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $m . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $edited_stoppages[$e]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
+                        echo '<div class="form-group ' . $bg . ' "><div class="col-xs-10 col-md-4"><input id="place_' . $m . '" maxlength="150" type="text" class="form-control place_name" name="place_name[]" value="' . $edited_stoppages[$e]['place_name'] . '" placeholder="' . lang('place_name') . '"></div><div class="col-xs-10 col-md-4"><textarea id="comment_' . $m . '" maxlength="1000" class="form-control" name="comments[]"  placeholder="' . lang('comment') . '">' . $edited_stoppages[$e]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input id="rent_' . $m . '" maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $edited_stoppages[$e]['rent'] . '"  placeholder="' . lang('main_rent') . '"></div><button class="btn btn-xs btn-danger" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
                     }
                     ?>
                 </div>
