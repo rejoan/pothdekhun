@@ -253,7 +253,7 @@ class Route_manager extends MX_Controller {
             modules::run('routes/column_log', $edited_route['route_id'], $prev_route['added_by'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by'], FALSE, $this->user_id);
             $columns = $this->pm->get_row('route_id', $edited_route['route_id'], 'column_logs');
             $editors_gains = column_point($columns, $edited_route['added_by']);
-            $precedors_loss = column_point($columns, $prev_route['added_by']);
+            
             if ($this->input->post('note')) {
                 $note = trim($this->input->post('note'));
                 modules::run('reputation/route_points', $route_id, $edited_route['added_by'], $editors_gains, $note);
@@ -263,6 +263,7 @@ class Route_manager extends MX_Controller {
                 $this->rmn->update_gainer($route_id, $edited_route['added_by'],'route_points',$editors_gains);
 
                 //precedidors loss
+                $precedors_loss = column_point($columns, $prev_route['added_by']);
                 $route_points = $this->rmn->total_points('route_points', $prev_route['added_by']);
                 $remaining_points = $route_points - $precedors_loss;
                 $msg2 = 'You lost <strong>' . $precedors_loss . '</strong> point for rivision of <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
