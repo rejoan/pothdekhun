@@ -471,8 +471,16 @@ class Routes extends MX_Controller {
     }
 
     public function column_log($route_id, $user_id, $post, $evidence, $evidence2, $edited_by, $insert = TRUE, $admin_id = 1) {
-        $route = $this->pm->get_row('id', $route_id, 'routes');
+        $route = $this->rm->both_details($route_id);
         $edited_route = $this->pm->get_row('route_id', $route_id, 'edited_routes');
+        $from_place = 'from_place';
+        $to_place = 'to_place';
+        $departure = 'departure_time';
+        if($edited_route['lang_code'] == 'bn'){
+            $from_place = 'fp_bn';
+            $to_place = 'tp_bn';
+            $departure = 'dt_bn';
+        }
         $poribohons = $this->rm->get_transport($post['vehicle_name']);
         if ($route['from_district'] == $post['fd']) {
             $fd = $user_id;
@@ -504,14 +512,14 @@ class Routes extends MX_Controller {
         }
         if ($route['from_place'] == $post['f']) {
             $f = $user_id;
-        } elseif (!$insert && $edited_route['from_place'] !== $post['f']) {
+        } elseif (!$insert && $edited_route[$from_place] !== $post['f']) {
             $f = $admin_id;
         } else {
             $f = $edited_by;
         }
         if ($route['to_place'] == $post['t']) {
             $t = $user_id;
-        } elseif (!$insert && $edited_route['to_place'] !== $post['t']) {
+        } elseif (!$insert && $edited_route[$to_place] !== $post['t']) {
             $t = $admin_id;
         } else {
             $t = $edited_by;
@@ -532,7 +540,7 @@ class Routes extends MX_Controller {
         }
         if ($route['departure_time'] == $post['departure_time']) {
             $departure_time = $user_id;
-        } elseif (!$insert && $edited_route['departure_time'] !== $post['departure_time']) {
+        } elseif (!$insert && $edited_route[$departure] !== $post['departure_time']) {
             $departure_time = $admin_id;
         } else {
             $departure_time = $edited_by;

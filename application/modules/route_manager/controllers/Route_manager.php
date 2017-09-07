@@ -146,7 +146,6 @@ class Route_manager extends MX_Controller {
             $th = trim($this->input->post('th', TRUE));
             $from = trim($this->input->post('f', TRUE));
             $to = trim($this->input->post('t', TRUE));
-            $edit_type = $this->input->post('edit_type');
             //var_dump($floc,$faddress);return;
             $transport_name = trim($this->input->post('vehicle_name', TRUE));
             $transport_id = $this->pm->get_transport_id($transport_name, $this->user_id, $col_name_rev, FALSE);

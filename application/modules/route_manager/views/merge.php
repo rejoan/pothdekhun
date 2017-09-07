@@ -14,7 +14,7 @@
                             <option value="<?php echo $d['id']; ?>" <?php
                             echo $prev_route['from_district'] == $d['id'] ? 'selected="yes"' : '';
                             ?>>
-                                        <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
+                                        <?php echo $d[$this->nl->lang_based_data('bn_name', 'name', FALSE, $edited_route['lang_code'])]; ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -27,7 +27,7 @@
                                 echo $prev_route['from_thana'] == $t['id'] ? 'selected="yes"' : '';
                                 ?>>
 
-                                    <?php echo $t[$this->nl->lang_based_data('bn_name', 'name')]; ?>
+                                    <?php echo $t[$this->nl->lang_based_data('bn_name', 'name', FALSE, $edited_route['lang_code'])]; ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="input-group col-xs-10 col-md-5">
-                    <input maxlength="200" type="text" class="form-control" name="f" data-sentto="from_place" value="<?php echo $prev_route['from_place']; ?>">
+                    <input maxlength="200" type="text" class="form-control" name="f" data-sentto="from_place" value="<?php echo $prev_route[$this->nl->lang_based_data('fp_bn', 'from_place', FALSE, $edited_route['lang_code'])]; ?>">
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-info btn-flat keep_it">Keep it</button>
                     </span>
@@ -51,7 +51,7 @@
                             echo $prev_route['to_district'] == $d['id'] ? 'selected="yes"' : '';
                             ?>>
 
-                                <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
+                                <?php echo $d[$this->nl->lang_based_data('bn_name', 'name', FALSE, $edited_route['lang_code'])]; ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -62,7 +62,7 @@
                         <select name="th" class="form-control">
                             <?php foreach ($tthanas as $tt): ?>
                                 <option  value="<?php echo $tt['id']; ?>" <?php echo $prev_route['to_thana'] == $tt['id'] ? 'selected="yes"' : ''; ?>>
-                                    <?php echo $tt[$this->nl->lang_based_data('bn_name', 'name')]; ?>
+                                    <?php echo $tt[$this->nl->lang_based_data('bn_name', 'name', FALSE, $edited_route['lang_code'])]; ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="col-xs-10 col-md-5 input-group">
-                    <input maxlength="200" type="text" class="form-control search_place" name="t" data-sentto="to_place" value="<?php echo $prev_route['to_place']; ?>"> 
+                    <input maxlength="200" type="text" class="form-control search_place" name="t" data-sentto="to_place" value="<?php echo $prev_route[$this->nl->lang_based_data('tp_bn', 'to_place', FALSE, $edited_route['lang_code'])]; ?>"> 
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-info btn-flat keep_it">Keep it</button>
                     </span>
@@ -103,7 +103,7 @@
             <div class="form-group">
                 <label class="control-label"><?php echo lang('vehicle_name'); ?></label>
                 <div class="input-group">
-                    <input maxlength="200" type="text" class="form-control" name="vehicle_name" data-sentto="vehicle_name" value="<?php echo $prev_route[$this->nl->lang_based_data('bn_name', 'name')]; ?>">
+                    <input maxlength="200" type="text" class="form-control" name="vehicle_name" data-sentto="vehicle_name" value="<?php echo $prev_route[$this->nl->lang_based_data('bn_name', 'name', FALSE, $edited_route['lang_code'])]; ?>">
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-info btn-flat keep_it">Keep it</button>
                     </span>
@@ -137,12 +137,12 @@
                 <?php
                 for ($i = 0; $i < count($prev_stoppages); $i++) {
                     $k = $i + 1;
-                    if(in_array($prev_stoppages[$i]['id'], real_ids($this->uri->segment(3)))){
+                    if (in_array($prev_stoppages[$i]['id'], real_ids($this->uri->segment(3)))) {
                         $bg_removed = '';
-                    }else{
+                    } else {
                         $bg_removed = ' bg-yellow';
                     }
-                    echo '<div id="stoppage_' . $k . '" class="form-group' . $bg_removed . '"><div class="col-xs-10 col-md-4"><input maxlength="150" type="text" class="form-control place" name="place_name[]" value="' . $prev_stoppages[$i]['place_name'].'"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control comment" name="comments[]">' . $prev_stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $prev_stoppages[$i]['rent'] . '" ></div><button data-stp_id="' . $k . '" class="btn btn-xs btn-info keep_stoppage" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></div>';
+                    echo '<div id="stoppage_' . $k . '" class="form-group' . $bg_removed . '"><div class="col-xs-10 col-md-4"><input maxlength="150" type="text" class="form-control place" name="place_name[]" value="' . $prev_stoppages[$i]['place_name'] . '"></div><div class="col-xs-10 col-md-4"><textarea maxlength="1000" class="form-control comment" name="comments[]">' . $prev_stoppages[$i]['comments'] . '</textarea></div><div class="col-xs-10 col-md-2"><input maxlength="10" type="text" class="form-control rent" name="rent[]" value="' . $prev_stoppages[$i]['rent'] . '" ></div><button data-stp_id="' . $k . '" class="btn btn-xs btn-info keep_stoppage" href="javascript:void(0)" class="cancel"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></div>';
                 }
                 ?>
             </div>
@@ -179,7 +179,7 @@
                                 <option value="<?php echo $d['id']; ?>" <?php
                                 echo $edited_route['from_district'] == $d['id'] ? 'selected="yes"' : '';
                                 ?>>
-                                            <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
+                                            <?php echo $d[$this->nl->lang_based_data('bn_name', 'name', FALSE, $edited_route['lang_code'])]; ?>
 
                                 </option>
                             <?php endforeach; ?>
@@ -193,7 +193,7 @@
                                     echo $edited_route['to_thana'] == $t['id'] ? 'selected="yes"' : '';
                                     ?>>
 
-                                        <?php echo $t[$this->nl->lang_based_data('bn_name', 'name')]; ?>
+                                        <?php echo $t[$this->nl->lang_based_data('bn_name', 'name', FALSE, $edited_route['lang_code'])]; ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
@@ -217,7 +217,7 @@
                                 echo $edited_route['to_district'] == $d['id'] ? 'selected="yes"' : '';
                                 ?>>
 
-                                    <?php echo $d[$this->nl->lang_based_data('bn_name', 'name')]; ?>
+                                    <?php echo $d[$this->nl->lang_based_data('bn_name', 'name', FALSE, $edited_route['lang_code'])]; ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -228,7 +228,7 @@
                             <select id="th" name="th" class="form-control">
                                 <?php foreach ($tthanas as $tt): ?>
                                     <option  value="<?php echo $tt['id']; ?>" <?php echo $edited_route['to_thana'] == $tt['id'] ? 'selected="yes"' : ''; ?>>
-                                        <?php echo $tt[$this->nl->lang_based_data('bn_name', 'name')]; ?>
+                                        <?php echo $tt[$this->nl->lang_based_data('bn_name', 'name', FALSE, $edited_route['lang_code'])]; ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
@@ -245,7 +245,7 @@
                 <?php echo form_error('to_place', '<div class="alert alert-danger">', '</div>'); ?>
                 <div class="form-group">
                     <label class="control-label"><?php echo lang('main_rent'); ?> <span class="glyphicon glyphicon-asterisk custom_c" aria-hidden="true"></span></label>
-                    <input id="main_rent" maxlength="10" type="text" class="form-control rent" name="main_rent" value="<?php echo $edited_route['rent']; ?>" placeholder="<?php echo lang('rent_placeholder'); ?>" required title="কমপক্ষে আনুমানিক ভাড়া দিন">
+                    <input id="main_rent" maxlength="10" type="text" class="form-control rent" name="main_rent" value="<?php echo $edited_route['rent']; ?>" placeholder="<?php echo lang('rent_placeholder'); ?>" required>
                 </div>
 
                 <?php echo form_error('main_rent', '<div class="alert alert-danger">', '</div>'); ?>
