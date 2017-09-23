@@ -250,7 +250,7 @@ class Route_manager extends MX_Controller {
                 $this->email->message($body);
                 $this->email->send();
             }
-            modules::run('routes/column_log', $edited_route['route_id'], $prev_route['added_by'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by'], FALSE, $this->user_id);
+            modules::run('routes/gainers', $edited_route['route_id'], $prev_route['added_by'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by'], FALSE, $this->user_id);
             $columns = $this->pm->get_row('route_id', $edited_route['route_id'], 'column_logs');
             $editors_gains = column_point($columns, $edited_route['added_by']);
             
