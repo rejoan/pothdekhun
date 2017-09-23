@@ -506,8 +506,8 @@ class Routes extends MX_Controller {
             $losers['from_place'] = $loser['from_place'];
         }
         if ($route['to_place'] != $post['t'] && $edited_route[$to_place] == $post['t']) {
-            $gainers['from_place'] = $edited_by;
-            $losers['from_place'] = $loser['from_place'];
+            $gainers['to_place'] = $edited_by;
+            $losers['to_place'] = $loser['to_place'];
         }
 
         if ($route['rent'] != $post['main_rent'] && $edited_route['rent'] == $post['main_rent']) {
