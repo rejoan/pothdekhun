@@ -458,9 +458,10 @@ class Routes extends MX_Controller {
                 modules::run('reputation/route_points', $main_route_id, $rut['added_by'], trim($this->input->post('point')), trim($this->input->post('note')));
                 $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for add <a href="' . site_url_tr('routes/show/' . $main_route_id) . '">Route</a>';
                 modules::run('notifications/sent_notification', $rut['added_by'], $msg);
+                $this->gainers($main_route_id, $this->input->post(), $evidence_name[1], $evidence_name[2], $this->user_id);
             }
             //var_dump($route_id);return;
-            $this->gainers($main_route_id, $this->input->post(), $evidence_name[1], $evidence_name[2], $this->user_id);
+
             redirect_tr('routes/all');
         }
         $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
@@ -479,10 +480,10 @@ class Routes extends MX_Controller {
         }
         $poribohons = $this->rm->get_transport($post['vehicle_name']);
 
-        $gainers = $losers = array();
+        $gainers = $losers = array('route_id' => $route_id);
 
         //previous user ID or loser ID
-        $loser = $this->pm->get_row('gainers', 'route_id', $route_id);
+        $loser = $this->pm->get_row('route_id', $route_id, 'gainers');
 
         if ($route['from_district'] != $post['fd'] && $edited_route['from_district'] == $post['fd']) {//edited so keep edited user ID
             $gainers['from_district'] = $edited_by;
@@ -501,10 +502,12 @@ class Routes extends MX_Controller {
             $gainers['to_thana'] = $edited_by;
             $losers['to_thana'] = $loser['to_thana'];
         }
+        
         if ($route['from_place'] != $post['f'] && $edited_route[$from_place] == $post['f']) {
             $gainers['from_place'] = $edited_by;
             $losers['from_place'] = $loser['from_place'];
         }
+        
         if ($route['to_place'] != $post['t'] && $edited_route[$to_place] == $post['t']) {
             $gainers['to_place'] = $edited_by;
             $losers['to_place'] = $loser['to_place'];
@@ -541,11 +544,15 @@ class Routes extends MX_Controller {
             $evidence2 = '';
         }
         $loser_exist = $this->pm->total_item('losers', 'route_id', $route_id);
-        if ($loser_exist < 1) {
-            $this->pm->insert_data('losers', $losers);
-        } else {
-            $this->pm->updater('route_id', $route_id, 'losers', $losers);
+
+        if (!empty($losers)) {
+            if ($loser_exist < 1) {
+                $this->pm->insert_data('losers', $losers);
+            } else {
+                $this->pm->updater('route_id', $route_id, 'losers', $losers);
+            }
         }
+
 
         $gainer_exist = $this->pm->total_item('gainers', 'route_id', $route_id);
         if ($gainer_exist < 1) {
