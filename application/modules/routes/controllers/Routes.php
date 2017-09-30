@@ -458,7 +458,7 @@ class Routes extends MX_Controller {
                 modules::run('reputation/route_points', $main_route_id, $rut['added_by'], trim($this->input->post('point')), trim($this->input->post('note')));
                 $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for add <a href="' . site_url_tr('routes/show/' . $main_route_id) . '">Route</a>';
                 modules::run('notifications/sent_notification', $rut['added_by'], $msg);
-                $this->gainers($main_route_id, $this->input->post(), $evidence_name[1], $evidence_name[2], $this->user_id);
+                $this->point_logs($main_route_id, $this->input->post(), $evidence_name[1], $evidence_name[2], $this->user_id);
             }
             //var_dump($route_id);return;
 
@@ -467,7 +467,26 @@ class Routes extends MX_Controller {
         $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
     }
 
-    public function gainers($route_id, $post, $evidence, $evidence2, $edited_by) {
+    public function point_logs($route_id, $post, $evidence, $evidence2, $edited_by, $from_edit = TRUE) {
+
+        if ($from_edit) {
+            $gainers = array(
+                'route_id' => $route_id,
+                'from_district' => $edited_by,
+                'from_thana' => $edited_by,
+                'from_place' => $edited_by,
+                'to_district' => $edited_by,
+                'to_thana' => $edited_by,
+                'to_place' => $edited_by,
+                'rent' => $edited_by,
+                'evidence' => $edited_by,
+                'evidence2' => $edited_by,
+                'poribohon' => $edited_by,
+                'transport_type' => $edited_by
+            );
+            $this->pm->insert_data('gainers', $gainers);
+            return;
+        }
         $route = $this->rm->both_details($route_id);
         $edited_route = $this->pm->get_row('route_id', $route_id, 'edited_routes');
         $from_place = 'from_place';
@@ -502,12 +521,12 @@ class Routes extends MX_Controller {
             $gainers['to_thana'] = $edited_by;
             $losers['to_thana'] = $loser['to_thana'];
         }
-        
+
         if ($route['from_place'] != $post['f'] && $edited_route[$from_place] == $post['f']) {
             $gainers['from_place'] = $edited_by;
             $losers['from_place'] = $loser['from_place'];
         }
-        
+
         if ($route['to_place'] != $post['t'] && $edited_route[$to_place] == $post['t']) {
             $gainers['to_place'] = $edited_by;
             $losers['to_place'] = $loser['to_place'];
@@ -545,17 +564,42 @@ class Routes extends MX_Controller {
         }
         $loser_exist = $this->pm->total_item('losers', 'route_id', $route_id);
 
-        if (!empty($losers)) {
-            if ($loser_exist < 1) {
-                $this->pm->insert_data('losers', $losers);
-            } else {
-                $this->pm->updater('route_id', $route_id, 'losers', $losers);
-            }
+        if ($loser_exist < 1) {
+            $losers = array(
+                'route_id' => $route_id,
+                'from_district' => $edited_by,
+                'from_thana' => $edited_by,
+                'from_place' => $edited_by,
+                'to_district' => $edited_by,
+                'to_thana' => $edited_by,
+                'to_place' => $edited_by,
+                'rent' => $edited_by,
+                'evidence' => $edited_by,
+                'evidence2' => $edited_by,
+                'poribohon' => $edited_by,
+                'transport_type' => $edited_by
+            );
+            $this->pm->insert_data('losers', $losers);
+        } else {
+            $this->pm->updater('route_id', $route_id, 'losers', $losers);
         }
-
 
         $gainer_exist = $this->pm->total_item('gainers', 'route_id', $route_id);
         if ($gainer_exist < 1) {
+            $gainers = array(
+                'route_id' => $route_id,
+                'from_district' => $route['added_by'],
+                'from_thana' => $route['added_by'],
+                'from_place' => $route['added_by'],
+                'to_district' => $route['added_by'],
+                'to_thana' => $route['added_by'],
+                'to_place' => $route['added_by'],
+                'rent' => $route['added_by'],
+                'evidence' => $route['added_by'],
+                'evidence2' => $route['added_by'],
+                'poribohon' => $route['added_by'],
+                'transport_type' => $route['added_by']
+            );
             $this->pm->insert_data('gainers', $gainers);
         } else {
             $this->pm->updater('route_id', $route_id, 'gainers', $gainers);

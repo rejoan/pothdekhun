@@ -66,6 +66,11 @@ class Routes_model extends CI_Model {
         return $query->row_array();
     }
 
+    /**
+     * get route & route_bn data
+     * @param int $route_id
+     * @return array
+     */
     public function both_details($route_id) {
         $query = $this->db->select('r.*,rt.from_place fp_bn,rt.to_place tp_bn,rt.departure_time dt_bn')->from('routes r')->where('r.id', $route_id)->join('route_bn rt', 'r.id = rt.route_id')->get();
         return $query->row_array();
