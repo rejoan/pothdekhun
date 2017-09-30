@@ -212,7 +212,7 @@ class Route_manager extends MX_Controller {
                 $this->db->set('added', 'NOW()', FALSE);
             }
 
-            $this->pm->updater($rid, $route_id, $route_table, $route);
+            //$this->pm->updater($rid, $route_id, $route_table, $route);
 
 
             //stoppage data process
@@ -233,8 +233,8 @@ class Route_manager extends MX_Controller {
             }
 
             if (!empty($stoppages)) {
-                $this->pm->deleter('route_id', $route_id, $stoppage_table);
-                $this->db->insert_batch($stoppage_table, $stoppages);
+                //$this->pm->deleter('route_id', $route_id, $stoppage_table);
+                //$this->db->insert_batch($stoppage_table, $stoppages);
             }
 
             if (ENVIRONMENT == 'production') {
@@ -250,8 +250,8 @@ class Route_manager extends MX_Controller {
                 $this->email->message($body);
                 $this->email->send();
             }
-            $test = modules::run('routes/point_logs', $edited_route['route_id'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by']);
-            //var_dump($test);return;
+            $test = modules::run('routes/point_logs', $edited_route['route_id'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by'], 'merge');
+            var_dump($test);return;
             $gainers_columns = $this->pm->get_row('route_id', $edited_route['route_id'], 'gainers');
             $gainers_point = column_point($gainers_columns, $edited_route['added_by']);
             

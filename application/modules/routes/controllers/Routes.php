@@ -467,26 +467,7 @@ class Routes extends MX_Controller {
         $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
     }
 
-    public function point_logs($route_id, $post, $evidence, $evidence2, $edited_by, $from_edit = TRUE) {
-
-        if ($from_edit) {
-            $gainers = array(
-                'route_id' => $route_id,
-                'from_district' => $edited_by,
-                'from_thana' => $edited_by,
-                'from_place' => $edited_by,
-                'to_district' => $edited_by,
-                'to_thana' => $edited_by,
-                'to_place' => $edited_by,
-                'rent' => $edited_by,
-                'evidence' => $edited_by,
-                'evidence2' => $edited_by,
-                'poribohon' => $edited_by,
-                'transport_type' => $edited_by
-            );
-            $this->pm->insert_data('gainers', $gainers);
-            return;
-        }
+    public function point_logs($route_id, $post, $evidence, $evidence2, $edited_by, $from = 'edit') {
         $route = $this->rm->both_details($route_id);
         $edited_route = $this->pm->get_row('route_id', $route_id, 'edited_routes');
         $from_place = 'from_place';
@@ -504,53 +485,78 @@ class Routes extends MX_Controller {
         //previous user ID or loser ID
         $loser = $this->pm->get_row('route_id', $route_id, 'gainers');
 
-        if ($route['from_district'] != $post['fd'] && $edited_route['from_district'] == $post['fd']) {//edited so keep edited user ID
+        if ($route['from_district'] != $post['fd'] && $edited_route['from_district'] == $post['fd']) {//when posted & previous data differ, also edited data & posted data (admin not touched) differ then edit happened
             $gainers['from_district'] = $edited_by;
             $losers['from_district'] = $loser['from_district'];
+        }else{
+            $gainers['from_district'] = $route['added_by'];
         }
         if ($route['from_thana'] != $post['ft'] && $edited_route['from_thana'] == $post['ft']) {
             $gainers['from_thana'] = $edited_by;
             $losers['from_thana'] = $loser['from_thana'];
+        }else{
+            $gainers['from_thana'] = $route['added_by'];
         }
 
         if ($route['to_district'] != $post['td'] && $edited_route['to_district'] == $post['td']) {
             $gainers['to_district'] = $edited_by;
             $losers['to_district'] = $loser['to_district'];
+        }else{
+            $gainers['to_district'] = $route['added_by'];
         }
         if ($route['to_thana'] != $post['th'] && $edited_route['to_thana'] == $post['th']) {
             $gainers['to_thana'] = $edited_by;
             $losers['to_thana'] = $loser['to_thana'];
+        }else{
+            $gainers['to_thana'] = $route['added_by'];
         }
 
+        
         if ($route['from_place'] != $post['f'] && $edited_route[$from_place] == $post['f']) {
             $gainers['from_place'] = $edited_by;
             $losers['from_place'] = $loser['from_place'];
+        }else{
+            $gainers['from_place'] = $route['added_by'];
         }
 
+        echo '<pre>';
+        var_dump($gainers,$edited_by);return;
         if ($route['to_place'] != $post['t'] && $edited_route[$to_place] == $post['t']) {
             $gainers['to_place'] = $edited_by;
             $losers['to_place'] = $loser['to_place'];
+        }else{
+            $gainers['to_place'] = $route['added_by'];
         }
 
         if ($route['rent'] != $post['main_rent'] && $edited_route['rent'] == $post['main_rent']) {
             $gainers['rent'] = $edited_by;
             $losers['rent'] = $loser['rent'];
+        }else{
+            $gainers['rent'] = $route['added_by'];
         }
         if ($route['transport_type'] != $post['transport_type'] && $edited_route['transport_type'] == $post['transport_type']) {
             $gainers['transport_type'] = $edited_by;
             $losers['transport_type'] = $loser['transport_type'];
+        }else{
+            $gainers['transport_type'] = $route['added_by'];
         }
         if ($route['departure_time'] != $post['departure_time'] && $edited_route[$departure] == $post['departure_time']) {
             $gainers['departure_time'] = $edited_by;
             $losers['departure_time'] = $loser['departure_time'];
+        }else{
+            $gainers['departure_time'] = $route['added_by'];
         }
         if ($route['poribohon_id'] != $poribohons['id'] && $edited_route['poribohon_id'] == $poribohons['id']) {
-            $gainers['poribohon_id'] = $edited_by;
-            $losers['poribohon_id'] = $loser['poribohon_id'];
+            $gainers['poribohon'] = $edited_by;
+            $losers['poribohon'] = $loser['poribohon_id'];
+        }else{
+            $gainers['poribohon'] = $route['added_by'];
         }
         if ($route['evidence'] != $evidence && $edited_route['evidence'] == $evidence) {
             $gainers['evidence'] = $edited_by;
             $losers['evidence'] = $loser['evidence'];
+        }else{
+            $gainers['evidence'] = $route['added_by'];
         }
         if (empty($route['evidence'])) {
             $evidence = '';
@@ -558,48 +564,26 @@ class Routes extends MX_Controller {
         if ($route['evidence2'] != $evidence2 && $edited_route['evidence2'] == $evidence2) {
             $gainers['evidence2'] = $edited_by;
             $losers['evidence2'] = $loser['evidence2'];
+        }else{
+            $gainers['evidence2'] = $route['added_by'];
         }
         if (empty($route['evidence2'])) {
             $evidence2 = '';
         }
         $loser_exist = $this->pm->total_item('losers', 'route_id', $route_id);
 
-        if ($loser_exist < 1) {
-            $losers = array(
-                'route_id' => $route_id,
-                'from_district' => $edited_by,
-                'from_thana' => $edited_by,
-                'from_place' => $edited_by,
-                'to_district' => $edited_by,
-                'to_thana' => $edited_by,
-                'to_place' => $edited_by,
-                'rent' => $edited_by,
-                'evidence' => $edited_by,
-                'evidence2' => $edited_by,
-                'poribohon' => $edited_by,
-                'transport_type' => $edited_by
-            );
-            $this->pm->insert_data('losers', $losers);
-        } else {
-            $this->pm->updater('route_id', $route_id, 'losers', $losers);
+        if ($from == 'merge') {// skip when not edit
+            if ($loser_exist < 1) {
+                $this->db->set('added','NOW()',FALSE);
+                $this->pm->insert_data('losers', $losers);
+            } else {
+                $this->pm->updater('route_id', $route_id, 'losers', $losers);
+            }
         }
-
+        
         $gainer_exist = $this->pm->total_item('gainers', 'route_id', $route_id);
         if ($gainer_exist < 1) {
-            $gainers = array(
-                'route_id' => $route_id,
-                'from_district' => $route['added_by'],
-                'from_thana' => $route['added_by'],
-                'from_place' => $route['added_by'],
-                'to_district' => $route['added_by'],
-                'to_thana' => $route['added_by'],
-                'to_place' => $route['added_by'],
-                'rent' => $route['added_by'],
-                'evidence' => $route['added_by'],
-                'evidence2' => $route['added_by'],
-                'poribohon' => $route['added_by'],
-                'transport_type' => $route['added_by']
-            );
+            $this->db->set('added','NOW()',FALSE);
             $this->pm->insert_data('gainers', $gainers);
         } else {
             $this->pm->updater('route_id', $route_id, 'gainers', $gainers);
