@@ -481,7 +481,7 @@ class Routes extends MX_Controller {
         $poribohons = $this->rm->get_transport($post['vehicle_name']);
 
         $gainers = $losers = array('route_id' => $route_id);
-
+        
         //previous user ID or loser ID
         $loser = $this->pm->get_row('route_id', $route_id, 'gainers');
 
@@ -519,8 +519,7 @@ class Routes extends MX_Controller {
             $gainers['from_place'] = $route['added_by'];
         }
 
-        echo '<pre>';
-        var_dump($gainers,$edited_by);return;
+        //echo '<pre>';var_dump($gainers);return;
         if ($route['to_place'] != $post['t'] && $edited_route[$to_place] == $post['t']) {
             $gainers['to_place'] = $edited_by;
             $losers['to_place'] = $loser['to_place'];
@@ -571,7 +570,7 @@ class Routes extends MX_Controller {
             $evidence2 = '';
         }
         $loser_exist = $this->pm->total_item('losers', 'route_id', $route_id);
-
+        
         if ($from == 'merge') {// skip when not edit
             if ($loser_exist < 1) {
                 $this->db->set('added','NOW()',FALSE);
@@ -582,6 +581,7 @@ class Routes extends MX_Controller {
         }
         
         $gainer_exist = $this->pm->total_item('gainers', 'route_id', $route_id);
+        //echo '<pre>';var_dump($gainers);return;
         if ($gainer_exist < 1) {
             $this->db->set('added','NOW()',FALSE);
             $this->pm->insert_data('gainers', $gainers);
