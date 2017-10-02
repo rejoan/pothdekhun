@@ -66,4 +66,30 @@ class Route_manager_model extends CI_Model {
         }
     }
 
+    public function losers_poins($route_id) {
+        $losers = $this->pm->get_row('route_id', $route_id, 'losers');
+        $from_district = 3;
+        $from_thana = 3;
+        $from_place = 3;
+        $to_district = 3;
+        $to_thana = 3;
+        $to_place = 3;
+        $transport_type = 3;
+        $poribohon = 3;
+        $departure_time = 3;
+        $rent = 3;
+        $evidence = 3;
+        $evidence2 = 3;
+        foreach ($losers as $key => $l) {
+            if ($l == '0') {
+                continue;
+            }
+            $cond = array(
+                'route_id' => $route_id,
+                'user_id' => $l
+            );
+            $this->db->set('point', 'point - ' . $$key)->where($cond)->update('route_points');
+        }
+    }
+
 }

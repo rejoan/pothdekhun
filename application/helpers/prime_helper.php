@@ -198,7 +198,7 @@ function script_init($resources) {
     return $script;
 }
 
-function column_point($arr, $user_id) {
+function gainers_point($arr, $user_id) {
     $filteredArray = array_filter($arr, function($elem) use($user_id) {
         return ($elem == $user_id);
     });

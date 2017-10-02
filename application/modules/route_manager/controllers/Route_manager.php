@@ -208,8 +208,7 @@ class Route_manager extends MX_Controller {
                         }
                     }
                 }
-                $test = modules::run('routes/point_logs', $edited_route['route_id'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by'], 'merge');
-
+                modules::run('routes/point_logs', $edited_route['route_id'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by'], 'merge');
                 $this->db->set('added', 'NOW()', FALSE);
             }
 
@@ -252,17 +251,13 @@ class Route_manager extends MX_Controller {
             }
 
             $gainers_columns = $this->pm->get_row('route_id', $edited_route['route_id'], 'gainers');
-            $gainers_point = column_point($gainers_columns, $edited_route['added_by']);
-
+            $gainers_point = gainers_point($gainers_columns, $edited_route['added_by']);
+            $this->rmn->losers_point($edited_route['route_id']);
             if ($this->input->post('note')) {
                 $note = trim($this->input->post('note'));
                 modules::run('reputation/route_points', $route_id, $edited_route['added_by'], $gainers_point, $note);
                 $msg = 'Earned <strong>' . $gainers_point . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
                 modules::run('notifications/sent_notification', $edited_route['added_by'], $msg);
-
-                //precedidors loss
-                //$losers = $this->pm->get_row('route_id', $edited_route['route_id'], 'losers');
-                //calculate loser point by loop and sent notification there
             }
             $this->pm->deleter('route_id', $route_id, 'edited_routes');
             $this->session->set_flashdata('message', lang('edit_success'));
