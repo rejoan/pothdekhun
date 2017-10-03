@@ -137,7 +137,7 @@ function notify($count = FALSE) {
     if ($count) {
         return $CI->nm->total_notifications($user_id);
     }
-    $notifications = $CI->pm->get_data('notifications', 'id,notification_msg', 'read', 0, 'user_id', $user_id, 'and', FALSE, 'id', 'desc', 0, 5);
+    $notifications = $CI->pm->get_data('notifications', 'id,notification_msg', 'is_read', 0, 'user_id', $user_id, 'and', 'id', 'desc', 5, 0);
     return $notifications;
 }
 

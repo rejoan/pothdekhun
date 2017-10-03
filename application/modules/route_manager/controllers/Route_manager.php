@@ -208,7 +208,8 @@ class Route_manager extends MX_Controller {
                         }
                     }
                 }
-                modules::run('routes/point_logs', $edited_route['route_id'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by'], 'merge');
+               $test = modules::run('routes/point_logs', $edited_route['route_id'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by'], 'merge');
+               //var_dump($test);return;
                 $this->db->set('added', 'NOW()', FALSE);
             }
 
@@ -252,7 +253,7 @@ class Route_manager extends MX_Controller {
 
             $gainers_columns = $this->pm->get_row('route_id', $edited_route['route_id'], 'gainers');
             $gainers_point = gainers_point($gainers_columns, $edited_route['added_by']);
-            $this->rmn->losers_point($edited_route['route_id']);
+            $this->losers_points($edited_route['route_id']);
             if ($this->input->post('note')) {
                 $note = trim($this->input->post('note'));
                 modules::run('reputation/route_points', $route_id, $edited_route['added_by'], $gainers_point, $note);
@@ -265,6 +266,34 @@ class Route_manager extends MX_Controller {
         }
 
         $this->nl->view_loader('user', 'merge', NULL, $data);
+    }
+    
+     public function losers_points($route_id) {
+        $losers = $this->pm->get_row('route_id', $route_id, 'losers');
+        $from_district = 3;
+        $from_thana = 3;
+        $from_place = 3;
+        $to_district = 3;
+        $to_thana = 3;
+        $to_place = 3;
+        $transport_type = 3;
+        $poribohon = 3;
+        $departure_time = 3;
+        $rent = 3;
+        $evidence = 3;
+        $evidence2 = 3;
+        foreach ($losers as $key => $l) {
+            if ($l == '0') {
+                continue;
+            }
+            $cond = array(
+                'route_id' => $route_id,
+                'user_id' => $l
+            );
+            $this->rmn->deduct_point($key,$cond);
+            $msg = 'You lost <strong>' . $$key . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
+            modules::run('notifications/sent_notification', $l, $msg);
+        }
     }
 
     /**

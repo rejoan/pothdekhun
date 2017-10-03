@@ -86,9 +86,9 @@
 
                         <li>
                             <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
+                            <ul class="list-group" style="width: 400px;">
                                 <?php foreach (notify() as $n): ?>
-                                    <li>
+                                    <li class="list-group-item">
                                         <a href="<?php echo site_url_tr('notifications/details/') . $n['id']; ?>"><?php echo preg_replace('/<a\s(.+?)>(.+?)<\/a>/is', '$2', $n['notification_msg']); ?></a>
                                     </li>
                                 <?php endforeach; ?>

@@ -35,7 +35,7 @@ class Notification_model extends CI_Model {
     public function total_notifications($user_id) {
         $cond = array(
             'user_id' => $user_id,
-            'read' => 0
+            'is_read' => 0
         );
         $query = $this->db->where($cond)->get('notifications');
         $total_unread = $query->num_rows();

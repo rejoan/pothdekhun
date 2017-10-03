@@ -30,7 +30,7 @@ class Notifications extends MX_Controller {
         $url = 'notifications/index';
         $links = $this->nl->generate_pagination($url, $total_rows, $per_page, $num_links);
 
-        $this->pm->updater('user_id', $this->user_id, 'notifications', array('read' => 1));
+        $this->pm->updater('user_id', $this->user_id, 'notifications', array('is_read' => 1));
         $data = array(
             'title' => 'All Notifications',
             'links' => $links,
@@ -42,7 +42,7 @@ class Notifications extends MX_Controller {
     }
 
     public function details($id) {
-        $this->pm->updater('id', $id, 'notifications', array('read' => 1));
+        $this->pm->updater('id', $id, 'notifications', array('is_read' => 1));
         $data = array(
             'title' => 'Notification Details',
             'settings' => $this->nl->get_config(),

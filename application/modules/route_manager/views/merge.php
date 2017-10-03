@@ -190,7 +190,7 @@
                             <select id="ft" name="ft" class="form-control">
                                 <?php foreach ($fthanas as $t): ?>
                                     <option  value="<?php echo $t['id']; ?>" <?php
-                                    echo $edited_route['to_thana'] == $t['id'] ? 'selected="yes"' : '';
+                                    echo $edited_route['from_thana'] == $t['id'] ? 'selected="yes"' : '';
                                     ?>>
 
                                         <?php echo $t[$this->nl->lang_based_data('bn_name', 'name', FALSE, $edited_route['lang_code'])]; ?>
