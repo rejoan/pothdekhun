@@ -106,7 +106,11 @@ class Route_manager extends MX_Controller {
         $stoppage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', FALSE, $edited_route['lang_code']);
         $rid = $this->nl->lang_based_data('route_id', 'id', FALSE, $edited_route['lang_code']);
         $prev_route = $this->rmn->get_row($route_id);
-        //var_dump($col_name,$col_name_rev);return;
+//        $losers = $this->pm->get_row('route_id', $route_id, 'losers');
+//        foreach($losers as $key => $l){
+//            echo $key.'>>>>'.$l.'<br/>';
+//        }
+//        return;
         $data = array(
             'title' => lang('edit_route'),
             'action' => site_url_tr('route_manager/merge'),
@@ -283,16 +287,16 @@ class Route_manager extends MX_Controller {
         $evidence = 3;
         $evidence2 = 3;
         foreach ($losers as $key => $l) {
-            if ($l == '0') {
+            if ($l == '0' || $key == 'id' || $key == 'route_id') {
                 continue;
             }
             $cond = array(
                 'route_id' => $route_id,
-                'user_id' => $l
+                'user_id' => $l[$key]
             );
-            $this->rmn->deduct_point($key,$cond);
-            $msg = 'You lost <strong>' . $$key . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
-            modules::run('notifications/sent_notification', $l, $msg);
+            $this->rmn->deduct_point($$key,$cond);
+            $msg = 'You lost <strong>' . $l . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
+            modules::run('notifications/sent_notification', $l[$key], $msg);
         }
     }
 

@@ -67,7 +67,7 @@ class Route_manager_model extends CI_Model {
     }
 
     public function deduct_point($point,$cond) {
-        $this->db->set('point', 'point - ' . $$point)->where($cond)->update('route_points');
+        $this->db->set('point', 'point - ' . $point)->where($cond)->update('route_points');
     }
 
 }
