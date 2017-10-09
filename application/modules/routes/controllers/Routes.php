@@ -519,14 +519,14 @@ class Routes extends MX_Controller {
             $gainers['from_place'] = $route['added_by'];
         }
 
-        //echo '<pre>';var_dump($gainers);return;
+        
         if ($route['to_place'] != $post['t'] && $edited_route[$to_place] == $post['t']) {
             $gainers['to_place'] = $edited_by;
             $losers['to_place'] = $loser['to_place'];
         }else{
             $gainers['to_place'] = $route['added_by'];
         }
-
+        //echo '<pre>';var_dump($gainers);return;
         if ($route['rent'] != $post['main_rent'] && $edited_route['rent'] == $post['main_rent']) {
             $gainers['rent'] = $edited_by;
             $losers['rent'] = $loser['rent'];
