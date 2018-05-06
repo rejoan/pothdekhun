@@ -213,6 +213,8 @@ class Route_manager extends MX_Controller {
                     }
                 }
                 $test = modules::run('routes/point_logs', $edited_route['route_id'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by'], 'merge');
+//                echo '<pre>';
+//                var_dump($test);return;
 //                $losers = $this->pm->get_row('route_id', $route_id, 'losers');
 //                $from_district = 3;
 //                $from_thana = 3;

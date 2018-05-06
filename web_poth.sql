@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2018 at 07:50 PM
+-- Generation Time: May 06, 2018 at 08:36 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -495,7 +495,7 @@ CREATE TABLE `gainers` (
   `poribohon` int(10) UNSIGNED NOT NULL,
   `evidence` int(10) UNSIGNED NOT NULL,
   `evidence2` int(10) UNSIGNED NOT NULL,
-  `added` int(10) UNSIGNED NOT NULL,
+  `added` datetime NOT NULL,
   `route_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -504,7 +504,7 @@ CREATE TABLE `gainers` (
 --
 
 INSERT INTO `gainers` (`id`, `from_district`, `from_thana`, `to_district`, `to_thana`, `from_place`, `to_place`, `rent`, `transport_type`, `departure_time`, `poribohon`, `evidence`, `evidence2`, `added`, `route_id`) VALUES
-(1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4294967295, 233);
+(1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, '0000-00-00 00:00:00', 233);
 
 -- --------------------------------------------------------
 
@@ -550,7 +550,7 @@ CREATE TABLE `losers` (
   `poribohon` int(10) UNSIGNED NOT NULL,
   `evidence` int(10) UNSIGNED NOT NULL,
   `evidence2` int(10) UNSIGNED NOT NULL,
-  `added` int(10) UNSIGNED NOT NULL,
+  `added` datetime NOT NULL,
   `route_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -559,7 +559,7 @@ CREATE TABLE `losers` (
 --
 
 INSERT INTO `losers` (`id`, `from_district`, `from_thana`, `to_district`, `to_thana`, `from_place`, `to_place`, `rent`, `transport_type`, `departure_time`, `poribohon`, `evidence`, `evidence2`, `added`, `route_id`) VALUES
-(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 233);
+(3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', 233);
 
 -- --------------------------------------------------------
 
@@ -589,7 +589,8 @@ INSERT INTO `notifications` (`id`, `user_id`, `notification_msg`, `added`, `is_r
 (8, 18, 'Route <strong>আসাদগেট</strong> to <strong>কালি তলা</strong> not approved because of insufficient content[ID was 108]', '2017-03-02 02:30:09', 0),
 (9, 71, 'Earned <strong>15</strong> point for add <a href=\"http://www.pothdekhun.com/routes/show/232\">Route</a>', '2017-06-17 08:26:43', 0),
 (10, 6, 'Your route edit not approve because of insufficient content', '2018-05-06 23:13:44', 0),
-(11, 4, 'You lost <strong>4294967295</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-06 23:50:06', 0);
+(11, 4, 'You lost <strong>4294967295</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-06 23:50:06', 0),
+(12, 4, 'You lost <strong>4294967295</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 00:35:13', 0);
 
 -- --------------------------------------------------------
 
@@ -1128,7 +1129,7 @@ INSERT INTO `routes` (`id`, `from_district`, `from_thana`, `from_place`, `to_pla
 (230, 1, 520, 'Gabtoli', 'Dinajpur Bus Stand', 26, 405, '23.7837257,90.3442449', '25.6447861,88.6463007', 'bus', 20, 'Night<br/>==============<br/>10 PM', 1200, '149639872018519899_1518425628222974_7981220485998568083_n.jpg', '149639872018221552_1499268233472047_9186953444788594009_n.jpg', '2017-06-02 06:19:01', 2, 1, 335802, 27987, 'ac,scania,chair,gate_lock'),
 (231, 1, 520, 'Khaleque Pump, Darus Salam', 'Sathia Bus Stand', 23, 375, '23.7786912,90.3572056', '24.0867143,89.5238107', 'bus', 134, '1', 500, '149641729518010068_807083732779854_3617145762603840689_n.jpg', '149641729518057907_805491782939049_6639108081387165376_n.jpg', '2017-06-02 11:29:20', 2, 1, 187642, 16929, 'chair,gate_lock'),
 (232, 1, 511, 'Saidabad', 'Chatkhil', 49, 133, '23.7136051,90.427837', '23.0600146,91.0760479', 'bus', 193, '1', 300, '149751783218951501_491614034563780_3470098699717841830_n.jpg', '149751783318011040_465475483844302_2284336710706648993_n.jpg', '2017-06-17 08:26:43', 71, 1, 137502, 11633, 'non_ac,chair,gate_lock'),
-(233, 1, 537, 'AbdullahPur', 'Motijheel', 1, 521, '23.8878554,90.3895898', '23.7329724,90.417231', 'bus', 194, '1', 50, '149771700419105715_1519224471483031_1799670547832542849_n.jpg', '149771700519145826_1519224661483012_6295910850521315144_n.jpg', '2018-05-06 23:50:06', 2, 1, 21740, 3732, 'acunknown');
+(233, 1, 537, 'AbdullahPur', 'Motijheel', 1, 521, '23.8878554,90.3895898', '23.7329724,90.417231', 'bus', 194, '1', 50, '149771700419105715_1519224471483031_1799670547832542849_n.jpg', '149771700519145826_1519224661483012_6295910850521315144_n.jpg', '2018-05-07 00:35:13', 2, 1, 21740, 3732, 'acunknown');
 
 -- --------------------------------------------------------
 
@@ -3298,11 +3299,11 @@ INSERT INTO `stoppages` (`id`, `place_name`, `comments`, `lat_long`, `rent`, `ro
 (2881, 'Gazipur', '', '', 1200, 230, 3),
 (2882, 'Sirajganj', '', '', 500, 231, 1);
 INSERT INTO `stoppages` (`id`, `place_name`, `comments`, `lat_long`, `rent`, `route_id`, `position`) VALUES
-(2893, 'Banani/Kakoli', 'Approximate fare', '', 25, 233, 1),
-(2894, 'Mohakhali', 'Approximate fare', '', 25, 233, 2),
-(2895, 'Farmgate', 'Approximate fare', '', 35, 233, 3),
-(2896, 'ShahBag', 'Approximate fare', '', 45, 233, 4),
-(2897, 'Pressclub', 'Approximate fare', '', 50, 233, 5);
+(2898, 'Banani/Kakoli', 'Approximate fare', '', 25, 233, 1),
+(2899, 'Mohakhali', 'Approximate fare', '', 25, 233, 2),
+(2900, 'Farmgate', 'Approximate fare', '', 35, 233, 3),
+(2901, 'ShahBag', 'Approximate fare', '', 45, 233, 4),
+(2902, 'Pressclub', 'Approximate fare', '', 50, 233, 5);
 
 -- --------------------------------------------------------
 
@@ -6075,13 +6076,13 @@ ALTER TABLE `edited_poribohons`
 -- AUTO_INCREMENT for table `edited_routes`
 --
 ALTER TABLE `edited_routes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `edited_stoppages`
 --
 ALTER TABLE `edited_stoppages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `gainers`
@@ -6099,13 +6100,13 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `losers`
 --
 ALTER TABLE `losers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `point_paid`
@@ -6159,7 +6160,7 @@ ALTER TABLE `route_points`
 -- AUTO_INCREMENT for table `stoppages`
 --
 ALTER TABLE `stoppages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2898;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2903;
 
 --
 -- AUTO_INCREMENT for table `stoppage_bn`
