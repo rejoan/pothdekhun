@@ -313,17 +313,19 @@ class Route_manager extends MX_Controller {
         $rent = 3;
         $evidence = 3;
         $evidence2 = 3;
-        foreach ($losers as $key => $l) {
-            if ($l == '0' || $key == 'id' || $key == 'route_id') {
+        $points = 0;
+        foreach ($losers as $col_name => $user_id) {
+            if ($user_id == '0' || $col_name == 'id' || $col_name == 'route_id' || $col_name == 'added') {
                 continue;
             }
             $cond = array(
                 'route_id' => $route_id,
-                'user_id' => $l
+                'user_id' => $user_id
             );
-            $this->rmn->deduct_point($$key, $cond);
-            $msg = 'You lost <strong>' . $l . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
-            modules::run('notifications/sent_notification', $l[$key], $msg);
+            $this->rmn->deduct_point($$col_name, $cond);
+            $points += $$col_name;
+            $msg = 'You lost <strong>' . $points . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
+            modules::run('notifications/sent_notification', $user_id, $msg);
         }
     }
 

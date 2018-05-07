@@ -487,27 +487,27 @@ class Routes extends MX_Controller {
         
         if ($route['from_district'] != $post['fd'] && $edited_route['from_district'] == $post['fd']) {//when posted & previous data differ, also edited data & posted data (admin not touched) differ then edit happened
             $gainers['from_district'] = $edited_by;
-            $losers['from_district'] = $loser['from_district'];
+            $losers['from_district'] = isset($loser['from_district']) ? $loser['from_district']:$route['added_by'];
         }else{
             $gainers['from_district'] = 0;
         }
         //return $gainers;
         if ($route['from_thana'] != $post['ft'] && $edited_route['from_thana'] == $post['ft']) {
             $gainers['from_thana'] = $edited_by;
-            $losers['from_thana'] = $loser['from_thana'];
+            $losers['from_thana'] = isset($loser['from_thana']) ? $loser['from_thana'] : $route['added_by'];
         }else{
             $gainers['from_thana'] = 0;
         }
 
         if ($route['to_district'] != $post['td'] && $edited_route['to_district'] == $post['td']) {
             $gainers['to_district'] = $edited_by;
-            $losers['to_district'] = $loser['to_district'];
+            $losers['to_district'] = isset($loser['to_district']) ? $loser['to_district'] : $route['added_by'];
         }else{// no gainer
             $gainers['to_district'] = 0;
         }
         if ($route['to_thana'] != $post['th'] && $edited_route['to_thana'] == $post['th']) {
             $gainers['to_thana'] = $edited_by;
-            $losers['to_thana'] = $loser['to_thana'];
+            $losers['to_thana'] = isset($loser['to_thana']) ? $loser['to_thana'] : $route['added_by'];
         }else{
             $gainers['to_thana'] = 0;
         }
@@ -515,7 +515,7 @@ class Routes extends MX_Controller {
         
         if ($route['from_place'] != $post['f'] && $edited_route[$from_place] == $post['f']) {
             $gainers['from_place'] = $edited_by;
-            $losers['from_place'] = $loser['from_place'];
+            $losers['from_place'] = isset($loser['from_place']) ? $loser['from_place'] : $route['added_by'];
         }else{
             $gainers['from_place'] = 0;
         }
@@ -523,38 +523,38 @@ class Routes extends MX_Controller {
         
         if ($route['to_place'] != $post['t'] && $edited_route[$to_place] == $post['t']) {
             $gainers['to_place'] = $edited_by;
-            $losers['to_place'] = $loser['to_place'];
+            $losers['to_place'] = isset($loser['to_place']) ? $loser['to_place'] : $route['added_by'];
         }else{
             $gainers['to_place'] = 0;
         }
         //return $gainers;
         if ($route['rent'] != $post['main_rent'] && $edited_route['rent'] == $post['main_rent']) {
             $gainers['rent'] = $edited_by;
-            $losers['rent'] = $loser['rent'];
+            $losers['rent'] = isset($loser['rent']) ? $loser['rent'] : $route['added_by'];
         }else{
             $gainers['rent'] = 0;
         }
         if ($route['transport_type'] != $post['transport_type'] && $edited_route['transport_type'] == $post['transport_type']) {
             $gainers['transport_type'] = $edited_by;
-            $losers['transport_type'] = $loser['transport_type'];
+            $losers['transport_type'] = isset($loser['transport_type']) ? $loser['transport_type'] : $route['added_by'];
         }else{
             $gainers['transport_type'] = 0;
         }
         if ($route['departure_time'] != $post['departure_time'] && $edited_route[$departure] == $post['departure_time']) {
             $gainers['departure_time'] = $edited_by;
-            $losers['departure_time'] = $loser['departure_time'];
+            $losers['departure_time'] = isset($loser['departure_time']) ? $loser['departure_time']: $route['added_by'];
         }else{
             $gainers['departure_time'] = 0;
         }
         if ($route['poribohon_id'] != $poribohons['id'] && $edited_route['poribohon_id'] == $poribohons['id']) {
             $gainers['poribohon'] = $edited_by;
-            $losers['poribohon'] = $loser['poribohon_id'];
+            $losers['poribohon'] = isset($loser['poribohon_id']) ? $loser['poribohon_id']: $route['added_by'];
         }else{
             $gainers['poribohon'] = 0;
         }
         if ($route['evidence'] != $evidence && $edited_route['evidence'] == $evidence) {
             $gainers['evidence'] = $edited_by;
-            $losers['evidence'] = $loser['evidence'];
+            $losers['evidence'] = isset($loser['evidence']) ? $loser['evidence']: $route['added_by'];
         }else{
             $gainers['evidence'] = 0;
         }
@@ -563,7 +563,7 @@ class Routes extends MX_Controller {
         }
         if ($route['evidence2'] != $evidence2 && $edited_route['evidence2'] == $evidence2) {
             $gainers['evidence2'] = $edited_by;
-            $losers['evidence2'] = $loser['evidence2'];
+            $losers['evidence2'] = isset($loser['evidence2']) ? $loser['evidence2']: $route['added_by'];
         }else{
             $gainers['evidence2'] = 0;
         }
