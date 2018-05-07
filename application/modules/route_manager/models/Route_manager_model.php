@@ -66,8 +66,13 @@ class Route_manager_model extends CI_Model {
         }
     }
 
-    public function deduct_point($point,$cond) {
-        $this->db->set('point', 'point - ' . $point)->where($cond)->update('route_points');
+    public function deduct_point($point, $cond, $what = 'earned') {
+        $my_poits = $this->db->where($cond)->get('route_points');
+        if ($my_poits->num_rows() > 0) {//deduct point for this user & route
+            $this->db->set('point', 'point - ' . $point)->where($cond)->update('route_points', array('what', 'lost'));
+        } else {
+            $this->db->insert('route_points',array(''));
+        }
     }
 
 }
