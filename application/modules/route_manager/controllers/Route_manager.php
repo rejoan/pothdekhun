@@ -313,19 +313,21 @@ class Route_manager extends MX_Controller {
         $rent = 3;
         $evidence = 3;
         $evidence2 = 3;
-        $points = 0;
-        foreach ($losers as $col_name => $user_id) {
-            if ($user_id == '0' || $col_name == 'id' || $col_name == 'route_id' || $col_name == 'added') {
+        foreach ($losers as $col_name => $user_id) {//loop all loser
+            if ($user_id == '0' || $col_name == 'id' || $col_name == 'route_id' || $col_name == 'added') {//skip columns which has no point & ZERO mean no edit
                 continue;
             }
-            $cond = array(
+            $msg = 'You lost <strong>' . $$col_name . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
+            $points[] = array(
                 'route_id' => $route_id,
-                'user_id' => $user_id
+                'user_id' => $user_id,
+                'point' => $$col_name,
+                'what' => 'lost'
             );
-            $this->rmn->deduct_point($$col_name, $cond);
-            $points += $$col_name;
-            $msg = 'You lost <strong>' . $points . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
+
             modules::run('notifications/sent_notification', $user_id, $msg);
+            //add all losers data
+            modules::run('reputation/route_points', $route_id, $user_id, $$col_name, '', 'lost');
         }
     }
 
