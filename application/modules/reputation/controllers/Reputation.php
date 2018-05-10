@@ -51,13 +51,12 @@ class Reputation extends MX_Controller {
         $this->nl->view_loader('user', 'latest', NULL, $data, 'index', 'rightbar', 'menu', TRUE);
     }
 
-    public function route_points($route_id, $user_id, $point, $note,$what = 'earned') {
+    public function route_points($route_id, $user_id, $point, $note) {
         $points = array(
             'route_id' => $route_id,
             'user_id' => $user_id,
             'point' => $point,
-            'note' => $note,
-            'what' => $what
+            'note' => $note
         );
         $this->db->set('happened_at', 'NOW()', FALSE);
         $this->db->insert('route_points', $points);
