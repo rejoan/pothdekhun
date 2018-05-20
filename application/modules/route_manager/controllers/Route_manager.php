@@ -208,11 +208,17 @@ class Route_manager extends MX_Controller {
                     }
                 }
 
-                $this->db->set('added', 'NOW()', FALSE);
+                
             }
+            //provide point to gainer
+            $gainers_point = modules::run('routes/point_logs', $edited_route['route_id'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'));
 
-
-
+            $note = trim($this->input->post('note'));
+            modules::run('reputation/route_points', $route_id, $edited_route['added_by'], $gainers_point, $note);
+            $msg = 'Earned <strong>' . $gainers_point . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
+            modules::run('notifications/sent_notification', $edited_route['added_by'], $msg);
+            
+            $this->db->set('added', 'NOW()', FALSE);
             $this->pm->updater($rid, $route_id, $route_table, $route);
 
             //stoppage data process
@@ -251,17 +257,8 @@ class Route_manager extends MX_Controller {
                 $this->email->send();
             }
 
-            if ($this->input->post('note')) {
-                $note = trim($this->input->post('note'));
-                //echo '<pre>';
-                //var_dump($edited_route['route_id'], $this->input->post());return;
-//                $gainers_point = modules::run('routes/point_logs', $edited_route['route_id'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'));
-//                var_dump($gainers_point);
-//                return;
-                modules::run('reputation/route_points', $route_id, $edited_route['added_by'], $gainers_point, $note);
-                $msg = 'Earned <strong>' . $gainers_point . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
-                modules::run('notifications/sent_notification', $edited_route['added_by'], $msg);
-            }
+
+
             $this->pm->deleter('route_id', $route_id, 'edited_routes');
             $this->session->set_flashdata('message', lang('edit_success'));
             redirect_tr('route_manager');
