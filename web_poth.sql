@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2018 at 08:36 PM
+-- Generation Time: May 20, 2018 at 12:12 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -459,6 +459,13 @@ CREATE TABLE `edited_routes` (
   `amenities` set('ac','non_ac','normal_ac','scania','hyundai','volvo','hino_1j','rm2','mercedes_benz','chair','semi','local','gate_lock','acunknown') COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `edited_routes`
+--
+
+INSERT INTO `edited_routes` (`id`, `from_district`, `from_thana`, `from_place`, `to_district`, `to_thana`, `to_place`, `transport_type`, `departure_time`, `route_id`, `poribohon_id`, `rent`, `evidence`, `evidence2`, `added_by`, `added`, `lang_code`, `amenities`) VALUES
+(6, 1, 537, 'AbdullahPursdad', 1, 521, 'Motijheeldsa', 'bus', '1', 233, 194, 50, '149771700419105715_1519224471483031_1799670547832542849_n.jpg', '149771700519145826_1519224661483012_6295910850521315144_n.jpg', 6, '2018-05-20 16:06:59', 'en', 'acunknown');
+
 -- --------------------------------------------------------
 
 --
@@ -472,39 +479,19 @@ CREATE TABLE `edited_stoppages` (
   `rent` int(11) NOT NULL,
   `route_id` int(10) UNSIGNED NOT NULL,
   `position` int(11) NOT NULL,
-  `real_id` int(11) NOT NULL
+  `real_id` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `gainers`
+-- Dumping data for table `edited_stoppages`
 --
 
-CREATE TABLE `gainers` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `from_district` int(10) UNSIGNED NOT NULL,
-  `from_thana` int(10) UNSIGNED NOT NULL,
-  `to_district` int(10) UNSIGNED NOT NULL,
-  `to_thana` int(10) UNSIGNED NOT NULL,
-  `from_place` int(10) UNSIGNED NOT NULL,
-  `to_place` int(10) UNSIGNED NOT NULL,
-  `rent` int(10) UNSIGNED NOT NULL,
-  `transport_type` int(10) UNSIGNED NOT NULL,
-  `departure_time` int(10) UNSIGNED NOT NULL,
-  `poribohon` int(10) UNSIGNED NOT NULL,
-  `evidence` int(10) UNSIGNED NOT NULL,
-  `evidence2` int(10) UNSIGNED NOT NULL,
-  `added` datetime NOT NULL,
-  `route_id` bigint(20) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `gainers`
---
-
-INSERT INTO `gainers` (`id`, `from_district`, `from_thana`, `to_district`, `to_thana`, `from_place`, `to_place`, `rent`, `transport_type`, `departure_time`, `poribohon`, `evidence`, `evidence2`, `added`, `route_id`) VALUES
-(1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, '0000-00-00 00:00:00', 233);
+INSERT INTO `edited_stoppages` (`id`, `place_name`, `comments`, `rent`, `route_id`, `position`, `real_id`) VALUES
+(26, 'Mohakhali', 'Approximate fare', 25, 6, 1, 'edited'),
+(27, 'Farmgate', 'Approximate fare', 35, 6, 2, '2987'),
+(28, 'Banani/Kakoli', 'Approximate fare', 25, 6, 3, '2988'),
+(29, 'ShahBag', 'Approximate fare', 45, 6, 4, '2989'),
+(30, 'Pressclu', 'Approximate fare', 50, 6, 5, 'edited');
 
 -- --------------------------------------------------------
 
@@ -533,37 +520,6 @@ INSERT INTO `languages` (`id`, `lang_code`, `lang_name`, `lang_flag`, `lang_orde
 -- --------------------------------------------------------
 
 --
--- Table structure for table `losers`
---
-
-CREATE TABLE `losers` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `from_district` int(10) UNSIGNED NOT NULL,
-  `from_thana` int(10) UNSIGNED NOT NULL,
-  `to_district` int(10) UNSIGNED NOT NULL,
-  `to_thana` int(10) UNSIGNED NOT NULL,
-  `from_place` int(10) UNSIGNED NOT NULL,
-  `to_place` int(10) UNSIGNED NOT NULL,
-  `rent` int(10) UNSIGNED NOT NULL,
-  `transport_type` int(10) UNSIGNED NOT NULL,
-  `departure_time` int(10) UNSIGNED NOT NULL,
-  `poribohon` int(10) UNSIGNED NOT NULL,
-  `evidence` int(10) UNSIGNED NOT NULL,
-  `evidence2` int(10) UNSIGNED NOT NULL,
-  `added` datetime NOT NULL,
-  `route_id` bigint(20) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `losers`
---
-
-INSERT INTO `losers` (`id`, `from_district`, `from_thana`, `to_district`, `to_thana`, `from_place`, `to_place`, `rent`, `transport_type`, `departure_time`, `poribohon`, `evidence`, `evidence2`, `added`, `route_id`) VALUES
-(3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', 233);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `notifications`
 --
 
@@ -588,9 +544,56 @@ INSERT INTO `notifications` (`id`, `user_id`, `notification_msg`, `added`, `is_r
 (6, 30, 'Earned <strong>3</strong> point for add <a href=\"http://www.pothdekhun.com/routes/show/145\">Route</a>', '2017-02-19 19:07:37', 0),
 (8, 18, 'Route <strong>আসাদগেট</strong> to <strong>কালি তলা</strong> not approved because of insufficient content[ID was 108]', '2017-03-02 02:30:09', 0),
 (9, 71, 'Earned <strong>15</strong> point for add <a href=\"http://www.pothdekhun.com/routes/show/232\">Route</a>', '2017-06-17 08:26:43', 0),
-(10, 6, 'Your route edit not approve because of insufficient content', '2018-05-06 23:13:44', 0),
+(10, 6, 'Your route edit not approve because of insufficient content', '2018-05-06 23:13:44', 1),
 (11, 4, 'You lost <strong>4294967295</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-06 23:50:06', 0),
-(12, 4, 'You lost <strong>4294967295</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 00:35:13', 0);
+(12, 4, 'You lost <strong>4294967295</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 00:35:13', 0),
+(13, 2, 'You lost <strong>2018-05-07 00:37:30</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 00:37:31', 1),
+(14, 6, 'Your route edit not approve because of insufficient content', '2018-05-07 00:53:49', 1),
+(15, 2, 'You lost <strong>2018-05-07 00:54:04</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 00:54:04', 1),
+(16, 2, 'You lost <strong>2018-05-07 00:55:20</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 00:55:20', 1),
+(17, 2, 'You lost <strong>2018-05-07 00:55:20</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 00:56:19', 1),
+(18, 6, 'You lost <strong>6</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 00:58:40', 1),
+(19, 6, 'You lost <strong>6</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 00:58:40', 1),
+(20, 2, 'You lost <strong>2018-05-07 00:55:20</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 00:58:40', 1),
+(21, 2, 'You lost <strong>2018-05-07 00:59:05</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 00:59:05', 1),
+(22, 2, 'You lost <strong>2</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 22:30:23', 1),
+(23, 2, 'You lost <strong>2</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 22:30:23', 1),
+(24, 2, 'You lost <strong>2</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 22:30:23', 1),
+(25, 2, 'You lost <strong>2018-05-07 22:30:23</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 22:30:23', 1),
+(26, 2, 'You lost <strong>3</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 22:42:09', 1),
+(27, 2, 'You lost <strong>6</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 22:42:09', 1),
+(28, 2, 'You lost <strong>9</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 22:42:09', 1),
+(30, 6, 'Your route edit not approve because of insufficient content', '2018-05-07 22:42:27', 1),
+(31, 2, 'You lost <strong>3</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 22:42:52', 1),
+(32, 2, 'You lost <strong>6</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 22:42:52', 1),
+(33, 2, 'You lost <strong>9</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 22:42:52', 1),
+(35, 6, 'Your route edit not approve because of insufficient content', '2018-05-07 22:45:08', 1),
+(36, 2, 'You lost <strong>3</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 22:45:34', 1),
+(37, 2, 'You lost <strong>6</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 22:45:34', 1),
+(38, 2, 'You lost <strong>9</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 22:45:34', 1),
+(39, 6, 'You lost <strong>3</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 23:00:49', 1),
+(40, 6, 'You lost <strong>6</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 23:00:49', 1),
+(41, 6, 'You lost <strong>9</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 23:00:49', 1),
+(42, 6, 'Earned <strong>9</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 23:00:49', 1),
+(43, 6, 'You lost <strong>3</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 23:07:58', 1),
+(44, 6, 'You lost <strong>6</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 23:07:58', 1),
+(45, 6, 'You lost <strong>9</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 23:07:58', 1),
+(46, 6, 'Earned <strong>6</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-07 23:07:58', 1),
+(47, 71, 'You lost <strong>3</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/232\">Route</a>', '2018-05-07 23:08:49', 0),
+(48, 71, 'You lost <strong>6</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/232\">Route</a>', '2018-05-07 23:08:49', 0),
+(49, 2, 'You lost <strong>3</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/230\">Route</a>', '2018-05-07 23:10:38', 1),
+(50, 2, 'You lost <strong>6</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/230\">Route</a>', '2018-05-07 23:10:38', 1),
+(51, 2, 'You lost <strong>9</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/230\">Route</a>', '2018-05-07 23:10:38', 1),
+(52, 2, 'You lost <strong>12</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/230\">Route</a>', '2018-05-07 23:10:38', 1),
+(53, 6, 'Earned <strong>12</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/230\">Route</a>', '2018-05-07 23:10:38', 1),
+(54, 6, 'You lost <strong>3</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/232\">Route</a>', '2018-05-07 23:14:52', 1),
+(55, 6, 'You lost <strong>6</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/232\">Route</a>', '2018-05-07 23:14:52', 1),
+(56, 6, 'Earned <strong>6</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/232\">Route</a>', '2018-05-07 23:14:52', 1),
+(57, 6, 'You lost <strong>3</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-08 23:20:47', 1),
+(58, 6, 'You lost <strong>3</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-08 23:20:47', 1),
+(59, 6, 'You lost <strong>3</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-08 23:20:47', 1),
+(60, 6, 'Your route edit not approve because of insufficient content', '2018-05-20 15:39:31', 0),
+(61, 6, 'Earned <strong>0</strong> point for edit <a target=\"_blank\" href=\"http://localhost/pothdekhun/routes/show/233\">Route</a>', '2018-05-20 16:03:30', 0);
 
 -- --------------------------------------------------------
 
@@ -1126,10 +1129,10 @@ INSERT INTO `routes` (`id`, `from_district`, `from_thana`, `from_place`, `to_pla
 (227, 1, 493, 'Mohammadpur bus stand', 'Staff Quarter', 1, 506, '23.7575496,90.362109', '23.7902903,90.3970702', 'bus', 191, '1', 35, '', '', '2017-04-17 21:51:08', 2, 1, 7087, 1233, 'non_ac,local'),
 (228, 1, 520, 'Kallyanpur', 'Khagrachari Bus Stand', 47, 114, '23.7822036,90.3595372', '23.1107993,91.9739449', 'bus', 23, '1', 520, '14940899337219.jpg', '', '2017-05-24 13:16:35', 2, 1, 268590, 22404, 'non_ac,chair,gate_lock'),
 (229, 1, 520, 'Gabtoli', 'Panchagarh Bus Stand', 31, 435, '23.7837257,90.3442449', '26.3311675,88.5550028', 'bus', 20, 'Night AC : 10 PM', 800, '149639814718740658_1525452864186917_6684880508723795122_n.jpg', '', '2017-06-02 06:10:00', 2, 1, 410601, 33600, 'ac,rm2,chair,gate_lock'),
-(230, 1, 520, 'Gabtoli', 'Dinajpur Bus Stand', 26, 405, '23.7837257,90.3442449', '25.6447861,88.6463007', 'bus', 20, 'Night<br/>==============<br/>10 PM', 1200, '149639872018519899_1518425628222974_7981220485998568083_n.jpg', '149639872018221552_1499268233472047_9186953444788594009_n.jpg', '2017-06-02 06:19:01', 2, 1, 335802, 27987, 'ac,scania,chair,gate_lock'),
+(230, 1, 520, 'Gabtolis', 'Dinajpur Bus Stands', 26, 405, '23.7837257,90.3442449', '25.6447861,88.6463007', 'bus', 20, '1', 1000, '149639872018519899_1518425628222974_7981220485998568083_n.jpg', '149639872018221552_1499268233472047_9186953444788594009_n.jpg', '2018-05-07 23:10:38', 2, 1, 335802, 27987, 'acunknown'),
 (231, 1, 520, 'Khaleque Pump, Darus Salam', 'Sathia Bus Stand', 23, 375, '23.7786912,90.3572056', '24.0867143,89.5238107', 'bus', 134, '1', 500, '149641729518010068_807083732779854_3617145762603840689_n.jpg', '149641729518057907_805491782939049_6639108081387165376_n.jpg', '2017-06-02 11:29:20', 2, 1, 187642, 16929, 'chair,gate_lock'),
-(232, 1, 511, 'Saidabad', 'Chatkhil', 49, 133, '23.7136051,90.427837', '23.0600146,91.0760479', 'bus', 193, '1', 300, '149751783218951501_491614034563780_3470098699717841830_n.jpg', '149751783318011040_465475483844302_2284336710706648993_n.jpg', '2017-06-17 08:26:43', 71, 1, 137502, 11633, 'non_ac,chair,gate_lock'),
-(233, 1, 537, 'AbdullahPur', 'Motijheel', 1, 521, '23.8878554,90.3895898', '23.7329724,90.417231', 'bus', 194, '1', 50, '149771700419105715_1519224471483031_1799670547832542849_n.jpg', '149771700519145826_1519224661483012_6295910850521315144_n.jpg', '2018-05-07 00:35:13', 2, 1, 21740, 3732, 'acunknown');
+(232, 1, 511, 'Saidabad', 'Chatkhil', 49, 133, '23.7136051,90.427837', '23.0600146,91.0760479', 'bus', 193, 'Example:brMorning : 9 AMbrNight : 10 PM', 300, '149751783218951501_491614034563780_3470098699717841830_n.jpg', '149751783318011040_465475483844302_2284336710706648993_n.jpg', '2018-05-07 23:14:52', 71, 1, 137502, 11633, 'acunknown'),
+(233, 1, 537, 'AbdullahPursdad', 'Motijheeldsa', 1, 521, '23.8878554,90.3895898', '23.7329724,90.417231', 'bus', 194, '1', 50, '149771700419105715_1519224471483031_1799670547832542849_n.jpg', '149771700519145826_1519224661483012_6295910850521315144_n.jpg', '2018-05-20 16:11:12', 2, 1, 21740, 3732, 'acunknown');
 
 -- --------------------------------------------------------
 
@@ -1409,6 +1412,20 @@ CREATE TABLE `route_points` (
   `note` text COLLATE utf8_unicode_ci NOT NULL,
   `happened_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `route_points`
+--
+
+INSERT INTO `route_points` (`id`, `route_id`, `user_id`, `point`, `note`, `happened_at`) VALUES
+(1, 233, 6, 0, 'congrat', '2018-05-07 23:00:49'),
+(2, 233, 6, 6, 'apprioved', '2018-05-07 23:07:58'),
+(3, 230, 6, 12, 'test', '2018-05-07 23:10:38'),
+(4, 232, 6, 6, 'ok', '2018-05-07 23:14:52'),
+(5, 233, 6, 3, '', '2018-05-08 23:20:47'),
+(6, 233, 6, 3, '', '2018-05-08 23:20:47'),
+(7, 233, 6, 3, '', '2018-05-08 23:20:47'),
+(8, 233, 6, 0, 'asdas', '2018-05-20 16:03:30');
 
 -- --------------------------------------------------------
 
@@ -3294,16 +3311,16 @@ INSERT INTO `stoppages` (`id`, `place_name`, `comments`, `lat_long`, `rent`, `ro
 (2876, 'Rangpur', 'Same fare. Passenger not drop here', '', 800, 229, 1),
 (2877, 'Sirajganj', 'Same fare. Passenger not drop here', '', 800, 229, 2),
 (2878, 'Gazipur', '', '', 800, 229, 3),
-(2879, 'Rangpur', 'Same fare. Passenger not drop here ', '', 1200, 230, 1),
-(2880, 'Sirajganj', 'Same fare. Passenger not drop here ', '', 1200, 230, 2),
-(2881, 'Gazipur', '', '', 1200, 230, 3),
-(2882, 'Sirajganj', '', '', 500, 231, 1);
+(2882, 'Sirajganj', '', '', 500, 231, 1),
+(2968, 'Rangpur', 'Same fare. Passenger not drop here ', '', 1200, 230, 1),
+(2969, 'Sirajganj', 'Same fare. Passenger not drop here ', '', 1200, 230, 2),
+(2970, 'Gazipur', '', '', 1200, 230, 3);
 INSERT INTO `stoppages` (`id`, `place_name`, `comments`, `lat_long`, `rent`, `route_id`, `position`) VALUES
-(2898, 'Banani/Kakoli', 'Approximate fare', '', 25, 233, 1),
-(2899, 'Mohakhali', 'Approximate fare', '', 25, 233, 2),
-(2900, 'Farmgate', 'Approximate fare', '', 35, 233, 3),
-(2901, 'ShahBag', 'Approximate fare', '', 45, 233, 4),
-(2902, 'Pressclub', 'Approximate fare', '', 50, 233, 5);
+(3006, 'Mohakhali', 'Approximate fare', '', 25, 233, 1),
+(3007, 'Farmgate', 'Approximate fare', '', 35, 233, 2),
+(3008, 'Banani/Kakoli', 'Approximate fare', '', 25, 233, 3),
+(3009, 'ShahBag', 'Approximate fare', '', 45, 233, 4),
+(3010, 'Pressclu', 'Approximate fare', '', 50, 233, 5);
 
 -- --------------------------------------------------------
 
@@ -5760,9 +5777,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `mobile`, `reg_date`, `last_logged`, `user_type`, `avatar`, `status`) VALUES
-(2, 'rejoan', 'b7878bb4b8dd985d8bbee4dbf3fb67c2', 'rejoan.er@gmail.com', '', '2017-02-14 13:20:00', '2017-06-17 11:14:26', 'admin', 'add.jpg', 1),
+(2, 'rejoan', 'b7878bb4b8dd985d8bbee4dbf3fb67c2', 'rejoan.er@gmail.com', '', '2017-02-14 13:20:00', '2018-05-20 07:15:51', 'admin', 'add.jpg', 1),
 (4, 'anonymus', '81dc9bdb52d04dc20036dbd8313ed055', 'anonymus@gmail.com', '01961349181', '2017-02-14 13:20:00', '0000-00-00 00:00:00', 'user', '', 1),
-(6, 'rezwan', '81dc9bdb52d04dc20036dbd8313ed055', 'refatju@yahoo.com', '', '2016-12-31 12:51:48', '2018-05-06 19:07:47', 'user', 'PNG_transparency_demonstration_1.png', 1),
+(6, 'rezwan', '81dc9bdb52d04dc20036dbd8313ed055', 'refatju@yahoo.com', '', '2016-12-31 12:51:48', '2018-05-20 07:16:07', 'user', 'PNG_transparency_demonstration_1.png', 1),
 (8, 'symun', '0933dc8427a3a4e92bbeeaeb96393e36', 'symun92@gmail.com', '01670765112', '2017-02-14 13:20:00', '0000-00-00 00:00:00', 'user', '', 1),
 (9, 'zcpefaisal', 'd41d8cd98f00b204e9800998ecf8427e', 'inboxlions@gmail.com', '', '2017-02-14 13:20:00', '0000-00-00 00:00:00', 'user', 'faisal.jpg', 1),
 (10, 'awolad', '125d0ff9bcc6ce6786cdad33fa297f07', 'awolad1122@gmail.com', '', '2017-02-14 13:20:00', '2017-04-09 16:10:54', 'user', '141113.jpg', 1),
@@ -5893,24 +5910,10 @@ ALTER TABLE `edited_stoppages`
   ADD KEY `FK__routes` (`route_id`);
 
 --
--- Indexes for table `gainers`
---
-ALTER TABLE `gainers`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_gainers_routes` (`route_id`);
-
---
 -- Indexes for table `languages`
 --
 ALTER TABLE `languages`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `losers`
---
-ALTER TABLE `losers`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_losers_routes` (`route_id`);
 
 --
 -- Indexes for table `notifications`
@@ -6076,19 +6079,13 @@ ALTER TABLE `edited_poribohons`
 -- AUTO_INCREMENT for table `edited_routes`
 --
 ALTER TABLE `edited_routes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `edited_stoppages`
 --
 ALTER TABLE `edited_stoppages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `gainers`
---
-ALTER TABLE `gainers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `languages`
@@ -6097,16 +6094,10 @@ ALTER TABLE `languages`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `losers`
---
-ALTER TABLE `losers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `point_paid`
@@ -6130,7 +6121,7 @@ ALTER TABLE `profiles`
 -- AUTO_INCREMENT for table `reset_token`
 --
 ALTER TABLE `reset_token`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `routes`
@@ -6154,13 +6145,13 @@ ALTER TABLE `route_complains`
 -- AUTO_INCREMENT for table `route_points`
 --
 ALTER TABLE `route_points`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `stoppages`
 --
 ALTER TABLE `stoppages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2903;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3011;
 
 --
 -- AUTO_INCREMENT for table `stoppage_bn`
@@ -6237,18 +6228,6 @@ ALTER TABLE `edited_routes`
 --
 ALTER TABLE `edited_stoppages`
   ADD CONSTRAINT `FK_edited_stoppages_edited_routes` FOREIGN KEY (`route_id`) REFERENCES `edited_routes` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `gainers`
---
-ALTER TABLE `gainers`
-  ADD CONSTRAINT `FK_gainers_routes` FOREIGN KEY (`route_id`) REFERENCES `routes` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `losers`
---
-ALTER TABLE `losers`
-  ADD CONSTRAINT `FK_losers_routes` FOREIGN KEY (`route_id`) REFERENCES `routes` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `notifications`
