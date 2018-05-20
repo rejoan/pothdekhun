@@ -116,7 +116,7 @@ class Route_manager extends MX_Controller {
             'prev_stoppages' => $this->pm->get_data($stoppage_table, FALSE, 'route_id', $route_id),
             'edited_route' => $edited_route,
             'edited_stoppages' => $this->pm->get_data('edited_stoppages', FALSE, 'route_id', $edited_route_id),
-            'point' => modules::run('route_manager/calculate_point', $route_id, 'edited_routes', 5),
+            'point' => $this->calculate_point($route_id, 'routes'),
             'load_css' => load_css(array('plugins/jQueryUI' => 'jquery-ui.min.css', 'plugins/fancybox' => 'jquery.fancybox.min.css', 'bootstrap-sweetalert/dist' => 'sweetalert.css')),
             'load_script' => load_script(array('plugins/jQueryUI' => 'jquery-ui.min.js', 'plugins/fancybox' => 'jquery.fancybox.min.js', 'js' => 'val_lib.js', 'bootstrap-sweetalert/dist' => 'sweetalert.min.js')),
             'script_init' => script_init(array('$(\'#stoppage_section\').sortable({placeholder: \'ui-state-highlight\'});', '$(\'.fancybox\').fancybox({slideShow  : false,thumbs : false,image : {preload : true,protect : true}});'))
@@ -207,9 +207,11 @@ class Route_manager extends MX_Controller {
                         }
                     }
                 }
-                
+
                 $this->db->set('added', 'NOW()', FALSE);
             }
+
+
 
             $this->pm->updater($rid, $route_id, $route_table, $route);
 
@@ -249,11 +251,13 @@ class Route_manager extends MX_Controller {
                 $this->email->send();
             }
 
-            //$gainers_point = gainers_point($gainers_columns, $edited_route['added_by']);
             if ($this->input->post('note')) {
                 $note = trim($this->input->post('note'));
-                $gainers_point = modules::run('routes/point_logs', $edited_route['route_id'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by'], 'merge');
-                
+                //echo '<pre>';
+                //var_dump($edited_route['route_id'], $this->input->post());return;
+//                $gainers_point = modules::run('routes/point_logs', $edited_route['route_id'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'));
+//                var_dump($gainers_point);
+//                return;
                 modules::run('reputation/route_points', $route_id, $edited_route['added_by'], $gainers_point, $note);
                 $msg = 'Earned <strong>' . $gainers_point . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
                 modules::run('notifications/sent_notification', $edited_route['added_by'], $msg);
@@ -265,7 +269,6 @@ class Route_manager extends MX_Controller {
 
         $this->nl->view_loader('user', 'merge', NULL, $data);
     }
-
 
     /**
      * decline an edit
@@ -304,18 +307,25 @@ class Route_manager extends MX_Controller {
         redirect_tr('route_manager');
     }
 
-    public function calculate_point($id, $table = 'routes', $default = 20) {
+    /**
+     * 
+     * @param type $id
+     * @param type $table
+     * @param type $default
+     * @return type
+     */
+    public function calculate_point($id, $table = 'routes', $default = 2) {
         $route = $this->pm->get_row('id', $id, $table);
         $point = $default;
         if ($route['evidence'] != '') {
-            $point += 10;
+            $point += 3;
         }
         if ($route['evidence2'] != '') {
-            $point += 10;
+            $point += 3;
         }
 
         if ($table == 'routes') {
-            $stoppages = $this->pm->total_item('stoppages', 'route_id', $id);
+            $stoppages = $this->pm->total_item('edited_stoppages', 'route_id', $id);
             if ($stoppages > 0) {
                 $point += ($stoppages * 2);
             }

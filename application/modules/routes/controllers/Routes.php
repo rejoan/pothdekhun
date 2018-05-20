@@ -426,13 +426,13 @@ class Routes extends MX_Controller {
                         'route_id' => $route_id,
                         'position' => $p + 1
                     );
-                    if (!$this->nl->is_admin()) {
+                    if (!$this->nl->is_admin()) {// when not admin
                         $stopage = $this->pm->get_row('place_name', $place_name[$p], $stopage_table, FALSE, array('route_id' => $main_route_id));
-                        if (empty($stopage) && $a[$p] == 'a') {
+                        if (empty($stopage) && $a[$p] == 'a') {//check if added new stoppage
                             $real_id = 'added';
-                        } elseif (empty($stopage) && $a[$p] == 'p') {
+                        } elseif (empty($stopage) && $a[$p] == 'p') {//check if edited stoppage
                             $real_id = 'edited';
-                        } else {
+                        } else {// not edited
                             $real_id = $stopage['id'];
                         }
                         $stoppages[$p]['real_id'] = $real_id;
@@ -441,7 +441,7 @@ class Routes extends MX_Controller {
             }
 
             if (!empty($stoppages)) {
-                if ($this->nl->is_admin()) {
+                if ($this->nl->is_admin()) {//when admin
                     if ($this->input->post('stoppage_update') == 'yes') {//if delete insert stoppage
                         $this->pm->deleter('route_id', $route_id, $stopage_table);
                         $this->db->insert_batch($stopage_table, $stoppages);
@@ -454,7 +454,7 @@ class Routes extends MX_Controller {
             }
 
             $rut = $this->pm->get_row('id', $main_route_id, 'routes');
-            if ($this->input->post('point')) {//only admin will get this
+            if ($this->input->post('point')) {//only admin will get this code block
                 modules::run('reputation/route_points', $main_route_id, $rut['added_by'], trim($this->input->post('point')), trim($this->input->post('note')));
                 $msg = 'Earned <strong>' . $this->input->post('point') . '</strong> point for add <a href="' . site_url_tr('routes/show/' . $main_route_id) . '">Route</a>';
                 modules::run('notifications/sent_notification', $rut['added_by'], $msg);
@@ -465,7 +465,7 @@ class Routes extends MX_Controller {
         $this->nl->view_loader('user', 'latest', NULL, $data, 'add', 'rightbar', 'menu', TRUE);
     }
 
-    public function point_logs($route_id, $post, $evidence, $evidence2, $edited_by, $from = 'edit') {
+    public function point_logs($route_id, $post, $evidence, $evidence2) {
         $route = $this->rm->both_details($route_id);
         $edited_route = $this->pm->get_row('route_id', $route_id, 'edited_routes');
         $from_place = 'from_place';
