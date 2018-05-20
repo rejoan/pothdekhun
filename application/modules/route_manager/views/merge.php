@@ -132,7 +132,6 @@
                 </div>
             <?php endif; ?>
 
-            <?php //var_dump(real_ids($this->uri->segment(3))); ?>
             <div class="stoppages">
                 <?php
                 for ($i = 0; $i < count($prev_stoppages); $i++) {
@@ -157,9 +156,157 @@
                 <?php echo $prev_route['evidence2']; ?>
                 <button id="keep_file2" data-file_name="<?php echo $prev_route['evidence2']; ?>" class="btn btn-info">Keep File</button>
             </div>
+
+            <?php
+            if (isset($prev_route['amenities'])) {
+                $prev_amenities = explode(',', $prev_route['amenities']);
+            }
+            ?>
+            <div class="form-group">
+                <div id="ac_nonac" class="col-md-12">
+                    <label class="radio-inline">
+                        <input type="radio" name="ac_non" value="ac" <?php
+                        if (isset($prev_amenities)) {
+                            echo in_array('ac', $prev_amenities) ? 'checked="yes"' : '';
+                        }
+                        ?>> <?php echo lang('ac'); ?>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="ac_non" value="non_ac" <?php
+                        if (isset($prev_amenities)) {
+                            echo in_array('non_ac', $prev_amenities) ? 'checked="yes"' : '';
+                        }
+                        ?>> <?php echo lang('nac'); ?>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="ac_non" value="acunknown" <?php
+                        if (isset($prev_amenities)) {
+                            echo in_array('acunknown', $prev_amenities) ? 'checked="yes"' : '';
+                        } else {
+                            echo 'checked="yes"';
+                        }
+                        ?>> <?php echo lang('unknown'); ?>
+                    </label>
+                </div>
+                <div id="ac_type" class="col-md-12" style="display:<?php
+                if (isset($prev_amenities)) {
+                    echo in_array('ac', $prev_amenities) ? '' : 'none;';
+                } else {
+                    echo 'none;';
+                }
+                ?>">
+                    <div class="col-md-12">
+                        <label class="radio-inline">
+                            <input type="radio" name="ac_type" value="normal_ac" <?php
+                            if (isset($prev_amenities)) {
+                                echo in_array('normal_ac', $prev_amenities) ? 'checked="yes"' : '';
+                            } else {
+                                echo 'checked="yes"';
+                            }
+                            ?>> <?php echo lang('normal'); ?>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ac_type" value="scania" <?php
+                            if (isset($prev_amenities)) {
+                                echo in_array('scania', $prev_amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('scania'); ?>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ac_type" value="hyundai" <?php
+                            if (isset($prev_amenities)) {
+                                echo in_array('hyundai', $prev_amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('hyundai'); ?>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ac_type" value="rm2" <?php
+                            if (isset($prev_amenities)) {
+                                echo in_array('rm2', $prev_amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('rm2'); ?>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ac_type" value="hino_1j" <?php
+                            if (isset($prev_amenities)) {
+                                echo in_array('hino_1j', $prev_amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('hino_1j'); ?>
+                        </label>
+                        <label class="radio-inline custom_pad_left">
+                            <input type="radio" name="ac_type" value="mercedes_benz" <?php
+                            if (isset($prev_amenities)) {
+                                echo in_array('mercedes_benz', $prev_amenities) ? 'checked="yes"' : '';
+                            }
+                            ?>> <?php echo lang('mercedes_benz'); ?>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="radio-inline">
+                        <input type="radio" name="mail_local" value="local" <?php
+                        if (isset($prev_amenities)) {
+                            echo in_array('local', $prev_amenities) ? 'checked="yes"' : '';
+                        }
+                        ?>> <?php echo lang('local'); ?>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="mail_local" value="gate_lock" <?php
+                        if (isset($prev_amenities)) {
+                            echo in_array('gate_lock', $prev_amenities) ? 'checked="yes"' : '';
+                        }
+                        ?>> <?php echo lang('gatelock'); ?>
+                    </label>
+                    <label class="radio-inline">
+                        <?php $prev_target = array('local', 'gate_lock'); ?>
+                        <input type="radio" name="mail_local" value="unknown" <?php
+                        if (isset($prev_amenities)) {
+                            echo count(array_intersect($prev_amenities, $prev_target)) > 0 ? '' : 'checked="yes"';
+                        } else {
+                            echo 'checked="yes"';
+                        }
+                        ?>> <?php echo lang('unknown'); ?>
+                    </label>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="radio-inline">
+                        <input type="radio" name="chair_semi" value="chair" <?php
+                        if (isset($prev_amenities)) {
+                            echo in_array('chair', $prev_amenities) ? 'checked="yes"' : '';
+                        }
+                        ?>> <?php echo lang('chair'); ?>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="chair_semi" value="semi" <?php
+                        if (isset($prev_amenities)) {
+                            echo in_array('semi', $prev_amenities) ? 'checked="yes"' : '';
+                        }
+                        ?>> <?php echo lang('semi'); ?>
+                    </label>
+                    <label class="radio-inline">
+                        <?php $prev_target2 = array('chair', 'semi'); ?>
+                        <input type="radio" name="chair_semi" value="unknown" <?php
+                        if (isset($prev_amenities)) {
+                            echo count(array_intersect($prev_amenities, $prev_target2)) > 0 ? '' : 'checked="yes"';
+                        } else {
+                            echo 'checked="yes"';
+                        }
+                        ?>> <?php echo lang('unknown'); ?>
+                    </label>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
+<!-- previous route info END -->
 
 <!--suggested or edited route STARTED -->
 <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
@@ -334,8 +481,8 @@
                 </div>
 
                 <?php
-                if (isset($route['amenities'])) {
-                    $amenities = explode(',', $route['amenities']);
+                if (isset($edited_route['amenities'])) {
+                    $amenities = explode(',', $edited_route['amenities']);
                 }
                 ?>
                 <div class="form-group">
@@ -350,7 +497,7 @@
                         <label class="radio-inline">
                             <input type="radio" name="ac_non" value="non_ac" <?php
                             if (isset($amenities)) {
-                                echo in_array('nac', $amenities) ? 'checked="yes"' : '';
+                                echo in_array('non_ac', $amenities) ? 'checked="yes"' : '';
                             }
                             ?>> <?php echo lang('nac'); ?>
                         </label>
