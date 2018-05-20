@@ -106,11 +106,6 @@ class Route_manager extends MX_Controller {
         $stoppage_table = $this->nl->lang_based_data('stoppage_bn', 'stoppages', FALSE, $edited_route['lang_code']);
         $rid = $this->nl->lang_based_data('route_id', 'id', FALSE, $edited_route['lang_code']);
         $prev_route = $this->rmn->get_row($route_id);
-//        $losers = $this->pm->get_row('route_id', $route_id, 'losers');
-//        foreach($losers as $key => $l){
-//            echo $key.'>>>>'.$l.'<br/>';
-//        }
-//        return;
         $data = array(
             'title' => lang('edit_route'),
             'action' => site_url_tr('route_manager/merge'),
@@ -212,7 +207,7 @@ class Route_manager extends MX_Controller {
                         }
                     }
                 }
-                $test = modules::run('routes/point_logs', $edited_route['route_id'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by'], 'merge');
+                
                 $this->db->set('added', 'NOW()', FALSE);
             }
 
@@ -254,11 +249,11 @@ class Route_manager extends MX_Controller {
                 $this->email->send();
             }
 
-            $gainers_columns = $this->pm->get_row('route_id', $edited_route['route_id'], 'gainers');
-            $gainers_point = gainers_point($gainers_columns, $edited_route['added_by']);
-//            $this->losers_points($edited_route['route_id']);
+            //$gainers_point = gainers_point($gainers_columns, $edited_route['added_by']);
             if ($this->input->post('note')) {
                 $note = trim($this->input->post('note'));
+                $gainers_point = modules::run('routes/point_logs', $edited_route['route_id'], $this->input->post(), $this->input->post('edited_file'), $this->input->post('edited_file2'), $edited_route['added_by'], 'merge');
+                
                 modules::run('reputation/route_points', $route_id, $edited_route['added_by'], $gainers_point, $note);
                 $msg = 'Earned <strong>' . $gainers_point . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
                 modules::run('notifications/sent_notification', $edited_route['added_by'], $msg);
@@ -271,37 +266,6 @@ class Route_manager extends MX_Controller {
         $this->nl->view_loader('user', 'merge', NULL, $data);
     }
 
-//    public function losers_points($route_id) {
-//        $losers = $this->pm->get_row('route_id', $route_id, 'losers');
-//        $from_district = 3;
-//        $from_thana = 3;
-//        $from_place = 3;
-//        $to_district = 3;
-//        $to_thana = 3;
-//        $to_place = 3;
-//        $transport_type = 3;
-//        $poribohon = 3;
-//        $departure_time = 3;
-//        $rent = 3;
-//        $evidence = 3;
-//        $evidence2 = 3;
-//        foreach ($losers as $col_name => $user_id) {//loop all loser
-//            if ($user_id == '0' || $col_name == 'id' || $col_name == 'route_id' || $col_name == 'added') {//skip columns which has no point & ZERO mean no edit
-//                continue;
-//            }
-//            $msg = 'You lost <strong>' . $$col_name . '</strong> point for edit <a target="_blank" href="' . site_url_tr('routes/show/' . $route_id) . '">Route</a>';
-//            $points[] = array(
-//                'route_id' => $route_id,
-//                'user_id' => $user_id,
-//                'point' => $$col_name,
-//                'what' => 'lost'
-//            );
-//
-//            modules::run('notifications/sent_notification', $user_id, $msg);
-//            //add all losers data
-//            modules::run('reputation/route_points', $route_id, $user_id, $$col_name, '', 'lost');
-//        }
-//    }
 
     /**
      * decline an edit

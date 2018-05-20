@@ -202,13 +202,13 @@ function gainers_point($arr, $user_id) {
     $filteredArray = array_filter($arr, function($elem) use($user_id) {
         return ($elem == $user_id);
     });
-    $from_district = 3;
-    $from_thana = 3;
+    $from_district = 1;
+    $from_thana = 1;
     $from_place = 3;
-    $to_district = 3;
-    $to_thana = 3;
+    $to_district = 1;
+    $to_thana = 1;
     $to_place = 3;
-    $transport_type = 3;
+    $transport_type = 1;
     $poribohon = 3;
     $departure_time = 3;
     $rent = 3;
